@@ -1,0 +1,18 @@
+{
+  "tabWidth": 2,
+  "useTabs": false,
+  "bracketSpacing": true,
+  "singleAttributePerLine": true,
+  "printWidth": 120,
+  "htmlWhitespaceSensitivity": "css",
+  "jsxBracketSameLine": false,
+  "jsxSingleQuote": false,
+  "vueIndentScriptAndStyle": true,
+  "html.format.wrapAttributes": "force-aligned",
+  "html.format.wrapLineLength": 120,
+  "bracketSameLine": false,
+  "singleQuote": false,
+  "semi": true,
+  "arrowParens": "always",
+  "proseWrap": "preserve"
+}

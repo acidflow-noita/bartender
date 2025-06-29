@@ -1,0 +1,3182 @@
+{
+  "materialclothbox2d": {
+    "url": "https://noita.wiki.gg/images/2/20/Material_cloth_box2d.png",
+    "local": "Material_cloth_box2d.png"
+  },
+  "itemmaterialpouch": {
+    "url": "https://noita.wiki.gg/images/1/18/Item_material_pouch.png",
+    "local": "Item_material_pouch.png"
+  },
+  "materialmagicliquidmovementfaster": {
+    "url": "https://noita.wiki.gg/images/5/55/Material_magic_liquid_movement_faster.png",
+    "local": "Material_magic_liquid_movement_faster.png"
+  },
+  "materialpotionmagicliquidmovementfaster": {
+    "url": "https://noita.wiki.gg/images/d/d6/Materialpotion_magic_liquid_movement_faster.png",
+    "local": "Materialpotion_magic_liquid_movement_faster.png"
+  },
+  "materialacid": {
+    "url": "https://noita.wiki.gg/images/f/f7/Material_acid.png",
+    "local": "Material_acid.png"
+  },
+  "materialpotionacid": {
+    "url": "https://noita.wiki.gg/images/c/c8/Materialpotion_acid.png",
+    "local": "Materialpotion_acid.png"
+  },
+  "materialair": {
+    "url": "https://noita.wiki.gg/images/5/54/Material_air.png",
+    "local": "Material_air.png"
+  },
+  "materialmidasprecursor": {
+    "url": "https://noita.wiki.gg/images/4/4e/Material_midas_precursor.png",
+    "local": "Material_midas_precursor.png"
+  },
+  "materialpotionmidasprecursor": {
+    "url": "https://noita.wiki.gg/images/5/5b/Materialpotion_midas_precursor.png",
+    "local": "Materialpotion_midas_precursor.png"
+  },
+  "materialaluminium": {
+    "url": "https://noita.wiki.gg/images/7/7b/Material_aluminium.png",
+    "local": "Material_aluminium.png"
+  },
+  "materialaluminiumoxide": {
+    "url": "https://noita.wiki.gg/images/c/cb/Material_aluminium_oxide.png",
+    "local": "Material_aluminium_oxide.png"
+  },
+  "materialaluminiumrobot": {
+    "url": "https://noita.wiki.gg/images/c/c1/Material_aluminium_robot.png",
+    "local": "Material_aluminium_robot.png"
+  },
+  "materialmeatconfusion": {
+    "url": "https://noita.wiki.gg/images/6/67/Material_meat_confusion.png",
+    "local": "Material_meat_confusion.png"
+  },
+  "materialmagicliquidprotectionall": {
+    "url": "https://noita.wiki.gg/images/8/86/Material_magic_liquid_protection_all.png",
+    "local": "Material_magic_liquid_protection_all.png"
+  },
+  "materialpotionmagicliquidprotectionall": {
+    "url": "https://noita.wiki.gg/images/4/49/Materialpotion_magic_liquid_protection_all.png",
+    "local": "Materialpotion_magic_liquid_protection_all.png"
+  },
+  "materialstaticmagicmaterial": {
+    "url": "https://noita.wiki.gg/images/c/c8/Material_static_magic_material.png",
+    "local": "Material_static_magic_material.png"
+  },
+  "materialsoildark": {
+    "url": "https://noita.wiki.gg/images/9/9b/Material_soil_dark.png",
+    "local": "Material_soil_dark.png"
+  },
+  "materialpotionsoildark": {
+    "url": "https://noita.wiki.gg/images/6/6a/Materialpotion_soil_dark.png",
+    "local": "Materialpotion_soil_dark.png"
+  },
+  "materialpouchsoildark": {
+    "url": "https://noita.wiki.gg/images/9/94/Materialpouch_soil_dark.png",
+    "local": "Materialpouch_soil_dark.png"
+  },
+  "materialsoildead": {
+    "url": "https://noita.wiki.gg/images/4/42/Material_soil_dead.png",
+    "local": "Material_soil_dead.png"
+  },
+  "materialpotionsoildead": {
+    "url": "https://noita.wiki.gg/images/1/1c/Materialpotion_soil_dead.png",
+    "local": "Materialpotion_soil_dead.png"
+  },
+  "materialpouchsoildead": {
+    "url": "https://noita.wiki.gg/images/d/da/Materialpouch_soil_dead.png",
+    "local": "Materialpouch_soil_dead.png"
+  },
+  "materialbeer": {
+    "url": "https://noita.wiki.gg/images/7/7c/Material_beer.png",
+    "local": "Material_beer.png"
+  },
+  "materialpotionbeer": {
+    "url": "https://noita.wiki.gg/images/e/e6/Materialpotion_beer.png",
+    "local": "Materialpotion_beer.png"
+  },
+  "materialmagicliquidberserk": {
+    "url": "https://noita.wiki.gg/images/6/6c/Material_magic_liquid_berserk.png",
+    "local": "Material_magic_liquid_berserk.png"
+  },
+  "materialpotionmagicliquidberserk": {
+    "url": "https://noita.wiki.gg/images/e/eb/Materialpotion_magic_liquid_berserk.png",
+    "local": "Materialpotion_magic_liquid_berserk.png"
+  },
+  "materialblood": {
+    "url": "https://noita.wiki.gg/images/9/9a/Material_blood.png",
+    "local": "Material_blood.png"
+  },
+  "materialpotionblood": {
+    "url": "https://noita.wiki.gg/images/d/dc/Materialpotion_blood.png",
+    "local": "Materialpotion_blood.png"
+  },
+  "materialbloodfading": {
+    "url": "https://noita.wiki.gg/images/0/04/Material_blood_fading.png",
+    "local": "Material_blood_fading.png"
+  },
+  "materialpotionbloodfading": {
+    "url": "https://noita.wiki.gg/images/c/c3/Materialpotion_blood_fading.png",
+    "local": "Materialpotion_blood_fading.png"
+  },
+  "materialbloodfadingslow": {
+    "url": "https://noita.wiki.gg/images/8/8d/Material_blood_fading_slow.png",
+    "local": "Material_blood_fading_slow.png"
+  },
+  "materialpotionbloodfadingslow": {
+    "url": "https://noita.wiki.gg/images/2/25/Materialpotion_blood_fading_slow.png",
+    "local": "Materialpotion_blood_fading_slow.png"
+  },
+  "materialbloodthick": {
+    "url": "https://noita.wiki.gg/images/1/17/Material_blood_thick.png",
+    "local": "Material_blood_thick.png"
+  },
+  "materialcloudblood": {
+    "url": "https://noita.wiki.gg/images/1/19/Material_cloud_blood.png",
+    "local": "Material_cloud_blood.png"
+  },
+  "materialpotioncloudblood": {
+    "url": "https://noita.wiki.gg/images/3/3f/Materialpotion_cloud_blood.png",
+    "local": "Materialpotion_cloud_blood.png"
+  },
+  "materialbluefungistatic": {
+    "url": "https://noita.wiki.gg/images/8/8a/Material_bluefungi_static.png",
+    "local": "Material_bluefungi_static.png"
+  },
+  "materialsporepodstalk": {
+    "url": "https://noita.wiki.gg/images/e/e8/Material_spore_pod_stalk.png",
+    "local": "Material_spore_pod_stalk.png"
+  },
+  "materialsandblue": {
+    "url": "https://noita.wiki.gg/images/c/c4/Material_sand_blue.png",
+    "local": "Material_sand_blue.png"
+  },
+  "materialpotionsandblue": {
+    "url": "https://noita.wiki.gg/images/9/95/Materialpotion_sand_blue.png",
+    "local": "Materialpotion_sand_blue.png"
+  },
+  "materialpouchsandblue": {
+    "url": "https://noita.wiki.gg/images/0/0b/Materialpouch_sand_blue.png",
+    "local": "Materialpouch_sand_blue.png"
+  },
+  "materialfuse": {
+    "url": "https://noita.wiki.gg/images/0/02/Material_fuse.png",
+    "local": "Material_fuse.png"
+  },
+  "spellbomb": {
+    "url": "https://noita.wiki.gg/images/4/46/Spell_bomb.png",
+    "local": "Spell_bomb.png"
+  },
+  "materialfusebright": {
+    "url": "https://noita.wiki.gg/images/6/69/Material_fuse_bright.png",
+    "local": "Material_fuse_bright.png"
+  },
+  "materialbonebox2d": {
+    "url": "https://noita.wiki.gg/images/2/2c/Material_bone_box2d.png",
+    "local": "Material_bone_box2d.png"
+  },
+  "propbone02": {
+    "url": "https://noita.wiki.gg/images/6/65/Prop_bone_02.png",
+    "local": "Prop_bone_02.png"
+  },
+  "propskull01": {
+    "url": "https://noita.wiki.gg/images/8/86/Prop_skull_01.png",
+    "local": "Prop_skull_01.png"
+  },
+  "materialbone": {
+    "url": "https://noita.wiki.gg/images/b/bd/Material_bone.png",
+    "local": "Material_bone.png"
+  },
+  "materialpotionbone": {
+    "url": "https://noita.wiki.gg/images/f/ff/Materialpotion_bone.png",
+    "local": "Materialpotion_bone.png"
+  },
+  "materialpouchbone": {
+    "url": "https://noita.wiki.gg/images/d/d6/Materialpouch_bone.png",
+    "local": "Materialpouch_bone.png"
+  },
+  "materialbonestatic": {
+    "url": "https://noita.wiki.gg/images/b/bf/Material_bone_static.png",
+    "local": "Material_bone_static.png"
+  },
+  "materialbrass": {
+    "url": "https://noita.wiki.gg/images/7/72/Material_brass.png",
+    "local": "Material_brass.png"
+  },
+  "materialpotionbrass": {
+    "url": "https://noita.wiki.gg/images/a/a3/Materialpotion_brass.png",
+    "local": "Materialpotion_brass.png"
+  },
+  "materialpouchbrass": {
+    "url": "https://noita.wiki.gg/images/0/03/Materialpouch_brass.png",
+    "local": "Materialpouch_brass.png"
+  },
+  "materialbrick": {
+    "url": "https://noita.wiki.gg/images/3/35/Material_brick.png",
+    "local": "Material_brick.png"
+  },
+  "materialcreepyliquidemitter": {
+    "url": "https://noita.wiki.gg/images/f/f1/Material_creepy_liquid_emitter.png",
+    "local": "Material_creepy_liquid_emitter.png"
+  },
+  "materialtemplebrickstaticsoft": {
+    "url": "https://noita.wiki.gg/images/3/34/Material_templebrick_static_soft.png",
+    "local": "Material_templebrick_static_soft.png"
+  },
+  "materialtemplerocksoft": {
+    "url": "https://noita.wiki.gg/images/5/59/Material_templerock_soft.png",
+    "local": "Material_templerock_soft.png"
+  },
+  "materialtemplerockstatic": {
+    "url": "https://noita.wiki.gg/images/4/4b/Material_templerock_static.png",
+    "local": "Material_templerock_static.png"
+  },
+  "materialtemplebrickdarkstatic": {
+    "url": "https://noita.wiki.gg/images/c/c6/Material_templebrickdark_static.png",
+    "local": "Material_templebrickdark_static.png"
+  },
+  "materialtempleslabcrumblingstatic": {
+    "url": "https://noita.wiki.gg/images/7/7d/Material_templeslab_crumbling_static.png",
+    "local": "Material_templeslab_crumbling_static.png"
+  },
+  "materialtempleslabstatic": {
+    "url": "https://noita.wiki.gg/images/4/4b/Material_templeslab_static.png",
+    "local": "Material_templeslab_static.png"
+  },
+  "materialtemplebrickthickstaticnoedge": {
+    "url": "https://noita.wiki.gg/images/0/04/Material_templebrick_thick_static_noedge.png",
+    "local": "Material_templebrick_thick_static_noedge.png"
+  },
+  "materialtemplebrickthickstatic": {
+    "url": "https://noita.wiki.gg/images/6/66/Material_templebrick_thick_static.png",
+    "local": "Material_templebrick_thick_static.png"
+  },
+  "materialtemplebrickstaticbroken": {
+    "url": "https://noita.wiki.gg/images/b/bd/Material_templebrick_static_broken.png",
+    "local": "Material_templebrick_static_broken.png"
+  },
+  "materialtemplebrickbox2d": {
+    "url": "https://noita.wiki.gg/images/c/c0/Material_templebrick_box2d.png",
+    "local": "Material_templebrick_box2d.png"
+  },
+  "materialtemplebrickbox2dedgetiles": {
+    "url": "https://noita.wiki.gg/images/7/7f/Material_templebrick_box2d_edgetiles.png",
+    "local": "Material_templebrick_box2d_edgetiles.png"
+  },
+  "materialtemplebricknoedgestatic": {
+    "url": "https://noita.wiki.gg/images/b/bf/Material_templebrick_noedge_static.png",
+    "local": "Material_templebrick_noedge_static.png"
+  },
+  "materialtemplebrickred": {
+    "url": "https://noita.wiki.gg/images/6/6b/Material_templebrick_red.png",
+    "local": "Material_templebrick_red.png"
+  },
+  "materialtemplebrickstatic": {
+    "url": "https://noita.wiki.gg/images/b/b6/Material_templebrick_static.png",
+    "local": "Material_templebrick_static.png"
+  },
+  "materialwatersalt": {
+    "url": "https://noita.wiki.gg/images/5/51/Material_water_salt.png",
+    "local": "Material_water_salt.png"
+  },
+  "materialpotionwatersalt": {
+    "url": "https://noita.wiki.gg/images/1/1b/Materialpotion_water_salt.png",
+    "local": "Materialpotion_water_salt.png"
+  },
+  "materialglassbrittle": {
+    "url": "https://noita.wiki.gg/images/3/38/Material_glass_brittle.png",
+    "local": "Material_glass_brittle.png"
+  },
+  "materialmeatburned": {
+    "url": "https://noita.wiki.gg/images/8/8f/Material_meat_burned.png",
+    "local": "Material_meat_burned.png"
+  },
+  "materialburningpowder": {
+    "url": "https://noita.wiki.gg/images/3/32/Material_burning_powder.png",
+    "local": "Material_burning_powder.png"
+  },
+  "materialpotionburningpowder": {
+    "url": "https://noita.wiki.gg/images/9/93/Materialpotion_burning_powder.png",
+    "local": "Materialpotion_burning_powder.png"
+  },
+  "materialpouchburningpowder": {
+    "url": "https://noita.wiki.gg/images/5/54/Materialpouch_burning_powder.png",
+    "local": "Materialpouch_burning_powder.png"
+  },
+  "materialcactus": {
+    "url": "https://noita.wiki.gg/images/d/da/Material_cactus.png",
+    "local": "Material_cactus.png"
+  },
+  "materialcement": {
+    "url": "https://noita.wiki.gg/images/a/a3/Material_cement.png",
+    "local": "Material_cement.png"
+  },
+  "materialpotioncement": {
+    "url": "https://noita.wiki.gg/images/9/9d/Materialpotion_cement.png",
+    "local": "Materialpotion_cement.png"
+  },
+  "materialmagicliquidrandompolymorph": {
+    "url": "https://noita.wiki.gg/images/0/0f/Material_magic_liquid_random_polymorph.png",
+    "local": "Material_magic_liquid_random_polymorph.png"
+  },
+  "materialpotionmagicliquidrandompolymorph": {
+    "url": "https://noita.wiki.gg/images/6/64/Materialpotion_magic_liquid_random_polymorph.png",
+    "local": "Materialpotion_magic_liquid_random_polymorph.png"
+  },
+  "materialcheesestatic": {
+    "url": "https://noita.wiki.gg/images/f/f6/Material_cheese_static.png",
+    "local": "Material_cheese_static.png"
+  },
+  "materialwaterice": {
+    "url": "https://noita.wiki.gg/images/5/58/Material_water_ice.png",
+    "local": "Material_water_ice.png"
+  },
+  "materialpotionwaterice": {
+    "url": "https://noita.wiki.gg/images/d/d2/Materialpotion_water_ice.png",
+    "local": "Materialpotion_water_ice.png"
+  },
+  "materialcloud": {
+    "url": "https://noita.wiki.gg/images/3/3a/Material_cloud.png",
+    "local": "Material_cloud.png"
+  },
+  "materialcloudlighter": {
+    "url": "https://noita.wiki.gg/images/f/fb/Material_cloud_lighter.png",
+    "local": "Material_cloud_lighter.png"
+  },
+  "materialcoal": {
+    "url": "https://noita.wiki.gg/images/c/c0/Material_coal.png",
+    "local": "Material_coal.png"
+  },
+  "materialpotioncoal": {
+    "url": "https://noita.wiki.gg/images/8/80/Materialpotion_coal.png",
+    "local": "Materialpotion_coal.png"
+  },
+  "materialpouchcoal": {
+    "url": "https://noita.wiki.gg/images/5/5e/Materialpouch_coal.png",
+    "local": "Materialpouch_coal.png"
+  },
+  "materialcoalstatic": {
+    "url": "https://noita.wiki.gg/images/5/5d/Material_coal_static.png",
+    "local": "Material_coal_static.png"
+  },
+  "materialcocoonbox2d": {
+    "url": "https://noita.wiki.gg/images/3/3c/Material_cocoon_box2d.png",
+    "local": "Material_cocoon_box2d.png"
+  },
+  "propcocoon": {
+    "url": "https://noita.wiki.gg/images/f/fa/Prop_cocoon.png",
+    "local": "Prop_cocoon.png"
+  },
+  "materialconcretecollapsed": {
+    "url": "https://noita.wiki.gg/images/b/b8/Material_concrete_collapsed.png",
+    "local": "Material_concrete_collapsed.png"
+  },
+  "materialmagicliquidmanaregeneration": {
+    "url": "https://noita.wiki.gg/images/3/3d/Material_magic_liquid_mana_regeneration.png",
+    "local": "Material_magic_liquid_mana_regeneration.png"
+  },
+  "materialpotionmagicliquidmanaregeneration": {
+    "url": "https://noita.wiki.gg/images/3/33/Materialpotion_magic_liquid_mana_regeneration.png",
+    "local": "Materialpotion_magic_liquid_mana_regeneration.png"
+  },
+  "materialconcretesand": {
+    "url": "https://noita.wiki.gg/images/9/93/Material_concrete_sand.png",
+    "local": "Material_concrete_sand.png"
+  },
+  "materialpotionconcretesand": {
+    "url": "https://noita.wiki.gg/images/3/33/Materialpotion_concrete_sand.png",
+    "local": "Materialpotion_concrete_sand.png"
+  },
+  "materialpouchconcretesand": {
+    "url": "https://noita.wiki.gg/images/c/c7/Materialpouch_concrete_sand.png",
+    "local": "Materialpouch_concrete_sand.png"
+  },
+  "materialconcretestatic": {
+    "url": "https://noita.wiki.gg/images/c/c3/Material_concrete_static.png",
+    "local": "Material_concrete_static.png"
+  },
+  "materialmeathot": {
+    "url": "https://noita.wiki.gg/images/f/f8/Material_meat_hot.png",
+    "local": "Material_meat_hot.png"
+  },
+  "materialcopper": {
+    "url": "https://noita.wiki.gg/images/0/01/Material_copper.png",
+    "local": "Material_copper.png"
+  },
+  "materialpotioncopper": {
+    "url": "https://noita.wiki.gg/images/a/af/Materialpotion_copper.png",
+    "local": "Materialpotion_copper.png"
+  },
+  "materialpouchcopper": {
+    "url": "https://noita.wiki.gg/images/0/05/Materialpouch_copper.png",
+    "local": "Materialpouch_copper.png"
+  },
+  "materialcorruptionstatic": {
+    "url": "https://noita.wiki.gg/images/e/e1/Material_corruption_static.png",
+    "local": "Material_corruption_static.png"
+  },
+  "materialcreepyliquid": {
+    "url": "https://noita.wiki.gg/images/d/d5/Material_creepy_liquid.png",
+    "local": "Material_creepy_liquid.png"
+  },
+  "materialpotioncreepyliquid": {
+    "url": "https://noita.wiki.gg/images/5/51/Materialpotion_creepy_liquid.png",
+    "local": "Materialpotion_creepy_liquid.png"
+  },
+  "materialcrystal": {
+    "url": "https://noita.wiki.gg/images/f/f6/Material_crystal.png",
+    "local": "Material_crystal.png"
+  },
+  "materialcrystalmagic": {
+    "url": "https://noita.wiki.gg/images/8/89/Material_crystal_magic.png",
+    "local": "Material_crystal_magic.png"
+  },
+  "materialcrystalsolid": {
+    "url": "https://noita.wiki.gg/images/e/ec/Material_crystal_solid.png",
+    "local": "Material_crystal_solid.png"
+  },
+  "materialmeatcursed": {
+    "url": "https://noita.wiki.gg/images/5/5d/Material_meat_cursed.png",
+    "local": "Material_meat_cursed.png"
+  },
+  "materialmeatcurseddry": {
+    "url": "https://noita.wiki.gg/images/e/e1/Material_meat_cursed_dry.png",
+    "local": "Material_meat_cursed_dry.png"
+  },
+  "materialrockstaticcursed": {
+    "url": "https://noita.wiki.gg/images/8/8c/Material_rock_static_cursed.png",
+    "local": "Material_rock_static_cursed.png"
+  },
+  "materialrockstaticwet": {
+    "url": "https://noita.wiki.gg/images/a/a4/Material_rock_static_wet.png",
+    "local": "Material_rock_static_wet.png"
+  },
+  "materialwoodstaticwet": {
+    "url": "https://noita.wiki.gg/images/d/d8/Material_wood_static_wet.png",
+    "local": "Material_wood_static_wet.png"
+  },
+  "materialrockbox2dnohithard": {
+    "url": "https://noita.wiki.gg/images/9/9d/Material_rock_box2d_nohit_hard.png",
+    "local": "Material_rock_box2d_nohit_hard.png"
+  },
+  "materialrockhard": {
+    "url": "https://noita.wiki.gg/images/f/f6/Material_rock_hard.png",
+    "local": "Material_rock_hard.png"
+  },
+  "materialsteelgreystatic": {
+    "url": "https://noita.wiki.gg/images/7/71/Material_steel_grey_static.png",
+    "local": "Material_steel_grey_static.png"
+  },
+  "materialsteelstaticstrong": {
+    "url": "https://noita.wiki.gg/images/0/0c/Material_steel_static_strong.png",
+    "local": "Material_steel_static_strong.png"
+  },
+  "materialdiamond": {
+    "url": "https://noita.wiki.gg/images/2/2a/Material_diamond.png",
+    "local": "Material_diamond.png"
+  },
+  "materialpotiondiamond": {
+    "url": "https://noita.wiki.gg/images/f/f8/Materialpotion_diamond.png",
+    "local": "Materialpotion_diamond.png"
+  },
+  "materialpouchdiamond": {
+    "url": "https://noita.wiki.gg/images/a/a7/Materialpouch_diamond.png",
+    "local": "Materialpouch_diamond.png"
+  },
+  "materialtemplebrickdiamondstatic": {
+    "url": "https://noita.wiki.gg/images/8/88/Material_templebrick_diamond_static.png",
+    "local": "Material_templebrick_diamond_static.png"
+  },
+  "materialmagicliquidweakness": {
+    "url": "https://noita.wiki.gg/images/c/cf/Material_magic_liquid_weakness.png",
+    "local": "Material_magic_liquid_weakness.png"
+  },
+  "materialpotionmagicliquidweakness": {
+    "url": "https://noita.wiki.gg/images/7/79/Materialpotion_magic_liquid_weakness.png",
+    "local": "Materialpotion_magic_liquid_weakness.png"
+  },
+  "materialmagicgasweakness": {
+    "url": "https://noita.wiki.gg/images/7/72/Material_magic_gas_weakness.png",
+    "local": "Material_magic_gas_weakness.png"
+  },
+  "materialexplosiondirt": {
+    "url": "https://noita.wiki.gg/images/5/5e/Material_explosion_dirt.png",
+    "local": "Material_explosion_dirt.png"
+  },
+  "materialpotionexplosiondirt": {
+    "url": "https://noita.wiki.gg/images/e/ef/Materialpotion_explosion_dirt.png",
+    "local": "Materialpotion_explosion_dirt.png"
+  },
+  "materialpouchexplosiondirt": {
+    "url": "https://noita.wiki.gg/images/8/88/Materialpouch_explosion_dirt.png",
+    "local": "Materialpouch_explosion_dirt.png"
+  },
+  "materialgrassholy": {
+    "url": "https://noita.wiki.gg/images/1/12/Material_grass_holy.png",
+    "local": "Material_grass_holy.png"
+  },
+  "materialpotiongrassholy": {
+    "url": "https://noita.wiki.gg/images/9/91/Materialpotion_grass_holy.png",
+    "local": "Materialpotion_grass_holy.png"
+  },
+  "materialpouchgrassholy": {
+    "url": "https://noita.wiki.gg/images/8/84/Materialpouch_grass_holy.png",
+    "local": "Materialpouch_grass_holy.png"
+  },
+  "materialmidas": {
+    "url": "https://noita.wiki.gg/images/1/12/Material_midas.png",
+    "local": "Material_midas.png"
+  },
+  "materialpotionmidas": {
+    "url": "https://noita.wiki.gg/images/4/40/Materialpotion_midas.png",
+    "local": "Materialpotion_midas.png"
+  },
+  "materialsparkelectric": {
+    "url": "https://noita.wiki.gg/images/a/a8/Material_spark_electric.png",
+    "local": "Material_spark_electric.png"
+  },
+  "materialrockeroding": {
+    "url": "https://noita.wiki.gg/images/2/2d/Material_rock_eroding.png",
+    "local": "Material_rock_eroding.png"
+  },
+  "materialmeatteleport": {
+    "url": "https://noita.wiki.gg/images/f/f7/Material_meat_teleport.png",
+    "local": "Material_meat_teleport.png"
+  },
+  "materialbushseed": {
+    "url": "https://noita.wiki.gg/images/1/1f/Material_bush_seed.png",
+    "local": "Material_bush_seed.png"
+  },
+  "materialpotionbushseed": {
+    "url": "https://noita.wiki.gg/images/e/e6/Materialpotion_bush_seed.png",
+    "local": "Materialpotion_bush_seed.png"
+  },
+  "materialpouchbushseed": {
+    "url": "https://noita.wiki.gg/images/2/21/Materialpouch_bush_seed.png",
+    "local": "Materialpouch_bush_seed.png"
+  },
+  "materialpoo": {
+    "url": "https://noita.wiki.gg/images/a/ad/Material_poo.png",
+    "local": "Material_poo.png"
+  },
+  "materialpotionpoo": {
+    "url": "https://noita.wiki.gg/images/3/3d/Materialpotion_poo.png",
+    "local": "Materialpotion_poo.png"
+  },
+  "materialpouchpoo": {
+    "url": "https://noita.wiki.gg/images/d/de/Materialpouch_poo.png",
+    "local": "Materialpouch_poo.png"
+  },
+  "materialrockhardborder": {
+    "url": "https://noita.wiki.gg/images/a/ab/Material_rock_hard_border.png",
+    "local": "Material_rock_hard_border.png"
+  },
+  "materialfire": {
+    "url": "https://noita.wiki.gg/images/5/5d/Material_fire.png",
+    "local": "Material_fire.png"
+  },
+  "materialpotionfire": {
+    "url": "https://noita.wiki.gg/images/1/10/Materialpotion_fire.png",
+    "local": "Materialpotion_fire.png"
+  },
+  "materialfireblue": {
+    "url": "https://noita.wiki.gg/images/1/1a/Material_fire_blue.png",
+    "local": "Material_fire_blue.png"
+  },
+  "materialflame": {
+    "url": "https://noita.wiki.gg/images/2/2e/Material_flame.png",
+    "local": "Material_flame.png"
+  },
+  "materialliquidfire": {
+    "url": "https://noita.wiki.gg/images/6/68/Material_liquid_fire.png",
+    "local": "Material_liquid_fire.png"
+  },
+  "materialpotionliquidfire": {
+    "url": "https://noita.wiki.gg/images/e/e7/Materialpotion_liquid_fire.png",
+    "local": "Materialpotion_liquid_fire.png"
+  },
+  "materialacidgas": {
+    "url": "https://noita.wiki.gg/images/c/c1/Material_acid_gas.png",
+    "local": "Material_acid_gas.png"
+  },
+  "materialacidgasstatic": {
+    "url": "https://noita.wiki.gg/images/5/50/Material_acid_gas_static.png",
+    "local": "Material_acid_gas_static.png"
+  },
+  "materialmaterialconfusion": {
+    "url": "https://noita.wiki.gg/images/f/f2/Material_material_confusion.png",
+    "local": "Material_material_confusion.png"
+  },
+  "materialpotionmaterialconfusion": {
+    "url": "https://noita.wiki.gg/images/f/fa/Materialpotion_material_confusion.png",
+    "local": "Materialpotion_material_confusion.png"
+  },
+  "materialtemplebrickgoldenstatic": {
+    "url": "https://noita.wiki.gg/images/0/0b/Material_templebrick_golden_static.png",
+    "local": "Material_templebrick_golden_static.png"
+  },
+  "materialbloodcold": {
+    "url": "https://noita.wiki.gg/images/a/ab/Material_blood_cold.png",
+    "local": "Material_blood_cold.png"
+  },
+  "materialpotionbloodcold": {
+    "url": "https://noita.wiki.gg/images/8/88/Materialpotion_blood_cold.png",
+    "local": "Materialpotion_blood_cold.png"
+  },
+  "materialbloodcoldvapour": {
+    "url": "https://noita.wiki.gg/images/3/3d/Material_blood_cold_vapour.png",
+    "local": "Material_blood_cold_vapour.png"
+  },
+  "materialmeatfrog": {
+    "url": "https://noita.wiki.gg/images/b/ba/Material_meat_frog.png",
+    "local": "Material_meat_frog.png"
+  },
+  "materialiceacidglass": {
+    "url": "https://noita.wiki.gg/images/b/be/Material_ice_acid_glass.png",
+    "local": "Material_ice_acid_glass.png"
+  },
+  "materialiceacidstatic": {
+    "url": "https://noita.wiki.gg/images/4/44/Material_ice_acid_static.png",
+    "local": "Material_ice_acid_static.png"
+  },
+  "materialicebloodglass": {
+    "url": "https://noita.wiki.gg/images/0/06/Material_ice_blood_glass.png",
+    "local": "Material_ice_blood_glass.png"
+  },
+  "materialicebloodstatic": {
+    "url": "https://noita.wiki.gg/images/4/42/Material_ice_blood_static.png",
+    "local": "Material_ice_blood_static.png"
+  },
+  "materialicepoisonglass": {
+    "url": "https://noita.wiki.gg/images/1/17/Material_ice_poison_glass.png",
+    "local": "Material_ice_poison_glass.png"
+  },
+  "materialicepoisonstatic": {
+    "url": "https://noita.wiki.gg/images/6/63/Material_ice_poison_static.png",
+    "local": "Material_ice_poison_static.png"
+  },
+  "materialsnowrockstatic": {
+    "url": "https://noita.wiki.gg/images/e/e1/Material_snowrock_static.png",
+    "local": "Material_snowrock_static.png"
+  },
+  "materialiceslimeglass": {
+    "url": "https://noita.wiki.gg/images/7/72/Material_ice_slime_glass.png",
+    "local": "Material_ice_slime_glass.png"
+  },
+  "materialiceslimestatic": {
+    "url": "https://noita.wiki.gg/images/d/da/Material_ice_slime_static.png",
+    "local": "Material_ice_slime_static.png"
+  },
+  "materialsteelfroststatic": {
+    "url": "https://noita.wiki.gg/images/c/cb/Material_steelfrost_static.png",
+    "local": "Material_steelfrost_static.png"
+  },
+  "materialmeatfruit": {
+    "url": "https://noita.wiki.gg/images/3/37/Material_meat_fruit.png",
+    "local": "Material_meat_fruit.png"
+  },
+  "itemgourd": {
+    "url": "https://noita.wiki.gg/images/9/9a/Item_gourd.png",
+    "local": "Item_gourd.png"
+  },
+  "materialmeatpumpkin": {
+    "url": "https://noita.wiki.gg/images/1/13/Material_meat_pumpkin.png",
+    "local": "Material_meat_pumpkin.png"
+  },
+  "proppumpkin01": {
+    "url": "https://noita.wiki.gg/images/7/70/Prop_pumpkin_01.png",
+    "local": "Prop_pumpkin_01.png"
+  },
+  "proppumpkin04": {
+    "url": "https://noita.wiki.gg/images/b/b4/Prop_pumpkin_04.png",
+    "local": "Prop_pumpkin_04.png"
+  },
+  "materialmeatdone": {
+    "url": "https://noita.wiki.gg/images/4/43/Material_meat_done.png",
+    "local": "Material_meat_done.png"
+  },
+  "materialfungalgas": {
+    "url": "https://noita.wiki.gg/images/5/54/Material_fungal_gas.png",
+    "local": "Material_fungal_gas.png"
+  },
+  "materialgrassloose": {
+    "url": "https://noita.wiki.gg/images/7/7c/Material_grass_loose.png",
+    "local": "Material_grass_loose.png"
+  },
+  "materialfungisoil": {
+    "url": "https://noita.wiki.gg/images/9/99/Material_fungisoil.png",
+    "local": "Material_fungisoil.png"
+  },
+  "materialpotionfungisoil": {
+    "url": "https://noita.wiki.gg/images/a/a4/Materialpotion_fungisoil.png",
+    "local": "Materialpotion_fungisoil.png"
+  },
+  "materialpouchfungisoil": {
+    "url": "https://noita.wiki.gg/images/5/55/Materialpouch_fungisoil.png",
+    "local": "Materialpouch_fungisoil.png"
+  },
+  "materialfunguspowder": {
+    "url": "https://noita.wiki.gg/images/8/8d/Material_fungus_powder.png",
+    "local": "Material_fungus_powder.png"
+  },
+  "materialpotionfunguspowder": {
+    "url": "https://noita.wiki.gg/images/5/53/Materialpotion_fungus_powder.png",
+    "local": "Materialpotion_fungus_powder.png"
+  },
+  "materialpouchfunguspowder": {
+    "url": "https://noita.wiki.gg/images/3/3b/Materialpouch_fungus_powder.png",
+    "local": "Materialpouch_fungus_powder.png"
+  },
+  "materialfunguspowderbad": {
+    "url": "https://noita.wiki.gg/images/0/0a/Material_fungus_powder_bad.png",
+    "local": "Material_fungus_powder_bad.png"
+  },
+  "materialpotionfunguspowderbad": {
+    "url": "https://noita.wiki.gg/images/0/07/Materialpotion_fungus_powder_bad.png",
+    "local": "Materialpotion_fungus_powder_bad.png"
+  },
+  "materialpouchfunguspowderbad": {
+    "url": "https://noita.wiki.gg/images/f/f8/Materialpouch_fungus_powder_bad.png",
+    "local": "Materialpouch_fungus_powder_bad.png"
+  },
+  "materialrockstaticfungal": {
+    "url": "https://noita.wiki.gg/images/5/5a/Material_rock_static_fungal.png",
+    "local": "Material_rock_static_fungal.png"
+  },
+  "materialmushroom": {
+    "url": "https://noita.wiki.gg/images/1/15/Material_mushroom.png",
+    "local": "Material_mushroom.png"
+  },
+  "materialpotionmushroom": {
+    "url": "https://noita.wiki.gg/images/0/0a/Materialpotion_mushroom.png",
+    "local": "Materialpotion_mushroom.png"
+  },
+  "materialpouchmushroom": {
+    "url": "https://noita.wiki.gg/images/3/34/Materialpouch_mushroom.png",
+    "local": "Materialpouch_mushroom.png"
+  },
+  "materialmushroomgiantblue": {
+    "url": "https://noita.wiki.gg/images/6/61/Material_mushroom_giant_blue.png",
+    "local": "Material_mushroom_giant_blue.png"
+  },
+  "materialpotionmushroomgiantblue": {
+    "url": "https://noita.wiki.gg/images/d/d6/Materialpotion_mushroom_giant_blue.png",
+    "local": "Materialpotion_mushroom_giant_blue.png"
+  },
+  "materialpouchmushroomgiantblue": {
+    "url": "https://noita.wiki.gg/images/e/e2/Materialpouch_mushroom_giant_blue.png",
+    "local": "Materialpouch_mushroom_giant_blue.png"
+  },
+  "materialmushroomgiantred": {
+    "url": "https://noita.wiki.gg/images/b/b6/Material_mushroom_giant_red.png",
+    "local": "Material_mushroom_giant_red.png"
+  },
+  "materialpotionmushroomgiantred": {
+    "url": "https://noita.wiki.gg/images/f/f6/Materialpotion_mushroom_giant_red.png",
+    "local": "Materialpotion_mushroom_giant_red.png"
+  },
+  "materialpouchmushroomgiantred": {
+    "url": "https://noita.wiki.gg/images/a/a3/Materialpouch_mushroom_giant_red.png",
+    "local": "Materialpouch_mushroom_giant_red.png"
+  },
+  "materialmushroomseed": {
+    "url": "https://noita.wiki.gg/images/c/c8/Material_mushroom_seed.png",
+    "local": "Material_mushroom_seed.png"
+  },
+  "materialpotionmushroomseed": {
+    "url": "https://noita.wiki.gg/images/e/e8/Materialpotion_mushroom_seed.png",
+    "local": "Materialpotion_mushroom_seed.png"
+  },
+  "materialpouchmushroomseed": {
+    "url": "https://noita.wiki.gg/images/9/9f/Materialpouch_mushroom_seed.png",
+    "local": "Materialpouch_mushroom_seed.png"
+  },
+  "materialfungalshiftparticlefx": {
+    "url": "https://noita.wiki.gg/images/e/e9/Material_fungal_shift_particle_fx.png",
+    "local": "Material_fungal_shift_particle_fx.png"
+  },
+  "materialfungicreepingsecret": {
+    "url": "https://noita.wiki.gg/images/5/57/Material_fungi_creeping_secret.png",
+    "local": "Material_fungi_creeping_secret.png"
+  },
+  "materialpotionfungicreepingsecret": {
+    "url": "https://noita.wiki.gg/images/5/53/Materialpotion_fungi_creeping_secret.png",
+    "local": "Materialpotion_fungi_creeping_secret.png"
+  },
+  "materialpouchfungicreepingsecret": {
+    "url": "https://noita.wiki.gg/images/1/14/Materialpouch_fungi_creeping_secret.png",
+    "local": "Materialpouch_fungi_creeping_secret.png"
+  },
+  "materialfungigreen": {
+    "url": "https://noita.wiki.gg/images/1/1e/Material_fungi_green.png",
+    "local": "Material_fungi_green.png"
+  },
+  "materialpotionfungigreen": {
+    "url": "https://noita.wiki.gg/images/8/87/Materialpotion_fungi_green.png",
+    "local": "Materialpotion_fungi_green.png"
+  },
+  "materialpouchfungigreen": {
+    "url": "https://noita.wiki.gg/images/7/7e/Materialpouch_fungi_green.png",
+    "local": "Materialpouch_fungi_green.png"
+  },
+  "materialfungiyellow": {
+    "url": "https://noita.wiki.gg/images/6/6a/Material_fungi_yellow.png",
+    "local": "Material_fungi_yellow.png"
+  },
+  "materialpotionfungiyellow": {
+    "url": "https://noita.wiki.gg/images/8/83/Materialpotion_fungi_yellow.png",
+    "local": "Materialpotion_fungi_yellow.png"
+  },
+  "materialpouchfungiyellow": {
+    "url": "https://noita.wiki.gg/images/7/75/Materialpouch_fungi_yellow.png",
+    "local": "Materialpouch_fungi_yellow.png"
+  },
+  "materialfungusloose": {
+    "url": "https://noita.wiki.gg/images/b/be/Material_fungus_loose.png",
+    "local": "Material_fungus_loose.png"
+  },
+  "materialfungusloosegreen": {
+    "url": "https://noita.wiki.gg/images/6/6a/Material_fungus_loose_green.png",
+    "local": "Material_fungus_loose_green.png"
+  },
+  "materialbloodfungi": {
+    "url": "https://noita.wiki.gg/images/c/c3/Material_blood_fungi.png",
+    "local": "Material_blood_fungi.png"
+  },
+  "materialpotionbloodfungi": {
+    "url": "https://noita.wiki.gg/images/1/12/Materialpotion_blood_fungi.png",
+    "local": "Materialpotion_blood_fungi.png"
+  },
+  "materialmagicgasfungus": {
+    "url": "https://noita.wiki.gg/images/e/e6/Material_magic_gas_fungus.png",
+    "local": "Material_magic_gas_fungus.png"
+  },
+  "materialsandherbvapour": {
+    "url": "https://noita.wiki.gg/images/e/e8/Material_sand_herb_vapour.png",
+    "local": "Material_sand_herb_vapour.png"
+  },
+  "materialmagicgasmidas": {
+    "url": "https://noita.wiki.gg/images/2/2f/Material_magic_gas_midas.png",
+    "local": "Material_magic_gas_midas.png"
+  },
+  "materialmagicliquid": {
+    "url": "https://noita.wiki.gg/images/a/ac/Material_magic_liquid.png",
+    "local": "Material_magic_liquid.png"
+  },
+  "materialpotionmagicliquid": {
+    "url": "https://noita.wiki.gg/images/d/de/Materialpotion_magic_liquid.png",
+    "local": "Materialpotion_magic_liquid.png"
+  },
+  "materialgembox2d": {
+    "url": "https://noita.wiki.gg/images/9/97/Material_gem_box2d.png",
+    "local": "Material_gem_box2d.png"
+  },
+  "itemuiingredient1": {
+    "url": "https://noita.wiki.gg/images/d/d1/Item_UI_Ingredient_1.png",
+    "local": "Item_UI_Ingredient_1.png"
+  },
+  "materialgembox2ddarksun": {
+    "url": "https://noita.wiki.gg/images/3/3c/Material_gem_box2d_darksun.png",
+    "local": "Material_gem_box2d_darksun.png"
+  },
+  "materialgembox2dgreen": {
+    "url": "https://noita.wiki.gg/images/d/d3/Material_gem_box2d_green.png",
+    "local": "Material_gem_box2d_green.png"
+  },
+  "materialgembox2dorange": {
+    "url": "https://noita.wiki.gg/images/d/d3/Material_gem_box2d_orange.png",
+    "local": "Material_gem_box2d_orange.png"
+  },
+  "materialgembox2dpink": {
+    "url": "https://noita.wiki.gg/images/e/e2/Material_gem_box2d_pink.png",
+    "local": "Material_gem_box2d_pink.png"
+  },
+  "materialgembox2dred": {
+    "url": "https://noita.wiki.gg/images/c/cf/Material_gem_box2d_red.png",
+    "local": "Material_gem_box2d_red.png"
+  },
+  "materialgembox2dredfloat": {
+    "url": "https://noita.wiki.gg/images/4/45/Material_gem_box2d_red_float.png",
+    "local": "Material_gem_box2d_red_float.png"
+  },
+  "itemsunseed2": {
+    "url": "https://noita.wiki.gg/images/a/a6/Item_sunseed_2.png",
+    "local": "Item_sunseed_2.png"
+  },
+  "materialgembox2dyellowsun": {
+    "url": "https://noita.wiki.gg/images/0/0b/Material_gem_box2d_yellow_sun.png",
+    "local": "Material_gem_box2d_yellow_sun.png"
+  },
+  "materialgembox2dyellowsungravity": {
+    "url": "https://noita.wiki.gg/images/4/45/Material_gem_box2d_yellow_sun_gravity.png",
+    "local": "Material_gem_box2d_yellow_sun_gravity.png"
+  },
+  "materialglass": {
+    "url": "https://noita.wiki.gg/images/2/2a/Material_glass.png",
+    "local": "Material_glass.png"
+  },
+  "materialglassbox2d": {
+    "url": "https://noita.wiki.gg/images/b/b4/Material_glass_box2d.png",
+    "local": "Material_glass_box2d.png"
+  },
+  "materialglassbroken": {
+    "url": "https://noita.wiki.gg/images/2/21/Material_glass_broken.png",
+    "local": "Material_glass_broken.png"
+  },
+  "materialpotionglassbroken": {
+    "url": "https://noita.wiki.gg/images/9/9b/Materialpotion_glass_broken.png",
+    "local": "Materialpotion_glass_broken.png"
+  },
+  "materialpouchglassbroken": {
+    "url": "https://noita.wiki.gg/images/e/e5/Materialpouch_glass_broken.png",
+    "local": "Materialpouch_glass_broken.png"
+  },
+  "materialglassstatic": {
+    "url": "https://noita.wiki.gg/images/e/ec/Material_glass_static.png",
+    "local": "Material_glass_static.png"
+  },
+  "materialpotionglassbox2d": {
+    "url": "https://noita.wiki.gg/images/2/22/Material_potion_glass_box2d.png",
+    "local": "Material_potion_glass_box2d.png"
+  },
+  "itempotion": {
+    "url": "https://noita.wiki.gg/images/7/72/Item_Potion.png",
+    "local": "Item_Potion.png"
+  },
+  "materialglowshroom": {
+    "url": "https://noita.wiki.gg/images/5/50/Material_glowshroom.png",
+    "local": "Material_glowshroom.png"
+  },
+  "materialpotionglowshroom": {
+    "url": "https://noita.wiki.gg/images/1/14/Materialpotion_glowshroom.png",
+    "local": "Materialpotion_glowshroom.png"
+  },
+  "materialpouchglowshroom": {
+    "url": "https://noita.wiki.gg/images/f/f2/Materialpouch_glowshroom.png",
+    "local": "Materialpouch_glowshroom.png"
+  },
+  "materialrockstaticglow": {
+    "url": "https://noita.wiki.gg/images/d/d0/Material_rock_static_glow.png",
+    "local": "Material_rock_static_glow.png"
+  },
+  "materialglowstone": {
+    "url": "https://noita.wiki.gg/images/b/b8/Material_glowstone.png",
+    "local": "Material_glowstone.png"
+  },
+  "materialglowstonealtar": {
+    "url": "https://noita.wiki.gg/images/9/95/Material_glowstone_altar.png",
+    "local": "Material_glowstone_altar.png"
+  },
+  "materialglowstonealtarhdr": {
+    "url": "https://noita.wiki.gg/images/b/b6/Material_glowstone_altar_hdr.png",
+    "local": "Material_glowstone_altar_hdr.png"
+  },
+  "materialglowstonepotion": {
+    "url": "https://noita.wiki.gg/images/d/da/Material_glowstone_potion.png",
+    "local": "Material_glowstone_potion.png"
+  },
+  "materialglue": {
+    "url": "https://noita.wiki.gg/images/1/1f/Material_glue.png",
+    "local": "Material_glue.png"
+  },
+  "materialpotionglue": {
+    "url": "https://noita.wiki.gg/images/0/05/Materialpotion_glue.png",
+    "local": "Materialpotion_glue.png"
+  },
+  "materialpouchglue": {
+    "url": "https://noita.wiki.gg/images/7/7e/Materialpouch_glue.png",
+    "local": "Materialpouch_glue.png"
+  },
+  "materialgold": {
+    "url": "https://noita.wiki.gg/images/0/05/Material_gold.png",
+    "local": "Material_gold.png"
+  },
+  "materialpotiongold": {
+    "url": "https://noita.wiki.gg/images/3/3f/Materialpotion_gold.png",
+    "local": "Materialpotion_gold.png"
+  },
+  "materialpouchgold": {
+    "url": "https://noita.wiki.gg/images/b/b5/Materialpouch_gold.png",
+    "local": "Materialpouch_gold.png"
+  },
+  "materialgoldb2": {
+    "url": "https://noita.wiki.gg/images/c/c9/Material_gold_b2.png",
+    "local": "Material_gold_b2.png"
+  },
+  "goldrewardsprite": {
+    "url": "https://noita.wiki.gg/images/d/d4/Gold_reward_sprite.png",
+    "local": "Gold_reward_sprite.png"
+  },
+  "materialgoldbox2d": {
+    "url": "https://noita.wiki.gg/images/0/03/Material_gold_box2d.png",
+    "local": "Material_gold_box2d.png"
+  },
+  "goldnugget": {
+    "url": "https://noita.wiki.gg/images/8/81/Gold_nugget.png",
+    "local": "Gold_nugget.png"
+  },
+  "materialgoldstatic": {
+    "url": "https://noita.wiki.gg/images/6/68/Material_gold_static.png",
+    "local": "Material_gold_static.png"
+  },
+  "materialsandstaticbright": {
+    "url": "https://noita.wiki.gg/images/f/fe/Material_sand_static_bright.png",
+    "local": "Material_sand_static_bright.png"
+  },
+  "materialgrass": {
+    "url": "https://noita.wiki.gg/images/6/68/Material_grass.png",
+    "local": "Material_grass.png"
+  },
+  "materialpotiongrass": {
+    "url": "https://noita.wiki.gg/images/c/ce/Materialpotion_grass.png",
+    "local": "Materialpotion_grass.png"
+  },
+  "materialpouchgrass": {
+    "url": "https://noita.wiki.gg/images/d/d8/Materialpouch_grass.png",
+    "local": "Materialpouch_grass.png"
+  },
+  "materialgrassdark": {
+    "url": "https://noita.wiki.gg/images/f/f9/Material_grass_dark.png",
+    "local": "Material_grass_dark.png"
+  },
+  "materialpotiongrassdark": {
+    "url": "https://noita.wiki.gg/images/d/db/Materialpotion_grass_dark.png",
+    "local": "Materialpotion_grass_dark.png"
+  },
+  "materialpouchgrassdark": {
+    "url": "https://noita.wiki.gg/images/3/34/Materialpouch_grass_dark.png",
+    "local": "Materialpouch_grass_dark.png"
+  },
+  "materialgrassdarker": {
+    "url": "https://noita.wiki.gg/images/4/40/Material_grass_darker.png",
+    "local": "Material_grass_darker.png"
+  },
+  "materialpotiongrassdarker": {
+    "url": "https://noita.wiki.gg/images/d/d3/Materialpotion_grass_darker.png",
+    "local": "Materialpotion_grass_darker.png"
+  },
+  "materialpouchgrassdarker": {
+    "url": "https://noita.wiki.gg/images/2/25/Materialpouch_grass_darker.png",
+    "local": "Materialpouch_grass_darker.png"
+  },
+  "materialgrassdry": {
+    "url": "https://noita.wiki.gg/images/f/f6/Material_grass_dry.png",
+    "local": "Material_grass_dry.png"
+  },
+  "materialpotiongrassdry": {
+    "url": "https://noita.wiki.gg/images/f/f8/Materialpotion_grass_dry.png",
+    "local": "Materialpotion_grass_dry.png"
+  },
+  "materialpouchgrassdry": {
+    "url": "https://noita.wiki.gg/images/7/7c/Materialpouch_grass_dry.png",
+    "local": "Materialpouch_grass_dry.png"
+  },
+  "materialcursedliquid": {
+    "url": "https://noita.wiki.gg/images/2/28/Material_cursed_liquid.png",
+    "local": "Material_cursed_liquid.png"
+  },
+  "materialpotioncursedliquid": {
+    "url": "https://noita.wiki.gg/images/c/c2/Materialpotion_cursed_liquid.png",
+    "local": "Materialpotion_cursed_liquid.png"
+  },
+  "materialrockstaticcursedgreen": {
+    "url": "https://noita.wiki.gg/images/4/4d/Material_rock_static_cursed_green.png",
+    "local": "Material_rock_static_cursed_green.png"
+  },
+  "materialmeteoritegreen": {
+    "url": "https://noita.wiki.gg/images/8/8e/Material_meteorite_green.png",
+    "local": "Material_meteorite_green.png"
+  },
+  "materialmeatslimegreen": {
+    "url": "https://noita.wiki.gg/images/4/44/Material_meat_slime_green.png",
+    "local": "Material_meat_slime_green.png"
+  },
+  "materialrockstaticgrey": {
+    "url": "https://noita.wiki.gg/images/5/58/Material_rock_static_grey.png",
+    "local": "Material_rock_static_grey.png"
+  },
+  "materialsandstatic": {
+    "url": "https://noita.wiki.gg/images/3/37/Material_sand_static.png",
+    "local": "Material_sand_static.png"
+  },
+  "materialorbpowder": {
+    "url": "https://noita.wiki.gg/images/6/6b/Material_orb_powder.png",
+    "local": "Material_orb_powder.png"
+  },
+  "materialpotionorbpowder": {
+    "url": "https://noita.wiki.gg/images/7/76/Materialpotion_orb_powder.png",
+    "local": "Materialpotion_orb_powder.png"
+  },
+  "materialpouchorbpowder": {
+    "url": "https://noita.wiki.gg/images/9/96/Materialpouch_orb_powder.png",
+    "local": "Materialpouch_orb_powder.png"
+  },
+  "materialgunpowder": {
+    "url": "https://noita.wiki.gg/images/b/b8/Material_gunpowder.png",
+    "local": "Material_gunpowder.png"
+  },
+  "materialpotiongunpowder": {
+    "url": "https://noita.wiki.gg/images/4/47/Materialpotion_gunpowder.png",
+    "local": "Materialpotion_gunpowder.png"
+  },
+  "materialpouchgunpowder": {
+    "url": "https://noita.wiki.gg/images/3/33/Materialpouch_gunpowder.png",
+    "local": "Materialpouch_gunpowder.png"
+  },
+  "materialgunpowderexplosive": {
+    "url": "https://noita.wiki.gg/images/e/ea/Material_gunpowder_explosive.png",
+    "local": "Material_gunpowder_explosive.png"
+  },
+  "materialpotiongunpowderexplosive": {
+    "url": "https://noita.wiki.gg/images/4/40/Materialpotion_gunpowder_explosive.png",
+    "local": "Materialpotion_gunpowder_explosive.png"
+  },
+  "materialpouchgunpowderexplosive": {
+    "url": "https://noita.wiki.gg/images/4/4a/Materialpouch_gunpowder_explosive.png",
+    "local": "Materialpouch_gunpowder_explosive.png"
+  },
+  "materialgunpowdertnt": {
+    "url": "https://noita.wiki.gg/images/b/b5/Material_gunpowder_tnt.png",
+    "local": "Material_gunpowder_tnt.png"
+  },
+  "materialpotiongunpowdertnt": {
+    "url": "https://noita.wiki.gg/images/8/8a/Materialpotion_gunpowder_tnt.png",
+    "local": "Materialpotion_gunpowder_tnt.png"
+  },
+  "materialpouchgunpowdertnt": {
+    "url": "https://noita.wiki.gg/images/e/e4/Materialpouch_gunpowder_tnt.png",
+    "local": "Materialpouch_gunpowder_tnt.png"
+  },
+  "materialgunpowderunstable": {
+    "url": "https://noita.wiki.gg/images/a/a4/Material_gunpowder_unstable.png",
+    "local": "Material_gunpowder_unstable.png"
+  },
+  "materialpotiongunpowderunstable": {
+    "url": "https://noita.wiki.gg/images/7/76/Materialpotion_gunpowder_unstable.png",
+    "local": "Materialpotion_gunpowder_unstable.png"
+  },
+  "materialpouchgunpowderunstable": {
+    "url": "https://noita.wiki.gg/images/a/a1/Materialpouch_gunpowder_unstable.png",
+    "local": "Materialpouch_gunpowder_unstable.png"
+  },
+  "materialgunpowderunstablebig": {
+    "url": "https://noita.wiki.gg/images/7/70/Material_gunpowder_unstable_big.png",
+    "local": "Material_gunpowder_unstable_big.png"
+  },
+  "materialpotiongunpowderunstablebig": {
+    "url": "https://noita.wiki.gg/images/a/ae/Materialpotion_gunpowder_unstable_big.png",
+    "local": "Materialpotion_gunpowder_unstable_big.png"
+  },
+  "materialpouchgunpowderunstablebig": {
+    "url": "https://noita.wiki.gg/images/a/ad/Materialpouch_gunpowder_unstable_big.png",
+    "local": "Materialpouch_gunpowder_unstable_big.png"
+  },
+  "materialsteelstaticunmeltable": {
+    "url": "https://noita.wiki.gg/images/b/b0/Material_steel_static_unmeltable.png",
+    "local": "Material_steel_static_unmeltable.png"
+  },
+  "materialmagicliquidfasterlevitationandmovement": {
+    "url": "https://noita.wiki.gg/images/9/94/Material_magic_liquid_faster_levitation_and_movement.png",
+    "local": "Material_magic_liquid_faster_levitation_and_movement.png"
+  },
+  "materialpotionmagicliquidfasterlevitationandmovement": {
+    "url": "https://noita.wiki.gg/images/f/ff/Materialpotion_magic_liquid_faster_levitation_and_movement.png",
+    "local": "Materialpotion_magic_liquid_faster_levitation_and_movement.png"
+  },
+  "materialmagicgashpregeneration": {
+    "url": "https://noita.wiki.gg/images/3/3f/Material_magic_gas_hp_regeneration.png",
+    "local": "Material_magic_gas_hp_regeneration.png"
+  },
+  "materialmagicliquidhpregeneration": {
+    "url": "https://noita.wiki.gg/images/3/38/Material_magic_liquid_hp_regeneration.png",
+    "local": "Material_magic_liquid_hp_regeneration.png"
+  },
+  "materialpotionmagicliquidhpregeneration": {
+    "url": "https://noita.wiki.gg/images/9/95/Materialpotion_magic_liquid_hp_regeneration.png",
+    "local": "Materialpotion_magic_liquid_hp_regeneration.png"
+  },
+  "materialporridge": {
+    "url": "https://noita.wiki.gg/images/b/b0/Material_porridge.png",
+    "local": "Material_porridge.png"
+  },
+  "materialpotionporridge": {
+    "url": "https://noita.wiki.gg/images/d/dc/Materialpotion_porridge.png",
+    "local": "Materialpotion_porridge.png"
+  },
+  "materialskullrock": {
+    "url": "https://noita.wiki.gg/images/1/18/Material_skullrock.png",
+    "local": "Material_skullrock.png"
+  },
+  "materialtheend": {
+    "url": "https://noita.wiki.gg/images/8/80/Material_the_end.png",
+    "local": "Material_the_end.png"
+  },
+  "materialendslime": {
+    "url": "https://noita.wiki.gg/images/7/7a/Material_endslime.png",
+    "local": "Material_endslime.png"
+  },
+  "materialpotionendslime": {
+    "url": "https://noita.wiki.gg/images/6/6e/Materialpotion_endslime.png",
+    "local": "Materialpotion_endslime.png"
+  },
+  "materialendslimeblood": {
+    "url": "https://noita.wiki.gg/images/2/28/Material_endslime_blood.png",
+    "local": "Material_endslime_blood.png"
+  },
+  "materialpotionendslimeblood": {
+    "url": "https://noita.wiki.gg/images/d/dd/Materialpotion_endslime_blood.png",
+    "local": "Materialpotion_endslime_blood.png"
+  },
+  "materialpouchendslimeblood": {
+    "url": "https://noita.wiki.gg/images/8/8f/Materialpouch_endslime_blood.png",
+    "local": "Materialpouch_endslime_blood.png"
+  },
+  "materialendslimestatic": {
+    "url": "https://noita.wiki.gg/images/a/a0/Material_endslime_static.png",
+    "local": "Material_endslime_static.png"
+  },
+  "materialsandherb": {
+    "url": "https://noita.wiki.gg/images/b/b2/Material_sand_herb.png",
+    "local": "Material_sand_herb.png"
+  },
+  "materialpotionsandherb": {
+    "url": "https://noita.wiki.gg/images/f/f0/Materialpotion_sand_herb.png",
+    "local": "Materialpotion_sand_herb.png"
+  },
+  "materialpouchsandherb": {
+    "url": "https://noita.wiki.gg/images/1/19/Materialpouch_sand_herb.png",
+    "local": "Materialpouch_sand_herb.png"
+  },
+  "materialfuseholy": {
+    "url": "https://noita.wiki.gg/images/b/ba/Material_fuse_holy.png",
+    "local": "Material_fuse_holy.png"
+  },
+  "spellbombholy": {
+    "url": "https://noita.wiki.gg/images/0/0c/Spell_bomb_holy.png",
+    "local": "Spell_bomb_holy.png"
+  },
+  "spellbombholygiga": {
+    "url": "https://noita.wiki.gg/images/3/34/Spell_bomb_holy_giga.png",
+    "local": "Spell_bomb_holy_giga.png"
+  },
+  "materialhoney": {
+    "url": "https://noita.wiki.gg/images/7/77/Material_honey.png",
+    "local": "Material_honey.png"
+  },
+  "materialpotionhoney": {
+    "url": "https://noita.wiki.gg/images/a/af/Materialpotion_honey.png",
+    "local": "Materialpotion_honey.png"
+  },
+  "materialpouchhoney": {
+    "url": "https://noita.wiki.gg/images/6/6b/Materialpouch_honey.png",
+    "local": "Materialpouch_honey.png"
+  },
+  "materialgrassice": {
+    "url": "https://noita.wiki.gg/images/b/b4/Material_grass_ice.png",
+    "local": "Material_grass_ice.png"
+  },
+  "materialpotiongrassice": {
+    "url": "https://noita.wiki.gg/images/3/35/Materialpotion_grass_ice.png",
+    "local": "Materialpotion_grass_ice.png"
+  },
+  "materialpouchgrassice": {
+    "url": "https://noita.wiki.gg/images/d/dc/Materialpouch_grass_ice.png",
+    "local": "Materialpouch_grass_ice.png"
+  },
+  "materialice": {
+    "url": "https://noita.wiki.gg/images/c/cd/Material_ice.png",
+    "local": "Material_ice.png"
+  },
+  "materialpotionice": {
+    "url": "https://noita.wiki.gg/images/e/e0/Materialpotion_ice.png",
+    "local": "Materialpotion_ice.png"
+  },
+  "materialpouchice": {
+    "url": "https://noita.wiki.gg/images/3/3c/Materialpouch_ice.png",
+    "local": "Materialpouch_ice.png"
+  },
+  "materialiceb2": {
+    "url": "https://noita.wiki.gg/images/0/04/Material_ice_b2.png",
+    "local": "Material_ice_b2.png"
+  },
+  "materialiceceiling": {
+    "url": "https://noita.wiki.gg/images/3/35/Material_ice_ceiling.png",
+    "local": "Material_ice_ceiling.png"
+  },
+  "materialicecoldglass": {
+    "url": "https://noita.wiki.gg/images/3/38/Material_ice_cold_glass.png",
+    "local": "Material_ice_cold_glass.png"
+  },
+  "materialicecoldstatic": {
+    "url": "https://noita.wiki.gg/images/8/84/Material_ice_cold_static.png",
+    "local": "Material_ice_cold_static.png"
+  },
+  "materialiceglass": {
+    "url": "https://noita.wiki.gg/images/c/c5/Material_ice_glass.png",
+    "local": "Material_ice_glass.png"
+  },
+  "materialiceglassb2": {
+    "url": "https://noita.wiki.gg/images/b/bf/Material_ice_glass_b2.png",
+    "local": "Material_ice_glass_b2.png"
+  },
+  "materialicemeltingperfkiller": {
+    "url": "https://noita.wiki.gg/images/b/be/Material_ice_melting_perf_killer.png",
+    "local": "Material_ice_melting_perf_killer.png"
+  },
+  "materialicemeteorstatic": {
+    "url": "https://noita.wiki.gg/images/9/98/Material_ice_meteor_static.png",
+    "local": "Material_ice_meteor_static.png"
+  },
+  "materialicestatic": {
+    "url": "https://noita.wiki.gg/images/6/60/Material_ice_static.png",
+    "local": "Material_ice_static.png"
+  },
+  "materialjustdeath": {
+    "url": "https://noita.wiki.gg/images/f/fe/Material_just_death.png",
+    "local": "Material_just_death.png"
+  },
+  "materialpotionjustdeath": {
+    "url": "https://noita.wiki.gg/images/1/1f/Materialpotion_just_death.png",
+    "local": "Materialpotion_just_death.png"
+  },
+  "materialmagicliquidinvisibility": {
+    "url": "https://noita.wiki.gg/images/3/38/Material_magic_liquid_invisibility.png",
+    "local": "Material_magic_liquid_invisibility.png"
+  },
+  "materialpotionmagicliquidinvisibility": {
+    "url": "https://noita.wiki.gg/images/d/d4/Materialpotion_magic_liquid_invisibility.png",
+    "local": "Materialpotion_magic_liquid_invisibility.png"
+  },
+  "materialitembox2d": {
+    "url": "https://noita.wiki.gg/images/f/f0/Material_item_box2d.png",
+    "local": "Material_item_box2d.png"
+  },
+  "itembrokenwand": {
+    "url": "https://noita.wiki.gg/images/c/c9/Item_broken_wand.png",
+    "local": "Item_broken_wand.png"
+  },
+  "spellbrokenspell": {
+    "url": "https://noita.wiki.gg/images/6/62/Spell_broken_spell.png",
+    "local": "Spell_broken_spell.png"
+  },
+  "materialitembox2dglass": {
+    "url": "https://noita.wiki.gg/images/b/b9/Material_item_box2d_glass.png",
+    "local": "Material_item_box2d_glass.png"
+  },
+  "itemsafehaven": {
+    "url": "https://noita.wiki.gg/images/c/c6/Item_safe_haven.png",
+    "local": "Item_safe_haven.png"
+  },
+  "itemkey": {
+    "url": "https://noita.wiki.gg/images/a/aa/Item_key.png",
+    "local": "Item_key.png"
+  },
+  "materialjuhannussima": {
+    "url": "https://noita.wiki.gg/images/2/2c/Material_juhannussima.png",
+    "local": "Material_juhannussima.png"
+  },
+  "materialpotionjuhannussima": {
+    "url": "https://noita.wiki.gg/images/2/22/Materialpotion_juhannussima.png",
+    "local": "Materialpotion_juhannussima.png"
+  },
+  "materiallava": {
+    "url": "https://noita.wiki.gg/images/0/04/Material_lava.png",
+    "local": "Material_lava.png"
+  },
+  "materialpotionlava": {
+    "url": "https://noita.wiki.gg/images/b/ba/Materialpotion_lava.png",
+    "local": "Materialpotion_lava.png"
+  },
+  "materialmagicliquidfasterlevitation": {
+    "url": "https://noita.wiki.gg/images/e/e8/Material_magic_liquid_faster_levitation.png",
+    "local": "Material_magic_liquid_faster_levitation.png"
+  },
+  "materialpotionmagicliquidfasterlevitation": {
+    "url": "https://noita.wiki.gg/images/3/3f/Materialpotion_magic_liquid_faster_levitation.png",
+    "local": "Materialpotion_magic_liquid_faster_levitation.png"
+  },
+  "materialmeatwarm": {
+    "url": "https://noita.wiki.gg/images/2/20/Material_meat_warm.png",
+    "local": "Material_meat_warm.png"
+  },
+  "materialliquidfireweak": {
+    "url": "https://noita.wiki.gg/images/9/9a/Material_liquid_fire_weak.png",
+    "local": "Material_liquid_fire_weak.png"
+  },
+  "materialpotionliquidfireweak": {
+    "url": "https://noita.wiki.gg/images/2/25/Materialpotion_liquid_fire_weak.png",
+    "local": "Materialpotion_liquid_fire_weak.png"
+  },
+  "materialmagicliquidhpregenerationunstable": {
+    "url": "https://noita.wiki.gg/images/2/2d/Material_magic_liquid_hp_regeneration_unstable.png",
+    "local": "Material_magic_liquid_hp_regeneration_unstable.png"
+  },
+  "materialpotionmagicliquidhpregenerationunstable": {
+    "url": "https://noita.wiki.gg/images/9/90/Materialpotion_magic_liquid_hp_regeneration_unstable.png",
+    "local": "Materialpotion_magic_liquid_hp_regeneration_unstable.png"
+  },
+  "materialsandstaticrainforest": {
+    "url": "https://noita.wiki.gg/images/3/39/Material_sand_static_rainforest.png",
+    "local": "Material_sand_static_rainforest.png"
+  },
+  "materialsandstaticrainforestdark": {
+    "url": "https://noita.wiki.gg/images/c/ce/Material_sand_static_rainforest_dark.png",
+    "local": "Material_sand_static_rainforest_dark.png"
+  },
+  "materialrockmagicgate": {
+    "url": "https://noita.wiki.gg/images/1/1c/Material_rock_magic_gate.png",
+    "local": "Material_rock_magic_gate.png"
+  },
+  "materialrockmagicbottom": {
+    "url": "https://noita.wiki.gg/images/6/6d/Material_rock_magic_bottom.png",
+    "local": "Material_rock_magic_bottom.png"
+  },
+  "materialmagiccrystal": {
+    "url": "https://noita.wiki.gg/images/b/b3/Material_magic_crystal.png",
+    "local": "Material_magic_crystal.png"
+  },
+  "materialmagiccrystalgreen": {
+    "url": "https://noita.wiki.gg/images/5/50/Material_magic_crystal_green.png",
+    "local": "Material_magic_crystal_green.png"
+  },
+  "materialplasmafading": {
+    "url": "https://noita.wiki.gg/images/5/52/Material_plasma_fading.png",
+    "local": "Material_plasma_fading.png"
+  },
+  "materialpotionplasmafading": {
+    "url": "https://noita.wiki.gg/images/e/e1/Materialpotion_plasma_fading.png",
+    "local": "Materialpotion_plasma_fading.png"
+  },
+  "materialplasmafadingbright": {
+    "url": "https://noita.wiki.gg/images/1/1a/Material_plasma_fading_bright.png",
+    "local": "Material_plasma_fading_bright.png"
+  },
+  "materialpotionplasmafadingbright": {
+    "url": "https://noita.wiki.gg/images/b/b0/Materialpotion_plasma_fading_bright.png",
+    "local": "Materialpotion_plasma_fading_bright.png"
+  },
+  "materialplasmafadinggreen": {
+    "url": "https://noita.wiki.gg/images/6/64/Material_plasma_fading_green.png",
+    "local": "Material_plasma_fading_green.png"
+  },
+  "materialpotionplasmafadinggreen": {
+    "url": "https://noita.wiki.gg/images/2/26/Materialpotion_plasma_fading_green.png",
+    "local": "Materialpotion_plasma_fading_green.png"
+  },
+  "materialpouchplasmafadinggreen": {
+    "url": "https://noita.wiki.gg/images/f/f2/Materialpouch_plasma_fading_green.png",
+    "local": "Materialpouch_plasma_fading_green.png"
+  },
+  "materialplasmafadingpink": {
+    "url": "https://noita.wiki.gg/images/b/b1/Material_plasma_fading_pink.png",
+    "local": "Material_plasma_fading_pink.png"
+  },
+  "materialpotionplasmafadingpink": {
+    "url": "https://noita.wiki.gg/images/4/4a/Materialpotion_plasma_fading_pink.png",
+    "local": "Materialpotion_plasma_fading_pink.png"
+  },
+  "materialpouchplasmafadingpink": {
+    "url": "https://noita.wiki.gg/images/e/ef/Materialpouch_plasma_fading_pink.png",
+    "local": "Materialpouch_plasma_fading_pink.png"
+  },
+  "materialmammi": {
+    "url": "https://noita.wiki.gg/images/f/f6/Material_mammi.png",
+    "local": "Material_mammi.png"
+  },
+  "materialpotionmammi": {
+    "url": "https://noita.wiki.gg/images/0/0e/Materialpotion_mammi.png",
+    "local": "Materialpotion_mammi.png"
+  },
+  "materialpouchmammi": {
+    "url": "https://noita.wiki.gg/images/9/97/Materialpouch_mammi.png",
+    "local": "Materialpouch_mammi.png"
+  },
+  "materialgembox2dwhite": {
+    "url": "https://noita.wiki.gg/images/b/b1/Material_gem_box2d_white.png",
+    "local": "Material_gem_box2d_white.png"
+  },
+  "itemsunseed": {
+    "url": "https://noita.wiki.gg/images/a/a7/Item_sunseed.png",
+    "local": "Item_sunseed.png"
+  },
+  "materialitembox2dmeat": {
+    "url": "https://noita.wiki.gg/images/f/f9/Material_item_box2d_meat.png",
+    "local": "Material_item_box2d_meat.png"
+  },
+  "itemevileye": {
+    "url": "https://noita.wiki.gg/images/f/f1/Item_evil_eye.png",
+    "local": "Item_evil_eye.png"
+  },
+  "materialmeat": {
+    "url": "https://noita.wiki.gg/images/d/dc/Material_meat.png",
+    "local": "Material_meat.png"
+  },
+  "propsosig": {
+    "url": "https://noita.wiki.gg/images/b/b3/Prop_Sosig.png",
+    "local": "Prop_Sosig.png"
+  },
+  "materialmeatstatic": {
+    "url": "https://noita.wiki.gg/images/1/13/Material_meat_static.png",
+    "local": "Material_meat_static.png"
+  },
+  "materialmeathelpless": {
+    "url": "https://noita.wiki.gg/images/4/48/Material_meat_helpless.png",
+    "local": "Material_meat_helpless.png"
+  },
+  "materialmetal": {
+    "url": "https://noita.wiki.gg/images/3/3f/Material_metal.png",
+    "local": "Material_metal.png"
+  },
+  "materialmetalchainnohit": {
+    "url": "https://noita.wiki.gg/images/a/a9/Material_metal_chain_nohit.png",
+    "local": "Material_metal_chain_nohit.png"
+  },
+  "materialmetalhard": {
+    "url": "https://noita.wiki.gg/images/4/4f/Material_metal_hard.png",
+    "local": "Material_metal_hard.png"
+  },
+  "itemorbgold": {
+    "url": "https://noita.wiki.gg/images/5/5d/Item_orb_gold.png",
+    "local": "Item_orb_gold.png"
+  },
+  "itemorbgoldgreed": {
+    "url": "https://noita.wiki.gg/images/8/83/Item_orb_gold_greed.png",
+    "local": "Item_orb_gold_greed.png"
+  },
+  "materialmetalnohit": {
+    "url": "https://noita.wiki.gg/images/c/c1/Material_metal_nohit.png",
+    "local": "Material_metal_nohit.png"
+  },
+  "materialmetalprop": {
+    "url": "https://noita.wiki.gg/images/7/73/Material_metal_prop.png",
+    "local": "Material_metal_prop.png"
+  },
+  "propsuspendedtankradioactive": {
+    "url": "https://noita.wiki.gg/images/3/32/Prop_suspended_tank_radioactive.png",
+    "local": "Prop_suspended_tank_radioactive.png"
+  },
+  "propfurniturestool": {
+    "url": "https://noita.wiki.gg/images/9/9d/Prop_furniture_stool.png",
+    "local": "Prop_furniture_stool.png"
+  },
+  "materialmetalproploose": {
+    "url": "https://noita.wiki.gg/images/8/82/Material_metal_prop_loose.png",
+    "local": "Material_metal_prop_loose.png"
+  },
+  "materialmetalproplowrestitution": {
+    "url": "https://noita.wiki.gg/images/d/d3/Material_metal_prop_low_restitution.png",
+    "local": "Material_metal_prop_low_restitution.png"
+  },
+  "propmusicmachine": {
+    "url": "https://noita.wiki.gg/images/b/bd/Prop_music_machine.png",
+    "local": "Prop_music_machine.png"
+  },
+  "materialmetalwirenohit": {
+    "url": "https://noita.wiki.gg/images/6/6d/Material_metal_wire_nohit.png",
+    "local": "Material_metal_wire_nohit.png"
+  },
+  "materialmetalsand": {
+    "url": "https://noita.wiki.gg/images/1/16/Material_metal_sand.png",
+    "local": "Material_metal_sand.png"
+  },
+  "materialpotionmetalsand": {
+    "url": "https://noita.wiki.gg/images/9/9f/Materialpotion_metal_sand.png",
+    "local": "Materialpotion_metal_sand.png"
+  },
+  "materialpouchmetalsand": {
+    "url": "https://noita.wiki.gg/images/2/24/Materialpouch_metal_sand.png",
+    "local": "Materialpouch_metal_sand.png"
+  },
+  "materialsteelpipestatic": {
+    "url": "https://noita.wiki.gg/images/1/18/Material_steelpipe_static.png",
+    "local": "Material_steelpipe_static.png"
+  },
+  "materialmeteorite": {
+    "url": "https://noita.wiki.gg/images/3/35/Material_meteorite.png",
+    "local": "Material_meteorite.png"
+  },
+  "materialmeteoritecrackable": {
+    "url": "https://noita.wiki.gg/images/f/f4/Material_meteorite_crackable.png",
+    "local": "Material_meteorite_crackable.png"
+  },
+  "materialmeteoritestatic": {
+    "url": "https://noita.wiki.gg/images/8/81/Material_meteorite_static.png",
+    "local": "Material_meteorite_static.png"
+  },
+  "materialmeteoritetest": {
+    "url": "https://noita.wiki.gg/images/c/c8/Material_meteorite_test.png",
+    "local": "Material_meteorite_test.png"
+  },
+  "materialmilk": {
+    "url": "https://noita.wiki.gg/images/5/53/Material_milk.png",
+    "local": "Material_milk.png"
+  },
+  "materialpotionmilk": {
+    "url": "https://noita.wiki.gg/images/1/15/Materialpotion_milk.png",
+    "local": "Materialpotion_milk.png"
+  },
+  "materialmimicliquid": {
+    "url": "https://noita.wiki.gg/images/1/15/Material_mimic_liquid.png",
+    "local": "Material_mimic_liquid.png"
+  },
+  "materialpotionmimicliquid": {
+    "url": "https://noita.wiki.gg/images/8/87/Materialpotion_mimic_liquid.png",
+    "local": "Materialpotion_mimic_liquid.png"
+  },
+  "materialaluminiummolten": {
+    "url": "https://noita.wiki.gg/images/a/a2/Material_aluminium_molten.png",
+    "local": "Material_aluminium_molten.png"
+  },
+  "materialpotionaluminiummolten": {
+    "url": "https://noita.wiki.gg/images/f/f0/Materialpotion_aluminium_molten.png",
+    "local": "Materialpotion_aluminium_molten.png"
+  },
+  "materialaluminiumoxidemolten": {
+    "url": "https://noita.wiki.gg/images/2/21/Material_aluminium_oxide_molten.png",
+    "local": "Material_aluminium_oxide_molten.png"
+  },
+  "materialpotionaluminiumoxidemolten": {
+    "url": "https://noita.wiki.gg/images/9/95/Materialpotion_aluminium_oxide_molten.png",
+    "local": "Materialpotion_aluminium_oxide_molten.png"
+  },
+  "materialaluminiumrobotmolten": {
+    "url": "https://noita.wiki.gg/images/b/b6/Material_aluminium_robot_molten.png",
+    "local": "Material_aluminium_robot_molten.png"
+  },
+  "materialpotionaluminiumrobotmolten": {
+    "url": "https://noita.wiki.gg/images/9/99/Materialpotion_aluminium_robot_molten.png",
+    "local": "Materialpotion_aluminium_robot_molten.png"
+  },
+  "materialbrassmolten": {
+    "url": "https://noita.wiki.gg/images/3/36/Material_brass_molten.png",
+    "local": "Material_brass_molten.png"
+  },
+  "materialpotionbrassmolten": {
+    "url": "https://noita.wiki.gg/images/9/9c/Materialpotion_brass_molten.png",
+    "local": "Materialpotion_brass_molten.png"
+  },
+  "materialcoppermolten": {
+    "url": "https://noita.wiki.gg/images/0/0f/Material_copper_molten.png",
+    "local": "Material_copper_molten.png"
+  },
+  "materialpotioncoppermolten": {
+    "url": "https://noita.wiki.gg/images/2/25/Materialpotion_copper_molten.png",
+    "local": "Materialpotion_copper_molten.png"
+  },
+  "materialglassbrokenmolten": {
+    "url": "https://noita.wiki.gg/images/8/8f/Material_glass_broken_molten.png",
+    "local": "Material_glass_broken_molten.png"
+  },
+  "materialpotionglassbrokenmolten": {
+    "url": "https://noita.wiki.gg/images/e/ec/Materialpotion_glass_broken_molten.png",
+    "local": "Materialpotion_glass_broken_molten.png"
+  },
+  "materialglassmolten": {
+    "url": "https://noita.wiki.gg/images/4/45/Material_glass_molten.png",
+    "local": "Material_glass_molten.png"
+  },
+  "materialpotionglassmolten": {
+    "url": "https://noita.wiki.gg/images/6/6b/Materialpotion_glass_molten.png",
+    "local": "Materialpotion_glass_molten.png"
+  },
+  "materialgoldmolten": {
+    "url": "https://noita.wiki.gg/images/7/71/Material_gold_molten.png",
+    "local": "Material_gold_molten.png"
+  },
+  "materialpotiongoldmolten": {
+    "url": "https://noita.wiki.gg/images/0/0e/Materialpotion_gold_molten.png",
+    "local": "Materialpotion_gold_molten.png"
+  },
+  "materialsteelmolten": {
+    "url": "https://noita.wiki.gg/images/0/0a/Material_steel_molten.png",
+    "local": "Material_steel_molten.png"
+  },
+  "materialpotionsteelmolten": {
+    "url": "https://noita.wiki.gg/images/7/70/Materialpotion_steel_molten.png",
+    "local": "Materialpotion_steel_molten.png"
+  },
+  "materialmetalmolten": {
+    "url": "https://noita.wiki.gg/images/5/54/Material_metal_molten.png",
+    "local": "Material_metal_molten.png"
+  },
+  "materialpotionmetalmolten": {
+    "url": "https://noita.wiki.gg/images/0/0d/Materialpotion_metal_molten.png",
+    "local": "Materialpotion_metal_molten.png"
+  },
+  "materialmetalnohitmolten": {
+    "url": "https://noita.wiki.gg/images/5/5c/Material_metal_nohit_molten.png",
+    "local": "Material_metal_nohit_molten.png"
+  },
+  "materialpotionmetalnohitmolten": {
+    "url": "https://noita.wiki.gg/images/3/35/Materialpotion_metal_nohit_molten.png",
+    "local": "Materialpotion_metal_nohit_molten.png"
+  },
+  "materialmetalpropmolten": {
+    "url": "https://noita.wiki.gg/images/1/11/Material_metal_prop_molten.png",
+    "local": "Material_metal_prop_molten.png"
+  },
+  "materialpotionmetalpropmolten": {
+    "url": "https://noita.wiki.gg/images/4/4a/Materialpotion_metal_prop_molten.png",
+    "local": "Materialpotion_metal_prop_molten.png"
+  },
+  "materialmetalrustmolten": {
+    "url": "https://noita.wiki.gg/images/d/d3/Material_metal_rust_molten.png",
+    "local": "Material_metal_rust_molten.png"
+  },
+  "materialpotionmetalrustmolten": {
+    "url": "https://noita.wiki.gg/images/9/91/Materialpotion_metal_rust_molten.png",
+    "local": "Materialpotion_metal_rust_molten.png"
+  },
+  "materialmetalsandmolten": {
+    "url": "https://noita.wiki.gg/images/1/10/Material_metal_sand_molten.png",
+    "local": "Material_metal_sand_molten.png"
+  },
+  "materialpotionmetalsandmolten": {
+    "url": "https://noita.wiki.gg/images/8/8c/Materialpotion_metal_sand_molten.png",
+    "local": "Materialpotion_metal_sand_molten.png"
+  },
+  "materialplasticgreymolten": {
+    "url": "https://noita.wiki.gg/images/6/63/Material_plastic_grey_molten.png",
+    "local": "Material_plastic_grey_molten.png"
+  },
+  "materialpotionplasticgreymolten": {
+    "url": "https://noita.wiki.gg/images/9/9c/Materialpotion_plastic_grey_molten.png",
+    "local": "Materialpotion_plastic_grey_molten.png"
+  },
+  "materialplasticmolten": {
+    "url": "https://noita.wiki.gg/images/8/85/Material_plastic_molten.png",
+    "local": "Material_plastic_molten.png"
+  },
+  "materialpotionplasticmolten": {
+    "url": "https://noita.wiki.gg/images/0/0a/Materialpotion_plastic_molten.png",
+    "local": "Materialpotion_plastic_molten.png"
+  },
+  "materialplasticpropmolten": {
+    "url": "https://noita.wiki.gg/images/5/58/Material_plastic_prop_molten.png",
+    "local": "Material_plastic_prop_molten.png"
+  },
+  "materialpotionplasticpropmolten": {
+    "url": "https://noita.wiki.gg/images/2/2e/Materialpotion_plastic_prop_molten.png",
+    "local": "Materialpotion_plastic_prop_molten.png"
+  },
+  "materialplasticredmolten": {
+    "url": "https://noita.wiki.gg/images/6/6f/Material_plastic_red_molten.png",
+    "local": "Material_plastic_red_molten.png"
+  },
+  "materialpotionplasticredmolten": {
+    "url": "https://noita.wiki.gg/images/b/bb/Materialpotion_plastic_red_molten.png",
+    "local": "Materialpotion_plastic_red_molten.png"
+  },
+  "materialsilvermolten": {
+    "url": "https://noita.wiki.gg/images/6/64/Material_silver_molten.png",
+    "local": "Material_silver_molten.png"
+  },
+  "materialpotionsilvermolten": {
+    "url": "https://noita.wiki.gg/images/7/76/Materialpotion_silver_molten.png",
+    "local": "Materialpotion_silver_molten.png"
+  },
+  "materialsteelmossstaticmolten": {
+    "url": "https://noita.wiki.gg/images/c/c6/Material_steelmoss_static_molten.png",
+    "local": "Material_steelmoss_static_molten.png"
+  },
+  "materialpotionsteelmossstaticmolten": {
+    "url": "https://noita.wiki.gg/images/6/62/Materialpotion_steelmoss_static_molten.png",
+    "local": "Materialpotion_steelmoss_static_molten.png"
+  },
+  "materialsteelsmokestaticmolten": {
+    "url": "https://noita.wiki.gg/images/5/51/Material_steelsmoke_static_molten.png",
+    "local": "Material_steelsmoke_static_molten.png"
+  },
+  "materialpotionsteelsmokestaticmolten": {
+    "url": "https://noita.wiki.gg/images/b/b8/Materialpotion_steelsmoke_static_molten.png",
+    "local": "Materialpotion_steelsmoke_static_molten.png"
+  },
+  "materialsteelmossslantedmolten": {
+    "url": "https://noita.wiki.gg/images/9/94/Material_steelmoss_slanted_molten.png",
+    "local": "Material_steelmoss_slanted_molten.png"
+  },
+  "materialpotionsteelmossslantedmolten": {
+    "url": "https://noita.wiki.gg/images/c/c0/Materialpotion_steelmoss_slanted_molten.png",
+    "local": "Materialpotion_steelmoss_slanted_molten.png"
+  },
+  "materialsteelstaticmolten": {
+    "url": "https://noita.wiki.gg/images/d/d3/Material_steel_static_molten.png",
+    "local": "Material_steel_static_molten.png"
+  },
+  "materialpotionsteelstaticmolten": {
+    "url": "https://noita.wiki.gg/images/b/b6/Materialpotion_steel_static_molten.png",
+    "local": "Materialpotion_steel_static_molten.png"
+  },
+  "materialsteelrustmolten": {
+    "url": "https://noita.wiki.gg/images/1/1e/Material_steel_rust_molten.png",
+    "local": "Material_steel_rust_molten.png"
+  },
+  "materialpotionsteelrustmolten": {
+    "url": "https://noita.wiki.gg/images/1/19/Materialpotion_steel_rust_molten.png",
+    "local": "Materialpotion_steel_rust_molten.png"
+  },
+  "materialwaxmolten": {
+    "url": "https://noita.wiki.gg/images/b/bb/Material_wax_molten.png",
+    "local": "Material_wax_molten.png"
+  },
+  "materialpotionwaxmolten": {
+    "url": "https://noita.wiki.gg/images/b/b0/Materialpotion_wax_molten.png",
+    "local": "Materialpotion_wax_molten.png"
+  },
+  "materialmolut": {
+    "url": "https://noita.wiki.gg/images/a/ad/Material_molut.png",
+    "local": "Material_molut.png"
+  },
+  "materialpotionmolut": {
+    "url": "https://noita.wiki.gg/images/3/33/Materialpotion_molut.png",
+    "local": "Materialpotion_molut.png"
+  },
+  "materialmonsterpowdertest": {
+    "url": "https://noita.wiki.gg/images/a/a3/Material_monster_powder_test.png",
+    "local": "Material_monster_powder_test.png"
+  },
+  "materialpotionmonsterpowdertest": {
+    "url": "https://noita.wiki.gg/images/3/3e/Materialpotion_monster_powder_test.png",
+    "local": "Materialpotion_monster_powder_test.png"
+  },
+  "materialpouchmonsterpowdertest": {
+    "url": "https://noita.wiki.gg/images/d/d4/Materialpouch_monster_powder_test.png",
+    "local": "Materialpouch_monster_powder_test.png"
+  },
+  "materialmoss": {
+    "url": "https://noita.wiki.gg/images/9/91/Material_moss.png",
+    "local": "Material_moss.png"
+  },
+  "materialpotionmoss": {
+    "url": "https://noita.wiki.gg/images/f/f0/Materialpotion_moss.png",
+    "local": "Materialpotion_moss.png"
+  },
+  "materialpouchmoss": {
+    "url": "https://noita.wiki.gg/images/6/69/Materialpouch_moss.png",
+    "local": "Materialpouch_moss.png"
+  },
+  "materialtemplebrickmossstatic": {
+    "url": "https://noita.wiki.gg/images/a/a2/Material_templebrick_moss_static.png",
+    "local": "Material_templebrick_moss_static.png"
+  },
+  "materialsteelmossslanted": {
+    "url": "https://noita.wiki.gg/images/d/d8/Material_steelmoss_slanted.png",
+    "local": "Material_steelmoss_slanted.png"
+  },
+  "materialmud": {
+    "url": "https://noita.wiki.gg/images/7/73/Material_mud.png",
+    "local": "Material_mud.png"
+  },
+  "materialpotionmud": {
+    "url": "https://noita.wiki.gg/images/e/e4/Materialpotion_mud.png",
+    "local": "Materialpotion_mud.png"
+  },
+  "materialpouchmud": {
+    "url": "https://noita.wiki.gg/images/7/73/Materialpouch_mud.png",
+    "local": "Materialpouch_mud.png"
+  },
+  "materialfungicreeping": {
+    "url": "https://noita.wiki.gg/images/a/a5/Material_fungi_creeping.png",
+    "local": "Material_fungi_creeping.png"
+  },
+  "materialpotionfungicreeping": {
+    "url": "https://noita.wiki.gg/images/5/54/Materialpotion_fungi_creeping.png",
+    "local": "Materialpotion_fungi_creeping.png"
+  },
+  "materialpouchfungicreeping": {
+    "url": "https://noita.wiki.gg/images/7/76/Materialpouch_fungi_creeping.png",
+    "local": "Materialpouch_fungi_creeping.png"
+  },
+  "materialpoogas": {
+    "url": "https://noita.wiki.gg/images/f/f2/Material_poo_gas.png",
+    "local": "Material_poo_gas.png"
+  },
+  "materialneontubebloodred": {
+    "url": "https://noita.wiki.gg/images/9/93/Material_neon_tube_blood_red.png",
+    "local": "Material_neon_tube_blood_red.png"
+  },
+  "materialneontubecyan": {
+    "url": "https://noita.wiki.gg/images/4/4c/Material_neon_tube_cyan.png",
+    "local": "Material_neon_tube_cyan.png"
+  },
+  "materialneontubepurple": {
+    "url": "https://noita.wiki.gg/images/9/94/Material_neon_tube_purple.png",
+    "local": "Material_neon_tube_purple.png"
+  },
+  "materialtubephysics": {
+    "url": "https://noita.wiki.gg/images/c/ca/Material_tube_physics.png",
+    "local": "Material_tube_physics.png"
+  },
+  "materialtubematerial": {
+    "url": "https://noita.wiki.gg/images/0/03/Material_tubematerial.png",
+    "local": "Material_tubematerial.png"
+  },
+  "materialnestbox2d": {
+    "url": "https://noita.wiki.gg/images/c/c0/Material_nest_box2d.png",
+    "local": "Material_nest_box2d.png"
+  },
+  "monsterflyneststatic": {
+    "url": "https://noita.wiki.gg/images/3/3c/Monster_flynest_static.png",
+    "local": "Monster_flynest_static.png"
+  },
+  "monsterspiderneststatic": {
+    "url": "https://noita.wiki.gg/images/2/20/Monster_spidernest_static.png",
+    "local": "Monster_spidernest_static.png"
+  },
+  "materialnestfirebugbox2d": {
+    "url": "https://noita.wiki.gg/images/8/86/Material_nest_firebug_box2d.png",
+    "local": "Material_nest_firebug_box2d.png"
+  },
+  "monsternestyellowstatic": {
+    "url": "https://noita.wiki.gg/images/6/68/Monster_nest_yellow_static.png",
+    "local": "Monster_nest_yellow_static.png"
+  },
+  "materialneststatic": {
+    "url": "https://noita.wiki.gg/images/3/39/Material_nest_static.png",
+    "local": "Material_nest_static.png"
+  },
+  "materialwizardstone": {
+    "url": "https://noita.wiki.gg/images/e/e7/Material_wizardstone.png",
+    "local": "Material_wizardstone.png"
+  },
+  "materialoil": {
+    "url": "https://noita.wiki.gg/images/2/2c/Material_oil.png",
+    "local": "Material_oil.png"
+  },
+  "materialpotionoil": {
+    "url": "https://noita.wiki.gg/images/e/e8/Materialpotion_oil.png",
+    "local": "Materialpotion_oil.png"
+  },
+  "materialmaterialdarkness": {
+    "url": "https://noita.wiki.gg/images/6/6b/Material_material_darkness.png",
+    "local": "Material_material_darkness.png"
+  },
+  "materialpotionmaterialdarkness": {
+    "url": "https://noita.wiki.gg/images/c/c4/Materialpotion_material_darkness.png",
+    "local": "Materialpotion_material_darkness.png"
+  },
+  "materialsnowstatic": {
+    "url": "https://noita.wiki.gg/images/d/d2/Material_snow_static.png",
+    "local": "Material_snow_static.png"
+  },
+  "materialpeasoup": {
+    "url": "https://noita.wiki.gg/images/5/53/Material_pea_soup.png",
+    "local": "Material_pea_soup.png"
+  },
+  "materialpotionpeasoup": {
+    "url": "https://noita.wiki.gg/images/f/f7/Materialpotion_pea_soup.png",
+    "local": "Materialpotion_pea_soup.png"
+  },
+  "materialpeat": {
+    "url": "https://noita.wiki.gg/images/6/64/Material_peat.png",
+    "local": "Material_peat.png"
+  },
+  "materialpotionpeat": {
+    "url": "https://noita.wiki.gg/images/3/31/Materialpotion_peat.png",
+    "local": "Materialpotion_peat.png"
+  },
+  "materialmagicliquidcharm": {
+    "url": "https://noita.wiki.gg/images/8/86/Material_magic_liquid_charm.png",
+    "local": "Material_magic_liquid_charm.png"
+  },
+  "materialpotionmagicliquidcharm": {
+    "url": "https://noita.wiki.gg/images/b/b3/Materialpotion_magic_liquid_charm.png",
+    "local": "Materialpotion_magic_liquid_charm.png"
+  },
+  "materialplantmaterial": {
+    "url": "https://noita.wiki.gg/images/d/d7/Material_plant_material.png",
+    "local": "Material_plant_material.png"
+  },
+  "materialpotionplantmaterial": {
+    "url": "https://noita.wiki.gg/images/6/6e/Materialpotion_plant_material.png",
+    "local": "Materialpotion_plant_material.png"
+  },
+  "materialpouchplantmaterial": {
+    "url": "https://noita.wiki.gg/images/3/30/Materialpouch_plant_material.png",
+    "local": "Materialpouch_plant_material.png"
+  },
+  "materialplantmaterialdark": {
+    "url": "https://noita.wiki.gg/images/9/9c/Material_plant_material_dark.png",
+    "local": "Material_plant_material_dark.png"
+  },
+  "materialpotionplantmaterialdark": {
+    "url": "https://noita.wiki.gg/images/6/63/Materialpotion_plant_material_dark.png",
+    "local": "Materialpotion_plant_material_dark.png"
+  },
+  "materialpouchplantmaterialdark": {
+    "url": "https://noita.wiki.gg/images/5/58/Materialpouch_plant_material_dark.png",
+    "local": "Materialpouch_plant_material_dark.png"
+  },
+  "materialplantseed": {
+    "url": "https://noita.wiki.gg/images/f/f0/Material_plant_seed.png",
+    "local": "Material_plant_seed.png"
+  },
+  "materialpotionplantseed": {
+    "url": "https://noita.wiki.gg/images/f/f7/Materialpotion_plant_seed.png",
+    "local": "Materialpotion_plant_seed.png"
+  },
+  "materialpouchplantseed": {
+    "url": "https://noita.wiki.gg/images/c/c7/Materialpouch_plant_seed.png",
+    "local": "Materialpouch_plant_seed.png"
+  },
+  "materialplastic": {
+    "url": "https://noita.wiki.gg/images/c/cc/Material_plastic.png",
+    "local": "Material_plastic.png"
+  },
+  "materialplasticgrey": {
+    "url": "https://noita.wiki.gg/images/8/89/Material_plastic_grey.png",
+    "local": "Material_plastic_grey.png"
+  },
+  "materialpotionplasticgrey": {
+    "url": "https://noita.wiki.gg/images/8/86/Materialpotion_plastic_grey.png",
+    "local": "Materialpotion_plastic_grey.png"
+  },
+  "materialpouchplasticgrey": {
+    "url": "https://noita.wiki.gg/images/9/9b/Materialpouch_plastic_grey.png",
+    "local": "Materialpouch_plastic_grey.png"
+  },
+  "materialplasticprop": {
+    "url": "https://noita.wiki.gg/images/6/61/Material_plastic_prop.png",
+    "local": "Material_plastic_prop.png"
+  },
+  "materialplasticred": {
+    "url": "https://noita.wiki.gg/images/2/2c/Material_plastic_red.png",
+    "local": "Material_plastic_red.png"
+  },
+  "materialpotionplasticred": {
+    "url": "https://noita.wiki.gg/images/2/29/Materialpotion_plastic_red.png",
+    "local": "Materialpotion_plastic_red.png"
+  },
+  "materialpouchplasticred": {
+    "url": "https://noita.wiki.gg/images/5/5f/Materialpouch_plastic_red.png",
+    "local": "Materialpouch_plastic_red.png"
+  },
+  "materialpoison": {
+    "url": "https://noita.wiki.gg/images/0/05/Material_poison.png",
+    "local": "Material_poison.png"
+  },
+  "materialpotionpoison": {
+    "url": "https://noita.wiki.gg/images/0/05/Materialpotion_poison.png",
+    "local": "Materialpotion_poison.png"
+  },
+  "materialpoisongas": {
+    "url": "https://noita.wiki.gg/images/7/72/Material_poison_gas.png",
+    "local": "Material_poison_gas.png"
+  },
+  "materialrockstaticpoison": {
+    "url": "https://noita.wiki.gg/images/2/2a/Material_rock_static_poison.png",
+    "local": "Material_rock_static_poison.png"
+  },
+  "materialmagicliquidpolymorph": {
+    "url": "https://noita.wiki.gg/images/e/ed/Material_magic_liquid_polymorph.png",
+    "local": "Material_magic_liquid_polymorph.png"
+  },
+  "materialpotionmagicliquidpolymorph": {
+    "url": "https://noita.wiki.gg/images/5/57/Materialpotion_magic_liquid_polymorph.png",
+    "local": "Materialpotion_magic_liquid_polymorph.png"
+  },
+  "materialmagicgaspolymorph": {
+    "url": "https://noita.wiki.gg/images/8/8f/Material_magic_gas_polymorph.png",
+    "local": "Material_magic_gas_polymorph.png"
+  },
+  "materialwoodstaticgas": {
+    "url": "https://noita.wiki.gg/images/a/a7/Material_wood_static_gas.png",
+    "local": "Material_wood_static_gas.png"
+  },
+  "materialpurifyingpowder": {
+    "url": "https://noita.wiki.gg/images/a/a8/Material_purifying_powder.png",
+    "local": "Material_purifying_powder.png"
+  },
+  "materialpotionpurifyingpowder": {
+    "url": "https://noita.wiki.gg/images/a/ab/Materialpotion_purifying_powder.png",
+    "local": "Materialpotion_purifying_powder.png"
+  },
+  "materialpouchpurifyingpowder": {
+    "url": "https://noita.wiki.gg/images/1/16/Materialpouch_purifying_powder.png",
+    "local": "Materialpouch_purifying_powder.png"
+  },
+  "materialcrystalpurple": {
+    "url": "https://noita.wiki.gg/images/d/d1/Material_crystal_purple.png",
+    "local": "Material_crystal_purple.png"
+  },
+  "materialpus": {
+    "url": "https://noita.wiki.gg/images/8/85/Material_pus.png",
+    "local": "Material_pus.png"
+  },
+  "materialpotionpus": {
+    "url": "https://noita.wiki.gg/images/a/a4/Materialpotion_pus.png",
+    "local": "Materialpotion_pus.png"
+  },
+  "materialmaterialrainbow": {
+    "url": "https://noita.wiki.gg/images/8/89/Material_material_rainbow.png",
+    "local": "Material_material_rainbow.png"
+  },
+  "materialpotionmaterialrainbow": {
+    "url": "https://noita.wiki.gg/images/b/bb/Materialpotion_material_rainbow.png",
+    "local": "Materialpotion_material_rainbow.png"
+  },
+  "materialratpowder": {
+    "url": "https://noita.wiki.gg/images/0/0a/Material_rat_powder.png",
+    "local": "Material_rat_powder.png"
+  },
+  "materialpotionratpowder": {
+    "url": "https://noita.wiki.gg/images/f/f5/Materialpotion_rat_powder.png",
+    "local": "Materialpotion_rat_powder.png"
+  },
+  "materialpouchratpowder": {
+    "url": "https://noita.wiki.gg/images/b/b6/Materialpouch_rat_powder.png",
+    "local": "Materialpouch_rat_powder.png"
+  },
+  "materialpoopbox2dhard": {
+    "url": "https://noita.wiki.gg/images/e/ea/Material_poop_box2d_hard.png",
+    "local": "Material_poop_box2d_hard.png"
+  },
+  "itemkakke": {
+    "url": "https://noita.wiki.gg/images/3/3d/Item_kakke.png",
+    "local": "Item_kakke.png"
+  },
+  "materialrockbox2d": {
+    "url": "https://noita.wiki.gg/images/8/8f/Material_rock_box2d.png",
+    "local": "Material_rock_box2d.png"
+  },
+  "propstone02": {
+    "url": "https://noita.wiki.gg/images/6/62/Prop_stone_02.png",
+    "local": "Prop_stone_02.png"
+  },
+  "propvase": {
+    "url": "https://noita.wiki.gg/images/8/82/Prop_vase.png",
+    "local": "Prop_vase.png"
+  },
+  "materialrockbox2dhard": {
+    "url": "https://noita.wiki.gg/images/a/a1/Material_rock_box2d_hard.png",
+    "local": "Material_rock_box2d_hard.png"
+  },
+  "itememeraldtablet": {
+    "url": "https://noita.wiki.gg/images/8/83/Item_Emerald_tablet.png",
+    "local": "Item_Emerald_tablet.png"
+  },
+  "itemwaterstone": {
+    "url": "https://noita.wiki.gg/images/1/12/Item_waterstone.png",
+    "local": "Item_waterstone.png"
+  },
+  "materialrockbox2dnohit": {
+    "url": "https://noita.wiki.gg/images/2/28/Material_rock_box2d_nohit.png",
+    "local": "Material_rock_box2d_nohit.png"
+  },
+  "monsterstatuephysics": {
+    "url": "https://noita.wiki.gg/images/8/86/Monster_Statue_physics.png",
+    "local": "Monster_Statue_physics.png"
+  },
+  "materialrockbox2dnohitheavy": {
+    "url": "https://noita.wiki.gg/images/2/20/Material_rock_box2d_nohit_heavy.png",
+    "local": "Material_rock_box2d_nohit_heavy.png"
+  },
+  "materialrockloose": {
+    "url": "https://noita.wiki.gg/images/4/41/Material_rock_loose.png",
+    "local": "Material_rock_loose.png"
+  },
+  "materialrockstatic": {
+    "url": "https://noita.wiki.gg/images/8/8e/Material_rock_static.png",
+    "local": "Material_rock_static.png"
+  },
+  "materialrockstaticbox2d": {
+    "url": "https://noita.wiki.gg/images/6/6d/Material_rock_static_box2d.png",
+    "local": "Material_rock_static_box2d.png"
+  },
+  "materialrockstaticintro": {
+    "url": "https://noita.wiki.gg/images/9/9d/Material_rock_static_intro.png",
+    "local": "Material_rock_static_intro.png"
+  },
+  "materialrockstaticintrobreakable": {
+    "url": "https://noita.wiki.gg/images/a/ab/Material_rock_static_intro_breakable.png",
+    "local": "Material_rock_static_intro_breakable.png"
+  },
+  "materialrockstaticnoedge": {
+    "url": "https://noita.wiki.gg/images/5/51/Material_rock_static_noedge.png",
+    "local": "Material_rock_static_noedge.png"
+  },
+  "materialrockstaticpurple": {
+    "url": "https://noita.wiki.gg/images/4/4c/Material_rock_static_purple.png",
+    "local": "Material_rock_static_purple.png"
+  },
+  "materialrockstatictripsecret": {
+    "url": "https://noita.wiki.gg/images/b/b3/Material_rock_static_trip_secret.png",
+    "local": "Material_rock_static_trip_secret.png"
+  },
+  "materialrockstatictripsecret2": {
+    "url": "https://noita.wiki.gg/images/9/9b/Material_rock_static_trip_secret2.png",
+    "local": "Material_rock_static_trip_secret2.png"
+  },
+  "materialwaterrock": {
+    "url": "https://noita.wiki.gg/images/b/b2/Material_waterrock.png",
+    "local": "Material_waterrock.png"
+  },
+  "materialrottenmeat": {
+    "url": "https://noita.wiki.gg/images/4/46/Material_rotten_meat.png",
+    "local": "Material_rotten_meat.png"
+  },
+  "materialpotionrottenmeat": {
+    "url": "https://noita.wiki.gg/images/f/fd/Materialpotion_rotten_meat.png",
+    "local": "Materialpotion_rotten_meat.png"
+  },
+  "materialpouchrottenmeat": {
+    "url": "https://noita.wiki.gg/images/1/1f/Materialpouch_rotten_meat.png",
+    "local": "Materialpouch_rotten_meat.png"
+  },
+  "materialbloodgoldbox2d": {
+    "url": "https://noita.wiki.gg/images/c/c1/Material_bloodgold_box2d.png",
+    "local": "Material_bloodgold_box2d.png"
+  },
+  "materialtemplebrickstaticruined": {
+    "url": "https://noita.wiki.gg/images/c/cf/Material_templebrick_static_ruined.png",
+    "local": "Material_templebrick_static_ruined.png"
+  },
+  "materialmetalrust": {
+    "url": "https://noita.wiki.gg/images/c/c6/Material_metal_rust.png",
+    "local": "Material_metal_rust.png"
+  },
+  "spellbombcart": {
+    "url": "https://noita.wiki.gg/images/5/5f/Spell_bomb_cart.png",
+    "local": "Spell_bomb_cart.png"
+  },
+  "propseamine": {
+    "url": "https://noita.wiki.gg/images/c/c8/Prop_seamine.png",
+    "local": "Prop_seamine.png"
+  },
+  "materialmetalrustbarrel": {
+    "url": "https://noita.wiki.gg/images/6/68/Material_metal_rust_barrel.png",
+    "local": "Material_metal_rust_barrel.png"
+  },
+  "propbarrelunstable": {
+    "url": "https://noita.wiki.gg/images/d/d2/Prop_barrel_unstable.png",
+    "local": "Prop_barrel_unstable.png"
+  },
+  "propbarrelradioactive": {
+    "url": "https://noita.wiki.gg/images/0/04/Prop_barrel_radioactive.png",
+    "local": "Prop_barrel_radioactive.png"
+  },
+  "materialmetalrustbarrelrust": {
+    "url": "https://noita.wiki.gg/images/2/25/Material_metal_rust_barrel_rust.png",
+    "local": "Material_metal_rust_barrel_rust.png"
+  },
+  "materialmetalrustrust": {
+    "url": "https://noita.wiki.gg/images/0/0f/Material_metal_rust_rust.png",
+    "local": "Material_metal_rust_rust.png"
+  },
+  "materialruststatic": {
+    "url": "https://noita.wiki.gg/images/d/d5/Material_rust_static.png",
+    "local": "Material_rust_static.png"
+  },
+  "materialsteelmossstatic": {
+    "url": "https://noita.wiki.gg/images/c/c9/Material_steelmoss_static.png",
+    "local": "Material_steelmoss_static.png"
+  },
+  "materialsteelrust": {
+    "url": "https://noita.wiki.gg/images/1/1a/Material_steel_rust.png",
+    "local": "Material_steel_rust.png"
+  },
+  "materialsteelrustednoholes": {
+    "url": "https://noita.wiki.gg/images/9/98/Material_steel_rusted_no_holes.png",
+    "local": "Material_steel_rusted_no_holes.png"
+  },
+  "materialsandstaticred": {
+    "url": "https://noita.wiki.gg/images/b/b5/Material_sand_static_red.png",
+    "local": "Material_sand_static_red.png"
+  },
+  "materialmossrust": {
+    "url": "https://noita.wiki.gg/images/9/9b/Material_moss_rust.png",
+    "local": "Material_moss_rust.png"
+  },
+  "materialpotionmossrust": {
+    "url": "https://noita.wiki.gg/images/e/e3/Materialpotion_moss_rust.png",
+    "local": "Materialpotion_moss_rust.png"
+  },
+  "materialpouchmossrust": {
+    "url": "https://noita.wiki.gg/images/2/27/Materialpouch_moss_rust.png",
+    "local": "Materialpouch_moss_rust.png"
+  },
+  "materialsalt": {
+    "url": "https://noita.wiki.gg/images/7/77/Material_salt.png",
+    "local": "Material_salt.png"
+  },
+  "materialpotionsalt": {
+    "url": "https://noita.wiki.gg/images/9/9e/Materialpotion_salt.png",
+    "local": "Materialpotion_salt.png"
+  },
+  "materialpouchsalt": {
+    "url": "https://noita.wiki.gg/images/e/ea/Materialpouch_salt.png",
+    "local": "Materialpouch_salt.png"
+  },
+  "materialsand": {
+    "url": "https://noita.wiki.gg/images/d/d3/Material_sand.png",
+    "local": "Material_sand.png"
+  },
+  "materialpotionsand": {
+    "url": "https://noita.wiki.gg/images/1/16/Materialpotion_sand.png",
+    "local": "Materialpotion_sand.png"
+  },
+  "materialpouchsand": {
+    "url": "https://noita.wiki.gg/images/b/b4/Materialpouch_sand.png",
+    "local": "Materialpouch_sand.png"
+  },
+  "materialsandpetrify": {
+    "url": "https://noita.wiki.gg/images/0/0e/Material_sand_petrify.png",
+    "local": "Material_sand_petrify.png"
+  },
+  "materialpotionsandpetrify": {
+    "url": "https://noita.wiki.gg/images/4/40/Materialpotion_sand_petrify.png",
+    "local": "Materialpotion_sand_petrify.png"
+  },
+  "materialpouchsandpetrify": {
+    "url": "https://noita.wiki.gg/images/f/fb/Materialpouch_sand_petrify.png",
+    "local": "Materialpouch_sand_petrify.png"
+  },
+  "materialsandsurface": {
+    "url": "https://noita.wiki.gg/images/5/58/Material_sand_surface.png",
+    "local": "Material_sand_surface.png"
+  },
+  "materialpotionsandsurface": {
+    "url": "https://noita.wiki.gg/images/3/37/Materialpotion_sand_surface.png",
+    "local": "Materialpotion_sand_surface.png"
+  },
+  "materialpouchsandsurface": {
+    "url": "https://noita.wiki.gg/images/c/c5/Materialpouch_sand_surface.png",
+    "local": "Materialpouch_sand_surface.png"
+  },
+  "materialsandstone": {
+    "url": "https://noita.wiki.gg/images/9/96/Material_sandstone.png",
+    "local": "Material_sandstone.png"
+  },
+  "materialpotionsandstone": {
+    "url": "https://noita.wiki.gg/images/b/b4/Materialpotion_sandstone.png",
+    "local": "Materialpotion_sandstone.png"
+  },
+  "materialpouchsandstone": {
+    "url": "https://noita.wiki.gg/images/2/21/Materialpouch_sandstone.png",
+    "local": "Materialpouch_sandstone.png"
+  },
+  "materialsandstonesurface": {
+    "url": "https://noita.wiki.gg/images/3/33/Material_sandstone_surface.png",
+    "local": "Material_sandstone_surface.png"
+  },
+  "materialpotionsandstonesurface": {
+    "url": "https://noita.wiki.gg/images/3/3f/Materialpotion_sandstone_surface.png",
+    "local": "Materialpotion_sandstone_surface.png"
+  },
+  "materialpouchsandstonesurface": {
+    "url": "https://noita.wiki.gg/images/b/b3/Materialpouch_sandstone_surface.png",
+    "local": "Materialpouch_sandstone_surface.png"
+  },
+  "materialplantmaterialred": {
+    "url": "https://noita.wiki.gg/images/4/4b/Material_plant_material_red.png",
+    "local": "Material_plant_material_red.png"
+  },
+  "materialpotionplantmaterialred": {
+    "url": "https://noita.wiki.gg/images/9/91/Materialpotion_plant_material_red.png",
+    "local": "Materialpotion_plant_material_red.png"
+  },
+  "materialpouchplantmaterialred": {
+    "url": "https://noita.wiki.gg/images/0/00/Materialpouch_plant_material_red.png",
+    "local": "Materialpouch_plant_material_red.png"
+  },
+  "materialceilingplantmaterial": {
+    "url": "https://noita.wiki.gg/images/c/c2/Material_ceiling_plant_material.png",
+    "local": "Material_ceiling_plant_material.png"
+  },
+  "materialpotionceilingplantmaterial": {
+    "url": "https://noita.wiki.gg/images/f/fd/Materialpotion_ceiling_plant_material.png",
+    "local": "Materialpotion_ceiling_plant_material.png"
+  },
+  "materialpouchceilingplantmaterial": {
+    "url": "https://noita.wiki.gg/images/2/2d/Materialpouch_ceiling_plant_material.png",
+    "local": "Materialpouch_ceiling_plant_material.png"
+  },
+  "materialspore": {
+    "url": "https://noita.wiki.gg/images/0/03/Material_spore.png",
+    "local": "Material_spore.png"
+  },
+  "materialpotionspore": {
+    "url": "https://noita.wiki.gg/images/2/22/Materialpotion_spore.png",
+    "local": "Materialpotion_spore.png"
+  },
+  "materialpouchspore": {
+    "url": "https://noita.wiki.gg/images/0/0f/Materialpouch_spore.png",
+    "local": "Materialpouch_spore.png"
+  },
+  "materialshockpowder": {
+    "url": "https://noita.wiki.gg/images/d/dd/Material_shock_powder.png",
+    "local": "Material_shock_powder.png"
+  },
+  "materialpotionshockpowder": {
+    "url": "https://noita.wiki.gg/images/8/81/Materialpotion_shock_powder.png",
+    "local": "Materialpotion_shock_powder.png"
+  },
+  "materialpouchshockpowder": {
+    "url": "https://noita.wiki.gg/images/1/1c/Materialpouch_shock_powder.png",
+    "local": "Materialpouch_shock_powder.png"
+  },
+  "materialsilver": {
+    "url": "https://noita.wiki.gg/images/a/a9/Material_silver.png",
+    "local": "Material_silver.png"
+  },
+  "materialpotionsilver": {
+    "url": "https://noita.wiki.gg/images/e/ec/Materialpotion_silver.png",
+    "local": "Materialpotion_silver.png"
+  },
+  "materialpouchsilver": {
+    "url": "https://noita.wiki.gg/images/9/9e/Materialpouch_silver.png",
+    "local": "Materialpouch_silver.png"
+  },
+  "materialsima": {
+    "url": "https://noita.wiki.gg/images/b/b9/Material_sima.png",
+    "local": "Material_sima.png"
+  },
+  "materialpotionsima": {
+    "url": "https://noita.wiki.gg/images/9/94/Materialpotion_sima.png",
+    "local": "Materialpotion_sima.png"
+  },
+  "materialslime": {
+    "url": "https://noita.wiki.gg/images/f/f1/Material_slime.png",
+    "local": "Material_slime.png"
+  },
+  "materialpotionslime": {
+    "url": "https://noita.wiki.gg/images/2/26/Materialpotion_slime.png",
+    "local": "Materialpotion_slime.png"
+  },
+  "materialslimegreen": {
+    "url": "https://noita.wiki.gg/images/2/26/Material_slime_green.png",
+    "local": "Material_slime_green.png"
+  },
+  "materialpotionslimegreen": {
+    "url": "https://noita.wiki.gg/images/c/c9/Materialpotion_slime_green.png",
+    "local": "Materialpotion_slime_green.png"
+  },
+  "materialslimestatic": {
+    "url": "https://noita.wiki.gg/images/6/61/Material_slime_static.png",
+    "local": "Material_slime_static.png"
+  },
+  "materialslimeyellow": {
+    "url": "https://noita.wiki.gg/images/1/15/Material_slime_yellow.png",
+    "local": "Material_slime_yellow.png"
+  },
+  "materialpotionslimeyellow": {
+    "url": "https://noita.wiki.gg/images/c/ce/Materialpotion_slime_yellow.png",
+    "local": "Materialpotion_slime_yellow.png"
+  },
+  "materialcloudslime": {
+    "url": "https://noita.wiki.gg/images/0/0c/Material_cloud_slime.png",
+    "local": "Material_cloud_slime.png"
+  },
+  "materialpotioncloudslime": {
+    "url": "https://noita.wiki.gg/images/2/21/Materialpotion_cloud_slime.png",
+    "local": "Materialpotion_cloud_slime.png"
+  },
+  "materialmeatslimecursed": {
+    "url": "https://noita.wiki.gg/images/4/4f/Material_meat_slime_cursed.png",
+    "local": "Material_meat_slime_cursed.png"
+  },
+  "materialmeatslime": {
+    "url": "https://noita.wiki.gg/images/7/7c/Material_meat_slime.png",
+    "local": "Material_meat_slime.png"
+  },
+  "materialmeatslimeorange": {
+    "url": "https://noita.wiki.gg/images/1/1f/Material_meat_slime_orange.png",
+    "local": "Material_meat_slime_orange.png"
+  },
+  "materialmeatslimesand": {
+    "url": "https://noita.wiki.gg/images/7/74/Material_meat_slime_sand.png",
+    "local": "Material_meat_slime_sand.png"
+  },
+  "materialpotionmeatslimesand": {
+    "url": "https://noita.wiki.gg/images/4/4d/Materialpotion_meat_slime_sand.png",
+    "local": "Materialpotion_meat_slime_sand.png"
+  },
+  "materialpouchmeatslimesand": {
+    "url": "https://noita.wiki.gg/images/6/68/Materialpouch_meat_slime_sand.png",
+    "local": "Materialpouch_meat_slime_sand.png"
+  },
+  "materialgunpowderunstablebosslimbs": {
+    "url": "https://noita.wiki.gg/images/8/8b/Material_gunpowder_unstable_boss_limbs.png",
+    "local": "Material_gunpowder_unstable_boss_limbs.png"
+  },
+  "materialpotiongunpowderunstablebosslimbs": {
+    "url": "https://noita.wiki.gg/images/7/70/Materialpotion_gunpowder_unstable_boss_limbs.png",
+    "local": "Materialpotion_gunpowder_unstable_boss_limbs.png"
+  },
+  "materialpouchgunpowderunstablebosslimbs": {
+    "url": "https://noita.wiki.gg/images/f/f5/Materialpouch_gunpowder_unstable_boss_limbs.png",
+    "local": "Materialpouch_gunpowder_unstable_boss_limbs.png"
+  },
+  "materialslush": {
+    "url": "https://noita.wiki.gg/images/f/fa/Material_slush.png",
+    "local": "Material_slush.png"
+  },
+  "materialpotionslush": {
+    "url": "https://noita.wiki.gg/images/e/e6/Materialpotion_slush.png",
+    "local": "Materialpotion_slush.png"
+  },
+  "materialrocketparticles": {
+    "url": "https://noita.wiki.gg/images/8/86/Material_rocket_particles.png",
+    "local": "Material_rocket_particles.png"
+  },
+  "materialpotionrocketparticles": {
+    "url": "https://noita.wiki.gg/images/d/d6/Materialpotion_rocket_particles.png",
+    "local": "Materialpotion_rocket_particles.png"
+  },
+  "materialsmoke": {
+    "url": "https://noita.wiki.gg/images/3/35/Material_smoke.png",
+    "local": "Material_smoke.png"
+  },
+  "materialpotionsmoke": {
+    "url": "https://noita.wiki.gg/images/f/f3/Materialpotion_smoke.png",
+    "local": "Materialpotion_smoke.png"
+  },
+  "materialsmokeexplosion": {
+    "url": "https://noita.wiki.gg/images/5/57/Material_smoke_explosion.png",
+    "local": "Material_smoke_explosion.png"
+  },
+  "materialsmokemagic": {
+    "url": "https://noita.wiki.gg/images/8/81/Material_smoke_magic.png",
+    "local": "Material_smoke_magic.png"
+  },
+  "materialsmokestatic": {
+    "url": "https://noita.wiki.gg/images/6/65/Material_smoke_static.png",
+    "local": "Material_smoke_static.png"
+  },
+  "materialsteelsmokestatic": {
+    "url": "https://noita.wiki.gg/images/e/e2/Material_steelsmoke_static.png",
+    "local": "Material_steelsmoke_static.png"
+  },
+  "materialsnow": {
+    "url": "https://noita.wiki.gg/images/f/f5/Material_snow.png",
+    "local": "Material_snow.png"
+  },
+  "materialpotionsnow": {
+    "url": "https://noita.wiki.gg/images/a/a4/Materialpotion_snow.png",
+    "local": "Materialpotion_snow.png"
+  },
+  "materialpouchsnow": {
+    "url": "https://noita.wiki.gg/images/1/14/Materialpouch_snow.png",
+    "local": "Materialpouch_snow.png"
+  },
+  "materialsnowb2": {
+    "url": "https://noita.wiki.gg/images/6/6c/Material_snow_b2.png",
+    "local": "Material_snow_b2.png"
+  },
+  "materialsnowsticky": {
+    "url": "https://noita.wiki.gg/images/5/5a/Material_snow_sticky.png",
+    "local": "Material_snow_sticky.png"
+  },
+  "materialpotionsnowsticky": {
+    "url": "https://noita.wiki.gg/images/8/88/Materialpotion_snow_sticky.png",
+    "local": "Materialpotion_snow_sticky.png"
+  },
+  "materialpouchsnowsticky": {
+    "url": "https://noita.wiki.gg/images/4/42/Materialpouch_snow_sticky.png",
+    "local": "Materialpouch_snow_sticky.png"
+  },
+  "materialsodium": {
+    "url": "https://noita.wiki.gg/images/2/25/Material_sodium.png",
+    "local": "Material_sodium.png"
+  },
+  "materialpotionsodium": {
+    "url": "https://noita.wiki.gg/images/9/9f/Materialpotion_sodium.png",
+    "local": "Materialpotion_sodium.png"
+  },
+  "materialpouchsodium": {
+    "url": "https://noita.wiki.gg/images/e/e8/Materialpouch_sodium.png",
+    "local": "Materialpouch_sodium.png"
+  },
+  "materialsoil": {
+    "url": "https://noita.wiki.gg/images/4/4c/Material_soil.png",
+    "local": "Material_soil.png"
+  },
+  "materialpotionsoil": {
+    "url": "https://noita.wiki.gg/images/d/d2/Materialpotion_soil.png",
+    "local": "Materialpotion_soil.png"
+  },
+  "materialpouchsoil": {
+    "url": "https://noita.wiki.gg/images/d/df/Materialpouch_soil.png",
+    "local": "Materialpouch_soil.png"
+  },
+  "materialsoillush": {
+    "url": "https://noita.wiki.gg/images/9/98/Material_soil_lush.png",
+    "local": "Material_soil_lush.png"
+  },
+  "materialpotionsoillush": {
+    "url": "https://noita.wiki.gg/images/6/6d/Materialpotion_soil_lush.png",
+    "local": "Materialpotion_soil_lush.png"
+  },
+  "materialpouchsoillush": {
+    "url": "https://noita.wiki.gg/images/b/ba/Materialpouch_soil_lush.png",
+    "local": "Materialpouch_soil_lush.png"
+  },
+  "materialsoillushdark": {
+    "url": "https://noita.wiki.gg/images/1/15/Material_soil_lush_dark.png",
+    "local": "Material_soil_lush_dark.png"
+  },
+  "materialpotionsoillushdark": {
+    "url": "https://noita.wiki.gg/images/1/1b/Materialpotion_soil_lush_dark.png",
+    "local": "Materialpotion_soil_lush_dark.png"
+  },
+  "materialpouchsoillushdark": {
+    "url": "https://noita.wiki.gg/images/6/66/Materialpouch_soil_lush_dark.png",
+    "local": "Materialpouch_soil_lush_dark.png"
+  },
+  "materialspark": {
+    "url": "https://noita.wiki.gg/images/3/32/Material_spark.png",
+    "local": "Material_spark.png"
+  },
+  "materialsparkbluedark": {
+    "url": "https://noita.wiki.gg/images/b/bb/Material_spark_blue_dark.png",
+    "local": "Material_spark_blue_dark.png"
+  },
+  "materialsparkredbright": {
+    "url": "https://noita.wiki.gg/images/e/ec/Material_spark_red_bright.png",
+    "local": "Material_spark_red_bright.png"
+  },
+  "materialsparkplayer": {
+    "url": "https://noita.wiki.gg/images/1/16/Material_spark_player.png",
+    "local": "Material_spark_player.png"
+  },
+  "materialsparkgreenbright": {
+    "url": "https://noita.wiki.gg/images/e/e8/Material_spark_green_bright.png",
+    "local": "Material_spark_green_bright.png"
+  },
+  "materialsparkpurple": {
+    "url": "https://noita.wiki.gg/images/8/8e/Material_spark_purple.png",
+    "local": "Material_spark_purple.png"
+  },
+  "materialsparkpurplebright": {
+    "url": "https://noita.wiki.gg/images/6/6b/Material_spark_purple_bright.png",
+    "local": "Material_spark_purple_bright.png"
+  },
+  "materialsparkred": {
+    "url": "https://noita.wiki.gg/images/9/94/Material_spark_red.png",
+    "local": "Material_spark_red.png"
+  },
+  "materialsparkgreen": {
+    "url": "https://noita.wiki.gg/images/9/9c/Material_spark_green.png",
+    "local": "Material_spark_green.png"
+  },
+  "materialsparkblue": {
+    "url": "https://noita.wiki.gg/images/9/92/Material_spark_blue.png",
+    "local": "Material_spark_blue.png"
+  },
+  "materialsparkteal": {
+    "url": "https://noita.wiki.gg/images/c/c8/Material_spark_teal.png",
+    "local": "Material_spark_teal.png"
+  },
+  "materialsparkwhite": {
+    "url": "https://noita.wiki.gg/images/6/6b/Material_spark_white.png",
+    "local": "Material_spark_white.png"
+  },
+  "materialsparkwhitebright": {
+    "url": "https://noita.wiki.gg/images/9/95/Material_spark_white_bright.png",
+    "local": "Material_spark_white_bright.png"
+  },
+  "materialsparkyellow": {
+    "url": "https://noita.wiki.gg/images/e/e1/Material_spark_yellow.png",
+    "local": "Material_spark_yellow.png"
+  },
+  "materialsteamtrailer": {
+    "url": "https://noita.wiki.gg/images/b/b8/Material_steam_trailer.png",
+    "local": "Material_steam_trailer.png"
+  },
+  "materialsteam": {
+    "url": "https://noita.wiki.gg/images/4/40/Material_steam.png",
+    "local": "Material_steam.png"
+  },
+  "materialsteelstatic": {
+    "url": "https://noita.wiki.gg/images/c/c4/Material_steel_static.png",
+    "local": "Material_steel_static.png"
+  },
+  "materialsteelsand": {
+    "url": "https://noita.wiki.gg/images/e/e3/Material_steel_sand.png",
+    "local": "Material_steel_sand.png"
+  },
+  "materialpotionsteelsand": {
+    "url": "https://noita.wiki.gg/images/b/bb/Materialpotion_steel_sand.png",
+    "local": "Materialpotion_steel_sand.png"
+  },
+  "materialpouchsteelsand": {
+    "url": "https://noita.wiki.gg/images/3/3d/Materialpouch_steel_sand.png",
+    "local": "Materialpouch_steel_sand.png"
+  },
+  "materialsteel": {
+    "url": "https://noita.wiki.gg/images/b/b7/Material_steel.png",
+    "local": "Material_steel.png"
+  },
+  "proppressuretank": {
+    "url": "https://noita.wiki.gg/images/a/ac/Prop_pressure_tank.png",
+    "local": "Prop_pressure_tank.png"
+  },
+  "proptrapelectricity": {
+    "url": "https://noita.wiki.gg/images/d/d1/Prop_trap_electricity.png",
+    "local": "Prop_trap_electricity.png"
+  },
+  "materialmeatpolymorphprotection": {
+    "url": "https://noita.wiki.gg/images/2/2f/Material_meat_polymorph_protection.png",
+    "local": "Material_meat_polymorph_protection.png"
+  },
+  "materialsulphurbox2d": {
+    "url": "https://noita.wiki.gg/images/5/54/Material_sulphur_box2d.png",
+    "local": "Material_sulphur_box2d.png"
+  },
+  "itembrimstone": {
+    "url": "https://noita.wiki.gg/images/a/a6/Item_brimstone.png",
+    "local": "Item_brimstone.png"
+  },
+  "materialsulphur": {
+    "url": "https://noita.wiki.gg/images/a/a2/Material_sulphur.png",
+    "local": "Material_sulphur.png"
+  },
+  "materialpotionsulphur": {
+    "url": "https://noita.wiki.gg/images/0/08/Materialpotion_sulphur.png",
+    "local": "Materialpotion_sulphur.png"
+  },
+  "materialpouchsulphur": {
+    "url": "https://noita.wiki.gg/images/c/c4/Materialpouch_sulphur.png",
+    "local": "Materialpouch_sulphur.png"
+  },
+  "materialswamp": {
+    "url": "https://noita.wiki.gg/images/3/37/Material_swamp.png",
+    "local": "Material_swamp.png"
+  },
+  "materialpotionswamp": {
+    "url": "https://noita.wiki.gg/images/0/04/Materialpotion_swamp.png",
+    "local": "Materialpotion_swamp.png"
+  },
+  "materialwaterswamp": {
+    "url": "https://noita.wiki.gg/images/8/8e/Material_water_swamp.png",
+    "local": "Material_water_swamp.png"
+  },
+  "materialpotionwaterswamp": {
+    "url": "https://noita.wiki.gg/images/4/4e/Materialpotion_water_swamp.png",
+    "local": "Materialpotion_water_swamp.png"
+  },
+  "materialmagicliquidteleportation": {
+    "url": "https://noita.wiki.gg/images/6/68/Material_magic_liquid_teleportation.png",
+    "local": "Material_magic_liquid_teleportation.png"
+  },
+  "materialpotionmagicliquidteleportation": {
+    "url": "https://noita.wiki.gg/images/0/03/Materialpotion_magic_liquid_teleportation.png",
+    "local": "Materialpotion_magic_liquid_teleportation.png"
+  },
+  "materialmagicgasteleport": {
+    "url": "https://noita.wiki.gg/images/f/f6/Material_magic_gas_teleport.png",
+    "local": "Material_magic_gas_teleport.png"
+  },
+  "materialglassliquidcave": {
+    "url": "https://noita.wiki.gg/images/3/33/Material_glass_liquidcave.png",
+    "local": "Material_glass_liquidcave.png"
+  },
+  "materialtrailertext": {
+    "url": "https://noita.wiki.gg/images/3/32/Material_trailer_text.png",
+    "local": "Material_trailer_text.png"
+  },
+  "materialtntstatic": {
+    "url": "https://noita.wiki.gg/images/a/aa/Material_tnt_static.png",
+    "local": "Material_tnt_static.png"
+  },
+  "materialtnt": {
+    "url": "https://noita.wiki.gg/images/4/43/Material_tnt.png",
+    "local": "Material_tnt.png"
+  },
+  "materialfusetnt": {
+    "url": "https://noita.wiki.gg/images/8/8f/Material_fuse_tnt.png",
+    "local": "Material_fuse_tnt.png"
+  },
+  "spelldynamite": {
+    "url": "https://noita.wiki.gg/images/f/fc/Spell_dynamite.png",
+    "local": "Spell_dynamite.png"
+  },
+  "spellglitterbomb": {
+    "url": "https://noita.wiki.gg/images/f/f7/Spell_glitter_bomb.png",
+    "local": "Spell_glitter_bomb.png"
+  },
+  "materialwoodpropdurable": {
+    "url": "https://noita.wiki.gg/images/f/f2/Material_wood_prop_durable.png",
+    "local": "Material_wood_prop_durable.png"
+  },
+  "materialradioactivegas": {
+    "url": "https://noita.wiki.gg/images/3/39/Material_radioactive_gas.png",
+    "local": "Material_radioactive_gas.png"
+  },
+  "materialradioactivegasstatic": {
+    "url": "https://noita.wiki.gg/images/6/6c/Material_radioactive_gas_static.png",
+    "local": "Material_radioactive_gas_static.png"
+  },
+  "materialgoldradioactive": {
+    "url": "https://noita.wiki.gg/images/a/a7/Material_gold_radioactive.png",
+    "local": "Material_gold_radioactive.png"
+  },
+  "materialpotiongoldradioactive": {
+    "url": "https://noita.wiki.gg/images/3/32/Materialpotion_gold_radioactive.png",
+    "local": "Materialpotion_gold_radioactive.png"
+  },
+  "materialpouchgoldradioactive": {
+    "url": "https://noita.wiki.gg/images/2/2a/Materialpouch_gold_radioactive.png",
+    "local": "Materialpouch_gold_radioactive.png"
+  },
+  "materialgoldstaticradioactive": {
+    "url": "https://noita.wiki.gg/images/7/7f/Material_gold_static_radioactive.png",
+    "local": "Material_gold_static_radioactive.png"
+  },
+  "materialiceradioactiveglass": {
+    "url": "https://noita.wiki.gg/images/0/05/Material_ice_radioactive_glass.png",
+    "local": "Material_ice_radioactive_glass.png"
+  },
+  "materialiceradioactivestatic": {
+    "url": "https://noita.wiki.gg/images/4/4d/Material_ice_radioactive_static.png",
+    "local": "Material_ice_radioactive_static.png"
+  },
+  "materialrottenmeatradioactive": {
+    "url": "https://noita.wiki.gg/images/a/a6/Material_rotten_meat_radioactive.png",
+    "local": "Material_rotten_meat_radioactive.png"
+  },
+  "materialpotionrottenmeatradioactive": {
+    "url": "https://noita.wiki.gg/images/9/97/Materialpotion_rotten_meat_radioactive.png",
+    "local": "Materialpotion_rotten_meat_radioactive.png"
+  },
+  "materialpouchrottenmeatradioactive": {
+    "url": "https://noita.wiki.gg/images/2/2a/Materialpouch_rotten_meat_radioactive.png",
+    "local": "Materialpouch_rotten_meat_radioactive.png"
+  },
+  "materialcloudradioactive": {
+    "url": "https://noita.wiki.gg/images/5/59/Material_cloud_radioactive.png",
+    "local": "Material_cloud_radioactive.png"
+  },
+  "materialpotioncloudradioactive": {
+    "url": "https://noita.wiki.gg/images/7/70/Materialpotion_cloud_radioactive.png",
+    "local": "Materialpotion_cloud_radioactive.png"
+  },
+  "materialrockstaticradioactive": {
+    "url": "https://noita.wiki.gg/images/6/66/Material_rock_static_radioactive.png",
+    "local": "Material_rock_static_radioactive.png"
+  },
+  "materialradioactiveliquid": {
+    "url": "https://noita.wiki.gg/images/2/2e/Material_radioactive_liquid.png",
+    "local": "Material_radioactive_liquid.png"
+  },
+  "materialpotionradioactiveliquid": {
+    "url": "https://noita.wiki.gg/images/1/12/Materialpotion_radioactive_liquid.png",
+    "local": "Materialpotion_radioactive_liquid.png"
+  },
+  "materialradioactiveliquidfading": {
+    "url": "https://noita.wiki.gg/images/c/cd/Material_radioactive_liquid_fading.png",
+    "local": "Material_radioactive_liquid_fading.png"
+  },
+  "materialpotionradioactiveliquidfading": {
+    "url": "https://noita.wiki.gg/images/5/56/Materialpotion_radioactive_liquid_fading.png",
+    "local": "Materialpotion_radioactive_liquid_fading.png"
+  },
+  "materialradioactiveliquidyellow": {
+    "url": "https://noita.wiki.gg/images/3/39/Material_radioactive_liquid_yellow.png",
+    "local": "Material_radioactive_liquid_yellow.png"
+  },
+  "materialpotionradioactiveliquidyellow": {
+    "url": "https://noita.wiki.gg/images/d/d2/Materialpotion_radioactive_liquid_yellow.png",
+    "local": "Materialpotion_radioactive_liquid_yellow.png"
+  },
+  "materialgembox2dopal": {
+    "url": "https://noita.wiki.gg/images/a/a1/Material_gem_box2d_opal.png",
+    "local": "Material_gem_box2d_opal.png"
+  },
+  "itembeamstone": {
+    "url": "https://noita.wiki.gg/images/b/b5/Item_beamstone.png",
+    "local": "Item_beamstone.png"
+  },
+  "materialgembox2dturquoise": {
+    "url": "https://noita.wiki.gg/images/b/b6/Material_gem_box2d_turquoise.png",
+    "local": "Material_gem_box2d_turquoise.png"
+  },
+  "itemwandstone": {
+    "url": "https://noita.wiki.gg/images/d/d9/Item_wandstone.png",
+    "local": "Item_wandstone.png"
+  },
+  "itemmusicstone": {
+    "url": "https://noita.wiki.gg/images/3/35/Item_musicstone.png",
+    "local": "Item_musicstone.png"
+  },
+  "materialrainbowgas": {
+    "url": "https://noita.wiki.gg/images/f/f2/Material_rainbow_gas.png",
+    "local": "Material_rainbow_gas.png"
+  },
+  "materialmeatpolymorph": {
+    "url": "https://noita.wiki.gg/images/4/4e/Material_meat_polymorph.png",
+    "local": "Material_meat_polymorph.png"
+  },
+  "materialmagicliquidunstablepolymorph": {
+    "url": "https://noita.wiki.gg/images/1/18/Material_magic_liquid_unstable_polymorph.png",
+    "local": "Material_magic_liquid_unstable_polymorph.png"
+  },
+  "materialpotionmagicliquidunstablepolymorph": {
+    "url": "https://noita.wiki.gg/images/f/f1/Materialpotion_magic_liquid_unstable_polymorph.png",
+    "local": "Materialpotion_magic_liquid_unstable_polymorph.png"
+  },
+  "materialmagicliquidunstableteleportation": {
+    "url": "https://noita.wiki.gg/images/5/5f/Material_magic_liquid_unstable_teleportation.png",
+    "local": "Material_magic_liquid_unstable_teleportation.png"
+  },
+  "materialpotionmagicliquidunstableteleportation": {
+    "url": "https://noita.wiki.gg/images/0/0d/Materialpotion_magic_liquid_unstable_teleportation.png",
+    "local": "Materialpotion_magic_liquid_unstable_teleportation.png"
+  },
+  "materialurine": {
+    "url": "https://noita.wiki.gg/images/5/5a/Material_urine.png",
+    "local": "Material_urine.png"
+  },
+  "materialpotionurine": {
+    "url": "https://noita.wiki.gg/images/7/75/Materialpotion_urine.png",
+    "local": "Materialpotion_urine.png"
+  },
+  "materialrockvault": {
+    "url": "https://noita.wiki.gg/images/4/42/Material_rock_vault.png",
+    "local": "Material_rock_vault.png"
+  },
+  "materialgoldstaticdark": {
+    "url": "https://noita.wiki.gg/images/c/c6/Material_gold_static_dark.png",
+    "local": "Material_gold_static_dark.png"
+  },
+  "materialvine": {
+    "url": "https://noita.wiki.gg/images/5/54/Material_vine.png",
+    "local": "Material_vine.png"
+  },
+  "materialroot": {
+    "url": "https://noita.wiki.gg/images/d/db/Material_root.png",
+    "local": "Material_root.png"
+  },
+  "materialrootgrowth": {
+    "url": "https://noita.wiki.gg/images/8/82/Material_root_growth.png",
+    "local": "Material_root_growth.png"
+  },
+  "materialvoidliquid": {
+    "url": "https://noita.wiki.gg/images/5/59/Material_void_liquid.png",
+    "local": "Material_void_liquid.png"
+  },
+  "materialpotionvoidliquid": {
+    "url": "https://noita.wiki.gg/images/0/0d/Materialpotion_void_liquid.png",
+    "local": "Materialpotion_void_liquid.png"
+  },
+  "materiallavarockstatic": {
+    "url": "https://noita.wiki.gg/images/d/d4/Material_lavarock_static.png",
+    "local": "Material_lavarock_static.png"
+  },
+  "materiallavasand": {
+    "url": "https://noita.wiki.gg/images/b/ba/Material_lavasand.png",
+    "local": "Material_lavasand.png"
+  },
+  "materialpotionlavasand": {
+    "url": "https://noita.wiki.gg/images/8/80/Materialpotion_lavasand.png",
+    "local": "Materialpotion_lavasand.png"
+  },
+  "materialpouchlavasand": {
+    "url": "https://noita.wiki.gg/images/a/ab/Materialpouch_lavasand.png",
+    "local": "Materialpouch_lavasand.png"
+  },
+  "materialvomit": {
+    "url": "https://noita.wiki.gg/images/e/ed/Material_vomit.png",
+    "local": "Material_vomit.png"
+  },
+  "materialpotionvomit": {
+    "url": "https://noita.wiki.gg/images/0/0b/Materialpotion_vomit.png",
+    "local": "Materialpotion_vomit.png"
+  },
+  "materialwaterstatic": {
+    "url": "https://noita.wiki.gg/images/2/21/Material_water_static.png",
+    "local": "Material_water_static.png"
+  },
+  "materialwater": {
+    "url": "https://noita.wiki.gg/images/f/fc/Material_water.png",
+    "local": "Material_water.png"
+  },
+  "materialpotionwater": {
+    "url": "https://noita.wiki.gg/images/6/64/Materialpotion_water.png",
+    "local": "Materialpotion_water.png"
+  },
+  "materialwaterfading": {
+    "url": "https://noita.wiki.gg/images/6/62/Material_water_fading.png",
+    "local": "Material_water_fading.png"
+  },
+  "materialpotionwaterfading": {
+    "url": "https://noita.wiki.gg/images/e/e9/Materialpotion_water_fading.png",
+    "local": "Materialpotion_water_fading.png"
+  },
+  "materialwatertemp": {
+    "url": "https://noita.wiki.gg/images/2/29/Material_water_temp.png",
+    "local": "Material_water_temp.png"
+  },
+  "materialpotionwatertemp": {
+    "url": "https://noita.wiki.gg/images/b/bd/Materialpotion_water_temp.png",
+    "local": "Materialpotion_water_temp.png"
+  },
+  "materialwax": {
+    "url": "https://noita.wiki.gg/images/9/9c/Material_wax.png",
+    "local": "Material_wax.png"
+  },
+  "materialpotionwax": {
+    "url": "https://noita.wiki.gg/images/a/ae/Materialpotion_wax.png",
+    "local": "Materialpotion_wax.png"
+  },
+  "materialpouchwax": {
+    "url": "https://noita.wiki.gg/images/3/30/Materialpouch_wax.png",
+    "local": "Materialpouch_wax.png"
+  },
+  "materialwaxb2": {
+    "url": "https://noita.wiki.gg/images/3/35/Material_wax_b2.png",
+    "local": "Material_wax_b2.png"
+  },
+  "materialfungi": {
+    "url": "https://noita.wiki.gg/images/2/2e/Material_fungi.png",
+    "local": "Material_fungi.png"
+  },
+  "materialpotionfungi": {
+    "url": "https://noita.wiki.gg/images/6/6f/Materialpotion_fungi.png",
+    "local": "Materialpotion_fungi.png"
+  },
+  "materialpouchfungi": {
+    "url": "https://noita.wiki.gg/images/4/40/Materialpouch_fungi.png",
+    "local": "Materialpouch_fungi.png"
+  },
+  "materialfungusloosetrippy": {
+    "url": "https://noita.wiki.gg/images/4/43/Material_fungus_loose_trippy.png",
+    "local": "Material_fungus_loose_trippy.png"
+  },
+  "materialmeattrippy": {
+    "url": "https://noita.wiki.gg/images/4/48/Material_meat_trippy.png",
+    "local": "Material_meat_trippy.png"
+  },
+  "materialsodiumunstable": {
+    "url": "https://noita.wiki.gg/images/d/de/Material_sodium_unstable.png",
+    "local": "Material_sodium_unstable.png"
+  },
+  "materialpotionsodiumunstable": {
+    "url": "https://noita.wiki.gg/images/f/fc/Materialpotion_sodium_unstable.png",
+    "local": "Materialpotion_sodium_unstable.png"
+  },
+  "materialpouchsodiumunstable": {
+    "url": "https://noita.wiki.gg/images/c/ca/Materialpouch_sodium_unstable.png",
+    "local": "Materialpouch_sodium_unstable.png"
+  },
+  "materialalcohol": {
+    "url": "https://noita.wiki.gg/images/f/fd/Material_alcohol.png",
+    "local": "Material_alcohol.png"
+  },
+  "materialpotionalcohol": {
+    "url": "https://noita.wiki.gg/images/9/91/Materialpotion_alcohol.png",
+    "local": "Materialpotion_alcohol.png"
+  },
+  "materialalcoholgas": {
+    "url": "https://noita.wiki.gg/images/9/9e/Material_alcohol_gas.png",
+    "local": "Material_alcohol_gas.png"
+  },
+  "materialphysicsthrowmaterialpart2": {
+    "url": "https://noita.wiki.gg/images/b/b8/Material_physics_throw_material_part2.png",
+    "local": "Material_physics_throw_material_part2.png"
+  },
+  "materialmeatfast": {
+    "url": "https://noita.wiki.gg/images/e/e4/Material_meat_fast.png",
+    "local": "Material_meat_fast.png"
+  },
+  "materialwoodloose": {
+    "url": "https://noita.wiki.gg/images/c/c2/Material_wood_loose.png",
+    "local": "Material_wood_loose.png"
+  },
+  "propcoalminelargestructurebackground01": {
+    "url": "https://noita.wiki.gg/images/3/30/Prop_coalmine_large_structure_background_01.png",
+    "local": "Prop_coalmine_large_structure_background_01.png"
+  },
+  "materialwoodplayer": {
+    "url": "https://noita.wiki.gg/images/b/b0/Material_wood_player.png",
+    "local": "Material_wood_player.png"
+  },
+  "materialwoodplayerb2": {
+    "url": "https://noita.wiki.gg/images/e/ef/Material_wood_player_b2.png",
+    "local": "Material_wood_player_b2.png"
+  },
+  "materialwoodplayerb2vertical": {
+    "url": "https://noita.wiki.gg/images/6/60/Material_wood_player_b2_vertical.png",
+    "local": "Material_wood_player_b2_vertical.png"
+  },
+  "materialwoodprop": {
+    "url": "https://noita.wiki.gg/images/4/4b/Material_wood_prop.png",
+    "local": "Material_wood_prop.png"
+  },
+  "propbox": {
+    "url": "https://noita.wiki.gg/images/d/d8/Prop_box.png",
+    "local": "Prop_box.png"
+  },
+  "proptnt": {
+    "url": "https://noita.wiki.gg/images/6/61/Prop_tnt.png",
+    "local": "Prop_tnt.png"
+  },
+  "materialwoodburnsforever": {
+    "url": "https://noita.wiki.gg/images/0/0e/Material_wood_burns_forever.png",
+    "local": "Material_wood_burns_forever.png"
+  },
+  "materialwoodpropnoplayerhit": {
+    "url": "https://noita.wiki.gg/images/e/e8/Material_wood_prop_noplayerhit.png",
+    "local": "Material_wood_prop_noplayerhit.png"
+  },
+  "spelltntboxbig": {
+    "url": "https://noita.wiki.gg/images/3/3a/Spell_tntbox_big.png",
+    "local": "Spell_tntbox_big.png"
+  },
+  "materialwoodstatic": {
+    "url": "https://noita.wiki.gg/images/e/e3/Material_wood_static.png",
+    "local": "Material_wood_static.png"
+  },
+  "materialwood": {
+    "url": "https://noita.wiki.gg/images/e/e2/Material_wood.png",
+    "local": "Material_wood.png"
+  },
+  "propwheelsmall": {
+    "url": "https://noita.wiki.gg/images/5/5f/Prop_wheel_small.png",
+    "local": "Prop_wheel_small.png"
+  },
+  "propwheeltiny": {
+    "url": "https://noita.wiki.gg/images/1/16/Prop_wheel_tiny.png",
+    "local": "Prop_wheel_tiny.png"
+  },
+  "materialwoodstaticvertical": {
+    "url": "https://noita.wiki.gg/images/8/89/Material_wood_static_vertical.png",
+    "local": "Material_wood_static_vertical.png"
+  },
+  "materialwoodtrailer": {
+    "url": "https://noita.wiki.gg/images/8/80/Material_wood_trailer.png",
+    "local": "Material_wood_trailer.png"
+  },
+  "materialwoodtree": {
+    "url": "https://noita.wiki.gg/images/6/6a/Material_wood_tree.png",
+    "local": "Material_wood_tree.png"
+  },
+  "materialwoodwall": {
+    "url": "https://noita.wiki.gg/images/b/bb/Material_wood_wall.png",
+    "local": "Material_wood_wall.png"
+  },
+  "materialbloodworm": {
+    "url": "https://noita.wiki.gg/images/e/ef/Material_blood_worm.png",
+    "local": "Material_blood_worm.png"
+  },
+  "materialpotionbloodworm": {
+    "url": "https://noita.wiki.gg/images/9/9e/Materialpotion_blood_worm.png",
+    "local": "Materialpotion_blood_worm.png"
+  },
+  "materialmagicgaswormblood": {
+    "url": "https://noita.wiki.gg/images/7/7e/Material_magic_gas_worm_blood.png",
+    "local": "Material_magic_gas_worm_blood.png"
+  },
+  "materialmeatworm": {
+    "url": "https://noita.wiki.gg/images/c/c6/Material_meat_worm.png",
+    "local": "Material_meat_worm.png"
+  },
+  "materialmagicliquidwormattractor": {
+    "url": "https://noita.wiki.gg/images/8/86/Material_magic_liquid_worm_attractor.png",
+    "local": "Material_magic_liquid_worm_attractor.png"
+  },
+  "materialpotionmagicliquidwormattractor": {
+    "url": "https://noita.wiki.gg/images/2/2e/Materialpotion_magic_liquid_worm_attractor.png",
+    "local": "Materialpotion_magic_liquid_worm_attractor.png"
+  }
+}

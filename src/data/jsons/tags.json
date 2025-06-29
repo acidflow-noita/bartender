@@ -1,0 +1,464 @@
+[
+  {
+    "tag": "acid",
+    "name": "Materials tagged with acid",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_acid"
+  },
+  {
+    "tag": "alchemy",
+    "name": "Materials tagged with alchemy",
+    "description": "Materials with the [alchemy] tag can be converted into Gold in the presence of Draught of Midas. They would also be converted into Corrupted Rock if near existing Corrupted Rock, but that does not naturally appear in the publicly released version of the game.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_alchemy"
+  },
+  {
+    "tag": "blood",
+    "name": "Materials tagged with blood",
+    "description": "Materials tagged with [blood] will be transmuted into Gold when a sufficient quantity is poured into the receptacle in The Hourglass Chamber.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_blood"
+  },
+  {
+    "tag": "box2d",
+    "name": " Materials tagged with box2d",
+    "description": "Materials tagged with [box2d] are used by the game for various rigid-body objects. This may have some meaning internal to the game engine, but the tag has no association with alchemical or spell-based effects that are currently known.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_box2d"
+  },
+  {
+    "tag": "burnable",
+    "name": "Materials tagged with burnable",
+    "description": "Materials with the [burnable] tag can be ignited in the presence of Lava.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_burnable"
+  },
+  {
+    "tag": "burnable_fast",
+    "name": "Materials tagged with burnable fast",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_burnable_fast"
+  },
+  {
+    "tag": "chaotic_transmutation",
+    "name": "Materials tagged with chaotic transmutation",
+    "description": "Materials tagged with [chaotic_transmutation] are converted to a random material (chosen from a fixed set) by the Chaotic Transmutation spell.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_chaotic_transmutation"
+  },
+  {
+    "tag": "cold",
+    "name": "Materials tagged with cold",
+    "description": "Materials with the [cold] tag generally cause nearby molten materials to be transformed into their solid forms.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_cold"
+  },
+  {
+    "tag": "corrodible",
+    "name": "Materials tagged with corrodible",
+    "description": "Materials tagged with [corrodible] are corroded by [acid] materials according to the following reaction:",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_corrodible"
+  },
+  {
+    "tag": "earth",
+    "name": "Materials tagged with earth",
+    "description": "Materials with the [earth] tag can be converted into Soil with the Tannerkivi, and will be turned into Toxic Rock when a Giga Nuke explodes nearby.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_earth"
+  },
+  {
+    "tag": "evaporable",
+    "name": "Materials tagged with evaporable",
+    "description": "Materials that evaporate naturally over time when in contact with air.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_evaporable"
+  },
+  {
+    "tag": "evaporable_by_fire",
+    "name": "Materials tagged with evaporable by fire",
+    "description": "Materials that evaporate when in contact with lava or fire.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_evaporable_by_fire"
+  },
+  {
+    "tag": "evaporable_custom",
+    "name": "Materials tagged with evaporable custom",
+    "description": "Materials with the [evaporable_custom] tag must always have a corresponding [material_name]_vapour material to evaporate into, and always react with lava or fire to form their corresponding vapour material.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_evaporable_custom"
+  },
+  {
+    "tag": "evaporable_fast",
+    "name": "Materials tagged with evaporable fast",
+    "description": "Materials with the [evaporable_fast] tag will swiftly evaporate into nothingness (Air) on contact with air.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_evaporable_fast"
+  },
+  {
+    "tag": "fire",
+    "name": "Materials tagged with fire",
+    "description": "Materials with the [fire] tag tend to burn other flammable objects, evaporate liquids and other evaporable materials, and so on. Reactions involving [fire] tend to be quite rapid.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_fire"
+  },
+  {
+    "tag": "fire_lava",
+    "name": "Materials tagged with fire lava",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_fire_lava"
+  },
+  {
+    "tag": "fire_strong",
+    "name": "Materials tagged with fire strong",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_fire_strong"
+  },
+  {
+    "tag": "food",
+    "name": "Materials tagged with food",
+    "description": "Materials with the [food] tag can be consumed to receive benefits while having the Eat Your Vegetables perk, although some can also have negative consequences.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_food"
+  },
+  {
+    "tag": "freezable",
+    "name": "Materials tagged with freezable",
+    "description": "Materials with the Freezable tag will be frozen into Ice when touched by Freezing Liquid,",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_freezable"
+  },
+  {
+    "tag": "frozen",
+    "name": "Materials tagged with frozen",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_frozen"
+  },
+  {
+    "tag": "fungus",
+    "name": "Materials tagged with fungus",
+    "description": "Materials with the [fungus] tag can be combined with Void Liquid to create more Void Liquid.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_fungus"
+  },
+  {
+    "tag": "gas",
+    "name": "Materials tagged with gas",
+    "description": "Materials with the [gas] tag will be burnt away in the vicinity of an entity which has the Gas Fire perk.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_gas"
+  },
+  {
+    "tag": "gold",
+    "name": "Materials tagged with gold",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_gold"
+  },
+  {
+    "tag": "grows_fungus",
+    "name": "Materials tagged with grows fungus",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_grows_fungus"
+  },
+  {
+    "tag": "grows_grass",
+    "name": "Materials tagged with grows grass",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_grows_grass"
+  },
+  {
+    "tag": "hax",
+    "name": "Materials tagged with hax",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_hax"
+  },
+  {
+    "tag": "hot",
+    "name": "Materials tagged with hot",
+    "description": "Materials with the [hot] tag will be converted into Steam in the presence of the Vuoksikivi.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_hot"
+  },
+  {
+    "tag": "ice",
+    "name": "Materials tagged with ice",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_ice"
+  },
+  {
+    "tag": "impure",
+    "name": "Materials tagged with impure",
+    "description": "Materials with the [impure] tag can be converted into Water with Purifying Powder according to the following reaction:",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_impure"
+  },
+  {
+    "tag": "indestructible",
+    "name": "Materials tagged with indestructible",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_indestructible"
+  },
+  {
+    "tag": "lava",
+    "name": "Materials tagged with lava",
+    "description": "Materials with the [lava] tag will typically melt or ignite other susceptible materials, and will react with many other liquids like Water or Chilly Water to produce materials like Rock and Steam.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_lava"
+  },
+  {
+    "tag": "liquid",
+    "name": "Materials tagged with liquid",
+    "description": "Materials with the [liquid] tag can be converted into Greed-Cursed Liquid by the Curse of Greed, into Lava by the Runestone of Magma, into Excrement by the Kakkakikkare, and will be removed when the Remove Liquid Streaming Event is triggered.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_liquid"
+  },
+  {
+    "tag": "liquid_common",
+    "name": "Materials tagged with liquid common",
+    "description": "Materials with the [liquid_common] tag can be converted into Lava by the Auringonmuna (Sun Egg), into Concentrated Mana by the Sauvan Ydin, and into Toxic Sludge by the explosion from a Giga Nuke.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_liquid_common"
+  },
+  {
+    "tag": "magic",
+    "name": "Materials tagged with magic",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_magic"
+  },
+  {
+    "tag": "magic_faster",
+    "name": "Materials tagged with magic faster",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_magic_faster"
+  },
+  {
+    "tag": "magic_liquid",
+    "name": "Materials tagged with magic liquid",
+    "description": "Liquids tagged with [magic_liquid] typically have magical properties such as an associated status effect.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_magic_liquid"
+  },
+  {
+    "tag": "magic_polymorph",
+    "name": "Materials tagged with magic polymorph",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_magic_polymorph"
+  },
+  {
+    "tag": "matter_eater_ignore_list",
+    "name": "Materials tagged with matter eater ignore list",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_matter_eater_ignore_list"
+  },
+  {
+    "tag": "meat",
+    "name": "Materials tagged with meat",
+    "description": "Materials with the [meat] tag are generally used for the composition of enemy corpses, which are box2d objects. Unusually for box2d objects, corpses comprised of meat can be eaten. Most meat materials will also emit an appropriate kind of Blood when they are consumed or damaged.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_meat"
+  },
+  {
+    "tag": "meltable",
+    "name": "Materials tagged with meltable",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_meltable"
+  },
+  {
+    "tag": "meltable_by_fire",
+    "name": "Materials tagged with meltable by fire",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_meltable_by_fire"
+  },
+  {
+    "tag": "meltable_metal",
+    "name": "Materials tagged with meltable metal",
+    "description": "Materials with the [meltable_metal] tag always have a corresponding materialname_molten material that they will melt into in the presence of sufficiently hot materials like Lava. They can also be sublimated into Steam by Concentrated Mana.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_meltable_metal"
+  },
+  {
+    "tag": "meltable_metal_generic",
+    "name": "Materials tagged with meltable metal generic",
+    "description": "Materials with the [meltable_metal_generic] can be melted with Lava or other very hot materials into a generic Molten Metal material, or sublimated into Steam by Concentrated Mana.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_meltable_metal_generic"
+  },
+  {
+    "tag": "meltable_plastic",
+    "name": "Materials tagged with meltable plastic",
+    "description": "Materials tagged with [meltable_plastic] can melt, but only resolidify into the grey variant of Plastic.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_meltable_plastic"
+  },
+  {
+    "tag": "meltable_to_acid",
+    "name": "Materials tagged with meltable to acid",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_meltable_to_acid"
+  },
+  {
+    "tag": "meltable_to_blood",
+    "name": "Materials tagged with meltable to blood",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_meltable_to_blood"
+  },
+  {
+    "tag": "meltable_to_cold",
+    "name": "Materials tagged with meltable to cold",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_meltable_to_cold"
+  },
+  {
+    "tag": "meltable_to_lava",
+    "name": "Materials tagged with meltable to lava",
+    "description": "Materials with the [meltable_to_lava] tag can slowly be burnt into Smoke in the presence of Lava, and will generate a small amount of Fire in the process.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_meltable_to_lava"
+  },
+  {
+    "tag": "meltable_to_lava_fast",
+    "name": "Materials tagged with meltable to lava fast",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_meltable_to_lava_fast"
+  },
+  {
+    "tag": "meltable_to_poison",
+    "name": "Materials tagged with meltable to poison",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_meltable_to_poison"
+  },
+  {
+    "tag": "meltable_to_radioactive",
+    "name": "Materials tagged with meltable to radioactive",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_meltable_to_radioactive"
+  },
+  {
+    "tag": "meltable_to_slime",
+    "name": "Materials tagged with meltable to slime",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_meltable_to_slime"
+  },
+  {
+    "tag": "meltable_to_water",
+    "name": "Materials tagged with meltable to water",
+    "description": "Materials with the [meltable_to_water] tag can be melted into Water when exposed to materials with the [fire] or [lava] tag.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_meltable_to_water"
+  },
+  {
+    "tag": "mimic_liquid",
+    "name": "Materials tagged with mimic liquid",
+    "description": "Liquid that mimics other liquid.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_mimic_liquid"
+  },
+  {
+    "tag": "molten",
+    "name": "Materials tagged with molten",
+    "description": "Category containing molten materials. Contains molten variants of materials melted from [meltable] and [meltable_metal].",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_molten"
+  },
+  {
+    "tag": "molten_metal",
+    "name": "Materials tagged with molten metal",
+    "description": "Molten metals that can be cooled into Metal Dust. This category does not include all molten metals.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_molten_metal"
+  },
+  {
+    "tag": "NO_FUNGAL_SHIFT",
+    "name": "Materials tagged with NO FUNGAL SHIFT",
+    "description": "Materials with the [NO_FUNGAL_SHIFT] tag are excluded from Fungal Reality Shifts.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_NO_FUNGAL_SHIFT"
+  },
+  {
+    "tag": "plant",
+    "name": "Materials tagged with plant",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_plant"
+  },
+  {
+    "tag": "radioactive",
+    "name": "Materials tagged with radioactive",
+    "description": "Materials with the [radioactive] tag can be converted into Toxic Rock and Toxic Gas when in contact with Lava.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_radioactive"
+  },
+  {
+    "tag": "regenerative",
+    "name": "Materials tagged with regenerative",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_regenerative"
+  },
+  {
+    "tag": "regenerative_gas",
+    "name": "Materials tagged with regenerative gas",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_regenerative_gas"
+  },
+  {
+    "tag": "requires_air",
+    "name": "Materials tagged with requires air",
+    "description": "If a material has this tag and doesn't have contact with Air, it will be converted into Soil.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_requires_air"
+  },
+  {
+    "tag": "rust",
+    "name": "Materials tagged with rust",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_rust"
+  },
+  {
+    "tag": "rust_box2d",
+    "name": "Materials tagged with rust box2d",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_rust_box2d"
+  },
+  {
+    "tag": "rust_oxide",
+    "name": "Materials tagged with rust oxide",
+    "description": "Materials with the [rust_oxide] tag will react with Water to produce another material, which is designated with the material ID ORIGINAL_ID_oxide based on the original material ID.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_rust_oxide"
+  },
+  {
+    "tag": "sand",
+    "name": "Materials tagged with sand",
+    "description": "Materials with the [sand] can will be convered into Excrement with the Kakkakikkare.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_sand"
+  },
+  {
+    "tag": "sand_ground",
+    "name": "Materials tagged with sand ground",
+    "description": "Materials with the [sand_ground] tag are treated as, effectively, barren soil; Seed will not grow on it, and will instead simply evaporate into thin air.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_sand_ground"
+  },
+  {
+    "tag": "sand_metal",
+    "name": "Materials tagged with sand metal",
+    "description": "Materials with the [sand_metal] tag react with Flummoxium to produce Levitatium.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_sand_metal"
+  },
+  {
+    "tag": "sand_other",
+    "name": "Materials tagged with sand other",
+    "description": "Materials with the [sand_other] tag can be converted into Greed-Cursed Liquid by the Curse of Greed.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_sand_other"
+  },
+  {
+    "tag": "slime",
+    "name": "Materials tagged with slime",
+    "description": "Materials with the [slime] tag can be converted into Slime Mist by Water or [fire], and sublimated into Smoke in the presence of Whiskey.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_slime"
+  },
+  {
+    "tag": "snow",
+    "name": "Materials tagged with snow",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_snow"
+  },
+  {
+    "tag": "solid",
+    "name": "Materials tagged with solid",
+    "description": "Materials with the [solid] tag can be converted into Sand with the Ground to Sand spell, and will be converted into Greed-Cursed Rock periodically when the Curse of Greed is active.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_solid"
+  },
+  {
+    "tag": "soluble",
+    "name": "Materials tagged with soluble",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_soluble"
+  },
+  {
+    "tag": "static",
+    "name": "Materials tagged with static",
+    "description": "Materials with the [static] tag cause nearby Steam to slowly condense back into Water.",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_static"
+  },
+  {
+    "tag": "sunbaby_ignore_list",
+    "name": "Materials tagged with sunbaby ignore list",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_sunbaby_ignore_list"
+  },
+  {
+    "tag": "vapour",
+    "name": "Materials tagged with vapour",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_vapour"
+  },
+  {
+    "tag": "water",
+    "name": "Materials tagged with water",
+    "description": "No additional description",
+    "url": "https://noita.wiki.gg/wiki/Category:Materials_tagged_with_water"
+  }
+]

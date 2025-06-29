@@ -1,0 +1,1300 @@
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_wet.png",
+        "canonicaltitle": "File:Effect wet.png",
+        "url": "https://noita.wiki.gg/images/b/bc/Effect_wet.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_wet.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=2383",
+        "ns": 6,
+        "title": "File:Effect wet.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_bloody.png",
+        "canonicaltitle": "File:Effect bloody.png",
+        "url": "https://noita.wiki.gg/images/1/10/Effect_bloody.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_bloody.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=4555",
+        "ns": 6,
+        "title": "File:Effect bloody.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_oiled.png",
+        "canonicaltitle": "File:Effect oiled.png",
+        "url": "https://noita.wiki.gg/images/3/35/Effect_oiled.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_oiled.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=3027",
+        "ns": 6,
+        "title": "File:Effect oiled.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_on_fire.png",
+        "canonicaltitle": "File:Effect on fire.png",
+        "url": "https://noita.wiki.gg/images/0/0a/Effect_on_fire.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_on_fire.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=3310",
+        "ns": 6,
+        "title": "File:Effect on fire.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_internal_fire.png",
+        "canonicaltitle": "File:Effect internal fire.png",
+        "url": "https://noita.wiki.gg/images/1/1b/Effect_internal_fire.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_internal_fire.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=3894",
+        "ns": 6,
+        "title": "File:Effect internal fire.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_ingestion_freezing.png",
+        "canonicaltitle": "File:Effect ingestion freezing.png",
+        "url": "https://noita.wiki.gg/images/9/93/Effect_ingestion_freezing.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_ingestion_freezing.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=3952",
+        "ns": 6,
+        "title": "File:Effect ingestion freezing.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_frozen.png",
+        "canonicaltitle": "File:Effect frozen.png",
+        "url": "https://noita.wiki.gg/images/1/18/Effect_frozen.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_frozen.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=4151",
+        "ns": 6,
+        "title": "File:Effect frozen.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_electrocution.png",
+        "canonicaltitle": "File:Effect electrocution.png",
+        "url": "https://noita.wiki.gg/images/7/79/Effect_electrocution.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_electrocution.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=2048",
+        "ns": 6,
+        "title": "File:Effect electrocution.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_knockback_star.png",
+        "canonicaltitle": "File:Effect knockback star.png",
+        "url": "https://noita.wiki.gg/images/e/e5/Effect_knockback_star.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_knockback_star.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=3622",
+        "ns": 6,
+        "title": "File:Effect knockback star.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_blindness.png",
+        "canonicaltitle": "File:Effect blindness.png",
+        "url": "https://noita.wiki.gg/images/2/24/Effect_blindness.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_blindness.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=2224",
+        "ns": 6,
+        "title": "File:Effect blindness.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_twitchy.png",
+        "canonicaltitle": "File:Effect twitchy.png",
+        "url": "https://noita.wiki.gg/images/b/ba/Effect_twitchy.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_twitchy.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=3776",
+        "ns": 6,
+        "title": "File:Effect twitchy.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_neutralized.png",
+        "canonicaltitle": "File:Effect neutralized.png",
+        "url": "https://noita.wiki.gg/images/9/99/Effect_neutralized.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_neutralized.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=2630",
+        "ns": 6,
+        "title": "File:Effect neutralized.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_hearty.png",
+        "canonicaltitle": "File:Effect hearty.png",
+        "url": "https://noita.wiki.gg/images/9/9c/Effect_hearty.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_hearty.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=2692",
+        "ns": 6,
+        "title": "File:Effect hearty.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_vulnerable.png",
+        "canonicaltitle": "File:Effect vulnerable.png",
+        "url": "https://noita.wiki.gg/images/1/1d/Effect_vulnerable.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_vulnerable.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=3675",
+        "ns": 6,
+        "title": "File:Effect vulnerable.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_gravity_field.png",
+        "canonicaltitle": "File:Effect gravity field.png",
+        "url": "https://noita.wiki.gg/images/5/5b/Effect_gravity_field.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_gravity_field.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=1524",
+        "ns": 6,
+        "title": "File:Effect gravity field.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_slimy.png",
+        "canonicaltitle": "File:Effect slimy.png",
+        "url": "https://noita.wiki.gg/images/d/dd/Effect_slimy.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_slimy.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=1417",
+        "ns": 6,
+        "title": "File:Effect slimy.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_radioactive.png",
+        "canonicaltitle": "File:Effect radioactive.png",
+        "url": "https://noita.wiki.gg/images/9/96/Effect_radioactive.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_radioactive.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=2667",
+        "ns": 6,
+        "title": "File:Effect radioactive.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_alcoholic.png",
+        "canonicaltitle": "File:Effect alcoholic.png",
+        "url": "https://noita.wiki.gg/images/6/6e/Effect_alcoholic.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_alcoholic.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=2811",
+        "ns": 6,
+        "title": "File:Effect alcoholic.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_drunk.png",
+        "canonicaltitle": "File:Effect drunk.png",
+        "url": "https://noita.wiki.gg/images/3/3b/Effect_drunk.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_drunk.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=222",
+        "ns": 6,
+        "title": "File:Effect drunk.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_poisoned.png",
+        "canonicaltitle": "File:Effect poisoned.png",
+        "url": "https://noita.wiki.gg/images/f/fe/Effect_poisoned.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_poisoned.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=2658",
+        "ns": 6,
+        "title": "File:Effect poisoned.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_jarated.png",
+        "canonicaltitle": "File:Effect jarated.png",
+        "url": "https://noita.wiki.gg/images/7/7a/Effect_jarated.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_jarated.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=3947",
+        "ns": 6,
+        "title": "File:Effect jarated.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_food_poisoning.png",
+        "canonicaltitle": "File:Effect food poisoning.png",
+        "url": "https://noita.wiki.gg/images/2/2f/Effect_food_poisoning.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_food_poisoning.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=1989",
+        "ns": 6,
+        "title": "File:Effect food poisoning.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_farts.png",
+        "canonicaltitle": "File:Effect farts.png",
+        "url": "https://noita.wiki.gg/images/a/ac/Effect_farts.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_farts.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=358",
+        "ns": 6,
+        "title": "File:Effect farts.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_nightvision.png",
+        "canonicaltitle": "File:Effect nightvision.png",
+        "url": "https://noita.wiki.gg/images/a/a2/Effect_nightvision.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_nightvision.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=1658",
+        "ns": 6,
+        "title": "File:Effect nightvision.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_satiation_00.png",
+        "canonicaltitle": "File:Effect satiation 00.png",
+        "url": "https://noita.wiki.gg/images/a/a3/Effect_satiation_00.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_satiation_00.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=3610",
+        "ns": 6,
+        "title": "File:Effect satiation 00.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_satiation_01.png",
+        "canonicaltitle": "File:Effect satiation 01.png",
+        "url": "https://noita.wiki.gg/images/9/9c/Effect_satiation_01.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_satiation_01.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=2539",
+        "ns": 6,
+        "title": "File:Effect satiation 01.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_satiation_02.png",
+        "canonicaltitle": "File:Effect satiation 02.png",
+        "url": "https://noita.wiki.gg/images/d/dd/Effect_satiation_02.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_satiation_02.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=2384",
+        "ns": 6,
+        "title": "File:Effect satiation 02.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_satiation_03.png",
+        "canonicaltitle": "File:Effect satiation 03.png",
+        "url": "https://noita.wiki.gg/images/1/13/Effect_satiation_03.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_satiation_03.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=3143",
+        "ns": 6,
+        "title": "File:Effect satiation 03.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_ingestion_movement_slower.png",
+        "canonicaltitle": "File:Effect ingestion movement slower.png",
+        "url": "https://noita.wiki.gg/images/d/d4/Effect_ingestion_movement_slower.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_ingestion_movement_slower.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=1241",
+        "ns": 6,
+        "title": "File:Effect ingestion movement slower.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_satiation_04.png",
+        "canonicaltitle": "File:Effect satiation 04.png",
+        "url": "https://noita.wiki.gg/images/6/6a/Effect_satiation_04.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_satiation_04.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=121",
+        "ns": 6,
+        "title": "File:Effect satiation 04.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_satiation_05.png",
+        "canonicaltitle": "File:Effect satiation 05.png",
+        "url": "https://noita.wiki.gg/images/d/db/Effect_satiation_05.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_satiation_05.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=4158",
+        "ns": 6,
+        "title": "File:Effect satiation 05.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_satiation_choking.png",
+        "canonicaltitle": "File:Effect satiation choking.png",
+        "url": "https://noita.wiki.gg/images/7/77/Effect_satiation_choking.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_satiation_choking.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=3906",
+        "ns": 6,
+        "title": "File:Effect satiation choking.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_satiation_06.png",
+        "canonicaltitle": "File:Effect satiation 06.png",
+        "url": "https://noita.wiki.gg/images/e/e9/Effect_satiation_06.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_satiation_06.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=2792",
+        "ns": 6,
+        "title": "File:Effect satiation 06.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_ingestion_damage.png",
+        "canonicaltitle": "File:Effect ingestion damage.png",
+        "url": "https://noita.wiki.gg/images/8/88/Effect_ingestion_damage.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_ingestion_damage.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=1351",
+        "ns": 6,
+        "title": "File:Effect ingestion damage.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_trip.png",
+        "canonicaltitle": "File:Effect trip.png",
+        "url": "https://noita.wiki.gg/images/3/3f/Effect_trip.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_trip.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=4343",
+        "ns": 6,
+        "title": "File:Effect trip.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_curse_cloud.png",
+        "canonicaltitle": "File:Effect curse cloud.png",
+        "url": "https://noita.wiki.gg/images/e/ee/Effect_curse_cloud.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_curse_cloud.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=3659",
+        "ns": 6,
+        "title": "File:Effect curse cloud.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_berserk.png",
+        "canonicaltitle": "File:Effect berserk.png",
+        "url": "https://noita.wiki.gg/images/3/3f/Effect_berserk.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_berserk.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=505",
+        "ns": 6,
+        "title": "File:Effect berserk.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_polymorph.png",
+        "canonicaltitle": "File:Effect polymorph.png",
+        "url": "https://noita.wiki.gg/images/9/9b/Effect_polymorph.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_polymorph.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=374",
+        "ns": 6,
+        "title": "File:Effect polymorph.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_polymorph_random.png",
+        "canonicaltitle": "File:Effect polymorph random.png",
+        "url": "https://noita.wiki.gg/images/1/16/Effect_polymorph_random.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_polymorph_random.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=1914",
+        "ns": 6,
+        "title": "File:Effect polymorph random.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_polymorph_random.png",
+        "canonicaltitle": "File:Effect polymorph random.png",
+        "url": "https://noita.wiki.gg/images/1/16/Effect_polymorph_random.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_polymorph_random.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=1914",
+        "ns": 6,
+        "title": "File:Effect polymorph random.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_protection_polymorph.png",
+        "canonicaltitle": "File:Effect protection polymorph.png",
+        "url": "https://noita.wiki.gg/images/a/a1/Effect_protection_polymorph.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_protection_polymorph.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=763",
+        "ns": 6,
+        "title": "File:Effect protection polymorph.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_invisibility.png",
+        "canonicaltitle": "File:Effect invisibility.png",
+        "url": "https://noita.wiki.gg/images/3/30/Effect_invisibility.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_invisibility.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=3136",
+        "ns": 6,
+        "title": "File:Effect invisibility.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_charm.png",
+        "canonicaltitle": "File:Effect charm.png",
+        "url": "https://noita.wiki.gg/images/3/3d/Effect_charm.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_charm.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=2056",
+        "ns": 6,
+        "title": "File:Effect charm.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_hp_regeneration.png",
+        "canonicaltitle": "File:Effect hp regeneration.png",
+        "url": "https://noita.wiki.gg/images/e/e8/Effect_hp_regeneration.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_hp_regeneration.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=476",
+        "ns": 6,
+        "title": "File:Effect hp regeneration.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_confusion.png",
+        "canonicaltitle": "File:Effect confusion.png",
+        "url": "https://noita.wiki.gg/images/6/6d/Effect_confusion.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_confusion.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=3437",
+        "ns": 6,
+        "title": "File:Effect confusion.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_worm_attractor.png",
+        "canonicaltitle": "File:Effect worm attractor.png",
+        "url": "https://noita.wiki.gg/images/a/ab/Effect_worm_attractor.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_worm_attractor.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=4283",
+        "ns": 6,
+        "title": "File:Effect worm attractor.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_teleportation.png",
+        "canonicaltitle": "File:Effect teleportation.png",
+        "url": "https://noita.wiki.gg/images/b/b7/Effect_teleportation.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_teleportation.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=338",
+        "ns": 6,
+        "title": "File:Effect teleportation.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_teleportation.png",
+        "canonicaltitle": "File:Effect teleportation.png",
+        "url": "https://noita.wiki.gg/images/b/b7/Effect_teleportation.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_teleportation.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=338",
+        "ns": 6,
+        "title": "File:Effect teleportation.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_protection_all.png",
+        "canonicaltitle": "File:Effect protection all.png",
+        "url": "https://noita.wiki.gg/images/b/b2/Effect_protection_all.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_protection_all.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=4155",
+        "ns": 6,
+        "title": "File:Effect protection all.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_movement_faster.png",
+        "canonicaltitle": "File:Effect movement faster.png",
+        "url": "https://noita.wiki.gg/images/3/3f/Effect_movement_faster.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_movement_faster.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=2905",
+        "ns": 6,
+        "title": "File:Effect movement faster.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_faster_levitation.png",
+        "canonicaltitle": "File:Effect faster levitation.png",
+        "url": "https://noita.wiki.gg/images/5/58/Effect_faster_levitation.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_faster_levitation.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=2157",
+        "ns": 6,
+        "title": "File:Effect faster levitation.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_mana_regeneration.png",
+        "canonicaltitle": "File:Effect mana regeneration.png",
+        "url": "https://noita.wiki.gg/images/7/7f/Effect_mana_regeneration.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_mana_regeneration.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=3726",
+        "ns": 6,
+        "title": "File:Effect mana regeneration.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_farts.png",
+        "canonicaltitle": "File:Effect farts.png",
+        "url": "https://noita.wiki.gg/images/a/ac/Effect_farts.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_farts.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=358",
+        "ns": 6,
+        "title": "File:Effect farts.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_homing_shooter.png",
+        "canonicaltitle": "File:Effect homing shooter.png",
+        "url": "https://noita.wiki.gg/images/9/9a/Effect_homing_shooter.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_homing_shooter.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=5204",
+        "ns": 6,
+        "title": "File:Effect homing shooter.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_movement_slower.png",
+        "canonicaltitle": "File:Effect movement slower.png",
+        "url": "https://noita.wiki.gg/images/c/ce/Effect_movement_slower.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_movement_slower.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=5215",
+        "ns": 6,
+        "title": "File:Effect movement slower.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_wither.png",
+        "canonicaltitle": "File:Effect wither.png",
+        "url": "https://noita.wiki.gg/images/d/df/Effect_wither.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_wither.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=664",
+        "ns": 6,
+        "title": "File:Effect wither.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_vulnerable.png",
+        "canonicaltitle": "File:Effect vulnerable.png",
+        "url": "https://noita.wiki.gg/images/1/1d/Effect_vulnerable.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_vulnerable.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=3675",
+        "ns": 6,
+        "title": "File:Effect vulnerable.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_curse_wither_electricity.png",
+        "canonicaltitle": "File:Effect curse wither electricity.png",
+        "url": "https://noita.wiki.gg/images/7/7a/Effect_curse_wither_electricity.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_curse_wither_electricity.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=3685",
+        "ns": 6,
+        "title": "File:Effect curse wither electricity.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_curse_wither_explosion.png",
+        "canonicaltitle": "File:Effect curse wither explosion.png",
+        "url": "https://noita.wiki.gg/images/7/7c/Effect_curse_wither_explosion.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_curse_wither_explosion.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=2950",
+        "ns": 6,
+        "title": "File:Effect curse wither explosion.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_curse_wither_melee.png",
+        "canonicaltitle": "File:Effect curse wither melee.png",
+        "url": "https://noita.wiki.gg/images/b/ba/Effect_curse_wither_melee.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_curse_wither_melee.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=4587",
+        "ns": 6,
+        "title": "File:Effect curse wither melee.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_curse_wither_projectile.png",
+        "canonicaltitle": "File:Effect curse wither projectile.png",
+        "url": "https://noita.wiki.gg/images/6/6f/Effect_curse_wither_projectile.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_curse_wither_projectile.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=274",
+        "ns": 6,
+        "title": "File:Effect curse wither projectile.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_weakness.png",
+        "canonicaltitle": "File:Effect weakness.png",
+        "url": "https://noita.wiki.gg/images/4/4e/Effect_weakness.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_weakness.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=12003",
+        "ns": 6,
+        "title": "File:Effect weakness.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_mammi_eater.png",
+        "canonicaltitle": "File:Effect mammi eater.png",
+        "url": "https://noita.wiki.gg/images/f/f2/Effect_mammi_eater.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_mammi_eater.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=11986",
+        "ns": 6,
+        "title": "File:Effect mammi eater.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_damage_plus_small.png",
+        "canonicaltitle": "File:Effect damage plus small.png",
+        "url": "https://noita.wiki.gg/images/c/c3/Effect_damage_plus_small.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_damage_plus_small.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=11976",
+        "ns": 6,
+        "title": "File:Effect damage plus small.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+
+{
+  "batchcomplete": "",
+  "query": {
+    "allimages": [
+      {
+        "name": "Effect_greed_curse.png",
+        "canonicaltitle": "File:Effect greed curse.png",
+        "url": "https://noita.wiki.gg/images/9/9f/Effect_greed_curse.png",
+        "descriptionurl": "https://noita.wiki.gg/wiki/File:Effect_greed_curse.png",
+        "descriptionshorturl": "https://noita.wiki.gg/index.php?curid=11982",
+        "ns": 6,
+        "title": "File:Effect greed curse.png"
+      }
+    ]
+  }
+}
+
+
+--- End of Response ---
+

@@ -1,0 +1,327 @@
+[
+  {
+    "name": "Effect_wet.png",
+    "url": "https://noita.wiki.gg/images/b/bc/Effect_wet.png",
+    "image_local": "Effect_wet.png"
+  },
+  {
+    "name": "Effect_bloody.png",
+    "url": "https://noita.wiki.gg/images/1/10/Effect_bloody.png",
+    "image_local": "Effect_bloody.png"
+  },
+  {
+    "name": "Effect_oiled.png",
+    "url": "https://noita.wiki.gg/images/3/35/Effect_oiled.png",
+    "image_local": "Effect_oiled.png"
+  },
+  {
+    "name": "Effect_on_fire.png",
+    "url": "https://noita.wiki.gg/images/0/0a/Effect_on_fire.png",
+    "image_local": "Effect_on_fire.png"
+  },
+  {
+    "name": "Effect_internal_fire.png",
+    "url": "https://noita.wiki.gg/images/1/1b/Effect_internal_fire.png",
+    "image_local": "Effect_internal_fire.png"
+  },
+  {
+    "name": "Effect_ingestion_freezing.png",
+    "url": "https://noita.wiki.gg/images/9/93/Effect_ingestion_freezing.png",
+    "image_local": "Effect_ingestion_freezing.png"
+  },
+  {
+    "name": "Effect_frozen.png",
+    "url": "https://noita.wiki.gg/images/1/18/Effect_frozen.png",
+    "image_local": "Effect_frozen.png"
+  },
+  {
+    "name": "Effect_electrocution.png",
+    "url": "https://noita.wiki.gg/images/7/79/Effect_electrocution.png",
+    "image_local": "Effect_electrocution.png"
+  },
+  {
+    "name": "Effect_knockback_star.png",
+    "url": "https://noita.wiki.gg/images/e/e5/Effect_knockback_star.png",
+    "image_local": "Effect_knockback_star.png"
+  },
+  {
+    "name": "Effect_blindness.png",
+    "url": "https://noita.wiki.gg/images/2/24/Effect_blindness.png",
+    "image_local": "Effect_blindness.png"
+  },
+  {
+    "name": "Effect_twitchy.png",
+    "url": "https://noita.wiki.gg/images/b/ba/Effect_twitchy.png",
+    "image_local": "Effect_twitchy.png"
+  },
+  {
+    "name": "Effect_neutralized.png",
+    "url": "https://noita.wiki.gg/images/9/99/Effect_neutralized.png",
+    "image_local": "Effect_neutralized.png"
+  },
+  {
+    "name": "Effect_hearty.png",
+    "url": "https://noita.wiki.gg/images/9/9c/Effect_hearty.png",
+    "image_local": "Effect_hearty.png"
+  },
+  {
+    "name": "Effect_vulnerable.png",
+    "url": "https://noita.wiki.gg/images/1/1d/Effect_vulnerable.png",
+    "image_local": "Effect_vulnerable.png"
+  },
+  {
+    "name": "Effect_gravity_field.png",
+    "url": "https://noita.wiki.gg/images/5/5b/Effect_gravity_field.png",
+    "image_local": "Effect_gravity_field.png"
+  },
+  {
+    "name": "Effect_slimy.png",
+    "url": "https://noita.wiki.gg/images/d/dd/Effect_slimy.png",
+    "image_local": "Effect_slimy.png"
+  },
+  {
+    "name": "Effect_radioactive.png",
+    "url": "https://noita.wiki.gg/images/9/96/Effect_radioactive.png",
+    "image_local": "Effect_radioactive.png"
+  },
+  {
+    "name": "Effect_alcoholic.png",
+    "url": "https://noita.wiki.gg/images/6/6e/Effect_alcoholic.png",
+    "image_local": "Effect_alcoholic.png"
+  },
+  {
+    "name": "Effect_drunk.png",
+    "url": "https://noita.wiki.gg/images/3/3b/Effect_drunk.png",
+    "image_local": "Effect_drunk.png"
+  },
+  {
+    "name": "Effect_poisoned.png",
+    "url": "https://noita.wiki.gg/images/f/fe/Effect_poisoned.png",
+    "image_local": "Effect_poisoned.png"
+  },
+  {
+    "name": "Effect_jarated.png",
+    "url": "https://noita.wiki.gg/images/7/7a/Effect_jarated.png",
+    "image_local": "Effect_jarated.png"
+  },
+  {
+    "name": "Effect_food_poisoning.png",
+    "url": "https://noita.wiki.gg/images/2/2f/Effect_food_poisoning.png",
+    "image_local": "Effect_food_poisoning.png"
+  },
+  {
+    "name": "Effect_farts.png",
+    "url": "https://noita.wiki.gg/images/a/ac/Effect_farts.png",
+    "image_local": "Effect_farts.png"
+  },
+  {
+    "name": "Effect_nightvision.png",
+    "url": "https://noita.wiki.gg/images/a/a2/Effect_nightvision.png",
+    "image_local": "Effect_nightvision.png"
+  },
+  {
+    "name": "Effect_satiation_00.png",
+    "url": "https://noita.wiki.gg/images/a/a3/Effect_satiation_00.png",
+    "image_local": "Effect_satiation_00.png"
+  },
+  {
+    "name": "Effect_satiation_01.png",
+    "url": "https://noita.wiki.gg/images/9/9c/Effect_satiation_01.png",
+    "image_local": "Effect_satiation_01.png"
+  },
+  {
+    "name": "Effect_satiation_02.png",
+    "url": "https://noita.wiki.gg/images/d/dd/Effect_satiation_02.png",
+    "image_local": "Effect_satiation_02.png"
+  },
+  {
+    "name": "Effect_satiation_03.png",
+    "url": "https://noita.wiki.gg/images/1/13/Effect_satiation_03.png",
+    "image_local": "Effect_satiation_03.png"
+  },
+  {
+    "name": "Effect_ingestion_movement_slower.png",
+    "url": "https://noita.wiki.gg/images/d/d4/Effect_ingestion_movement_slower.png",
+    "image_local": "Effect_ingestion_movement_slower.png"
+  },
+  {
+    "name": "Effect_satiation_04.png",
+    "url": "https://noita.wiki.gg/images/6/6a/Effect_satiation_04.png",
+    "image_local": "Effect_satiation_04.png"
+  },
+  {
+    "name": "Effect_satiation_05.png",
+    "url": "https://noita.wiki.gg/images/d/db/Effect_satiation_05.png",
+    "image_local": "Effect_satiation_05.png"
+  },
+  {
+    "name": "Effect_satiation_choking.png",
+    "url": "https://noita.wiki.gg/images/7/77/Effect_satiation_choking.png",
+    "image_local": "Effect_satiation_choking.png"
+  },
+  {
+    "name": "Effect_satiation_06.png",
+    "url": "https://noita.wiki.gg/images/e/e9/Effect_satiation_06.png",
+    "image_local": "Effect_satiation_06.png"
+  },
+  {
+    "name": "Effect_ingestion_damage.png",
+    "url": "https://noita.wiki.gg/images/8/88/Effect_ingestion_damage.png",
+    "image_local": "Effect_ingestion_damage.png"
+  },
+  {
+    "name": "Effect_trip.png",
+    "url": "https://noita.wiki.gg/images/3/3f/Effect_trip.png",
+    "image_local": "Effect_trip.png"
+  },
+  {
+    "name": "Effect_curse_cloud.png",
+    "url": "https://noita.wiki.gg/images/e/ee/Effect_curse_cloud.png",
+    "image_local": "Effect_curse_cloud.png"
+  },
+  {
+    "name": "Effect_berserk.png",
+    "url": "https://noita.wiki.gg/images/3/3f/Effect_berserk.png",
+    "image_local": "Effect_berserk.png"
+  },
+  {
+    "name": "Effect_polymorph.png",
+    "url": "https://noita.wiki.gg/images/9/9b/Effect_polymorph.png",
+    "image_local": "Effect_polymorph.png"
+  },
+  {
+    "name": "Effect_polymorph_random.png",
+    "url": "https://noita.wiki.gg/images/1/16/Effect_polymorph_random.png",
+    "image_local": "Effect_polymorph_random.png"
+  },
+  {
+    "name": "Effect_polymorph_random.png",
+    "url": "https://noita.wiki.gg/images/1/16/Effect_polymorph_random.png",
+    "image_local": "Effect_polymorph_random.png"
+  },
+  {
+    "name": "Effect_protection_polymorph.png",
+    "url": "https://noita.wiki.gg/images/a/a1/Effect_protection_polymorph.png",
+    "image_local": "Effect_protection_polymorph.png"
+  },
+  {
+    "name": "Effect_invisibility.png",
+    "url": "https://noita.wiki.gg/images/3/30/Effect_invisibility.png",
+    "image_local": "Effect_invisibility.png"
+  },
+  {
+    "name": "Effect_charm.png",
+    "url": "https://noita.wiki.gg/images/3/3d/Effect_charm.png",
+    "image_local": "Effect_charm.png"
+  },
+  {
+    "name": "Effect_hp_regeneration.png",
+    "url": "https://noita.wiki.gg/images/e/e8/Effect_hp_regeneration.png",
+    "image_local": "Effect_hp_regeneration.png"
+  },
+  {
+    "name": "Effect_confusion.png",
+    "url": "https://noita.wiki.gg/images/6/6d/Effect_confusion.png",
+    "image_local": "Effect_confusion.png"
+  },
+  {
+    "name": "Effect_worm_attractor.png",
+    "url": "https://noita.wiki.gg/images/a/ab/Effect_worm_attractor.png",
+    "image_local": "Effect_worm_attractor.png"
+  },
+  {
+    "name": "Effect_teleportation.png",
+    "url": "https://noita.wiki.gg/images/b/b7/Effect_teleportation.png",
+    "image_local": "Effect_teleportation.png"
+  },
+  {
+    "name": "Effect_teleportation.png",
+    "url": "https://noita.wiki.gg/images/b/b7/Effect_teleportation.png",
+    "image_local": "Effect_teleportation.png"
+  },
+  {
+    "name": "Effect_protection_all.png",
+    "url": "https://noita.wiki.gg/images/b/b2/Effect_protection_all.png",
+    "image_local": "Effect_protection_all.png"
+  },
+  {
+    "name": "Effect_movement_faster.png",
+    "url": "https://noita.wiki.gg/images/3/3f/Effect_movement_faster.png",
+    "image_local": "Effect_movement_faster.png"
+  },
+  {
+    "name": "Effect_faster_levitation.png",
+    "url": "https://noita.wiki.gg/images/5/58/Effect_faster_levitation.png",
+    "image_local": "Effect_faster_levitation.png"
+  },
+  {
+    "name": "Effect_mana_regeneration.png",
+    "url": "https://noita.wiki.gg/images/7/7f/Effect_mana_regeneration.png",
+    "image_local": "Effect_mana_regeneration.png"
+  },
+  {
+    "name": "Effect_farts.png",
+    "url": "https://noita.wiki.gg/images/a/ac/Effect_farts.png",
+    "image_local": "Effect_farts.png"
+  },
+  {
+    "name": "Effect_homing_shooter.png",
+    "url": "https://noita.wiki.gg/images/9/9a/Effect_homing_shooter.png",
+    "image_local": "Effect_homing_shooter.png"
+  },
+  {
+    "name": "Effect_movement_slower.png",
+    "url": "https://noita.wiki.gg/images/c/ce/Effect_movement_slower.png",
+    "image_local": "Effect_movement_slower.png"
+  },
+  {
+    "name": "Effect_wither.png",
+    "url": "https://noita.wiki.gg/images/d/df/Effect_wither.png",
+    "image_local": "Effect_wither.png"
+  },
+  {
+    "name": "Effect_vulnerable.png",
+    "url": "https://noita.wiki.gg/images/1/1d/Effect_vulnerable.png",
+    "image_local": "Effect_vulnerable.png"
+  },
+  {
+    "name": "Effect_curse_wither_electricity.png",
+    "url": "https://noita.wiki.gg/images/7/7a/Effect_curse_wither_electricity.png",
+    "image_local": "Effect_curse_wither_electricity.png"
+  },
+  {
+    "name": "Effect_curse_wither_explosion.png",
+    "url": "https://noita.wiki.gg/images/7/7c/Effect_curse_wither_explosion.png",
+    "image_local": "Effect_curse_wither_explosion.png"
+  },
+  {
+    "name": "Effect_curse_wither_melee.png",
+    "url": "https://noita.wiki.gg/images/b/ba/Effect_curse_wither_melee.png",
+    "image_local": "Effect_curse_wither_melee.png"
+  },
+  {
+    "name": "Effect_curse_wither_projectile.png",
+    "url": "https://noita.wiki.gg/images/6/6f/Effect_curse_wither_projectile.png",
+    "image_local": "Effect_curse_wither_projectile.png"
+  },
+  {
+    "name": "Effect_weakness.png",
+    "url": "https://noita.wiki.gg/images/4/4e/Effect_weakness.png",
+    "image_local": "Effect_weakness.png"
+  },
+  {
+    "name": "Effect_mammi_eater.png",
+    "url": "https://noita.wiki.gg/images/f/f2/Effect_mammi_eater.png",
+    "image_local": "Effect_mammi_eater.png"
+  },
+  {
+    "name": "Effect_damage_plus_small.png",
+    "url": "https://noita.wiki.gg/images/c/c3/Effect_damage_plus_small.png",
+    "image_local": "Effect_damage_plus_small.png"
+  },
+  {
+    "name": "Effect_greed_curse.png",
+    "url": "https://noita.wiki.gg/images/9/9f/Effect_greed_curse.png",
+    "image_local": "Effect_greed_curse.png"
+  }
+]

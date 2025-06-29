@@ -1,0 +1,234 @@
+[
+  { "id": "acidshooter", "entity_name": "animal_acidshooter", "blood": "acid", "corpse": "meat_slime_green" },
+  { "id": "alchemist", "entity_name": "animal_alchemist", "blood": "blood", "corpse": "none" },
+  { "id": "ant", "entity_name": "animal_ant", "blood": "slime", "corpse": "meat_slime" },
+  { "id": "assassin", "entity_name": "animal_assassin", "blood": "oil", "corpse": "steel" },
+  { "id": "bat", "entity_name": "animal_bat", "blood": "slime", "corpse": "meat_slime" },
+  {
+    "id": "berserkspirit",
+    "entity_name": "animal_berserkspirit",
+    "blood": "plasma_fading",
+    "corpse": "rock_static_glow"
+  },
+  { "id": "bigbat", "entity_name": "animal_bigbat", "blood": "slime", "corpse": "meat_slime" },
+  { "id": "bigfirebug", "entity_name": "animal_bigfirebug", "blood": "lava", "corpse": "lavarock_static" },
+  {
+    "id": "bloodcrystal_physics",
+    "entity_name": "animal_bloodcrystal_physics",
+    "blood": "plasma_fading_pink",
+    "corpse": "crystal_purple"
+  },
+  { "id": "bloom", "entity_name": "animal_bloom", "blood": "slime", "corpse": "meat_slime_green" },
+  { "id": "boss_alchemist", "entity_name": "animal_boss_alchemist", "blood": "slime", "corpse": "rock_static_glow" },
+  {
+    "id": "boss_centipede_minion",
+    "entity_name": "animal_boss_centipede_minion",
+    "blood": "blood_fungi",
+    "corpse": "meat_slime"
+  },
+  {
+    "id": "boss_centipede",
+    "entity_name": "animal_boss_centipede",
+    "blood": "slime_green",
+    "corpse": "meat_slime_green"
+  },
+  {
+    "id": "gate_monster_a",
+    "entity_name": "animal_gate_monster_a",
+    "blood": "spark_red",
+    "corpse": "rock_box2d_nohit_hard"
+  },
+  { "id": "boss_ghost", "entity_name": "animal_boss_ghost", "blood": "plasma_fading", "corpse": "rock_static_glow" },
+  { "id": "islandspirit", "entity_name": "animal_islandspirit", "blood": "spark_blue", "corpse": "spark_blue" },
+  { "id": "boss_wizard", "entity_name": "animal_boss_wizard", "blood": "blood", "corpse": "blood" },
+  { "id": "wizard_orb_blood", "entity_name": "projectile_default", "blood": "blood", "corpse": "blood" },
+  { "id": "wizard_orb_death", "entity_name": "projectile_default", "blood": "blood", "corpse": "slime" },
+  {
+    "id": "confusespirit",
+    "entity_name": "animal_confusespirit",
+    "blood": "plasma_fading",
+    "corpse": "rock_static_glow"
+  },
+  { "id": "coward", "entity_name": "animal_coward", "blood": "blood", "corpse": "none" },
+  {
+    "id": "enlightened_alchemist",
+    "entity_name": "animal_enlightened_alchemist",
+    "blood": "slime",
+    "corpse": "meat_confusion"
+  },
+  { "id": "failed_alchemist", "entity_name": "animal_failed_alchemist", "blood": "bone", "corpse": "bone_box2d" },
+  {
+    "id": "crystal_physics",
+    "entity_name": "animal_crystal_physics",
+    "blood": "plasma_fading_pink",
+    "corpse": "crystal_purple"
+  },
+  { "id": "darkghost", "entity_name": "animal_darkghost", "blood": "blood_worm", "corpse": "meat_worm" },
+  { "id": "eel", "entity_name": "animal_eel", "blood": "blood_worm", "corpse": "meat_worm" },
+  {
+    "id": "enlightened_alchemist",
+    "entity_name": "animal_enlightened_alchemist",
+    "blood": "slime",
+    "corpse": "meat_confusion"
+  },
+  {
+    "id": "ethereal_being",
+    "entity_name": "animal_ethereal_being",
+    "blood": "plasma_fading",
+    "corpse": "rock_static_glow"
+  },
+  {
+    "id": "failed_alchemist_b",
+    "entity_name": "animal_failed_alchemist_b",
+    "blood": "slime",
+    "corpse": "rock_static_glow"
+  },
+  { "id": "failed_alchemist", "entity_name": "animal_failed_alchemist", "blood": "bone", "corpse": "bone_box2d" },
+  { "id": "firebug", "entity_name": "animal_firebug", "blood": "lava", "corpse": "lavarock_static" },
+  { "id": "firemage", "entity_name": "animal_firemage", "blood": "lava", "corpse": "lavarock_static" },
+  { "id": "fireskull", "entity_name": "animal_fireskull", "blood": "gunpowder_unstable", "corpse": "bone_box2d" },
+  { "id": "friend", "entity_name": "animal_friend", "blood": "blood", "corpse": "meat_helpless" },
+  { "id": "fungus_big", "entity_name": "animal_fungus_big", "blood": "blood_fungi", "corpse": "fungus_loose_trippy" },
+  { "id": "fungus_giga", "entity_name": "animal_fungus_giga", "blood": "blood_fungi", "corpse": "fungus_loose_trippy" },
+  { "id": "fungus_tiny", "entity_name": "animal_fungus_tiny", "blood": "blood_fungi", "corpse": "fungus_loose_trippy" },
+  { "id": "fungus", "entity_name": "animal_fungus", "blood": "blood_fungi", "corpse": "fungus_loose_trippy" },
+  { "id": "gazer", "entity_name": "animal_gazer", "blood": "lava", "corpse": "meat_slime_cursed" },
+  { "id": "ghost", "entity_name": "animal_ghost", "blood": "blood_worm", "corpse": "meat_worm" },
+  { "id": "ghoul", "entity_name": "animal_ghoul", "blood": "slime", "corpse": "meat" },
+  { "id": "giant", "entity_name": "animal_giant", "blood": "blood_cold", "corpse": "lavarock_static" },
+  { "id": "giantshooter", "entity_name": "animal_giantshooter", "blood": "acid", "corpse": "meat_slime_green" },
+  { "id": "goblin_bomb", "entity_name": "animal_goblin_bomb", "blood": "blood", "corpse": "none" },
+  { "id": "icemage", "entity_name": "animal_icemage", "blood": "snow", "corpse": "ice" },
+  { "id": "iceskull", "entity_name": "animal_iceskull", "blood": "blood_cold", "corpse": "ice_b2" },
+  { "id": "lasershooter", "entity_name": "animal_lasershooter", "blood": "slime_green", "corpse": "meat_slime_green" },
+  { "id": "longleg", "entity_name": "animal_longleg", "blood": "blood", "corpse": "none" },
+  {
+    "id": "lukki_creepy_long",
+    "entity_name": "animal_lukki_creepy_long",
+    "blood": "blood_worm",
+    "corpse": "meat_worm"
+  },
+  { "id": "lukki_dark", "entity_name": "animal_lukki_dark", "blood": "slime", "corpse": "meat_slime" },
+  {
+    "id": "lukki_longleg",
+    "entity_name": "animal_lukki_longleg",
+    "blood": "slime_green",
+    "corpse": "meat_slime_green"
+  },
+  { "id": "lukki_tiny", "entity_name": "animal_lukki_tiny", "blood": "slime_green", "corpse": "meat_slime_green" },
+  { "id": "lukki", "entity_name": "animal_lukki", "blood": "slime_green", "corpse": "meat_slime_green" },
+  { "id": "lurker", "entity_name": "animal_lurker", "blood": "material_darkness", "corpse": "material_darkness" },
+  { "id": "maggot_tiny", "entity_name": "animal_maggot_tiny", "blood": "material_darkness", "corpse": "none" },
+  { "id": "maggot", "entity_name": "animal_maggot", "blood": "slime_green", "corpse": "meat_slime_green" },
+  { "id": "meatmaggot", "entity_name": "animal_meatmaggot", "blood": "blood_worm", "corpse": "meat_worm" },
+  { "id": "mimic_physics", "entity_name": "animal_mimic_physics", "blood": "water", "corpse": "plastic_prop" },
+  { "id": "miner_chef", "entity_name": "animal_cook", "blood": "blood", "corpse": "none" },
+  { "id": "miner_fire", "entity_name": "animal_miner_fire", "blood": "blood", "corpse": "none" },
+  { "id": "miner_hell", "entity_name": "animal_miner_hell", "blood": "liquid_fire", "corpse": "none" },
+  { "id": "miner", "entity_name": "animal_miner", "blood": "blood", "corpse": "none" },
+  { "id": "necrobot_super", "entity_name": "animal_necrobot_super", "blood": "oil", "corpse": "steel" },
+  { "id": "necrobot", "entity_name": "animal_necrobot", "blood": "oil", "corpse": "steel" },
+  { "id": "necromancer_shop", "entity_name": "animal_necromancer_shop", "blood": "bone", "corpse": "meat_cursed_dry" },
+  {
+    "id": "necromancer_super",
+    "entity_name": "animal_necromancer_super",
+    "blood": "bone",
+    "corpse": "meat_cursed_dry"
+  },
+  { "id": "necromancer", "entity_name": "animal_necromancer", "blood": "bone", "corpse": "meat_cursed_dry" },
+  {
+    "id": "parallel_alchemist",
+    "entity_name": "animal_parallel_alchemist",
+    "blood": "slime",
+    "corpse": "rock_static_glow"
+  },
+  { "id": "pebble_physics", "entity_name": "animal_pebble", "blood": "blood_cold", "corpse": "rock_box2d_nohit" },
+  { "id": "phantom_a", "entity_name": "animal_phantom_a", "blood": "plasma_fading", "corpse": "rock_static_glow" },
+  { "id": "phantom_b", "entity_name": "animal_phantom_b", "blood": "plasma_fading", "corpse": "rock_static_glow" },
+  { "id": "scavenger_clusterbomb", "entity_name": "animal_scavenger_clusterbomb", "blood": "blood", "corpse": "none" },
+  { "id": "scavenger_glue", "entity_name": "animal_scavenger_glue", "blood": "blood", "corpse": "none" },
+  { "id": "scavenger_grenade", "entity_name": "animal_scavenger_grenade", "blood": "blood", "corpse": "none" },
+  { "id": "scavenger_heal", "entity_name": "animal_scavenger_heal", "blood": "blood", "corpse": "none" },
+  { "id": "scavenger_invis", "entity_name": "animal_scavenger_invis", "blood": "blood", "corpse": "none" },
+  { "id": "scavenger_leader", "entity_name": "animal_scavenger_leader", "blood": "blood", "corpse": "none" },
+  { "id": "scavenger_mine", "entity_name": "animal_scavenger_mine", "blood": "blood", "corpse": "none" },
+  { "id": "scavenger_poison", "entity_name": "animal_scavenger_poison", "blood": "blood", "corpse": "none" },
+  { "id": "scavenger_shield", "entity_name": "animal_scavenger_shield", "blood": "blood", "corpse": "none" },
+  { "id": "scavenger_smg", "entity_name": "animal_scavenger_smg", "blood": "blood", "corpse": "none" },
+  { "id": "shaman", "entity_name": "animal_shaman", "blood": "water_swamp", "corpse": "meat" },
+  {
+    "id": "shooterflower",
+    "entity_name": "animal_shooterflower",
+    "blood": "slime_green",
+    "corpse": "meat_slime_green"
+  },
+  { "id": "shotgunner_hell", "entity_name": "animal_shotgunner_hell", "blood": "liquid_fire", "corpse": "none" },
+  { "id": "shotgunner", "entity_name": "animal_shotgunner", "blood": "blood", "corpse": "none" },
+  { "id": "skullfly", "entity_name": "animal_skullfly", "blood": "slime", "corpse": "meat_slime_cursed" },
+  {
+    "id": "skycrystal_physics",
+    "entity_name": "animal_skycrystal_physics",
+    "blood": "plasma_fading",
+    "corpse": "gem_box2d"
+  },
+  {
+    "id": "skygazer",
+    "entity_name": "animal_skygazer",
+    "blood": "magic_liquid_random_polymorph",
+    "corpse": "meat_slime"
+  },
+  {
+    "id": "slimeshooter_nontoxic",
+    "entity_name": "animal_slimeshooter",
+    "blood": "radioactive_liquid_fading",
+    "corpse": "none"
+  },
+  {
+    "id": "slimeshooter",
+    "entity_name": "animal_slimeshooter",
+    "blood": "radioactive_liquid",
+    "corpse": "meat_slime_green"
+  },
+  { "id": "slimespirit", "entity_name": "animal_slimespirit", "blood": "plasma_fading", "corpse": "rock_static_glow" },
+  { "id": "sniper_hell", "entity_name": "animal_sniper_hell", "blood": "liquid_fire", "corpse": "none" },
+  { "id": "spearbot", "entity_name": "animal_spearbot", "blood": "oil", "corpse": "steel" },
+  { "id": "minipit", "entity_name": "animal_minipit", "blood": "blood_fungi", "corpse": "meat_slime" },
+  {
+    "id": "spitmonster",
+    "entity_name": "animal_spitmonster",
+    "blood": "endslime_blood",
+    "corpse": "meat_slime_cursed"
+  },
+  {
+    "id": "statue_physics",
+    "entity_name": "animal_statue_physics",
+    "blood": "plasma_fading_green",
+    "corpse": "rock_box2d_nohit"
+  },
+  { "id": "tentacler_small", "entity_name": "animal_tentacler_small", "blood": "blood_fungi", "corpse": "meat_slime" },
+  { "id": "tentacler", "entity_name": "animal_tentacler", "blood": "blood_fungi", "corpse": "meat_slime" },
+  { "id": "thundermage_big", "entity_name": "animal_thundermage_big", "blood": "diamond", "corpse": "diamond" },
+  { "id": "thundermage", "entity_name": "animal_thundermage", "blood": "diamond", "corpse": "diamond" },
+  { "id": "thunderskull", "entity_name": "animal_thunderskull", "blood": "blood_cold", "corpse": "ice_b2" },
+  { "id": "ultimate_killer", "entity_name": "animal_ultimate_killer", "blood": "blood", "corpse": "meat_helpless" },
+  { "id": "weakspirit", "entity_name": "animal_weakspirit", "blood": "plasma_fading", "corpse": "rock_static_glow" },
+  { "id": "worm_big", "entity_name": "animal_worm_big", "blood": "blood_worm", "corpse": "meat_worm" },
+  { "id": "worm_end", "entity_name": "animal_worm_end", "blood": "lava", "corpse": "lava" },
+  { "id": "worm_skull", "entity_name": "animal_worm_skull", "blood": "plasma_fading", "corpse": "plasma_fading" },
+  { "id": "worm_tiny", "entity_name": "animal_worm_tiny", "blood": "blood_worm", "corpse": "meat_worm" },
+  { "id": "worm", "entity_name": "animal_worm", "blood": "blood_worm", "corpse": "meat_worm" },
+  {
+    "id": "wraith_glowing",
+    "entity_name": "animal_wraith_glowing",
+    "blood": "plasma_fading",
+    "corpse": "rock_static_glow"
+  },
+  {
+    "id": "wraith_storm",
+    "entity_name": "animal_wraith_storm",
+    "blood": "plasma_fading",
+    "corpse": "rock_static_glow"
+  },
+  { "id": "wraith", "entity_name": "animal_wraith", "blood": "plasma_fading_pink", "corpse": "rock_static_glow" },
+  { "id": "zombie", "entity_name": "animal_zombie", "blood": "blood", "corpse": "meat" }
+]

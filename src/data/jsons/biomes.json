@@ -1,0 +1,266 @@
+[
+  {
+    "id": "abandoned_alchemy_lab",
+    "name": "Abandoned Alchemy Lab"
+  },
+  {
+    "id": "ancient_laboratory",
+    "name": "Ancient Laboratory"
+  },
+  {
+    "id": "avarice_diamond",
+    "name": "Avarice Diamond"
+  },
+  {
+    "id": "cloudscape",
+    "name": "Cloudscape"
+  },
+  {
+    "id": "coal_pits",
+    "name": "Coal Pits"
+  },
+  {
+    "id": "collapsed_mines",
+    "name": "Collapsed Mines"
+  },
+  {
+    "id": "dark_cave",
+    "name": "Dark Cave"
+  },
+  {
+    "id": "dark_chest",
+    "name": "Dark Chest"
+  },
+  {
+    "id": "dark_moon",
+    "name": "Dark Moon"
+  },
+  {
+    "id": "desert",
+    "name": "Desert"
+  },
+  {
+    "id": "desert_chasm",
+    "name": "Desert Chasm"
+  },
+  {
+    "id": "dragoncave",
+    "name": "Dragoncave"
+  },
+  {
+    "id": "fast_travel_room",
+    "name": "Fast Travel Room"
+  },
+  {
+    "id": "forest",
+    "name": "Forest"
+  },
+  {
+    "id": "forgotten_cave",
+    "name": "Forgotten Cave"
+  },
+  {
+    "id": "friend_room",
+    "name": "Friend Room"
+  },
+  {
+    "id": "frozen_vault",
+    "name": "Frozen Vault"
+  },
+  {
+    "id": "fungal_caverns",
+    "name": "Fungal Caverns"
+  },
+  {
+    "id": "gate_guardian",
+    "name": "Gate Guardian"
+  },
+  {
+    "id": "giant_tree",
+    "name": "Giant Tree"
+  },
+  {
+    "id": "gourd_cave",
+    "name": "Gourd Cave"
+  },
+  {
+    "id": "hall_of_wealth",
+    "name": "Hall of Wealth"
+  },
+  {
+    "id": "hidden_gold_cavern",
+    "name": "Hidden Gold Cavern"
+  },
+  {
+    "id": "hidden_gold_stash",
+    "name": "Hidden Gold Stash"
+  },
+  {
+    "id": "hiisi_base",
+    "name": "Hiisi Base"
+  },
+  {
+    "id": "holy_mountain",
+    "name": "Holy Mountain"
+  },
+  {
+    "id": "kammi",
+    "name": "Kammi"
+  },
+  {
+    "id": "lake",
+    "name": "Lake"
+  },
+  {
+    "id": "lava_lake",
+    "name": "Lava Lake"
+  },
+  {
+    "id": "lukki_lair",
+    "name": "Lukki Lair"
+  },
+  {
+    "id": "magical_temple",
+    "name": "Magical Temple"
+  },
+  {
+    "id": "meat_realm",
+    "name": "Meat Realm"
+  },
+  {
+    "id": "meditation_chamber",
+    "name": "Meditation Chamber"
+  },
+  {
+    "id": "mines",
+    "name": "Mines"
+  },
+  {
+    "id": "moon",
+    "name": "Moon"
+  },
+  {
+    "id": "mountain",
+    "name": "Mountain"
+  },
+  {
+    "id": "mysterious_gate",
+    "name": "Mysterious Gate"
+  },
+  {
+    "id": "nullifying_altar",
+    "name": "Nullifying Altar"
+  },
+  {
+    "id": "orb_room",
+    "name": "Orb Room"
+  },
+  {
+    "id": "outhouse",
+    "name": "Outhouse"
+  },
+  {
+    "id": "overgrown_cavern",
+    "name": "Overgrown Cavern"
+  },
+  {
+    "id": "power_plant",
+    "name": "Power Plant"
+  },
+  {
+    "id": "pyramid",
+    "name": "Pyramid"
+  },
+  {
+    "id": "rainbow_cloud",
+    "name": "Rainbow Cloud"
+  },
+  {
+    "id": "sanctuary",
+    "name": "Sanctuary"
+  },
+  {
+    "id": "sandcave",
+    "name": "Sandcave"
+  },
+  {
+    "id": "secret_shop",
+    "name": "Secret Shop"
+  },
+  {
+    "id": "snowy_chasm",
+    "name": "Snowy Chasm"
+  },
+  {
+    "id": "snowy_depths",
+    "name": "Snowy Depths"
+  },
+  {
+    "id": "snowy_wasteland",
+    "name": "Snowy Wasteland"
+  },
+  {
+    "id": "temple_of_the_art",
+    "name": "Temple of the Art"
+  },
+  {
+    "id": "the_gold",
+    "name": "The Gold"
+  },
+  {
+    "id": "the_hourglass_chamber",
+    "name": "The Hourglass Chamber"
+  },
+  {
+    "id": "the_laboratory",
+    "name": "The Laboratory"
+  },
+  {
+    "id": "the_robotic_egg",
+    "name": "The Robotic Egg"
+  },
+  {
+    "id": "the_tower",
+    "name": "The Tower"
+  },
+  {
+    "id": "the_vault",
+    "name": "The Vault"
+  },
+  {
+    "id": "the_work",
+    "name": "The Work"
+  },
+  {
+    "id": "the_work_end",
+    "name": "The Work (End)"
+  },
+  {
+    "id": "the_work_hell",
+    "name": "The Work (Hell)"
+  },
+  {
+    "id": "the_work_sky",
+    "name": "The Work (Sky)"
+  },
+  {
+    "id": "throne_room",
+    "name": "Throne Room"
+  },
+  {
+    "id": "underground_jungle",
+    "name": "Underground Jungle"
+  },
+  {
+    "id": "volcanic_lake",
+    "name": "Volcanic Lake"
+  },
+  {
+    "id": "water_biome",
+    "name": "Water (Biome)"
+  },
+  {
+    "id": "wizards_den",
+    "name": "Wizards' Den"
+  }
+]

@@ -1,0 +1,670 @@
+{
+  "triggerdupe": {
+    "name": "Triggerdupe",
+    "creator": "Human#6606",
+    "content": "Since some entities (like the statue test dummies found in Holy Mountains) are considered to be both enemies and physics objects, trigger spells that hit them will activate twice, potentially giving players an overinflated idea of the damage that their wands output."
+  },
+  "tablet": {
+    "name": "tablet",
+    "creator": "GrahamBurger#2747",
+    "content": "Tablets have a projectile component that can hit enemies, and also physics damage depending on how fast they're moving. If the projectile component hits an enemy, it will be attributed to you and won't cause trick kills.\nif you throw a tablet by clicking and dragging it out of your inventory, the projectile component won't know it was thrown by you and will cause trick kills every time. (Or you can just chuck it really fast, which will make it cause trick kills moderately more often due to the physics damage hitting / killing first.)",
+    "aliases": ["tabletkick", "tablets"]
+  },
+  "kickparry": {
+    "name": "kickparry",
+    "creator": "GrahamBurger#2747",
+    "content": "The elusive kick-parry... yep, that's a real game mechanic! Kicking with very precise timing can allow you to reflect melee-type damage back onto the attacker. This works even with ranged melee attacks, like tentacles or the tongue of a <:entity_konna_large:740666473927934123>. It's not too practical, but hey, it's fun!",
+    "aliases": ["parry"]
+  },
+  "progress": {
+    "name": "progress",
+    "creator": "Human#6606",
+    "content": "The progress menu is split into three sections:\n**Perks**\n> All perks are unlocked by default, picking one up will add it to your progress log if you haven’t taken it yet. Observant eyes might notice, not all perks are so easy to add though; ||they require a little more searching…||\n**Spells**\n> As with perks, casting a spell will add it to your progress menu, and unlock it if you haven’t already, though spells you haven’t unlocked won’t spawn normally. Not all spells are unlocked by default, and you will have to complete incredible feats of magic and knowledge to uncover them!\n**Enemies**\n> Last of all, when you slay an enemy, and *only* when you slay it yourself\\* (trick kills won’t count!) it will be added to the progress menu\\*\\*, displaying how many times you’ve killed it, and how many times it’s killed you. \n\n\\* Some exceptions may apply (||The boss will always be a kill on your part||)\n\\*\\* One specific enemy counts as two entries, meaning it is possible to get over 100% of the progress menu, though it’s up to you to find out who!"
+  },
+  "mods": {
+    "name": "mods",
+    "creator": "nathanskimscam",
+    "creator_id": "553043214374928395",
+    "attachments": [],
+    "content": "Some things are disabled if you have any mods enabled during a run. (The daily practice mode and nightmare mode count as mods for this purpose.) Notably, **you can still get unlocks and ||achievement pillars|| during modded runs**. Generally, the only things that are disabled by mods are:\n- Steam achievements\n- End screen stats being saved after winning a run\n- Wands being saved in the bones folder for<:entity_player_ghost_kummitus:970573426777546802>\n- \"The Gods Are Afraid\" / \"Very Curious\" messages for dealing over 1 million damage and reaching negative HP, respectively\n- The ||Cauldron|| or ||Eyes|| secrets appearing\nThe https://discord.com/channels/453998283174576133/1020458521927630879 or https://discord.com/channels/453998283174576133/1177451453086974063 mods allows you to play modded runs without these restrictions, if you'd like.",
+    "embed": true
+  },
+  "hiisi": {
+    "name": "hiisi",
+    "creator": "GrahamBurger#2747",
+    "content": "It's spelled \"hiisi\", not hissi or hisii or hiisii or hissii or any other combination of letters you could come up with <:Hamisad:967746804915523614>",
+    "aliases": ["hissi", "hisii", "hisi"]
+  },
+  "hmtrigger": {
+    "name": "hmtrigger",
+    "creator": "noby_y",
+    "creator_id": "368481685374894083",
+    "attachments": [
+      "./faqcontent/SPOILER_c8c1d940-f151-4362-9c51-a8bd65992420.png",
+      "./faqcontent/SPOILER_d59969b6-e54d-4732-91fb-d21bd48d792e.png"
+    ],
+    "content": "## Holy Mountain triggers\nHoly Mountains have various triggers, here are all the most important ones",
+    "embed": true,
+    "aliases": ["hmtriggers"]
+  },
+  "performance_mods": {
+    "name": "performance_mods",
+    "creator": "dextercd#7326",
+    "content": "You can reduce the number of chunks that are loaded at a time with tweakeroo: ⁠https://discord.com/channels/453998283174576133/1080736373973192784/1080736373973192784\nEphemeris also made a list of mods that are supposed to improve performance\nhttps://steamcommunity.com/sharedfiles/filedetails/?id=2823870667",
+    "aliases": ["performancemods"]
+  },
+  "wandmart": {
+    "name": "wandmart",
+    "creator": "grahamburger#0",
+    "content": "Wandmart is the community nickname for the ||Overgrown Caverns||, located below the far eastern part of the ||Desert||. The name originates from the high density of wand spawns there, mostly of tier 3 and tier 4, which contain most spells in the game. ||https://media.discordapp.net/attachments/453998283174576137/1120071265168920596/SPOILER_wandmart_location.png?width=796&height=701 ||",
+    "embed": false,
+    "aliases": ["castco"]
+  },
+  "steamcloud": {
+    "name": "steamcloud",
+    "creator": "grahamburger#0",
+    "content": "If you're not actively using Noita's Steam Cloud features - usually, syncing your save file between different devices - turn Steam Cloud off! Noita's save files are full of lots of little files, which Steam doesn't handle very well. It makes game crashes **much** more likely to break your save file or do other nasty stuff, and it'll make the game take longer to start up, too. <:entity_ghost_tiny:766389187339092008>\nhttps://media.discordapp.net/attachments/631276756359446528/1120483651180843129/image.png?width=1290&height=538\nhttps://media.discordapp.net/attachments/631276756359446528/1120483782575800460/image.png?width=908&height=300",
+    "embed": false,
+    "aliases": ["cloudsave"]
+  },
+  "jussi": {
+    "name": "jussi",
+    "creator": "pudy248#0",
+    "content": "It's Juhannus, the Finnish celebration of midsummer! Juhannussima will rarely spawn, and the hiisi have spent all night partying, so they're drunk 🥴. Light a bonfire by the lakeside to celebrate!"
+  },
+  "squidtrigger": {
+    "name": "squidtrigger",
+    "creator": "grahamburger#0",
+    "content": "||https://media.discordapp.net/attachments/631276756359446528/1126513642721005639/Orbroom_pitcheck.png?width=906&height=701 ||",
+    "embed": false,
+    "aliases": ["squidwardtrigger"]
+  },
+  "healingbolt": {
+    "name": "healingbolt",
+    "creator": "grahamburger#0",
+    "content": "https://media.discordapp.net/attachments/982850353911435294/982939933473923093/unknown.png?width=738&height=701",
+    "embed": false,
+    "aliases": ["healbolt"]
+  },
+  "replay": {
+    "name": "replay",
+    "creator": "noby_y",
+    "creator_id": "368481685374894083",
+    "attachments": ["./faqcontent/ba6a5519-a803-4349-b37f-e60b358e765e.png"],
+    "content": "",
+    "embed": true,
+    "aliases": ["recorder", "replayrecorder", "gif"]
+  },
+  "spellspawns": {
+    "name": "spellspawns",
+    "creator": "noby_y",
+    "creator_id": "368481685374894083",
+    "attachments": [],
+    "content": "## Wands:\nNaturally generated wands spawn with spells __1 tier lower__ than the wand's tier limited to spell types: **Projectile | Modifier | Multicast | Static Projectile** (but only as an Always Cast). Projectile type spells have a repeatable 10% chance to advance in tier\n\nExceptions: [Unique wands](<https://noita.wiki.gg/wiki/Wands#Unique_wands>) | [Pre-made wands](<https://noita.wiki.gg/wiki/Wand_and_Spell_Tiers#Wands_(premade)>)\n## Other sources:\nIf you're looking for spells of different types you can find them in: [Holy Mountain / biome spell shops](<https://noita.wiki.gg/wiki/Wand_and_Spell_Tiers#Biomes>) | ||Hell / Sky|| shops ([T10 spells](<https://noita.wiki.gg/wiki/Wand_and_Spell_Tiers#Tier_10_Spells>) only)\n\nThese places will not care about spell tiers and spawn probabilities: ||[Eye rooms](<https://noita.wiki.gg/wiki/The_Hourglass_Chamber#Teleportatium>)|| | [Treasure Chests](<https://noita.wiki.gg/wiki/Treasure_Chest#Loot_Table>) | [Utility boxes](<https://noita.wiki.gg/wiki/Utility_Box>) (only Modifier and Utility type spells) | ||Gate guardian|| boss loot",
+    "embed": true
+  },
+  "backup": {
+    "name": "backup",
+    "creator": "noby_y",
+    "creator_id": "368481685374894083",
+    "attachments": [],
+    "content": "## How to make a backup\n### 1\\. Go to your save folder (make sure the game is closed)\n**Windows:**\n- `%localappdata%low/Nolla_Games_Noita/`\n**Linux:**\n- `~/.steam/steam/steamapps/compatdata/881100/pfx/drive_c/users/steamuser/AppData/LocalLow/Nolla_Games_Noita/`\n- `~/.wine/drive_c/users/[your_username]/AppData/LocalLow/Nolla_Games_Noita/`\n`[your_username]` - your account's username (e.g., `users/god_gamer_69/AppData`)\n### 2. Copy your save folder\n`save00` is your main save folder (ignore the rest). Copy `save00` to a different folder or maybe even to the same folder and rename it into something like `backup_1`.\n## How to restore to a backup\n1. Go to your save folder (see above)\n- Delete `save00` (current save)\n- Paste back the backup folder (make sure the folder is named `save00` )\n- Open Noita and continue playing",
+    "embed": true
+  },
+  "recoil": {
+    "name": "recoil",
+    "creator": "noby_y",
+    "creator_id": "368481685374894083",
+    "attachments": ["./faqcontent/219ecb9c-6b48-4b66-ae32-9cc271dfdd93.png"],
+    "content": "",
+    "embed": true
+  },
+  "crystalholder": {
+    "name": "crystalholder",
+    "creator": "scryingcircle",
+    "creator_id": "552567729245388822",
+    "attachments": [],
+    "content": "This holder is present in HMs, where it holds the worm crystal in place. However, upon leaving the area, the object can clip through the ground into the terrain below: https://media.discordapp.net/attachments/453998283174576137/1139802991650684928/image.png",
+    "embed": false,
+    "aliases": ["wormcrystal", "wormholder"]
+  },
+  "fonts": {
+    "name": "fonts",
+    "creator": "dextercd",
+    "creator_id": "468016113905696768",
+    "attachments": [],
+    "content": "There's a bunch of font files linked here:\n* https://discord.com/channels/453998283174576133/626791912443084801/853510988883165224\n* https://noita.wiki.gg/wiki/Modding:_Useful_Tools#Typefaces",
+    "embed": true
+  },
+  "kiuaskivi": {
+    "name": "kiuaskivi",
+    "creator": "grahamburger",
+    "creator_id": "396337496008687616",
+    "attachments": [],
+    "content": "It's spelled \"kiuaskivi\", not kivaskivi or kiuaskiui or kinaskivi or any other combination of letters you could come up with <:Hamisad:967746804915523614>",
+    "embed": true
+  },
+  "spatialmap": {
+    "name": "spatialmap",
+    "creator": "scryingcircle",
+    "creator_id": "552567729245388822",
+    "attachments": [],
+    "content": "||https://media.discordapp.net/attachments/626180507323072512/956339686492745828/Spatial_awarness_overlaid_on_map_Better.png?width=907&height=657 ||",
+    "embed": false,
+    "aliases": ["spatial_map"]
+  },
+  "nobreak": {
+    "name": "nobreak",
+    "creator": "grahamburger",
+    "creator_id": "396337496008687616",
+    "attachments": [],
+    "content": "Most structures don't get disabled if you break them! Even if you nuke them to all oblivion, most structures will still work as normal (though you'll have to bring stuff to where the structure and/or its triggers were before you destroyed it), *including but not limited to*:\n- ||Mountain Altar||\n- ||Hiisi Base Anvil||\n- ||Nullifying Altar|| \n- ||Avarice Diamond||\n- Biome-specific puzzles (such as the ||[Buried Eye](https://noita.wiki.gg/wiki/Buried_Eye)|| or ||[Vault puzzles](https://noita.wiki.gg/wiki/The_Vault#Puzzles)||)",
+    "embed": true
+  },
+  "upwarp": {
+    "name": "upwarp",
+    "creator": "grahamburger",
+    "creator_id": "396337496008687616",
+    "attachments": [],
+    "content": "Most physics objects, if they find themselves stuck in terrain (usually from spawning there), will move very quickly upwards until they find a free space. This is known as \"upwarping\", and happens most often with chests and occasionally items dropped from chests.",
+    "embed": true
+  },
+  "multiplayer": {
+    "name": "multiplayer",
+    "creator": "nathanskimscam",
+    "creator_id": "553043214374928395",
+    "attachments": [],
+    "content": "Noita has no built-in multiplayer options in vanilla, but there are several options to choose from with the help of mods!\n- [**Noita Entangled Worlds**](https://github.com/IntQuant/noita_entangled_worlds) lets you have a true online multiplayer experience, complete with world sync! You can join their discord here: <https://discord.gg/S7QdV8ZZPw>\n- [**Noita Arena**](https://steamcommunity.com/workshop/filedetails/?id=3035468502) lets you fight your friends (and foes) in an online round-based PvP arena! Build wands and duke it out against other players! You can join their discord here: <https://discord.gg/zJyUSHGcme>\n- [**Iota Multplayer**](https://discord.com/channels/453998283174576133/1262257753636864091/1262257753636864091) lets you play couch co-op with a friend! Simple, but very fun!\n- [**Noita Together**](https://github.com/Noita-Together/noita-together) lets you play with other players on the same seed! You're each in separate worlds, but you can trade items and gold between players, and see where other players are in their own worlds.",
+    "embed": true
+  },
+  "hamis": {
+    "name": "hamis",
+    "creator": "pudy248",
+    "creator_id": "494588005919752213",
+    "attachments": [],
+    "content": "It's hämis, not hamis! You can type the ä with `ALT+132`, `ALT+0228`, or the classic ctrl+c ctrl+v from here: `ä Ä`, or with composition if your keyboard layout permits. <:entity_hamis:892964562654097468>",
+    "embed": true,
+    "aliases": ["hämis"],
+    "regex": []
+  },
+  "fireworks": {
+    "name": "fireworks",
+    "creator": "grahamburger",
+    "creator_id": "396337496008687616",
+    "attachments": [],
+    "content": "Happy New Year! A green fireworks box will appear between December 30th and January 2nd. Shoot it to make it dispense its contents - just try not to get yourself blown up in the process! https://media.discordapp.net/attachments/631276756359446528/1190476801705791599/image.png",
+    "embed": false,
+    "aliases": ["pata"]
+  },
+  "meditation": {
+    "name": "meditation",
+    "creator": "grahamburger",
+    "creator_id": "396337496008687616",
+    "attachments": [],
+    "content": "Totally cubular. ||stand on top of it for a little bit for a portal to a room where you can edit your wands https://media.discordapp.net/attachments/1142012880133300227/1191505254672519348/Noitagif-meditation-1.gif ||",
+    "embed": false,
+    "aliases": ["cube", "meditationcube"]
+  },
+  "beta": {
+    "name": "beta",
+    "creator": "grahamburger",
+    "creator_id": "396337496008687616",
+    "attachments": [],
+    "content": "The beta branch contains updates to the main game that you can access before they're released. If you have the game on Steam, here's how to access it:\n- Right click the game in your Steam library\n- Go to \"Properties\"\n- Go to \"Betas\"\n- Select \"noitabeta\" in the dropdown menu.\nhttps://media.discordapp.net/attachments/1142012880133300227/1192529938021109901/image.png",
+    "embed": false,
+    "aliases": ["betabranch"]
+  },
+  "sima": {
+    "name": "sima",
+    "creator": "pudy248",
+    "creator_id": "494588005919752213",
+    "attachments": [],
+    "content": "Happy Vappu, everyone! On April 30th and May 1st, all potions have a 20% chance to be replaced with Sima, a lightly alcoholic Finnish beverage that stains with Wet. Sima may also be the output (but not input) of a natural Fungal Shift.",
+    "embed": true,
+    "aliases": ["vappu"]
+  },
+  "pillars": {
+    "name": "pillars",
+    "creator": "scryingcircle",
+    "creator_id": "552567729245388822",
+    "attachments": [],
+    "content": "||https://noita.wiki.gg/images/6/60/SecretPillarsMills.png ||",
+    "embed": false,
+    "aliases": ["pillar"]
+  },
+  "howtospoiler": {
+    "name": "howtospoiler",
+    "creator": "noby_y",
+    "creator_id": "368481685374894083",
+    "attachments": ["./faqcontent/f8d4e899-dfc7-491a-962e-2cd26b799ee8.png"],
+    "content": "### Text\nSurround the part of the text you want to spoiler with \\|| like so:\n\\||this is a spoiler||\n### Images (not retroactive, delete and resend with a spoiler)\nPC: hover over and click on the eye before sending as shown below\nMobile: click on the image and mark as a spoiler before sending",
+    "embed": true,
+    "aliases": ["spoiler", "howtospoil", "spoilerhow", "howtospouler"]
+  },
+  "spoilerrules": {
+    "name": "spoilerrules",
+    "creator": "noby_y",
+    "creator_id": "368481685374894083",
+    "attachments": ["./faqcontent/c9cac57c-648c-41e8-8efd-ab4ae9c238c7.png"],
+    "content": "[Full spoiler rules](<https://discord.com/channels/453998283174576133/1019822123549732874>) <-",
+    "embed": true,
+    "aliases": ["spoilers"]
+  },
+  "data": {
+    "name": "data",
+    "creator": "nathanskimscam",
+    "creator_id": "553043214374928395",
+    "attachments": [],
+    "content": "[data](<https://github.com/NathanSnail/noitadata>)",
+    "embed": true
+  },
+  "healingdamage": {
+    "name": "healingdamage",
+    "creator": "grahamburger",
+    "creator_id": "396337496008687616",
+    "attachments": [],
+    "content": "When it comes to projectiles like Healing Bolt and Circle of Vigour, their healing effect is not just *negative damage*; they use a special **Healing** damage type. While most damage types cannot effectively go below 0, healing damage cannot effectively go *above* 0. \nNote that you can still make healing spells deal damage by, for example, adding <:spell_damage:888282935306899476> to it, because Damage Plus adds *projectile* damage. The healing effect is still there, it just is overshadowed by the damage added. If you're having trouble healing because you took Concentrated Spells or Boomerang Spells, try using a modifier like Piercing to reduce its projectile damage to 0. The healing will stay!\nTLDR: You can't make Healing Bolt heal you more by reducing its projectile damage.",
+    "embed": true
+  },
+  "submitseedhelp": {
+    "name": "submitseedhelp",
+    "creator": "pudy248",
+    "creator_id": "494588005919752213",
+    "attachments": [],
+    "content": "To submit a seed in <#821048713522708549>, run `.submitseed [your-seed] [description]` (with an attachment if necessary) in <#631276756359446528>. For example, `.submitseed 151585999 Has a really cool chest right to the left in mines.` **Do not include brackets around the seed!** This will cause your submission to be rejected.",
+    "embed": true
+  },
+  "missingperk": {
+    "name": "missingperk",
+    "creator": "pudy248",
+    "creator_id": "494588005919752213",
+    "attachments": ["./faqcontent/unknown.png"],
+    "content": "If you enter the holy mountain from a portal that is not the ones marked here and then crash or restart the game right after entering the holy mountain (or restart while near the third unmarked portal), only part of the perk altar has loaded in and the missing perks never appear.\n",
+    "embed": false
+  },
+  "mammi": {
+    "name": "mammi",
+    "creator": "grahamburger",
+    "creator_id": "396337496008687616",
+    "attachments": ["./faqcontent/0410d835-4dbf-4593-8941-4505b1b6a63f.png"],
+    "content": "Mämmi is a very rare brown powder that looks extremely similar to Excrement. It will replace around 10% of potion spawns in the 7 days leading up to Easter.\n||Consuming Mämmi will give you a permanent status effect called The Loathsome Mämmi Eater. This status effect does nothing and cannot be removed without starting a new run.||",
+    "embed": true,
+    "aliases": ["mämmi"]
+  },
+  "spellperformance": {
+    "name": "spellperformance",
+    "creator": "scryingcircle",
+    "creator_id": "552567729245388822",
+    "attachments": [],
+    "content": "https://discord.com/channels/453998283174576133/626136067707240449/1221953545503510569",
+    "embed": true
+  },
+  "uvmaps": {
+    "name": "UVMaps",
+    "creator": "copis",
+    "creator_id": "294650788897095680",
+    "attachments": [],
+    "content": "Attached is some information on UV Maps for Entities, written by Conga Lyne \nhttps://discord.com/channels/453998283174576133/626084015996403712/1049925742596722728",
+    "embed": true,
+    "aliases": ["uvmap", "uv"]
+  },
+  "stevaristatue": {
+    "name": "stevaristatue",
+    "creator": "atomguy",
+    "creator_id": "151047737029165058",
+    "attachments": [
+      "./faqcontent/fe481ea2-9234-490e-ae5c-abdeab94c477.gif",
+      "./faqcontent/ce685742-b64d-4a0c-8c93-55da2ad2c459.gif",
+      "./faqcontent/1373fb35-2410-4610-9144-4603c558947c.gif",
+      "./faqcontent/3809cb2c-f8fc-4574-a726-584c862b7e18.gif"
+    ],
+    "content": "It's very common that enough damage to the holy mountain will anger the gods in your runs, which inevitably will lead to the Stevari (AKA Steve, mall cop) spawning and causing you some trouble. Fortunately, the holy mountain comes equipped with just the thing for him: the statues!\n\nThere are 2 extremely reliable statue kick methods which you can use in every run you play.\n\nThe one you'll likely use first utilises the statue found at the right, first kick the statue so that it's base is facing right as shown in the clip below (1st gif)\n\nAnd as soon as he's about to be on top of your head, kick the statue directly up! It should look like this (2nd gif)\n\nThe left statue can also be utilised. First you'll need to pay Steve a visit to let him know you're there (3rd gif)\nHe'll soon start to chase you at which point you can make your way over to the left while Steve is focused on the fish, stand against the back of the statue, wait for Steve to come right over the top of you and once again, kick the statue directly up! It should look like this (4th gif)",
+    "embed": true,
+    "aliases": ["stevestatue", "steven", "stevaristatues", "statuekick", "steve", "stevari"]
+  },
+  "squidcheese": {
+    "name": "squidcheese",
+    "creator": "grahamburger",
+    "creator_id": "396337496008687616",
+    "attachments": [],
+    "content": "Congrats, you've been played by the <:Squidward:926491136732856381> anti-cheese. Every time someone gets got by the anti-cheese, run this FAQ command. Then, after a while, we'll have a count of how many have fallen to it! Search term: SQUID CHEESE BUFFET",
+    "embed": true
+  },
+  "quickanddirtywands": {
+    "name": "quickanddirtywands",
+    "creator": "scryingcircle",
+    "creator_id": "552567729245388822",
+    "attachments": [],
+    "content": "https://discord.com/channels/453998283174576133/1224571968993493022",
+    "embed": true,
+    "aliases": ["clearance"]
+  },
+  "flasks": {
+    "name": "flasks",
+    "creator": "pudy248",
+    "creator_id": "494588005919752213",
+    "attachments": ["./faqcontent/2d3893f7-e233-4e50-993a-41cd348279a5.png"],
+    "content": "The 200% is a lie! The potions thrown by the Puistokemisti enemy have a unique sprite and spawn filled with a normal potion's quantity, but their max capacity is half of a normal potion's! Don't let the 200% fool you; there's no more material in this flask than in any other.\n",
+    "embed": true,
+    "aliases": ["flask", "alchemist", "potions"]
+  },
+  "noited": {
+    "name": "noited",
+    "creator": "atomguy",
+    "creator_id": "151047737029165058",
+    "attachments": [],
+    "content": "Map your death using: https://kamiheku.github.io/noited/\nCreated by **Kamiheku**!",
+    "embed": true
+  },
+  "progresstracker": {
+    "name": "progresstracker",
+    "creator": "pudy248",
+    "creator_id": "494588005919752213",
+    "attachments": [],
+    "content": "To find out which spells and enemies you're missing, you can use the helpful [Progress-Seeing Eye](<https://ipeterov.github.io/noita-progress/>) website designed by ipeterov! Includes wiki links for every entry in order to investigate associated unlocks where necessary.",
+    "embed": true
+  },
+  "swamp": {
+    "name": "swamp",
+    "creator": "nathanskimscam",
+    "creator_id": "553043214374928395",
+    "attachments": ["./faqcontent/0883661c-c061-49d4-8658-30a0c310ed4e.png"],
+    "content": "There are 2 variants of swamp, `swamp` on the left and `water_swamp` on the right. If you are using noitool enable ids so you can tell the difference.",
+    "embed": true
+  },
+  "savepath": {
+    "name": "savepath",
+    "creator": "noby_y",
+    "creator_id": "368481685374894083",
+    "attachments": [],
+    "content": "Noita saves can be found at `%localappdata%low/Nolla_Games_Noita/save00`. `save01-save06` are part of an unused save slot feature which can be re-enabled with mods. `save_shared` contains settings, some of which are hidden and only present in the xml. `save_rec` contains screenshots and gifs\n\nNote: Linux users will have to locate their virtual C drive prefix, which may be either `~/.steam/steam/steamapps/compatdata/881100/pfx/drive_c/users/steamuser/` or `~/.wine/drive_c/users/<you>/`",
+    "embed": true
+  },
+  "fandom": {
+    "name": "fandom",
+    "creator": "pudy248",
+    "creator_id": "494588005919752213",
+    "attachments": ["./faqcontent/38f7bebf-50f1-4be9-b268-2195bd4a5a61.png"],
+    "content": "Fandom is the old Noita wiki, and has not been updated or maintained in several years. The wiki doesn't contain recent improvements or any of Epilogue 2's many changes and additions, so using it is asking to be misinformed. We've since migrated to [wiki.gg](https://noita.wiki.gg/wiki/Noita_Wiki)! We aren't able to take down the Fandom wiki as their ToS prohibits it. Fandom is also generally a worse experience and inundated with ads and occasional vandalism.\nThere are a few extensions which allow you to automatically redirect away from old wikis here: https://discord.com/channels/453998283174576133/626791912443084801/1158962777189261403\nWiki.gg is also the only wiki officially endorsed by Nolla Games, although they are not directly affiliated with the wiki management. ",
+    "embed": true,
+    "regex": ["https?://noita.fandom.com"]
+  },
+  "noitool": {
+    "name": "noitool",
+    "creator": "noby_y",
+    "creator_id": "368481685374894083",
+    "attachments": [],
+    "content": "### [Noitool](<https://www.noitool.com/>) \nis a seed searching website which can let you see your shifts / perks / shops and some other information about your seed.\ncr4xy.dev has not been updated in years. Please use Noitool!",
+    "embed": true,
+    "aliases": ["cr4xy"]
+  },
+  "s2pcrash": {
+    "name": "s2pcrash",
+    "creator": "atomguy",
+    "creator_id": "151047737029165058",
+    "attachments": [],
+    "content": "Spells to Power has an implementation flaw where failing to provide it with any feed causes the modifier to try and generate an explosion with infinite radius, which causes an immediate crash. Always feed your spells, or they'll get hungry and eat your save.\nThe [QoL mod](https://steamcommunity.com/sharedfiles/filedetails/?id=2744309004) fixes this.",
+    "embed": true,
+    "aliases": ["stpcrash"]
+  },
+  "polyprot": {
+    "name": "polyprot",
+    "creator": "scryingcircle",
+    "creator_id": "552567729245388822",
+    "attachments": ["./faqcontent/6baba46d-3fb9-4702-9e99-34a8db771dec.png"],
+    "content": "",
+    "embed": false,
+    "aliases": ["vacuum", "vacuumfield"]
+  },
+  "hmescapes": {
+    "name": "hmescapes",
+    "creator": "pudy248",
+    "creator_id": "494588005919752213",
+    "attachments": [
+      "./faqcontent/581383f6-7d9f-4d51-b600-4ce263ab1b4e.png",
+      "./faqcontent/996c92ab-616a-46f9-bbed-4a14a9a10f36.gif",
+      "./faqcontent/ae1a24cf-686c-49af-800a-9151eccf2060.gif"
+    ],
+    "content": "There are a few common strategies to safely bypass the holy mountain collapse trigger (see .hmtrigger for specifics). Aside from using polymorph or teleporting out of the mountain directly, here are the most common strategies. Return inside of a trigger can also be used in place of standard teleport bolts.",
+    "embed": true,
+    "aliases": ["hmescape", "holymountainescape", "holymountainescapes"]
+  },
+  "shotstate": {
+    "name": "shotstate",
+    "creator": "noby_y",
+    "creator_id": "368481685374894083",
+    "attachments": [],
+    "content": "### There's only 2 ways to separate modifications from projectiles:\n- Separate wand casts (clicks)\n- Triggers\n### When looking at a wand ask these 2 questions:\n- Is the wand you're looking at casting Modifiers and projectile spells in different wand casts?\n- Is there a trigger separating Modifiers and projectiles into inside/outside of its payload (some projectile is inside and some Modifier is outside)?\n\nIf the answers are **No** and **No**, then there's nothing else to separate shot states -> all modifications affect all projectiles in that same shot state __regardless of order__\n### Example:\n<:spell_double:631582503622279198> <:spell_spark_bolt:968527256450388019> <:spell_damage:888282935306899476>\n- Both <:spell_spark_bolt:968527256450388019> and <:spell_damage:888282935306899476> are cast on the same wand cast\n- No triggers separate them",
+    "embed": true,
+    "aliases": ["shotstates"]
+  },
+  "wandstats": {
+    "name": "wandstats",
+    "creator": "kigmillions",
+    "creator_id": "795718104684298241",
+    "attachments": ["./faqcontent/32af243d-3a1e-40c4-996a-a46d47ff21e8.png"],
+    "content": "### An easy way to show your wands' stats:\n1. Drop one of your wands and press the pick-up button\n- During the pickup menu all of your wands' stats are shown\n- Take a screenshot",
+    "embed": true,
+    "aliases": ["stats", "wandstat"]
+  },
+  "wandsim": {
+    "name": "wandsim",
+    "creator": "scryingcircle",
+    "creator_id": "552567729245388822",
+    "attachments": [],
+    "content": "[nofi](https://github.com/scrying-circle/nofi/tree/main)\n[new wand sim](https://tinker-with-wands-online.vercel.app/?d=0&m=20000&c=20000&q=0&n=&p=&v=1&a=1&x=0&r=0&l=26&s=%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C%2C&w=%2C%2C%2C)\n[old wand sim](https://noita-wand-simulator.salinecitrine.com/?actions_per_round=1&deck_capacity=26&reload_time=0&shuffle_deck_when_empty=false&cast_delay=0&mana_charge_speed=20000&mana_max=20000&spread=0&spells=)",
+    "embed": true,
+    "aliases": ["wandeval"]
+  },
+  "spellemotes": {
+    "name": "spellemotes",
+    "creator": "noby_y",
+    "creator_id": "368481685374894083",
+    "attachments": [],
+    "content": "## Spell Emote Servers\n- [Spell Emote Server 1](https://discord.com/invite/vbWvRbqZDP)\n- [Spell Emote Server 2](https://discord.com/invite/fcHter75V4)\n- [Spell Emote Server 3](https://discord.com/invite/jKrWPVwmJm)\n- [Spell Emote Server 4](https://discord.com/invite/dvKXrR7Zww)\n- [Spell Emote Server 5](https://discord.com/invite/tM74e697mq)\n- [Spell Emote Server 6](https://discord.com/invite/HbKyb4hncQ)\n- [Spell Emote Server 7](https://discord.com/invite/m5aPmDAreK)\n- [Spell Emote Server 8](https://discord.com/invite/5NhCeK4xzJ)",
+    "embed": true,
+    "aliases": ["spellmotes"]
+  },
+  "vuoksikivi": {
+    "name": "vuoksikivi",
+    "creator": "kigmillions",
+    "creator_id": "795718104684298241",
+    "attachments": [],
+    "content": "It's spelled \"vuoksikivi\", not vuoskivi or vuokivi or vuosikivi or any other combination of letters you could come up with <:Hamisad:967746804915523614>",
+    "embed": true
+  },
+  "screenshots": {
+    "name": "screenshots",
+    "creator": "atomguy",
+    "creator_id": "151047737029165058",
+    "attachments": ["./faqcontent/9b0be9cd-d60c-405e-a487-93ca9df5d1c6.png"],
+    "content": "Options > general > set \"window mode\" to \"windowed\", also make sure the resolution is the same as your screen's resolution\nIt will be equivalent to fullscreen (it's fake windowed), except it will allow you to easily take screenshots with win+shift+s (and it copies them automatically to the clipboard) ",
+    "embed": true,
+    "aliases": ["screenshot"]
+  },
+  "gitmod": {
+    "name": "gitmod",
+    "creator": "nathanskimscam",
+    "creator_id": "553043214374928395",
+    "attachments": [],
+    "content": "If you install a mod from github, either use `git clone [[URL]]` in your mods folder, or download the mod via code → download zip, unzip the mod, and rename the folder to remove the branch name (often -main or -master) then put that in your mods folder. If you have done it correctly the file structure should look like `Noita/mods/modname/init.lua`",
+    "embed": true
+  },
+  "addtrigger": {
+    "name": "addtrigger",
+    "creator": "noby_y",
+    "creator_id": "368481685374894083",
+    "attachments": ["./faqcontent/0b91b0bf-22e8-47a9-b7d1-c2e6d9b0ce73.png"],
+    "content": "",
+    "embed": true,
+    "aliases": ["add_trigger"]
+  },
+  "summontaikasauva": {
+    "name": "summontaikasauva",
+    "creator": "noby_y",
+    "creator_id": "368481685374894083",
+    "attachments": ["./faqcontent/5b4237ec-5f83-4cf1-86ac-729f9769ed21.gif"],
+    "content": "You can farm wands using the **Summon Taikasauva** spell simply by releasing it near an existing wand. It will replace that wand with a new one and kill the wandghost instantly.\n-> [List of spells that can be found on Summon Taikasauva](https://noita.wiki.gg/wiki/Summon_Taikasauva#Spells)",
+    "embed": true,
+    "aliases": ["taika", "wandghost", "taikasauva"]
+  },
+  "mina": {
+    "name": "mina",
+    "creator": "kigmillions",
+    "creator_id": "795718104684298241",
+    "attachments": [],
+    "content": "It's Minä, not Mina! You can type the ä with `ALT+132`, `ALT+0228`, or the classic ctrl+c ctrl+v from here: `ä Ä`, or with composition if your keyboard layout permits. <:mina:616958892953436161>",
+    "embed": true,
+    "aliases": ["minä"]
+  },
+  "swiftness": {
+    "name": "swiftness",
+    "creator": "kigmillions",
+    "creator_id": "795718104684298241",
+    "attachments": ["./faqcontent/SPOILER_6b1a7840-ccad-41f8-8630-fc7efda5de5b.png"],
+    "content": "_ _\nThe ||tower wands|| are some of the strongest wands in the game, but are made difficult to reach by the cursed rock which surrounds ||the tower||.\n\nThe image below shows a 12 pixel gap in this cursed rock aura (roughly shown by the blue line), which can be found fairly easily using the edge of the ||underground desert orb room||. This gap can be used to enter ||the tower|| very safely.\n\nAn easy way to find this gap is to hug the outside left wall of the ||orb room|| and dig straight down, which should align you with the gap and give you a safe entry to ||the tower||.",
+    "embed": true,
+    "aliases": ["towerwands", "towerwand"]
+  },
+  "wisp": {
+    "name": "wisp",
+    "creator": "noby_y",
+    "creator_id": "368481685374894083",
+    "attachments": [],
+    "content": "**Infini-wisp** (wisp for short) is a projectile that has __exactly -1 lifetime__ and therefore lives forever. Some projectiles are natural wisps but you can also [make most projectiles into wisps](https://discord.com/channels/453998283174576133/982850353911435294/1128928282511949914) (doing so will ||give you *The Gods Are Impressed* achievement||).",
+    "embed": true
+  },
+  "moddev": {
+    "name": "moddev",
+    "creator": "nathanskimscam",
+    "creator_id": "553043214374928395",
+    "attachments": [],
+    "content": "## Introduction to mod development\n* Wiki page: [Modding](https://noita.wiki.gg/wiki/Modding)\n## Various tools for mod development\n* Text editor: [VSCode](https://code.visualstudio.com/download) | [Nvim](https://neovim.io/) | [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim)\n* Git: [Website](https://git-scm.com/)\n* LuaLS: [VSCode Extension](https://marketplace.visualstudio.com/items?itemName=sumneko.lua) | [Github - LSP](https://github.com/LuaLS/lua-language-server)\n* Lemminx: [VSCode Extension](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-xml) | [Github - LSP](https://github.com/eclipse-lemminx/lemminx) | [Github - VSCode](https://github.com/redhat-developer/vscode-xml)\n* Lua definitions: [Github](https://github.com/NathanSnail/AutoLuaAPI)\n* Xml definitions: [Github](https://github.com/NathanSnail/noita_xml_dtd)\n* Type definitions: [Github](https://github.com/NathanSnail/noita_stubs)\n## Wiki pages\n* Main modding page: [Wiki](https://noita.wiki.gg/wiki/Modding)\n* Lua API documentation: [Wiki](https://noita.wiki.gg/wiki/Modding:_Lua_API)\n* Component documentation: [Wiki](https://noita.wiki.gg/wiki/Category:Documentation)\n## Mods for mod development\n* Component explorer: [Releases](https://github.com/dextercd/Noita-Component-Explorer/releases) | [Install Guide](https://noita.wiki.gg/wiki/Mod:Component_Explorer#Installation)\n    * Limited functionality: [Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3073419779) \n* Spell Lab Shugged: [Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3284126816) | [Github](https://github.com/shoozzzh/Spell-Lab-Shugged)\n## Various libraries which are often useful\n* NXML: [Github](https://github.com/NathanSnail/luanxml)\n* Smallfolk: [Github](https://github.com/gvx/Smallfolk)",
+    "embed": true,
+    "aliases": ["modding"]
+  },
+  "guidingpowder": {
+    "name": "guidingpowder",
+    "creator": "pudy248",
+    "creator_id": "494588005919752213",
+    "attachments": ["./faqcontent/6f6bff26-d5f3-46e3-8987-a8a7765216fd.gif"],
+    "content": "You stumbled upon Guiding Powder! It's a magical material made by mixing ||Flummoxium|| and ||Unstable Teleportatium||. While not ordinarily useful on its own, it generates colorful sparks which point to ||the nearest Orb Room||.\n",
+    "embed": true
+  },
+  "incompatibility": {
+    "name": "incompatibility",
+    "creator": "copis",
+    "creator_id": "294650788897095680",
+    "attachments": [],
+    "content": "# Identifying incompatible mods\nSome mods break other mods, and in larger modpacks, this only gets more common and hard to pinpoint. Try disabling specific mods to see if the issue is fixed.\n1. Check older mods: These tend to use older API features and don't account for other mods. Anything over two years old without maintenance is a strong contender.\n2. Related mods: Any mod that touches the same features. Spells not working? Check spell mods. Misplaced pixel scenes? Check map mods.\n3. Complicated/larger mods: These do a lot of things, and can often change more fundamental aspects of the game. Complicated spell mods, vast enemy mods, if you can't sum up its features in a single sentence it might touch the same code as another mod.\n4. Binary Search: At worst, you can brute force it if guesstimating doesn't work. \n   - Disable half of your mods, keeping the broken mod enabled (or not, if unsure)\n   - If the issue is resolved, disable the other half instead. If the issue is still gone, try another half, repeat step 1\n   - Once you've narrowed the mods down to half and the issue persists, only disable half of these mods. repeat step 1 on this narrowed subset.\n   - You will eventually chip down the mod list to the incompatible mod(s).\n# Addressing incompatible mods\nOnce you find the incompatibility, you can choose to disable one of the mods causing the issue, and optionally use an alternative.\nIt is strongly recommended that you point out this issue to the mod developer and other users, if the mod is no longer in active development or maintenance you may want to consider leaving a comment pointing the issue for other people who may have this same issue. At best someone will make a 3rd party patch, at worst, you'll save someone the hassle of finding it!",
+    "embed": true
+  },
+  "infhp": {
+    "name": "infhp",
+    "creator": "noby_y",
+    "creator_id": "368481685374894083",
+    "attachments": [],
+    "content": "## Inf HP comes in 2 forms\n### 9,223,372,036,854,774,784+\nAny value above that number will just show as ∞ in the in-game UI. It has no special interactions, it simply doesn't show the true HP value.\n**CAUTION:** At really high HP %based damage can become inf and instakill you due to it being stored in a smaller-sized variable.\n### ~1.8e308\nActually inf HP. You don't take damage or, to be more precise, none of the damage operations can result in your HP being lowered because of how arithmetic operations with INF work.",
+    "embed": true,
+    "aliases": ["healthy"]
+  },
+  "glasscannon": {
+    "name": "glasscannon",
+    "creator": "grahamburger",
+    "creator_id": "396337496008687616",
+    "attachments": [],
+    "content": "https://discord.com/channels/453998283174576133/626180507323072512/1120654566447386664",
+    "embed": true
+  },
+  "zerkstrat": {
+    "name": "zerkstrat",
+    "creator": "noby_y",
+    "creator_id": "368481685374894083",
+    "attachments": [],
+    "content": "**Zerkstrat** is a method of cheesing ||bridge boss|| by exploiting how he interacts with a berserked player.\n### How to:\nMake a small berserkium pool to the right of the podium of the|| orb room|| and summon the boss (without having the effect). Once the bridge breaks, drink some of the remaining berserkium and quickly make your way to the pool.\n\nAfter that simply shoot him in-between his attacks (or during his attacks if it cant reach you).",
+    "embed": true
+  },
+  "limitedspells": {
+    "name": "limitedspells",
+    "creator": "noby_y",
+    "creator_id": "368481685374894083",
+    "attachments": [],
+    "content": "### List of spells that don't become unlimited with Unlimited Spells perk:\nProjectile: <:spell_black_hole:995748878668271747> <:blackholewithdeathtrigger:889551100301168720> <:whitehole:1232665224323268734> <:spell_heal:631582759139278889> <:deadlyheal:1232664949818523688> <:wormlauncher:889552755432230932> <:gigaholybomb:889552580018061442> <:giganuke:889552579770601533> \nStatic Projectile: <:spell_CoV_circle_of_vigour:883768353850802207> <:meteorisade:889553019300110467> <:matosade:889553019140718673> <:omegablackhole:889553019660824576> <:omegawhitehole:1232665202080616449> \nModifier: <:mattereater:889550019131236352> <:manatodamage:889550019366125568> <:vacuumbounce:1232665220279832708> \nMaterial: <:seaofmimicium:1232665361770614864> <:spell_touch_gold:884307234874589214> <:spell_touch_grass:1222268070144245832> \nUtility: <:summontaikasauva:889553062220410931> <:spellstoblackholes:889553061910020158> <:spellstodeathcrosses:889553062006505493> <:spellstomagicmissiles:889553061977153547> <:spellstonukes:889553062249791529>\nOther: <:spell_end_of_everything:817590040829755423>",
+    "embed": true,
+    "aliases": ["limited"]
+  },
+  "map": {
+    "name": "map",
+    "creator": "noby_y",
+    "creator_id": "368481685374894083",
+    "attachments": [],
+    "content": "# Noita Map (__MAJOR SPOILERS!__)\n- **Normal Map:** ||<https://noitamap.com/?map=regular-main-branch>||\n- **NG+ Map:** ||<https://noitamap.com/?map=new-game-plus-main-branch>||\n- **Nightmare Map:** ||<https://noitamap.com/?map=nightmare-main-branch>||\n## Other Tools:\n- Orb Atlas: ||<https://kaliuresis.github.io/noa/>||\n- Wand Atlas: ||<https://pudy248.github.io/noitaWandAtlas/>||\n- Map Viewer: ||<https://github.com/pudy248/NoitaMapViewer/>||\n- Modded maps can also be found at: ||<https://noitamap.com/>||",
+    "embed": true,
+    "aliases": ["maps"]
+  },
+  "infosheet": {
+    "name": "infosheet",
+    "creator": "noby_y",
+    "creator_id": "368481685374894083",
+    "attachments": [],
+    "content": "### [Noita spreadsheet with different spell info](<https://docs.google.com/spreadsheets/u/0/d/1Kbx0ed6gptnHqAbsz3uCH9zMpwoEcwuBzpBrEQg43J8/htmlview#gid=1969458235>)",
+    "embed": true,
+    "aliases": ["spreadsheet"]
+  },
+  "glyphs": {
+    "name": "glyphs",
+    "creator": "grahamburger",
+    "creator_id": "396337496008687616",
+    "attachments": ["./faqcontent/54a93938-5768-47c5-8b39-17550018f9ba.png"],
+    "content": "",
+    "embed": false
+  },
+  "zeroweight": {
+    "name": "zeroweight",
+    "creator": "pudy248",
+    "creator_id": "494588005919752213",
+    "attachments": [],
+    "content": "Surprisingly, Summon Portal and Summon Swamp can spawn in chests, ||eye rooms||, and from the ||Gate Boss||! They have 0 spawn weight, so they'll never appear in shops, but those 3 places select randomly from all unlocked spells without checking their weight (unless the spells are unlockable, like Rainbow Trail). Summon Portal and Summon Swamp do not have unlock flags, so they can be found outside of their respective quests.",
+    "embed": true
+  },
+  "noitoolshifts": {
+    "name": "noitoolshifts",
+    "creator": "pudy248",
+    "creator_id": "494588005919752213",
+    "attachments": ["./faqcontent/42ad45cd-c4fd-4f12-8d97-3cd089d58553.png"],
+    "content": "Noitool's fungal shift info is a little hard to read, especially after Epilogue 2. Here's how to read them.\n- Every material listed on the left gets shifted to the material on the right.\n- Unless you're holding a flask, in which case the material or list of materials listed on the side with \"Held Material\" gets replaced with the material in the flask. (If neither side has Held Material, holding a flask doesn't do anything.)\n- Unless the flask is on the right side and contains gold or divine ground, in which case the shift is the left side to the corresponding material in \"Gold -> X\" or \"Divine Ground -> X\", i.e. the example below with a flask of gold performs Acid -> Excrement. Gold is not shifted away in these cases, despite what the UI leads you to believe\n- Unless the left and right sides are identical, in which case the shift rerolls to a random new one and Noitool doesn't tell you what it is.",
+    "embed": true
+  },
+  "pwportal": {
+    "name": "pwportal",
+    "creator": "pudy248",
+    "creator_id": "494588005919752213",
+    "attachments": [],
+    "content": "All portals in ||parallel worlds|| take you back to the ||main world||! Don't accidentally enter one, or you'll have to get back to where you were the long way.\n-# ||Levi's fast travel room is an exception to this rule.||",
+    "embed": true
+  },
+  "tabletsurf": {
+    "name": "tabletsurf",
+    "creator": "copis",
+    "creator_id": "294650788897095680",
+    "attachments": [],
+    "content": "you can drop a tablet close to you and land on it mid-air to regain levitation energy.",
+    "embed": true
+  },
+  "unlocks": {
+    "name": "unlocks",
+    "creator": "noby_y",
+    "creator_id": "368481685374894083",
+    "attachments": [],
+    "content": "## Unlock flags\nWhether a specific spell / thing is unlocked depends on whether you have a related unlock flag in your save file. If the right flag exists, that spell can spawn. \nThe flag is typically added whenever an appropriate quest gets completed. Having a locked spell spawn by other means will also add the unlock flag\n## Progress\nWhenever you cast a spell it gets recorded in the Progress menu. This has 0 impact on the actual gameplay",
+    "embed": true
+  },
+  "kammolukki": {
+    "name": "kammolukki",
+    "creator": "grahamburger",
+    "creator_id": "396337496008687616",
+    "attachments": ["./faqcontent/07b560ac-675b-4344-93eb-0d06eeb4701e.png"],
+    "content": "",
+    "embed": false
+  }
+}

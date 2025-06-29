@@ -1,0 +1,3783 @@
+=== acidburst.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== acidshot_slow.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== acidshot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== arrow.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== bat.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: data/entities/animals/bat.xml
+  spawn_entity_is_projectile: false
+
+=== bloomshot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== bomb_cart.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 11
+  ray_energy: 6000000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== bomb_holy_giga.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 14
+  ray_energy: 12400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+PhysicsBodyComponent:
+
+=== bomb_holy.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 12
+  ray_energy: 6400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+PhysicsBodyComponent:
+
+=== bomb_small.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 11
+  ray_energy: 6000000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+PhysicsBodyComponent:
+
+=== bomb.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 11
+  ray_energy: 6000000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+PhysicsBodyComponent:
+
+=== bossdragon_ray.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 50000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== bossdragon.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 50000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== buckshot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 50000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== bullet_poison.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 60000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== chaos_polymorph.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== chunk_of_soil.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== circle_acid_die.xml ===
+
+=== circle_acid_small.xml ===
+
+=== circle_blood_small.xml ===
+
+=== circle_blood.xml ===
+
+=== circle_lava_small.xml ===
+
+=== circle_lava.xml ===
+
+=== circle_water.xml ===
+
+=== clusterbomb.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 900000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== cocktail.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+PhysicsBodyComponent:
+
+=== coward_bullet.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 100000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== darkflame_stationary.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== darkflame.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== dotshot_strong.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 5000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== dotshot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 5000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== dummy.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== egg_fire.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== egg_monster.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== egg_purple.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== egg_red.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== egg_slime.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== egg_worm.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== enlightened_laser_dark_wand.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== enlightened_laser_darkbeam.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 100000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== enlightened_laser_elec_wand.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== enlightened_laser_elecbeam.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== enlightened_laser_fire_wand.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== enlightened_laser_fireball.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 7500000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== enlightened_laser_light_wand.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== enlightened_laser_lightbeam.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 11
+  ray_energy: 2050000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== explosion.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== fire_trap.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+MagicConvertMaterialComponent:
+  radius: 10
+  is_circle: true
+  from_any_material: false
+
+=== fireball_bigfirebug.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 15000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== fireball_firebug.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== fireball_ghostly.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 50000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== fireball.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 50000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+MagicConvertMaterialComponent:
+  radius: 15
+  is_circle: true
+  from_any_material: false
+
+=== flamethrower.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== freeze_circle.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+MagicConvertMaterialComponent:
+  radius: 72
+  is_circle: true
+  from_any_material: false
+
+=== fungus_big_explosion.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 12
+  ray_energy: 6000000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== fungus_explosion.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 60000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== fungus.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: data/entities/misc/fungus_projectile.xml
+  spawn_entity_is_projectile: false
+
+=== gasblob.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== glitter_bomb_explosion.xml ===
+
+=== glitter_bomb_shrapnel.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== glitter_bomb.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 11
+  ray_energy: 4000000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+PhysicsBodyComponent:
+
+=== glue_anchor.xml ===
+
+=== glue_shot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 50000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== glue.xml ===
+
+=== grenade_leader.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 25000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== grenade_scavenger.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 25000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== healshot_safe_haven.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== healshot_slow.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== healshot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== hiddenshot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 5000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== ice.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 5000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== iceball.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 50000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+MagicConvertMaterialComponent:
+  radius: 20
+  is_circle: true
+  from_any_material: false
+
+=== iceskull_explosion.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== icethrower.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 5000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== invisshot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== laser_bouncy.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== laser_lasergun.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 5
+  ray_energy: 1000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== laser_spear.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 6
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 100000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== laser_turret.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 1.5
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== laserbeam_green.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== laserbeam.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== lavashot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== levitation_trail.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== lightning_thunderburst.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== lightning_thunderskull.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== lightning.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== lurkershot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== machinegun_bullet_roboguard_big.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 300000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== machinegun_bullet_slow.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 9
+  ray_energy: 400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== machinegun_bullet_slower.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 9
+  ray_energy: 400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== machinegun_bullet_tank_super.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 300000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== machinegun_bullet_tank.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 9
+  ray_energy: 400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== megalaser_blue_beam.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 100000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== megalaser_blue.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== meteor_green.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 7500000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== mine_explosion.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 170000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== mine_scavenger.xml ===
+
+=== mine.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: data/entities/projectiles/mine_scavenger.xml
+  spawn_entity_is_projectile: false
+
+=== neutralizershot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_blue.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 5000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_cursed.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_dark.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_expanding.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 300000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_green_accelerating.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 5000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_green_boss_dragon.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 5000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_green_spin.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 1000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_green.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 5000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_hearty.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_homing.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_neutral.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_pink_big_explosive.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 100000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_pink_big_slow.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_pink_big_super_shrapnel.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_pink_big_super.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 100000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_pink_big.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_pink_fast.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 5000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_pink_super.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 5000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_pink.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 5000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_poly.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_purple.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 5000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_swapper.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_tele.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_tiny.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_twitchy.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_weaken.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb_wither.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orb.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 5000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orbspawner_blue.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orbspawner_green.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== orbspawner.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== pebble.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== pollen_ball.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 25000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== pollen.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 200000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== polyorb.xml ===
+PhysicsBodyComponent:
+
+=== polyshot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== present.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 150000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== propane_tank.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 2000000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+PhysicsBodyComponent:
+
+=== pusblob.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== radioactive_blob_trail.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== radioactive_blob.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== radioactive_liquid.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== rain_gold.xml ===
+
+=== remove_ground.xml ===
+MagicConvertMaterialComponent:
+  radius: 256
+  is_circle: true
+  from_any_material: false
+
+=== rocket_crystal_pink.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 6200000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== rocket_drone.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 40000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== rocket_tank.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 100000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== rocket_tiny_particles.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 80000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== rocket_tiny_roll.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: data/entities/projectiles/rocket_tiny.xml
+  spawn_entity_is_projectile: true
+
+=== rocket_tiny.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 80000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== sentryshot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== shieldshot_small.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== shieldshot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== slimeblob.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== slimetrail.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== smalltentacle_melee.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== smalltentacle.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== sniperbullet_hell.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 2
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 800000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== sniperbullet.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 2
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 800000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== soldiershot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 25000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== spit_trap.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== state_1.xml ===
+MagicConvertMaterialComponent:
+  radius: 256
+  is_circle: true
+  from_any_material: false
+
+=== summonshine.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: data/entities/animals/zombie.xml
+  spawn_entity_is_projectile: false
+
+=== tentacle.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== thunder_trap.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== thunderball_line.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 700000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== thunderball_slow.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 700000
+  spawn_entity: data/entities/projectiles/thunderburst_thundermage.xml
+  spawn_entity_is_projectile: false
+
+=== thunderball.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 700000
+  spawn_entity: data/entities/projectiles/thunderburst_thundermage.xml
+  spawn_entity_is_projectile: false
+
+=== thunderburst_thundermage.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 70000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== tnt_hell.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 11
+  ray_energy: 120000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+PhysicsBodyComponent:
+
+=== tnt.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 11
+  ray_energy: 6000000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+PhysicsBodyComponent:
+
+=== tongue.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== ultimate_killer_explosion.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 2000000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== ultimate_killer_megabomb.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== wraith_glowing_laser.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 11
+  ray_energy: 2050000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/acidburst.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/acidshot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/alcohol_blast.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/all_acid.xml ===
+
+=== deck/all_blackholes.xml ===
+
+=== deck/all_deathcrosses.xml ===
+
+=== deck/all_discs.xml ===
+
+=== deck/all_nukes.xml ===
+
+=== deck/all_rockets.xml ===
+
+=== deck/all_spells_base.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/all_spells_loader_slow.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/all_spells_loader.xml ===
+
+=== deck/all_spells_orb.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 14
+  ray_energy: 900000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/all_spells_part.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/arrow.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/ball_lightning.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/base_field.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/berserk_field.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/big_magic_shield_part.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/big_magic_shield_start.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/black_hole_big.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+BlackHoleComponent:
+  radius: 1
+
+=== deck/black_hole_giga.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+CellEaterComponent:
+  radius: 60
+  limited_materials: false
+  ignored_material_tag: 
+  materials: 0
+BlackHoleComponent:
+  radius: 160
+MagicConvertMaterialComponent:
+  radius: 120
+  is_circle: true
+  from_any_material: false
+
+=== deck/black_hole.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+CellEaterComponent:
+  radius: 12
+  limited_materials: false
+  ignored_material_tag: [indestructible]
+  materials: 0
+
+=== deck/bloodtentacle.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/bomb_detonator.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/bounce_explosion.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 90000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/bounce_hole.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+CellEaterComponent:
+  radius: 8
+  limited_materials: false
+  ignored_material_tag: [matter_eater_ignore_list]
+  materials: 0
+
+=== deck/bounce_laser_launcher.xml ===
+
+=== deck/bounce_laser.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 1000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/bounce_lightning_launcher.xml ===
+
+=== deck/bounce_lightning.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/bounce_small_explosion.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 6000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/bounce_spark_friendly_fire_silent.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/bounce_spark_friendly_fire.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/bounce_spark_main.xml ===
+
+=== deck/bounce_spark.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/bouncy_orb.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 8
+  ray_energy: 200000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/bubbleshot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/buckshot_player.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 50000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/bullet_heavy.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 300000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/bullet_slow.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 350000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/bullet.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 8
+  ray_energy: 400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/chain_bolt_explosion.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 2
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/chain_bolt.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/chainsaw.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/chaos_polymorph_field.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/charm_field.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/circle_acid.xml ===
+
+=== deck/circle_fire.xml ===
+
+=== deck/circle_oil.xml ===
+
+=== deck/circle_water.xml ===
+
+=== deck/cloud_acid.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/cloud_blood.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/cloud_oil.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/cloud_thunder.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/cloud_water.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/commander_bullet.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 8
+  ray_energy: 400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/crumbling_earth_effect.xml ===
+
+=== deck/crumbling_earth.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/death_cross_big_explosion.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/death_cross_big_laser.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 11
+  ray_energy: 2050000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/death_cross_big.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 11
+  ray_energy: 2039000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/death_cross.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 50000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/decoy_trigger.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/decoy.xml ===
+
+=== deck/delayed_spell.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/destruction.xml ===
+
+=== deck/digger.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 100000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/disc_bullet_big.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+CellEaterComponent:
+  radius: 6
+  limited_materials: false
+  ignored_material_tag: 
+  materials: 0
+
+=== deck/disc_bullet_bigger.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+CellEaterComponent:
+  radius: 13
+  limited_materials: false
+  ignored_material_tag: 
+  materials: 0
+
+=== deck/disc_bullet.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/duck.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 1500000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/electrocution_field.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/exploding_deer.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/explosion_giga.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 12
+  ray_energy: 6700000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/explosion_light.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 2
+  ray_energy: 1000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/explosion.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 200000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/fireball_ray_small.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 50000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/fireball_ray.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 50000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/fireball.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 50000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+MagicConvertMaterialComponent:
+  radius: 15
+  is_circle: true
+  from_any_material: false
+
+=== deck/fireblast.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 200000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/firebomb.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 100000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/fish.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/fizzle.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/flamethrower.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 5000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/freeze_field.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+MagicConvertMaterialComponent:
+  radius: 72
+  is_circle: true
+  from_any_material: false
+
+=== deck/freezing_gaze_beam.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+MagicConvertMaterialComponent:
+  radius: 20
+  is_circle: true
+  from_any_material: false
+
+=== deck/freezing_gaze.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/friend_fly.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/glitter_bomb_explosion.xml ===
+
+=== deck/glitter_bomb_shrapnel.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/glitter_bomb.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 11
+  ray_energy: 4000000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+PhysicsBodyComponent:
+
+=== deck/glowing_bolt.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 11
+  ray_energy: 2050000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/glue_shot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 50000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/grenade_anti.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 350000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/grenade_large.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 450000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/grenade_small.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 350000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/grenade_tier_2.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 4500000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/grenade_tier_3.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 5200000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/grenade.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 350000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/heal_bullet_weak.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 40000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/heal_bullet.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 40000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/healhurt.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 8
+  ray_energy: 400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/hook.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 8
+  ray_energy: 400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/iceball.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 50000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+MagicConvertMaterialComponent:
+  radius: 20
+  is_circle: true
+  from_any_material: false
+
+=== deck/infestation.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/keyshot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 1000000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/lance_holy.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 6
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 100000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/lance.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 6
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 100000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/laser.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 100000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/levitation_field.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/light_bullet_air.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+MagicConvertMaterialComponent:
+  radius: 10
+  is_circle: true
+  from_any_material: false
+
+=== deck/light_bullet_blue.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 9
+  ray_energy: 500000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/light_bullet.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 8
+  ray_energy: 400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/lightning_extra_arcs.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/lightning_weak.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/lightning.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/long_distance_cast.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 4
+  ray_energy: 1000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/luminous_drill.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 4
+  ground_penetration_max_durability_to_destroy: 14
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/machinegun_bullet.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 9
+  ray_energy: 400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/magic_shield_part.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/magic_shield_start.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/mana.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/mass_polymorph.xml ===
+
+=== deck/material_acid.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/material_blood.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/material_cement.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/material_debug.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/material_dirt.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/material_gunpowder_explosive.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/material_lava.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/material_liquid.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/material_oil.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/material_water.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/megalaser_beam.xml ===
+
+=== deck/megalaser.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/meteor_green.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 7500000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/meteor_rain_meteor.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 7500000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/meteor_rain.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/meteor.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 7500000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/mine.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 280000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/mist_alcohol.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/mist_blood.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/mist_radioactive.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/mist_slime.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/nuke_giga.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 14
+  ray_energy: 9700000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/nuke.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 12
+  ray_energy: 6700000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/orb_laseremitter_cutter.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+LaserEmitterComponent:
+  beam_radius: 2.5
+  max_cell_durability_to_destroy: 14
+  damage_to_cells: 100000
+
+=== deck/orb_laseremitter_four.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+LaserEmitterComponent:
+  beam_radius: 3.5
+  max_cell_durability_to_destroy: 11
+  damage_to_cells: 12000
+
+=== deck/orb_laseremitter_weak_opposite.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+LaserEmitterComponent:
+  beam_radius: 2
+  max_cell_durability_to_destroy: 11
+  damage_to_cells: 10000
+
+=== deck/orb_laseremitter_weak.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+LaserEmitterComponent:
+  beam_radius: 2
+  max_cell_durability_to_destroy: 11
+  damage_to_cells: 10000
+
+=== deck/orb_laseremitter.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+LaserEmitterComponent:
+  beam_radius: 1.5
+  max_cell_durability_to_destroy: 11
+  damage_to_cells: 12000
+
+=== deck/pata_rocket_1.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 6200000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/pata_rocket_2.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 6200000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/pata_rocket_3.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 6200000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/pata_rocket_4.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 6200000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/pata_rocket_5.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 6200000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/pata_rocket_6.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 6200000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/pebble_player_physics.xml ===
+PhysicsBodyComponent:
+
+=== deck/pebble_player.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/pink_orb.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 100000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/pipe_bomb_detonator.xml ===
+
+=== deck/pipe_bomb.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 120000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/poison_blast.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/pollen.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 200000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/polymorph_field.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/powerdigger.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 200000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/projectile_gravity_field.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/projectile_thunder_field.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/projectile_thunder_lightning.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/projectile_transmutation_field.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/purple_explosion_field.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/purple_explosion.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 200000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/regeneration_aura.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/regeneration_field_long.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/regeneration_field.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/rock.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+PhysicsBodyComponent:
+
+=== deck/rocket_downwards.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 4000000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/rocket_player.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 100000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/rocket_tier_2.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 5000000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/rocket_tier_3.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 6200000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/rocket.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 4000000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/rubber_ball.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/sausage.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+PhysicsBodyComponent:
+
+=== deck/sea_acid_gas.xml ===
+
+=== deck/sea_acid.xml ===
+
+=== deck/sea_alcohol.xml ===
+
+=== deck/sea_lava.xml ===
+
+=== deck/sea_mimic.xml ===
+
+=== deck/sea_oil.xml ===
+
+=== deck/sea_swamp.xml ===
+
+=== deck/sea_water.xml ===
+
+=== deck/shield_field.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/skull.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 100000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/slime.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/spiral_part.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/spiral_shot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/spitter_tier_2.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/spitter_tier_3.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/spitter.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 400000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/spore_pod_growing.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 8
+  ray_energy: 200000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/spore_pod_spike.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/spore_pod.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: data/entities/projectiles/deck/spore_pod_growing.xml
+  spawn_entity_is_projectile: false
+
+=== deck/summon_portal_teleport.xml ===
+
+=== deck/summon_portal.xml ===
+
+=== deck/super_teleport_cast.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/swapper.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 40000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/swarm_firebug.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/swarm_fly.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/swarm_wasp.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/telepathy_field.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/teleport_cast.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/teleport_projectile_closer.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 40000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/teleport_projectile_short.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 40000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/teleport_projectile_static.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 40000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/teleport_projectile.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 40000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/teleportation_field.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/temporary_platform.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/temporary_wall.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/tentacle_portal.xml ===
+
+=== deck/tentacle.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/thunder_blast.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 700000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/tnt.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 11
+  ray_energy: 6000000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+PhysicsBodyComponent:
+
+=== deck/tntbox_big.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 650000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+PhysicsBodyComponent:
+
+=== deck/tntbox.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 350000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+PhysicsBodyComponent:
+
+=== deck/touch_alcohol.xml ===
+MagicConvertMaterialComponent:
+  radius: 20
+  is_circle: true
+  from_any_material: true
+
+=== deck/touch_blood.xml ===
+MagicConvertMaterialComponent:
+  radius: 15
+  is_circle: true
+  from_any_material: true
+
+=== deck/touch_gold.xml ===
+MagicConvertMaterialComponent:
+  radius: 10
+  is_circle: true
+  from_any_material: true
+
+=== deck/touch_grass.xml ===
+MagicConvertMaterialComponent:
+  radius: 30
+  is_circle: true
+  from_any_material: true
+
+=== deck/touch_oil.xml ===
+MagicConvertMaterialComponent:
+  radius: 20
+  is_circle: true
+  from_any_material: true
+
+=== deck/touch_piss.xml ===
+MagicConvertMaterialComponent:
+  radius: 30
+  is_circle: true
+  from_any_material: true
+
+=== deck/touch_smoke.xml ===
+MagicConvertMaterialComponent:
+  radius: 30
+  is_circle: true
+  from_any_material: true
+
+=== deck/touch_water.xml ===
+MagicConvertMaterialComponent:
+  radius: 20
+  is_circle: true
+  from_any_material: true
+
+=== deck/vacuum_entities.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/vacuum_liquid.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/vacuum_powder.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/wall_builder.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/wall_horizontal.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/wall_piece.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 1
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/wall_sound.xml ===
+
+=== deck/wall_square.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/wall_vertical.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/wand_ghost_player.xml ===
+PhysicsBodyComponent:
+
+=== deck/water.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/white_hole_big.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+BlackHoleComponent:
+  radius: 1
+
+=== deck/white_hole_giga.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+CellEaterComponent:
+  radius: 60
+  limited_materials: false
+  ignored_material_tag: 
+  materials: 0
+BlackHoleComponent:
+  radius: 160
+MagicConvertMaterialComponent:
+  radius: 120
+  is_circle: true
+  from_any_material: false
+
+=== deck/white_hole.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+CellEaterComponent:
+  radius: 12
+  limited_materials: false
+  ignored_material_tag: [indestructible]
+  materials: 0
+
+=== deck/worm_rain.xml ===
+
+=== deck/worm_shot.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 0
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+CellEaterComponent:
+  radius: 6
+  limited_materials: false
+  ignored_material_tag: 
+  materials: 0
+
+=== deck/xray_effect.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/xray.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 10
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/fireworks/firework_blue.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 2000000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/fireworks/firework_green.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 2000000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/fireworks/firework_orange.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 2000000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/fireworks/firework_pink.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 2000000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/kantele/kantele_a.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/kantele/kantele_d.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/kantele/kantele_dis.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/kantele/kantele_e.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/kantele/kantele_g.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/ocarina/ocarina_a.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/ocarina/ocarina_a2.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/ocarina/ocarina_b.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/ocarina/ocarina_c.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/ocarina/ocarina_d.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/ocarina/ocarina_e.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/ocarina/ocarina_f.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== deck/ocarina/ocarina_gsharp.xml ===
+ProjectileComponent:
+  ground_penetration_coeff: 0
+  ground_penetration_max_durability_to_destroy: 0
+  explosion_max_durability_to_destroy: 10
+  ray_energy: 20000
+  spawn_entity: 
+  spawn_entity_is_projectile: false
+
+=== tentacle/bloodtentacle_0.xml ===
+
+=== tentacle/bloodtentacle_1.xml ===
+
+=== tentacle/bloodtentacle_2.xml ===
+
+=== tentacle/bloodtentacle_3.xml ===
+
+=== tentacle/bloodtentacle_4.xml ===
+
+=== tentacle/smalltentacle_0.xml ===
+
+=== tentacle/smalltentacle_1.xml ===
+
+=== tentacle/smalltentacle_1b.xml ===
+
+=== tentacle/smalltentacle_2.xml ===
+
+=== tentacle/smalltentacle_3.xml ===
+
+=== tentacle/smalltentacle_4.xml ===
+
+=== tentacle/tentacle_0.xml ===
+
+=== tentacle/tentacle_1.xml ===
+
+=== tentacle/tentacle_1b.xml ===
+
+=== tentacle/tentacle_2.xml ===
+
+=== tentacle/tentacle_2b.xml ===
+
+=== tentacle/tentacle_3.xml ===
+
+=== tentacle/tentacle_3b.xml ===
+
+=== tentacle/tentacle_4.xml ===
+
+=== tentacle/tongue_0.xml ===
+
+=== tentacle/tongue_1.xml ===
+
+=== tentacle/tongue_2.xml ===
+
+=== tentacle/tongue_3.xml ===
+
+=== tentacle/tongue_4.xml ===
+

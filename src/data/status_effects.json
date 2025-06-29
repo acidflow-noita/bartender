@@ -1,0 +1,578 @@
+[
+  {
+    "name": "Wet",
+    "icon": "Effect_wet.png",
+    "description": "Wet clothes protect you from fire",
+    "explanation": "Prevents ignition. Is depleted by contact with Fire, however Electricity can deal more damage as electric stun doesn't give the player invincibility frames from electricity when this stain is present.",
+    "sources": "Submerging in Water, Swamp, Mud, Slush, Vomit, Brine, and some other liquids. Moist/Humid biome modifier.",
+    "notes": ""
+  },
+  {
+    "name": "Bloody",
+    "icon": "Effect_bloody.png",
+    "description": "Bloody clothes protect you from fire. You sense an increased chance of attaining critical hits.",
+    "explanation": "Prevents ignition; increases chance to deal critical damage. Is depleted by contact with fire.",
+    "sources": "Blood stains.",
+    "notes": ""
+  },
+  {
+    "name": "Oiled",
+    "icon": "Effect_oiled.png",
+    "description": "Oil makes you slippery and more flammable.",
+    "explanation": "You lose traction while on the ground (and will even slide down slopes) and will stay on fire for much longer.",
+    "sources": "Oil stains (from oil or Liquid Fire).",
+    "notes": "Being both Wet / Bloody and Oiled will allow you to ignite when in fire, but extinguish immediately after leaving the fire."
+  },
+  {
+    "name": "On Fire!",
+    "icon": "Effect_on_fire.png",
+    "description": "You're on fire. Find some water!",
+    "explanation": "You quickly lose health (2% of Max HP per second). Enemies affected by this are too occupied to attack you. Creatures affected by this move 15% faster.",
+    "sources": "Contact with Fire, Lava, or most materials tagged with [molten] or [molten_metal].",
+    "notes": "Despite the description, immersion in nearly any liquid (including oil) will extinguish you. Can be blocked with the Oil Blood, Freeze Field, and Fire Immunity perks."
+  },
+  {
+    "name": "Internal Fire",
+    "icon": "Effect_internal_fire.png",
+    "description": "You're burning inside.",
+    "explanation": "Ignites you. Damage continues even when submerged.",
+    "sources": "Consuming Lava, Fire, or most materials tagged with [molten] or [molten_metal].",
+    "notes": "Consuming other substances does not put out the internal fire."
+  },
+  {
+    "name": "Chilly",
+    "icon": "Effect_ingestion_freezing.png",
+    "description": "You're feeling cold inside. Movement is difficult.",
+    "explanation": "Slowed movement.",
+    "sources": "Consuming Freezing Liquid, Snow, or Chilly Water.",
+    "notes": ""
+  },
+  {
+    "name": "Frozen",
+    "icon": "Effect_frozen.png",
+    "description": "You are frozen solid.",
+    "explanation": "You are unable to move.",
+    "sources": "Being hit by freeze attacks or Ice damage spells.",
+    "notes": "When the player is Frozen, taking any Melee damage, regardless of if it deals damage or heals, will reduce the target's current HP by 50%[1]. If the frozen entity is not the player, or is the player but has 25% of their max HP or less, a melee hit will kill, reducing hp to 0. All melee damage is multityped as Ice."
+  },
+  {
+    "name": "Stunned",
+    "icon": "Effect_electrocution.png",
+    "description": "Paralyzed and unable to act.",
+    "explanation": "You are unable to move.",
+    "sources": "Electrical shocks from spells or other effects.",
+    "notes": "Can be blocked with Electricity and Electricity Immunity perks."
+  },
+  {
+    "name": "[Dazed] (Placeholder Name)",
+    "icon": "Effect_knockback_star.png",
+    "description": "",
+    "explanation": "You cannot levitate or respond to movement inputs.",
+    "sources": "Taking damage from projectiles or melee while flying.",
+    "notes": "The No More Knockback perk will make the player immune to this effect."
+  },
+  {
+    "name": "Blinded",
+    "icon": "Effect_blindness.png",
+    "description": "You can barely see a thing!",
+    "explanation": "Causes you to be blinded for 20 seconds, only able to see a small distance around yourself, however, enemy parts that glow such as eyes will still be visible.",
+    "sources": "Sokaisunmestari projectiles.",
+    "notes": "Spinning your mouse around the player will give you a better vision."
+  },
+  {
+    "name": "Twitchy",
+    "icon": "Effect_twitchy.png",
+    "description": "Your hand spasms randomly and your spells can hurt you!",
+    "explanation": "Causes you to fire your wand automatically at random intervals and makes any projectiles fired able to hit you after 5 frames. If the projectiles lives for < 6 frames, it will not be able to hit you.",
+    "sources": "Sätkymestari projectiles.",
+    "notes": "If you're holding an item like your flask to wait out the status effect, you'll shoot once when you switch to you wand even after the status effect is over."
+  },
+  {
+    "name": "Neutralized spells",
+    "icon": "Effect_neutralized.png",
+    "description": "Projectile spells you fire will short-circuit.",
+    "explanation": "You cannot fire projectile spells.",
+    "sources": "Maadoittajamestari projectiles.",
+    "notes": "Spells fired by you disappear immediately after firing - explosive spells will detonate on the spot."
+  },
+  {
+    "name": "Heartache",
+    "icon": "Effect_hearty.png",
+    "description": "Your maximum health is temporarily halved.",
+    "explanation": "Maximum and current health are divided by 2 for the duration of the effect to preserve the ratio.",
+    "sources": "Haavoittajamestari projectiles.",
+    "notes": "Can be used to obtain a lot more health from Extra Max Health. See Heartache exploit."
+  },
+  {
+    "name": "Weakened",
+    "icon": "Effect_vulnerable.png",
+    "description": "Your resistances and protective perks are disabled temporarily.",
+    "explanation": "Damage multipliers for the main Damage Types (Drill, Electricity, Explosion, Fire, Ice, Melee, Projectile, Slice, Toxic) will temporarily be set to 1.2; additionally, the protection provided (but not other effects) of some perks such as Explosion Immunity, Electricity Immunity, Electricity, and Stainless Armour are disabled.",
+    "sources": "Turvattomuusmestari projectiles. Debuff from the Mestarien mestari.",
+    "notes": ""
+  },
+  {
+    "name": "Personal Gravity Field",
+    "icon": "Effect_gravity_field.png",
+    "description": "You attract projectiles for a while",
+    "explanation": "",
+    "sources": "Kohdennusmestari projectiles.",
+    "notes": ""
+  },
+  {
+    "name": "Slimy",
+    "icon": "Effect_slimy.png",
+    "description": "Your slimy clothes protect you from fire. The mucus makes moving around difficult.",
+    "explanation": "Slows movement. Prevents ignition. Is depleted by contact with fire.",
+    "sources": "Submerging in Slime, Hell Slime, Fungus Blood, Vomit, or Pea Soup",
+    "notes": "The slower movement can be blocked by the Slime Blood perk"
+  },
+  {
+    "name": "Toxic",
+    "icon": "Effect_radioactive.png",
+    "description": "Toxic Sludge in your clothes makes your health degrade slowly. Wet clothes protect you from fire. Can be washed off by liquids.",
+    "explanation": "Slowly degrades your health by 2% of max HP per tick. Prevents ignition. Is depleted by contact with fire. Will at most reduce you to a certain percentage of your max health but cannot kill you on its own.",
+    "sources": "Submerging in Toxic Sludge, Toxic Gold, or Toxic Mist.",
+    "notes": "Blocked by the Toxic Immunity and Gas Blood perks."
+  },
+  {
+    "name": "Alcoholic",
+    "icon": "Effect_alcoholic.png",
+    "description": "The heavy scent of booze oozes off your clothes. Aiming is disturbed. And alcohol is flammable too!",
+    "explanation": "Your spells have increased spread. You ignite more easily.",
+    "sources": "Getting stained by Alchemic Precursor, Whiskey, Whiskey Fumes, or Draught of Midas.",
+    "notes": ""
+  },
+  {
+    "name": "Mildly boozed",
+    "icon": "Effect_drunk.png",
+    "description": "You're feeling a little tipsy.",
+    "explanation": "Your spells have slightly increased spread. Happens when accumulating less than 15s of Drunkenness.",
+    "sources": "Consuming Whiskey, Juhannussima, or Sima.",
+    "notes": "Technically you could reach the higher severities with a lot of Alcohol, but you'd heavily oversatiate yourself by then."
+  },
+  {
+    "name": "Drunk",
+    "icon": "Effect_drunk.png",
+    "description": "You drank too much. Aiming is disturbed.",
+    "explanation": "Your spells have increased spread. Happens when accumulating over 15s of Drunkenness but less than 45s.",
+    "sources": "Consuming Whiskey, Juhannussima, or Sima.",
+    "notes": "Technically you could reach the higher severities with a lot of Alcohol, but you'd heavily oversatiate yourself by then."
+  },
+  {
+    "name": "Wasted",
+    "icon": "Effect_drunk.png",
+    "description": "You drank too much. Aiming is disturbed. Drinking more will make you poisoned.",
+    "explanation": "Your spells have increased spread. Blurry vision. Happens when accumulating over 45 seconds of Drunkenness. Drinking past 60s will poison you for every second over along with causing sporadic vomiting.",
+    "sources": "Consuming Whiskey, Juhannussima, or Sima.",
+    "notes": "Vomiting removes the Poisoned effect."
+  },
+  {
+    "name": "Poisoned",
+    "icon": "Effect_poisoned.png",
+    "description": "A poisoning slowly degrades your health.",
+    "explanation": "You slowly lose health. Like toxic sludge, the stain can only reduce your health to a certain percentage when in New Game; in New Game Plus it can be fatal.",
+    "sources": "Getting stained with Poison, Greed-Cursed Liquid, Nauseating Gas, or Ominous Liquid. Drinking Poison, Acid, Toxic Sludge, Oil, Ominous Liquid, Liquid Fire, Alchemic Precursor, Draught of Midas, or Greed-Cursed Liquid. Eating Rotten Meat, some variants of Fungal Soil, Toxic Meat, or Gunpowder. Picking up a Cursed Extra Max Health.",
+    "notes": ""
+  },
+  {
+    "name": "Jarated",
+    "icon": "Effect_jarated.png",
+    "description": "Wet clothes protect you from fire. You sense an increased danger of being hit with a critical.",
+    "explanation": "Helps prevent ignition, effected enemies are more likely to receive critical damage.",
+    "sources": "Urine stains.",
+    "notes": "The rarity of Urine Jars limits the usefulness of the critical damage effect. A direct reference to Jarate from Team Fortress 2, a weapon used by the Sniper which throws a jar of urine that makes enemies stained with it always take Minicrits. The description is inaccurate, as Minä cannot receive critical hits. Instead, Jarated makes you take 35% more damage (the same effect as in TF2)."
+  },
+  {
+    "name": "Food Poisoning",
+    "icon": "Effect_food_poisoning.png",
+    "description": "You're feeling sick. nothing stays inside.",
+    "explanation": "You occasionally vomit, producing the Vomit material and losing 10% satiation every time. Any effects from ingesting besides Wasted will be lost upon vomiting.",
+    "sources": "Eating Rotten Meat, Slimy Meat, Burned Meat, Blue Fungus, Mud, some variants of Fungal Soil and Prop Fungus, Glue, Gunpowder, or Excrement. Drinking Vomit, Slime, Hell Slime, Swamp, Oil, Ambrosia, Invisiblium, Urine, Liquid Fire, Alchemic Precursor, or Draught of Midas.",
+    "notes": "This status can actually be beneficial as it allows you to consume more material and disables the effects of consumed poison (but also beneficial effects gained through consumption.) Otherwise harmless."
+  },
+  {
+    "name": "Gassy",
+    "icon": "Effect_farts.png",
+    "description": "You're feeling pressure inside.",
+    "explanation": "You will periodically release Flammable Gas.",
+    "sources": "Eating Grass, Moss, Pea Soup, Peat, Wax, or Slimy Meat.",
+    "notes": ""
+  },
+  {
+    "name": "Wormy Vision",
+    "icon": "Effect_nightvision.png",
+    "description": "You're seeing things more clearly.",
+    "explanation": "Grants the ability to see into the darkness, including magical darkness. Color shifting vision.",
+    "sources": "Drinking Worm Blood.",
+    "notes": "Players may find the visual effect unpleasant."
+  },
+  {
+    "name": "Minimally Satiated",
+    "icon": "Effect_satiation_00.png",
+    "description": "Your stomach is almost empty",
+    "explanation": "",
+    "sources": "Eating and drinking anything that doesn't cause Food Poisoning.",
+    "notes": ""
+  },
+  {
+    "name": "Satiated",
+    "icon": "Effect_satiation_01.png",
+    "description": "You can still fit more in your stomach.",
+    "explanation": "",
+    "sources": "Eating and drinking anything that doesn't cause Food Poisoning.",
+    "notes": "Occurs past 25% satiation."
+  },
+  {
+    "name": "Fully Satiated",
+    "icon": "Effect_satiation_02.png",
+    "description": "You're feeling full. Any more will make movement difficult.",
+    "explanation": "",
+    "sources": "Eating and drinking anything that doesn't cause Food Poisoning.",
+    "notes": "Occurs past 90% satiation."
+  },
+  {
+    "name": "Oversatiated",
+    "icon": "Effect_satiation_03.png",
+    "description": "You're feeling really full",
+    "explanation": "Clumsy Movement is added.",
+    "sources": "Eating and drinking anything that doesn't cause Food Poisoning.",
+    "notes": "Occurs past 100% satiation."
+  },
+  {
+    "name": "Clumsy Movement",
+    "icon": "Effect_ingestion_movement_slower.png",
+    "description": "Movement is difficult.",
+    "explanation": "Slows movement.",
+    "sources": "Eating and drinking anything that doesn't cause Food Poisoning.",
+    "notes": "From becoming Oversatiated. Blocked by the Iron Stomach perk."
+  },
+  {
+    "name": "Terribly Oversatiated",
+    "icon": "Effect_satiation_04.png",
+    "description": "You're feeling sickly full. Any more food might hurt you",
+    "explanation": "",
+    "sources": "Eating and drinking anything that doesn't cause Food Poisoning.",
+    "notes": "Occurs past 140% satiation."
+  },
+  {
+    "name": "Choking",
+    "icon": "Effect_satiation_05.png",
+    "description": "You're feeling sickly full and choking.",
+    "explanation": "",
+    "sources": "Eating and drinking anything that doesn't cause Food Poisoning.",
+    "notes": "Occurs past 150% satiation."
+  },
+  {
+    "name": "Choking",
+    "icon": "Effect_satiation_choking.png",
+    "description": "Any more food will hurt you.",
+    "explanation": "Eating decreases health.",
+    "sources": "Eating and drinking anything that doesn't cause Food Poisoning.",
+    "notes": "From reaching Choking. Blocked by the Iron Stomach perk."
+  },
+  {
+    "name": "Choking and Bloated",
+    "icon": "Effect_satiation_06.png",
+    "description": "You most certainly don't feel like eating more.",
+    "explanation": "",
+    "sources": "Eating and drinking anything that doesn't cause Food Poisoning.",
+    "notes": "Occurs past 175% satiation."
+  },
+  {
+    "name": "Bursting at the Seams",
+    "icon": "Effect_ingestion_damage.png",
+    "description": "You're feeling so slow you might explode.",
+    "explanation": "A text appears that says \"You are feeling like you'll soon explode\" and \"You are bursting at the seams.\" You explode and die at 200% satiation.",
+    "sources": "Eating and drinking anything that doesn't cause Food Poisoning.",
+    "notes": "From reaching Choking and Bloated. Blocked by the Iron Stomach perk."
+  },
+  {
+    "name": "Tripping",
+    "icon": "Effect_trip.png",
+    "description": "You sense that something is off.",
+    "explanation": "Audio is distorted. Vision shifts.",
+    "sources": "Consuming Weird Fungus, Mystery Fungus, Fungus Blood, Frog Meat, or Glue.",
+    "notes": ""
+  },
+  {
+    "name": "Tripping Some",
+    "icon": "Effect_trip.png",
+    "description": "You feel in harmony with the magic.",
+    "explanation": "Audio is distorted. Vision changes colors and shifts. Happens when accumulating 30s of Tripping.",
+    "sources": "Consuming Weird Fungus, Mystery Fungus, Fungus Blood, Frog Meat, or Glue.",
+    "notes": ""
+  },
+  {
+    "name": "Heavily Tripping",
+    "icon": "Effect_trip.png",
+    "description": "Maan, that color smells interesting.",
+    "explanation": "Audio is distorted. Vision changes colors, shifts, and swirls. Happens when accumulating 90s of Tripping.",
+    "sources": "Consuming Weird Fungus, Mystery Fungus, Fungus Blood, Frog Meat, or Glue.",
+    "notes": ""
+  },
+  {
+    "name": "Tripping Balls",
+    "icon": "Effect_trip.png",
+    "description": "Usual concepts don't apply.",
+    "explanation": "Audio is distorted. Vision changes color, shifts, swirls, and moves. Visions of 3 eyes appear. Causes vomiting. Happens when accumulating 180s of Tripping.",
+    "sources": "Consuming Weird Fungus, Mystery Fungus, Fungus Blood, Frog Meat, or Glue.",
+    "notes": "After reaching around 300 seconds of this effect, the sky shade is changing from pink to yellow (repeating) and swirl and moving vision disappears."
+  },
+  {
+    "name": "Rain Curse",
+    "icon": "Effect_curse_cloud.png",
+    "description": "You feel like there is a dark cloud hanging over you.",
+    "explanation": "A rain cloud follows you for the duration.",
+    "sources": "Eating Cursed Meat",
+    "notes": ""
+  },
+  {
+    "name": "Thunder Curse",
+    "icon": "Effect_curse_cloud.png",
+    "description": "The weight of the cloud is almost unbearable. Your head hurts.",
+    "explanation": "A thunder cloud follows you for the duration, caused when accumulating 14s of Rain Curse from eating Cursed Meat.",
+    "sources": "Eating Cursed Meat",
+    "notes": ""
+  },
+  {
+    "name": "Acid Rain Curse",
+    "icon": "Effect_curse_cloud.png",
+    "description": "All the foul thoughts you have ever had wash over you.",
+    "explanation": "An acid cloud follows you for the duration, caused when accumulating 44s of Thunder Curse from eating Cursed Meat.",
+    "sources": "Eating Cursed Meat",
+    "notes": ""
+  },
+  {
+    "name": "Berserk",
+    "icon": "Effect_berserk.png",
+    "description": "A berserk curse affects you.",
+    "explanation": "Spells deal double damage and have doubled blast radius, and certain spells are able to damage terrain that they couldn't before. Enemies become aggressive to any other enemies affected by this status effect.",
+    "sources": "Berserkium stains. Consuming Berserkium. Entering a Circle of Fervour spell (does not affect caster).",
+    "notes": "Creatures allied to you (usually through eggs or the Summon Egg spell) will attack you if you are under this effect."
+  },
+  {
+    "name": "Polymorph",
+    "icon": "Effect_polymorph.png",
+    "description": "You're a sheep.",
+    "explanation": "You turn into a type of sheep.",
+    "sources": "Polymorphine stains. Consuming Polymorphine. Muodonmuutosmestari projectiles.",
+    "notes": "Can be blocked by eating Muodonmuutosmestari corpses."
+  },
+  {
+    "name": "Chaos Polymorph",
+    "icon": "Effect_polymorph_random.png",
+    "description": "A polymorph curse affects you.",
+    "explanation": "You turn into nearly any creature in the game.",
+    "sources": "Chaotic Polymorphine stains. Consuming Chaotic Polymorphine or Unstable Meat. Hahmonvaihtaja projectiles.",
+    "notes": "Can be blocked by eating Muodonmuutosmestari corpses."
+  },
+  {
+    "name": "Chaos Polymorph (unstable)",
+    "icon": "Effect_polymorph_random.png",
+    "description": "A polymorph curse affects you.",
+    "explanation": "You turn into a random Hiisi enemy.",
+    "sources": "Unstable Polymorphine stains. Consuming Unstable Polymorphine.",
+    "notes": ""
+  },
+  {
+    "name": "Polymorph Immunity",
+    "icon": "Effect_protection_polymorph.png",
+    "description": "You cannot be polymorphed.",
+    "explanation": "You are immune to polymorph effects.",
+    "sources": "Consuming Stinky Meat. Specific types of liquid, via Iron Stomach.",
+    "notes": "If accumulated to more than 524288 seconds, the counter breaks rendering this status effect permanent."
+  },
+  {
+    "name": "Invisible",
+    "icon": "Effect_invisibility.png",
+    "description": "The magical liquid on your clothes makes you invisible. The spell is disturbed by stained or wet clothes.",
+    "explanation": "Turns you transparent, ignored by most enemies (see Invisibility#Interactions for exceptions). Enemies under this effect are similarly transparent and so can still be seen if looking carefully.",
+    "sources": "Invisiblium stains (drinking causes Food Poisoning instead). Häivehiisi's projectile.",
+    "notes": "Using a wand, kicking, or taking damage also disables the effect for a few seconds. Also silences footsteps and the levitation sound effect."
+  },
+  {
+    "name": "Charmed",
+    "icon": "Effect_charm.png",
+    "description": "A charm affects you.",
+    "explanation": "Causes most creatures to become friendly.",
+    "sources": "Pheromone stains. Consuming Pheromone.",
+    "notes": "Has no noticeable effect on you."
+  },
+  {
+    "name": "Regeneration",
+    "icon": "Effect_hp_regeneration.png",
+    "description": "A health regeneration spell affects you.",
+    "explanation": "Heals you for 10% of your max HP per second.",
+    "sources": "Lively Concoction stains. Consuming Lively Concoction. Healthium stains. Consuming Healthium. Consuming Hearty Porridge.",
+    "notes": ""
+  },
+  {
+    "name": "Confused",
+    "icon": "Effect_confusion.png",
+    "description": "You feel confused.",
+    "explanation": "Swaps horizontal movement.",
+    "sources": "Flummoxium stains. Consuming Flummoxium. Consuming Ambiguous Meat.",
+    "notes": ""
+  },
+  {
+    "name": "Worm Food",
+    "icon": "Effect_worm_attractor.png",
+    "description": "You feel like you're future worm food.",
+    "explanation": "Makes worms in the world think you are food and attracts them to you",
+    "sources": "Worm Pheromone stains. Consuming Worm Pheromone. Consuming the Meat of an Innocent Creature (dropped by Helpless Animals).",
+    "notes": ""
+  },
+  {
+    "name": "Teleportitis",
+    "icon": "Effect_teleportation.png",
+    "description": "You teleport uncontrollably every now and then.",
+    "explanation": "Teleports you in the direction of the cursor, or randomly if blocked.",
+    "sources": "Teleportatium stains. Drinking Teleportatium. Consuming Ethereal Meat.",
+    "notes": ""
+  },
+  {
+    "name": "Teleportitis (unstable)",
+    "icon": "Effect_teleportation.png",
+    "description": "You teleport uncontrollably every now and then.",
+    "explanation": "Teleports you randomly.",
+    "sources": "Unstable Teleportatium stains. Drinking Unstable Teleportatium.",
+    "notes": ""
+  },
+  {
+    "name": "Protection from all",
+    "icon": "Effect_protection_all.png",
+    "description": "You feel strength in your body.",
+    "explanation": "Blocks damage from all sources.",
+    "sources": "Ambrosia stains (drinking causes food poisoning instead). Completing the 34-Orb Ending.",
+    "notes": "Wears off extremely fast when moving or falling."
+  },
+  {
+    "name": "Greased Lightning",
+    "icon": "Effect_movement_faster.png",
+    "description": "You feel extremely fast.",
+    "explanation": "Increases movement speed.",
+    "sources": "Acceleratium stains. Drinking Acceleratium. Hastium stains. Drinking Hastium. Eating Wobbly Meat or Fully-Cooked Meat.",
+    "notes": ""
+  },
+  {
+    "name": "Faster Levitation",
+    "icon": "Effect_faster_levitation.png",
+    "description": "You levitate 75% faster",
+    "explanation": "You levitate 75% faster.",
+    "sources": "Levitatium stains. Drinking Levitatium. Hastium stains. Drinking Hastium.",
+    "notes": ""
+  },
+  {
+    "name": "Mana Regeneration",
+    "icon": "Effect_mana_regeneration.png",
+    "description": "You gain mana back faster.",
+    "explanation": "You regenerate mana 4x faster.",
+    "sources": "Concentrated Mana stains. Drinking Concentrated Mana.",
+    "notes": "Wears off fairly fast."
+  },
+  {
+    "name": "Rainbow farts",
+    "icon": "Effect_farts.png",
+    "description": "Open your eyes, I see Your eyes are open Wear no disguise for me Come into the open",
+    "explanation": "You will periodically release Unicorn farts (rainbow gas).",
+    "sources": "Drinking Rainbow liquid.",
+    "notes": "This message is part of the song lyrics from Erasure's \"Always\", which was used as the soundtrack to the Adult Swim game Robot Unicorn Attack."
+  },
+  {
+    "name": "Self-homing Spells",
+    "icon": "Effect_homing_shooter.png",
+    "description": "Your spells home towards yourself for a time.",
+    "explanation": "An effect similar to Boomerang.",
+    "sources": "A rare debuff from the Mestarien mestari.",
+    "notes": ""
+  },
+  {
+    "name": "Slower Movement",
+    "icon": "Effect_movement_slower.png",
+    "description": "You move slower for a time.",
+    "explanation": "Slowed movement.",
+    "sources": "A rare debuff from the Mestarien mestari.",
+    "notes": ""
+  },
+  {
+    "name": "Withered",
+    "icon": "Effect_wither.png",
+    "description": "You're temporarily more vulnerable to all damage types.",
+    "explanation": "The main Damage Types will all deal more damage (Drill, Electricity, Explosion, Fire, Ice, Melee, Projectile, Slice, Toxic).",
+    "sources": "A rare debuff from the Mestarien mestari.",
+    "notes": ""
+  },
+  {
+    "name": "Magic Drunkenness",
+    "icon": "Effect_alcoholic.png",
+    "description": "Your spells are less accurate and you're more flammable for a time.",
+    "explanation": "Your spells have increased spread. You ignite more easily.",
+    "sources": "A rare debuff from the Mestarien mestari.",
+    "notes": ""
+  },
+  {
+    "name": "Weakening Curse - Electricity",
+    "icon": "Effect_curse_wither_electricity.png",
+    "description": "You take 25% extra damage from electricity.",
+    "explanation": "",
+    "sources": "From the Weakening Curse spell modifier.",
+    "notes": ""
+  },
+  {
+    "name": "Weakening Curse - Explosives",
+    "icon": "Effect_curse_wither_explosion.png",
+    "description": "You take 25% extra damage from explosions.",
+    "explanation": "",
+    "sources": "From the Weakening Curse spell modifier.",
+    "notes": ""
+  },
+  {
+    "name": "Weakening Curse - Melee",
+    "icon": "Effect_curse_wither_melee.png",
+    "description": "You take 25% extra damage from melee attacks.",
+    "explanation": "",
+    "sources": "From the Weakening Curse spell modifier.",
+    "notes": ""
+  },
+  {
+    "name": "Weakening Curse - Projectiles",
+    "icon": "Effect_curse_wither_projectile.png",
+    "description": "You take 25% extra damage from projectiles.",
+    "explanation": "",
+    "sources": "From the Weakening Curse spell modifier.",
+    "notes": ""
+  },
+  {
+    "name": "Weakness",
+    "icon": "Effect_weakness.png",
+    "description": "",
+    "explanation": "Causes creatures to take 10x damage from most sources.",
+    "sources": "Being near a Kaamo-Aave. Diminution stains. Drinking Diminution.",
+    "notes": ""
+  },
+  {
+    "name": "The Loathsome Mämmi Eater",
+    "icon": "Effect_mammi_eater.png",
+    "description": "You have gained a persistent nickname.",
+    "explanation": "",
+    "sources": "Ingesting Mämmi.",
+    "notes": "The name of the status effect is a direct reference to a character from the video game Elden Ring known as Dung Eater. In the introductory cutscene of the game they are referred to by the narrator as 'The loathsome Dung Eater'. This phrase became an internet meme after the game's initial launch, likely leading to its inclusion in Noita."
+  },
+  {
+    "name": "Damage Boost (or Damage plus small)",
+    "icon": "Effect_damage_plus_small.png",
+    "description": "Your damage is boosted slightly for a time.",
+    "explanation": "Adds Projectile damage, then multiplies all added damage by 1.25.",
+    "sources": "Hungry Ghost.",
+    "notes": "This has interesting stacking effects."
+  },
+  {
+    "name": "Greed curse",
+    "icon": "Effect_greed_curse.png",
+    "description": "You gain more gold but a curse will haunt you",
+    "explanation": "Triples the amount of Gold that is dropped from enemies, but periodically turns most solids or liquids around you into Greed-Cursed Rock and Greed-Cursed Liquid.",
+    "sources": "Picking up the Curse of Greed.",
+    "notes": ""
+  }
+]

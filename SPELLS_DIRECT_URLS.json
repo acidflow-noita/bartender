@@ -1,0 +1,1690 @@
+{
+  "spellmachinegunbullet": {
+    "url": "https://noita.wiki.gg/images/1/1b/Spell_machinegun_bullet.png?fe8d89",
+    "local": "Spell_machinegun_bullet.png"
+  },
+  "spellacceleratingshot": {
+    "url": "https://noita.wiki.gg/images/5/58/Spell_accelerating_shot.png?1f608d",
+    "local": "Spell_accelerating_shot.png"
+  },
+  "spellhomingaccelerating": {
+    "url": "https://noita.wiki.gg/images/6/6f/Spell_homing_accelerating.png?f8ae2b",
+    "local": "Spell_homing_accelerating.png"
+  },
+  "spellmaterialacid": {
+    "url": "https://noita.wiki.gg/images/4/4d/Spell_material_acid.png?d5410c",
+    "local": "Spell_material_acid.png"
+  },
+  "spellacidshot": {
+    "url": "https://noita.wiki.gg/images/1/14/Spell_acidshot.png?f45bee",
+    "local": "Spell_acidshot.png"
+  },
+  "spellcloudacid": {
+    "url": "https://noita.wiki.gg/images/0/00/Spell_cloud_acid.png?606730",
+    "local": "Spell_cloud_acid.png"
+  },
+  "spellacidtrail": {
+    "url": "https://noita.wiki.gg/images/d/df/Spell_acid_trail.png?ae4b2b",
+    "local": "Spell_acid_trail.png"
+  },
+  "spelldeathtrigger": {
+    "url": "https://noita.wiki.gg/images/4/4b/Spell_death_trigger.png?824254",
+    "local": "Spell_death_trigger.png"
+  },
+  "spellmana": {
+    "url": "https://noita.wiki.gg/images/d/d6/Spell_mana.png?adcbbd",
+    "local": "Spell_mana.png"
+  },
+  "spelltimer": {
+    "url": "https://noita.wiki.gg/images/4/48/Spell_timer.png?e4359c",
+    "local": "Spell_timer.png"
+  },
+  "spelltrigger": {
+    "url": "https://noita.wiki.gg/images/a/a5/Spell_trigger.png?e02122",
+    "local": "Spell_trigger.png"
+  },
+  "spellhomingcursor": {
+    "url": "https://noita.wiki.gg/images/e/ea/Spell_homing_cursor.png?f0ea95",
+    "local": "Spell_homing_cursor.png"
+  },
+  "spellxray": {
+    "url": "https://noita.wiki.gg/images/0/09/Spell_x_ray.png?afd10f",
+    "local": "Spell_x_ray.png"
+  },
+  "spellalpha": {
+    "url": "https://noita.wiki.gg/images/d/d1/Spell_alpha.png?c8513a",
+    "local": "Spell_alpha.png"
+  },
+  "spellantihoming": {
+    "url": "https://noita.wiki.gg/images/d/d2/Spell_anti_homing.png?eb0aef",
+    "local": "Spell_anti_homing.png"
+  },
+  "spellgravityanti": {
+    "url": "https://noita.wiki.gg/images/1/15/Spell_gravity_anti.png?c733e1",
+    "local": "Spell_gravity_anti.png"
+  },
+  "spellarrow": {
+    "url": "https://noita.wiki.gg/images/7/7f/Spell_arrow.png?da517e",
+    "local": "Spell_arrow.png"
+  },
+  "spellautoaim": {
+    "url": "https://noita.wiki.gg/images/8/8f/Spell_autoaim.png?d773b9",
+    "local": "Spell_autoaim.png"
+  },
+  "spellavoidingarc": {
+    "url": "https://noita.wiki.gg/images/8/8f/Spell_avoiding_arc.png?3462fc",
+    "local": "Spell_avoiding_arc.png"
+  },
+  "spellballlightning": {
+    "url": "https://noita.wiki.gg/images/3/30/Spell_ball_lightning.png?a8fddd",
+    "local": "Spell_ball_lightning.png"
+  },
+  "spellbigmagicshield": {
+    "url": "https://noita.wiki.gg/images/6/6c/Spell_big_magic_shield.png?a0b763",
+    "local": "Spell_big_magic_shield.png"
+  },
+  "spellblackhole": {
+    "url": "https://noita.wiki.gg/images/3/33/Spell_black_hole.png?a5f451",
+    "local": "Spell_black_hole.png"
+  },
+  "spellblackholetimer": {
+    "url": "https://noita.wiki.gg/images/d/d2/Spell_black_hole_timer.png?cead57",
+    "local": "Spell_black_hole_timer.png"
+  },
+  "spellmaterialblood": {
+    "url": "https://noita.wiki.gg/images/9/97/Spell_material_blood.png?f3fe6a",
+    "local": "Spell_material_blood.png"
+  },
+  "spellcloudblood": {
+    "url": "https://noita.wiki.gg/images/c/c9/Spell_cloud_blood.png?cc9390",
+    "local": "Spell_cloud_blood.png"
+  },
+  "spellbloodmagic": {
+    "url": "https://noita.wiki.gg/images/5/5f/Spell_blood_magic.png?1292a5",
+    "local": "Spell_blood_magic.png"
+  },
+  "spellmistblood": {
+    "url": "https://noita.wiki.gg/images/b/b5/Spell_mist_blood.png?65df6e",
+    "local": "Spell_mist_blood.png"
+  },
+  "spellbloodtoacid": {
+    "url": "https://noita.wiki.gg/images/6/65/Spell_blood_to_acid.png?1188af",
+    "local": "Spell_blood_to_acid.png"
+  },
+  "spellbloodpunch": {
+    "url": "https://noita.wiki.gg/images/0/07/Spell_blood_punch.png?82a300",
+    "local": "Spell_blood_punch.png"
+  },
+  "spellbloodlust": {
+    "url": "https://noita.wiki.gg/images/7/77/Spell_bloodlust.png?c895a8",
+    "local": "Spell_bloodlust.png"
+  },
+  "spellcolourblue": {
+    "url": "https://noita.wiki.gg/images/d/d6/Spell_colour_blue.png?7f0734",
+    "local": "Spell_colour_blue.png"
+  },
+  "spellbomb": {
+    "url": "https://noita.wiki.gg/images/4/46/Spell_bomb.png?c45b9b",
+    "local": "Spell_bomb.png"
+  },
+  "spellbombcart": {
+    "url": "https://noita.wiki.gg/images/5/5f/Spell_bomb_cart.png?472410",
+    "local": "Spell_bomb_cart.png"
+  },
+  "spellhomingshooter": {
+    "url": "https://noita.wiki.gg/images/9/90/Spell_homing_shooter.png?544798",
+    "local": "Spell_homing_shooter.png"
+  },
+  "spellbounce": {
+    "url": "https://noita.wiki.gg/images/e/e3/Spell_bounce.png?a81359",
+    "local": "Spell_bounce.png"
+  },
+  "spellrubberball": {
+    "url": "https://noita.wiki.gg/images/3/3e/Spell_rubber_ball.png?fc1fdf",
+    "local": "Spell_rubber_ball.png"
+  },
+  "spellbubbleshot": {
+    "url": "https://noita.wiki.gg/images/3/31/Spell_bubbleshot.png?1b3a21",
+    "local": "Spell_bubbleshot.png"
+  },
+  "spellbubbleshottrigger": {
+    "url": "https://noita.wiki.gg/images/e/ea/Spell_bubbleshot_trigger.png?82b849",
+    "local": "Spell_bubbleshot_trigger.png"
+  },
+  "spellbouncespark": {
+    "url": "https://noita.wiki.gg/images/3/36/Spell_bounce_spark.png?611197",
+    "local": "Spell_bounce_spark.png"
+  },
+  "spellburntrail": {
+    "url": "https://noita.wiki.gg/images/e/eb/Spell_burn_trail.png?d37d6c",
+    "local": "Spell_burn_trail.png"
+  },
+  "spellairbullet": {
+    "url": "https://noita.wiki.gg/images/b/b0/Spell_air_bullet.png?ba926c",
+    "local": "Spell_air_bullet.png"
+  },
+  "spellmaterialcement": {
+    "url": "https://noita.wiki.gg/images/6/6a/Spell_material_cement.png?ed5429",
+    "local": "Spell_material_cement.png"
+  },
+  "spellcessation": {
+    "url": "https://noita.wiki.gg/images/0/03/Spell_cessation.png?3c0175",
+    "local": "Spell_cessation.png"
+  },
+  "spellchainbolt": {
+    "url": "https://noita.wiki.gg/images/d/d7/Spell_chain_bolt.png?5e77d9",
+    "local": "Spell_chain_bolt.png"
+  },
+  "spellchainshot": {
+    "url": "https://noita.wiki.gg/images/0/01/Spell_chain_shot.png?ef1d0e",
+    "local": "Spell_chain_shot.png"
+  },
+  "spellchainsaw": {
+    "url": "https://noita.wiki.gg/images/1/11/Spell_chainsaw.png?abdfc6",
+    "local": "Spell_chainsaw.png"
+  },
+  "spelllarpachaos": {
+    "url": "https://noita.wiki.gg/images/2/29/Spell_larpa_chaos.png?301999",
+    "local": "Spell_larpa_chaos.png"
+  },
+  "spellrandomexplosion": {
+    "url": "https://noita.wiki.gg/images/9/92/Spell_random_explosion.png?317db6",
+    "local": "Spell_random_explosion.png"
+  },
+  "spellchaoticarc": {
+    "url": "https://noita.wiki.gg/images/d/d5/Spell_chaotic_arc.png?7ebf56",
+    "local": "Spell_chaotic_arc.png"
+  },
+  "spelltransmutation": {
+    "url": "https://noita.wiki.gg/images/f/fd/Spell_transmutation.png?ea693f",
+    "local": "Spell_transmutation.png"
+  },
+  "spellcharmontoxic": {
+    "url": "https://noita.wiki.gg/images/7/78/Spell_charm_on_toxic.png?b6be3a",
+    "local": "Spell_charm_on_toxic.png"
+  },
+  "spellsoil": {
+    "url": "https://noita.wiki.gg/images/e/e1/Spell_soil.png?2375df",
+    "local": "Spell_soil.png"
+  },
+  "spellcircleacid": {
+    "url": "https://noita.wiki.gg/images/6/6d/Spell_circle_acid.png?12572d",
+    "local": "Spell_circle_acid.png"
+  },
+  "spelllevitationfield": {
+    "url": "https://noita.wiki.gg/images/c/c5/Spell_levitation_field.png?2be768",
+    "local": "Spell_levitation_field.png"
+  },
+  "spellteleportationfield": {
+    "url": "https://noita.wiki.gg/images/c/c2/Spell_teleportation_field.png?7c3b19",
+    "local": "Spell_teleportation_field.png"
+  },
+  "spellberserkfield": {
+    "url": "https://noita.wiki.gg/images/6/6f/Spell_berserk_field.png?4e0c8c",
+    "local": "Spell_berserk_field.png"
+  },
+  "spellcirclefire": {
+    "url": "https://noita.wiki.gg/images/1/1e/Spell_circle_fire.png?ed983c",
+    "local": "Spell_circle_fire.png"
+  },
+  "spellcircleoil": {
+    "url": "https://noita.wiki.gg/images/0/0b/Spell_circle_oil.png?56a0f5",
+    "local": "Spell_circle_oil.png"
+  },
+  "spellshieldfield": {
+    "url": "https://noita.wiki.gg/images/c/c9/Spell_shield_field.png?45636b",
+    "local": "Spell_shield_field.png"
+  },
+  "spellfreezefield": {
+    "url": "https://noita.wiki.gg/images/6/68/Spell_freeze_field.png?7d7f46",
+    "local": "Spell_freeze_field.png"
+  },
+  "spellelectrocutionfield": {
+    "url": "https://noita.wiki.gg/images/8/84/Spell_electrocution_field.png?fdfc8b",
+    "local": "Spell_electrocution_field.png"
+  },
+  "spellpolymorphfield": {
+    "url": "https://noita.wiki.gg/images/5/51/Spell_polymorph_field.png?7b7ae2",
+    "local": "Spell_polymorph_field.png"
+  },
+  "spellchaospolymorphfield": {
+    "url": "https://noita.wiki.gg/images/6/6a/Spell_chaos_polymorph_field.png?5186aa",
+    "local": "Spell_chaos_polymorph_field.png"
+  },
+  "spellregenerationfield": {
+    "url": "https://noita.wiki.gg/images/a/aa/Spell_regeneration_field.png?dc3f1c",
+    "local": "Spell_regeneration_field.png"
+  },
+  "spellcirclewater": {
+    "url": "https://noita.wiki.gg/images/e/e1/Spell_circle_water.png?378c65",
+    "local": "Spell_circle_water.png"
+  },
+  "spellclusterbomb": {
+    "url": "https://noita.wiki.gg/images/2/2f/Spell_clusterbomb.png?e248e6",
+    "local": "Spell_clusterbomb.png"
+  },
+  "spellexplosiontiny": {
+    "url": "https://noita.wiki.gg/images/7/70/Spell_explosion_tiny.png?1d4c80",
+    "local": "Spell_explosion_tiny.png"
+  },
+  "spelllaser": {
+    "url": "https://noita.wiki.gg/images/8/87/Spell_laser.png?cb2cd1",
+    "local": "Spell_laser.png"
+  },
+  "spellbouncelaser": {
+    "url": "https://noita.wiki.gg/images/a/a4/Spell_bounce_laser.png?e57cdf",
+    "local": "Spell_bounce_laser.png"
+  },
+  "spelldrawrandom": {
+    "url": "https://noita.wiki.gg/images/2/26/Spell_draw_random.png?723c5d",
+    "local": "Spell_draw_random.png"
+  },
+  "spelldrawrandomx3": {
+    "url": "https://noita.wiki.gg/images/8/8c/Spell_draw_random_x3.png?cd81d6",
+    "local": "Spell_draw_random_x3.png"
+  },
+  "spelldraw3random": {
+    "url": "https://noita.wiki.gg/images/8/82/Spell_draw_3_random.png?f9a618",
+    "local": "Spell_draw_3_random.png"
+  },
+  "spelllarpachaos2": {
+    "url": "https://noita.wiki.gg/images/b/b3/Spell_larpa_chaos_2.png?c412d8",
+    "local": "Spell_larpa_chaos_2.png"
+  },
+  "spellcriticalblood": {
+    "url": "https://noita.wiki.gg/images/f/fc/Spell_critical_blood.png?21a8eb",
+    "local": "Spell_critical_blood.png"
+  },
+  "spellburningcritical": {
+    "url": "https://noita.wiki.gg/images/e/e4/Spell_burning_critical.png?b7b78c",
+    "local": "Spell_burning_critical.png"
+  },
+  "spellcriticaloil": {
+    "url": "https://noita.wiki.gg/images/f/f9/Spell_critical_oil.png?d9921c",
+    "local": "Spell_critical_oil.png"
+  },
+  "spellcriticalwater": {
+    "url": "https://noita.wiki.gg/images/2/2d/Spell_critical_water.png?bb775e",
+    "local": "Spell_critical_water.png"
+  },
+  "spellcriticalhit": {
+    "url": "https://noita.wiki.gg/images/c/c1/Spell_critical_hit.png?3aece6",
+    "local": "Spell_critical_hit.png"
+  },
+  "spellcursedorb": {
+    "url": "https://noita.wiki.gg/images/8/83/Spell_cursed_orb.png?fc55f5",
+    "local": "Spell_cursed_orb.png"
+  },
+  "spellareadamage": {
+    "url": "https://noita.wiki.gg/images/1/1e/Spell_area_damage.png?b5a1e9",
+    "local": "Spell_area_damage.png"
+  },
+  "spelldamage": {
+    "url": "https://noita.wiki.gg/images/4/4d/Spell_damage.png?c51731",
+    "local": "Spell_damage.png"
+  },
+  "spellantiheal": {
+    "url": "https://noita.wiki.gg/images/3/34/Spell_antiheal.png?ed0fc7",
+    "local": "Spell_antiheal.png"
+  },
+  "spelldeceleratingshot": {
+    "url": "https://noita.wiki.gg/images/a/a3/Spell_decelerating_shot.png?421d74",
+    "local": "Spell_decelerating_shot.png"
+  },
+  "spelldelayedspell": {
+    "url": "https://noita.wiki.gg/images/8/84/Spell_delayed_spell.png?333e61",
+    "local": "Spell_delayed_spell.png"
+  },
+  "spelldestruction": {
+    "url": "https://noita.wiki.gg/images/6/6b/Spell_destruction.png?8851f6",
+    "local": "Spell_destruction.png"
+  },
+  "spellpowerdigger": {
+    "url": "https://noita.wiki.gg/images/1/18/Spell_powerdigger.png?76a21f",
+    "local": "Spell_powerdigger.png"
+  },
+  "spelldigger": {
+    "url": "https://noita.wiki.gg/images/0/0c/Spell_digger.png?3a1343",
+    "local": "Spell_digger.png"
+  },
+  "spelldiscbullet": {
+    "url": "https://noita.wiki.gg/images/b/b8/Spell_disc_bullet.png?9be3bf",
+    "local": "Spell_disc_bullet.png"
+  },
+  "spelldivide10": {
+    "url": "https://noita.wiki.gg/images/4/49/Spell_divide_10.png?748546",
+    "local": "Spell_divide_10.png"
+  },
+  "spelldivide2": {
+    "url": "https://noita.wiki.gg/images/9/95/Spell_divide_2.png?22b6ec",
+    "local": "Spell_divide_2.png"
+  },
+  "spelldivide3": {
+    "url": "https://noita.wiki.gg/images/0/00/Spell_divide_3.png?4f6cf1",
+    "local": "Spell_divide_3.png"
+  },
+  "spelldivide4": {
+    "url": "https://noita.wiki.gg/images/8/88/Spell_divide_4.png?b5e68a",
+    "local": "Spell_divide_4.png"
+  },
+  "spellpipebomb": {
+    "url": "https://noita.wiki.gg/images/9/95/Spell_pipe_bomb.png?a51dea",
+    "local": "Spell_pipe_bomb.png"
+  },
+  "spellpipebombdeathtrigger": {
+    "url": "https://noita.wiki.gg/images/c/c8/Spell_pipe_bomb_death_trigger.png?452118",
+    "local": "Spell_pipe_bomb_death_trigger.png"
+  },
+  "spellscatter2": {
+    "url": "https://noita.wiki.gg/images/5/5c/Spell_scatter_2.png?faf730",
+    "local": "Spell_scatter_2.png"
+  },
+  "spellburst2": {
+    "url": "https://noita.wiki.gg/images/f/ff/Spell_burst_2.png?ee2fea",
+    "local": "Spell_burst_2.png"
+  },
+  "spellrocketdownwards": {
+    "url": "https://noita.wiki.gg/images/2/24/Spell_rocket_downwards.png?c7f02c",
+    "local": "Spell_rocket_downwards.png"
+  },
+  "spelllarpadownwards": {
+    "url": "https://noita.wiki.gg/images/4/42/Spell_larpa_downwards.png?fa0a0e",
+    "local": "Spell_larpa_downwards.png"
+  },
+  "spellclippingshot": {
+    "url": "https://noita.wiki.gg/images/0/0d/Spell_clipping_shot.png?2ff738",
+    "local": "Spell_clipping_shot.png"
+  },
+  "spellgrenadelarge": {
+    "url": "https://noita.wiki.gg/images/f/fe/Spell_grenade_large.png?aa461d",
+    "local": "Spell_grenade_large.png"
+  },
+  "spelldynamite": {
+    "url": "https://noita.wiki.gg/images/f/fc/Spell_dynamite.png?4e770e",
+    "local": "Spell_dynamite.png"
+  },
+  "spellcrumblingearth": {
+    "url": "https://noita.wiki.gg/images/a/a7/Spell_crumbling_earth.png?416c76",
+    "local": "Spell_crumbling_earth.png"
+  },
+  "spellcrumblingearthprojectile": {
+    "url": "https://noita.wiki.gg/images/e/e3/Spell_crumbling_earth_projectile.png?7dd2df",
+    "local": "Spell_crumbling_earth_projectile.png"
+  },
+  "spelltentacleportal": {
+    "url": "https://noita.wiki.gg/images/0/0f/Spell_tentacle_portal.png?c647bc",
+    "local": "Spell_tentacle_portal.png"
+  },
+  "spellarcelectric": {
+    "url": "https://noita.wiki.gg/images/7/7f/Spell_arc_electric.png?484d2c",
+    "local": "Spell_arc_electric.png"
+  },
+  "spellelectriccharge": {
+    "url": "https://noita.wiki.gg/images/e/e2/Spell_electric_charge.png?4e7046",
+    "local": "Spell_electric_charge.png"
+  },
+  "spelltorchelectric": {
+    "url": "https://noita.wiki.gg/images/6/6c/Spell_torch_electric.png?fb2f51",
+    "local": "Spell_torch_electric.png"
+  },
+  "spellslowbullet": {
+    "url": "https://noita.wiki.gg/images/5/55/Spell_slow_bullet.png?83c98d",
+    "local": "Spell_slow_bullet.png"
+  },
+  "spellslowbullettimer": {
+    "url": "https://noita.wiki.gg/images/3/3e/Spell_slow_bullet_timer.png?b119f6",
+    "local": "Spell_slow_bullet_timer.png"
+  },
+  "spellslowbullettrigger": {
+    "url": "https://noita.wiki.gg/images/b/b2/Spell_slow_bullet_trigger.png?875990",
+    "local": "Spell_slow_bullet_trigger.png"
+  },
+  "spellenergyshield": {
+    "url": "https://noita.wiki.gg/images/4/45/Spell_energy_shield.png?eb364d",
+    "local": "Spell_energy_shield.png"
+  },
+  "spellenergyshieldsector": {
+    "url": "https://noita.wiki.gg/images/7/78/Spell_energy_shield_sector.png?80b842",
+    "local": "Spell_energy_shield_sector.png"
+  },
+  "spellbouncyorb": {
+    "url": "https://noita.wiki.gg/images/c/c0/Spell_bouncy_orb.png?99cd1c",
+    "local": "Spell_bouncy_orb.png"
+  },
+  "spellbouncyorbtimer": {
+    "url": "https://noita.wiki.gg/images/4/4e/Spell_bouncy_orb_timer.png?e50486",
+    "local": "Spell_bouncy_orb_timer.png"
+  },
+  "spellessencetopower": {
+    "url": "https://noita.wiki.gg/images/1/12/Spell_essence_to_power.png?b9088c",
+    "local": "Spell_essence_to_power.png"
+  },
+  "spellexpandingorb": {
+    "url": "https://noita.wiki.gg/images/4/4a/Spell_expanding_orb.png?e56357",
+    "local": "Spell_expanding_orb.png"
+  },
+  "spellexplosion": {
+    "url": "https://noita.wiki.gg/images/4/4c/Spell_explosion.png?1a9e7b",
+    "local": "Spell_explosion.png"
+  },
+  "spellfireblast": {
+    "url": "https://noita.wiki.gg/images/4/4d/Spell_fire_blast.png?10b02f",
+    "local": "Spell_fire_blast.png"
+  },
+  "spellpoisonblast": {
+    "url": "https://noita.wiki.gg/images/8/88/Spell_poison_blast.png?f0fdfd",
+    "local": "Spell_poison_blast.png"
+  },
+  "spellalcoholblast": {
+    "url": "https://noita.wiki.gg/images/8/8e/Spell_alcohol_blast.png?d2b82a",
+    "local": "Spell_alcohol_blast.png"
+  },
+  "spellthunderblast": {
+    "url": "https://noita.wiki.gg/images/6/60/Spell_thunder_blast.png?eb2724",
+    "local": "Spell_thunder_blast.png"
+  },
+  "spellexplodeonalcohol": {
+    "url": "https://noita.wiki.gg/images/f/f2/Spell_explode_on_alcohol.png?bc4b4e",
+    "local": "Spell_explode_on_alcohol.png"
+  },
+  "spellexplodeonslime": {
+    "url": "https://noita.wiki.gg/images/3/35/Spell_explode_on_slime.png?eaca02",
+    "local": "Spell_explode_on_slime.png"
+  },
+  "spellbounceexplosion": {
+    "url": "https://noita.wiki.gg/images/a/a9/Spell_bounce_explosion.png?b143de",
+    "local": "Spell_bounce_explosion.png"
+  },
+  "spellpipebombdetonator": {
+    "url": "https://noita.wiki.gg/images/a/ab/Spell_pipe_bomb_detonator.png?f3b7b5",
+    "local": "Spell_pipe_bomb_detonator.png"
+  },
+  "spellexplosiveprojectile": {
+    "url": "https://noita.wiki.gg/images/2/26/Spell_explosive_projectile.png?34767f",
+    "local": "Spell_explosive_projectile.png"
+  },
+  "spellarcfire": {
+    "url": "https://noita.wiki.gg/images/f/f3/Spell_arc_fire.png?2fa935",
+    "local": "Spell_arc_fire.png"
+  },
+  "spellfiretrail": {
+    "url": "https://noita.wiki.gg/images/f/fe/Spell_fire_trail.png?65e6c5",
+    "local": "Spell_fire_trail.png"
+  },
+  "spellfireball": {
+    "url": "https://noita.wiki.gg/images/8/8b/Spell_fireball.png?ad0447",
+    "local": "Spell_fireball.png"
+  },
+  "spellorbitfireballs": {
+    "url": "https://noita.wiki.gg/images/e/e4/Spell_orbit_fireballs.png?146c28",
+    "local": "Spell_orbit_fireballs.png"
+  },
+  "spellfireballray": {
+    "url": "https://noita.wiki.gg/images/5/53/Spell_fireball_ray.png?5b1477",
+    "local": "Spell_fireball_ray.png"
+  },
+  "spellgrenade": {
+    "url": "https://noita.wiki.gg/images/e/e9/Spell_grenade.png?96320e",
+    "local": "Spell_grenade.png"
+  },
+  "spellgrenadetrigger": {
+    "url": "https://noita.wiki.gg/images/7/76/Spell_grenade_trigger.png?8ff413",
+    "local": "Spell_grenade_trigger.png"
+  },
+  "spellfirebomb": {
+    "url": "https://noita.wiki.gg/images/c/c7/Spell_firebomb.png?a64822",
+    "local": "Spell_firebomb.png"
+  },
+  "spellunstablegunpowder": {
+    "url": "https://noita.wiki.gg/images/1/1f/Spell_unstable_gunpowder.png?16ae91",
+    "local": "Spell_unstable_gunpowder.png"
+  },
+  "spellfireworks": {
+    "url": "https://noita.wiki.gg/images/0/03/Spell_fireworks.png?536271",
+    "local": "Spell_fireworks.png"
+  },
+  "spellfizzle": {
+    "url": "https://noita.wiki.gg/images/0/0b/Spell_fizzle.png?7f3990",
+    "local": "Spell_fizzle.png"
+  },
+  "spellflamethrower": {
+    "url": "https://noita.wiki.gg/images/4/49/Spell_flamethrower.png?3ffc23",
+    "local": "Spell_flamethrower.png"
+  },
+  "spellfloatingarc": {
+    "url": "https://noita.wiki.gg/images/6/67/Spell_floating_arc.png?f73072",
+    "local": "Spell_floating_arc.png"
+  },
+  "spellduck2": {
+    "url": "https://noita.wiki.gg/images/c/c4/Spell_duck_2.png?662d5d",
+    "local": "Spell_duck_2.png"
+  },
+  "spellflydownwards": {
+    "url": "https://noita.wiki.gg/images/2/21/Spell_fly_downwards.png?85eee1",
+    "local": "Spell_fly_downwards.png"
+  },
+  "spellflyupwards": {
+    "url": "https://noita.wiki.gg/images/a/a6/Spell_fly_upwards.png?1ed23f",
+    "local": "Spell_fly_upwards.png"
+  },
+  "spelltshape": {
+    "url": "https://noita.wiki.gg/images/b/b5/Spell_t_shape.png?27d490",
+    "local": "Spell_t_shape.png"
+  },
+  "spellishape": {
+    "url": "https://noita.wiki.gg/images/e/ec/Spell_i_shape.png?1fb35c",
+    "local": "Spell_i_shape.png"
+  },
+  "spellyshape": {
+    "url": "https://noita.wiki.gg/images/9/95/Spell_y_shape.png?14f89a",
+    "local": "Spell_y_shape.png"
+  },
+  "spellcircleshape": {
+    "url": "https://noita.wiki.gg/images/2/2f/Spell_circle_shape.png?36f216",
+    "local": "Spell_circle_shape.png"
+  },
+  "spellpentagramshape": {
+    "url": "https://noita.wiki.gg/images/4/4f/Spell_pentagram_shape.png?2b24ad",
+    "local": "Spell_pentagram_shape.png"
+  },
+  "spellwshape": {
+    "url": "https://noita.wiki.gg/images/d/d6/Spell_w_shape.png?ae401c",
+    "local": "Spell_w_shape.png"
+  },
+  "spellfreeze": {
+    "url": "https://noita.wiki.gg/images/5/5d/Spell_freeze.png?a28008",
+    "local": "Spell_freeze.png"
+  },
+  "spellfreezinggaze": {
+    "url": "https://noita.wiki.gg/images/3/3d/Spell_freezing_gaze.png?18247e",
+    "local": "Spell_freezing_gaze.png"
+  },
+  "spellgamma": {
+    "url": "https://noita.wiki.gg/images/b/b4/Spell_gamma.png?4f261c",
+    "local": "Spell_gamma.png"
+  },
+  "spellexplodeonalcoholgiga": {
+    "url": "https://noita.wiki.gg/images/2/2b/Spell_explode_on_alcohol_giga.png?c9edde",
+    "local": "Spell_explode_on_alcohol_giga.png"
+  },
+  "spellexplodeonslimegiga": {
+    "url": "https://noita.wiki.gg/images/4/4b/Spell_explode_on_slime_giga.png?11c402",
+    "local": "Spell_explode_on_slime_giga.png"
+  },
+  "spellgrenadetier3": {
+    "url": "https://noita.wiki.gg/images/a/a9/Spell_grenade_tier_3.png?1f5ae1",
+    "local": "Spell_grenade_tier_3.png"
+  },
+  "spellrockettier3": {
+    "url": "https://noita.wiki.gg/images/8/8b/Spell_rocket_tier_3.png?b6558a",
+    "local": "Spell_rocket_tier_3.png"
+  },
+  "spellspitterpurple": {
+    "url": "https://noita.wiki.gg/images/d/d2/Spell_spitter_purple.png?5ced6c",
+    "local": "Spell_spitter_purple.png"
+  },
+  "spellspitterpurpletimer": {
+    "url": "https://noita.wiki.gg/images/f/f5/Spell_spitter_purple_timer.png?5d96cf",
+    "local": "Spell_spitter_purple_timer.png"
+  },
+  "spellblackholebig": {
+    "url": "https://noita.wiki.gg/images/5/5f/Spell_black_hole_big.png?387a76",
+    "local": "Spell_black_hole_big.png"
+  },
+  "spelldiscbulletbig": {
+    "url": "https://noita.wiki.gg/images/5/5d/Spell_disc_bullet_big.png?3c094e",
+    "local": "Spell_disc_bullet_big.png"
+  },
+  "spellbombholygiga": {
+    "url": "https://noita.wiki.gg/images/3/34/Spell_bomb_holy_giga.png?a3f93f",
+    "local": "Spell_bomb_holy_giga.png"
+  },
+  "spellnukegiga": {
+    "url": "https://noita.wiki.gg/images/b/bb/Spell_nuke_giga.png?9166ce",
+    "local": "Spell_nuke_giga.png"
+  },
+  "spellwhiteholebig": {
+    "url": "https://noita.wiki.gg/images/4/44/Spell_white_hole_big.png?3c88f2",
+    "local": "Spell_white_hole_big.png"
+  },
+  "spellglitterbomb": {
+    "url": "https://noita.wiki.gg/images/f/f7/Spell_glitter_bomb.png?45a8e9",
+    "local": "Spell_glitter_bomb.png"
+  },
+  "spellpurpleexplosionfield": {
+    "url": "https://noita.wiki.gg/images/8/82/Spell_purple_explosion_field.png?f48baf",
+    "local": "Spell_purple_explosion_field.png"
+  },
+  "spelllance": {
+    "url": "https://noita.wiki.gg/images/1/1d/Spell_lance.png?666ee8",
+    "local": "Spell_lance.png"
+  },
+  "spellglueshot": {
+    "url": "https://noita.wiki.gg/images/4/43/Spell_glue_shot.png?82097c",
+    "local": "Spell_glue_shot.png"
+  },
+  "spellgoldenpunch": {
+    "url": "https://noita.wiki.gg/images/c/cf/Spell_golden_punch.png?bf15b3",
+    "local": "Spell_golden_punch.png"
+  },
+  "spellgravity": {
+    "url": "https://noita.wiki.gg/images/6/6b/Spell_gravity.png?ab3c76",
+    "local": "Spell_gravity.png"
+  },
+  "spellcolourgreen": {
+    "url": "https://noita.wiki.gg/images/f/f9/Spell_colour_green.png?53cac4",
+    "local": "Spell_colour_green.png"
+  },
+  "spellstatictosand": {
+    "url": "https://noita.wiki.gg/images/d/de/Spell_static_to_sand.png?cf23eb",
+    "local": "Spell_static_to_sand.png"
+  },
+  "spellarcgunpowder": {
+    "url": "https://noita.wiki.gg/images/5/53/Spell_arc_gunpowder.png?cd1ab1",
+    "local": "Spell_arc_gunpowder.png"
+  },
+  "spellgunpowdertrail": {
+    "url": "https://noita.wiki.gg/images/3/3f/Spell_gunpowder_trail.png?60bcbd",
+    "local": "Spell_gunpowder_trail.png"
+  },
+  "spellhealbullet": {
+    "url": "https://noita.wiki.gg/images/6/65/Spell_heal_bullet.png?9aa731",
+    "local": "Spell_heal_bullet.png"
+  },
+  "spellheavyshot": {
+    "url": "https://noita.wiki.gg/images/e/e0/Spell_heavy_shot.png?8a301a",
+    "local": "Spell_heavy_shot.png"
+  },
+  "spellheavyspread": {
+    "url": "https://noita.wiki.gg/images/4/41/Spell_heavy_spread.png?354e8e",
+    "local": "Spell_heavy_spread.png"
+  },
+  "hexashot": {
+    "url": "https://noita.wiki.gg/images/4/4e/Hexa_shot.png?eb22f3",
+    "local": "Hexa_shot.png"
+  },
+  "spellbombholy": {
+    "url": "https://noita.wiki.gg/images/0/0c/Spell_bomb_holy.png?264802",
+    "local": "Spell_bomb_holy.png"
+  },
+  "lanceholy": {
+    "url": "https://noita.wiki.gg/images/4/40/Lance_holy.png?418f0e",
+    "local": "Lance_holy.png"
+  },
+  "spellteleportprojectilecloser": {
+    "url": "https://noita.wiki.gg/images/5/5e/Spell_teleport_projectile_closer.png?10796b",
+    "local": "Spell_teleport_projectile_closer.png"
+  },
+  "spellhoming": {
+    "url": "https://noita.wiki.gg/images/8/8f/Spell_homing.png?3ebf21",
+    "local": "Spell_homing.png"
+  },
+  "spellhook": {
+    "url": "https://noita.wiki.gg/images/f/fd/Spell_hook.png?732aa5",
+    "local": "Spell_hook.png"
+  },
+  "spellwallhorizontal": {
+    "url": "https://noita.wiki.gg/images/7/78/Spell_wall_horizontal.png?bef437",
+    "local": "Spell_wall_horizontal.png"
+  },
+  "spellhorizontalarc": {
+    "url": "https://noita.wiki.gg/images/d/d2/Spell_horizontal_arc.png?a0bfbd",
+    "local": "Spell_horizontal_arc.png"
+  },
+  "spelliceball": {
+    "url": "https://noita.wiki.gg/images/7/7e/Spell_iceball.png?134979",
+    "local": "Spell_iceball.png"
+  },
+  "spelllifetime": {
+    "url": "https://noita.wiki.gg/images/c/cf/Spell_lifetime.png?57f38c",
+    "local": "Spell_lifetime.png"
+  },
+  "spellinfestation": {
+    "url": "https://noita.wiki.gg/images/1/1a/Spell_infestation.png?f914a1",
+    "local": "Spell_infestation.png"
+  },
+  "spellcastercast": {
+    "url": "https://noita.wiki.gg/images/5/59/Spell_caster_cast.png?ed1165",
+    "local": "Spell_caster_cast.png"
+  },
+  "spellcolourinvis": {
+    "url": "https://noita.wiki.gg/images/9/9c/Spell_colour_invis.png?c14459",
+    "local": "Spell_colour_invis.png"
+  },
+  "ishot": {
+    "url": "https://noita.wiki.gg/images/e/eb/I_shot.png?74211f",
+    "local": "I_shot.png"
+  },
+  "spellkantelea": {
+    "url": "https://noita.wiki.gg/images/e/ea/Spell_kantele_a.png?f3b586",
+    "local": "Spell_kantele_a.png"
+  },
+  "spellkanteled": {
+    "url": "https://noita.wiki.gg/images/2/29/Spell_kantele_d.png?280709",
+    "local": "Spell_kantele_d.png"
+  },
+  "spellkanteledis": {
+    "url": "https://noita.wiki.gg/images/1/19/Spell_kantele_dis.png?e87df1",
+    "local": "Spell_kantele_dis.png"
+  },
+  "spellkantelee": {
+    "url": "https://noita.wiki.gg/images/3/33/Spell_kantele_e.png?ea83da",
+    "local": "Spell_kantele_e.png"
+  },
+  "spellkanteleg": {
+    "url": "https://noita.wiki.gg/images/6/61/Spell_kantele_g.png?fe269c",
+    "local": "Spell_kantele_g.png"
+  },
+  "spellknockback": {
+    "url": "https://noita.wiki.gg/images/3/32/Spell_knockback.png?948d3c",
+    "local": "Spell_knockback.png"
+  },
+  "spellgrenadetier2": {
+    "url": "https://noita.wiki.gg/images/1/1b/Spell_grenade_tier_2.png?334cc7",
+    "local": "Spell_grenade_tier_2.png"
+  },
+  "spellrockettier2": {
+    "url": "https://noita.wiki.gg/images/f/f7/Spell_rocket_tier_2.png?613654",
+    "local": "Spell_rocket_tier_2.png"
+  },
+  "spellspittergreen": {
+    "url": "https://noita.wiki.gg/images/a/a9/Spell_spitter_green.png?79a912",
+    "local": "Spell_spitter_green.png"
+  },
+  "spellspittergreentimer": {
+    "url": "https://noita.wiki.gg/images/2/2c/Spell_spitter_green_timer.png?5038a6",
+    "local": "Spell_spitter_green_timer.png"
+  },
+  "spellbouncelarpa": {
+    "url": "https://noita.wiki.gg/images/3/32/Spell_bounce_larpa.png?301cac",
+    "local": "Spell_bounce_larpa.png"
+  },
+  "spelllarpadeath": {
+    "url": "https://noita.wiki.gg/images/f/fb/Spell_larpa_death.png?409659",
+    "local": "Spell_larpa_death.png"
+  },
+  "spelllavatoblood": {
+    "url": "https://noita.wiki.gg/images/e/ec/Spell_lava_to_blood.png?33b4f7",
+    "local": "Spell_lava_to_blood.png"
+  },
+  "spelllight": {
+    "url": "https://noita.wiki.gg/images/f/fa/Spell_light.png?e0089d",
+    "local": "Spell_light.png"
+  },
+  "spelllightshot": {
+    "url": "https://noita.wiki.gg/images/1/1d/Spell_light_shot.png?cec40a",
+    "local": "Spell_light_shot.png"
+  },
+  "spelllightning": {
+    "url": "https://noita.wiki.gg/images/b/b8/Spell_lightning.png?e65b2d",
+    "local": "Spell_lightning.png"
+  },
+  "spellbouncelightning": {
+    "url": "https://noita.wiki.gg/images/1/1f/Spell_bounce_lightning.png?400700",
+    "local": "Spell_bounce_lightning.png"
+  },
+  "spelllightningray": {
+    "url": "https://noita.wiki.gg/images/d/dd/Spell_lightning_ray.png?e779d4",
+    "local": "Spell_lightning_ray.png"
+  },
+  "spelllinearc": {
+    "url": "https://noita.wiki.gg/images/0/01/Spell_line_arc.png?c8f5b8",
+    "local": "Spell_line_arc.png"
+  },
+  "spellliquidtoexplosion": {
+    "url": "https://noita.wiki.gg/images/2/21/Spell_liquid_to_explosion.png?df6059",
+    "local": "Spell_liquid_to_explosion.png"
+  },
+  "spellvacuumliquid": {
+    "url": "https://noita.wiki.gg/images/5/59/Spell_vacuum_liquid.png?5c21e8",
+    "local": "Spell_vacuum_liquid.png"
+  },
+  "spelllongdistancecast": {
+    "url": "https://noita.wiki.gg/images/b/b2/Spell_long_distance_cast.png?a90341",
+    "local": "Spell_long_distance_cast.png"
+  },
+  "spellluminousdrill": {
+    "url": "https://noita.wiki.gg/images/a/a1/Spell_luminous_drill.png?16d6f1",
+    "local": "Spell_luminous_drill.png"
+  },
+  "spellluminousdrilltimer": {
+    "url": "https://noita.wiki.gg/images/e/ed/Spell_luminous_drill_timer.png?9fa626",
+    "local": "Spell_luminous_drill_timer.png"
+  },
+  "spellbullet": {
+    "url": "https://noita.wiki.gg/images/c/c0/Spell_bullet.png?e86839",
+    "local": "Spell_bullet.png"
+  },
+  "spellbullettimer": {
+    "url": "https://noita.wiki.gg/images/b/b4/Spell_bullet_timer.png?a01390",
+    "local": "Spell_bullet_timer.png"
+  },
+  "spellbullettrigger": {
+    "url": "https://noita.wiki.gg/images/5/52/Spell_bullet_trigger.png?ff2eaa",
+    "local": "Spell_bullet_trigger.png"
+  },
+  "spellheavybullet": {
+    "url": "https://noita.wiki.gg/images/3/3d/Spell_heavy_bullet.png?7babc2",
+    "local": "Spell_heavy_bullet.png"
+  },
+  "spellheavybullettimer": {
+    "url": "https://noita.wiki.gg/images/5/57/Spell_heavy_bullet_timer.png?b0c2ea",
+    "local": "Spell_heavy_bullet_timer.png"
+  },
+  "spellheavybullettrigger": {
+    "url": "https://noita.wiki.gg/images/0/0e/Spell_heavy_bullet_trigger.png?8e9843",
+    "local": "Spell_heavy_bullet_trigger.png"
+  },
+  "spellmagicshield": {
+    "url": "https://noita.wiki.gg/images/b/b2/Spell_magic_shield.png?ea86f3",
+    "local": "Spell_magic_shield.png"
+  },
+  "spellrocket": {
+    "url": "https://noita.wiki.gg/images/e/e1/Spell_rocket.png?27a175",
+    "local": "Spell_rocket.png"
+  },
+  "spellexplosionlight": {
+    "url": "https://noita.wiki.gg/images/e/ee/Spell_explosion_light.png?52c9f5",
+    "local": "Spell_explosion_light.png"
+  },
+  "spelldamageforever": {
+    "url": "https://noita.wiki.gg/images/d/dc/Spell_damage_forever.png?7e394c",
+    "local": "Spell_damage_forever.png"
+  },
+  "spellwormrain": {
+    "url": "https://noita.wiki.gg/images/a/a2/Spell_worm_rain.png?211b67",
+    "local": "Spell_worm_rain.png"
+  },
+  "spellmattereater": {
+    "url": "https://noita.wiki.gg/images/6/6c/Spell_matter_eater.png?b2bf91",
+    "local": "Spell_matter_eater.png"
+  },
+  "spellmeteor": {
+    "url": "https://noita.wiki.gg/images/0/0a/Spell_meteor.png?f77ce8",
+    "local": "Spell_meteor.png"
+  },
+  "spellmeteorrain": {
+    "url": "https://noita.wiki.gg/images/c/ce/Spell_meteor_rain.png?f024c9",
+    "local": "Spell_meteor_rain.png"
+  },
+  "spellmistalcohol": {
+    "url": "https://noita.wiki.gg/images/e/e3/Spell_mist_alcohol.png?fa9d25",
+    "local": "Spell_mist_alcohol.png"
+  },
+  "spellmu": {
+    "url": "https://noita.wiki.gg/images/e/ea/Spell_mu.png?aad82e",
+    "local": "Spell_mu.png"
+  },
+  "spellpolymorph": {
+    "url": "https://noita.wiki.gg/images/d/d9/Spell_polymorph.png?eac09c",
+    "local": "Spell_polymorph.png"
+  },
+  "spellburstx": {
+    "url": "https://noita.wiki.gg/images/1/1c/Spell_burst_x.png?7511be",
+    "local": "Spell_burst_x.png"
+  },
+  "spellnecromancy": {
+    "url": "https://noita.wiki.gg/images/f/f9/Spell_necromancy.png?5c05f3",
+    "local": "Spell_necromancy.png"
+  },
+  "spellnolla": {
+    "url": "https://noita.wiki.gg/images/f/f8/Spell_nolla.png?e9805e",
+    "local": "Spell_nolla.png"
+  },
+  "spellnuke": {
+    "url": "https://noita.wiki.gg/images/1/15/Spell_nuke.png?7cb2d5",
+    "local": "Spell_nuke.png"
+  },
+  "spellorbitnukes": {
+    "url": "https://noita.wiki.gg/images/d/d1/Spell_orbit_nukes.png?c84b80",
+    "local": "Spell_orbit_nukes.png"
+  },
+  "spellzerodamage": {
+    "url": "https://noita.wiki.gg/images/b/b1/Spell_zero_damage.png?bef449",
+    "local": "Spell_zero_damage.png"
+  },
+  "spellocarinaa": {
+    "url": "https://noita.wiki.gg/images/d/de/Spell_ocarina_a.png?376fd6",
+    "local": "Spell_ocarina_a.png"
+  },
+  "spellocarinaa2": {
+    "url": "https://noita.wiki.gg/images/f/ff/Spell_ocarina_a2.png?33c2c3",
+    "local": "Spell_ocarina_a2.png"
+  },
+  "spellocarinab": {
+    "url": "https://noita.wiki.gg/images/5/5a/Spell_ocarina_b.png?59b0d3",
+    "local": "Spell_ocarina_b.png"
+  },
+  "spellocarinac": {
+    "url": "https://noita.wiki.gg/images/f/fb/Spell_ocarina_c.png?be4a7d",
+    "local": "Spell_ocarina_c.png"
+  },
+  "spellocarinad": {
+    "url": "https://noita.wiki.gg/images/0/07/Spell_ocarina_d.png?a89fa7",
+    "local": "Spell_ocarina_d.png"
+  },
+  "spellocarinae": {
+    "url": "https://noita.wiki.gg/images/0/00/Spell_ocarina_e.png?553290",
+    "local": "Spell_ocarina_e.png"
+  },
+  "spellocarinaf": {
+    "url": "https://noita.wiki.gg/images/b/b8/Spell_ocarina_f.png?9710f3",
+    "local": "Spell_ocarina_f.png"
+  },
+  "spellocarinagsharp": {
+    "url": "https://noita.wiki.gg/images/a/a5/Spell_ocarina_gsharp.png?4d5ec9",
+    "local": "Spell_ocarina_gsharp.png"
+  },
+  "spellrocketoctagon": {
+    "url": "https://noita.wiki.gg/images/f/f6/Spell_rocket_octagon.png?c76e4a",
+    "local": "Spell_rocket_octagon.png"
+  },
+  "spellburst8": {
+    "url": "https://noita.wiki.gg/images/3/30/Spell_burst_8.png?c915ba",
+    "local": "Spell_burst_8.png"
+  },
+  "spellgrenadeanti": {
+    "url": "https://noita.wiki.gg/images/a/ac/Spell_grenade_anti.png?f1713a",
+    "local": "Spell_grenade_anti.png"
+  },
+  "spellmaterialoil": {
+    "url": "https://noita.wiki.gg/images/9/93/Spell_material_oil.png?9c012b",
+    "local": "Spell_material_oil.png"
+  },
+  "spellcloudoil": {
+    "url": "https://noita.wiki.gg/images/4/4e/Spell_cloud_oil.png?73ba70",
+    "local": "Spell_cloud_oil.png"
+  },
+  "spelloiltrail": {
+    "url": "https://noita.wiki.gg/images/c/c9/Spell_oil_trail.png?877978",
+    "local": "Spell_oil_trail.png"
+  },
+  "spellomega": {
+    "url": "https://noita.wiki.gg/images/5/5f/Spell_omega.png?94c53d",
+    "local": "Spell_omega.png"
+  },
+  "spellblackholegiga": {
+    "url": "https://noita.wiki.gg/images/6/6b/Spell_black_hole_giga.png?32c6f3",
+    "local": "Spell_black_hole_giga.png"
+  },
+  "spellwhiteholegiga": {
+    "url": "https://noita.wiki.gg/images/f/f7/Spell_white_hole_giga.png?65af31",
+    "local": "Spell_white_hole_giga.png"
+  },
+  "spellcolourorange": {
+    "url": "https://noita.wiki.gg/images/7/72/Spell_colour_orange.png?7b4734",
+    "local": "Spell_colour_orange.png"
+  },
+  "spellorbitlarpa": {
+    "url": "https://noita.wiki.gg/images/2/25/Spell_orbit_larpa.png?2b723f",
+    "local": "Spell_orbit_larpa.png"
+  },
+  "spellorbitshot": {
+    "url": "https://noita.wiki.gg/images/a/af/Spell_orbit_shot.png?fa5480",
+    "local": "Spell_orbit_shot.png"
+  },
+  "spelldarkflame": {
+    "url": "https://noita.wiki.gg/images/8/86/Spell_darkflame.png?ebfc9d",
+    "local": "Spell_darkflame.png"
+  },
+  "pentashot": {
+    "url": "https://noita.wiki.gg/images/5/53/Penta_shot.png?457669",
+    "local": "Penta_shot.png"
+  },
+  "spellfireballrayenemy": {
+    "url": "https://noita.wiki.gg/images/f/f1/Spell_fireball_ray_enemy.png?4b7f05",
+    "local": "Spell_fireball_ray_enemy.png"
+  },
+  "spellgravityfieldenemy": {
+    "url": "https://noita.wiki.gg/images/e/e2/Spell_gravity_field_enemy.png?3a0192",
+    "local": "Spell_gravity_field_enemy.png"
+  },
+  "spelllightningrayenemy": {
+    "url": "https://noita.wiki.gg/images/a/ae/Spell_lightning_ray_enemy.png?af81bc",
+    "local": "Spell_lightning_ray_enemy.png"
+  },
+  "spelltentaclerayenemy": {
+    "url": "https://noita.wiki.gg/images/a/a8/Spell_tentacle_ray_enemy.png?7ac23c",
+    "local": "Spell_tentacle_ray_enemy.png"
+  },
+  "spellpetrify": {
+    "url": "https://noita.wiki.gg/images/b/b0/Spell_petrify.png?c3d8f9",
+    "local": "Spell_petrify.png"
+  },
+  "spellphasingarc": {
+    "url": "https://noita.wiki.gg/images/5/59/Spell_phasing_arc.png?a8cf7e",
+    "local": "Spell_phasing_arc.png"
+  },
+  "spellphi": {
+    "url": "https://noita.wiki.gg/images/c/c7/Spell_phi.png?e10706",
+    "local": "Spell_phi.png"
+  },
+  "spellpiercingshot": {
+    "url": "https://noita.wiki.gg/images/4/4f/Spell_piercing_shot.png?1c3b0b",
+    "local": "Spell_piercing_shot.png"
+  },
+  "spellpingpongpath": {
+    "url": "https://noita.wiki.gg/images/8/8d/Spell_pingpong_path.png?56f0ea",
+    "local": "Spell_pingpong_path.png"
+  },
+  "spellglowingbolt": {
+    "url": "https://noita.wiki.gg/images/3/33/Spell_glowing_bolt.png?7dd815",
+    "local": "Spell_glowing_bolt.png"
+  },
+  "spelllaseremitter": {
+    "url": "https://noita.wiki.gg/images/7/77/Spell_laser_emitter.png?4882c7",
+    "local": "Spell_laser_emitter.png"
+  },
+  "spellbouncelaseremitter": {
+    "url": "https://noita.wiki.gg/images/2/25/Spell_bounce_laser_emitter.png?a17984",
+    "local": "Spell_bounce_laser_emitter.png"
+  },
+  "spelllaseremitterfour": {
+    "url": "https://noita.wiki.gg/images/c/c7/Spell_laser_emitter_four.png?4ab219",
+    "local": "Spell_laser_emitter_four.png"
+  },
+  "spelllaseremitterwider": {
+    "url": "https://noita.wiki.gg/images/4/41/Spell_laser_emitter_wider.png?e9e09d",
+    "local": "Spell_laser_emitter_wider.png"
+  },
+  "spellorbitlasers": {
+    "url": "https://noita.wiki.gg/images/0/0c/Spell_orbit_lasers.png?c3e144",
+    "local": "Spell_orbit_lasers.png"
+  },
+  "spelllaseremitterray": {
+    "url": "https://noita.wiki.gg/images/9/9d/Spell_laser_emitter_ray.png?44f569",
+    "local": "Spell_laser_emitter_ray.png"
+  },
+  "spelllaseremittercutter": {
+    "url": "https://noita.wiki.gg/images/a/af/Spell_laser_emitter_cutter.png?2ee728",
+    "local": "Spell_laser_emitter_cutter.png"
+  },
+  "spellarcpoison": {
+    "url": "https://noita.wiki.gg/images/a/a2/Spell_arc_poison.png?d03af8",
+    "local": "Spell_arc_poison.png"
+  },
+  "spellpoisontrail": {
+    "url": "https://noita.wiki.gg/images/a/a4/Spell_poison_trail.png?fe6d91",
+    "local": "Spell_poison_trail.png"
+  },
+  "spellpollen": {
+    "url": "https://noita.wiki.gg/images/e/e7/Spell_pollen.png?646ad4",
+    "local": "Spell_pollen.png"
+  },
+  "spellvacuumpowder": {
+    "url": "https://noita.wiki.gg/images/1/1b/Spell_vacuum_powder.png?d4f6ba",
+    "local": "Spell_vacuum_powder.png"
+  },
+  "spellsporepod": {
+    "url": "https://noita.wiki.gg/images/e/e2/Spell_spore_pod.png?478b3e",
+    "local": "Spell_spore_pod.png"
+  },
+  "spellhomingarea": {
+    "url": "https://noita.wiki.gg/images/8/86/Spell_homing_area.png?c49ce7",
+    "local": "Spell_homing_area.png"
+  },
+  "spellprojectileenergyshield": {
+    "url": "https://noita.wiki.gg/images/5/5c/Spell_projectile_energy_shield.png?f33fc2",
+    "local": "Spell_projectile_energy_shield.png"
+  },
+  "spellprojectilegravityfield": {
+    "url": "https://noita.wiki.gg/images/a/a5/Spell_projectile_gravity_field.png?b73d88",
+    "local": "Spell_projectile_gravity_field.png"
+  },
+  "spellprojectilethunderfield": {
+    "url": "https://noita.wiki.gg/images/1/15/Spell_projectile_thunder_field.png?25f23a",
+    "local": "Spell_projectile_thunder_field.png"
+  },
+  "spellprojectiletransmutationfield": {
+    "url": "https://noita.wiki.gg/images/f/f9/Spell_projectile_transmutation_field.png?86c0e0",
+    "local": "Spell_projectile_transmutation_field.png"
+  },
+  "spellpropanetank": {
+    "url": "https://noita.wiki.gg/images/5/5e/Spell_propane_tank.png?de05b7",
+    "local": "Spell_propane_tank.png"
+  },
+  "spellcolourpurple": {
+    "url": "https://noita.wiki.gg/images/4/46/Spell_colour_purple.png?a40f10",
+    "local": "Spell_colour_purple.png"
+  },
+  "spellscatter4": {
+    "url": "https://noita.wiki.gg/images/c/c6/Spell_scatter_4.png?62f0d5",
+    "local": "Spell_scatter_4.png"
+  },
+  "spellburst4": {
+    "url": "https://noita.wiki.gg/images/2/26/Spell_burst_4.png?2db0cd",
+    "local": "Spell_burst_4.png"
+  },
+  "spellquantumsplit": {
+    "url": "https://noita.wiki.gg/images/4/47/Spell_quantum_split.png?8dfaa6",
+    "local": "Spell_quantum_split.png"
+  },
+  "quadshot": {
+    "url": "https://noita.wiki.gg/images/1/1c/Quad_shot.png?821e28",
+    "local": "Quad_shot.png"
+  },
+  "spellcloudwater": {
+    "url": "https://noita.wiki.gg/images/0/06/Spell_cloud_water.png?fa6ea6",
+    "local": "Spell_cloud_water.png"
+  },
+  "spellcolourrainbow": {
+    "url": "https://noita.wiki.gg/images/d/d4/Spell_colour_rainbow.png?32691d",
+    "local": "Spell_colour_rainbow.png"
+  },
+  "spellrainbowtrail": {
+    "url": "https://noita.wiki.gg/images/d/d0/Spell_rainbow_trail.png?e082cf",
+    "local": "Spell_rainbow_trail.png"
+  },
+  "spelldamagerandom": {
+    "url": "https://noita.wiki.gg/images/0/0f/Spell_damage_random.png?1875f7",
+    "local": "Spell_damage_random.png"
+  },
+  "spellrandommodifier": {
+    "url": "https://noita.wiki.gg/images/b/b7/Spell_random_modifier.png?dffb4a",
+    "local": "Spell_random_modifier.png"
+  },
+  "spellrandomprojectile": {
+    "url": "https://noita.wiki.gg/images/e/e5/Spell_random_projectile.png?a8d18b",
+    "local": "Spell_random_projectile.png"
+  },
+  "spellrandomspell": {
+    "url": "https://noita.wiki.gg/images/2/20/Spell_random_spell.png?98bedd",
+    "local": "Spell_random_spell.png"
+  },
+  "spellrandomstaticprojectile": {
+    "url": "https://noita.wiki.gg/images/0/0f/Spell_random_static_projectile.png?4e1162",
+    "local": "Spell_random_static_projectile.png"
+  },
+  "spellrecoil": {
+    "url": "https://noita.wiki.gg/images/1/18/Spell_recoil.png?657612",
+    "local": "Spell_recoil.png"
+  },
+  "spellrecoildamper": {
+    "url": "https://noita.wiki.gg/images/c/cb/Spell_recoil_damper.png?93facd",
+    "local": "Spell_recoil_damper.png"
+  },
+  "spellcolourred": {
+    "url": "https://noita.wiki.gg/images/c/cd/Spell_colour_red.png?1201b4",
+    "local": "Spell_colour_red.png"
+  },
+  "spelllifetimedown": {
+    "url": "https://noita.wiki.gg/images/1/18/Spell_lifetime_down.png?664eeb",
+    "local": "Spell_lifetime_down.png"
+  },
+  "spellrecharge": {
+    "url": "https://noita.wiki.gg/images/3/3c/Spell_recharge.png?f50d78",
+    "local": "Spell_recharge.png"
+  },
+  "spellspreadreduce": {
+    "url": "https://noita.wiki.gg/images/4/4b/Spell_spread_reduce.png?260508",
+    "local": "Spell_spread_reduce.png"
+  },
+  "spellremovebounce": {
+    "url": "https://noita.wiki.gg/images/7/78/Spell_remove_bounce.png?af6b09",
+    "local": "Spell_remove_bounce.png"
+  },
+  "spellexplosionremove": {
+    "url": "https://noita.wiki.gg/images/e/eb/Spell_explosion_remove.png?731a7c",
+    "local": "Spell_explosion_remove.png"
+  },
+  "spellreqendpoint": {
+    "url": "https://noita.wiki.gg/images/9/93/Spell_Req_Endpoint.png?9f70c9",
+    "local": "Spell_Req_Endpoint.png"
+  },
+  "spellreqenemies": {
+    "url": "https://noita.wiki.gg/images/5/5d/Spell_Req_Enemies.png?89ee09",
+    "local": "Spell_Req_Enemies.png"
+  },
+  "spellreqeveryother": {
+    "url": "https://noita.wiki.gg/images/3/37/Spell_Req_Everyother.png?8d23f9",
+    "local": "Spell_Req_Everyother.png"
+  },
+  "spellreqlowhealth": {
+    "url": "https://noita.wiki.gg/images/5/56/Spell_Req_Lowhealth.png?19e8cb",
+    "local": "Spell_Req_Lowhealth.png"
+  },
+  "spellreqotherwise": {
+    "url": "https://noita.wiki.gg/images/d/d1/Spell_Req_Otherwise.png?2ba34d",
+    "local": "Spell_Req_Otherwise.png"
+  },
+  "spellreqprojectile": {
+    "url": "https://noita.wiki.gg/images/e/e9/Spell_Req_Projectile.png?f88092",
+    "local": "Spell_Req_Projectile.png"
+  },
+  "spellteleportprojectilestatic": {
+    "url": "https://noita.wiki.gg/images/0/04/Spell_teleport_projectile_static.png?a2a212",
+    "local": "Spell_teleport_projectile_static.png"
+  },
+  "spellsummonrock": {
+    "url": "https://noita.wiki.gg/images/b/b8/Spell_summon_rock.png?e28a7e",
+    "local": "Spell_summon_rock.png"
+  },
+  "spellautomaticrotation": {
+    "url": "https://noita.wiki.gg/images/f/f5/Spell_automatic_rotation.png?5ef93e",
+    "local": "Spell_automatic_rotation.png"
+  },
+  "spellorbitdiscs": {
+    "url": "https://noita.wiki.gg/images/3/33/Spell_orbit_discs.png?40df7b",
+    "local": "Spell_orbit_discs.png"
+  },
+  "spellseaacid": {
+    "url": "https://noita.wiki.gg/images/b/be/Spell_sea_acid.png?c639b1",
+    "local": "Spell_sea_acid.png"
+  },
+  "spellseaalcohol": {
+    "url": "https://noita.wiki.gg/images/3/33/Spell_sea_alcohol.png?68aca6",
+    "local": "Spell_sea_alcohol.png"
+  },
+  "spellseaacidgas": {
+    "url": "https://noita.wiki.gg/images/7/7b/Spell_sea_acid_gas.png?69b20d",
+    "local": "Spell_sea_acid_gas.png"
+  },
+  "spellsealava": {
+    "url": "https://noita.wiki.gg/images/0/0a/Spell_sea_lava.png?693d19",
+    "local": "Spell_sea_lava.png"
+  },
+  "spellseamimic": {
+    "url": "https://noita.wiki.gg/images/0/00/Spell_sea_mimic.png?81ae71",
+    "local": "Spell_sea_mimic.png"
+  },
+  "spellseaoil": {
+    "url": "https://noita.wiki.gg/images/5/58/Spell_sea_oil.png?6a842d",
+    "local": "Spell_sea_oil.png"
+  },
+  "spellseawater": {
+    "url": "https://noita.wiki.gg/images/b/bc/Spell_sea_water.png?2c5f50",
+    "local": "Spell_sea_water.png"
+  },
+  "spellhomingshort": {
+    "url": "https://noita.wiki.gg/images/9/92/Spell_homing_short.png?82f78e",
+    "local": "Spell_homing_short.png"
+  },
+  "spellsigma": {
+    "url": "https://noita.wiki.gg/images/5/53/Spell_sigma.png?96e0c1",
+    "local": "Spell_sigma.png"
+  },
+  "spellmistslime": {
+    "url": "https://noita.wiki.gg/images/0/0c/Spell_mist_slime.png?b114ef",
+    "local": "Spell_mist_slime.png"
+  },
+  "spellslimeball": {
+    "url": "https://noita.wiki.gg/images/8/8e/Spell_slimeball.png?fd5a62",
+    "local": "Spell_slimeball.png"
+  },
+  "spellsinewave": {
+    "url": "https://noita.wiki.gg/images/9/95/Spell_sinewave.png?28f99e",
+    "local": "Spell_sinewave.png"
+  },
+  "spellslowbutsteady": {
+    "url": "https://noita.wiki.gg/images/f/f0/Spell_slow_but_steady.png?a94d06",
+    "local": "Spell_slow_but_steady.png"
+  },
+  "spellteleportprojectileshort": {
+    "url": "https://noita.wiki.gg/images/c/cf/Spell_teleport_projectile_short.png?9a54e8",
+    "local": "Spell_teleport_projectile_short.png"
+  },
+  "spelllightbullet": {
+    "url": "https://noita.wiki.gg/images/1/11/Spell_light_bullet.png?d13bd5",
+    "local": "Spell_light_bullet.png"
+  },
+  "spelllightbullettrigger2": {
+    "url": "https://noita.wiki.gg/images/d/d8/Spell_light_bullet_trigger_2.png?c19a5d",
+    "local": "Spell_light_bullet_trigger_2.png"
+  },
+  "spelllightbullettimer": {
+    "url": "https://noita.wiki.gg/images/8/8b/Spell_light_bullet_timer.png?4e9e27",
+    "local": "Spell_light_bullet_timer.png"
+  },
+  "spelllightbullettrigger": {
+    "url": "https://noita.wiki.gg/images/a/ab/Spell_light_bullet_trigger.png?101d26",
+    "local": "Spell_light_bullet_trigger.png"
+  },
+  "spellbouncesmallexplosion": {
+    "url": "https://noita.wiki.gg/images/8/84/Spell_bounce_small_explosion.png?54760c",
+    "local": "Spell_bounce_small_explosion.png"
+  },
+  "spellspeed": {
+    "url": "https://noita.wiki.gg/images/8/86/Spell_speed.png?78fe0f",
+    "local": "Spell_speed.png"
+  },
+  "spellduplicate": {
+    "url": "https://noita.wiki.gg/images/d/d8/Spell_duplicate.png?8e9258",
+    "local": "Spell_duplicate.png"
+  },
+  "spellallacid": {
+    "url": "https://noita.wiki.gg/images/b/b1/Spell_all_acid.png?4e9eaf",
+    "local": "Spell_all_acid.png"
+  },
+  "spellallblackholes": {
+    "url": "https://noita.wiki.gg/images/d/d8/Spell_all_blackholes.png?6a6e3e",
+    "local": "Spell_all_blackholes.png"
+  },
+  "spellalldeathcrosses": {
+    "url": "https://noita.wiki.gg/images/9/90/Spell_all_deathcrosses.png?2a1902",
+    "local": "Spell_all_deathcrosses.png"
+  },
+  "spellalldiscs": {
+    "url": "https://noita.wiki.gg/images/f/f2/Spell_all_discs.png?b5674e",
+    "local": "Spell_all_discs.png"
+  },
+  "spellallrockets": {
+    "url": "https://noita.wiki.gg/images/a/a9/Spell_all_rockets.png?c5fad0",
+    "local": "Spell_all_rockets.png"
+  },
+  "spellallnukes": {
+    "url": "https://noita.wiki.gg/images/e/e2/Spell_all_nukes.png?dedf18",
+    "local": "Spell_all_nukes.png"
+  },
+  "spellspellstopower": {
+    "url": "https://noita.wiki.gg/images/f/fb/Spell_spells_to_power.png?327604",
+    "local": "Spell_spells_to_power.png"
+  },
+  "spellspiralingshot": {
+    "url": "https://noita.wiki.gg/images/a/a0/Spell_spiraling_shot.png?c07cb3",
+    "local": "Spell_spiraling_shot.png"
+  },
+  "spellspiralshot": {
+    "url": "https://noita.wiki.gg/images/e/e3/Spell_spiral_shot.png?ebeb5b",
+    "local": "Spell_spiral_shot.png"
+  },
+  "spellspitter": {
+    "url": "https://noita.wiki.gg/images/e/ea/Spell_spitter.png?eeaa34",
+    "local": "Spell_spitter.png"
+  },
+  "spellspittertimer": {
+    "url": "https://noita.wiki.gg/images/1/1f/Spell_spitter_timer.png?e3033d",
+    "local": "Spell_spitter_timer.png"
+  },
+  "spellwallsquare": {
+    "url": "https://noita.wiki.gg/images/5/53/Spell_wall_square.png?4ecb76",
+    "local": "Spell_wall_square.png"
+  },
+  "spellexplodingdeer": {
+    "url": "https://noita.wiki.gg/images/0/0b/Spell_exploding_deer.png?7739a8",
+    "local": "Spell_exploding_deer.png"
+  },
+  "spellsummonegg": {
+    "url": "https://noita.wiki.gg/images/1/16/Spell_summon_egg.png?58b69f",
+    "local": "Spell_summon_egg.png"
+  },
+  "spelltntbox": {
+    "url": "https://noita.wiki.gg/images/3/31/Spell_tntbox.png?80c2bf",
+    "local": "Spell_tntbox.png"
+  },
+  "spellswarmfirebug": {
+    "url": "https://noita.wiki.gg/images/1/19/Spell_swarm_firebug.png?98895a",
+    "local": "Spell_swarm_firebug.png"
+  },
+  "spellfish": {
+    "url": "https://noita.wiki.gg/images/1/10/Spell_fish.png?157969",
+    "local": "Spell_fish.png"
+  },
+  "spellswarmfly": {
+    "url": "https://noita.wiki.gg/images/f/fc/Spell_swarm_fly.png?ca536b",
+    "local": "Spell_swarm_fly.png"
+  },
+  "spellfriendfly": {
+    "url": "https://noita.wiki.gg/images/4/4c/Spell_friend_fly.png?871d30",
+    "local": "Spell_friend_fly.png"
+  },
+  "spellsummonhollowegg": {
+    "url": "https://noita.wiki.gg/images/8/86/Spell_summon_hollow_egg.png?35efeb",
+    "local": "Spell_summon_hollow_egg.png"
+  },
+  "spelltntboxbig": {
+    "url": "https://noita.wiki.gg/images/3/3a/Spell_tntbox_big.png?c26295",
+    "local": "Spell_tntbox_big.png"
+  },
+  "spellmissile": {
+    "url": "https://noita.wiki.gg/images/b/b7/Spell_missile.png?86062d",
+    "local": "Spell_missile.png"
+  },
+  "spellomegadiscbullet": {
+    "url": "https://noita.wiki.gg/images/f/f6/Spell_omega_disc_bullet.png?76dcd4",
+    "local": "Spell_omega_disc_bullet.png"
+  },
+  "spelltemporaryplatform": {
+    "url": "https://noita.wiki.gg/images/1/17/Spell_temporary_platform.png?5a2bda",
+    "local": "Spell_temporary_platform.png"
+  },
+  "spellsummonportal": {
+    "url": "https://noita.wiki.gg/images/8/82/Spell_summon_portal.png?dd5ec8",
+    "local": "Spell_summon_portal.png"
+  },
+  "spellpebble": {
+    "url": "https://noita.wiki.gg/images/c/cd/Spell_pebble.png?3ff82c",
+    "local": "Spell_pebble.png"
+  },
+  "spellseaswamp": {
+    "url": "https://noita.wiki.gg/images/2/20/Spell_sea_swamp.png?6712d4",
+    "local": "Spell_sea_swamp.png"
+  },
+  "spellsummonwandghost": {
+    "url": "https://noita.wiki.gg/images/7/78/Spell_summon_wandghost.png?d6cea0",
+    "local": "Spell_summon_wandghost.png"
+  },
+  "spelltentacle": {
+    "url": "https://noita.wiki.gg/images/0/05/Spell_tentacle.png?211537",
+    "local": "Spell_tentacle.png"
+  },
+  "spelltentacletimer": {
+    "url": "https://noita.wiki.gg/images/2/28/Spell_tentacle_timer.png?a11a39",
+    "local": "Spell_tentacle_timer.png"
+  },
+  "spelltinyghost": {
+    "url": "https://noita.wiki.gg/images/d/d9/Spell_tiny_ghost.png?a8f667",
+    "local": "Spell_tiny_ghost.png"
+  },
+  "spelltemporarywall": {
+    "url": "https://noita.wiki.gg/images/3/37/Spell_temporary_wall.png?a2f99e",
+    "local": "Spell_temporary_wall.png"
+  },
+  "spellswarmwasp": {
+    "url": "https://noita.wiki.gg/images/6/6d/Spell_swarm_wasp.png?990f11",
+    "local": "Spell_swarm_wasp.png"
+  },
+  "spellswapperprojectile": {
+    "url": "https://noita.wiki.gg/images/0/03/Spell_Swapper_projectile.png?b265b7",
+    "local": "Spell_Swapper_projectile.png"
+  },
+  "spelltau": {
+    "url": "https://noita.wiki.gg/images/7/70/Spell_tau.png?8f62ef",
+    "local": "Spell_tau.png"
+  },
+  "spellteleportprojectile": {
+    "url": "https://noita.wiki.gg/images/4/4c/Spell_teleport_projectile.png?2d5341",
+    "local": "Spell_teleport_projectile.png"
+  },
+  "spellteleportcast": {
+    "url": "https://noita.wiki.gg/images/f/fb/Spell_Teleport_cast.png?dca0fa",
+    "local": "Spell_Teleport_cast.png"
+  },
+  "spelltentacleray": {
+    "url": "https://noita.wiki.gg/images/1/1b/Spell_tentacle_ray.png?747ab4",
+    "local": "Spell_tentacle_ray.png"
+  },
+  "spellallspells": {
+    "url": "https://noita.wiki.gg/images/1/16/Spell_all_spells.png?3272d2",
+    "local": "Spell_all_spells.png"
+  },
+  "spellthunderball": {
+    "url": "https://noita.wiki.gg/images/b/bb/Spell_thunderball.png?2b6e6e",
+    "local": "Spell_thunderball.png"
+  },
+  "spellcloudthunder": {
+    "url": "https://noita.wiki.gg/images/a/a8/Spell_cloud_thunder.png?21529e",
+    "local": "Spell_cloud_thunder.png"
+  },
+  "tshot": {
+    "url": "https://noita.wiki.gg/images/0/0c/T_shot.png?19f31c",
+    "local": "T_shot.png"
+  },
+  "spelltorch": {
+    "url": "https://noita.wiki.gg/images/7/71/Spell_torch.png?6e8bff",
+    "local": "Spell_torch.png"
+  },
+  "spelltouchblood": {
+    "url": "https://noita.wiki.gg/images/a/a2/Spell_touch_blood.png?4da196",
+    "local": "Spell_touch_blood.png"
+  },
+  "spelltouchgold": {
+    "url": "https://noita.wiki.gg/images/8/84/Spell_touch_gold.png?ea7d54",
+    "local": "Spell_touch_gold.png"
+  },
+  "spelltouchpiss": {
+    "url": "https://noita.wiki.gg/images/8/8b/Spell_touch_piss.png?1a91b8",
+    "local": "Spell_touch_piss.png"
+  },
+  "spelltouchgrass": {
+    "url": "https://noita.wiki.gg/images/9/98/Spell_touch_grass.png?fc55af",
+    "local": "Spell_touch_grass.png"
+  },
+  "spelltouchoil": {
+    "url": "https://noita.wiki.gg/images/2/28/Spell_touch_oil.png?98cede",
+    "local": "Spell_touch_oil.png"
+  },
+  "spelltouchsmoke": {
+    "url": "https://noita.wiki.gg/images/8/84/Spell_touch_smoke.png?efb4eb",
+    "local": "Spell_touch_smoke.png"
+  },
+  "spelltouchalcohol": {
+    "url": "https://noita.wiki.gg/images/d/dd/Spell_touch_alcohol.png?a8bf99",
+    "local": "Spell_touch_alcohol.png"
+  },
+  "spelltouchwater": {
+    "url": "https://noita.wiki.gg/images/0/0f/Spell_touch_water.png?3e8e5f",
+    "local": "Spell_touch_water.png"
+  },
+  "spellmistradioactive": {
+    "url": "https://noita.wiki.gg/images/a/a2/Spell_mist_radioactive.png?7b5bdc",
+    "local": "Spell_mist_radioactive.png"
+  },
+  "spelltoxictoacid": {
+    "url": "https://noita.wiki.gg/images/3/3f/Spell_toxic_to_acid.png?cedd24",
+    "local": "Spell_toxic_to_acid.png"
+  },
+  "spellscatter3": {
+    "url": "https://noita.wiki.gg/images/7/7a/Spell_scatter_3.png?9b42dc",
+    "local": "Spell_scatter_3.png"
+  },
+  "spellburst3": {
+    "url": "https://noita.wiki.gg/images/e/ea/Spell_burst_3.png?26dff0",
+    "local": "Spell_burst_3.png"
+  },
+  "spellbuckshot": {
+    "url": "https://noita.wiki.gg/images/b/b5/Spell_buckshot.png?25af7e",
+    "local": "Spell_buckshot.png"
+  },
+  "spelltrueorbit": {
+    "url": "https://noita.wiki.gg/images/3/38/Spell_true_orbit.png?7e5941",
+    "local": "Spell_true_orbit.png"
+  },
+  "spellfireballrayline": {
+    "url": "https://noita.wiki.gg/images/b/b6/Spell_fireball_ray_line.png?8ec173",
+    "local": "Spell_fireball_ray_line.png"
+  },
+  "spellmine": {
+    "url": "https://noita.wiki.gg/images/e/e9/Spell_mine.png?1dbbaf",
+    "local": "Spell_mine.png"
+  },
+  "spellminedeathtrigger": {
+    "url": "https://noita.wiki.gg/images/8/83/Spell_mine_death_trigger.png?5c9fb0",
+    "local": "Spell_mine_death_trigger.png"
+  },
+  "spelllarpaupwards": {
+    "url": "https://noita.wiki.gg/images/9/99/Spell_larpa_upwards.png?8fa82a",
+    "local": "Spell_larpa_upwards.png"
+  },
+  "spellbouncehole": {
+    "url": "https://noita.wiki.gg/images/e/e9/Spell_bounce_hole.png?51b8bf",
+    "local": "Spell_bounce_hole.png"
+  },
+  "spellvacuumentities": {
+    "url": "https://noita.wiki.gg/images/d/d4/Spell_vacuum_entities.png?6dd6f7",
+    "local": "Spell_vacuum_entities.png"
+  },
+  "spellcurse": {
+    "url": "https://noita.wiki.gg/images/d/d8/Spell_curse.png?1cf005",
+    "local": "Spell_curse.png"
+  },
+  "spellwallvertical": {
+    "url": "https://noita.wiki.gg/images/e/e5/Spell_wall_vertical.png?c5333a",
+    "local": "Spell_wall_vertical.png"
+  },
+  "spellhomingwand": {
+    "url": "https://noita.wiki.gg/images/0/0a/Spell_homing_wand.png?5177bf",
+    "local": "Spell_homing_wand.png"
+  },
+  "spellreset": {
+    "url": "https://noita.wiki.gg/images/9/94/Spell_reset.png?82221d",
+    "local": "Spell_reset.png"
+  },
+  "spellsuperteleportcast": {
+    "url": "https://noita.wiki.gg/images/3/3f/Spell_super_teleport_cast.png?600623",
+    "local": "Spell_super_teleport_cast.png"
+  },
+  "spellmaterialwater": {
+    "url": "https://noita.wiki.gg/images/a/a2/Spell_material_water.png?1299d4",
+    "local": "Spell_material_water.png"
+  },
+  "spellwatertopoison": {
+    "url": "https://noita.wiki.gg/images/9/99/Spell_water_to_poison.png?4f270c",
+    "local": "Spell_water_to_poison.png"
+  },
+  "spellwatertrail": {
+    "url": "https://noita.wiki.gg/images/9/9d/Spell_water_trail.png?89cc0b",
+    "local": "Spell_water_trail.png"
+  },
+  "spellcursewitherelectricity": {
+    "url": "https://noita.wiki.gg/images/7/71/Spell_curse_wither_electricity.png?8ddcc3",
+    "local": "Spell_curse_wither_electricity.png"
+  },
+  "spellcursewitherexplosion": {
+    "url": "https://noita.wiki.gg/images/8/84/Spell_curse_wither_explosion.png?5643a4",
+    "local": "Spell_curse_wither_explosion.png"
+  },
+  "spellcursewithermelee": {
+    "url": "https://noita.wiki.gg/images/7/71/Spell_curse_wither_melee.png?e8276f",
+    "local": "Spell_curse_wither_melee.png"
+  },
+  "spellcursewitherprojectile": {
+    "url": "https://noita.wiki.gg/images/e/ed/Spell_curse_wither_projectile.png?504557",
+    "local": "Spell_curse_wither_projectile.png"
+  },
+  "spellwhitehole": {
+    "url": "https://noita.wiki.gg/images/4/42/Spell_white_hole.png?4c0cca",
+    "local": "Spell_white_hole.png"
+  },
+  "spellworm": {
+    "url": "https://noita.wiki.gg/images/6/68/Spell_worm.png?85f395",
+    "local": "Spell_worm.png"
+  },
+  "wshot": {
+    "url": "https://noita.wiki.gg/images/9/99/W_shot.png?9acfc2",
+    "local": "W_shot.png"
+  },
+  "spellcolouryellow": {
+    "url": "https://noita.wiki.gg/images/3/3d/Spell_colour_yellow.png?f81fda",
+    "local": "Spell_colour_yellow.png"
+  },
+  "yshot": {
+    "url": "https://noita.wiki.gg/images/a/a4/Y_shot.png?36e6bf",
+    "local": "Y_shot.png"
+  },
+  "spellzeta": {
+    "url": "https://noita.wiki.gg/images/b/b2/Spell_zeta.png?1b79a3",
+    "local": "Spell_zeta.png"
+  },
+  "spellmegalaser": {
+    "url": "https://noita.wiki.gg/images/8/84/Spell_megalaser.png?76ced8",
+    "local": "Spell_megalaser.png"
+  },
+  "spelldeathcrossbig": {
+    "url": "https://noita.wiki.gg/images/9/90/Spell_death_cross_big.png?257692",
+    "local": "Spell_death_cross_big.png"
+  },
+  "spelldeathcross": {
+    "url": "https://noita.wiki.gg/images/7/72/Spell_death_cross.png?ef7db1",
+    "local": "Spell_death_cross.png"
+  }
+}

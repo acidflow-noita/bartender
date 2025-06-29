@@ -1,0 +1,17 @@
+{
+  "name": "bartender",
+  "compatibility_date": "2025-06-29",
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "assets": {
+    "directory": "./dist"
+  },
+  "routes": [
+    {
+      "pattern": "bartender.runfast.stream",
+      "custom_domain": true
+    }
+  ]
+}

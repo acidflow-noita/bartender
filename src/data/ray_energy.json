@@ -1,0 +1,2798 @@
+[
+  {
+    "ACIDBURST": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ACIDSHOT_SLOW": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ACIDSHOT": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ARROW": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BAT": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BLOOMSHOT": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BOMB_CART": {
+      "ray_energy": 6000000,
+      "max_durability_to_destroy": 11
+    }
+  },
+  {
+    "BOMB_HOLY_GIGA": {
+      "ray_energy": 12400000,
+      "max_durability_to_destroy": 14
+    }
+  },
+  {
+    "BOMB_HOLY": {
+      "ray_energy": 6400000,
+      "max_durability_to_destroy": 12
+    }
+  },
+  {
+    "BOMB_SMALL": {
+      "ray_energy": 6000000,
+      "max_durability_to_destroy": 11
+    }
+  },
+  {
+    "BOMB": {
+      "ray_energy": 6000000,
+      "max_durability_to_destroy": 11
+    }
+  },
+  {
+    "BOSSDRAGON_RAY": {
+      "ray_energy": 50000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BOSSDRAGON": {
+      "ray_energy": 50000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BUCKSHOT": {
+      "ray_energy": 50000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BULLET_POISON": {
+      "ray_energy": 60000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CHAOS_POLYMORPH": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CHUNK_OF_SOIL": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CIRCLE_ACID_DIE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CIRCLE_ACID_SMALL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CIRCLE_BLOOD_SMALL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CIRCLE_BLOOD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CIRCLE_LAVA_SMALL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CIRCLE_LAVA": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CIRCLE_WATER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CLUSTERBOMB": {
+      "ray_energy": 900000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "COCKTAIL": {
+      "ray_energy": 100,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "COWARD_BULLET": {
+      "ray_energy": 100000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "DARKFLAME_STATIONARY": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "DARKFLAME": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "DOTSHOT_STRONG": {
+      "ray_energy": 5000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "DOTSHOT": {
+      "ray_energy": 5000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "DUMMY": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "EGG_FIRE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "EGG_MONSTER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "EGG_PURPLE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "EGG_RED": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "EGG_SLIME": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "EGG_WORM": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ENLIGHTENED_LASER_DARK_WAND": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ENLIGHTENED_LASER_DARKBEAM": {
+      "ray_energy": 100000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ENLIGHTENED_LASER_ELEC_WAND": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ENLIGHTENED_LASER_ELECBEAM": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ENLIGHTENED_LASER_FIRE_WAND": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ENLIGHTENED_LASER_FIREBALL": {
+      "ray_energy": 7500000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ENLIGHTENED_LASER_LIGHT_WAND": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ENLIGHTENED_LASER_LIGHTBEAM": {
+      "ray_energy": 2050000,
+      "max_durability_to_destroy": 11
+    }
+  },
+  {
+    "EXPLOSION": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FIRE_TRAP": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FIREBALL_BIGFIREBUG": {
+      "ray_energy": 15000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FIREBALL_FIREBUG": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FIREBALL_GHOSTLY": {
+      "ray_energy": 50000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FIREBALL": {
+      "ray_energy": 50000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FLAMETHROWER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FREEZE_CIRCLE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FUNGUS_BIG_EXPLOSION": {
+      "ray_energy": 6000000,
+      "max_durability_to_destroy": 12
+    }
+  },
+  {
+    "FUNGUS_EXPLOSION": {
+      "ray_energy": 60000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FUNGUS": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "GASBLOB": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "GLITTER_BOMB_EXPLOSION": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "GLITTER_BOMB_SHRAPNEL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "GLITTER_BOMB": {
+      "ray_energy": 6000000,
+      "max_durability_to_destroy": 11
+    }
+  },
+  {
+    "GLUE_ANCHOR": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "GLUE_SHOT": {
+      "ray_energy": 50000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "GLUE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "GRENADE_LEADER": {
+      "ray_energy": 25000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "GRENADE_SCAVENGER": {
+      "ray_energy": 25000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "HEALSHOT_SAFE_HAVEN": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "HEALSHOT_SLOW": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "HEALSHOT": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "HIDDENSHOT": {
+      "ray_energy": 5000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ICE": {
+      "ray_energy": 5000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ICEBALL": {
+      "ray_energy": 50000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ICESKULL_EXPLOSION": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ICETHROWER": {
+      "ray_energy": 5000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "INVISSHOT": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "LASER_BOUNCY": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "LASER_LASERGUN": {
+      "ray_energy": 1000,
+      "max_durability_to_destroy": 5
+    }
+  },
+  {
+    "LASER_SPEAR": {
+      "ray_energy": 100000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "LASER_TURRET": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "LASERBEAM_GREEN": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "LASERBEAM": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "LAVASHOT": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "LEVITATION_TRAIL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "LIGHTNING_THUNDERBURST": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "LIGHTNING_THUNDERSKULL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "LIGHTNING": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "LURKERSHOT": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MACHINEGUN_BULLET_ROBOGUARD_BIG": {
+      "ray_energy": 300000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MACHINEGUN_BULLET_SLOW": {
+      "ray_energy": 400000,
+      "max_durability_to_destroy": 9
+    }
+  },
+  {
+    "MACHINEGUN_BULLET_SLOWER": {
+      "ray_energy": 400000,
+      "max_durability_to_destroy": 9
+    }
+  },
+  {
+    "MACHINEGUN_BULLET_TANK_SUPER": {
+      "ray_energy": 300000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MACHINEGUN_BULLET_TANK": {
+      "ray_energy": 400000,
+      "max_durability_to_destroy": 9
+    }
+  },
+  {
+    "MEGALASER_BLUE_BEAM": {
+      "ray_energy": 100000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MEGALASER_BLUE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "METEOR_GREEN": {
+      "ray_energy": 7500000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MINE_EXPLOSION": {
+      "ray_energy": 170000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MINE_SCAVENGER": {
+      "ray_energy": 170000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MINE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "NEUTRALIZERSHOT": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_BLUE": {
+      "ray_energy": 5000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_CURSED": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_DARK": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_EXPANDING": {
+      "ray_energy": 300000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_GREEN_ACCELERATING": {
+      "ray_energy": 5000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_GREEN_BOSS_DRAGON": {
+      "ray_energy": 5000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_GREEN_SPIN": {
+      "ray_energy": 1000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_GREEN": {
+      "ray_energy": 5000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_HEARTY": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_HOMING": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_NEUTRAL": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_PINK_BIG_EXPLOSIVE": {
+      "ray_energy": 100000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_PINK_BIG_SLOW": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_PINK_BIG_SUPER_SHRAPNEL": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_PINK_BIG_SUPER": {
+      "ray_energy": 100000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_PINK_BIG": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_PINK_FAST": {
+      "ray_energy": 5000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_PINK_SUPER": {
+      "ray_energy": 5000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_PINK": {
+      "ray_energy": 5000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_POLY": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_PURPLE": {
+      "ray_energy": 5000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_SWAPPER": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_TELE": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_TINY": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_TWITCHY": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_WEAKEN": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_WITHER": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB": {
+      "ray_energy": 5000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORBSPAWNER_BLUE": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORBSPAWNER_GREEN": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORBSPAWNER": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PEBBLE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "POLLEN_BALL": {
+      "ray_energy": 25000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "POLLEN": {
+      "ray_energy": 200000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "POLYORB": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "POLYSHOT": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PRESENT": {
+      "ray_energy": 150000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PROPANE_TANK": {
+      "ray_energy": 2000000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PUSBLOB": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "RADIOACTIVE_BLOB_TRAIL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "RADIOACTIVE_BLOB": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "RADIOACTIVE_LIQUID": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "RAIN_GOLD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "REMOVE_GROUND": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ROCKET_CRYSTAL_PINK": {
+      "ray_energy": 6200000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ROCKET_DRONE": {
+      "ray_energy": 40000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ROCKET_TANK": {
+      "ray_energy": 100000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ROCKET_TINY_PARTICLES": {
+      "ray_energy": 80000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ROCKET_TINY_ROLL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ROCKET_TINY": {
+      "ray_energy": 80000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SENTRYSHOT": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SHIELDSHOT_SMALL": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SHIELDSHOT": {
+      "ray_energy": 10000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SLIMEBLOB": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SLIMETRAIL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SMALLTENTACLE_MELEE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SMALLTENTACLE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SNIPERBULLET_HELL": {
+      "ray_energy": 800000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SNIPERBULLET": {
+      "ray_energy": 800000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SOLDIERSHOT": {
+      "ray_energy": 25000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SPIT_TRAP": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "STATE_1": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SUMMONSHINE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "THUNDER_TRAP": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "THUNDERBALL_LINE": {
+      "ray_energy": 700000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "THUNDERBALL_SLOW": {
+      "ray_energy": 700000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "THUNDERBALL": {
+      "ray_energy": 700000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "THUNDERBURST_THUNDERMAGE": {
+      "ray_energy": 70000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TNT_HELL": {
+      "ray_energy": 120000,
+      "max_durability_to_destroy": 11
+    }
+  },
+  {
+    "TNT": {
+      "ray_energy": 6000000,
+      "max_durability_to_destroy": 11
+    }
+  },
+  {
+    "TONGUE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ULTIMATE_KILLER_EXPLOSION": {
+      "ray_energy": 2000000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ULTIMATE_KILLER_MEGABOMB": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "WRAITH_GLOWING_LASER": {
+      "ray_energy": 2050000,
+      "max_durability_to_destroy": 11
+    }
+  },
+  {
+    "ACIDBURST": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ACIDSHOT": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ALCOHOL_BLAST": {
+      "ray_energy": 400000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ALL_ACID": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ALL_BLACKHOLES": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ALL_DEATHCROSSES": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ALL_DISCS": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ALL_NUKES": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ALL_ROCKETS": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ALL_SPELLS_BASE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ALL_SPELLS_LOADER_SLOW": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ALL_SPELLS_LOADER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ALL_SPELLS_ORB": {
+      "ray_energy": 900000,
+      "max_durability_to_destroy": 14
+    }
+  },
+  {
+    "ALL_SPELLS_PART": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ARROW": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BALL_LIGHTNING": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BASE_FIELD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BERSERK_FIELD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BIG_MAGIC_SHIELD_PART": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BIG_MAGIC_SHIELD_START": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BLACK_HOLE_BIG": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BLACK_HOLE_GIGA": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BLACK_HOLE": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BLOODTENTACLE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BOMB_DETONATOR": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BOUNCE_EXPLOSION": {
+      "ray_energy": 90000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BOUNCE_HOLE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BOUNCE_LASER_LAUNCHER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BOUNCE_LASER": {
+      "ray_energy": 1000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BOUNCE_LIGHTNING_LAUNCHER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BOUNCE_LIGHTNING": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BOUNCE_SMALL_EXPLOSION": {
+      "ray_energy": 6000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BOUNCE_SPARK_FRIENDLY_FIRE_SILENT": {
+      "ray_energy": 400000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BOUNCE_SPARK_FRIENDLY_FIRE": {
+      "ray_energy": 400000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BOUNCE_SPARK_MAIN": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BOUNCE_SPARK": {
+      "ray_energy": 400000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BOUNCY_ORB": {
+      "ray_energy": 200000,
+      "max_durability_to_destroy": 8
+    }
+  },
+  {
+    "BUBBLESHOT": {
+      "ray_energy": 400000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BUCKSHOT_PLAYER": {
+      "ray_energy": 50000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BULLET_HEAVY": {
+      "ray_energy": 300000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BULLET_SLOW": {
+      "ray_energy": 350000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "BULLET": {
+      "ray_energy": 400000,
+      "max_durability_to_destroy": 8
+    }
+  },
+  {
+    "CHAIN_BOLT_EXPLOSION": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 2
+    }
+  },
+  {
+    "CHAIN_BOLT": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CHAINSAW": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CHAOS_POLYMORPH_FIELD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CHARM_FIELD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CIRCLE_ACID": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CIRCLE_FIRE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CIRCLE_OIL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CIRCLE_WATER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CLOUD_ACID": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CLOUD_BLOOD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CLOUD_OIL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CLOUD_THUNDER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CLOUD_WATER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "COMMANDER_BULLET": {
+      "ray_energy": 400000,
+      "max_durability_to_destroy": 8
+    }
+  },
+  {
+    "CRUMBLING_EARTH_EFFECT": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "CRUMBLING_EARTH": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "DEATH_CROSS_BIG_EXPLOSION": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "DEATH_CROSS_BIG_LASER": {
+      "ray_energy": 2050000,
+      "max_durability_to_destroy": 11
+    }
+  },
+  {
+    "DEATH_CROSS_BIG": {
+      "ray_energy": 2039000,
+      "max_durability_to_destroy": 11
+    }
+  },
+  {
+    "DEATH_CROSS": {
+      "ray_energy": 50000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "DECOY_TRIGGER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "DECOY": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "DELAYED_SPELL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "DESTRUCTION": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "DIGGER": {
+      "ray_energy": 100000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "DISC_BULLET_BIG": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "DISC_BULLET_BIGGER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "DISC_BULLET": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "DUCK": {
+      "ray_energy": 1500000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ELECTROCUTION_FIELD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "EXPLODING_DEER": {
+      "ray_energy": 170000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "EXPLOSION_GIGA": {
+      "ray_energy": 6700000,
+      "max_durability_to_destroy": 12
+    }
+  },
+  {
+    "EXPLOSION_LIGHT": {
+      "ray_energy": 1000,
+      "max_durability_to_destroy": 2
+    }
+  },
+  {
+    "EXPLOSION": {
+      "ray_energy": 200000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FIREBALL_RAY_SMALL": {
+      "ray_energy": 50000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FIREBALL_RAY": {
+      "ray_energy": 50000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FIREBALL": {
+      "ray_energy": 50000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FIREBLAST": {
+      "ray_energy": 200000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FIREBOMB": {
+      "ray_energy": 100000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FISH": {
+      "ray_energy": 170000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FIZZLE": {
+      "ray_energy": 400000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FLAMETHROWER": {
+      "ray_energy": 5000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FREEZE_FIELD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FREEZING_GAZE_BEAM": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FREEZING_GAZE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FRIEND_FLY": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "GLITTER_BOMB_EXPLOSION": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "GLITTER_BOMB_SHRAPNEL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "GLITTER_BOMB": {
+      "ray_energy": 6000000,
+      "max_durability_to_destroy": 11
+    }
+  },
+  {
+    "GLOWING_BOLT": {
+      "ray_energy": 2050000,
+      "max_durability_to_destroy": 11
+    }
+  },
+  {
+    "GLUE_SHOT": {
+      "ray_energy": 50000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "GRENADE_ANTI": {
+      "ray_energy": 350000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "GRENADE_LARGE": {
+      "ray_energy": 450000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "GRENADE_SMALL": {
+      "ray_energy": 350000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "GRENADE_TIER_2": {
+      "ray_energy": 4500000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "GRENADE_TIER_3": {
+      "ray_energy": 5200000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "GRENADE": {
+      "ray_energy": 350000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "HEAL_BULLET_WEAK": {
+      "ray_energy": 40000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "HEAL_BULLET": {
+      "ray_energy": 40000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "HEALHURT": {
+      "ray_energy": 400000,
+      "max_durability_to_destroy": 8
+    }
+  },
+  {
+    "HOOK": {
+      "ray_energy": 400000,
+      "max_durability_to_destroy": 8
+    }
+  },
+  {
+    "ICEBALL": {
+      "ray_energy": 50000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "INFESTATION": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "KEYSHOT": {
+      "ray_energy": 1000000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "LANCE_HOLY": {
+      "ray_energy": 100000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "LANCE": {
+      "ray_energy": 100000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "LASER": {
+      "ray_energy": 100000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "LEVITATION_FIELD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "LIGHT_BULLET_AIR": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "LIGHT_BULLET_BLUE": {
+      "ray_energy": 500000,
+      "max_durability_to_destroy": 9
+    }
+  },
+  {
+    "LIGHT_BULLET": {
+      "ray_energy": 400000,
+      "max_durability_to_destroy": 8
+    }
+  },
+  {
+    "LIGHTNING_EXTRA_ARCS": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "LIGHTNING_WEAK": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "LIGHTNING": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "LONG_DISTANCE_CAST": {
+      "ray_energy": 1000,
+      "max_durability_to_destroy": 4
+    }
+  },
+  {
+    "LUMINOUS_DRILL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MACHINEGUN_BULLET": {
+      "ray_energy": 400000,
+      "max_durability_to_destroy": 9
+    }
+  },
+  {
+    "MAGIC_SHIELD_PART": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MAGIC_SHIELD_START": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MANA": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MASS_POLYMORPH": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MATERIAL_ACID": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MATERIAL_BLOOD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MATERIAL_CEMENT": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MATERIAL_DEBUG": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MATERIAL_DIRT": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MATERIAL_GUNPOWDER_EXPLOSIVE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MATERIAL_LAVA": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MATERIAL_LIQUID": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MATERIAL_OIL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MATERIAL_WATER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MEGALASER_BEAM": {
+      "ray_energy": 100000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MEGALASER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "METEOR_GREEN": {
+      "ray_energy": 7500000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "METEOR_RAIN_METEOR": {
+      "ray_energy": 7500000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "METEOR_RAIN": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "METEOR": {
+      "ray_energy": 7500000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MINE": {
+      "ray_energy": 280000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MIST_ALCOHOL": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MIST_BLOOD": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MIST_RADIOACTIVE": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "MIST_SLIME": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "NUKE_GIGA": {
+      "ray_energy": 9700000,
+      "max_durability_to_destroy": 14
+    }
+  },
+  {
+    "NUKE": {
+      "ray_energy": 6700000,
+      "max_durability_to_destroy": 12
+    }
+  },
+  {
+    "ORB_LASEREMITTER_CUTTER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_LASEREMITTER_FOUR": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_LASEREMITTER_WEAK_OPPOSITE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_LASEREMITTER_WEAK": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ORB_LASEREMITTER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PATA_ROCKET_1": {
+      "ray_energy": 6200000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PATA_ROCKET_2": {
+      "ray_energy": 6200000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PATA_ROCKET_3": {
+      "ray_energy": 6200000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PATA_ROCKET_4": {
+      "ray_energy": 6200000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PATA_ROCKET_5": {
+      "ray_energy": 6200000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PATA_ROCKET_6": {
+      "ray_energy": 6200000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PEBBLE_PLAYER_PHYSICS": {
+      "ray_energy": 200000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PEBBLE_PLAYER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PINK_ORB": {
+      "ray_energy": 100000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PIPE_BOMB_DETONATOR": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PIPE_BOMB": {
+      "ray_energy": 120000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "POISON_BLAST": {
+      "ray_energy": 400000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "POLLEN": {
+      "ray_energy": 200000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "POLYMORPH_FIELD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "POWERDIGGER": {
+      "ray_energy": 200000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PROJECTILE_GRAVITY_FIELD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PROJECTILE_THUNDER_FIELD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PROJECTILE_THUNDER_LIGHTNING": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PROJECTILE_TRANSMUTATION_FIELD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PURPLE_EXPLOSION_FIELD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "PURPLE_EXPLOSION": {
+      "ray_energy": 200000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "REGENERATION_AURA": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "REGENERATION_FIELD_LONG": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "REGENERATION_FIELD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ROCK": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ROCKET_DOWNWARDS": {
+      "ray_energy": 4000000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ROCKET_PLAYER": {
+      "ray_energy": 100000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ROCKET_TIER_2": {
+      "ray_energy": 5000000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ROCKET_TIER_3": {
+      "ray_energy": 6200000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "ROCKET": {
+      "ray_energy": 4000000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "RUBBER_BALL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SAUSAGE": {
+      "ray_energy": 80000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SEA_ACID_GAS": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SEA_ACID": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SEA_ALCOHOL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SEA_LAVA": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SEA_MIMIC": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SEA_OIL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SEA_SWAMP": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SEA_WATER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SHIELD_FIELD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SKULL": {
+      "ray_energy": 100000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SLIME": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SPIRAL_PART": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SPIRAL_SHOT": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SPITTER_TIER_2": {
+      "ray_energy": 400000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SPITTER_TIER_3": {
+      "ray_energy": 400000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SPITTER": {
+      "ray_energy": 400000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SPORE_POD_GROWING": {
+      "ray_energy": 200000,
+      "max_durability_to_destroy": 8
+    }
+  },
+  {
+    "SPORE_POD_SPIKE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SPORE_POD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SUMMON_PORTAL_TELEPORT": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SUMMON_PORTAL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SUPER_TELEPORT_CAST": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SWAPPER": {
+      "ray_energy": 40000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SWARM_FIREBUG": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SWARM_FLY": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "SWARM_WASP": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TELEPATHY_FIELD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TELEPORT_CAST": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TELEPORT_PROJECTILE_CLOSER": {
+      "ray_energy": 40000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TELEPORT_PROJECTILE_SHORT": {
+      "ray_energy": 40000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TELEPORT_PROJECTILE_STATIC": {
+      "ray_energy": 40000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TELEPORT_PROJECTILE": {
+      "ray_energy": 40000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TELEPORTATION_FIELD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TEMPORARY_PLATFORM": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TEMPORARY_WALL": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_PORTAL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "THUNDER_BLAST": {
+      "ray_energy": 700000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TNT": {
+      "ray_energy": 6000000,
+      "max_durability_to_destroy": 11
+    }
+  },
+  {
+    "TNTBOX_BIG": {
+      "ray_energy": 650000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TNTBOX": {
+      "ray_energy": 350000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TOUCH_ALCOHOL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TOUCH_BLOOD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TOUCH_GOLD": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TOUCH_GRASS": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TOUCH_OIL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TOUCH_PISS": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TOUCH_SMOKE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TOUCH_WATER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "VACUUM_ENTITIES": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "VACUUM_LIQUID": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "VACUUM_POWDER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "WALL_BUILDER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "WALL_HORIZONTAL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "WALL_PIECE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "WALL_SOUND": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "WALL_SQUARE": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "WALL_VERTICAL": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "WAND_GHOST_PLAYER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "WATER": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "WHITE_HOLE_BIG": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "WHITE_HOLE_GIGA": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "WHITE_HOLE": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "WORM_RAIN": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "WORM_SHOT": {
+      "ray_energy": 0,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "XRAY_EFFECT": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "XRAY": {
+      "ray_energy": 10,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FIREWORK_BLUE": {
+      "ray_energy": 2000000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FIREWORK_GREEN": {
+      "ray_energy": 2000000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FIREWORK_ORANGE": {
+      "ray_energy": 2000000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "FIREWORK_PINK": {
+      "ray_energy": 2000000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "KANTELE_A": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "KANTELE_D": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "KANTELE_DIS": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "KANTELE_E": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "KANTELE_G": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "OCARINA_A": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "OCARINA_A2": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "OCARINA_B": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "OCARINA_C": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "OCARINA_D": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "OCARINA_E": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "OCARINA_F": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "OCARINA_GSHARP": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_BLOODTENTACLE_0": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_BLOODTENTACLE_1": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_BLOODTENTACLE_2": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_BLOODTENTACLE_3": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_BLOODTENTACLE_4": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_SMALLTENTACLE_0": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_SMALLTENTACLE_1": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_SMALLTENTACLE_1B": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_SMALLTENTACLE_2": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_SMALLTENTACLE_3": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_SMALLTENTACLE_4": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_TENTACLE_0": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_TENTACLE_1": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_TENTACLE_1B": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_TENTACLE_2": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_TENTACLE_2B": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_TENTACLE_3": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_TENTACLE_3B": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_TENTACLE_4": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_TONGUE_0": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_TONGUE_1": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_TONGUE_2": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_TONGUE_3": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  },
+  {
+    "TENTACLE_TONGUE_4": {
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    }
+  }
+]

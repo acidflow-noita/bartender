@@ -1,0 +1,8746 @@
+[
+  {
+    "id": "acid",
+    "tag": "acid"
+  },
+  {
+    "id": "acid",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "acid",
+    "tag": "impure"
+  },
+  {
+    "id": "acid",
+    "tag": "liquid"
+  },
+  {
+    "id": "acid",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "acid_gas",
+    "tag": "burnable_fast"
+  },
+  {
+    "id": "acid_gas",
+    "tag": "gas"
+  },
+  {
+    "id": "acid_gas_static",
+    "tag": "burnable_fast"
+  },
+  {
+    "id": "acid_gas_static",
+    "tag": "gas"
+  },
+  {
+    "id": "alcohol",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "alcohol",
+    "tag": "impure"
+  },
+  {
+    "id": "alcohol",
+    "tag": "liquid"
+  },
+  {
+    "id": "alcohol",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "alcohol",
+    "tag": "water"
+  },
+  {
+    "id": "alcohol_gas",
+    "tag": "burnable"
+  },
+  {
+    "id": "alcohol_gas",
+    "tag": "evaporable"
+  },
+  {
+    "id": "alcohol_gas",
+    "tag": "gas"
+  },
+  {
+    "id": "aluminium",
+    "tag": "alchemy"
+  },
+  {
+    "id": "aluminium",
+    "tag": "box2d"
+  },
+  {
+    "id": "aluminium",
+    "tag": "corrodible"
+  },
+  {
+    "id": "aluminium",
+    "tag": "earth"
+  },
+  {
+    "id": "aluminium",
+    "tag": "meltable_metal"
+  },
+  {
+    "id": "aluminium",
+    "tag": "rust_oxide"
+  },
+  {
+    "id": "aluminium",
+    "tag": "solid"
+  },
+  {
+    "id": "aluminium_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "aluminium_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "aluminium_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "aluminium_molten",
+    "tag": "gold"
+  },
+  {
+    "id": "aluminium_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "aluminium_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "aluminium_molten",
+    "tag": "molten_metal"
+  },
+  {
+    "id": "aluminium_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "aluminium_oxide",
+    "tag": "alchemy"
+  },
+  {
+    "id": "aluminium_oxide",
+    "tag": "box2d"
+  },
+  {
+    "id": "aluminium_oxide",
+    "tag": "corrodible"
+  },
+  {
+    "id": "aluminium_oxide",
+    "tag": "earth"
+  },
+  {
+    "id": "aluminium_oxide",
+    "tag": "meltable_metal"
+  },
+  {
+    "id": "aluminium_oxide",
+    "tag": "solid"
+  },
+  {
+    "id": "aluminium_oxide_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "aluminium_oxide_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "aluminium_oxide_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "aluminium_oxide_molten",
+    "tag": "gold"
+  },
+  {
+    "id": "aluminium_oxide_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "aluminium_oxide_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "aluminium_oxide_molten",
+    "tag": "molten_metal"
+  },
+  {
+    "id": "aluminium_oxide_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "aluminium_robot",
+    "tag": "alchemy"
+  },
+  {
+    "id": "aluminium_robot",
+    "tag": "box2d"
+  },
+  {
+    "id": "aluminium_robot",
+    "tag": "corrodible"
+  },
+  {
+    "id": "aluminium_robot",
+    "tag": "earth"
+  },
+  {
+    "id": "aluminium_robot",
+    "tag": "meltable_metal"
+  },
+  {
+    "id": "aluminium_robot",
+    "tag": "rust_oxide"
+  },
+  {
+    "id": "aluminium_robot",
+    "tag": "solid"
+  },
+  {
+    "id": "aluminium_robot_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "aluminium_robot_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "aluminium_robot_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "aluminium_robot_molten",
+    "tag": "gold"
+  },
+  {
+    "id": "aluminium_robot_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "aluminium_robot_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "aluminium_robot_molten",
+    "tag": "molten_metal"
+  },
+  {
+    "id": "aluminium_robot_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "beer",
+    "tag": "impure"
+  },
+  {
+    "id": "beer",
+    "tag": "liquid"
+  },
+  {
+    "id": "beer",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "beer",
+    "tag": "water"
+  },
+  {
+    "id": "blood",
+    "tag": "blood"
+  },
+  {
+    "id": "blood",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "blood",
+    "tag": "corrodible"
+  },
+  {
+    "id": "blood",
+    "tag": "food"
+  },
+  {
+    "id": "blood",
+    "tag": "impure"
+  },
+  {
+    "id": "blood",
+    "tag": "liquid"
+  },
+  {
+    "id": "blood",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "blood",
+    "tag": "soluble"
+  },
+  {
+    "id": "blood_cold",
+    "tag": "blood"
+  },
+  {
+    "id": "blood_cold",
+    "tag": "cold"
+  },
+  {
+    "id": "blood_cold",
+    "tag": "corrodible"
+  },
+  {
+    "id": "blood_cold",
+    "tag": "evaporable_custom"
+  },
+  {
+    "id": "blood_cold",
+    "tag": "impure"
+  },
+  {
+    "id": "blood_cold",
+    "tag": "liquid"
+  },
+  {
+    "id": "blood_cold",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "blood_cold",
+    "tag": "soluble"
+  },
+  {
+    "id": "blood_cold_vapour",
+    "tag": "cold"
+  },
+  {
+    "id": "blood_cold_vapour",
+    "tag": "gas"
+  },
+  {
+    "id": "blood_cold_vapour",
+    "tag": "vapour"
+  },
+  {
+    "id": "blood_fading",
+    "tag": "blood"
+  },
+  {
+    "id": "blood_fading",
+    "tag": "corrodible"
+  },
+  {
+    "id": "blood_fading",
+    "tag": "evaporable_fast"
+  },
+  {
+    "id": "blood_fading",
+    "tag": "food"
+  },
+  {
+    "id": "blood_fading",
+    "tag": "impure"
+  },
+  {
+    "id": "blood_fading",
+    "tag": "liquid"
+  },
+  {
+    "id": "blood_fading",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "blood_fading",
+    "tag": "soluble"
+  },
+  {
+    "id": "blood_fading_slow",
+    "tag": "blood"
+  },
+  {
+    "id": "blood_fading_slow",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "blood_fading_slow",
+    "tag": "corrodible"
+  },
+  {
+    "id": "blood_fading_slow",
+    "tag": "food"
+  },
+  {
+    "id": "blood_fading_slow",
+    "tag": "impure"
+  },
+  {
+    "id": "blood_fading_slow",
+    "tag": "liquid"
+  },
+  {
+    "id": "blood_fading_slow",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "blood_fading_slow",
+    "tag": "soluble"
+  },
+  {
+    "id": "blood_fungi",
+    "tag": "blood"
+  },
+  {
+    "id": "blood_fungi",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "blood_fungi",
+    "tag": "corrodible"
+  },
+  {
+    "id": "blood_fungi",
+    "tag": "evaporable"
+  },
+  {
+    "id": "blood_fungi",
+    "tag": "food"
+  },
+  {
+    "id": "blood_fungi",
+    "tag": "fungus"
+  },
+  {
+    "id": "blood_fungi",
+    "tag": "impure"
+  },
+  {
+    "id": "blood_fungi",
+    "tag": "liquid"
+  },
+  {
+    "id": "blood_fungi",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "blood_fungi",
+    "tag": "soluble"
+  },
+  {
+    "id": "blood_thick",
+    "tag": "blood"
+  },
+  {
+    "id": "blood_thick",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "blood_thick",
+    "tag": "corrodible"
+  },
+  {
+    "id": "blood_thick",
+    "tag": "food"
+  },
+  {
+    "id": "blood_thick",
+    "tag": "static"
+  },
+  {
+    "id": "blood_worm",
+    "tag": "blood"
+  },
+  {
+    "id": "blood_worm",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "blood_worm",
+    "tag": "corrodible"
+  },
+  {
+    "id": "blood_worm",
+    "tag": "food"
+  },
+  {
+    "id": "blood_worm",
+    "tag": "impure"
+  },
+  {
+    "id": "blood_worm",
+    "tag": "liquid"
+  },
+  {
+    "id": "blood_worm",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "blood_worm",
+    "tag": "soluble"
+  },
+  {
+    "id": "bloodgold_box2d",
+    "tag": "alchemy"
+  },
+  {
+    "id": "bloodgold_box2d",
+    "tag": "box2d"
+  },
+  {
+    "id": "bloodgold_box2d",
+    "tag": "gold"
+  },
+  {
+    "id": "bluefungi_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "bluefungi_static",
+    "tag": "burnable"
+  },
+  {
+    "id": "bluefungi_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "bluefungi_static",
+    "tag": "earth"
+  },
+  {
+    "id": "bluefungi_static",
+    "tag": "fungus"
+  },
+  {
+    "id": "bluefungi_static",
+    "tag": "solid"
+  },
+  {
+    "id": "bluefungi_static",
+    "tag": "static"
+  },
+  {
+    "id": "bone",
+    "tag": "alchemy"
+  },
+  {
+    "id": "bone",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "bone",
+    "tag": "corrodible"
+  },
+  {
+    "id": "bone",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "bone",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "bone_box2d",
+    "tag": "alchemy"
+  },
+  {
+    "id": "bone_box2d",
+    "tag": "box2d"
+  },
+  {
+    "id": "bone_box2d",
+    "tag": "corrodible"
+  },
+  {
+    "id": "bone_box2d",
+    "tag": "earth"
+  },
+  {
+    "id": "bone_box2d",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "bone_box2d",
+    "tag": "solid"
+  },
+  {
+    "id": "bone_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "bone_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "bone_static",
+    "tag": "earth"
+  },
+  {
+    "id": "bone_static",
+    "tag": "solid"
+  },
+  {
+    "id": "bone_static",
+    "tag": "static"
+  },
+  {
+    "id": "brass",
+    "tag": "alchemy"
+  },
+  {
+    "id": "brass",
+    "tag": "corrodible"
+  },
+  {
+    "id": "brass",
+    "tag": "earth"
+  },
+  {
+    "id": "brass",
+    "tag": "meltable_metal"
+  },
+  {
+    "id": "brass",
+    "tag": "sand_metal"
+  },
+  {
+    "id": "brass",
+    "tag": "solid"
+  },
+  {
+    "id": "brass_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "brass_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "brass_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "brass_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "brass_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "brass_molten",
+    "tag": "molten"
+  },
+  {
+    "id": "brass_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "brick",
+    "tag": "alchemy"
+  },
+  {
+    "id": "brick",
+    "tag": "box2d"
+  },
+  {
+    "id": "brick",
+    "tag": "corrodible"
+  },
+  {
+    "id": "brick",
+    "tag": "earth"
+  },
+  {
+    "id": "brick",
+    "tag": "solid"
+  },
+  {
+    "id": "burning_powder",
+    "tag": "alchemy"
+  },
+  {
+    "id": "burning_powder",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "burning_powder",
+    "tag": "corrodible"
+  },
+  {
+    "id": "burning_powder",
+    "tag": "sand_other"
+  },
+  {
+    "id": "bush_seed",
+    "tag": "burnable"
+  },
+  {
+    "id": "bush_seed",
+    "tag": "corrodible"
+  },
+  {
+    "id": "bush_seed",
+    "tag": "plant"
+  },
+  {
+    "id": "bush_seed",
+    "tag": "requires_air"
+  },
+  {
+    "id": "cactus",
+    "tag": "alchemy"
+  },
+  {
+    "id": "cactus",
+    "tag": "box2d"
+  },
+  {
+    "id": "cactus",
+    "tag": "corrodible"
+  },
+  {
+    "id": "cactus",
+    "tag": "earth"
+  },
+  {
+    "id": "cactus",
+    "tag": "solid"
+  },
+  {
+    "id": "ceiling_plant_material",
+    "tag": "burnable"
+  },
+  {
+    "id": "ceiling_plant_material",
+    "tag": "corrodible"
+  },
+  {
+    "id": "ceiling_plant_material",
+    "tag": "plant"
+  },
+  {
+    "id": "cement",
+    "tag": "alchemy"
+  },
+  {
+    "id": "cement",
+    "tag": "corrodible"
+  },
+  {
+    "id": "cement",
+    "tag": "earth"
+  },
+  {
+    "id": "cement",
+    "tag": "impure"
+  },
+  {
+    "id": "cement",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "cement",
+    "tag": "solid"
+  },
+  {
+    "id": "cheese_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "cheese_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "cheese_static",
+    "tag": "earth"
+  },
+  {
+    "id": "cheese_static",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "cheese_static",
+    "tag": "solid"
+  },
+  {
+    "id": "cheese_static",
+    "tag": "static"
+  },
+  {
+    "id": "cloth_box2d",
+    "tag": "box2d"
+  },
+  {
+    "id": "cloth_box2d",
+    "tag": "burnable"
+  },
+  {
+    "id": "cloth_box2d",
+    "tag": "solid"
+  },
+  {
+    "id": "cloud",
+    "tag": "gas"
+  },
+  {
+    "id": "cloud_blood",
+    "tag": "blood"
+  },
+  {
+    "id": "cloud_blood",
+    "tag": "impure"
+  },
+  {
+    "id": "cloud_blood",
+    "tag": "liquid"
+  },
+  {
+    "id": "cloud_blood",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "cloud_lighter",
+    "tag": "gas"
+  },
+  {
+    "id": "cloud_radioactive",
+    "tag": "impure"
+  },
+  {
+    "id": "cloud_radioactive",
+    "tag": "liquid"
+  },
+  {
+    "id": "cloud_radioactive",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "cloud_radioactive",
+    "tag": "radioactive"
+  },
+  {
+    "id": "cloud_slime",
+    "tag": "impure"
+  },
+  {
+    "id": "cloud_slime",
+    "tag": "liquid"
+  },
+  {
+    "id": "cloud_slime",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "cloud_slime",
+    "tag": "slime"
+  },
+  {
+    "id": "coal",
+    "tag": "alchemy"
+  },
+  {
+    "id": "coal",
+    "tag": "burnable"
+  },
+  {
+    "id": "coal",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "coal",
+    "tag": "corrodible"
+  },
+  {
+    "id": "coal",
+    "tag": "sand_other"
+  },
+  {
+    "id": "coal_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "coal_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "coal_static",
+    "tag": "earth"
+  },
+  {
+    "id": "coal_static",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "coal_static",
+    "tag": "solid"
+  },
+  {
+    "id": "coal_static",
+    "tag": "static"
+  },
+  {
+    "id": "cocoon_box2d",
+    "tag": "alchemy"
+  },
+  {
+    "id": "cocoon_box2d",
+    "tag": "box2d"
+  },
+  {
+    "id": "cocoon_box2d",
+    "tag": "burnable"
+  },
+  {
+    "id": "cocoon_box2d",
+    "tag": "corrodible"
+  },
+  {
+    "id": "cocoon_box2d",
+    "tag": "earth"
+  },
+  {
+    "id": "cocoon_box2d",
+    "tag": "solid"
+  },
+  {
+    "id": "concrete_collapsed",
+    "tag": "alchemy"
+  },
+  {
+    "id": "concrete_collapsed",
+    "tag": "box2d"
+  },
+  {
+    "id": "concrete_collapsed",
+    "tag": "corrodible"
+  },
+  {
+    "id": "concrete_collapsed",
+    "tag": "earth"
+  },
+  {
+    "id": "concrete_collapsed",
+    "tag": "solid"
+  },
+  {
+    "id": "concrete_sand",
+    "tag": "alchemy"
+  },
+  {
+    "id": "concrete_sand",
+    "tag": "corrodible"
+  },
+  {
+    "id": "concrete_sand",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "concrete_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "concrete_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "concrete_static",
+    "tag": "earth"
+  },
+  {
+    "id": "concrete_static",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "concrete_static",
+    "tag": "solid"
+  },
+  {
+    "id": "concrete_static",
+    "tag": "static"
+  },
+  {
+    "id": "copper",
+    "tag": "alchemy"
+  },
+  {
+    "id": "copper",
+    "tag": "corrodible"
+  },
+  {
+    "id": "copper",
+    "tag": "earth"
+  },
+  {
+    "id": "copper",
+    "tag": "meltable_metal"
+  },
+  {
+    "id": "copper",
+    "tag": "sand_metal"
+  },
+  {
+    "id": "copper",
+    "tag": "solid"
+  },
+  {
+    "id": "copper_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "copper_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "copper_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "copper_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "copper_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "copper_molten",
+    "tag": "molten"
+  },
+  {
+    "id": "copper_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "corruption_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "corruption_static",
+    "tag": "static"
+  },
+  {
+    "id": "creepy_liquid",
+    "tag": "impure"
+  },
+  {
+    "id": "creepy_liquid",
+    "tag": "liquid"
+  },
+  {
+    "id": "creepy_liquid_emitter",
+    "tag": "alchemy"
+  },
+  {
+    "id": "creepy_liquid_emitter",
+    "tag": "burnable"
+  },
+  {
+    "id": "creepy_liquid_emitter",
+    "tag": "corrodible"
+  },
+  {
+    "id": "creepy_liquid_emitter",
+    "tag": "earth"
+  },
+  {
+    "id": "creepy_liquid_emitter",
+    "tag": "solid"
+  },
+  {
+    "id": "crystal",
+    "tag": "alchemy"
+  },
+  {
+    "id": "crystal",
+    "tag": "box2d"
+  },
+  {
+    "id": "crystal_magic",
+    "tag": "alchemy"
+  },
+  {
+    "id": "crystal_magic",
+    "tag": "box2d"
+  },
+  {
+    "id": "crystal_purple",
+    "tag": "alchemy"
+  },
+  {
+    "id": "crystal_purple",
+    "tag": "box2d"
+  },
+  {
+    "id": "crystal_solid",
+    "tag": "alchemy"
+  },
+  {
+    "id": "crystal_solid",
+    "tag": "box2d"
+  },
+  {
+    "id": "cursed_liquid",
+    "tag": "corrodible"
+  },
+  {
+    "id": "cursed_liquid",
+    "tag": "impure"
+  },
+  {
+    "id": "cursed_liquid",
+    "tag": "soluble"
+  },
+  {
+    "id": "diamond",
+    "tag": "alchemy"
+  },
+  {
+    "id": "diamond",
+    "tag": "earth"
+  },
+  {
+    "id": "diamond",
+    "tag": "sand_metal"
+  },
+  {
+    "id": "diamond",
+    "tag": "solid"
+  },
+  {
+    "id": "endslime",
+    "tag": "alchemy"
+  },
+  {
+    "id": "endslime",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "endslime",
+    "tag": "corrodible"
+  },
+  {
+    "id": "endslime",
+    "tag": "slime"
+  },
+  {
+    "id": "endslime",
+    "tag": "static"
+  },
+  {
+    "id": "endslime_blood",
+    "tag": "corrodible"
+  },
+  {
+    "id": "endslime_blood",
+    "tag": "slime"
+  },
+  {
+    "id": "endslime_blood",
+    "tag": "static"
+  },
+  {
+    "id": "endslime_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "endslime_static",
+    "tag": "earth"
+  },
+  {
+    "id": "endslime_static",
+    "tag": "solid"
+  },
+  {
+    "id": "endslime_static",
+    "tag": "static"
+  },
+  {
+    "id": "explosion_dirt",
+    "tag": "corrodible"
+  },
+  {
+    "id": "explosion_dirt",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "fire",
+    "tag": "fire"
+  },
+  {
+    "id": "fire",
+    "tag": "hot"
+  },
+  {
+    "id": "fire_blue",
+    "tag": "fire"
+  },
+  {
+    "id": "fire_blue",
+    "tag": "hot"
+  },
+  {
+    "id": "flame",
+    "tag": "fire"
+  },
+  {
+    "id": "flame",
+    "tag": "hot"
+  },
+  {
+    "id": "fungal_gas",
+    "tag": "burnable_fast"
+  },
+  {
+    "id": "fungal_gas",
+    "tag": "fungus"
+  },
+  {
+    "id": "fungal_gas",
+    "tag": "gas"
+  },
+  {
+    "id": "fungi",
+    "tag": "alchemy"
+  },
+  {
+    "id": "fungi",
+    "tag": "burnable"
+  },
+  {
+    "id": "fungi",
+    "tag": "corrodible"
+  },
+  {
+    "id": "fungi",
+    "tag": "fungus"
+  },
+  {
+    "id": "fungi",
+    "tag": "impure"
+  },
+  {
+    "id": "fungi",
+    "tag": "plant"
+  },
+  {
+    "id": "fungi_creeping",
+    "tag": "burnable"
+  },
+  {
+    "id": "fungi_creeping",
+    "tag": "corrodible"
+  },
+  {
+    "id": "fungi_creeping",
+    "tag": "plant"
+  },
+  {
+    "id": "fungi_creeping_secret",
+    "tag": "burnable"
+  },
+  {
+    "id": "fungi_creeping_secret",
+    "tag": "corrodible"
+  },
+  {
+    "id": "fungi_creeping_secret",
+    "tag": "plant"
+  },
+  {
+    "id": "fungi_green",
+    "tag": "alchemy"
+  },
+  {
+    "id": "fungi_green",
+    "tag": "burnable"
+  },
+  {
+    "id": "fungi_green",
+    "tag": "corrodible"
+  },
+  {
+    "id": "fungi_green",
+    "tag": "fungus"
+  },
+  {
+    "id": "fungi_green",
+    "tag": "impure"
+  },
+  {
+    "id": "fungi_green",
+    "tag": "plant"
+  },
+  {
+    "id": "fungi_yellow",
+    "tag": "alchemy"
+  },
+  {
+    "id": "fungi_yellow",
+    "tag": "burnable"
+  },
+  {
+    "id": "fungi_yellow",
+    "tag": "corrodible"
+  },
+  {
+    "id": "fungi_yellow",
+    "tag": "fungus"
+  },
+  {
+    "id": "fungi_yellow",
+    "tag": "impure"
+  },
+  {
+    "id": "fungi_yellow",
+    "tag": "plant"
+  },
+  {
+    "id": "fungisoil",
+    "tag": "alchemy"
+  },
+  {
+    "id": "fungisoil",
+    "tag": "corrodible"
+  },
+  {
+    "id": "fungisoil",
+    "tag": "earth"
+  },
+  {
+    "id": "fungisoil",
+    "tag": "fungus"
+  },
+  {
+    "id": "fungisoil",
+    "tag": "grows_fungus"
+  },
+  {
+    "id": "fungisoil",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "fungisoil",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "fungisoil",
+    "tag": "solid"
+  },
+  {
+    "id": "fungus_loose",
+    "tag": "alchemy"
+  },
+  {
+    "id": "fungus_loose",
+    "tag": "box2d"
+  },
+  {
+    "id": "fungus_loose",
+    "tag": "earth"
+  },
+  {
+    "id": "fungus_loose",
+    "tag": "fungus"
+  },
+  {
+    "id": "fungus_loose",
+    "tag": "solid"
+  },
+  {
+    "id": "fungus_loose_green",
+    "tag": "alchemy"
+  },
+  {
+    "id": "fungus_loose_green",
+    "tag": "box2d"
+  },
+  {
+    "id": "fungus_loose_green",
+    "tag": "earth"
+  },
+  {
+    "id": "fungus_loose_green",
+    "tag": "fungus"
+  },
+  {
+    "id": "fungus_loose_green",
+    "tag": "solid"
+  },
+  {
+    "id": "fungus_loose_trippy",
+    "tag": "alchemy"
+  },
+  {
+    "id": "fungus_loose_trippy",
+    "tag": "box2d"
+  },
+  {
+    "id": "fungus_loose_trippy",
+    "tag": "earth"
+  },
+  {
+    "id": "fungus_loose_trippy",
+    "tag": "fungus"
+  },
+  {
+    "id": "fungus_loose_trippy",
+    "tag": "solid"
+  },
+  {
+    "id": "fungus_powder",
+    "tag": "fungus"
+  },
+  {
+    "id": "fungus_powder",
+    "tag": "sand_other"
+  },
+  {
+    "id": "fungus_powder_bad",
+    "tag": "fungus"
+  },
+  {
+    "id": "fungus_powder_bad",
+    "tag": "sand_other"
+  },
+  {
+    "id": "fuse",
+    "tag": "box2d"
+  },
+  {
+    "id": "fuse_bright",
+    "tag": "box2d"
+  },
+  {
+    "id": "fuse_holy",
+    "tag": "box2d"
+  },
+  {
+    "id": "fuse_tnt",
+    "tag": "box2d"
+  },
+  {
+    "id": "gem_box2d",
+    "tag": "box2d"
+  },
+  {
+    "id": "gem_box2d",
+    "tag": "sunbaby_ignore_list"
+  },
+  {
+    "id": "gem_box2d_darksun",
+    "tag": "box2d"
+  },
+  {
+    "id": "gem_box2d_darksun",
+    "tag": "indestructible"
+  },
+  {
+    "id": "gem_box2d_darksun",
+    "tag": "matter_eater_ignore_list"
+  },
+  {
+    "id": "gem_box2d_darksun",
+    "tag": "sunbaby_ignore_list"
+  },
+  {
+    "id": "gem_box2d_green",
+    "tag": "box2d"
+  },
+  {
+    "id": "gem_box2d_green",
+    "tag": "sunbaby_ignore_list"
+  },
+  {
+    "id": "gem_box2d_opal",
+    "tag": "box2d"
+  },
+  {
+    "id": "gem_box2d_opal",
+    "tag": "sunbaby_ignore_list"
+  },
+  {
+    "id": "gem_box2d_orange",
+    "tag": "box2d"
+  },
+  {
+    "id": "gem_box2d_orange",
+    "tag": "sunbaby_ignore_list"
+  },
+  {
+    "id": "gem_box2d_pink",
+    "tag": "box2d"
+  },
+  {
+    "id": "gem_box2d_pink",
+    "tag": "sunbaby_ignore_list"
+  },
+  {
+    "id": "gem_box2d_red",
+    "tag": "box2d"
+  },
+  {
+    "id": "gem_box2d_red",
+    "tag": "sunbaby_ignore_list"
+  },
+  {
+    "id": "gem_box2d_red_float",
+    "tag": "box2d"
+  },
+  {
+    "id": "gem_box2d_red_float",
+    "tag": "sunbaby_ignore_list"
+  },
+  {
+    "id": "gem_box2d_turquoise",
+    "tag": "box2d"
+  },
+  {
+    "id": "gem_box2d_turquoise",
+    "tag": "sunbaby_ignore_list"
+  },
+  {
+    "id": "gem_box2d_white",
+    "tag": "box2d"
+  },
+  {
+    "id": "gem_box2d_white",
+    "tag": "sunbaby_ignore_list"
+  },
+  {
+    "id": "gem_box2d_yellow_sun",
+    "tag": "box2d"
+  },
+  {
+    "id": "gem_box2d_yellow_sun",
+    "tag": "indestructible"
+  },
+  {
+    "id": "gem_box2d_yellow_sun",
+    "tag": "matter_eater_ignore_list"
+  },
+  {
+    "id": "gem_box2d_yellow_sun",
+    "tag": "sunbaby_ignore_list"
+  },
+  {
+    "id": "gem_box2d_yellow_sun_gravity",
+    "tag": "box2d"
+  },
+  {
+    "id": "gem_box2d_yellow_sun_gravity",
+    "tag": "indestructible"
+  },
+  {
+    "id": "gem_box2d_yellow_sun_gravity",
+    "tag": "matter_eater_ignore_list"
+  },
+  {
+    "id": "gem_box2d_yellow_sun_gravity",
+    "tag": "sunbaby_ignore_list"
+  },
+  {
+    "id": "glass",
+    "tag": "alchemy"
+  },
+  {
+    "id": "glass",
+    "tag": "earth"
+  },
+  {
+    "id": "glass",
+    "tag": "meltable_metal"
+  },
+  {
+    "id": "glass",
+    "tag": "solid"
+  },
+  {
+    "id": "glass",
+    "tag": "static"
+  },
+  {
+    "id": "glass_box2d",
+    "tag": "box2d"
+  },
+  {
+    "id": "glass_brittle",
+    "tag": "alchemy"
+  },
+  {
+    "id": "glass_brittle",
+    "tag": "earth"
+  },
+  {
+    "id": "glass_brittle",
+    "tag": "solid"
+  },
+  {
+    "id": "glass_brittle",
+    "tag": "static"
+  },
+  {
+    "id": "glass_broken",
+    "tag": "alchemy"
+  },
+  {
+    "id": "glass_broken",
+    "tag": "earth"
+  },
+  {
+    "id": "glass_broken",
+    "tag": "meltable_metal"
+  },
+  {
+    "id": "glass_broken",
+    "tag": "sand_other"
+  },
+  {
+    "id": "glass_broken",
+    "tag": "solid"
+  },
+  {
+    "id": "glass_broken_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "glass_broken_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "glass_broken_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "glass_broken_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "glass_broken_molten",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "glass_broken_molten",
+    "tag": "molten"
+  },
+  {
+    "id": "glass_broken_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "glass_liquidcave",
+    "tag": "alchemy"
+  },
+  {
+    "id": "glass_liquidcave",
+    "tag": "box2d"
+  },
+  {
+    "id": "glass_liquidcave",
+    "tag": "earth"
+  },
+  {
+    "id": "glass_liquidcave",
+    "tag": "solid"
+  },
+  {
+    "id": "glass_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "glass_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "glass_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "glass_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "glass_molten",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "glass_molten",
+    "tag": "molten"
+  },
+  {
+    "id": "glass_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "glass_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "glass_static",
+    "tag": "earth"
+  },
+  {
+    "id": "glass_static",
+    "tag": "solid"
+  },
+  {
+    "id": "glass_static",
+    "tag": "static"
+  },
+  {
+    "id": "glowshroom",
+    "tag": "burnable"
+  },
+  {
+    "id": "glowshroom",
+    "tag": "corrodible"
+  },
+  {
+    "id": "glowshroom",
+    "tag": "plant"
+  },
+  {
+    "id": "glowshroom",
+    "tag": "requires_air"
+  },
+  {
+    "id": "glowstone",
+    "tag": "alchemy"
+  },
+  {
+    "id": "glowstone",
+    "tag": "corrodible"
+  },
+  {
+    "id": "glowstone",
+    "tag": "earth"
+  },
+  {
+    "id": "glowstone",
+    "tag": "solid"
+  },
+  {
+    "id": "glowstone",
+    "tag": "static"
+  },
+  {
+    "id": "glowstone_altar",
+    "tag": "alchemy"
+  },
+  {
+    "id": "glowstone_altar",
+    "tag": "corrodible"
+  },
+  {
+    "id": "glowstone_altar",
+    "tag": "earth"
+  },
+  {
+    "id": "glowstone_altar",
+    "tag": "solid"
+  },
+  {
+    "id": "glowstone_altar",
+    "tag": "static"
+  },
+  {
+    "id": "glowstone_altar_hdr",
+    "tag": "alchemy"
+  },
+  {
+    "id": "glowstone_altar_hdr",
+    "tag": "corrodible"
+  },
+  {
+    "id": "glowstone_altar_hdr",
+    "tag": "earth"
+  },
+  {
+    "id": "glowstone_altar_hdr",
+    "tag": "solid"
+  },
+  {
+    "id": "glowstone_altar_hdr",
+    "tag": "static"
+  },
+  {
+    "id": "glowstone_potion",
+    "tag": "alchemy"
+  },
+  {
+    "id": "glowstone_potion",
+    "tag": "corrodible"
+  },
+  {
+    "id": "glowstone_potion",
+    "tag": "earth"
+  },
+  {
+    "id": "glowstone_potion",
+    "tag": "solid"
+  },
+  {
+    "id": "glowstone_potion",
+    "tag": "static"
+  },
+  {
+    "id": "glue",
+    "tag": "alchemy"
+  },
+  {
+    "id": "glue",
+    "tag": "burnable"
+  },
+  {
+    "id": "glue",
+    "tag": "impure"
+  },
+  {
+    "id": "glue",
+    "tag": "liquid"
+  },
+  {
+    "id": "gold",
+    "tag": "alchemy"
+  },
+  {
+    "id": "gold",
+    "tag": "corrodible"
+  },
+  {
+    "id": "gold",
+    "tag": "earth"
+  },
+  {
+    "id": "gold",
+    "tag": "gold"
+  },
+  {
+    "id": "gold",
+    "tag": "meltable_metal"
+  },
+  {
+    "id": "gold",
+    "tag": "sand_metal"
+  },
+  {
+    "id": "gold",
+    "tag": "solid"
+  },
+  {
+    "id": "gold_b2",
+    "tag": "alchemy"
+  },
+  {
+    "id": "gold_b2",
+    "tag": "box2d"
+  },
+  {
+    "id": "gold_b2",
+    "tag": "earth"
+  },
+  {
+    "id": "gold_b2",
+    "tag": "gold"
+  },
+  {
+    "id": "gold_b2",
+    "tag": "solid"
+  },
+  {
+    "id": "gold_box2d",
+    "tag": "alchemy"
+  },
+  {
+    "id": "gold_box2d",
+    "tag": "box2d"
+  },
+  {
+    "id": "gold_box2d",
+    "tag": "gold"
+  },
+  {
+    "id": "gold_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "gold_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "gold_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "gold_molten",
+    "tag": "gold"
+  },
+  {
+    "id": "gold_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "gold_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "gold_molten",
+    "tag": "molten"
+  },
+  {
+    "id": "gold_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "gold_radioactive",
+    "tag": "alchemy"
+  },
+  {
+    "id": "gold_radioactive",
+    "tag": "corrodible"
+  },
+  {
+    "id": "gold_radioactive",
+    "tag": "earth"
+  },
+  {
+    "id": "gold_radioactive",
+    "tag": "gold"
+  },
+  {
+    "id": "gold_radioactive",
+    "tag": "meltable_metal_generic"
+  },
+  {
+    "id": "gold_radioactive",
+    "tag": "sand_metal"
+  },
+  {
+    "id": "gold_radioactive",
+    "tag": "solid"
+  },
+  {
+    "id": "gold_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "gold_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "gold_static",
+    "tag": "earth"
+  },
+  {
+    "id": "gold_static",
+    "tag": "gold"
+  },
+  {
+    "id": "gold_static",
+    "tag": "solid"
+  },
+  {
+    "id": "gold_static_dark",
+    "tag": "alchemy"
+  },
+  {
+    "id": "gold_static_dark",
+    "tag": "corrodible"
+  },
+  {
+    "id": "gold_static_dark",
+    "tag": "earth"
+  },
+  {
+    "id": "gold_static_dark",
+    "tag": "gold"
+  },
+  {
+    "id": "gold_static_dark",
+    "tag": "solid"
+  },
+  {
+    "id": "gold_static_radioactive",
+    "tag": "alchemy"
+  },
+  {
+    "id": "gold_static_radioactive",
+    "tag": "corrodible"
+  },
+  {
+    "id": "gold_static_radioactive",
+    "tag": "earth"
+  },
+  {
+    "id": "gold_static_radioactive",
+    "tag": "gold"
+  },
+  {
+    "id": "gold_static_radioactive",
+    "tag": "solid"
+  },
+  {
+    "id": "grass",
+    "tag": "alchemy"
+  },
+  {
+    "id": "grass",
+    "tag": "burnable"
+  },
+  {
+    "id": "grass",
+    "tag": "corrodible"
+  },
+  {
+    "id": "grass",
+    "tag": "impure"
+  },
+  {
+    "id": "grass",
+    "tag": "plant"
+  },
+  {
+    "id": "grass",
+    "tag": "requires_air"
+  },
+  {
+    "id": "grass_dark",
+    "tag": "alchemy"
+  },
+  {
+    "id": "grass_dark",
+    "tag": "burnable"
+  },
+  {
+    "id": "grass_dark",
+    "tag": "corrodible"
+  },
+  {
+    "id": "grass_dark",
+    "tag": "impure"
+  },
+  {
+    "id": "grass_dark",
+    "tag": "plant"
+  },
+  {
+    "id": "grass_dark",
+    "tag": "requires_air"
+  },
+  {
+    "id": "grass_darker",
+    "tag": "alchemy"
+  },
+  {
+    "id": "grass_darker",
+    "tag": "burnable"
+  },
+  {
+    "id": "grass_darker",
+    "tag": "corrodible"
+  },
+  {
+    "id": "grass_darker",
+    "tag": "impure"
+  },
+  {
+    "id": "grass_darker",
+    "tag": "plant"
+  },
+  {
+    "id": "grass_darker",
+    "tag": "requires_air"
+  },
+  {
+    "id": "grass_dry",
+    "tag": "alchemy"
+  },
+  {
+    "id": "grass_dry",
+    "tag": "burnable"
+  },
+  {
+    "id": "grass_dry",
+    "tag": "corrodible"
+  },
+  {
+    "id": "grass_dry",
+    "tag": "impure"
+  },
+  {
+    "id": "grass_dry",
+    "tag": "plant"
+  },
+  {
+    "id": "grass_dry",
+    "tag": "requires_air"
+  },
+  {
+    "id": "grass_holy",
+    "tag": "alchemy"
+  },
+  {
+    "id": "grass_holy",
+    "tag": "burnable"
+  },
+  {
+    "id": "grass_holy",
+    "tag": "corrodible"
+  },
+  {
+    "id": "grass_holy",
+    "tag": "plant"
+  },
+  {
+    "id": "grass_holy",
+    "tag": "requires_air"
+  },
+  {
+    "id": "grass_ice",
+    "tag": "burnable"
+  },
+  {
+    "id": "grass_ice",
+    "tag": "corrodible"
+  },
+  {
+    "id": "grass_ice",
+    "tag": "impure"
+  },
+  {
+    "id": "grass_ice",
+    "tag": "plant"
+  },
+  {
+    "id": "grass_loose",
+    "tag": "alchemy"
+  },
+  {
+    "id": "grass_loose",
+    "tag": "box2d"
+  },
+  {
+    "id": "grass_loose",
+    "tag": "corrodible"
+  },
+  {
+    "id": "grass_loose",
+    "tag": "earth"
+  },
+  {
+    "id": "grass_loose",
+    "tag": "solid"
+  },
+  {
+    "id": "gunpowder",
+    "tag": "alchemy"
+  },
+  {
+    "id": "gunpowder",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "gunpowder",
+    "tag": "corrodible"
+  },
+  {
+    "id": "gunpowder",
+    "tag": "sand_other"
+  },
+  {
+    "id": "gunpowder_explosive",
+    "tag": "alchemy"
+  },
+  {
+    "id": "gunpowder_explosive",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "gunpowder_explosive",
+    "tag": "corrodible"
+  },
+  {
+    "id": "gunpowder_explosive",
+    "tag": "sand_other"
+  },
+  {
+    "id": "gunpowder_tnt",
+    "tag": "alchemy"
+  },
+  {
+    "id": "gunpowder_tnt",
+    "tag": "corrodible"
+  },
+  {
+    "id": "gunpowder_tnt",
+    "tag": "sand_other"
+  },
+  {
+    "id": "gunpowder_unstable",
+    "tag": "alchemy"
+  },
+  {
+    "id": "gunpowder_unstable",
+    "tag": "burnable"
+  },
+  {
+    "id": "gunpowder_unstable",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "gunpowder_unstable",
+    "tag": "corrodible"
+  },
+  {
+    "id": "gunpowder_unstable",
+    "tag": "sand_other"
+  },
+  {
+    "id": "gunpowder_unstable_big",
+    "tag": "alchemy"
+  },
+  {
+    "id": "gunpowder_unstable_big",
+    "tag": "burnable"
+  },
+  {
+    "id": "gunpowder_unstable_big",
+    "tag": "corrodible"
+  },
+  {
+    "id": "gunpowder_unstable_big",
+    "tag": "sand_other"
+  },
+  {
+    "id": "gunpowder_unstable_boss_limbs",
+    "tag": "alchemy"
+  },
+  {
+    "id": "gunpowder_unstable_boss_limbs",
+    "tag": "corrodible"
+  },
+  {
+    "id": "gunpowder_unstable_boss_limbs",
+    "tag": "meat"
+  },
+  {
+    "id": "gunpowder_unstable_boss_limbs",
+    "tag": "sand_other"
+  },
+  {
+    "id": "honey",
+    "tag": "alchemy"
+  },
+  {
+    "id": "honey",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "honey",
+    "tag": "corrodible"
+  },
+  {
+    "id": "honey",
+    "tag": "meltable_by_fire"
+  },
+  {
+    "id": "honey",
+    "tag": "meltable_to_lava_fast"
+  },
+  {
+    "id": "ice",
+    "tag": "alchemy"
+  },
+  {
+    "id": "ice",
+    "tag": "corrodible"
+  },
+  {
+    "id": "ice",
+    "tag": "frozen"
+  },
+  {
+    "id": "ice",
+    "tag": "meltable_to_water"
+  },
+  {
+    "id": "ice",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "ice",
+    "tag": "solid"
+  },
+  {
+    "id": "ice_acid_glass",
+    "tag": "alchemy"
+  },
+  {
+    "id": "ice_acid_glass",
+    "tag": "cold"
+  },
+  {
+    "id": "ice_acid_glass",
+    "tag": "meltable_to_acid"
+  },
+  {
+    "id": "ice_acid_glass",
+    "tag": "solid"
+  },
+  {
+    "id": "ice_acid_glass",
+    "tag": "static"
+  },
+  {
+    "id": "ice_acid_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "ice_acid_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "ice_acid_static",
+    "tag": "frozen"
+  },
+  {
+    "id": "ice_acid_static",
+    "tag": "meltable_to_acid"
+  },
+  {
+    "id": "ice_acid_static",
+    "tag": "solid"
+  },
+  {
+    "id": "ice_acid_static",
+    "tag": "static"
+  },
+  {
+    "id": "ice_b2",
+    "tag": "alchemy"
+  },
+  {
+    "id": "ice_b2",
+    "tag": "box2d"
+  },
+  {
+    "id": "ice_b2",
+    "tag": "solid"
+  },
+  {
+    "id": "ice_blood_glass",
+    "tag": "alchemy"
+  },
+  {
+    "id": "ice_blood_glass",
+    "tag": "cold"
+  },
+  {
+    "id": "ice_blood_glass",
+    "tag": "meltable_to_blood"
+  },
+  {
+    "id": "ice_blood_glass",
+    "tag": "solid"
+  },
+  {
+    "id": "ice_blood_glass",
+    "tag": "static"
+  },
+  {
+    "id": "ice_blood_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "ice_blood_static",
+    "tag": "meltable_to_blood"
+  },
+  {
+    "id": "ice_blood_static",
+    "tag": "solid"
+  },
+  {
+    "id": "ice_blood_static",
+    "tag": "static"
+  },
+  {
+    "id": "ice_ceiling",
+    "tag": "alchemy"
+  },
+  {
+    "id": "ice_ceiling",
+    "tag": "box2d"
+  },
+  {
+    "id": "ice_ceiling",
+    "tag": "corrodible"
+  },
+  {
+    "id": "ice_ceiling",
+    "tag": "solid"
+  },
+  {
+    "id": "ice_cold_glass",
+    "tag": "alchemy"
+  },
+  {
+    "id": "ice_cold_glass",
+    "tag": "cold"
+  },
+  {
+    "id": "ice_cold_glass",
+    "tag": "meltable_to_cold"
+  },
+  {
+    "id": "ice_cold_glass",
+    "tag": "solid"
+  },
+  {
+    "id": "ice_cold_glass",
+    "tag": "static"
+  },
+  {
+    "id": "ice_cold_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "ice_cold_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "ice_cold_static",
+    "tag": "frozen"
+  },
+  {
+    "id": "ice_cold_static",
+    "tag": "meltable_to_cold"
+  },
+  {
+    "id": "ice_cold_static",
+    "tag": "solid"
+  },
+  {
+    "id": "ice_cold_static",
+    "tag": "static"
+  },
+  {
+    "id": "ice_glass",
+    "tag": "alchemy"
+  },
+  {
+    "id": "ice_glass",
+    "tag": "box2d"
+  },
+  {
+    "id": "ice_glass",
+    "tag": "cold"
+  },
+  {
+    "id": "ice_glass",
+    "tag": "meltable_to_water"
+  },
+  {
+    "id": "ice_glass",
+    "tag": "solid"
+  },
+  {
+    "id": "ice_glass",
+    "tag": "static"
+  },
+  {
+    "id": "ice_glass_b2",
+    "tag": "alchemy"
+  },
+  {
+    "id": "ice_glass_b2",
+    "tag": "cold"
+  },
+  {
+    "id": "ice_glass_b2",
+    "tag": "meltable_to_water"
+  },
+  {
+    "id": "ice_glass_b2",
+    "tag": "solid"
+  },
+  {
+    "id": "ice_glass_b2",
+    "tag": "static"
+  },
+  {
+    "id": "ice_melting_perf_killer",
+    "tag": "box2d"
+  },
+  {
+    "id": "ice_melting_perf_killer",
+    "tag": "hax"
+  },
+  {
+    "id": "ice_melting_perf_killer",
+    "tag": "ice"
+  },
+  {
+    "id": "ice_melting_perf_killer",
+    "tag": "meltable_to_water"
+  },
+  {
+    "id": "ice_meteor_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "ice_meteor_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "ice_meteor_static",
+    "tag": "earth"
+  },
+  {
+    "id": "ice_meteor_static",
+    "tag": "frozen"
+  },
+  {
+    "id": "ice_meteor_static",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "ice_meteor_static",
+    "tag": "solid"
+  },
+  {
+    "id": "ice_meteor_static",
+    "tag": "static"
+  },
+  {
+    "id": "ice_poison_glass",
+    "tag": "alchemy"
+  },
+  {
+    "id": "ice_poison_glass",
+    "tag": "cold"
+  },
+  {
+    "id": "ice_poison_glass",
+    "tag": "meltable_to_poison"
+  },
+  {
+    "id": "ice_poison_glass",
+    "tag": "solid"
+  },
+  {
+    "id": "ice_poison_glass",
+    "tag": "static"
+  },
+  {
+    "id": "ice_poison_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "ice_poison_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "ice_poison_static",
+    "tag": "frozen"
+  },
+  {
+    "id": "ice_poison_static",
+    "tag": "meltable_to_poison"
+  },
+  {
+    "id": "ice_poison_static",
+    "tag": "solid"
+  },
+  {
+    "id": "ice_poison_static",
+    "tag": "static"
+  },
+  {
+    "id": "ice_radioactive_glass",
+    "tag": "alchemy"
+  },
+  {
+    "id": "ice_radioactive_glass",
+    "tag": "cold"
+  },
+  {
+    "id": "ice_radioactive_glass",
+    "tag": "meltable_to_radioactive"
+  },
+  {
+    "id": "ice_radioactive_glass",
+    "tag": "solid"
+  },
+  {
+    "id": "ice_radioactive_glass",
+    "tag": "static"
+  },
+  {
+    "id": "ice_radioactive_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "ice_radioactive_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "ice_radioactive_static",
+    "tag": "frozen"
+  },
+  {
+    "id": "ice_radioactive_static",
+    "tag": "meltable_to_radioactive"
+  },
+  {
+    "id": "ice_radioactive_static",
+    "tag": "solid"
+  },
+  {
+    "id": "ice_radioactive_static",
+    "tag": "static"
+  },
+  {
+    "id": "ice_slime_glass",
+    "tag": "alchemy"
+  },
+  {
+    "id": "ice_slime_glass",
+    "tag": "cold"
+  },
+  {
+    "id": "ice_slime_glass",
+    "tag": "meltable_to_slime"
+  },
+  {
+    "id": "ice_slime_glass",
+    "tag": "solid"
+  },
+  {
+    "id": "ice_slime_glass",
+    "tag": "static"
+  },
+  {
+    "id": "ice_slime_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "ice_slime_static",
+    "tag": "meltable_to_slime"
+  },
+  {
+    "id": "ice_slime_static",
+    "tag": "solid"
+  },
+  {
+    "id": "ice_slime_static",
+    "tag": "static"
+  },
+  {
+    "id": "ice_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "ice_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "ice_static",
+    "tag": "frozen"
+  },
+  {
+    "id": "ice_static",
+    "tag": "meltable_to_water"
+  },
+  {
+    "id": "ice_static",
+    "tag": "solid"
+  },
+  {
+    "id": "ice_static",
+    "tag": "static"
+  },
+  {
+    "id": "item_box2d",
+    "tag": "box2d"
+  },
+  {
+    "id": "item_box2d_glass",
+    "tag": "box2d"
+  },
+  {
+    "id": "item_box2d_meat",
+    "tag": "box2d"
+  },
+  {
+    "id": "juhannussima",
+    "tag": "impure"
+  },
+  {
+    "id": "juhannussima",
+    "tag": "liquid"
+  },
+  {
+    "id": "juhannussima",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "juhannussima",
+    "tag": "water"
+  },
+  {
+    "id": "just_death",
+    "tag": "liquid"
+  },
+  {
+    "id": "just_death",
+    "tag": "magic"
+  },
+  {
+    "id": "lava",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "lava",
+    "tag": "fire_lava"
+  },
+  {
+    "id": "lava",
+    "tag": "lava"
+  },
+  {
+    "id": "lava",
+    "tag": "liquid"
+  },
+  {
+    "id": "lava",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "lavarock_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "lavarock_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "lavarock_static",
+    "tag": "earth"
+  },
+  {
+    "id": "lavarock_static",
+    "tag": "solid"
+  },
+  {
+    "id": "lavarock_static",
+    "tag": "static"
+  },
+  {
+    "id": "lavasand",
+    "tag": "alchemy"
+  },
+  {
+    "id": "lavasand",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "lavasand",
+    "tag": "corrodible"
+  },
+  {
+    "id": "lavasand",
+    "tag": "meltable_to_lava_fast"
+  },
+  {
+    "id": "lavasand",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "liquid_fire",
+    "tag": "burnable"
+  },
+  {
+    "id": "liquid_fire",
+    "tag": "fire_strong"
+  },
+  {
+    "id": "liquid_fire",
+    "tag": "hot"
+  },
+  {
+    "id": "liquid_fire",
+    "tag": "impure"
+  },
+  {
+    "id": "liquid_fire",
+    "tag": "liquid"
+  },
+  {
+    "id": "liquid_fire",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "liquid_fire_weak",
+    "tag": "burnable"
+  },
+  {
+    "id": "liquid_fire_weak",
+    "tag": "fire_strong"
+  },
+  {
+    "id": "liquid_fire_weak",
+    "tag": "hot"
+  },
+  {
+    "id": "liquid_fire_weak",
+    "tag": "impure"
+  },
+  {
+    "id": "liquid_fire_weak",
+    "tag": "liquid"
+  },
+  {
+    "id": "liquid_fire_weak",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "magic_crystal",
+    "tag": "alchemy"
+  },
+  {
+    "id": "magic_crystal",
+    "tag": "box2d"
+  },
+  {
+    "id": "magic_crystal_green",
+    "tag": "alchemy"
+  },
+  {
+    "id": "magic_crystal_green",
+    "tag": "box2d"
+  },
+  {
+    "id": "magic_gas_fungus",
+    "tag": "alchemy"
+  },
+  {
+    "id": "magic_gas_fungus",
+    "tag": "gas"
+  },
+  {
+    "id": "magic_gas_fungus",
+    "tag": "vapour"
+  },
+  {
+    "id": "magic_gas_hp_regeneration",
+    "tag": "gas"
+  },
+  {
+    "id": "magic_gas_hp_regeneration",
+    "tag": "regenerative_gas"
+  },
+  {
+    "id": "magic_gas_hp_regeneration",
+    "tag": "vapour"
+  },
+  {
+    "id": "magic_gas_midas",
+    "tag": "gas"
+  },
+  {
+    "id": "magic_gas_midas",
+    "tag": "vapour"
+  },
+  {
+    "id": "magic_gas_polymorph",
+    "tag": "alchemy"
+  },
+  {
+    "id": "magic_gas_polymorph",
+    "tag": "gas"
+  },
+  {
+    "id": "magic_gas_polymorph",
+    "tag": "vapour"
+  },
+  {
+    "id": "magic_gas_teleport",
+    "tag": "alchemy"
+  },
+  {
+    "id": "magic_gas_teleport",
+    "tag": "gas"
+  },
+  {
+    "id": "magic_gas_teleport",
+    "tag": "vapour"
+  },
+  {
+    "id": "magic_gas_weakness",
+    "tag": "alchemy"
+  },
+  {
+    "id": "magic_gas_weakness",
+    "tag": "gas"
+  },
+  {
+    "id": "magic_gas_weakness",
+    "tag": "vapour"
+  },
+  {
+    "id": "magic_gas_worm_blood",
+    "tag": "gas"
+  },
+  {
+    "id": "magic_gas_worm_blood",
+    "tag": "vapour"
+  },
+  {
+    "id": "magic_liquid",
+    "tag": "impure"
+  },
+  {
+    "id": "magic_liquid",
+    "tag": "liquid"
+  },
+  {
+    "id": "magic_liquid",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "magic_liquid",
+    "tag": "water"
+  },
+  {
+    "id": "magic_liquid_berserk",
+    "tag": "impure"
+  },
+  {
+    "id": "magic_liquid_berserk",
+    "tag": "liquid"
+  },
+  {
+    "id": "magic_liquid_berserk",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "magic_liquid_berserk",
+    "tag": "water"
+  },
+  {
+    "id": "magic_liquid_charm",
+    "tag": "impure"
+  },
+  {
+    "id": "magic_liquid_charm",
+    "tag": "liquid"
+  },
+  {
+    "id": "magic_liquid_charm",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "magic_liquid_charm",
+    "tag": "water"
+  },
+  {
+    "id": "magic_liquid_faster_levitation",
+    "tag": "impure"
+  },
+  {
+    "id": "magic_liquid_faster_levitation",
+    "tag": "liquid"
+  },
+  {
+    "id": "magic_liquid_faster_levitation",
+    "tag": "magic_faster"
+  },
+  {
+    "id": "magic_liquid_faster_levitation",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "magic_liquid_faster_levitation",
+    "tag": "water"
+  },
+  {
+    "id": "magic_liquid_faster_levitation_and_movement",
+    "tag": "impure"
+  },
+  {
+    "id": "magic_liquid_faster_levitation_and_movement",
+    "tag": "liquid"
+  },
+  {
+    "id": "magic_liquid_faster_levitation_and_movement",
+    "tag": "magic_faster"
+  },
+  {
+    "id": "magic_liquid_faster_levitation_and_movement",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "magic_liquid_faster_levitation_and_movement",
+    "tag": "water"
+  },
+  {
+    "id": "magic_liquid_hp_regeneration",
+    "tag": "liquid"
+  },
+  {
+    "id": "magic_liquid_hp_regeneration",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "magic_liquid_hp_regeneration",
+    "tag": "regenerative"
+  },
+  {
+    "id": "magic_liquid_hp_regeneration",
+    "tag": "water"
+  },
+  {
+    "id": "magic_liquid_hp_regeneration_unstable",
+    "tag": "liquid"
+  },
+  {
+    "id": "magic_liquid_hp_regeneration_unstable",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "magic_liquid_hp_regeneration_unstable",
+    "tag": "regenerative"
+  },
+  {
+    "id": "magic_liquid_hp_regeneration_unstable",
+    "tag": "water"
+  },
+  {
+    "id": "magic_liquid_invisibility",
+    "tag": "impure"
+  },
+  {
+    "id": "magic_liquid_invisibility",
+    "tag": "liquid"
+  },
+  {
+    "id": "magic_liquid_invisibility",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "magic_liquid_invisibility",
+    "tag": "water"
+  },
+  {
+    "id": "magic_liquid_mana_regeneration",
+    "tag": "impure"
+  },
+  {
+    "id": "magic_liquid_mana_regeneration",
+    "tag": "liquid"
+  },
+  {
+    "id": "magic_liquid_mana_regeneration",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "magic_liquid_mana_regeneration",
+    "tag": "water"
+  },
+  {
+    "id": "magic_liquid_movement_faster",
+    "tag": "impure"
+  },
+  {
+    "id": "magic_liquid_movement_faster",
+    "tag": "liquid"
+  },
+  {
+    "id": "magic_liquid_movement_faster",
+    "tag": "magic_faster"
+  },
+  {
+    "id": "magic_liquid_movement_faster",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "magic_liquid_movement_faster",
+    "tag": "water"
+  },
+  {
+    "id": "magic_liquid_polymorph",
+    "tag": "impure"
+  },
+  {
+    "id": "magic_liquid_polymorph",
+    "tag": "liquid"
+  },
+  {
+    "id": "magic_liquid_polymorph",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "magic_liquid_polymorph",
+    "tag": "magic_polymorph"
+  },
+  {
+    "id": "magic_liquid_polymorph",
+    "tag": "water"
+  },
+  {
+    "id": "magic_liquid_protection_all",
+    "tag": "impure"
+  },
+  {
+    "id": "magic_liquid_protection_all",
+    "tag": "liquid"
+  },
+  {
+    "id": "magic_liquid_protection_all",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "magic_liquid_protection_all",
+    "tag": "water"
+  },
+  {
+    "id": "magic_liquid_random_polymorph",
+    "tag": "impure"
+  },
+  {
+    "id": "magic_liquid_random_polymorph",
+    "tag": "liquid"
+  },
+  {
+    "id": "magic_liquid_random_polymorph",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "magic_liquid_random_polymorph",
+    "tag": "magic_polymorph"
+  },
+  {
+    "id": "magic_liquid_random_polymorph",
+    "tag": "water"
+  },
+  {
+    "id": "magic_liquid_teleportation",
+    "tag": "impure"
+  },
+  {
+    "id": "magic_liquid_teleportation",
+    "tag": "liquid"
+  },
+  {
+    "id": "magic_liquid_teleportation",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "magic_liquid_teleportation",
+    "tag": "water"
+  },
+  {
+    "id": "magic_liquid_unstable_polymorph",
+    "tag": "impure"
+  },
+  {
+    "id": "magic_liquid_unstable_polymorph",
+    "tag": "liquid"
+  },
+  {
+    "id": "magic_liquid_unstable_polymorph",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "magic_liquid_unstable_polymorph",
+    "tag": "magic_polymorph"
+  },
+  {
+    "id": "magic_liquid_unstable_polymorph",
+    "tag": "water"
+  },
+  {
+    "id": "magic_liquid_unstable_teleportation",
+    "tag": "impure"
+  },
+  {
+    "id": "magic_liquid_unstable_teleportation",
+    "tag": "liquid"
+  },
+  {
+    "id": "magic_liquid_unstable_teleportation",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "magic_liquid_unstable_teleportation",
+    "tag": "water"
+  },
+  {
+    "id": "magic_liquid_weakness",
+    "tag": "impure"
+  },
+  {
+    "id": "magic_liquid_weakness",
+    "tag": "liquid"
+  },
+  {
+    "id": "magic_liquid_weakness",
+    "tag": "magic_faster"
+  },
+  {
+    "id": "magic_liquid_weakness",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "magic_liquid_weakness",
+    "tag": "water"
+  },
+  {
+    "id": "magic_liquid_worm_attractor",
+    "tag": "impure"
+  },
+  {
+    "id": "magic_liquid_worm_attractor",
+    "tag": "liquid"
+  },
+  {
+    "id": "magic_liquid_worm_attractor",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "magic_liquid_worm_attractor",
+    "tag": "water"
+  },
+  {
+    "id": "mammi",
+    "tag": "corrodible"
+  },
+  {
+    "id": "mammi",
+    "tag": "sand_other"
+  },
+  {
+    "id": "mammi",
+    "tag": "soluble"
+  },
+  {
+    "id": "material_confusion",
+    "tag": "impure"
+  },
+  {
+    "id": "material_confusion",
+    "tag": "liquid"
+  },
+  {
+    "id": "material_confusion",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "material_confusion",
+    "tag": "water"
+  },
+  {
+    "id": "material_darkness",
+    "tag": "impure"
+  },
+  {
+    "id": "material_darkness",
+    "tag": "liquid"
+  },
+  {
+    "id": "material_darkness",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "material_darkness",
+    "tag": "water"
+  },
+  {
+    "id": "material_rainbow",
+    "tag": "impure"
+  },
+  {
+    "id": "material_rainbow",
+    "tag": "liquid"
+  },
+  {
+    "id": "material_rainbow",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "material_rainbow",
+    "tag": "water"
+  },
+  {
+    "id": "meat",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat",
+    "tag": "earth"
+  },
+  {
+    "id": "meat",
+    "tag": "food"
+  },
+  {
+    "id": "meat",
+    "tag": "meat"
+  },
+  {
+    "id": "meat",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_burned",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_burned",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_burned",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_burned",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_burned",
+    "tag": "food"
+  },
+  {
+    "id": "meat_burned",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_burned",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_confusion",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_confusion",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_confusion",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_confusion",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_confusion",
+    "tag": "food"
+  },
+  {
+    "id": "meat_confusion",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_confusion",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_cursed",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_cursed",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_cursed",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_cursed",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_cursed",
+    "tag": "food"
+  },
+  {
+    "id": "meat_cursed",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_cursed",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_cursed_dry",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_cursed_dry",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_cursed_dry",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_cursed_dry",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_cursed_dry",
+    "tag": "food"
+  },
+  {
+    "id": "meat_cursed_dry",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_cursed_dry",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_done",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_done",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_done",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_done",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_done",
+    "tag": "food"
+  },
+  {
+    "id": "meat_done",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_done",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_fast",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_fast",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_fast",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_fast",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_fast",
+    "tag": "food"
+  },
+  {
+    "id": "meat_fast",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_fast",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_frog",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_frog",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_frog",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_frog",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_frog",
+    "tag": "food"
+  },
+  {
+    "id": "meat_frog",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_frog",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_fruit",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_fruit",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_fruit",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_fruit",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_fruit",
+    "tag": "food"
+  },
+  {
+    "id": "meat_fruit",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_fruit",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_helpless",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_helpless",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_helpless",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_helpless",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_helpless",
+    "tag": "food"
+  },
+  {
+    "id": "meat_helpless",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_helpless",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_hot",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_hot",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_hot",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_hot",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_hot",
+    "tag": "food"
+  },
+  {
+    "id": "meat_hot",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_hot",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_polymorph",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_polymorph",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_polymorph",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_polymorph",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_polymorph",
+    "tag": "food"
+  },
+  {
+    "id": "meat_polymorph",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_polymorph",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_polymorph_protection",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_polymorph_protection",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_polymorph_protection",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_polymorph_protection",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_polymorph_protection",
+    "tag": "food"
+  },
+  {
+    "id": "meat_polymorph_protection",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_polymorph_protection",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_pumpkin",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_pumpkin",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_pumpkin",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_pumpkin",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_pumpkin",
+    "tag": "food"
+  },
+  {
+    "id": "meat_pumpkin",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_pumpkin",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_slime",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_slime",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_slime",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_slime",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_slime",
+    "tag": "food"
+  },
+  {
+    "id": "meat_slime",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_slime",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "meat_slime",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_slime_cursed",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_slime_cursed",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_slime_cursed",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_slime_cursed",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_slime_cursed",
+    "tag": "food"
+  },
+  {
+    "id": "meat_slime_cursed",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_slime_cursed",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "meat_slime_cursed",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_slime_green",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_slime_green",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_slime_green",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_slime_green",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_slime_green",
+    "tag": "food"
+  },
+  {
+    "id": "meat_slime_green",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_slime_green",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "meat_slime_green",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_slime_orange",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_slime_orange",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_slime_orange",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_slime_orange",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_slime_orange",
+    "tag": "food"
+  },
+  {
+    "id": "meat_slime_orange",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_slime_orange",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "meat_slime_orange",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_slime_sand",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_slime_sand",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_slime_sand",
+    "tag": "food"
+  },
+  {
+    "id": "meat_slime_sand",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_slime_sand",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "meat_slime_sand",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "meat_slime_sand",
+    "tag": "slime"
+  },
+  {
+    "id": "meat_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_static",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_static",
+    "tag": "food"
+  },
+  {
+    "id": "meat_static",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_static",
+    "tag": "meltable_to_blood"
+  },
+  {
+    "id": "meat_static",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_static",
+    "tag": "static"
+  },
+  {
+    "id": "meat_teleport",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_teleport",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_teleport",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_teleport",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_teleport",
+    "tag": "food"
+  },
+  {
+    "id": "meat_teleport",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_teleport",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_trippy",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_trippy",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_trippy",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_trippy",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_trippy",
+    "tag": "food"
+  },
+  {
+    "id": "meat_trippy",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_trippy",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_warm",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_warm",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_warm",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_warm",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_warm",
+    "tag": "food"
+  },
+  {
+    "id": "meat_warm",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_warm",
+    "tag": "solid"
+  },
+  {
+    "id": "meat_worm",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meat_worm",
+    "tag": "box2d"
+  },
+  {
+    "id": "meat_worm",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meat_worm",
+    "tag": "earth"
+  },
+  {
+    "id": "meat_worm",
+    "tag": "food"
+  },
+  {
+    "id": "meat_worm",
+    "tag": "meat"
+  },
+  {
+    "id": "meat_worm",
+    "tag": "solid"
+  },
+  {
+    "id": "metal",
+    "tag": "alchemy"
+  },
+  {
+    "id": "metal",
+    "tag": "box2d"
+  },
+  {
+    "id": "metal",
+    "tag": "corrodible"
+  },
+  {
+    "id": "metal",
+    "tag": "earth"
+  },
+  {
+    "id": "metal",
+    "tag": "meltable_metal"
+  },
+  {
+    "id": "metal",
+    "tag": "solid"
+  },
+  {
+    "id": "metal_chain_nohit",
+    "tag": "alchemy"
+  },
+  {
+    "id": "metal_chain_nohit",
+    "tag": "box2d"
+  },
+  {
+    "id": "metal_chain_nohit",
+    "tag": "corrodible"
+  },
+  {
+    "id": "metal_chain_nohit",
+    "tag": "earth"
+  },
+  {
+    "id": "metal_chain_nohit",
+    "tag": "meltable_metal_generic"
+  },
+  {
+    "id": "metal_chain_nohit",
+    "tag": "solid"
+  },
+  {
+    "id": "metal_hard",
+    "tag": "alchemy"
+  },
+  {
+    "id": "metal_hard",
+    "tag": "box2d"
+  },
+  {
+    "id": "metal_hard",
+    "tag": "corrodible"
+  },
+  {
+    "id": "metal_hard",
+    "tag": "meltable_metal_generic"
+  },
+  {
+    "id": "metal_hard",
+    "tag": "solid"
+  },
+  {
+    "id": "metal_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "metal_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "metal_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "metal_molten",
+    "tag": "gold"
+  },
+  {
+    "id": "metal_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "metal_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "metal_molten",
+    "tag": "molten_metal"
+  },
+  {
+    "id": "metal_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "metal_nohit",
+    "tag": "alchemy"
+  },
+  {
+    "id": "metal_nohit",
+    "tag": "box2d"
+  },
+  {
+    "id": "metal_nohit",
+    "tag": "corrodible"
+  },
+  {
+    "id": "metal_nohit",
+    "tag": "earth"
+  },
+  {
+    "id": "metal_nohit",
+    "tag": "meltable_metal"
+  },
+  {
+    "id": "metal_nohit",
+    "tag": "solid"
+  },
+  {
+    "id": "metal_nohit_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "metal_nohit_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "metal_nohit_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "metal_nohit_molten",
+    "tag": "gold"
+  },
+  {
+    "id": "metal_nohit_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "metal_nohit_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "metal_nohit_molten",
+    "tag": "molten_metal"
+  },
+  {
+    "id": "metal_nohit_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "metal_prop",
+    "tag": "alchemy"
+  },
+  {
+    "id": "metal_prop",
+    "tag": "box2d"
+  },
+  {
+    "id": "metal_prop",
+    "tag": "corrodible"
+  },
+  {
+    "id": "metal_prop",
+    "tag": "earth"
+  },
+  {
+    "id": "metal_prop",
+    "tag": "meltable_metal"
+  },
+  {
+    "id": "metal_prop",
+    "tag": "solid"
+  },
+  {
+    "id": "metal_prop_loose",
+    "tag": "alchemy"
+  },
+  {
+    "id": "metal_prop_loose",
+    "tag": "box2d"
+  },
+  {
+    "id": "metal_prop_loose",
+    "tag": "corrodible"
+  },
+  {
+    "id": "metal_prop_loose",
+    "tag": "earth"
+  },
+  {
+    "id": "metal_prop_loose",
+    "tag": "meltable_metal_generic"
+  },
+  {
+    "id": "metal_prop_loose",
+    "tag": "solid"
+  },
+  {
+    "id": "metal_prop_low_restitution",
+    "tag": "alchemy"
+  },
+  {
+    "id": "metal_prop_low_restitution",
+    "tag": "box2d"
+  },
+  {
+    "id": "metal_prop_low_restitution",
+    "tag": "corrodible"
+  },
+  {
+    "id": "metal_prop_low_restitution",
+    "tag": "earth"
+  },
+  {
+    "id": "metal_prop_low_restitution",
+    "tag": "meltable_metal_generic"
+  },
+  {
+    "id": "metal_prop_low_restitution",
+    "tag": "solid"
+  },
+  {
+    "id": "metal_prop_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "metal_prop_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "metal_prop_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "metal_prop_molten",
+    "tag": "gold"
+  },
+  {
+    "id": "metal_prop_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "metal_prop_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "metal_prop_molten",
+    "tag": "molten_metal"
+  },
+  {
+    "id": "metal_prop_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "metal_rust",
+    "tag": "alchemy"
+  },
+  {
+    "id": "metal_rust",
+    "tag": "box2d"
+  },
+  {
+    "id": "metal_rust",
+    "tag": "corrodible"
+  },
+  {
+    "id": "metal_rust",
+    "tag": "earth"
+  },
+  {
+    "id": "metal_rust",
+    "tag": "meltable_metal"
+  },
+  {
+    "id": "metal_rust",
+    "tag": "rust_box2d"
+  },
+  {
+    "id": "metal_rust",
+    "tag": "solid"
+  },
+  {
+    "id": "metal_rust_barrel",
+    "tag": "alchemy"
+  },
+  {
+    "id": "metal_rust_barrel",
+    "tag": "box2d"
+  },
+  {
+    "id": "metal_rust_barrel",
+    "tag": "corrodible"
+  },
+  {
+    "id": "metal_rust_barrel",
+    "tag": "earth"
+  },
+  {
+    "id": "metal_rust_barrel",
+    "tag": "meltable_metal_generic"
+  },
+  {
+    "id": "metal_rust_barrel",
+    "tag": "rust_box2d"
+  },
+  {
+    "id": "metal_rust_barrel",
+    "tag": "solid"
+  },
+  {
+    "id": "metal_rust_barrel_rust",
+    "tag": "alchemy"
+  },
+  {
+    "id": "metal_rust_barrel_rust",
+    "tag": "box2d"
+  },
+  {
+    "id": "metal_rust_barrel_rust",
+    "tag": "corrodible"
+  },
+  {
+    "id": "metal_rust_barrel_rust",
+    "tag": "earth"
+  },
+  {
+    "id": "metal_rust_barrel_rust",
+    "tag": "meltable_metal_generic"
+  },
+  {
+    "id": "metal_rust_barrel_rust",
+    "tag": "solid"
+  },
+  {
+    "id": "metal_rust_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "metal_rust_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "metal_rust_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "metal_rust_molten",
+    "tag": "gold"
+  },
+  {
+    "id": "metal_rust_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "metal_rust_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "metal_rust_molten",
+    "tag": "molten_metal"
+  },
+  {
+    "id": "metal_rust_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "metal_rust_rust",
+    "tag": "alchemy"
+  },
+  {
+    "id": "metal_rust_rust",
+    "tag": "box2d"
+  },
+  {
+    "id": "metal_rust_rust",
+    "tag": "corrodible"
+  },
+  {
+    "id": "metal_rust_rust",
+    "tag": "earth"
+  },
+  {
+    "id": "metal_rust_rust",
+    "tag": "meltable_metal_generic"
+  },
+  {
+    "id": "metal_rust_rust",
+    "tag": "solid"
+  },
+  {
+    "id": "metal_sand",
+    "tag": "alchemy"
+  },
+  {
+    "id": "metal_sand",
+    "tag": "corrodible"
+  },
+  {
+    "id": "metal_sand",
+    "tag": "meltable_metal"
+  },
+  {
+    "id": "metal_sand",
+    "tag": "sand_metal"
+  },
+  {
+    "id": "metal_sand_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "metal_sand_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "metal_sand_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "metal_sand_molten",
+    "tag": "gold"
+  },
+  {
+    "id": "metal_sand_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "metal_sand_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "metal_sand_molten",
+    "tag": "molten_metal"
+  },
+  {
+    "id": "metal_sand_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "metal_wire_nohit",
+    "tag": "alchemy"
+  },
+  {
+    "id": "metal_wire_nohit",
+    "tag": "box2d"
+  },
+  {
+    "id": "metal_wire_nohit",
+    "tag": "corrodible"
+  },
+  {
+    "id": "metal_wire_nohit",
+    "tag": "earth"
+  },
+  {
+    "id": "metal_wire_nohit",
+    "tag": "meltable_metal_generic"
+  },
+  {
+    "id": "metal_wire_nohit",
+    "tag": "solid"
+  },
+  {
+    "id": "meteorite",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meteorite",
+    "tag": "box2d"
+  },
+  {
+    "id": "meteorite",
+    "tag": "earth"
+  },
+  {
+    "id": "meteorite",
+    "tag": "solid"
+  },
+  {
+    "id": "meteorite_crackable",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meteorite_crackable",
+    "tag": "box2d"
+  },
+  {
+    "id": "meteorite_crackable",
+    "tag": "earth"
+  },
+  {
+    "id": "meteorite_crackable",
+    "tag": "solid"
+  },
+  {
+    "id": "meteorite_green",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meteorite_green",
+    "tag": "box2d"
+  },
+  {
+    "id": "meteorite_green",
+    "tag": "earth"
+  },
+  {
+    "id": "meteorite_green",
+    "tag": "solid"
+  },
+  {
+    "id": "meteorite_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meteorite_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "meteorite_static",
+    "tag": "earth"
+  },
+  {
+    "id": "meteorite_static",
+    "tag": "solid"
+  },
+  {
+    "id": "meteorite_static",
+    "tag": "static"
+  },
+  {
+    "id": "meteorite_test",
+    "tag": "alchemy"
+  },
+  {
+    "id": "meteorite_test",
+    "tag": "box2d"
+  },
+  {
+    "id": "meteorite_test",
+    "tag": "earth"
+  },
+  {
+    "id": "meteorite_test",
+    "tag": "solid"
+  },
+  {
+    "id": "midas",
+    "tag": "burnable"
+  },
+  {
+    "id": "midas",
+    "tag": "liquid"
+  },
+  {
+    "id": "midas",
+    "tag": "water"
+  },
+  {
+    "id": "midas_precursor",
+    "tag": "burnable"
+  },
+  {
+    "id": "midas_precursor",
+    "tag": "liquid"
+  },
+  {
+    "id": "midas_precursor",
+    "tag": "water"
+  },
+  {
+    "id": "milk",
+    "tag": "impure"
+  },
+  {
+    "id": "milk",
+    "tag": "liquid"
+  },
+  {
+    "id": "milk",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "milk",
+    "tag": "water"
+  },
+  {
+    "id": "mimic_liquid",
+    "tag": "liquid"
+  },
+  {
+    "id": "mimic_liquid",
+    "tag": "mimic_liquid"
+  },
+  {
+    "id": "molut",
+    "tag": "impure"
+  },
+  {
+    "id": "molut",
+    "tag": "liquid"
+  },
+  {
+    "id": "molut",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "molut",
+    "tag": "water"
+  },
+  {
+    "id": "monster_powder_test",
+    "tag": "alchemy"
+  },
+  {
+    "id": "monster_powder_test",
+    "tag": "burnable"
+  },
+  {
+    "id": "monster_powder_test",
+    "tag": "corrodible"
+  },
+  {
+    "id": "monster_powder_test",
+    "tag": "sand_other"
+  },
+  {
+    "id": "moss",
+    "tag": "alchemy"
+  },
+  {
+    "id": "moss",
+    "tag": "burnable"
+  },
+  {
+    "id": "moss",
+    "tag": "corrodible"
+  },
+  {
+    "id": "moss",
+    "tag": "impure"
+  },
+  {
+    "id": "moss",
+    "tag": "plant"
+  },
+  {
+    "id": "moss_rust",
+    "tag": "alchemy"
+  },
+  {
+    "id": "moss_rust",
+    "tag": "burnable"
+  },
+  {
+    "id": "moss_rust",
+    "tag": "corrodible"
+  },
+  {
+    "id": "moss_rust",
+    "tag": "impure"
+  },
+  {
+    "id": "moss_rust",
+    "tag": "plant"
+  },
+  {
+    "id": "mud",
+    "tag": "corrodible"
+  },
+  {
+    "id": "mud",
+    "tag": "impure"
+  },
+  {
+    "id": "mud",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "mud",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "mushroom",
+    "tag": "burnable"
+  },
+  {
+    "id": "mushroom",
+    "tag": "corrodible"
+  },
+  {
+    "id": "mushroom",
+    "tag": "plant"
+  },
+  {
+    "id": "mushroom_giant_blue",
+    "tag": "burnable"
+  },
+  {
+    "id": "mushroom_giant_blue",
+    "tag": "corrodible"
+  },
+  {
+    "id": "mushroom_giant_blue",
+    "tag": "plant"
+  },
+  {
+    "id": "mushroom_giant_blue",
+    "tag": "requires_air"
+  },
+  {
+    "id": "mushroom_giant_red",
+    "tag": "burnable"
+  },
+  {
+    "id": "mushroom_giant_red",
+    "tag": "corrodible"
+  },
+  {
+    "id": "mushroom_giant_red",
+    "tag": "plant"
+  },
+  {
+    "id": "mushroom_giant_red",
+    "tag": "requires_air"
+  },
+  {
+    "id": "mushroom_seed",
+    "tag": "burnable"
+  },
+  {
+    "id": "mushroom_seed",
+    "tag": "corrodible"
+  },
+  {
+    "id": "mushroom_seed",
+    "tag": "plant"
+  },
+  {
+    "id": "neon_tube_blood_red",
+    "tag": "alchemy"
+  },
+  {
+    "id": "neon_tube_blood_red",
+    "tag": "box2d"
+  },
+  {
+    "id": "neon_tube_blood_red",
+    "tag": "corrodible"
+  },
+  {
+    "id": "neon_tube_blood_red",
+    "tag": "earth"
+  },
+  {
+    "id": "neon_tube_blood_red",
+    "tag": "solid"
+  },
+  {
+    "id": "neon_tube_blood_red",
+    "tag": "static"
+  },
+  {
+    "id": "neon_tube_cyan",
+    "tag": "alchemy"
+  },
+  {
+    "id": "neon_tube_cyan",
+    "tag": "box2d"
+  },
+  {
+    "id": "neon_tube_cyan",
+    "tag": "corrodible"
+  },
+  {
+    "id": "neon_tube_cyan",
+    "tag": "earth"
+  },
+  {
+    "id": "neon_tube_cyan",
+    "tag": "solid"
+  },
+  {
+    "id": "neon_tube_cyan",
+    "tag": "static"
+  },
+  {
+    "id": "neon_tube_purple",
+    "tag": "alchemy"
+  },
+  {
+    "id": "neon_tube_purple",
+    "tag": "box2d"
+  },
+  {
+    "id": "neon_tube_purple",
+    "tag": "corrodible"
+  },
+  {
+    "id": "neon_tube_purple",
+    "tag": "earth"
+  },
+  {
+    "id": "neon_tube_purple",
+    "tag": "solid"
+  },
+  {
+    "id": "neon_tube_purple",
+    "tag": "static"
+  },
+  {
+    "id": "nest_box2d",
+    "tag": "alchemy"
+  },
+  {
+    "id": "nest_box2d",
+    "tag": "box2d"
+  },
+  {
+    "id": "nest_box2d",
+    "tag": "burnable"
+  },
+  {
+    "id": "nest_box2d",
+    "tag": "corrodible"
+  },
+  {
+    "id": "nest_box2d",
+    "tag": "earth"
+  },
+  {
+    "id": "nest_box2d",
+    "tag": "solid"
+  },
+  {
+    "id": "nest_firebug_box2d",
+    "tag": "alchemy"
+  },
+  {
+    "id": "nest_firebug_box2d",
+    "tag": "box2d"
+  },
+  {
+    "id": "nest_firebug_box2d",
+    "tag": "burnable"
+  },
+  {
+    "id": "nest_firebug_box2d",
+    "tag": "corrodible"
+  },
+  {
+    "id": "nest_firebug_box2d",
+    "tag": "earth"
+  },
+  {
+    "id": "nest_firebug_box2d",
+    "tag": "solid"
+  },
+  {
+    "id": "nest_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "nest_static",
+    "tag": "burnable"
+  },
+  {
+    "id": "nest_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "nest_static",
+    "tag": "earth"
+  },
+  {
+    "id": "nest_static",
+    "tag": "solid"
+  },
+  {
+    "id": "nest_static",
+    "tag": "static"
+  },
+  {
+    "id": "oil",
+    "tag": "burnable"
+  },
+  {
+    "id": "oil",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "oil",
+    "tag": "impure"
+  },
+  {
+    "id": "oil",
+    "tag": "liquid"
+  },
+  {
+    "id": "oil",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "orb_powder",
+    "tag": "NO_FUNGAL_SHIFT"
+  },
+  {
+    "id": "pea_soup",
+    "tag": "alchemy"
+  },
+  {
+    "id": "pea_soup",
+    "tag": "corrodible"
+  },
+  {
+    "id": "pea_soup",
+    "tag": "food"
+  },
+  {
+    "id": "pea_soup",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "pea_soup",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "pea_soup",
+    "tag": "slime"
+  },
+  {
+    "id": "peat",
+    "tag": "alchemy"
+  },
+  {
+    "id": "peat",
+    "tag": "burnable"
+  },
+  {
+    "id": "peat",
+    "tag": "corrodible"
+  },
+  {
+    "id": "peat",
+    "tag": "impure"
+  },
+  {
+    "id": "peat",
+    "tag": "plant"
+  },
+  {
+    "id": "physics_throw_material_part2",
+    "tag": "alchemy"
+  },
+  {
+    "id": "physics_throw_material_part2",
+    "tag": "box2d"
+  },
+  {
+    "id": "plant_material",
+    "tag": "burnable"
+  },
+  {
+    "id": "plant_material",
+    "tag": "corrodible"
+  },
+  {
+    "id": "plant_material",
+    "tag": "plant"
+  },
+  {
+    "id": "plant_material",
+    "tag": "requires_air"
+  },
+  {
+    "id": "plant_material_dark",
+    "tag": "burnable"
+  },
+  {
+    "id": "plant_material_dark",
+    "tag": "corrodible"
+  },
+  {
+    "id": "plant_material_dark",
+    "tag": "plant"
+  },
+  {
+    "id": "plant_material_dark",
+    "tag": "requires_air"
+  },
+  {
+    "id": "plant_material_red",
+    "tag": "burnable"
+  },
+  {
+    "id": "plant_material_red",
+    "tag": "corrodible"
+  },
+  {
+    "id": "plant_material_red",
+    "tag": "plant"
+  },
+  {
+    "id": "plant_material_red",
+    "tag": "requires_air"
+  },
+  {
+    "id": "plant_seed",
+    "tag": "burnable"
+  },
+  {
+    "id": "plant_seed",
+    "tag": "corrodible"
+  },
+  {
+    "id": "plant_seed",
+    "tag": "plant"
+  },
+  {
+    "id": "plasma_fading",
+    "tag": "corrodible"
+  },
+  {
+    "id": "plasma_fading",
+    "tag": "evaporable_fast"
+  },
+  {
+    "id": "plasma_fading",
+    "tag": "impure"
+  },
+  {
+    "id": "plasma_fading",
+    "tag": "liquid"
+  },
+  {
+    "id": "plasma_fading",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "plasma_fading",
+    "tag": "soluble"
+  },
+  {
+    "id": "plasma_fading_bright",
+    "tag": "corrodible"
+  },
+  {
+    "id": "plasma_fading_bright",
+    "tag": "evaporable_fast"
+  },
+  {
+    "id": "plasma_fading_bright",
+    "tag": "impure"
+  },
+  {
+    "id": "plasma_fading_bright",
+    "tag": "liquid"
+  },
+  {
+    "id": "plasma_fading_bright",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "plasma_fading_bright",
+    "tag": "soluble"
+  },
+  {
+    "id": "plasma_fading_green",
+    "tag": "corrodible"
+  },
+  {
+    "id": "plasma_fading_green",
+    "tag": "evaporable_fast"
+  },
+  {
+    "id": "plasma_fading_green",
+    "tag": "impure"
+  },
+  {
+    "id": "plasma_fading_green",
+    "tag": "liquid"
+  },
+  {
+    "id": "plasma_fading_green",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "plasma_fading_green",
+    "tag": "soluble"
+  },
+  {
+    "id": "plasma_fading_pink",
+    "tag": "corrodible"
+  },
+  {
+    "id": "plasma_fading_pink",
+    "tag": "evaporable_fast"
+  },
+  {
+    "id": "plasma_fading_pink",
+    "tag": "impure"
+  },
+  {
+    "id": "plasma_fading_pink",
+    "tag": "liquid"
+  },
+  {
+    "id": "plasma_fading_pink",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "plasma_fading_pink",
+    "tag": "soluble"
+  },
+  {
+    "id": "plastic",
+    "tag": "alchemy"
+  },
+  {
+    "id": "plastic",
+    "tag": "box2d"
+  },
+  {
+    "id": "plastic",
+    "tag": "corrodible"
+  },
+  {
+    "id": "plastic",
+    "tag": "earth"
+  },
+  {
+    "id": "plastic",
+    "tag": "meltable_plastic"
+  },
+  {
+    "id": "plastic",
+    "tag": "solid"
+  },
+  {
+    "id": "plastic_grey",
+    "tag": "alchemy"
+  },
+  {
+    "id": "plastic_grey",
+    "tag": "corrodible"
+  },
+  {
+    "id": "plastic_grey",
+    "tag": "meltable"
+  },
+  {
+    "id": "plastic_grey_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "plastic_grey_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "plastic_grey_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "plastic_grey_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "plastic_grey_molten",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "plastic_grey_molten",
+    "tag": "molten"
+  },
+  {
+    "id": "plastic_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "plastic_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "plastic_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "plastic_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "plastic_molten",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "plastic_molten",
+    "tag": "molten"
+  },
+  {
+    "id": "plastic_prop",
+    "tag": "alchemy"
+  },
+  {
+    "id": "plastic_prop",
+    "tag": "box2d"
+  },
+  {
+    "id": "plastic_prop",
+    "tag": "corrodible"
+  },
+  {
+    "id": "plastic_prop",
+    "tag": "earth"
+  },
+  {
+    "id": "plastic_prop",
+    "tag": "meltable_plastic"
+  },
+  {
+    "id": "plastic_prop",
+    "tag": "solid"
+  },
+  {
+    "id": "plastic_prop_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "plastic_prop_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "plastic_prop_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "plastic_prop_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "plastic_prop_molten",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "plastic_prop_molten",
+    "tag": "molten"
+  },
+  {
+    "id": "plastic_red",
+    "tag": "alchemy"
+  },
+  {
+    "id": "plastic_red",
+    "tag": "corrodible"
+  },
+  {
+    "id": "plastic_red",
+    "tag": "meltable"
+  },
+  {
+    "id": "plastic_red_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "plastic_red_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "plastic_red_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "plastic_red_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "plastic_red_molten",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "plastic_red_molten",
+    "tag": "molten"
+  },
+  {
+    "id": "poison",
+    "tag": "corrodible"
+  },
+  {
+    "id": "poison",
+    "tag": "impure"
+  },
+  {
+    "id": "poison",
+    "tag": "liquid"
+  },
+  {
+    "id": "poison",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "poison",
+    "tag": "soluble"
+  },
+  {
+    "id": "poison_gas",
+    "tag": "burnable_fast"
+  },
+  {
+    "id": "poison_gas",
+    "tag": "gas"
+  },
+  {
+    "id": "poo",
+    "tag": "corrodible"
+  },
+  {
+    "id": "poo",
+    "tag": "sand_other"
+  },
+  {
+    "id": "poo",
+    "tag": "soluble"
+  },
+  {
+    "id": "poo_gas",
+    "tag": "gas"
+  },
+  {
+    "id": "poop_box2d_hard",
+    "tag": "box2d"
+  },
+  {
+    "id": "poop_box2d_hard",
+    "tag": "matter_eater_ignore_list"
+  },
+  {
+    "id": "poop_box2d_hard",
+    "tag": "sunbaby_ignore_list"
+  },
+  {
+    "id": "porridge",
+    "tag": "corrodible"
+  },
+  {
+    "id": "porridge",
+    "tag": "evaporable_by_fire"
+  },
+  {
+    "id": "porridge",
+    "tag": "food"
+  },
+  {
+    "id": "porridge",
+    "tag": "impure"
+  },
+  {
+    "id": "porridge",
+    "tag": "liquid"
+  },
+  {
+    "id": "porridge",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "porridge",
+    "tag": "soluble"
+  },
+  {
+    "id": "potion_glass_box2d",
+    "tag": "box2d"
+  },
+  {
+    "id": "purifying_powder",
+    "tag": "alchemy"
+  },
+  {
+    "id": "purifying_powder",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "purifying_powder",
+    "tag": "corrodible"
+  },
+  {
+    "id": "purifying_powder",
+    "tag": "sand_other"
+  },
+  {
+    "id": "pus",
+    "tag": "impure"
+  },
+  {
+    "id": "pus",
+    "tag": "liquid"
+  },
+  {
+    "id": "pus",
+    "tag": "magic_liquid"
+  },
+  {
+    "id": "pus",
+    "tag": "water"
+  },
+  {
+    "id": "radioactive_gas",
+    "tag": "gas"
+  },
+  {
+    "id": "radioactive_gas_static",
+    "tag": "gas"
+  },
+  {
+    "id": "radioactive_liquid",
+    "tag": "corrodible"
+  },
+  {
+    "id": "radioactive_liquid",
+    "tag": "impure"
+  },
+  {
+    "id": "radioactive_liquid",
+    "tag": "liquid"
+  },
+  {
+    "id": "radioactive_liquid",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "radioactive_liquid",
+    "tag": "radioactive"
+  },
+  {
+    "id": "radioactive_liquid",
+    "tag": "soluble"
+  },
+  {
+    "id": "radioactive_liquid_fading",
+    "tag": "corrodible"
+  },
+  {
+    "id": "radioactive_liquid_fading",
+    "tag": "evaporable"
+  },
+  {
+    "id": "radioactive_liquid_fading",
+    "tag": "impure"
+  },
+  {
+    "id": "radioactive_liquid_fading",
+    "tag": "liquid"
+  },
+  {
+    "id": "radioactive_liquid_fading",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "radioactive_liquid_fading",
+    "tag": "radioactive"
+  },
+  {
+    "id": "radioactive_liquid_fading",
+    "tag": "soluble"
+  },
+  {
+    "id": "radioactive_liquid_yellow",
+    "tag": "corrodible"
+  },
+  {
+    "id": "radioactive_liquid_yellow",
+    "tag": "impure"
+  },
+  {
+    "id": "radioactive_liquid_yellow",
+    "tag": "liquid"
+  },
+  {
+    "id": "radioactive_liquid_yellow",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "radioactive_liquid_yellow",
+    "tag": "radioactive"
+  },
+  {
+    "id": "radioactive_liquid_yellow",
+    "tag": "soluble"
+  },
+  {
+    "id": "rainbow_gas",
+    "tag": "gas"
+  },
+  {
+    "id": "rat_powder",
+    "tag": "sand_other"
+  },
+  {
+    "id": "rock_box2d",
+    "tag": "box2d"
+  },
+  {
+    "id": "rock_box2d",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_box2d",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_box2d_hard",
+    "tag": "box2d"
+  },
+  {
+    "id": "rock_box2d_hard",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_box2d_hard",
+    "tag": "sunbaby_ignore_list"
+  },
+  {
+    "id": "rock_box2d_nohit",
+    "tag": "box2d"
+  },
+  {
+    "id": "rock_box2d_nohit",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_box2d_nohit",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_box2d_nohit_hard",
+    "tag": "box2d"
+  },
+  {
+    "id": "rock_box2d_nohit_hard",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_box2d_nohit_heavy",
+    "tag": "box2d"
+  },
+  {
+    "id": "rock_box2d_nohit_heavy",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_box2d_nohit_heavy",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_eroding",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_eroding",
+    "tag": "corrodible"
+  },
+  {
+    "id": "rock_eroding",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_eroding",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "rock_eroding",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_eroding",
+    "tag": "static"
+  },
+  {
+    "id": "rock_hard",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_hard",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_hard",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_hard",
+    "tag": "static"
+  },
+  {
+    "id": "rock_hard_border",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_hard_border",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_hard_border",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_hard_border",
+    "tag": "static"
+  },
+  {
+    "id": "rock_loose",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_loose",
+    "tag": "box2d"
+  },
+  {
+    "id": "rock_loose",
+    "tag": "corrodible"
+  },
+  {
+    "id": "rock_loose",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_loose",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_magic_bottom",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_magic_bottom",
+    "tag": "corrodible"
+  },
+  {
+    "id": "rock_magic_bottom",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_magic_bottom",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "rock_magic_bottom",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_magic_bottom",
+    "tag": "static"
+  },
+  {
+    "id": "rock_magic_gate",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_magic_gate",
+    "tag": "corrodible"
+  },
+  {
+    "id": "rock_magic_gate",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_magic_gate",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "rock_magic_gate",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_magic_gate",
+    "tag": "static"
+  },
+  {
+    "id": "rock_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "rock_static",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_static",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "rock_static",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_static",
+    "tag": "static"
+  },
+  {
+    "id": "rock_static_box2d",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_static_box2d",
+    "tag": "box2d"
+  },
+  {
+    "id": "rock_static_box2d",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_static_box2d",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_static_box2d",
+    "tag": "static"
+  },
+  {
+    "id": "rock_static_cursed",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_static_cursed",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_static_cursed",
+    "tag": "matter_eater_ignore_list"
+  },
+  {
+    "id": "rock_static_cursed",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_static_cursed",
+    "tag": "static"
+  },
+  {
+    "id": "rock_static_cursed_green",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_static_cursed_green",
+    "tag": "corrodible"
+  },
+  {
+    "id": "rock_static_cursed_green",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_static_cursed_green",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "rock_static_cursed_green",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_static_cursed_green",
+    "tag": "static"
+  },
+  {
+    "id": "rock_static_fungal",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_static_fungal",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_static_fungal",
+    "tag": "fungus"
+  },
+  {
+    "id": "rock_static_fungal",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_static_fungal",
+    "tag": "static"
+  },
+  {
+    "id": "rock_static_glow",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_static_glow",
+    "tag": "corrodible"
+  },
+  {
+    "id": "rock_static_glow",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_static_glow",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "rock_static_glow",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_static_glow",
+    "tag": "static"
+  },
+  {
+    "id": "rock_static_grey",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_static_grey",
+    "tag": "corrodible"
+  },
+  {
+    "id": "rock_static_grey",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_static_grey",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "rock_static_grey",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_static_grey",
+    "tag": "static"
+  },
+  {
+    "id": "rock_static_intro",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_static_intro",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_static_intro",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_static_intro",
+    "tag": "static"
+  },
+  {
+    "id": "rock_static_intro_breakable",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_static_intro_breakable",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_static_intro_breakable",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_static_intro_breakable",
+    "tag": "static"
+  },
+  {
+    "id": "rock_static_noedge",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_static_noedge",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_static_noedge",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_static_noedge",
+    "tag": "static"
+  },
+  {
+    "id": "rock_static_poison",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_static_poison",
+    "tag": "corrodible"
+  },
+  {
+    "id": "rock_static_poison",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_static_poison",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "rock_static_poison",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_static_poison",
+    "tag": "static"
+  },
+  {
+    "id": "rock_static_purple",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_static_purple",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_static_purple",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_static_purple",
+    "tag": "static"
+  },
+  {
+    "id": "rock_static_radioactive",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_static_radioactive",
+    "tag": "corrodible"
+  },
+  {
+    "id": "rock_static_radioactive",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_static_radioactive",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "rock_static_radioactive",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_static_radioactive",
+    "tag": "static"
+  },
+  {
+    "id": "rock_static_trip_secret",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_static_trip_secret",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_static_trip_secret",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_static_trip_secret",
+    "tag": "static"
+  },
+  {
+    "id": "rock_static_trip_secret2",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_static_trip_secret2",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_static_trip_secret2",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_static_trip_secret2",
+    "tag": "static"
+  },
+  {
+    "id": "rock_static_wet",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_static_wet",
+    "tag": "corrodible"
+  },
+  {
+    "id": "rock_static_wet",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_static_wet",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "rock_static_wet",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_static_wet",
+    "tag": "static"
+  },
+  {
+    "id": "rock_vault",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rock_vault",
+    "tag": "corrodible"
+  },
+  {
+    "id": "rock_vault",
+    "tag": "earth"
+  },
+  {
+    "id": "rock_vault",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "rock_vault",
+    "tag": "solid"
+  },
+  {
+    "id": "rock_vault",
+    "tag": "static"
+  },
+  {
+    "id": "rocket_particles",
+    "tag": "liquid"
+  },
+  {
+    "id": "root",
+    "tag": "alchemy"
+  },
+  {
+    "id": "root",
+    "tag": "burnable"
+  },
+  {
+    "id": "root",
+    "tag": "corrodible"
+  },
+  {
+    "id": "root",
+    "tag": "earth"
+  },
+  {
+    "id": "root",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "root",
+    "tag": "solid"
+  },
+  {
+    "id": "root",
+    "tag": "static"
+  },
+  {
+    "id": "root_growth",
+    "tag": "alchemy"
+  },
+  {
+    "id": "root_growth",
+    "tag": "burnable"
+  },
+  {
+    "id": "root_growth",
+    "tag": "corrodible"
+  },
+  {
+    "id": "root_growth",
+    "tag": "earth"
+  },
+  {
+    "id": "root_growth",
+    "tag": "solid"
+  },
+  {
+    "id": "rotten_meat",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rotten_meat",
+    "tag": "corrodible"
+  },
+  {
+    "id": "rotten_meat",
+    "tag": "food"
+  },
+  {
+    "id": "rotten_meat",
+    "tag": "meat"
+  },
+  {
+    "id": "rotten_meat",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "rotten_meat",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "rotten_meat_radioactive",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rotten_meat_radioactive",
+    "tag": "corrodible"
+  },
+  {
+    "id": "rotten_meat_radioactive",
+    "tag": "earth"
+  },
+  {
+    "id": "rotten_meat_radioactive",
+    "tag": "food"
+  },
+  {
+    "id": "rotten_meat_radioactive",
+    "tag": "meat"
+  },
+  {
+    "id": "rotten_meat_radioactive",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "rotten_meat_radioactive",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "rotten_meat_radioactive",
+    "tag": "solid"
+  },
+  {
+    "id": "rust_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "rust_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "rust_static",
+    "tag": "earth"
+  },
+  {
+    "id": "rust_static",
+    "tag": "solid"
+  },
+  {
+    "id": "rust_static",
+    "tag": "static"
+  },
+  {
+    "id": "salt",
+    "tag": "alchemy"
+  },
+  {
+    "id": "salt",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "salt",
+    "tag": "corrodible"
+  },
+  {
+    "id": "salt",
+    "tag": "sand_other"
+  },
+  {
+    "id": "sand",
+    "tag": "alchemy"
+  },
+  {
+    "id": "sand",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "sand",
+    "tag": "corrodible"
+  },
+  {
+    "id": "sand",
+    "tag": "meltable_to_lava_fast"
+  },
+  {
+    "id": "sand",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "sand_blue",
+    "tag": "alchemy"
+  },
+  {
+    "id": "sand_blue",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "sand_blue",
+    "tag": "corrodible"
+  },
+  {
+    "id": "sand_blue",
+    "tag": "meltable_to_lava_fast"
+  },
+  {
+    "id": "sand_blue",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "sand_herb",
+    "tag": "alchemy"
+  },
+  {
+    "id": "sand_herb",
+    "tag": "burnable"
+  },
+  {
+    "id": "sand_herb",
+    "tag": "corrodible"
+  },
+  {
+    "id": "sand_herb",
+    "tag": "evaporable_custom"
+  },
+  {
+    "id": "sand_herb_vapour",
+    "tag": "gas"
+  },
+  {
+    "id": "sand_herb_vapour",
+    "tag": "vapour"
+  },
+  {
+    "id": "sand_petrify",
+    "tag": "alchemy"
+  },
+  {
+    "id": "sand_petrify",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "sand_petrify",
+    "tag": "corrodible"
+  },
+  {
+    "id": "sand_petrify",
+    "tag": "meltable_to_lava_fast"
+  },
+  {
+    "id": "sand_petrify",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "sand_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "sand_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "sand_static",
+    "tag": "earth"
+  },
+  {
+    "id": "sand_static",
+    "tag": "solid"
+  },
+  {
+    "id": "sand_static",
+    "tag": "static"
+  },
+  {
+    "id": "sand_static_bright",
+    "tag": "alchemy"
+  },
+  {
+    "id": "sand_static_bright",
+    "tag": "corrodible"
+  },
+  {
+    "id": "sand_static_bright",
+    "tag": "earth"
+  },
+  {
+    "id": "sand_static_bright",
+    "tag": "solid"
+  },
+  {
+    "id": "sand_static_bright",
+    "tag": "static"
+  },
+  {
+    "id": "sand_static_rainforest",
+    "tag": "alchemy"
+  },
+  {
+    "id": "sand_static_rainforest",
+    "tag": "corrodible"
+  },
+  {
+    "id": "sand_static_rainforest",
+    "tag": "earth"
+  },
+  {
+    "id": "sand_static_rainforest",
+    "tag": "solid"
+  },
+  {
+    "id": "sand_static_rainforest",
+    "tag": "static"
+  },
+  {
+    "id": "sand_static_rainforest_dark",
+    "tag": "alchemy"
+  },
+  {
+    "id": "sand_static_rainforest_dark",
+    "tag": "corrodible"
+  },
+  {
+    "id": "sand_static_rainforest_dark",
+    "tag": "earth"
+  },
+  {
+    "id": "sand_static_rainforest_dark",
+    "tag": "solid"
+  },
+  {
+    "id": "sand_static_rainforest_dark",
+    "tag": "static"
+  },
+  {
+    "id": "sand_static_red",
+    "tag": "alchemy"
+  },
+  {
+    "id": "sand_static_red",
+    "tag": "corrodible"
+  },
+  {
+    "id": "sand_static_red",
+    "tag": "earth"
+  },
+  {
+    "id": "sand_static_red",
+    "tag": "solid"
+  },
+  {
+    "id": "sand_static_red",
+    "tag": "static"
+  },
+  {
+    "id": "sand_surface",
+    "tag": "alchemy"
+  },
+  {
+    "id": "sand_surface",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "sand_surface",
+    "tag": "corrodible"
+  },
+  {
+    "id": "sand_surface",
+    "tag": "meltable_to_lava_fast"
+  },
+  {
+    "id": "sand_surface",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "sandstone",
+    "tag": "alchemy"
+  },
+  {
+    "id": "sandstone",
+    "tag": "corrodible"
+  },
+  {
+    "id": "sandstone",
+    "tag": "earth"
+  },
+  {
+    "id": "sandstone",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "sandstone",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "sandstone",
+    "tag": "solid"
+  },
+  {
+    "id": "sandstone_surface",
+    "tag": "alchemy"
+  },
+  {
+    "id": "sandstone_surface",
+    "tag": "corrodible"
+  },
+  {
+    "id": "sandstone_surface",
+    "tag": "earth"
+  },
+  {
+    "id": "sandstone_surface",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "sandstone_surface",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "sandstone_surface",
+    "tag": "solid"
+  },
+  {
+    "id": "shock_powder",
+    "tag": "fungus"
+  },
+  {
+    "id": "shock_powder",
+    "tag": "sand_other"
+  },
+  {
+    "id": "silver",
+    "tag": "alchemy"
+  },
+  {
+    "id": "silver",
+    "tag": "corrodible"
+  },
+  {
+    "id": "silver",
+    "tag": "earth"
+  },
+  {
+    "id": "silver",
+    "tag": "meltable_metal"
+  },
+  {
+    "id": "silver",
+    "tag": "sand_metal"
+  },
+  {
+    "id": "silver",
+    "tag": "solid"
+  },
+  {
+    "id": "silver_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "silver_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "silver_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "silver_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "silver_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "silver_molten",
+    "tag": "molten"
+  },
+  {
+    "id": "silver_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "sima",
+    "tag": "impure"
+  },
+  {
+    "id": "sima",
+    "tag": "liquid"
+  },
+  {
+    "id": "sima",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "sima",
+    "tag": "water"
+  },
+  {
+    "id": "skullrock",
+    "tag": "alchemy"
+  },
+  {
+    "id": "skullrock",
+    "tag": "corrodible"
+  },
+  {
+    "id": "skullrock",
+    "tag": "earth"
+  },
+  {
+    "id": "skullrock",
+    "tag": "solid"
+  },
+  {
+    "id": "skullrock",
+    "tag": "static"
+  },
+  {
+    "id": "slime",
+    "tag": "alchemy"
+  },
+  {
+    "id": "slime",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "slime",
+    "tag": "corrodible"
+  },
+  {
+    "id": "slime",
+    "tag": "food"
+  },
+  {
+    "id": "slime",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "slime",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "slime",
+    "tag": "slime"
+  },
+  {
+    "id": "slime_green",
+    "tag": "alchemy"
+  },
+  {
+    "id": "slime_green",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "slime_green",
+    "tag": "corrodible"
+  },
+  {
+    "id": "slime_green",
+    "tag": "food"
+  },
+  {
+    "id": "slime_green",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "slime_green",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "slime_green",
+    "tag": "slime"
+  },
+  {
+    "id": "slime_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "slime_static",
+    "tag": "earth"
+  },
+  {
+    "id": "slime_static",
+    "tag": "food"
+  },
+  {
+    "id": "slime_static",
+    "tag": "solid"
+  },
+  {
+    "id": "slime_static",
+    "tag": "static"
+  },
+  {
+    "id": "slime_yellow",
+    "tag": "alchemy"
+  },
+  {
+    "id": "slime_yellow",
+    "tag": "corrodible"
+  },
+  {
+    "id": "slime_yellow",
+    "tag": "food"
+  },
+  {
+    "id": "slime_yellow",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "slime_yellow",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "slime_yellow",
+    "tag": "slime"
+  },
+  {
+    "id": "slush",
+    "tag": "alchemy"
+  },
+  {
+    "id": "slush",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "slush",
+    "tag": "corrodible"
+  },
+  {
+    "id": "slush",
+    "tag": "meltable_to_water"
+  },
+  {
+    "id": "slush",
+    "tag": "snow"
+  },
+  {
+    "id": "smoke",
+    "tag": "gas"
+  },
+  {
+    "id": "smoke_explosion",
+    "tag": "gas"
+  },
+  {
+    "id": "smoke_magic",
+    "tag": "gas"
+  },
+  {
+    "id": "smoke_static",
+    "tag": "gas"
+  },
+  {
+    "id": "snow",
+    "tag": "alchemy"
+  },
+  {
+    "id": "snow",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "snow",
+    "tag": "corrodible"
+  },
+  {
+    "id": "snow",
+    "tag": "frozen"
+  },
+  {
+    "id": "snow",
+    "tag": "meltable_to_water"
+  },
+  {
+    "id": "snow",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "snow",
+    "tag": "static"
+  },
+  {
+    "id": "snow_b2",
+    "tag": "alchemy"
+  },
+  {
+    "id": "snow_b2",
+    "tag": "box2d"
+  },
+  {
+    "id": "snow_b2",
+    "tag": "corrodible"
+  },
+  {
+    "id": "snow_b2",
+    "tag": "meltable_to_water"
+  },
+  {
+    "id": "snow_b2",
+    "tag": "solid"
+  },
+  {
+    "id": "snow_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "snow_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "snow_static",
+    "tag": "frozen"
+  },
+  {
+    "id": "snow_static",
+    "tag": "meltable_to_water"
+  },
+  {
+    "id": "snow_static",
+    "tag": "solid"
+  },
+  {
+    "id": "snow_static",
+    "tag": "static"
+  },
+  {
+    "id": "snow_sticky",
+    "tag": "alchemy"
+  },
+  {
+    "id": "snow_sticky",
+    "tag": "corrodible"
+  },
+  {
+    "id": "snow_sticky",
+    "tag": "frozen"
+  },
+  {
+    "id": "snow_sticky",
+    "tag": "meltable_to_water"
+  },
+  {
+    "id": "snow_sticky",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "snowrock_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "snowrock_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "snowrock_static",
+    "tag": "earth"
+  },
+  {
+    "id": "snowrock_static",
+    "tag": "solid"
+  },
+  {
+    "id": "snowrock_static",
+    "tag": "static"
+  },
+  {
+    "id": "sodium",
+    "tag": "alchemy"
+  },
+  {
+    "id": "sodium",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "sodium",
+    "tag": "corrodible"
+  },
+  {
+    "id": "sodium",
+    "tag": "sand_other"
+  },
+  {
+    "id": "sodium_unstable",
+    "tag": "alchemy"
+  },
+  {
+    "id": "sodium_unstable",
+    "tag": "corrodible"
+  },
+  {
+    "id": "sodium_unstable",
+    "tag": "sand_other"
+  },
+  {
+    "id": "soil",
+    "tag": "alchemy"
+  },
+  {
+    "id": "soil",
+    "tag": "corrodible"
+  },
+  {
+    "id": "soil",
+    "tag": "grows_grass"
+  },
+  {
+    "id": "soil",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "soil",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "soil",
+    "tag": "solid"
+  },
+  {
+    "id": "soil_dark",
+    "tag": "alchemy"
+  },
+  {
+    "id": "soil_dark",
+    "tag": "corrodible"
+  },
+  {
+    "id": "soil_dark",
+    "tag": "grows_grass"
+  },
+  {
+    "id": "soil_dark",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "soil_dark",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "soil_dark",
+    "tag": "solid"
+  },
+  {
+    "id": "soil_dead",
+    "tag": "alchemy"
+  },
+  {
+    "id": "soil_dead",
+    "tag": "corrodible"
+  },
+  {
+    "id": "soil_dead",
+    "tag": "grows_grass"
+  },
+  {
+    "id": "soil_dead",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "soil_dead",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "soil_dead",
+    "tag": "solid"
+  },
+  {
+    "id": "soil_lush",
+    "tag": "alchemy"
+  },
+  {
+    "id": "soil_lush",
+    "tag": "corrodible"
+  },
+  {
+    "id": "soil_lush",
+    "tag": "grows_grass"
+  },
+  {
+    "id": "soil_lush",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "soil_lush",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "soil_lush",
+    "tag": "solid"
+  },
+  {
+    "id": "soil_lush_dark",
+    "tag": "alchemy"
+  },
+  {
+    "id": "soil_lush_dark",
+    "tag": "corrodible"
+  },
+  {
+    "id": "soil_lush_dark",
+    "tag": "grows_grass"
+  },
+  {
+    "id": "soil_lush_dark",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "soil_lush_dark",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "soil_lush_dark",
+    "tag": "solid"
+  },
+  {
+    "id": "spark",
+    "tag": "fire"
+  },
+  {
+    "id": "spark",
+    "tag": "hot"
+  },
+  {
+    "id": "spark_blue",
+    "tag": "fire"
+  },
+  {
+    "id": "spark_blue",
+    "tag": "hot"
+  },
+  {
+    "id": "spark_blue_dark",
+    "tag": "fire"
+  },
+  {
+    "id": "spark_blue_dark",
+    "tag": "hot"
+  },
+  {
+    "id": "spark_electric",
+    "tag": "fire"
+  },
+  {
+    "id": "spark_electric",
+    "tag": "hot"
+  },
+  {
+    "id": "spark_green",
+    "tag": "fire"
+  },
+  {
+    "id": "spark_green",
+    "tag": "hot"
+  },
+  {
+    "id": "spark_green_bright",
+    "tag": "fire"
+  },
+  {
+    "id": "spark_green_bright",
+    "tag": "hot"
+  },
+  {
+    "id": "spark_player",
+    "tag": "fire"
+  },
+  {
+    "id": "spark_player",
+    "tag": "hot"
+  },
+  {
+    "id": "spark_purple",
+    "tag": "fire"
+  },
+  {
+    "id": "spark_purple",
+    "tag": "hot"
+  },
+  {
+    "id": "spark_purple_bright",
+    "tag": "fire"
+  },
+  {
+    "id": "spark_purple_bright",
+    "tag": "hot"
+  },
+  {
+    "id": "spark_red",
+    "tag": "fire"
+  },
+  {
+    "id": "spark_red",
+    "tag": "hot"
+  },
+  {
+    "id": "spark_red_bright",
+    "tag": "fire"
+  },
+  {
+    "id": "spark_red_bright",
+    "tag": "hot"
+  },
+  {
+    "id": "spark_teal",
+    "tag": "fire"
+  },
+  {
+    "id": "spark_teal",
+    "tag": "hot"
+  },
+  {
+    "id": "spark_white",
+    "tag": "fire"
+  },
+  {
+    "id": "spark_white",
+    "tag": "hot"
+  },
+  {
+    "id": "spark_white_bright",
+    "tag": "fire"
+  },
+  {
+    "id": "spark_white_bright",
+    "tag": "hot"
+  },
+  {
+    "id": "spark_yellow",
+    "tag": "fire"
+  },
+  {
+    "id": "spark_yellow",
+    "tag": "hot"
+  },
+  {
+    "id": "spore",
+    "tag": "alchemy"
+  },
+  {
+    "id": "spore",
+    "tag": "burnable"
+  },
+  {
+    "id": "spore",
+    "tag": "corrodible"
+  },
+  {
+    "id": "spore",
+    "tag": "impure"
+  },
+  {
+    "id": "spore",
+    "tag": "plant"
+  },
+  {
+    "id": "spore_pod_stalk",
+    "tag": "alchemy"
+  },
+  {
+    "id": "spore_pod_stalk",
+    "tag": "burnable"
+  },
+  {
+    "id": "spore_pod_stalk",
+    "tag": "earth"
+  },
+  {
+    "id": "spore_pod_stalk",
+    "tag": "fungus"
+  },
+  {
+    "id": "spore_pod_stalk",
+    "tag": "solid"
+  },
+  {
+    "id": "spore_pod_stalk",
+    "tag": "static"
+  },
+  {
+    "id": "static_magic_material",
+    "tag": "alchemy"
+  },
+  {
+    "id": "static_magic_material",
+    "tag": "corrodible"
+  },
+  {
+    "id": "static_magic_material",
+    "tag": "solid"
+  },
+  {
+    "id": "static_magic_material",
+    "tag": "static"
+  },
+  {
+    "id": "steam",
+    "tag": "gas"
+  },
+  {
+    "id": "steam_trailer",
+    "tag": "gas"
+  },
+  {
+    "id": "steel",
+    "tag": "alchemy"
+  },
+  {
+    "id": "steel",
+    "tag": "box2d"
+  },
+  {
+    "id": "steel",
+    "tag": "earth"
+  },
+  {
+    "id": "steel",
+    "tag": "meltable_metal"
+  },
+  {
+    "id": "steel",
+    "tag": "rust_box2d"
+  },
+  {
+    "id": "steel",
+    "tag": "solid"
+  },
+  {
+    "id": "steel_grey_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "steel_grey_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "steel_grey_static",
+    "tag": "earth"
+  },
+  {
+    "id": "steel_grey_static",
+    "tag": "meltable_metal_generic"
+  },
+  {
+    "id": "steel_grey_static",
+    "tag": "rust"
+  },
+  {
+    "id": "steel_grey_static",
+    "tag": "solid"
+  },
+  {
+    "id": "steel_grey_static",
+    "tag": "static"
+  },
+  {
+    "id": "steel_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "steel_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "steel_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "steel_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "steel_molten",
+    "tag": "molten"
+  },
+  {
+    "id": "steel_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "steel_rust",
+    "tag": "alchemy"
+  },
+  {
+    "id": "steel_rust",
+    "tag": "box2d"
+  },
+  {
+    "id": "steel_rust",
+    "tag": "earth"
+  },
+  {
+    "id": "steel_rust",
+    "tag": "meltable_metal"
+  },
+  {
+    "id": "steel_rust",
+    "tag": "solid"
+  },
+  {
+    "id": "steel_rust_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "steel_rust_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "steel_rust_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "steel_rust_molten",
+    "tag": "gold"
+  },
+  {
+    "id": "steel_rust_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "steel_rust_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "steel_rust_molten",
+    "tag": "molten_metal"
+  },
+  {
+    "id": "steel_rust_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "steel_rusted_no_holes",
+    "tag": "alchemy"
+  },
+  {
+    "id": "steel_rusted_no_holes",
+    "tag": "corrodible"
+  },
+  {
+    "id": "steel_rusted_no_holes",
+    "tag": "earth"
+  },
+  {
+    "id": "steel_rusted_no_holes",
+    "tag": "meltable_metal_generic"
+  },
+  {
+    "id": "steel_rusted_no_holes",
+    "tag": "rust"
+  },
+  {
+    "id": "steel_rusted_no_holes",
+    "tag": "solid"
+  },
+  {
+    "id": "steel_rusted_no_holes",
+    "tag": "static"
+  },
+  {
+    "id": "steel_sand",
+    "tag": "alchemy"
+  },
+  {
+    "id": "steel_sand",
+    "tag": "corrodible"
+  },
+  {
+    "id": "steel_sand",
+    "tag": "sand_metal"
+  },
+  {
+    "id": "steel_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "steel_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "steel_static",
+    "tag": "earth"
+  },
+  {
+    "id": "steel_static",
+    "tag": "meltable_metal_generic"
+  },
+  {
+    "id": "steel_static",
+    "tag": "rust"
+  },
+  {
+    "id": "steel_static",
+    "tag": "solid"
+  },
+  {
+    "id": "steel_static",
+    "tag": "static"
+  },
+  {
+    "id": "steel_static_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "steel_static_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "steel_static_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "steel_static_molten",
+    "tag": "gold"
+  },
+  {
+    "id": "steel_static_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "steel_static_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "steel_static_molten",
+    "tag": "molten_metal"
+  },
+  {
+    "id": "steel_static_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "steel_static_strong",
+    "tag": "alchemy"
+  },
+  {
+    "id": "steel_static_strong",
+    "tag": "earth"
+  },
+  {
+    "id": "steel_static_strong",
+    "tag": "solid"
+  },
+  {
+    "id": "steel_static_strong",
+    "tag": "static"
+  },
+  {
+    "id": "steel_static_unmeltable",
+    "tag": "alchemy"
+  },
+  {
+    "id": "steel_static_unmeltable",
+    "tag": "corrodible"
+  },
+  {
+    "id": "steel_static_unmeltable",
+    "tag": "earth"
+  },
+  {
+    "id": "steel_static_unmeltable",
+    "tag": "solid"
+  },
+  {
+    "id": "steel_static_unmeltable",
+    "tag": "static"
+  },
+  {
+    "id": "steelfrost_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "steelfrost_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "steelfrost_static",
+    "tag": "earth"
+  },
+  {
+    "id": "steelfrost_static",
+    "tag": "meltable_metal_generic"
+  },
+  {
+    "id": "steelfrost_static",
+    "tag": "rust"
+  },
+  {
+    "id": "steelfrost_static",
+    "tag": "solid"
+  },
+  {
+    "id": "steelfrost_static",
+    "tag": "static"
+  },
+  {
+    "id": "steelmoss_slanted",
+    "tag": "alchemy"
+  },
+  {
+    "id": "steelmoss_slanted",
+    "tag": "corrodible"
+  },
+  {
+    "id": "steelmoss_slanted",
+    "tag": "earth"
+  },
+  {
+    "id": "steelmoss_slanted",
+    "tag": "meltable_metal_generic"
+  },
+  {
+    "id": "steelmoss_slanted",
+    "tag": "rust"
+  },
+  {
+    "id": "steelmoss_slanted",
+    "tag": "solid"
+  },
+  {
+    "id": "steelmoss_slanted",
+    "tag": "static"
+  },
+  {
+    "id": "steelmoss_slanted_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "steelmoss_slanted_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "steelmoss_slanted_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "steelmoss_slanted_molten",
+    "tag": "gold"
+  },
+  {
+    "id": "steelmoss_slanted_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "steelmoss_slanted_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "steelmoss_slanted_molten",
+    "tag": "molten_metal"
+  },
+  {
+    "id": "steelmoss_slanted_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "steelmoss_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "steelmoss_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "steelmoss_static",
+    "tag": "earth"
+  },
+  {
+    "id": "steelmoss_static",
+    "tag": "meltable_metal_generic"
+  },
+  {
+    "id": "steelmoss_static",
+    "tag": "rust"
+  },
+  {
+    "id": "steelmoss_static",
+    "tag": "solid"
+  },
+  {
+    "id": "steelmoss_static",
+    "tag": "static"
+  },
+  {
+    "id": "steelmoss_static_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "steelmoss_static_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "steelmoss_static_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "steelmoss_static_molten",
+    "tag": "gold"
+  },
+  {
+    "id": "steelmoss_static_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "steelmoss_static_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "steelmoss_static_molten",
+    "tag": "molten_metal"
+  },
+  {
+    "id": "steelmoss_static_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "steelpipe_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "steelpipe_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "steelpipe_static",
+    "tag": "earth"
+  },
+  {
+    "id": "steelpipe_static",
+    "tag": "meltable_metal_generic"
+  },
+  {
+    "id": "steelpipe_static",
+    "tag": "rust"
+  },
+  {
+    "id": "steelpipe_static",
+    "tag": "solid"
+  },
+  {
+    "id": "steelpipe_static",
+    "tag": "static"
+  },
+  {
+    "id": "steelsmoke_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "steelsmoke_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "steelsmoke_static",
+    "tag": "earth"
+  },
+  {
+    "id": "steelsmoke_static",
+    "tag": "meltable_metal_generic"
+  },
+  {
+    "id": "steelsmoke_static",
+    "tag": "rust"
+  },
+  {
+    "id": "steelsmoke_static",
+    "tag": "solid"
+  },
+  {
+    "id": "steelsmoke_static",
+    "tag": "static"
+  },
+  {
+    "id": "steelsmoke_static_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "steelsmoke_static_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "steelsmoke_static_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "steelsmoke_static_molten",
+    "tag": "gold"
+  },
+  {
+    "id": "steelsmoke_static_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "steelsmoke_static_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "steelsmoke_static_molten",
+    "tag": "molten_metal"
+  },
+  {
+    "id": "steelsmoke_static_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "sulphur",
+    "tag": "alchemy"
+  },
+  {
+    "id": "sulphur",
+    "tag": "corrodible"
+  },
+  {
+    "id": "sulphur",
+    "tag": "sand_other"
+  },
+  {
+    "id": "sulphur_box2d",
+    "tag": "box2d"
+  },
+  {
+    "id": "sulphur_box2d",
+    "tag": "solid"
+  },
+  {
+    "id": "sulphur_box2d",
+    "tag": "sunbaby_ignore_list"
+  },
+  {
+    "id": "swamp",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "swamp",
+    "tag": "corrodible"
+  },
+  {
+    "id": "swamp",
+    "tag": "freezable"
+  },
+  {
+    "id": "swamp",
+    "tag": "impure"
+  },
+  {
+    "id": "swamp",
+    "tag": "liquid"
+  },
+  {
+    "id": "swamp",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "swamp",
+    "tag": "meltable_to_water"
+  },
+  {
+    "id": "swamp",
+    "tag": "soluble"
+  },
+  {
+    "id": "swamp",
+    "tag": "water"
+  },
+  {
+    "id": "templebrick_box2d",
+    "tag": "alchemy"
+  },
+  {
+    "id": "templebrick_box2d",
+    "tag": "box2d"
+  },
+  {
+    "id": "templebrick_box2d",
+    "tag": "burnable"
+  },
+  {
+    "id": "templebrick_box2d",
+    "tag": "corrodible"
+  },
+  {
+    "id": "templebrick_box2d",
+    "tag": "earth"
+  },
+  {
+    "id": "templebrick_box2d",
+    "tag": "solid"
+  },
+  {
+    "id": "templebrick_box2d_edgetiles",
+    "tag": "box2d"
+  },
+  {
+    "id": "templebrick_box2d_edgetiles",
+    "tag": "earth"
+  },
+  {
+    "id": "templebrick_box2d_edgetiles",
+    "tag": "solid"
+  },
+  {
+    "id": "templebrick_diamond_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "templebrick_diamond_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "templebrick_diamond_static",
+    "tag": "earth"
+  },
+  {
+    "id": "templebrick_diamond_static",
+    "tag": "solid"
+  },
+  {
+    "id": "templebrick_diamond_static",
+    "tag": "static"
+  },
+  {
+    "id": "templebrick_golden_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "templebrick_golden_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "templebrick_golden_static",
+    "tag": "earth"
+  },
+  {
+    "id": "templebrick_golden_static",
+    "tag": "solid"
+  },
+  {
+    "id": "templebrick_golden_static",
+    "tag": "static"
+  },
+  {
+    "id": "templebrick_moss_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "templebrick_moss_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "templebrick_moss_static",
+    "tag": "earth"
+  },
+  {
+    "id": "templebrick_moss_static",
+    "tag": "solid"
+  },
+  {
+    "id": "templebrick_moss_static",
+    "tag": "static"
+  },
+  {
+    "id": "templebrick_noedge_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "templebrick_noedge_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "templebrick_noedge_static",
+    "tag": "earth"
+  },
+  {
+    "id": "templebrick_noedge_static",
+    "tag": "solid"
+  },
+  {
+    "id": "templebrick_noedge_static",
+    "tag": "static"
+  },
+  {
+    "id": "templebrick_red",
+    "tag": "alchemy"
+  },
+  {
+    "id": "templebrick_red",
+    "tag": "corrodible"
+  },
+  {
+    "id": "templebrick_red",
+    "tag": "earth"
+  },
+  {
+    "id": "templebrick_red",
+    "tag": "solid"
+  },
+  {
+    "id": "templebrick_red",
+    "tag": "static"
+  },
+  {
+    "id": "templebrick_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "templebrick_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "templebrick_static",
+    "tag": "earth"
+  },
+  {
+    "id": "templebrick_static",
+    "tag": "solid"
+  },
+  {
+    "id": "templebrick_static",
+    "tag": "static"
+  },
+  {
+    "id": "templebrick_static_broken",
+    "tag": "alchemy"
+  },
+  {
+    "id": "templebrick_static_broken",
+    "tag": "corrodible"
+  },
+  {
+    "id": "templebrick_static_broken",
+    "tag": "earth"
+  },
+  {
+    "id": "templebrick_static_broken",
+    "tag": "solid"
+  },
+  {
+    "id": "templebrick_static_broken",
+    "tag": "static"
+  },
+  {
+    "id": "templebrick_static_ruined",
+    "tag": "alchemy"
+  },
+  {
+    "id": "templebrick_static_ruined",
+    "tag": "corrodible"
+  },
+  {
+    "id": "templebrick_static_ruined",
+    "tag": "earth"
+  },
+  {
+    "id": "templebrick_static_ruined",
+    "tag": "solid"
+  },
+  {
+    "id": "templebrick_static_ruined",
+    "tag": "static"
+  },
+  {
+    "id": "templebrick_static_soft",
+    "tag": "alchemy"
+  },
+  {
+    "id": "templebrick_static_soft",
+    "tag": "corrodible"
+  },
+  {
+    "id": "templebrick_static_soft",
+    "tag": "earth"
+  },
+  {
+    "id": "templebrick_static_soft",
+    "tag": "solid"
+  },
+  {
+    "id": "templebrick_static_soft",
+    "tag": "static"
+  },
+  {
+    "id": "templebrick_thick_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "templebrick_thick_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "templebrick_thick_static",
+    "tag": "earth"
+  },
+  {
+    "id": "templebrick_thick_static",
+    "tag": "solid"
+  },
+  {
+    "id": "templebrick_thick_static",
+    "tag": "static"
+  },
+  {
+    "id": "templebrick_thick_static_noedge",
+    "tag": "alchemy"
+  },
+  {
+    "id": "templebrick_thick_static_noedge",
+    "tag": "corrodible"
+  },
+  {
+    "id": "templebrick_thick_static_noedge",
+    "tag": "earth"
+  },
+  {
+    "id": "templebrick_thick_static_noedge",
+    "tag": "solid"
+  },
+  {
+    "id": "templebrick_thick_static_noedge",
+    "tag": "static"
+  },
+  {
+    "id": "templebrickdark_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "templebrickdark_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "templebrickdark_static",
+    "tag": "earth"
+  },
+  {
+    "id": "templebrickdark_static",
+    "tag": "solid"
+  },
+  {
+    "id": "templebrickdark_static",
+    "tag": "static"
+  },
+  {
+    "id": "templerock_soft",
+    "tag": "alchemy"
+  },
+  {
+    "id": "templerock_soft",
+    "tag": "corrodible"
+  },
+  {
+    "id": "templerock_soft",
+    "tag": "earth"
+  },
+  {
+    "id": "templerock_soft",
+    "tag": "solid"
+  },
+  {
+    "id": "templerock_soft",
+    "tag": "static"
+  },
+  {
+    "id": "templerock_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "templerock_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "templerock_static",
+    "tag": "earth"
+  },
+  {
+    "id": "templerock_static",
+    "tag": "solid"
+  },
+  {
+    "id": "templerock_static",
+    "tag": "static"
+  },
+  {
+    "id": "templeslab_crumbling_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "templeslab_crumbling_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "templeslab_crumbling_static",
+    "tag": "earth"
+  },
+  {
+    "id": "templeslab_crumbling_static",
+    "tag": "solid"
+  },
+  {
+    "id": "templeslab_crumbling_static",
+    "tag": "static"
+  },
+  {
+    "id": "templeslab_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "templeslab_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "templeslab_static",
+    "tag": "earth"
+  },
+  {
+    "id": "templeslab_static",
+    "tag": "solid"
+  },
+  {
+    "id": "templeslab_static",
+    "tag": "static"
+  },
+  {
+    "id": "the_end",
+    "tag": "alchemy"
+  },
+  {
+    "id": "the_end",
+    "tag": "corrodible"
+  },
+  {
+    "id": "the_end",
+    "tag": "earth"
+  },
+  {
+    "id": "the_end",
+    "tag": "solid"
+  },
+  {
+    "id": "the_end",
+    "tag": "static"
+  },
+  {
+    "id": "tnt",
+    "tag": "alchemy"
+  },
+  {
+    "id": "tnt",
+    "tag": "box2d"
+  },
+  {
+    "id": "tnt",
+    "tag": "burnable"
+  },
+  {
+    "id": "tnt",
+    "tag": "corrodible"
+  },
+  {
+    "id": "tnt",
+    "tag": "earth"
+  },
+  {
+    "id": "tnt",
+    "tag": "solid"
+  },
+  {
+    "id": "tnt_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "tnt_static",
+    "tag": "box2d"
+  },
+  {
+    "id": "tnt_static",
+    "tag": "burnable"
+  },
+  {
+    "id": "tnt_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "tnt_static",
+    "tag": "earth"
+  },
+  {
+    "id": "tnt_static",
+    "tag": "solid"
+  },
+  {
+    "id": "tube_physics",
+    "tag": "alchemy"
+  },
+  {
+    "id": "tube_physics",
+    "tag": "box2d"
+  },
+  {
+    "id": "tube_physics",
+    "tag": "earth"
+  },
+  {
+    "id": "tube_physics",
+    "tag": "meltable_to_lava"
+  },
+  {
+    "id": "tube_physics",
+    "tag": "solid"
+  },
+  {
+    "id": "tube_physics",
+    "tag": "static"
+  },
+  {
+    "id": "tubematerial",
+    "tag": "alchemy"
+  },
+  {
+    "id": "tubematerial",
+    "tag": "corrodible"
+  },
+  {
+    "id": "tubematerial",
+    "tag": "earth"
+  },
+  {
+    "id": "tubematerial",
+    "tag": "solid"
+  },
+  {
+    "id": "tubematerial",
+    "tag": "static"
+  },
+  {
+    "id": "urine",
+    "tag": "corrodible"
+  },
+  {
+    "id": "urine",
+    "tag": "liquid"
+  },
+  {
+    "id": "urine",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "urine",
+    "tag": "soluble"
+  },
+  {
+    "id": "vine",
+    "tag": "alchemy"
+  },
+  {
+    "id": "vine",
+    "tag": "burnable"
+  },
+  {
+    "id": "vine",
+    "tag": "corrodible"
+  },
+  {
+    "id": "vine",
+    "tag": "sand_ground"
+  },
+  {
+    "id": "vine",
+    "tag": "static"
+  },
+  {
+    "id": "void_liquid",
+    "tag": "liquid"
+  },
+  {
+    "id": "vomit",
+    "tag": "food"
+  },
+  {
+    "id": "water",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "water",
+    "tag": "corrodible"
+  },
+  {
+    "id": "water",
+    "tag": "freezable"
+  },
+  {
+    "id": "water",
+    "tag": "liquid"
+  },
+  {
+    "id": "water",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "water",
+    "tag": "water"
+  },
+  {
+    "id": "water_fading",
+    "tag": "corrodible"
+  },
+  {
+    "id": "water_fading",
+    "tag": "freezable"
+  },
+  {
+    "id": "water_fading",
+    "tag": "liquid"
+  },
+  {
+    "id": "water_fading",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "water_fading",
+    "tag": "water"
+  },
+  {
+    "id": "water_ice",
+    "tag": "chaotic_transmutation"
+  },
+  {
+    "id": "water_ice",
+    "tag": "corrodible"
+  },
+  {
+    "id": "water_ice",
+    "tag": "freezable"
+  },
+  {
+    "id": "water_ice",
+    "tag": "liquid"
+  },
+  {
+    "id": "water_ice",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "water_ice",
+    "tag": "meltable_to_water"
+  },
+  {
+    "id": "water_ice",
+    "tag": "water"
+  },
+  {
+    "id": "water_salt",
+    "tag": "corrodible"
+  },
+  {
+    "id": "water_salt",
+    "tag": "freezable"
+  },
+  {
+    "id": "water_salt",
+    "tag": "liquid"
+  },
+  {
+    "id": "water_salt",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "water_salt",
+    "tag": "water"
+  },
+  {
+    "id": "water_static",
+    "tag": "static"
+  },
+  {
+    "id": "water_swamp",
+    "tag": "corrodible"
+  },
+  {
+    "id": "water_swamp",
+    "tag": "impure"
+  },
+  {
+    "id": "water_swamp",
+    "tag": "liquid"
+  },
+  {
+    "id": "water_swamp",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "water_swamp",
+    "tag": "meltable_to_water"
+  },
+  {
+    "id": "water_swamp",
+    "tag": "water"
+  },
+  {
+    "id": "water_temp",
+    "tag": "corrodible"
+  },
+  {
+    "id": "water_temp",
+    "tag": "freezable"
+  },
+  {
+    "id": "water_temp",
+    "tag": "liquid"
+  },
+  {
+    "id": "water_temp",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "water_temp",
+    "tag": "water"
+  },
+  {
+    "id": "waterrock",
+    "tag": "alchemy"
+  },
+  {
+    "id": "waterrock",
+    "tag": "earth"
+  },
+  {
+    "id": "waterrock",
+    "tag": "solid"
+  },
+  {
+    "id": "waterrock",
+    "tag": "static"
+  },
+  {
+    "id": "wax",
+    "tag": "alchemy"
+  },
+  {
+    "id": "wax",
+    "tag": "burnable"
+  },
+  {
+    "id": "wax",
+    "tag": "corrodible"
+  },
+  {
+    "id": "wax",
+    "tag": "earth"
+  },
+  {
+    "id": "wax",
+    "tag": "meltable"
+  },
+  {
+    "id": "wax",
+    "tag": "solid"
+  },
+  {
+    "id": "wax_b2",
+    "tag": "alchemy"
+  },
+  {
+    "id": "wax_b2",
+    "tag": "box2d"
+  },
+  {
+    "id": "wax_b2",
+    "tag": "earth"
+  },
+  {
+    "id": "wax_b2",
+    "tag": "solid"
+  },
+  {
+    "id": "wax_molten",
+    "tag": "alchemy"
+  },
+  {
+    "id": "wax_molten",
+    "tag": "corrodible"
+  },
+  {
+    "id": "wax_molten",
+    "tag": "earth"
+  },
+  {
+    "id": "wax_molten",
+    "tag": "impure"
+  },
+  {
+    "id": "wax_molten",
+    "tag": "liquid"
+  },
+  {
+    "id": "wax_molten",
+    "tag": "liquid_common"
+  },
+  {
+    "id": "wax_molten",
+    "tag": "molten"
+  },
+  {
+    "id": "wax_molten",
+    "tag": "solid"
+  },
+  {
+    "id": "wizardstone",
+    "tag": "alchemy"
+  },
+  {
+    "id": "wizardstone",
+    "tag": "corrodible"
+  },
+  {
+    "id": "wizardstone",
+    "tag": "earth"
+  },
+  {
+    "id": "wizardstone",
+    "tag": "solid"
+  },
+  {
+    "id": "wizardstone",
+    "tag": "static"
+  },
+  {
+    "id": "wood",
+    "tag": "alchemy"
+  },
+  {
+    "id": "wood",
+    "tag": "box2d"
+  },
+  {
+    "id": "wood",
+    "tag": "burnable"
+  },
+  {
+    "id": "wood",
+    "tag": "corrodible"
+  },
+  {
+    "id": "wood",
+    "tag": "earth"
+  },
+  {
+    "id": "wood",
+    "tag": "solid"
+  },
+  {
+    "id": "wood_burns_forever",
+    "tag": "alchemy"
+  },
+  {
+    "id": "wood_burns_forever",
+    "tag": "burnable"
+  },
+  {
+    "id": "wood_burns_forever",
+    "tag": "corrodible"
+  },
+  {
+    "id": "wood_burns_forever",
+    "tag": "earth"
+  },
+  {
+    "id": "wood_burns_forever",
+    "tag": "solid"
+  },
+  {
+    "id": "wood_loose",
+    "tag": "alchemy"
+  },
+  {
+    "id": "wood_loose",
+    "tag": "box2d"
+  },
+  {
+    "id": "wood_loose",
+    "tag": "corrodible"
+  },
+  {
+    "id": "wood_loose",
+    "tag": "earth"
+  },
+  {
+    "id": "wood_loose",
+    "tag": "solid"
+  },
+  {
+    "id": "wood_player",
+    "tag": "alchemy"
+  },
+  {
+    "id": "wood_player",
+    "tag": "corrodible"
+  },
+  {
+    "id": "wood_player",
+    "tag": "earth"
+  },
+  {
+    "id": "wood_player",
+    "tag": "solid"
+  },
+  {
+    "id": "wood_player",
+    "tag": "static"
+  },
+  {
+    "id": "wood_player_b2",
+    "tag": "alchemy"
+  },
+  {
+    "id": "wood_player_b2",
+    "tag": "box2d"
+  },
+  {
+    "id": "wood_player_b2",
+    "tag": "corrodible"
+  },
+  {
+    "id": "wood_player_b2",
+    "tag": "earth"
+  },
+  {
+    "id": "wood_player_b2",
+    "tag": "solid"
+  },
+  {
+    "id": "wood_player_b2",
+    "tag": "static"
+  },
+  {
+    "id": "wood_player_b2_vertical",
+    "tag": "alchemy"
+  },
+  {
+    "id": "wood_player_b2_vertical",
+    "tag": "box2d"
+  },
+  {
+    "id": "wood_player_b2_vertical",
+    "tag": "corrodible"
+  },
+  {
+    "id": "wood_player_b2_vertical",
+    "tag": "earth"
+  },
+  {
+    "id": "wood_player_b2_vertical",
+    "tag": "solid"
+  },
+  {
+    "id": "wood_player_b2_vertical",
+    "tag": "static"
+  },
+  {
+    "id": "wood_prop",
+    "tag": "alchemy"
+  },
+  {
+    "id": "wood_prop",
+    "tag": "box2d"
+  },
+  {
+    "id": "wood_prop",
+    "tag": "burnable"
+  },
+  {
+    "id": "wood_prop",
+    "tag": "corrodible"
+  },
+  {
+    "id": "wood_prop",
+    "tag": "earth"
+  },
+  {
+    "id": "wood_prop",
+    "tag": "solid"
+  },
+  {
+    "id": "wood_prop_durable",
+    "tag": "alchemy"
+  },
+  {
+    "id": "wood_prop_durable",
+    "tag": "box2d"
+  },
+  {
+    "id": "wood_prop_durable",
+    "tag": "burnable"
+  },
+  {
+    "id": "wood_prop_durable",
+    "tag": "corrodible"
+  },
+  {
+    "id": "wood_prop_durable",
+    "tag": "earth"
+  },
+  {
+    "id": "wood_prop_durable",
+    "tag": "solid"
+  },
+  {
+    "id": "wood_prop_noplayerhit",
+    "tag": "alchemy"
+  },
+  {
+    "id": "wood_prop_noplayerhit",
+    "tag": "box2d"
+  },
+  {
+    "id": "wood_prop_noplayerhit",
+    "tag": "burnable"
+  },
+  {
+    "id": "wood_prop_noplayerhit",
+    "tag": "corrodible"
+  },
+  {
+    "id": "wood_prop_noplayerhit",
+    "tag": "earth"
+  },
+  {
+    "id": "wood_prop_noplayerhit",
+    "tag": "solid"
+  },
+  {
+    "id": "wood_static",
+    "tag": "alchemy"
+  },
+  {
+    "id": "wood_static",
+    "tag": "burnable"
+  },
+  {
+    "id": "wood_static",
+    "tag": "corrodible"
+  },
+  {
+    "id": "wood_static",
+    "tag": "earth"
+  },
+  {
+    "id": "wood_static",
+    "tag": "solid"
+  },
+  {
+    "id": "wood_static_gas",
+    "tag": "alchemy"
+  },
+  {
+    "id": "wood_static_gas",
+    "tag": "burnable"
+  },
+  {
+    "id": "wood_static_gas",
+    "tag": "corrodible"
+  },
+  {
+    "id": "wood_static_gas",
+    "tag": "earth"
+  },
+  {
+    "id": "wood_static_gas",
+    "tag": "solid"
+  },
+  {
+    "id": "wood_static_vertical",
+    "tag": "alchemy"
+  },
+  {
+    "id": "wood_static_vertical",
+    "tag": "burnable"
+  },
+  {
+    "id": "wood_static_vertical",
+    "tag": "corrodible"
+  },
+  {
+    "id": "wood_static_vertical",
+    "tag": "earth"
+  },
+  {
+    "id": "wood_static_vertical",
+    "tag": "solid"
+  },
+  {
+    "id": "wood_static_wet",
+    "tag": "alchemy"
+  },
+  {
+    "id": "wood_static_wet",
+    "tag": "burnable"
+  },
+  {
+    "id": "wood_static_wet",
+    "tag": "corrodible"
+  },
+  {
+    "id": "wood_static_wet",
+    "tag": "earth"
+  },
+  {
+    "id": "wood_static_wet",
+    "tag": "solid"
+  },
+  {
+    "id": "wood_trailer",
+    "tag": "alchemy"
+  },
+  {
+    "id": "wood_trailer",
+    "tag": "box2d"
+  },
+  {
+    "id": "wood_trailer",
+    "tag": "corrodible"
+  },
+  {
+    "id": "wood_trailer",
+    "tag": "earth"
+  },
+  {
+    "id": "wood_trailer",
+    "tag": "solid"
+  },
+  {
+    "id": "wood_tree",
+    "tag": "alchemy"
+  },
+  {
+    "id": "wood_tree",
+    "tag": "earth"
+  },
+  {
+    "id": "wood_tree",
+    "tag": "solid"
+  },
+  {
+    "id": "wood_tree",
+    "tag": "static"
+  },
+  {
+    "id": "wood_wall",
+    "tag": "alchemy"
+  },
+  {
+    "id": "wood_wall",
+    "tag": "box2d"
+  },
+  {
+    "id": "wood_wall",
+    "tag": "burnable"
+  },
+  {
+    "id": "wood_wall",
+    "tag": "corrodible"
+  },
+  {
+    "id": "wood_wall",
+    "tag": "earth"
+  },
+  {
+    "id": "wood_wall",
+    "tag": "solid"
+  }
+]
