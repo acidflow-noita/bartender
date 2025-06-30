@@ -82,7 +82,7 @@ const upcomingFeaturesPlot = Plot.plot({
       dx: -70,
       dy: 0,
       width: 100,
-      src: "logo_with_card_bg",
+      src: "logo_with_bg",
     }),
   ],
 });
