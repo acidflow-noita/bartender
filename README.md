@@ -1,8 +1,8 @@
-# Bartender
+# <a href="https://bartender.runfast.stream"><img src="https://github.com/user-attachments/assets/361c6fad-4b66-4ae9-993f-3470aa6a5612" width="200"> https://bartender.runfast.stream</a>
 
 Explore Noita materials and mixology
 
-Built using the Observable Framework.
+Built using [Observable Framework](https://observablehq.com/framework/).
 
 ### How to
 
