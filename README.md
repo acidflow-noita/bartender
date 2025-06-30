@@ -2,7 +2,7 @@
 
 Explore Noita materials and mixology
 
-Built using [Observable Framework](https://observablehq.com/framework/).
+Built with [Observable Framework](https://observablehq.com/framework/).
 
 ### How to
 
