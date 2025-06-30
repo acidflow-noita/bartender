@@ -128,7 +128,7 @@ I wanted a quicker, easier way of finding material reactions than using the wiki
 </div>
 
   <div class="card grid-colspan-1 grid-rowspan-1 card-centered-text">
-    <h1 class="big"><a href="reactions">Reactions finder🪄</a></h1>
+    <h1 class="big"><a href="reactions">Reactions finder&#8288;🪄</a></h1>
   </div>
   
   <div class="card grid-rowspan-1 grid-colspan-1"><h2>Distribution of Material Types</h2>${materialTypesPlot}</div>
