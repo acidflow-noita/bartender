@@ -102,15 +102,15 @@ const materialTypesPlot = Plot.plot({
 
 <h2>What is this page? Is it new? Do you like it?</h2>
 
-I wanted a quicker, easier way of finding material reactions than using wiki's [table of alchemical reactions](https://noita.wiki.gg/wiki/Table_of_Alchemical_Reactions). There wasn't any, so I built one. After that I've started working on adding more -- hopefully -- useful features, check out what's probably [coming in the future](upcoming).
+I wanted a quicker, easier way of finding material reactions than using the wiki's [table of alchemical reactions](https://noita.wiki.gg/wiki/Table_of_Alchemical_Reactions). No such tool existed, so I built one. After that, I've started working on adding more — hopefully — useful features. Check out what's probably [coming in the future](upcoming).
 
 <div class="grid grid-cols-3" style="grid-auto-rows: auto;">
 <div class="card grid-colspan-1 grid-rowspan-1">
     <h2>General Info</h2>
     <p>Everything in the world of Noita is made of materials, even the visual effects.</p>
-    <p>There are <code class="bigger-number-better">${materials.length}</code> materials total, each material is described by <code class="bigger-number-better">1</code> to <code class="bigger-number-better">10</code> tags out of <code class="bigger-number-better">${tags.length}</code> unique tags.</p>
-    <p>Each material can be of one type: <span class="material-type-solid"><code class="bigger-number-better">solid</code></span>, <span class="material-type-liquid"><code class="bigger-number-better">liquid</code></span>, <span class="material-type-powder"><code class="bigger-number-better">powder</code></span>, <span class="material-type-gas"><code class="bigger-number-better">gas</code></span>, or <span class="material-type-fire"><code class="bigger-number-better">fire</code></span>. There are two exceptions: <code class="bigger-number-better"><a href="https://noita.wiki.gg/wiki/Air">Air</a></code> ("nothing", the non-matter), and a special material <code class="bigger-number-better"><a href="https://noita.wiki.gg/wiki/Fungal_Shift_Particle_Fx">fungal_shift_particle_fx</a></code> &mdash; these do not have a type.</p>
-  </div>
+    <p>There are <code class="bigger-number-better">${materials.length}</code> materials total. Each material is described by <code class="bigger-number-better">1</code> to <code class="bigger-number-better">10</code> tags out of <code class="bigger-number-better">${tags.length}</code> unique tags.</p>
+    <p>Each material can be of one type: <span class="material-type-solid"><code class="bigger-number-better">solid</code></span>, <span class="material-type-liquid"><code class="bigger-number-better">liquid</code></span>, <span class="material-type-powder"><code class="bigger-number-better">powder</code></span>, <span class="material-type-gas"><code class="bigger-number-better">gas</code></span>, or <span class="material-type-fire"><code class="bigger-number-better">fire</code></span>. There are two exceptions: <code class="bigger-number-better"><a href="https://noita.wiki.gg/wiki/Air">Air</a></code> ("nothing," the non-matter) and a special material <code class="bigger-number-better"><a href="https://noita.wiki.gg/wiki/Fungal_Shift_Particle_Fx">fungal_shift_particle_fx</a></code> — these do not have a type.</p>
+</div>
 
   <div class="card grid-colspan-1 grid-rowspan-1 card-centered-text">
     <h1 class="big"><a href="reactions">Reactions finder🪄</a></h1>
