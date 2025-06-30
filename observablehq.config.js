@@ -52,7 +52,7 @@ export default {
 
   // Some additional configuration options and their defaults:
   theme: ["ocean-floor", "alt", "wide"],
-  home: '<img src="https://noita-bartender-images.acidflow.stream/images/logo/flask.svg" alt="Noita Bartender" style="padding:0 0.25rem 0 0;"><span class="logotext">Bartender</span>', // the content of the home page, which is shown in the sidebar
+  home: '<img src="https://noita-bartender-images.acidflow.stream/images/logo/bartender_logo.svg" alt="Noita Bartender"', // the content of the home page, which is shown in the sidebar
   footer:
     '<br /><br /><div class="footer-container"><div style="display: flex; align-items: center; gap: 8px;">Made by<a href="https://www.twitch.tv/WUOTE"><img src="https://noita-bartender-images.acidflow.stream/images/logo/WUOTE_LOGO.svg" style="width:100px;"></a></div><div class="bg-glow rounded-full inline-block"><a href="https://runfast.stream/donate/"><div id="dono-button" class="overflow-hidden bg-main text-white border border-2 border-white rounded-full px-6 py-3">Donate</div></a><div class="bg-glow-inner"></div></div></div>',
   sidebar: true, // whether to show the sidebar
