@@ -510,7 +510,7 @@ const baseTableOptions = {
           }
 
           if (reactionsCountContainer) {
-            reactionsCountContainer.innerHTML = `There are ${filteredReactions.length} possible reactions`;
+            reactionsCountContainer.innerHTML = `Reactions found: <code class="bigger-number-better">${filteredReactions.length}</code>`;
           }
         } catch (error) {
           console.error("Error updating UI:", error);
@@ -641,7 +641,7 @@ const baseTableOptions = {
     </div>
 </div>
 <div class="card grid-colspan-1">
-    <h3 id="reactionsCount">There are 5589 possible reactions</h3>
+    <h2 id="reactionsCount">Reactions found: <code class="bigger-number-better">5589</code></h2>
 </div>
 <div class="grid grid-cols-1 grid-rowspan-1" style="grid-auto-rows: auto;">
     <div class="card grid-colspan-1 grid-rowspan-1" style="padding: 0;" id="tableContainer">
