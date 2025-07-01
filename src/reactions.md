@@ -380,6 +380,7 @@ const baseTableOptions = {
         searchEnabled: true,
         renderSelectedChoices: "auto",
         callbackOnCreateTemplates: createChoicesTemplates,
+        noChoicesText: "There are no reactions with one more ingredient",
       });
 
       productChoices = new Choices(productSelectorElement, {
