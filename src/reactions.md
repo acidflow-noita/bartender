@@ -36,9 +36,34 @@ const reactions = await FileAttachment("./data/jsons/reactions.json").json();
 ```
 
 ```js
-const ambrosiaLink = document.getElementById("ambrosia-link");
-const flummoxiumLink = document.getElementById("flum-link");
-const frogWhiskeyLink = document.getElementById("frog-whiskey-link");
+// Wait for DOM to be ready before accessing elements
+const waitForElement = (id, timeout = 5000) => {
+  return new Promise((resolve, reject) => {
+    const element = document.getElementById(id);
+    if (element) {
+      resolve(element);
+      return;
+    }
+
+    const observer = new MutationObserver((mutations, obs) => {
+      const element = document.getElementById(id);
+      if (element) {
+        obs.disconnect();
+        resolve(element);
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    setTimeout(() => {
+      observer.disconnect();
+      reject(new Error(`Element ${id} not found within ${timeout}ms`));
+    }, timeout);
+  });
+};
 ```
 
 ```js
@@ -76,13 +101,6 @@ const getMaterialImageUrl = (id) => {
   const url = `https://noita-bartender-images.acidflow.stream/images/materials/Material_${id}.png`;
   return url;
 };
-
-const reagentSelectorElement = document.getElementById("choicesSelector");
-const productSelectorElement = document.getElementById("productChoicesSelector");
-const selectedReagentsViewer = document.getElementById("choicesviewer");
-const selectedProductViewer = document.getElementById("productChoicesViewer");
-const tableContainer = document.getElementById("tableContainer");
-const reactionsCountContainer = document.getElementById("reactionsCount");
 
 const html = htl.html;
 
@@ -223,359 +241,408 @@ const baseTableOptions = {
 {
   let selectedReagents = [];
   let selectedProduct = "";
+  let reagentChoices = null;
+  let productChoices = null;
+  let isInitialized = false;
 
-  const createChoicesTemplates = (strToEl) => {
-    return {
-      choice: ({ classNames }, data) => {
-        if (!data) {
-          console.warn("[Template Choice] Data is null/undefined");
-          return strToEl(
-            `<div class="${classNames.item} ${classNames.itemChoice} ${classNames.itemSelectable}">Invalid Data</div>`
+  // Wait for all required elements to be available
+  const initializeApp = async () => {
+    try {
+      console.log("Waiting for DOM elements...");
+
+      const [
+        reagentSelectorElement,
+        productSelectorElement,
+        tableContainer,
+        reactionsCountContainer,
+        ambrosiaLink,
+        flummoxiumLink,
+        frogWhiskeyLink,
+      ] = await Promise.all([
+        waitForElement("choicesSelector"),
+        waitForElement("productChoicesSelector"),
+        waitForElement("tableContainer"),
+        waitForElement("reactionsCount"),
+        waitForElement("ambrosia-link"),
+        waitForElement("flum-link"),
+        waitForElement("frog-whiskey-link"),
+      ]);
+      if (reagentSelectorElement.classList.contains("choices__input")) {
+        return;
+      }
+      console.log("All DOM elements found, initializing...");
+
+      const createChoicesTemplates = (strToEl) => {
+        return {
+          choice: ({ classNames }, data) => {
+            if (!data) {
+              console.warn("[Template Choice] Data is null/undefined");
+              return strToEl(
+                `<div class="${classNames.item} ${classNames.itemChoice} ${classNames.itemSelectable}">Invalid Data</div>`
+              );
+            }
+
+            const imageUrl = getMaterialImageUrl(data.value || "");
+            const nameForDisplay = data.name || (data.label ? data.label.split(" (")[0] : data.value || "Unknown");
+            const typeForDisplay = (data.type || "").toLowerCase();
+            const safeValue = data.value || "";
+            const safeId = data.id || "";
+
+            return strToEl(
+              `<div class="${classNames.item} ${classNames.itemChoice} ${classNames.itemSelectable}" data-choice data-choice-selectable data-id="${safeId}" data-value="${safeValue}" role="option">
+                <img src="${imageUrl}" style="height: 24px; display: inline-block; vertical-align: middle; margin-right: 8px;" alt="${nameForDisplay}" />
+                <span class="material-name-text">${nameForDisplay}</span>
+                (<span class="material-type-${typeForDisplay}">${safeValue}</span>)
+              </div>`
+            );
+          },
+          item: ({ classNames }, data) => {
+            if (!data) {
+              console.warn("[Template Item] Data is null/undefined");
+              return strToEl(`<div class="${classNames.item}">Invalid Data</div>`);
+            }
+
+            const imageUrl = getMaterialImageUrl(data.value || "");
+            const nameForDisplay = data.name || (data.label ? data.label.split(" (")[0] : data.value || "Unknown");
+            const typeForDisplay = (data.type || "").toLowerCase();
+            const safeValue = data.value || "";
+            const safeId = data.id || "";
+
+            return strToEl(
+              `<div class="${classNames.item}" data-item data-id="${safeId}" data-value="${safeValue}" aria-selected="true" role="option" data-deletable>
+                <img src="${imageUrl}" style="height: 24px; display: inline-block; vertical-align: middle; margin: 8px;" alt="${nameForDisplay}" />
+                <span class="material-name-text">${nameForDisplay}</span>
+                (<span class="material-type-${typeForDisplay}"><code>${safeValue}</code></span>)
+                <button type="button" class="${classNames.button}" aria-label="Remove item: ${nameForDisplay}" data-button>Remove item</button>
+              </div>`
+            );
+          },
+        };
+      };
+
+      const safeChoicesOperation = (choicesInstance, operation) => {
+        try {
+          if (!choicesInstance || !choicesInstance.initialised) {
+            console.warn("Choices instance not initialized, skipping operation");
+            return false;
+          }
+          return operation();
+        } catch (error) {
+          console.error("Error in choices operation:", error);
+          return false;
+        }
+      };
+
+      const updateChoicesOptions = () => {
+        const availableReagents = getAvailableReagents(selectedReagents, selectedProduct);
+        const availableProducts = getAvailableProducts(selectedReagents, selectedProduct);
+
+        // Update reagent choices with error handling
+        safeChoicesOperation(reagentChoices, () => {
+          reagentChoices.clearStore();
+          reagentChoices.setChoices(availableReagents, "value", "label", true);
+
+          // Restore selected reagents that are still available
+          const stillAvailableReagents = selectedReagents.filter((reagent) =>
+            availableReagents.some((r) => r.value === reagent)
           );
+          stillAvailableReagents.forEach((reagent) => {
+            reagentChoices.setChoiceByValue(reagent);
+          });
+          selectedReagents = stillAvailableReagents;
+          return true;
+        });
+
+        // Update product choices with error handling
+        safeChoicesOperation(productChoices, () => {
+          productChoices.clearStore();
+          productChoices.setChoices(availableProducts, "value", "label", true);
+
+          // Restore selected product if still available
+          if (selectedProduct && availableProducts.some((p) => p.value === selectedProduct)) {
+            productChoices.setChoiceByValue(selectedProduct);
+          } else if (selectedProduct) {
+            selectedProduct = "";
+          }
+          return true;
+        });
+      };
+
+      // Initialize Choices.js instances
+      reagentChoices = new Choices(reagentSelectorElement, {
+        silent: false,
+        maxItemCount: 3,
+        allowHTML: true,
+        placeholder: true,
+        placeholderValue: "Search Reagents",
+        removeItemButton: true,
+        choices: getAvailableReagents([], ""),
+        searchEnabled: true,
+        renderSelectedChoices: "auto",
+        callbackOnCreateTemplates: createChoicesTemplates,
+      });
+
+      productChoices = new Choices(productSelectorElement, {
+        silent: false,
+        maxItemCount: 1,
+        allowHTML: true,
+        placeholder: true,
+        placeholderValue: "Search Products",
+        removeItemButton: true,
+        choices: getAvailableProducts([], ""),
+        searchEnabled: true,
+        renderSelectedChoices: "always",
+        maxItemText: (maxItemCount) => {
+          return `Searching for only ${maxItemCount} product at a time is allowed`;
+        },
+        callbackOnCreateTemplates: createChoicesTemplates,
+      });
+
+      const formatMaterialCellInTable = (id) => {
+        if (!id) return html`<div></div>`;
+        let nameInCell = id;
+        let typeInCell = "";
+        let fullDisplayName = id;
+        let wikiUrl = "";
+
+        if (Array.isArray(materials)) {
+          const material = materials.find((m) => m.id === id);
+          if (material) {
+            nameInCell = material.name;
+            typeInCell = material.type ? material.type.toLowerCase() : "";
+            fullDisplayName = `${material.name} (${id})`;
+            wikiUrl = material.wikipage ? `https://noita.wiki.gg/wiki/${encodeURIComponent(material.wikipage)}` : "";
+          } else {
+            fullDisplayName = `[${id} - Not Found]`;
+          }
+        } else {
+          fullDisplayName = `[${id} - Materials N/A]`;
         }
 
-        const imageUrl = getMaterialImageUrl(data.value || "");
-        const nameForDisplay = data.name || (data.label ? data.label.split(" (")[0] : data.value || "Unknown");
-        const typeForDisplay = (data.type || "").toLowerCase();
-        const safeValue = data.value || "";
-        const safeId = data.id || "";
+        const imageUrl = getMaterialImageUrl(id);
 
-        return strToEl(
-          `<div class="${classNames.item} ${classNames.itemChoice} ${classNames.itemSelectable}" data-choice data-choice-selectable data-id="${safeId}" data-value="${safeValue}" role="option">
-            <img src="${imageUrl}" style="height: 24px; display: inline-block; vertical-align: middle; margin-right: 8px;" alt="${nameForDisplay}" />
-            <span class="material-name-text">${nameForDisplay}</span>
-            (<span class="material-type-${typeForDisplay}">${safeValue}</span>)
-          </div>`
-        );
-      },
-      item: ({ classNames }, data) => {
-        if (!data) {
-          console.warn("[Template Item] Data is null/undefined");
-          return strToEl(`<div class="${classNames.item}">Invalid Data</div>`);
-        }
+        const materialNameContent = wikiUrl
+          ? html`<a
+              href="${wikiUrl}"
+              target="_blank"
+            >
+              <span class="material-name-text">${nameInCell}</span>
+              <span class="material-name-text"><br />(</span
+              ><span class="material-type-${typeInCell}"><code>${id}</code></span
+              ><span class="material-name-text">)</span>
+            </a>`
+          : html`<span class="material-name-text">${nameInCell}</span> <span class="material-name-text"><br />(</span
+              ><span class="material-type-${typeInCell}"><code>${id}</code></span
+              ><span class="material-name-text">)</span>`;
 
-        const imageUrl = getMaterialImageUrl(data.value || "");
-        const nameForDisplay = data.name || (data.label ? data.label.split(" (")[0] : data.value || "Unknown");
-        const typeForDisplay = (data.type || "").toLowerCase();
-        const safeValue = data.value || "";
-        const safeId = data.id || "";
-
-        return strToEl(
-          `<div class="${classNames.item}" data-item data-id="${safeId}" data-value="${safeValue}" aria-selected="true" role="option" data-deletable>
-            <img src="${imageUrl}" style="height: 24px; display: inline-block; vertical-align: middle; margin: 8px;" alt="${nameForDisplay}" />
-            <span class="material-name-text">${nameForDisplay}</span>
-            (<span class="material-type-${typeForDisplay}"><code>${safeValue}</code></span>)
-            <button type="button" class="${classNames.button}" aria-label="Remove item: ${nameForDisplay}" data-button>Remove item</button>
-          </div>`
-        );
-      },
-    };
-  };
-
-  const updateChoicesOptions = () => {
-    const availableReagents = getAvailableReagents(selectedReagents, selectedProduct);
-    const availableProducts = getAvailableProducts(selectedReagents, selectedProduct);
-
-    // Update reagent choices
-    reagentChoices.clearStore();
-    reagentChoices.setChoices(availableReagents, "value", "label", true);
-
-    // Restore selected reagents that are still available
-    const stillAvailableReagents = selectedReagents.filter((reagent) =>
-      availableReagents.some((r) => r.value === reagent)
-    );
-    stillAvailableReagents.forEach((reagent) => {
-      reagentChoices.setChoiceByValue(reagent);
-    });
-    selectedReagents = stillAvailableReagents;
-
-    // Update product choices
-    productChoices.clearStore();
-    productChoices.setChoices(availableProducts, "value", "label", true);
-
-    // Restore selected product if still available
-    if (selectedProduct && availableProducts.some((p) => p.value === selectedProduct)) {
-      productChoices.setChoiceByValue(selectedProduct);
-    } else if (selectedProduct) {
-      selectedProduct = "";
-    }
-  };
-
-  const reagentChoices = new Choices(reagentSelectorElement, {
-    silent: false,
-    maxItemCount: 3,
-    allowHTML: true,
-    placeholder: true,
-    placeholderValue: "Search Reagents",
-    removeItemButton: true,
-    choices: getAvailableReagents([], ""),
-    searchEnabled: true,
-    renderSelectedChoices: "auto",
-    callbackOnCreateTemplates: createChoicesTemplates,
-  });
-
-  const productChoices = new Choices(productSelectorElement, {
-    silent: false,
-    maxItemCount: 1,
-    allowHTML: true,
-    placeholder: true,
-    placeholderValue: "Search Products",
-    removeItemButton: true,
-    choices: getAvailableProducts([], ""),
-    searchEnabled: true,
-    renderSelectedChoices: "always",
-    callbackOnCreateTemplates: createChoicesTemplates,
-  });
-
-  const formatMaterialCellInTable = (id) => {
-    if (!id) return html`<div></div>`;
-    let nameInCell = id;
-    let typeInCell = "";
-    let fullDisplayName = id;
-    let wikiUrl = "";
-
-    if (Array.isArray(materials)) {
-      const material = materials.find((m) => m.id === id);
-      if (material) {
-        nameInCell = material.name;
-        typeInCell = material.type ? material.type.toLowerCase() : "";
-        fullDisplayName = `${material.name} (${id})`;
-        wikiUrl = material.wikipage ? `https://noita.wiki.gg/wiki/${encodeURIComponent(material.wikipage)}` : "";
-      } else {
-        fullDisplayName = `[${id} - Not Found]`;
-      }
-    } else {
-      fullDisplayName = `[${id} - Materials N/A]`;
-    }
-
-    const imageUrl = getMaterialImageUrl(id);
-
-    // Create the material name content with consistent formatting
-    const materialNameContent = wikiUrl
-      ? html`<a
-          href="${wikiUrl}"
-          target="_blank"
+        return html` <div
+          class="material"
+          style="display: flex; align-items: center; height: 30px; padding: 2px 0;"
         >
-          <span class="material-name-text">${nameInCell}</span>
-          <span class="material-name-text"><br />(</span
-          ><span class="material-type-${typeInCell}"><code>${id}</code></span
-          ><span class="material-name-text">)</span>
-        </a>`
-      : html`<span class="material-name-text">${nameInCell}</span> <span class="material-name-text"><br />(</span
-          ><span class="material-type-${typeInCell}"><code>${id}</code></span
-          ><span class="material-name-text">)</span>`;
-
-    return html` <div
-      class="material"
-      style="display: flex; align-items: center; height: 30px; padding: 2px 0;"
-    >
-      ${imageUrl
-        ? html`<div
-            class="material-image"
-            style="height: 48px; margin-right: 5px; flex-shrink: 0;"
+          ${imageUrl
+            ? html`<div
+                class="material-image"
+                style="height: 48px; margin-right: 5px; flex-shrink: 0;"
+              >
+                <img
+                  src="${imageUrl}"
+                  alt="${nameInCell}"
+                  style="width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated;"
+                  onerror="this.style.display='none'"
+                />
+              </div>`
+            : html`<div
+                style="width:48px; height:48px; margin-right:5px; flex-shrink:0; border:1px dashed #ccc; font-size:9px; display:flex; align-items:center; justify-content:center; color: #ccc;"
+              >
+                N/I
+              </div>`}
+          <span
+            class="material-name"
+            style="white-space: normal; line-height: 1.2;"
           >
-            <img
-              src="${imageUrl}"
-              alt="${nameInCell}"
-              style="width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated;"
-              onerror="this.style.display='none'"
-            />
-          </div>`
-        : html`<div
-            style="width:48px; height:48px; margin-right:5px; flex-shrink:0; border:1px dashed #ccc; font-size:9px; display:flex; align-items:center; justify-content:center; color: #ccc;"
-          >
-            N/I
-          </div>`}
-      <span
-        class="material-name"
-        style="white-space: normal; line-height: 1.2;"
-      >
-        ${materialNameContent}
-      </span>
-    </div>`;
-  };
-
-  const currentTableOptions = { ...baseTableOptions, format: {} };
-  ["input_cell1", "input_cell2", "input_cell3", "output_cell1", "output_cell2", "output_cell3"].forEach((col) => {
-    currentTableOptions.format[col] = formatMaterialCellInTable;
-  });
-
-  function getFilteredReactions() {
-    if (!Array.isArray(reactions) || reactions.length === 0) {
-      return [];
-    }
-
-    const result = reactions.filter((reaction) => {
-      // Check reagents match
-      if (selectedReagents.length > 0) {
-        const reactionInputs = [reaction.input_cell1, reaction.input_cell2, reaction.input_cell3].filter(Boolean);
-        if (!selectedReagents.every((reagent) => reactionInputs.includes(reagent))) {
-          return false;
-        }
-      }
-
-      // Check product match
-      if (selectedProduct) {
-        const reactionOutputs = [reaction.output_cell1, reaction.output_cell2, reaction.output_cell3].filter(Boolean);
-        if (!reactionOutputs.includes(selectedProduct)) {
-          return false;
-        }
-      }
-
-      return true;
-    });
-
-    return result;
-  }
-
-  function updateUI() {
-    const filteredReactions = getFilteredReactions();
-
-    if (!tableContainer) {
-      console.error("tableContainer not found!");
-      return;
-    }
-
-    const newTable = Inputs.table(filteredReactions, currentTableOptions);
-    tableContainer.innerHTML = "";
-    tableContainer.appendChild(newTable);
-
-    if (reactionsCountContainer) {
-      reactionsCountContainer.innerHTML = `There are ${filteredReactions.length} possible reactions`;
-    }
-
-    let reagentsViewerHTML = `<h4>Selected Reagents</h4>`;
-    if (selectedReagents.length > 0) {
-      reagentsViewerHTML += selectedReagents
-        .map((value) => {
-          const name = getMaterialName(value);
-          const imageUrl = getMaterialImageUrl(value);
-          return `<div class="selected-item" style="display: flex; align-items: center; margin-bottom: 5px;">
-          <img src="${imageUrl}" style="height: 24px; vertical-align: middle; margin-right: 8px;" alt="${name}" />
-          <span>${name}</span>
+            ${materialNameContent}
+          </span>
         </div>`;
-        })
-        .join("");
-    }
-    if (selectedReagentsViewer) {
-      selectedReagentsViewer.innerHTML = reagentsViewerHTML;
-    }
-  }
+      };
 
-  // Add debounce to prevent rapid-fire updates
-  let updateTimeout;
-  const debouncedUpdate = () => {
-    clearTimeout(updateTimeout);
-    updateTimeout = setTimeout(() => {
-      updateChoicesOptions();
+      const currentTableOptions = { ...baseTableOptions, format: {} };
+      ["input_cell1", "input_cell2", "input_cell3", "output_cell1", "output_cell2", "output_cell3"].forEach((col) => {
+        currentTableOptions.format[col] = formatMaterialCellInTable;
+      });
+
+      function getFilteredReactions() {
+        if (!Array.isArray(reactions) || reactions.length === 0) {
+          return [];
+        }
+
+        const result = reactions.filter((reaction) => {
+          if (selectedReagents.length > 0) {
+            const reactionInputs = [reaction.input_cell1, reaction.input_cell2, reaction.input_cell3].filter(Boolean);
+            if (!selectedReagents.every((reagent) => reactionInputs.includes(reagent))) {
+              return false;
+            }
+          }
+
+          if (selectedProduct) {
+            const reactionOutputs = [reaction.output_cell1, reaction.output_cell2, reaction.output_cell3].filter(
+              Boolean
+            );
+            if (!reactionOutputs.includes(selectedProduct)) {
+              return false;
+            }
+          }
+
+          return true;
+        });
+
+        return result;
+      }
+
+      function updateUI() {
+        try {
+          const filteredReactions = getFilteredReactions();
+
+          if (tableContainer) {
+            const newTable = Inputs.table(filteredReactions, currentTableOptions);
+            tableContainer.innerHTML = "";
+            tableContainer.appendChild(newTable);
+          }
+
+          if (reactionsCountContainer) {
+            reactionsCountContainer.innerHTML = `There are ${filteredReactions.length} possible reactions`;
+          }
+        } catch (error) {
+          console.error("Error updating UI:", error);
+        }
+      }
+
+      // Add debounce to prevent rapid-fire updates
+      let updateTimeout;
+      const debouncedUpdate = () => {
+        clearTimeout(updateTimeout);
+        updateTimeout = setTimeout(() => {
+          updateChoicesOptions();
+          updateUI();
+        }, 100); // 100ms delay
+      };
+
+      // Event listeners
+      reagentSelectorElement.addEventListener("change", () => {
+        try {
+          if (reagentChoices && reagentChoices.initialised) {
+            selectedReagents = reagentChoices.getValue(true);
+            debouncedUpdate();
+          }
+        } catch (error) {
+          console.error("Error in reagent change handler:", error);
+        }
+      });
+
+      productSelectorElement.addEventListener("change", () => {
+        try {
+          if (productChoices && productChoices.initialised) {
+            const selectedValues = productChoices.getValue(true);
+            selectedProduct = Array.isArray(selectedValues) && selectedValues.length > 0 ? selectedValues[0] : "";
+            debouncedUpdate();
+          }
+        } catch (error) {
+          console.error("Error in product change handler:", error);
+        }
+      });
+
+      ambrosiaLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        try {
+          selectedReagents = [];
+          selectedProduct = "magic_liquid_protection_all";
+
+          safeChoicesOperation(reagentChoices, () => reagentChoices.removeActiveItems());
+          safeChoicesOperation(productChoices, () => productChoices.removeActiveItems());
+
+          updateChoicesOptions();
+
+          requestAnimationFrame(() => {
+            safeChoicesOperation(productChoices, () => productChoices.setChoiceByValue("magic_liquid_protection_all"));
+            updateUI();
+          });
+        } catch (error) {
+          console.error("Error setting ambrosia:", error);
+        }
+      });
+
+      flummoxiumLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        try {
+          selectedReagents = ["material_confusion"];
+          selectedProduct = "";
+
+          safeChoicesOperation(reagentChoices, () => reagentChoices.removeActiveItems());
+          safeChoicesOperation(productChoices, () => productChoices.removeActiveItems());
+
+          updateChoicesOptions();
+
+          requestAnimationFrame(() => {
+            safeChoicesOperation(reagentChoices, () => reagentChoices.setChoiceByValue("material_confusion"));
+            updateUI();
+          });
+        } catch (error) {
+          console.error("Error setting flummoxium:", error);
+        }
+      });
+
+      frogWhiskeyLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        try {
+          selectedReagents = ["meat_frog", "alcohol"];
+          selectedProduct = "";
+
+          safeChoicesOperation(reagentChoices, () => reagentChoices.removeActiveItems());
+          safeChoicesOperation(productChoices, () => productChoices.removeActiveItems());
+
+          updateChoicesOptions();
+
+          requestAnimationFrame(() => {
+            safeChoicesOperation(reagentChoices, () => {
+              reagentChoices.setChoiceByValue("meat_frog");
+              reagentChoices.setChoiceByValue("alcohol");
+            });
+            updateUI();
+          });
+        } catch (error) {
+          console.error("Error setting frog meat and whiskey:", error);
+        }
+      });
+
+      // Initial UI update
       updateUI();
-    }, 100); // 100ms delay
+      isInitialized = true;
+      console.log("App initialized successfully");
+    } catch (error) {
+      console.error("Failed to initialize app:", error);
+    }
   };
 
-  reagentSelectorElement.addEventListener("change", () => {
-    try {
-      selectedReagents = reagentChoices.getValue(true);
-      debouncedUpdate();
-    } catch (error) {
-      console.error("Error in reagent change handler:", error);
-    }
-  });
-
-  ambrosiaLink.addEventListener("click", (e) => {
-    e.preventDefault();
-    try {
-      selectedReagents = [];
-      selectedProduct = "magic_liquid_protection_all";
-
-      reagentChoices.removeActiveItems();
-      productChoices.removeActiveItems();
-
-      updateChoicesOptions();
-
-      setTimeout(() => {
-        productChoices.setChoiceByValue("magic_liquid_protection_all");
-        updateUI();
-      }, 50);
-    } catch (error) {
-      console.error("Error setting ambrosia:", error);
-    }
-  });
-
-  flummoxiumLink.addEventListener("click", (e) => {
-    e.preventDefault();
-    try {
-      selectedReagents = ["material_confusion"];
-      selectedProduct = "";
-
-      // Clear both selectors
-      reagentChoices.removeActiveItems();
-      productChoices.removeActiveItems();
-
-      updateChoicesOptions();
-
-      setTimeout(() => {
-        reagentChoices.setChoiceByValue("material_confusion");
-        updateUI();
-      }, 50);
-    } catch (error) {
-      console.error("Error setting flummoxium:", error);
-    }
-  });
-
-  frogWhiskeyLink.addEventListener("click", (e) => {
-    e.preventDefault();
-    try {
-      selectedReagents = ["meat_frog", "alcohol"];
-      selectedProduct = "";
-
-      reagentChoices.removeActiveItems();
-      productChoices.removeActiveItems();
-
-      updateChoicesOptions();
-
-      setTimeout(() => {
-        reagentChoices.setChoiceByValue("meat_frog");
-        reagentChoices.setChoiceByValue("alcohol");
-        updateUI();
-      }, 50);
-    } catch (error) {
-      console.error("Error setting frog meat and whiskey:", error);
-    }
-  });
-
-  productSelectorElement.addEventListener("change", () => {
-    try {
-      const selectedValues = productChoices.getValue(true);
-      selectedProduct = Array.isArray(selectedValues) && selectedValues.length > 0 ? selectedValues[0] : "";
-      debouncedUpdate();
-    } catch (error) {
-      console.error("Error in product change handler:", error);
-    }
-  });
-
-  if (document.readyState === "complete" || document.readyState === "interactive") {
-    console.log("Initialising UI on document ready/interactive...");
-    updateUI();
+  // Start initialization
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeApp);
   } else {
-    document.addEventListener("DOMContentLoaded", () => {
-      console.log("Initialising UI on DOMContentLoaded...");
-      updateUI();
-    });
+    initializeApp();
   }
 }
 ```
 
 <div class="grid grid-cols-4">
-  <div class="card grid-colspan-3">
-    <select id="choicesSelector" multiple></select>
-  </div>
-  <div class="card grid-colspan-1">
-    <select id="productChoicesSelector" multiple></select>
-  </div>
+    <div class="card grid-colspan-3">
+        <select id="choicesSelector" multiple></select>
+    </div>
+    <div class="card grid-colspan-1">
+        <select id="productChoicesSelector" multiple></select>
+    </div>
 </div>
-
+<div class="card grid-colspan-1">
+    <h3 id="reactionsCount">There are 5589 possible reactions</h3>
+</div>
 <div class="grid grid-cols-1 grid-rowspan-1" style="grid-auto-rows: auto;">
-  <div class="card grid-colspan-1 grid-rowspan-1" style="padding: 0;" id="tableContainer">
-    <h3 id="reactionsCount"></h3>
-  </div>
+    <div class="card grid-colspan-1 grid-rowspan-1" style="padding: 0;" id="tableContainer">
+        </div>
 </div>
