@@ -16,6 +16,100 @@ initializeTitleAnimation();
 ```
 
 ```js
+window.appState = {
+  selectedReagents: [],
+  selectedProduct: "",
+  reagentChoices: null,
+  productChoices: null,
+  updateChoicesOptions: null,
+  updateUI: null,
+  isResetting: false,
+};
+
+const urlParams = new URLSearchParams(window.location.search);
+window.appState.selectedReagents = urlParams.get("reagents")?.split(",") || [];
+window.appState.selectedProduct = urlParams.get("product") || "";
+
+const resetButton = Inputs.button(
+  htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" />Reset`,
+  {
+    label: "",
+    reduce: () => {
+      window.appState.isResetting = true;
+
+      const url = new URL(window.location.href);
+      url.search = "";
+      window.history.replaceState({}, "", url.toString());
+
+      window.appState.selectedReagents = [];
+      window.appState.selectedProduct = "";
+
+      const { reagentChoices, productChoices, updateChoicesOptions, updateUI } = window.appState;
+
+      if (reagentChoices && reagentChoices.initialised) {
+        reagentChoices.removeActiveItems();
+      }
+      if (productChoices && productChoices.initialised) {
+        productChoices.removeActiveItems();
+      }
+
+      if (typeof updateChoicesOptions === "function") {
+        updateChoicesOptions();
+      }
+      if (typeof updateUI === "function") {
+        updateUI();
+      }
+
+      window.appState.isResetting = false;
+
+      return null;
+    },
+  }
+);
+
+const shareButton = Inputs.button(
+  htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/copy.svg" />Share`,
+  {
+    value: null,
+    reduce: () => {
+      const url = new URL(window.location.href);
+      url.search = "";
+
+      const reagents = window.appState.selectedReagents || [];
+      const product = window.appState.selectedProduct || "";
+
+      if (reagents.length > 0) url.searchParams.set("reagents", reagents.join(","));
+      if (product) url.searchParams.set("product", product);
+
+      const shareUrl = url.toString();
+
+      navigator.clipboard
+        .writeText(shareUrl)
+        .then(() => {
+          console.log("URL copied to clipboard:", shareUrl);
+        })
+        .catch((err) => {
+          console.error("Failed to copy URL to clipboard:", err);
+          const textArea = document.createElement("textarea");
+          textArea.value = shareUrl;
+          document.body.appendChild(textArea);
+          textArea.select();
+          try {
+            document.execCommand("copy");
+            console.log("URL copied using fallback method");
+          } catch (fallbackErr) {
+            console.error("Fallback copy also failed:", fallbackErr);
+          }
+          document.body.removeChild(textArea);
+        });
+
+      return shareUrl;
+    },
+  }
+);
+```
+
+```js
 const getRowCount = (width) => {
   if (width > 1400) return 33;
   if (width > 1170) return 13;
@@ -36,7 +130,6 @@ const reactions = await FileAttachment("./data/jsons/reactions.json").json();
 ```
 
 ```js
-// Wait for DOM to be ready before accessing elements
 const waitForElement = (id, timeout = 5000) => {
   return new Promise((resolve, reject) => {
     const element = document.getElementById(id);
@@ -67,13 +160,6 @@ const waitForElement = (id, timeout = 5000) => {
 ```
 
 ```js
-if (Array.isArray(materials)) {
-  const testAcidMaterial = materials.find((m) => m.id === "acid");
-  console.log("DEBUG: 'acid' material object from materials.json:", JSON.parse(JSON.stringify(testAcidMaterial)));
-  const testCactusMaterial = materials.find((m) => m.id === "cactus");
-  console.log("DEBUG: 'cactus' material object from materials.json:", JSON.parse(JSON.stringify(testCactusMaterial)));
-}
-
 const getMaterialName = (id) => {
   if (!id) return "[No ID]";
   if (!Array.isArray(materials)) {
@@ -104,30 +190,50 @@ const getMaterialImageUrl = (id) => {
 
 const html = htl.html;
 
-// Dynamic filtering
-const getAvailableReagents = (selectedReagents, selectedProduct) => {
-  if (!selectedProduct && selectedReagents.length === 0) {
+const getReactionMaterials = () => {
+  const reactionMaterialIds = new Set();
+  reactions.forEach((reaction) => {
+    [
+      reaction.input_cell1,
+      reaction.input_cell2,
+      reaction.input_cell3,
+      reaction.output_cell1,
+      reaction.output_cell2,
+      reaction.output_cell3,
+    ]
+      .filter(Boolean)
+      .forEach((id) => reactionMaterialIds.add(id));
+  });
+  return reactionMaterialIds;
+};
+
+const reactionMaterialIds = getReactionMaterials();
+
+const getAvailableReagents = (currentSelectedReagents, currentSelectedProduct) => {
+  if (!currentSelectedProduct && currentSelectedReagents.length === 0) {
     return Array.isArray(materials)
-      ? materials.map((d) => ({
-          value: d.id,
-          label: `${d.name} (${d.id})`,
-          name: d.name,
-          type: d.type || "",
-        }))
+      ? materials
+          .filter((d) => reactionMaterialIds.has(d.id))
+          .map((d) => ({
+            value: d.id,
+            label: `${d.name} (${d.id})`,
+            name: d.name,
+            type: d.type || "",
+          }))
       : [];
   }
 
   const relevantReactions = reactions.filter((reaction) => {
     let productMatch = true;
-    if (selectedProduct) {
+    if (currentSelectedProduct) {
       const outputs = [reaction.output_cell1, reaction.output_cell2, reaction.output_cell3].filter(Boolean);
-      productMatch = outputs.includes(selectedProduct);
+      productMatch = outputs.includes(currentSelectedProduct);
     }
 
     let reagentsMatch = true;
-    if (selectedReagents.length > 0) {
+    if (currentSelectedReagents.length > 0) {
       const inputs = [reaction.input_cell1, reaction.input_cell2, reaction.input_cell3].filter(Boolean);
-      reagentsMatch = selectedReagents.every((reagent) => inputs.includes(reagent));
+      reagentsMatch = currentSelectedReagents.every((reagent) => inputs.includes(reagent));
     }
 
     return productMatch && reagentsMatch;
@@ -152,8 +258,8 @@ const getAvailableReagents = (selectedReagents, selectedProduct) => {
     : [];
 };
 
-const getAvailableProducts = (selectedReagents, selectedProduct) => {
-  if (!selectedProduct && selectedReagents.length === 0) {
+const getAvailableProducts = (currentSelectedReagents, currentSelectedProduct) => {
+  if (!currentSelectedProduct && currentSelectedReagents.length === 0) {
     const uniqueProducts = Array.isArray(reactions)
       ? [...new Set(reactions.flatMap((r) => [r.output_cell1, r.output_cell2, r.output_cell3].filter(Boolean)))]
       : [];
@@ -174,10 +280,10 @@ const getAvailableProducts = (selectedReagents, selectedProduct) => {
   }
 
   const relevantReactions = reactions.filter((reaction) => {
-    if (selectedReagents.length === 0) return true;
+    if (currentSelectedReagents.length === 0) return true;
 
     const inputs = [reaction.input_cell1, reaction.input_cell2, reaction.input_cell3].filter(Boolean);
-    return selectedReagents.every((reagent) => inputs.includes(reagent));
+    return currentSelectedReagents.every((reagent) => inputs.includes(reagent));
   });
 
   const availableProductIds = new Set();
@@ -239,17 +345,11 @@ const baseTableOptions = {
 
 ```js
 {
-  let selectedReagents = [];
-  let selectedProduct = "";
   let reagentChoices = null;
   let productChoices = null;
-  let isInitialized = false;
 
-  // Wait for all required elements to be available
   const initializeApp = async () => {
     try {
-      console.log("Waiting for DOM elements...");
-
       const [
         reagentSelectorElement,
         productSelectorElement,
@@ -267,16 +367,15 @@ const baseTableOptions = {
         waitForElement("flum-link"),
         waitForElement("frog-whiskey-link"),
       ]);
+
       if (reagentSelectorElement.classList.contains("choices__input")) {
         return;
       }
-      console.log("All DOM elements found, initializing...");
 
       const createChoicesTemplates = (strToEl) => {
         return {
           choice: ({ classNames }, data) => {
             if (!data) {
-              console.warn("[Template Choice] Data is null/undefined");
               return strToEl(
                 `<div class="${classNames.item} ${classNames.itemChoice} ${classNames.itemSelectable}">Invalid Data</div>`
               );
@@ -298,7 +397,6 @@ const baseTableOptions = {
           },
           item: ({ classNames }, data) => {
             if (!data) {
-              console.warn("[Template Item] Data is null/undefined");
               return strToEl(`<div class="${classNames.item}">Invalid Data</div>`);
             }
 
@@ -323,7 +421,6 @@ const baseTableOptions = {
       const safeChoicesOperation = (choicesInstance, operation) => {
         try {
           if (!choicesInstance || !choicesInstance.initialised) {
-            console.warn("Choices instance not initialized, skipping operation");
             return false;
           }
           return operation();
@@ -334,41 +431,39 @@ const baseTableOptions = {
       };
 
       const updateChoicesOptions = () => {
-        const availableReagents = getAvailableReagents(selectedReagents, selectedProduct);
-        const availableProducts = getAvailableProducts(selectedReagents, selectedProduct);
+        const availableReagents = getAvailableReagents(
+          window.appState.selectedReagents,
+          window.appState.selectedProduct
+        );
+        const availableProducts = getAvailableProducts(
+          window.appState.selectedReagents,
+          window.appState.selectedProduct
+        );
 
-        // Update reagent choices with error handling
         safeChoicesOperation(reagentChoices, () => {
           reagentChoices.clearStore();
           reagentChoices.setChoices(availableReagents, "value", "label", true);
-
-          // Restore selected reagents that are still available
-          const stillAvailableReagents = selectedReagents.filter((reagent) =>
-            availableReagents.some((r) => r.value === reagent)
-          );
-          stillAvailableReagents.forEach((reagent) => {
-            reagentChoices.setChoiceByValue(reagent);
+          window.appState.selectedReagents.forEach((value) => {
+            if (availableReagents.some((r) => r.value === value)) {
+              reagentChoices.setChoiceByValue(value);
+            }
           });
-          selectedReagents = stillAvailableReagents;
           return true;
         });
 
-        // Update product choices with error handling
         safeChoicesOperation(productChoices, () => {
           productChoices.clearStore();
           productChoices.setChoices(availableProducts, "value", "label", true);
-
-          // Restore selected product if still available
-          if (selectedProduct && availableProducts.some((p) => p.value === selectedProduct)) {
-            productChoices.setChoiceByValue(selectedProduct);
-          } else if (selectedProduct) {
-            selectedProduct = "";
+          if (
+            window.appState.selectedProduct &&
+            availableProducts.some((p) => p.value === window.appState.selectedProduct)
+          ) {
+            productChoices.setChoiceByValue(window.appState.selectedProduct);
           }
           return true;
         });
       };
 
-      // Initialize Choices.js instances
       reagentChoices = new Choices(reagentSelectorElement, {
         silent: false,
         maxItemCount: 3,
@@ -376,7 +471,7 @@ const baseTableOptions = {
         placeholder: true,
         placeholderValue: "Search Reagents",
         removeItemButton: true,
-        choices: getAvailableReagents([], ""),
+        choices: getAvailableReagents(window.appState.selectedReagents, window.appState.selectedProduct),
         searchEnabled: true,
         renderSelectedChoices: "auto",
         callbackOnCreateTemplates: createChoicesTemplates,
@@ -390,7 +485,7 @@ const baseTableOptions = {
         placeholder: true,
         placeholderValue: "Search Products",
         removeItemButton: true,
-        choices: getAvailableProducts([], ""),
+        choices: getAvailableProducts(window.appState.selectedReagents, window.appState.selectedProduct),
         searchEnabled: true,
         renderSelectedChoices: "always",
         maxItemText: (maxItemCount) => {
@@ -477,18 +572,18 @@ const baseTableOptions = {
         }
 
         const result = reactions.filter((reaction) => {
-          if (selectedReagents.length > 0) {
+          if (window.appState.selectedReagents.length > 0) {
             const reactionInputs = [reaction.input_cell1, reaction.input_cell2, reaction.input_cell3].filter(Boolean);
-            if (!selectedReagents.every((reagent) => reactionInputs.includes(reagent))) {
+            if (!window.appState.selectedReagents.every((reagent) => reactionInputs.includes(reagent))) {
               return false;
             }
           }
 
-          if (selectedProduct) {
+          if (window.appState.selectedProduct) {
             const reactionOutputs = [reaction.output_cell1, reaction.output_cell2, reaction.output_cell3].filter(
               Boolean
             );
-            if (!reactionOutputs.includes(selectedProduct)) {
+            if (!reactionOutputs.includes(window.appState.selectedProduct)) {
               return false;
             }
           }
@@ -512,26 +607,46 @@ const baseTableOptions = {
           if (reactionsCountContainer) {
             reactionsCountContainer.innerHTML = `Reactions found: <code class="bigger-number-better">${filteredReactions.length}</code>`;
           }
+
+          if (!window.appState.isResetting) {
+            updateURL();
+          }
         } catch (error) {
           console.error("Error updating UI:", error);
         }
       }
 
-      // Add debounce to prevent rapid-fire updates
+      function updateURL() {
+        try {
+          const url = new URL(window.location.href);
+          url.search = "";
+
+          if (window.appState.selectedReagents.length > 0) {
+            url.searchParams.set("reagents", window.appState.selectedReagents.join(","));
+          }
+          if (window.appState.selectedProduct) {
+            url.searchParams.set("product", window.appState.selectedProduct);
+          }
+
+          window.history.replaceState({}, "", url.toString());
+        } catch (error) {
+          console.error("Error updating URL:", error);
+        }
+      }
+
       let updateTimeout;
       const debouncedUpdate = () => {
         clearTimeout(updateTimeout);
         updateTimeout = setTimeout(() => {
           updateChoicesOptions();
           updateUI();
-        }, 100); // 100ms delay
+        }, 100);
       };
 
-      // Event listeners
       reagentSelectorElement.addEventListener("change", () => {
         try {
-          if (reagentChoices && reagentChoices.initialised) {
-            selectedReagents = reagentChoices.getValue(true);
+          if (reagentChoices && reagentChoices.initialised && !window.appState.isResetting) {
+            window.appState.selectedReagents = reagentChoices.getValue(true);
             debouncedUpdate();
           }
         } catch (error) {
@@ -541,9 +656,10 @@ const baseTableOptions = {
 
       productSelectorElement.addEventListener("change", () => {
         try {
-          if (productChoices && productChoices.initialised) {
+          if (productChoices && productChoices.initialised && !window.appState.isResetting) {
             const selectedValues = productChoices.getValue(true);
-            selectedProduct = Array.isArray(selectedValues) && selectedValues.length > 0 ? selectedValues[0] : "";
+            window.appState.selectedProduct =
+              Array.isArray(selectedValues) && selectedValues.length > 0 ? selectedValues[0] : "";
             debouncedUpdate();
           }
         } catch (error) {
@@ -551,79 +667,52 @@ const baseTableOptions = {
         }
       });
 
-      ambrosiaLink.addEventListener("click", (e) => {
+      const handleExampleLinkClick = (e, reagents, product) => {
         e.preventDefault();
-        try {
-          selectedReagents = [];
-          selectedProduct = "magic_liquid_protection_all";
+        window.appState.isResetting = true; // Temporarily prevent URL updates
+        window.appState.selectedReagents = reagents;
+        window.appState.selectedProduct = product;
 
-          safeChoicesOperation(reagentChoices, () => reagentChoices.removeActiveItems());
-          safeChoicesOperation(productChoices, () => productChoices.removeActiveItems());
+        safeChoicesOperation(reagentChoices, () => reagentChoices.removeActiveItems());
+        safeChoicesOperation(productChoices, () => productChoices.removeActiveItems());
 
-          updateChoicesOptions();
+        requestAnimationFrame(() => {
+          updateChoicesOptions(); // This will also re-populate with all available choices based on the new state
+          if (reagents.length > 0) {
+            reagents.forEach((r) => safeChoicesOperation(reagentChoices, () => reagentChoices.setChoiceByValue(r)));
+          }
+          if (product) {
+            safeChoicesOperation(productChoices, () => productChoices.setChoiceByValue(product));
+          }
+          updateUI(); // Update reactions table and URL
+          window.appState.isResetting = false; // Allow URL updates again
+        });
+      };
 
-          requestAnimationFrame(() => {
-            safeChoicesOperation(productChoices, () => productChoices.setChoiceByValue("magic_liquid_protection_all"));
-            updateUI();
-          });
-        } catch (error) {
-          console.error("Error setting ambrosia:", error);
-        }
-      });
+      ambrosiaLink.addEventListener("click", (e) => handleExampleLinkClick(e, [], "magic_liquid_protection_all"));
+      flummoxiumLink.addEventListener("click", (e) => handleExampleLinkClick(e, ["material_confusion"], ""));
+      frogWhiskeyLink.addEventListener("click", (e) => handleExampleLinkClick(e, ["meat_frog", "alcohol"], ""));
 
-      flummoxiumLink.addEventListener("click", (e) => {
-        e.preventDefault();
-        try {
-          selectedReagents = ["material_confusion"];
-          selectedProduct = "";
+      window.appState.reagentChoices = reagentChoices;
+      window.appState.productChoices = productChoices;
+      window.appState.updateChoicesOptions = updateChoicesOptions;
+      window.appState.updateUI = updateUI;
 
-          safeChoicesOperation(reagentChoices, () => reagentChoices.removeActiveItems());
-          safeChoicesOperation(productChoices, () => productChoices.removeActiveItems());
-
-          updateChoicesOptions();
-
-          requestAnimationFrame(() => {
-            safeChoicesOperation(reagentChoices, () => reagentChoices.setChoiceByValue("material_confusion"));
-            updateUI();
-          });
-        } catch (error) {
-          console.error("Error setting flummoxium:", error);
-        }
-      });
-
-      frogWhiskeyLink.addEventListener("click", (e) => {
-        e.preventDefault();
-        try {
-          selectedReagents = ["meat_frog", "alcohol"];
-          selectedProduct = "";
-
-          safeChoicesOperation(reagentChoices, () => reagentChoices.removeActiveItems());
-          safeChoicesOperation(productChoices, () => productChoices.removeActiveItems());
-
-          updateChoicesOptions();
-
-          requestAnimationFrame(() => {
-            safeChoicesOperation(reagentChoices, () => {
-              reagentChoices.setChoiceByValue("meat_frog");
-              reagentChoices.setChoiceByValue("alcohol");
-            });
-            updateUI();
-          });
-        } catch (error) {
-          console.error("Error setting frog meat and whiskey:", error);
-        }
-      });
-
-      // Initial UI update
-      updateUI();
-      isInitialized = true;
-      console.log("App initialized successfully");
+      // Initial state setup and UI update
+      if (window.appState.selectedReagents.length > 0 || window.appState.selectedProduct) {
+        requestAnimationFrame(() => {
+          updateChoicesOptions(); // Update available options for dropdowns based on initial selections
+          updateUI(); // Initial UI update based on URL params
+        });
+      } else {
+        // Initial UI update if no URL parameters are present
+        updateUI();
+      }
     } catch (error) {
       console.error("Failed to initialize app:", error);
     }
   };
 
-  // Start initialization
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initializeApp);
   } else {
@@ -633,17 +722,18 @@ const baseTableOptions = {
 ```
 
 <div class="grid grid-cols-4">
-    <div class="card grid-colspan-3">
-        <select id="choicesSelector" multiple></select>
-    </div>
-    <div class="card grid-colspan-1">
-        <select id="productChoicesSelector" multiple></select>
-    </div>
+  <div class="card grid-colspan-2">
+    <select id="choicesSelector" multiple></select>
+  </div>
+  <div class="card grid-colspan-1">
+    <select id="productChoicesSelector" multiple></select>
+  </div>
+  <div class="card grid-colspan-1"><h2 id="reactionsCount">Reactions found: <code class="bigger-number-better">5589</code></h2></div>
 </div>
-<div class="card grid-colspan-1">
-    <h2 id="reactionsCount">Reactions found: <code class="bigger-number-better">5589</code></h2>
+<div class="grid grid-cols-4">
+  <div class="card grid-colspan-1">${resetButton}</div>
+  <div class="card grid-colspan-1">${shareButton}</div>
 </div>
-<div class="grid grid-cols-1 grid-rowspan-1" style="grid-auto-rows: auto;">
-    <div class="card grid-colspan-1 grid-rowspan-1" style="padding: 0;" id="tableContainer">
-        </div>
+<div class="grid grid-cols-1 grid-rowspan-1" style="grid-auto-rows: auto">
+  <div class="card grid-colspan-1 grid-rowspan-1" style="padding: 0" id="tableContainer"></div>
 </div>
