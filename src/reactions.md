@@ -8,7 +8,7 @@ draft: false
 <link href="custom.css" rel="stylesheet"></link>
 
 <h1 id="acidTitle" class="bartender-heading-decrypted">Reactions Finder</h1>
-<h2>Ever wanted to make <a href="#" id="ambrosia-link" class="local-link"><code class="bigger-number-better"><span class="material-type-liquid">Ambrosia</span></code></a>? Is <a href="#" id="flum-link" class="local-link"><code class="bigger-number-better"><span class="material-type-liquid">Flummoxium</span></code></a> even useful? Mixing <a href="#" id="frog-whiskey-link" class="local-link"><code class="bigger-number-better"><span class="material-type-solid">frog meat</span> and <span class="material-type-liquid">whiskey</span></code></a> does something!? Noita has <code class="bigger-number-better">${reactions.length}</code> fixed material reactions, and two secret reactions for each seed. When you select the first igredient the list autoupdates, showing only materials that can react with the selected.</h2>
+<h2>Ever wanted to make <code><span class="material-type-liquid">Ambrosia</span></code>? Is <code><span class="material-type-liquid">Flummoxium</span></code> even useful? Mixing <code><span class="material-type-solid">frog meat</span> and <span class="material-type-liquid">whiskey</span></code> does something!? Noita has <code class="bigger-number-better">${reactions.length}</code> fixed material reactions, and two secret reactions for each seed. When you select the first igredient the list autoupdates, showing only materials that can react with the selected.</h2>
 
 ```js
 import { initializeTitleAnimation } from "./components/titleAnimation.js";
@@ -350,23 +350,13 @@ const baseTableOptions = {
 
   const initializeApp = async () => {
     try {
-      const [
-        reagentSelectorElement,
-        productSelectorElement,
-        tableContainer,
-        reactionsCountContainer,
-        ambrosiaLink,
-        flummoxiumLink,
-        frogWhiskeyLink,
-      ] = await Promise.all([
-        waitForElement("choicesSelector"),
-        waitForElement("productChoicesSelector"),
-        waitForElement("tableContainer"),
-        waitForElement("reactionsCount"),
-        waitForElement("ambrosia-link"),
-        waitForElement("flum-link"),
-        waitForElement("frog-whiskey-link"),
-      ]);
+      const [reagentSelectorElement, productSelectorElement, tableContainer, reactionsCountContainer] =
+        await Promise.all([
+          waitForElement("choicesSelector"),
+          waitForElement("productChoicesSelector"),
+          waitForElement("tableContainer"),
+          waitForElement("reactionsCount"),
+        ]);
 
       if (reagentSelectorElement.classList.contains("choices__input")) {
         return;
@@ -666,32 +656,6 @@ const baseTableOptions = {
           console.error("Error in product change handler:", error);
         }
       });
-
-      const handleExampleLinkClick = (e, reagents, product) => {
-        e.preventDefault();
-        window.appState.isResetting = true; // Temporarily prevent URL updates
-        window.appState.selectedReagents = reagents;
-        window.appState.selectedProduct = product;
-
-        safeChoicesOperation(reagentChoices, () => reagentChoices.removeActiveItems());
-        safeChoicesOperation(productChoices, () => productChoices.removeActiveItems());
-
-        requestAnimationFrame(() => {
-          updateChoicesOptions(); // This will also re-populate with all available choices based on the new state
-          if (reagents.length > 0) {
-            reagents.forEach((r) => safeChoicesOperation(reagentChoices, () => reagentChoices.setChoiceByValue(r)));
-          }
-          if (product) {
-            safeChoicesOperation(productChoices, () => productChoices.setChoiceByValue(product));
-          }
-          updateUI(); // Update reactions table and URL
-          window.appState.isResetting = false; // Allow URL updates again
-        });
-      };
-
-      ambrosiaLink.addEventListener("click", (e) => handleExampleLinkClick(e, [], "magic_liquid_protection_all"));
-      flummoxiumLink.addEventListener("click", (e) => handleExampleLinkClick(e, ["material_confusion"], ""));
-      frogWhiskeyLink.addEventListener("click", (e) => handleExampleLinkClick(e, ["meat_frog", "alcohol"], ""));
 
       window.appState.reagentChoices = reagentChoices;
       window.appState.productChoices = productChoices;
