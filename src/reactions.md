@@ -15,6 +15,215 @@ import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();
 ```
 
+```ts
+/**
+
+ * Creates a notification element with a fade-in and fade-out effect.
+
+ *
+
+ * @param {string} text - The notification text.
+
+ * @param {string} [notifID="share-notification"] - The ID of the notification element.
+
+ * @param {string} [parentID="observablehq-main"] - The ID of the parent element.
+
+ */
+
+const createNotification = (text, notifID = "share-notification", parentID = "observablehq-main") => {
+  const parentElement = document.getElementById(parentID);
+
+  if (!parentElement) {
+    console.error(`Parent element with ID ${parentID} not found.`);
+
+    return;
+  }
+
+  const existsNotification = document.getElementById(notifID);
+
+  if (existsNotification) {
+    return;
+  }
+
+  const notification = document.createElement("p");
+
+  notification.id = notifID;
+
+  notification.textContent = text;
+
+  notification.classList.add("notification");
+
+  parentElement.appendChild(notification);
+
+  // Fade-in and fade-out animation
+
+  const fadeIn = () => {
+    notification.style.opacity = 1;
+  };
+
+  const fadeOut = () => {
+    notification.style.opacity = 0;
+
+    setTimeout(() => {
+      parentElement.removeChild(notification);
+    }, 500); // Wait for fade-out animation to complete
+  };
+
+  setTimeout(fadeIn, 100);
+
+  setTimeout(fadeOut, 2500);
+};
+
+// Add CSS class for styling
+
+const notificationStyle = document.createElement("style");
+
+notificationStyle.textContent = `
+
+  .notification {
+
+    /* Positioning and Layout */
+
+    position: fixed;
+
+    z-index: 9999;
+
+    inset: 5% 0 0 50%;
+
+    translate: -50% 0;
+
+    width: max-content;
+
+    height: max-content;
+
+
+    /* Visual Styling */
+
+    background-color: oklch(39.3% 0.095 152.535);
+
+    background-repeat: repeat;
+
+    background-position-y: bottom;
+
+    border-radius: 1rem;
+
+    padding: 1rem;
+
+
+    /* Text Styling */
+
+    font-weight: bold;
+
+    font-size: large;
+
+    color: oklch(92.5% 0.084 155.995);
+
+    font-family: -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
+
+
+
+
+    /* Animation and Transitions */
+
+    transition: opacity 500ms;
+
+    opacity: 0;
+
+    animation: slideInDown 500ms ease-out;
+
+
+    /* User Interaction */
+
+    user-select: none;
+
+  }
+
+
+  @keyframes slideInDown {
+
+    0% {
+
+      transform: translateY(-100%);
+
+      opacity: 0;
+
+    }
+
+    100% {
+
+      transform: translateY(0);
+
+      opacity: 1;
+
+    }
+
+  }
+
+`;
+
+document.head.appendChild(notificationStyle);
+
+const shareButton = Inputs.button(
+  htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/copy.svg" />Share`,
+
+  {
+    value: null,
+
+    reduce: () => {
+      const url = new URL(window.location.href);
+
+      url.search = "";
+
+      const reagents = window.appState.selectedReagents || [];
+
+      const product = window.appState.selectedProduct || "";
+
+      if (reagents.length > 0) url.searchParams.set("reagents", reagents.join(","));
+
+      if (product) url.searchParams.set("product", product);
+
+      const shareUrl = url.toString();
+
+      navigator.clipboard
+
+        .writeText(shareUrl)
+
+        .then(() => {
+          console.log("URL copied to clipboard: %s", shareUrl);
+
+          createNotification("URL copied to clipboard");
+        })
+
+        .catch((err) => {
+          console.error("Failed to copy URL to clipboard:", err);
+
+          const textArea = document.createElement("textarea");
+
+          textArea.value = shareUrl;
+
+          document.body.appendChild(textArea);
+
+          textArea.select();
+
+          try {
+            document.execCommand("copy");
+
+            createNotification("URL copied to clipboard");
+
+            console.log("URL copied using fallback method");
+          } catch (fallbackErr) {
+            console.error("Fallback copy also failed:", fallbackErr);
+          }
+
+          document.body.removeChild(textArea);
+        });
+
+      return shareUrl;
+    },
+  }
+);
+```
+
 ```js
 window.appState = {
   selectedReagents: [],
@@ -63,47 +272,6 @@ const resetButton = Inputs.button(
       window.appState.isResetting = false;
 
       return null;
-    },
-  }
-);
-
-const shareButton = Inputs.button(
-  htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/copy.svg" />Share`,
-  {
-    value: null,
-    reduce: () => {
-      const url = new URL(window.location.href);
-      url.search = "";
-
-      const reagents = window.appState.selectedReagents || [];
-      const product = window.appState.selectedProduct || "";
-
-      if (reagents.length > 0) url.searchParams.set("reagents", reagents.join(","));
-      if (product) url.searchParams.set("product", product);
-
-      const shareUrl = url.toString();
-
-      navigator.clipboard
-        .writeText(shareUrl)
-        .then(() => {
-          console.log("URL copied to clipboard:", shareUrl);
-        })
-        .catch((err) => {
-          console.error("Failed to copy URL to clipboard:", err);
-          const textArea = document.createElement("textarea");
-          textArea.value = shareUrl;
-          document.body.appendChild(textArea);
-          textArea.select();
-          try {
-            document.execCommand("copy");
-            console.log("URL copied using fallback method");
-          } catch (fallbackErr) {
-            console.error("Fallback copy also failed:", fallbackErr);
-          }
-          document.body.removeChild(textArea);
-        });
-
-      return shareUrl;
     },
   }
 );
@@ -479,7 +647,7 @@ const baseTableOptions = {
         searchEnabled: true,
         renderSelectedChoices: "always",
         maxItemText: (maxItemCount) => {
-          return `Searching for only ${maxItemCount} product at a time is allowed`;
+          return `You can only search for one product at a time`;
         },
         callbackOnCreateTemplates: createChoicesTemplates,
       });
