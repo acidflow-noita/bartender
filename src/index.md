@@ -64,7 +64,8 @@ const materialTypesPlot = Plot.plot({
   height: 300,
   color: {
     legend: false,
-    domain: materialTypeColors.map((d) => d.type), // Extract the types
+    // TODO: Re-enable after fixing the material types extraction (celldata trets powders as solids)
+    // domain: materialTypeColors.map((d) => d.type), // Extract the types
     range: materialTypeColors.map((d) => d.color), // Extract the colors
   },
   x: { label: "Number of materials per type" },
