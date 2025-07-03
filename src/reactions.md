@@ -3,6 +3,21 @@ title: "Reactions Finder"
 draft: false
 ---
 
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content="https://bartender.runfast.stream">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Noita Bartender">
+<meta property="og:description" content="Noita Materials Exploration Tool">
+<meta property="og:image" content="https://noita-bartender-images.acidflow.stream/images/logo/BARTENDER_SOCIALS.png">
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="bartender.runfast.stream">
+<meta property="twitter:url" content="https://bartender.runfast.stream">
+<meta name="twitter:title" content="Noita Bartender">
+<meta name="twitter:description" content="Noita Materials Exploration Tool">
+<meta name="twitter:image" content="https://noita-bartender-images.acidflow.stream/images/logo/BARTENDER_SOCIALS.png">
+
 <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"/>
 <link href="custom.css" rel="stylesheet"></link>

@@ -7,7 +7,7 @@ draft: false
 <meta property="og:url" content="https://bartender.runfast.stream">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Noita Bartender">
-<meta property="og:description" content=" Noita Materials Exploration Tool">
+<meta property="og:description" content="Noita Materials Exploration Tool">
 <meta property="og:image" content="https://noita-bartender-images.acidflow.stream/images/logo/BARTENDER_SOCIALS.png">
 
 <!-- Twitter Meta Tags -->
@@ -15,7 +15,7 @@ draft: false
 <meta property="twitter:domain" content="bartender.runfast.stream">
 <meta property="twitter:url" content="https://bartender.runfast.stream">
 <meta name="twitter:title" content="Noita Bartender">
-<meta name="twitter:description" content=" Noita Materials Exploration Tool">
+<meta name="twitter:description" content="Noita Materials Exploration Tool">
 <meta name="twitter:image" content="https://noita-bartender-images.acidflow.stream/images/logo/BARTENDER_SOCIALS.png">
 
 <link href="custom.css" rel="stylesheet"></link>
