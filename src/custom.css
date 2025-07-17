@@ -1,6 +1,17 @@
 #tableContainer {
   padding: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  box-sizing: border-box;
 }
+
+table {
+  width: 100%;
+  table-layout: auto;
+  box-sizing: border-box;
+}
+
 table thead tr {
   position: sticky;
   z-index: 10;
@@ -11,6 +22,11 @@ table tbody td {
   padding: 1em 0.5em;
   vertical-align: middle;
   height: 4em;
+  box-sizing: border-box;
+}
+
+table th {
+  padding: 0.5em;
   box-sizing: border-box;
 }
 
@@ -28,6 +44,7 @@ table tbody td {
   padding: 4px 8px;
   border-radius: 4px;
   height: auto;
+  box-sizing: border-box;
 }
 
 .plus-sign {
@@ -193,12 +210,17 @@ select {
 }
 
 button {
-  width: 30%;
+  width: 100%;
+  max-width: 100%;
   display: flex;
   flex-wrap: nowrap;
   align-content: center;
   justify-content: center;
   flex-direction: row;
+  box-sizing: border-box;
+  font-size: 0.75rem;
+  padding: 0.4rem 0.2rem;
+  margin-top: 0;
 }
 
 button img {
@@ -381,18 +403,29 @@ label + p {
 .choices[data-type*="select-one"] .choices__list--dropdown,
 .choices[data-type*="select-multiple"] .choices__list--dropdown,
 .choices__list[aria-expanded] {
-  z-index: 9999 !important;
-  position: absolute !important;
+  z-index: 99999 !important;
+  position: fixed !important;
+  transform: translateY(0);
 }
 
 /* Ensure the choices container allows overflow */
 .choices {
   position: relative;
   z-index: 1;
+  overflow: visible !important;
 }
 
 .choices.is-open {
-  z-index: 9999;
+  z-index: 99999;
+  overflow: visible !important;
+}
+
+/* Ensure all parent containers allow dropdown overflow */
+.grid-cols-4,
+.card,
+#observablehq-main,
+body {
+  overflow: visible !important;
 }
 
 .choices[data-type*="select-multiple"] .choices__button,
@@ -410,6 +443,7 @@ label + p {
   display: inline-block;
   vertical-align: top;
   width: 100%;
+  max-width: 100%;
   background-color: #3b3b3b;
   padding: 7.5px 7.5px 3.75px;
   border: 1px solid #ddd;
@@ -417,6 +451,7 @@ label + p {
   font-size: 14px;
   min-height: 44px;
   overflow: hidden;
+  box-sizing: border-box;
   /* border-radius: 0.75rem; */
 }
 
@@ -646,6 +681,59 @@ label + p {
 
 .grid-cols-4 {
   grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.card {
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: visible;
+  word-wrap: break-word;
+  position: relative;
+}
+
+.card h2 {
+  font-size: 0.8rem;
+  margin: 0;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card button {
+  width: 100%;
+  max-width: 100%;
+  font-size: 0.75rem;
+  padding: 0.3rem;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.choices__inner {
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.choices {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+select {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
@@ -785,4 +873,33 @@ label + p {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Fix dropdown clipping issues */
+#observablehq-main {
+  overflow: visible !important;
+}
+
+.grid {
+  overflow: visible !important;
+}
+
+.grid-cols-4 {
+  overflow: visible !important;
+}
+
+.card {
+  overflow: visible !important;
+}
+
+/* Ensure dropdowns appear above everything */
+.choices[data-type*="select-one"] .choices__list--dropdown,
+.choices[data-type*="select-multiple"] .choices__list--dropdown,
+.choices__list[aria-expanded] {
+  z-index: 99999 !important;
+  position: absolute !important;
+}
+
+.choices.is-open {
+  z-index: 99999 !important;
 }

@@ -23,241 +23,415 @@ draft: false
 <link href="custom.css" rel="stylesheet"></link>
 
 <h1 id="acidTitle" class="bartender-heading-decrypted">Reactions Finder</h1>
-<h2>Ever wanted to make <code><span class="material-type-liquid">Ambrosia</span></code>? Is <code><span class="material-type-liquid">Flummoxium</span></code> even useful? Mixing <code><span class="material-type-solid">frog meat</span> and <span class="material-type-liquid">whiskey</span></code> does something!? Noita has <code class="bigger-number-better">${reactions.length}</code> fixed material reactions, and two secret reactions for each seed. When you select the first igredient the list autoupdates, showing only materials that can react with the selected.</h2>
+<h2>Ever wanted to make <code><span class="material-type-liquid">Ambrosia</span></code>? Is <code><span class="material-type-liquid">Flummoxium</span></code> even useful? Mixing <code><span class="material-type-solid">frog meat</span> and <span class="material-type-liquid">whiskey</span></code> does something!? Noita has <code class="bigger-number-better">${reactions.length}</code> fixed material reactions, and two secret reactions for each seed. When you select the first ingredient the list autoupdates, showing only materials that can react with the selected.</h2>
 
 ```js
 import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();
 ```
 
-```ts
-/**
+```js
+// Load data
+const materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
+const reactions = await FileAttachment("./data/jsons/reactions.json").json();
+```
 
- * Creates a notification element with a fade-in and fade-out effect.
+```js
+const materialsMap = new Map(materials.map((m) => [m.id, m]));
 
- *
+// Build indexes for faster filtering
+const reactionInputsIndex = new Map();
+const reactionOutputsIndex = new Map();
 
- * @param {string} text - The notification text.
+reactions.forEach((reaction, index) => {
+  // Index inputs
+  [reaction.input_cell1, reaction.input_cell2, reaction.input_cell3].filter(Boolean).forEach((input) => {
+    if (!reactionInputsIndex.has(input)) {
+      reactionInputsIndex.set(input, []);
+    }
+    reactionInputsIndex.get(input).push(index);
+  });
 
- * @param {string} [notifID="share-notification"] - The ID of the notification element.
+  // Index outputs
+  [reaction.output_cell1, reaction.output_cell2, reaction.output_cell3].filter(Boolean).forEach((output) => {
+    if (!reactionOutputsIndex.has(output)) {
+      reactionOutputsIndex.set(output, []);
+    }
+    reactionOutputsIndex.get(output).push(index);
+  });
+});
+```
 
- * @param {string} [parentID="observablehq-main"] - The ID of the parent element.
+```js
+// Global state
+window.appState = {
+  selectedReagents: [],
+  selectedProduct: "",
+  reagentChoices: null,
+  productChoices: null,
+  isResetting: false,
+  excludeSpecialMaterials: false,
+  onlyPracticalReactions: false,
+};
 
- */
+// Parse URL parameters
+const urlParams = new URLSearchParams(window.location.search);
+window.appState.selectedReagents = urlParams.get("reagents")?.split(",").filter(Boolean) || [];
+window.appState.selectedProduct = urlParams.get("product") || "";
+window.appState.excludeSpecialMaterials = urlParams.get("excludeSpecial") === "true";
+window.appState.onlyPracticalReactions = urlParams.get("onlyPractical") === "true";
+```
+
+```js
+// Special materials to exclude
+const specialMaterials = new Set(["mimic_liquid", "midas_precursor", "midas"]);
+
+// Optimized functions using indexes
+const getAvailableReagents = (selectedReagents = [], selectedProduct = "") => {
+  if (!selectedProduct && selectedReagents.length === 0) {
+    // Return all materials that appear as inputs in reactions
+    let availableIds = Array.from(reactionInputsIndex.keys());
+
+    // Filter out special materials if needed
+    if (window.appState.excludeSpecialMaterials) {
+      availableIds = availableIds.filter((id) => !specialMaterials.has(id));
+    }
+
+    return availableIds
+      .map((id) => {
+        const material = materialsMap.get(id);
+        return material
+          ? {
+              value: id,
+              label: `${material.name} (${id})`,
+              name: material.name,
+              type: material.type || "",
+            }
+          : null;
+      })
+      .filter(Boolean)
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  // Get relevant reaction indices using indexes
+  let relevantReactionIndices = new Set();
+
+  if (selectedProduct) {
+    const productReactions = reactionOutputsIndex.get(selectedProduct) || [];
+    relevantReactionIndices = new Set(productReactions);
+  } else {
+    relevantReactionIndices = new Set(Array.from({ length: reactions.length }, (_, i) => i));
+  }
+
+  if (selectedReagents.length > 0) {
+    selectedReagents.forEach((reagent) => {
+      const reagentReactions = new Set(reactionInputsIndex.get(reagent) || []);
+      relevantReactionIndices = new Set([...relevantReactionIndices].filter((x) => reagentReactions.has(x)));
+    });
+  }
+
+  // Apply filters to reactions
+  if (window.appState.excludeSpecialMaterials || window.appState.onlyPracticalReactions) {
+    relevantReactionIndices = new Set(
+      [...relevantReactionIndices].filter((index) => {
+        const reaction = reactions[index];
+
+        // Filter out low-speed reactions
+        if (window.appState.onlyPracticalReactions && reaction.reaction_rate <= 5) {
+          return false;
+        }
+
+        // Filter out reactions with special materials
+        if (window.appState.excludeSpecialMaterials) {
+          const allMaterials = [
+            reaction.input_cell1,
+            reaction.input_cell2,
+            reaction.input_cell3,
+            reaction.output_cell1,
+            reaction.output_cell2,
+            reaction.output_cell3,
+          ].filter(Boolean);
+
+          if (allMaterials.some((id) => specialMaterials.has(id))) {
+            return false;
+          }
+        }
+
+        return true;
+      })
+    );
+  }
+
+  // Collect all input materials from relevant reactions
+  const availableReagentIds = new Set();
+  relevantReactionIndices.forEach((index) => {
+    const reaction = reactions[index];
+    [reaction.input_cell1, reaction.input_cell2, reaction.input_cell3]
+      .filter(Boolean)
+      .forEach((id) => availableReagentIds.add(id));
+  });
+
+  return Array.from(availableReagentIds)
+    .map((id) => {
+      const material = materialsMap.get(id);
+      return material
+        ? {
+            value: id,
+            label: `${material.name} (${id})`,
+            name: material.name,
+            type: material.type || "",
+          }
+        : null;
+    })
+    .filter(Boolean)
+    .sort((a, b) => a.name.localeCompare(b.name));
+};
+
+const getAvailableProducts = (selectedReagents = []) => {
+  if (selectedReagents.length === 0) {
+    // Return all products from all reactions
+    let availableIds = Array.from(reactionOutputsIndex.keys());
+
+    // Filter out special materials if needed
+    if (window.appState.excludeSpecialMaterials) {
+      availableIds = availableIds.filter((id) => !specialMaterials.has(id));
+    }
+
+    return availableIds
+      .map((id) => {
+        const material = materialsMap.get(id);
+        return {
+          value: id,
+          label: material ? `${material.name} (${id})` : `${id} (${id})`,
+          name: material ? material.name : id,
+          type: material ? material.type || "" : "",
+        };
+      })
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  // Get relevant reaction indices using indexes
+  let relevantReactionIndices = new Set(Array.from({ length: reactions.length }, (_, i) => i));
+
+  selectedReagents.forEach((reagent) => {
+    const reagentReactions = new Set(reactionInputsIndex.get(reagent) || []);
+    relevantReactionIndices = new Set([...relevantReactionIndices].filter((x) => reagentReactions.has(x)));
+  });
+
+  // Apply filters to reactions
+  if (window.appState.excludeSpecialMaterials || window.appState.onlyPracticalReactions) {
+    relevantReactionIndices = new Set(
+      [...relevantReactionIndices].filter((index) => {
+        const reaction = reactions[index];
+
+        // Filter out low-speed reactions
+        if (window.appState.onlyPracticalReactions && reaction.reaction_rate <= 5) {
+          return false;
+        }
+
+        // Filter out reactions with special materials
+        if (window.appState.excludeSpecialMaterials) {
+          const allMaterials = [
+            reaction.input_cell1,
+            reaction.input_cell2,
+            reaction.input_cell3,
+            reaction.output_cell1,
+            reaction.output_cell2,
+            reaction.output_cell3,
+          ].filter(Boolean);
+
+          if (allMaterials.some((id) => specialMaterials.has(id))) {
+            return false;
+          }
+        }
+
+        return true;
+      })
+    );
+  }
+
+  // Collect all output materials from relevant reactions
+  const availableProductIds = new Set();
+  relevantReactionIndices.forEach((index) => {
+    const reaction = reactions[index];
+    [reaction.output_cell1, reaction.output_cell2, reaction.output_cell3]
+      .filter(Boolean)
+      .forEach((id) => availableProductIds.add(id));
+  });
+
+  return Array.from(availableProductIds)
+    .map((id) => {
+      const material = materialsMap.get(id);
+      return material
+        ? {
+            value: id,
+            label: `${material.name} (${id})`,
+            name: material.name,
+            type: material.type || "",
+          }
+        : null;
+    })
+    .filter(Boolean)
+    .sort((a, b) => a.name.localeCompare(b.name));
+};
+
+const getFilteredReactions = (selectedReagents = [], selectedProduct = "") => {
+  // Use indexes for faster filtering
+  let relevantReactionIndices = new Set(Array.from({ length: reactions.length }, (_, i) => i));
+
+  if (selectedProduct) {
+    const productReactions = new Set(reactionOutputsIndex.get(selectedProduct) || []);
+    relevantReactionIndices = new Set([...relevantReactionIndices].filter((x) => productReactions.has(x)));
+  }
+
+  if (selectedReagents.length > 0) {
+    selectedReagents.forEach((reagent) => {
+      const reagentReactions = new Set(reactionInputsIndex.get(reagent) || []);
+      relevantReactionIndices = new Set([...relevantReactionIndices].filter((x) => reagentReactions.has(x)));
+    });
+  }
+
+  // Apply filters to reactions
+  if (window.appState.excludeSpecialMaterials || window.appState.onlyPracticalReactions) {
+    relevantReactionIndices = new Set(
+      [...relevantReactionIndices].filter((index) => {
+        const reaction = reactions[index];
+
+        // Filter out low-speed reactions
+        if (window.appState.onlyPracticalReactions && reaction.reaction_rate <= 5) {
+          return false;
+        }
+
+        // Filter out reactions with special materials
+        if (window.appState.excludeSpecialMaterials) {
+          const allMaterials = [
+            reaction.input_cell1,
+            reaction.input_cell2,
+            reaction.input_cell3,
+            reaction.output_cell1,
+            reaction.output_cell2,
+            reaction.output_cell3,
+          ].filter(Boolean);
+
+          if (allMaterials.some((id) => specialMaterials.has(id))) {
+            return false;
+          }
+        }
+
+        return true;
+      })
+    );
+  }
+
+  // Get filtered reactions
+  return Array.from(relevantReactionIndices)
+    .map((index) => reactions[index])
+    .sort((a, b) => b.reaction_rate - a.reaction_rate);
+};
+```
+
+```js
+// Utility functions
+const getMaterialImageUrl = (id) => {
+  if (!id) return "";
+  return `https://noita-bartender-images.acidflow.stream/images/materials/Material_${id}.png`;
+};
 
 const createNotification = (text, notifID = "share-notification", parentID = "observablehq-main") => {
   const parentElement = document.getElementById(parentID);
-
-  if (!parentElement) {
-    console.error(`Parent element with ID ${parentID} not found.`);
-
-    return;
-  }
-
-  const existsNotification = document.getElementById(notifID);
-
-  if (existsNotification) {
-    return;
-  }
+  if (!parentElement || document.getElementById(notifID)) return;
 
   const notification = document.createElement("p");
-
   notification.id = notifID;
-
   notification.textContent = text;
-
   notification.classList.add("notification");
-
   parentElement.appendChild(notification);
 
-  // Fade-in and fade-out animation
-
-  const fadeIn = () => {
-    notification.style.opacity = 1;
-  };
-
-  const fadeOut = () => {
+  setTimeout(() => (notification.style.opacity = 1), 100);
+  setTimeout(() => {
     notification.style.opacity = 0;
-
-    setTimeout(() => {
-      parentElement.removeChild(notification);
-    }, 500); // Wait for fade-out animation to complete
-  };
-
-  setTimeout(fadeIn, 100);
-
-  setTimeout(fadeOut, 2500);
+    setTimeout(() => parentElement.removeChild(notification), 500);
+  }, 2500);
 };
 
-// Add CSS class for styling
-
+// Add notification styles
 const notificationStyle = document.createElement("style");
-
 notificationStyle.textContent = `
-
   .notification {
-
-    /* Positioning and Layout */
-
-    position: fixed;
-
-    z-index: 9999;
-
-    inset: 5% 0 0 50%;
-
-    translate: -50% 0;
-
-    width: max-content;
-
-    height: max-content;
-
-
-    /* Visual Styling */
-
-    background-color: oklch(39.3% 0.095 152.535);
-
-    background-repeat: repeat;
-
-    background-position-y: bottom;
-
-    border-radius: 1rem;
-
-    padding: 1rem;
-
-
-    /* Text Styling */
-
-    font-weight: bold;
-
-    font-size: large;
-
-    color: oklch(92.5% 0.084 155.995);
-
+    position: fixed; z-index: 9999; inset: 5% 0 0 50%; translate: -50% 0;
+    width: max-content; height: max-content;
+    background-color: oklch(39.3% 0.095 152.535); border-radius: 1rem; padding: 1rem;
+    font-weight: bold; font-size: large; color: oklch(92.5% 0.084 155.995);
     font-family: -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
-
-
-
-
-    /* Animation and Transitions */
-
-    transition: opacity 500ms;
-
-    opacity: 0;
-
-    animation: slideInDown 500ms ease-out;
-
-
-    /* User Interaction */
-
-    user-select: none;
-
+    transition: opacity 500ms; opacity: 0; animation: slideInDown 500ms ease-out; user-select: none;
   }
-
-
   @keyframes slideInDown {
-
-    0% {
-
-      transform: translateY(-100%);
-
-      opacity: 0;
-
-    }
-
-    100% {
-
-      transform: translateY(0);
-
-      opacity: 1;
-
-    }
-
+    0% { transform: translateY(-100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
   }
-
 `;
-
 document.head.appendChild(notificationStyle);
+```
 
+```js
+// Share button
 const shareButton = Inputs.button(
   htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/copy.svg" />Share`,
-
   {
     value: null,
-
     reduce: () => {
       const url = new URL(window.location.href);
-
       url.search = "";
 
-      const reagents = window.appState.selectedReagents || [];
-
-      const product = window.appState.selectedProduct || "";
-
-      if (reagents.length > 0) url.searchParams.set("reagents", reagents.join(","));
-
-      if (product) url.searchParams.set("product", product);
+      if (window.appState.selectedReagents.length > 0) {
+        url.searchParams.set("reagents", window.appState.selectedReagents.join(","));
+      }
+      if (window.appState.selectedProduct) {
+        url.searchParams.set("product", window.appState.selectedProduct);
+      }
+      if (window.appState.excludeSpecialMaterials) {
+        url.searchParams.set("excludeSpecial", "true");
+      }
+      if (window.appState.onlyPracticalReactions) {
+        url.searchParams.set("onlyPractical", "true");
+      }
 
       const shareUrl = url.toString();
-
       navigator.clipboard
-
         .writeText(shareUrl)
-
-        .then(() => {
-          console.log("URL copied to clipboard: %s", shareUrl);
-
-          createNotification("URL copied to clipboard");
-        })
-
-        .catch((err) => {
-          console.error("Failed to copy URL to clipboard:", err);
-
+        .then(() => createNotification("URL copied to clipboard"))
+        .catch(() => {
           const textArea = document.createElement("textarea");
-
           textArea.value = shareUrl;
-
           document.body.appendChild(textArea);
-
           textArea.select();
-
-          try {
-            document.execCommand("copy");
-
-            createNotification("URL copied to clipboard");
-
-            console.log("URL copied using fallback method");
-          } catch (fallbackErr) {
-            console.error("Fallback copy also failed:", fallbackErr);
-          }
-
+          document.execCommand("copy");
           document.body.removeChild(textArea);
+          createNotification("URL copied to clipboard");
         });
 
       return shareUrl;
     },
   }
 );
+
+// Filter toggles
+const excludeSpecialToggle = Inputs.toggle({
+  label: "Exclude Mimicium, Alchemic Precursor, Draught Of Midas",
+  value: window.appState.excludeSpecialMaterials,
+});
+
+const onlyPracticalToggle = Inputs.toggle({
+  label: "Show only practical reactions (reaction speed > 5)",
+  value: window.appState.onlyPracticalReactions,
+});
 ```
 
 ```js
-window.appState = {
-  selectedReagents: [],
-  selectedProduct: "",
-  reagentChoices: null,
-  productChoices: null,
-  updateChoicesOptions: null,
-  updateUI: null,
-  isResetting: false,
-};
-
-const urlParams = new URLSearchParams(window.location.search);
-window.appState.selectedReagents = urlParams.get("reagents")?.split(",") || [];
-window.appState.selectedProduct = urlParams.get("product") || "";
-
+// Reset button
 const resetButton = Inputs.button(
   htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" />Reset`,
   {
-    label: "",
     reduce: () => {
       window.appState.isResetting = true;
 
@@ -267,25 +441,23 @@ const resetButton = Inputs.button(
 
       window.appState.selectedReagents = [];
       window.appState.selectedProduct = "";
+      window.appState.excludeSpecialMaterials = false;
+      window.appState.onlyPracticalReactions = false;
 
-      const { reagentChoices, productChoices, updateChoicesOptions, updateUI } = window.appState;
-
-      if (reagentChoices && reagentChoices.initialised) {
-        reagentChoices.removeActiveItems();
+      if (window.appState.reagentChoices?.initialised) {
+        window.appState.reagentChoices.removeActiveItems();
       }
-      if (productChoices && productChoices.initialised) {
-        productChoices.removeActiveItems();
-      }
-
-      if (typeof updateChoicesOptions === "function") {
-        updateChoicesOptions();
-      }
-      if (typeof updateUI === "function") {
-        updateUI();
+      if (window.appState.productChoices?.initialised) {
+        window.appState.productChoices.removeActiveItems();
       }
 
+      // Reset toggle states
+      excludeSpecialToggle.value = false;
+      onlyPracticalToggle.value = false;
+
+      updateChoicesOptions();
+      updateUI();
       window.appState.isResetting = false;
-
       return null;
     },
   }
@@ -293,6 +465,7 @@ const resetButton = Inputs.button(
 ```
 
 ```js
+// Responsive row count logic
 const getRowCount = (width) => {
   if (width > 1400) return 33;
   if (width > 1170) return 13;
@@ -300,194 +473,39 @@ const getRowCount = (width) => {
   return 10;
 };
 const isBigScreen = getRowCount(width);
-const isMobile = width < 500;
-const marginLeft = isMobile ? 50 : 60;
-const marginRight = isMobile ? 20 : 30;
-const marginBottom = isMobile ? 50 : 40;
-const fontSize = isMobile ? 12 : 14;
 ```
 
 ```js
-const materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
-const reactions = await FileAttachment("./data/jsons/reactions.json").json();
-```
+// Material cell formatter
+const formatMaterialCell = (id) => {
+  if (!id) return htl.html`<div></div>`;
 
-```js
-const waitForElement = (id, timeout = 5000) => {
-  return new Promise((resolve, reject) => {
-    const element = document.getElementById(id);
-    if (element) {
-      resolve(element);
-      return;
+  const material = materialsMap.get(id);
+  const name = material ? material.name : id;
+  const type = material ? (material.type || "").toLowerCase() : "";
+  const wikiUrl = material?.wikipage ? `https://noita.wiki.gg/wiki/${encodeURIComponent(material.wikipage)}` : "";
+  const imageUrl = getMaterialImageUrl(id);
+
+  const materialNameContent = wikiUrl
+    ? htl.html`<a href="${wikiUrl}" target="_blank">
+        <span class="material-name-text">${name}</span>
+        <span class="material-name-text"><br />(</span><span class="material-type-${type}"><code>${id}</code></span><span class="material-name-text">)</span>
+      </a>`
+    : htl.html`<span class="material-name-text">${name}</span> <span class="material-name-text"><br />(</span><span class="material-type-${type}"><code>${id}</code></span><span class="material-name-text">)</span>`;
+
+  return htl.html`<div class="material" style="display: flex; align-items: center; height: 30px; padding: 2px 0;">
+    ${
+      imageUrl
+        ? htl.html`<div class="material-image" style="height: 48px; margin-right: 5px; flex-shrink: 0;">
+          <img src="${imageUrl}" alt="${name}" style="width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated;" onerror="this.style.display='none'" />
+        </div>`
+        : htl.html`<div style="width:48px; height:48px; margin-right:5px; flex-shrink:0; border:1px dashed #ccc; font-size:9px; display:flex; align-items:center; justify-content:center; color: #ccc;">N/I</div>`
     }
-
-    const observer = new MutationObserver((mutations, obs) => {
-      const element = document.getElementById(id);
-      if (element) {
-        obs.disconnect();
-        resolve(element);
-      }
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
-
-    setTimeout(() => {
-      observer.disconnect();
-      reject(new Error(`Element ${id} not found within ${timeout}ms`));
-    }, timeout);
-  });
-};
-```
-
-```js
-const getMaterialName = (id) => {
-  if (!id) return "[No ID]";
-  if (!Array.isArray(materials)) {
-    console.error("[getMaterialName] Materials data is not an array.");
-    return `[${id} - Materials N/A]`;
-  }
-  const material = materials.find((d) => d.id === id);
-  if (!material) {
-    console.warn(`[getMaterialName] Material with ID '${id}' not found in materials.json.`);
-    return `[${id} - Not Found]`;
-  }
-  return `${material.name} (${material.id})`;
+    <span class="material-name" style="white-space: normal; line-height: 1.2;">${materialNameContent}</span>
+  </div>`;
 };
 
-const getMaterialImageUrl = (id) => {
-  if (!id) return "";
-  if (!Array.isArray(materials)) {
-    console.error("[getMaterialImageUrl] Materials data is not an array.");
-    return "";
-  }
-  const material = materials.find((d) => d.id === id);
-  if (!material) {
-    return "";
-  }
-  const url = `https://noita-bartender-images.acidflow.stream/images/materials/Material_${id}.png`;
-  return url;
-};
-
-const html = htl.html;
-
-const getReactionMaterials = () => {
-  const reactionMaterialIds = new Set();
-  reactions.forEach((reaction) => {
-    [
-      reaction.input_cell1,
-      reaction.input_cell2,
-      reaction.input_cell3,
-      reaction.output_cell1,
-      reaction.output_cell2,
-      reaction.output_cell3,
-    ]
-      .filter(Boolean)
-      .forEach((id) => reactionMaterialIds.add(id));
-  });
-  return reactionMaterialIds;
-};
-
-const reactionMaterialIds = getReactionMaterials();
-
-const getAvailableReagents = (currentSelectedReagents, currentSelectedProduct) => {
-  if (!currentSelectedProduct && currentSelectedReagents.length === 0) {
-    return Array.isArray(materials)
-      ? materials
-          .filter((d) => reactionMaterialIds.has(d.id))
-          .map((d) => ({
-            value: d.id,
-            label: `${d.name} (${d.id})`,
-            name: d.name,
-            type: d.type || "",
-          }))
-      : [];
-  }
-
-  const relevantReactions = reactions.filter((reaction) => {
-    let productMatch = true;
-    if (currentSelectedProduct) {
-      const outputs = [reaction.output_cell1, reaction.output_cell2, reaction.output_cell3].filter(Boolean);
-      productMatch = outputs.includes(currentSelectedProduct);
-    }
-
-    let reagentsMatch = true;
-    if (currentSelectedReagents.length > 0) {
-      const inputs = [reaction.input_cell1, reaction.input_cell2, reaction.input_cell3].filter(Boolean);
-      reagentsMatch = currentSelectedReagents.every((reagent) => inputs.includes(reagent));
-    }
-
-    return productMatch && reagentsMatch;
-  });
-
-  const availableReagentIds = new Set();
-  relevantReactions.forEach((reaction) => {
-    [reaction.input_cell1, reaction.input_cell2, reaction.input_cell3]
-      .filter(Boolean)
-      .forEach((id) => availableReagentIds.add(id));
-  });
-
-  return Array.isArray(materials)
-    ? materials
-        .filter((m) => availableReagentIds.has(m.id))
-        .map((m) => ({
-          value: m.id,
-          label: `${m.name} (${m.id})`,
-          name: m.name,
-          type: m.type || "",
-        }))
-    : [];
-};
-
-const getAvailableProducts = (currentSelectedReagents, currentSelectedProduct) => {
-  if (!currentSelectedProduct && currentSelectedReagents.length === 0) {
-    const uniqueProducts = Array.isArray(reactions)
-      ? [...new Set(reactions.flatMap((r) => [r.output_cell1, r.output_cell2, r.output_cell3].filter(Boolean)))]
-      : [];
-    return uniqueProducts.map((id) => {
-      let name = id;
-      let type = "";
-      let label = `${id} (${id})`;
-      if (Array.isArray(materials)) {
-        const material = materials.find((m) => m.id === id);
-        if (material) {
-          name = material.name;
-          type = material.type || "";
-          label = `${material.name} (${id})`;
-        }
-      }
-      return { value: id, label: label, name: name, type: type };
-    });
-  }
-
-  const relevantReactions = reactions.filter((reaction) => {
-    if (currentSelectedReagents.length === 0) return true;
-
-    const inputs = [reaction.input_cell1, reaction.input_cell2, reaction.input_cell3].filter(Boolean);
-    return currentSelectedReagents.every((reagent) => inputs.includes(reagent));
-  });
-
-  const availableProductIds = new Set();
-  relevantReactions.forEach((reaction) => {
-    [reaction.output_cell1, reaction.output_cell2, reaction.output_cell3]
-      .filter(Boolean)
-      .forEach((id) => availableProductIds.add(id));
-  });
-
-  return Array.isArray(materials)
-    ? materials
-        .filter((m) => availableProductIds.has(m.id))
-        .map((m) => ({
-          value: m.id,
-          label: `${m.name} (${m.id})`,
-          name: m.name,
-          type: m.type || "",
-        }))
-    : [];
-};
-
+// Table options
 const baseTableOptions = {
   rows: isBigScreen,
   width: { reaction_rate: 55 },
@@ -502,9 +520,6 @@ const baseTableOptions = {
   },
   sort: "reaction_rate",
   reverse: true,
-  select: false,
-  multiple: true,
-  layout: "fixed",
   columns: [
     "reaction_rate",
     "input_cell1",
@@ -523,121 +538,152 @@ const baseTableOptions = {
     output_cell2: "2ⁿᵈ Product",
     output_cell3: "3ʳᵈ Product",
   },
+  format: {
+    input_cell1: formatMaterialCell,
+    input_cell2: formatMaterialCell,
+    input_cell3: formatMaterialCell,
+    output_cell1: formatMaterialCell,
+    output_cell2: formatMaterialCell,
+    output_cell3: formatMaterialCell,
+  },
 };
 ```
 
 ```js
+// Update functions
+const updateChoicesOptions = () => {
+  const availableReagents = getAvailableReagents(window.appState.selectedReagents, window.appState.selectedProduct);
+  const availableProducts = getAvailableProducts(window.appState.selectedReagents);
+
+  if (window.appState.reagentChoices?.initialised) {
+    window.appState.reagentChoices.clearStore();
+    window.appState.reagentChoices.setChoices(availableReagents, "value", "label", true);
+    window.appState.selectedReagents.forEach((value) => {
+      if (availableReagents.some((r) => r.value === value)) {
+        window.appState.reagentChoices.setChoiceByValue(value);
+      }
+    });
+  }
+
+  if (window.appState.productChoices?.initialised) {
+    window.appState.productChoices.clearStore();
+    window.appState.productChoices.setChoices(availableProducts, "value", "label", true);
+    if (window.appState.selectedProduct && availableProducts.some((p) => p.value === window.appState.selectedProduct)) {
+      window.appState.productChoices.setChoiceByValue(window.appState.selectedProduct);
+    }
+  }
+};
+
+const updateUI = () => {
+  const filteredReactions = getFilteredReactions(window.appState.selectedReagents, window.appState.selectedProduct);
+
+  const tableContainer = document.getElementById("tableContainer");
+  if (tableContainer) {
+    const newTable = Inputs.table(filteredReactions, baseTableOptions);
+    tableContainer.innerHTML = "";
+    tableContainer.appendChild(newTable);
+  }
+
+  const reactionsCountContainer = document.getElementById("reactionsCount");
+  if (reactionsCountContainer) {
+    reactionsCountContainer.innerHTML = `Reactions found: <code class="bigger-number-better">${filteredReactions.length}</code>`;
+  }
+
+  if (!window.appState.isResetting) {
+    const url = new URL(window.location.href);
+    url.search = "";
+    if (window.appState.selectedReagents.length > 0) {
+      url.searchParams.set("reagents", window.appState.selectedReagents.join(","));
+    }
+    if (window.appState.selectedProduct) {
+      url.searchParams.set("product", window.appState.selectedProduct);
+    }
+    if (window.appState.excludeSpecialMaterials) {
+      url.searchParams.set("excludeSpecial", "true");
+    }
+    if (window.appState.onlyPracticalReactions) {
+      url.searchParams.set("onlyPractical", "true");
+    }
+    window.history.replaceState({}, "", url.toString());
+  }
+};
+```
+
+```js
+// Initialize choices
 {
-  let reagentChoices = null;
-  let productChoices = null;
-
-  const initializeApp = async () => {
-    try {
-      const [reagentSelectorElement, productSelectorElement, tableContainer, reactionsCountContainer] =
-        await Promise.all([
-          waitForElement("choicesSelector"),
-          waitForElement("productChoicesSelector"),
-          waitForElement("tableContainer"),
-          waitForElement("reactionsCount"),
-        ]);
-
-      if (reagentSelectorElement.classList.contains("choices__input")) {
+  const waitForElement = (id, timeout = 5000) => {
+    return new Promise((resolve, reject) => {
+      const element = document.getElementById(id);
+      if (element) {
+        resolve(element);
         return;
       }
 
-      const createChoicesTemplates = (strToEl) => {
-        return {
-          choice: ({ classNames }, data) => {
-            if (!data) {
-              return strToEl(
-                `<div class="${classNames.item} ${classNames.itemChoice} ${classNames.itemSelectable}">Invalid Data</div>`
-              );
-            }
-
-            const imageUrl = getMaterialImageUrl(data.value || "");
-            const nameForDisplay = data.name || (data.label ? data.label.split(" (")[0] : data.value || "Unknown");
-            const typeForDisplay = (data.type || "").toLowerCase();
-            const safeValue = data.value || "";
-            const safeId = data.id || "";
-
-            return strToEl(
-              `<div class="${classNames.item} ${classNames.itemChoice} ${classNames.itemSelectable}" data-choice data-choice-selectable data-id="${safeId}" data-value="${safeValue}" role="option">
-                <img src="${imageUrl}" style="height: 24px; display: inline-block; vertical-align: middle; margin-right: 8px;" alt="${nameForDisplay}" />
-                <span class="material-name-text">${nameForDisplay}</span>
-                (<span class="material-type-${typeForDisplay}">${safeValue}</span>)
-              </div>`
-            );
-          },
-          item: ({ classNames }, data) => {
-            if (!data) {
-              return strToEl(`<div class="${classNames.item}">Invalid Data</div>`);
-            }
-
-            const imageUrl = getMaterialImageUrl(data.value || "");
-            const nameForDisplay = data.name || (data.label ? data.label.split(" (")[0] : data.value || "Unknown");
-            const typeForDisplay = (data.type || "").toLowerCase();
-            const safeValue = data.value || "";
-            const safeId = data.id || "";
-
-            return strToEl(
-              `<div class="${classNames.item}" data-item data-id="${safeId}" data-value="${safeValue}" aria-selected="true" role="option" data-deletable>
-                <img src="${imageUrl}" style="height: 24px; display: inline-block; vertical-align: middle; margin: 8px;" alt="${nameForDisplay}" />
-                <span class="material-name-text">${nameForDisplay}</span>
-                (<span class="material-type-${typeForDisplay}"><code>${safeValue}</code></span>)
-                <button type="button" class="${classNames.button}" aria-label="Remove item: ${nameForDisplay}" data-button>Remove item</button>
-              </div>`
-            );
-          },
-        };
-      };
-
-      const safeChoicesOperation = (choicesInstance, operation) => {
-        try {
-          if (!choicesInstance || !choicesInstance.initialised) {
-            return false;
-          }
-          return operation();
-        } catch (error) {
-          console.error("Error in choices operation:", error);
-          return false;
+      const observer = new MutationObserver((mutations, obs) => {
+        const element = document.getElementById(id);
+        if (element) {
+          obs.disconnect();
+          resolve(element);
         }
-      };
+      });
 
-      const updateChoicesOptions = () => {
-        const availableReagents = getAvailableReagents(
-          window.appState.selectedReagents,
-          window.appState.selectedProduct
-        );
-        const availableProducts = getAvailableProducts(
-          window.appState.selectedReagents,
-          window.appState.selectedProduct
-        );
+      observer.observe(document.body, { childList: true, subtree: true });
+      setTimeout(() => {
+        observer.disconnect();
+        reject(new Error(`Element ${id} not found within ${timeout}ms`));
+      }, timeout);
+    });
+  };
 
-        safeChoicesOperation(reagentChoices, () => {
-          reagentChoices.clearStore();
-          reagentChoices.setChoices(availableReagents, "value", "label", true);
-          window.appState.selectedReagents.forEach((value) => {
-            if (availableReagents.some((r) => r.value === value)) {
-              reagentChoices.setChoiceByValue(value);
-            }
-          });
-          return true;
-        });
+  const initializeApp = async () => {
+    try {
+      const [reagentSelectorElement, productSelectorElement] = await Promise.all([
+        waitForElement("choicesSelector"),
+        waitForElement("productChoicesSelector"),
+      ]);
 
-        safeChoicesOperation(productChoices, () => {
-          productChoices.clearStore();
-          productChoices.setChoices(availableProducts, "value", "label", true);
-          if (
-            window.appState.selectedProduct &&
-            availableProducts.some((p) => p.value === window.appState.selectedProduct)
-          ) {
-            productChoices.setChoiceByValue(window.appState.selectedProduct);
-          }
-          return true;
-        });
-      };
+      if (reagentSelectorElement.classList.contains("choices__input")) return;
 
-      reagentChoices = new Choices(reagentSelectorElement, {
+      const createChoicesTemplates = (strToEl) => ({
+        choice: ({ classNames }, data) => {
+          if (!data)
+            return strToEl(
+              `<div class="${classNames.item} ${classNames.itemChoice} ${classNames.itemSelectable}">Invalid Data</div>`
+            );
+
+          const imageUrl = getMaterialImageUrl(data.value || "");
+          const nameForDisplay = data.name || (data.label ? data.label.split(" (")[0] : data.value || "Unknown");
+          const typeForDisplay = (data.type || "").toLowerCase();
+          const safeValue = data.value || "";
+          const safeId = data.id || "";
+
+          return strToEl(`<div class="${classNames.item} ${classNames.itemChoice} ${classNames.itemSelectable}" data-choice data-choice-selectable data-id="${safeId}" data-value="${safeValue}" role="option">
+            <img src="${imageUrl}" style="height: 24px; display: inline-block; vertical-align: middle; margin-right: 8px;" alt="${nameForDisplay}" />
+            <span class="material-name-text">${nameForDisplay}</span>
+            (<span class="material-type-${typeForDisplay}">${safeValue}</span>)
+          </div>`);
+        },
+        item: ({ classNames }, data) => {
+          if (!data) return strToEl(`<div class="${classNames.item}">Invalid Data</div>`);
+
+          const imageUrl = getMaterialImageUrl(data.value || "");
+          const nameForDisplay = data.name || (data.label ? data.label.split(" (")[0] : data.value || "Unknown");
+          const typeForDisplay = (data.type || "").toLowerCase();
+          const safeValue = data.value || "";
+          const safeId = data.id || "";
+
+          return strToEl(`<div class="${classNames.item}" data-item data-id="${safeId}" data-value="${safeValue}" aria-selected="true" role="option" data-deletable>
+            <img src="${imageUrl}" style="height: 24px; display: inline-block; vertical-align: middle; margin: 8px;" alt="${nameForDisplay}" />
+            <span class="material-name-text">${nameForDisplay}</span>
+            (<span class="material-type-${typeForDisplay}"><code>${safeValue}</code></span>)
+            <button type="button" class="${classNames.button}" aria-label="Remove item: ${nameForDisplay}" data-button>Remove item</button>
+          </div>`);
+        },
+      });
+
+      // Initialize reagent choices
+      window.appState.reagentChoices = new Choices(reagentSelectorElement, {
         silent: false,
         maxItemCount: 3,
         allowHTML: true,
@@ -651,162 +697,22 @@ const baseTableOptions = {
         noChoicesText: "There are no reactions with one more ingredient",
       });
 
-      productChoices = new Choices(productSelectorElement, {
+      // Initialize product choices
+      window.appState.productChoices = new Choices(productSelectorElement, {
         silent: false,
         maxItemCount: 1,
         allowHTML: true,
         placeholder: true,
         placeholderValue: "Search Products",
         removeItemButton: true,
-        choices: getAvailableProducts(window.appState.selectedReagents, window.appState.selectedProduct),
+        choices: getAvailableProducts(window.appState.selectedReagents),
         searchEnabled: true,
         renderSelectedChoices: "always",
-        maxItemText: (maxItemCount) => {
-          return `You can only search for one product at a time`;
-        },
+        maxItemText: () => "You can only search for one product at a time",
         callbackOnCreateTemplates: createChoicesTemplates,
       });
 
-      const formatMaterialCellInTable = (id) => {
-        if (!id) return html`<div></div>`;
-        let nameInCell = id;
-        let typeInCell = "";
-        let fullDisplayName = id;
-        let wikiUrl = "";
-
-        if (Array.isArray(materials)) {
-          const material = materials.find((m) => m.id === id);
-          if (material) {
-            nameInCell = material.name;
-            typeInCell = material.type ? material.type.toLowerCase() : "";
-            fullDisplayName = `${material.name} (${id})`;
-            wikiUrl = material.wikipage ? `https://noita.wiki.gg/wiki/${encodeURIComponent(material.wikipage)}` : "";
-          } else {
-            fullDisplayName = `[${id} - Not Found]`;
-          }
-        } else {
-          fullDisplayName = `[${id} - Materials N/A]`;
-        }
-
-        const imageUrl = getMaterialImageUrl(id);
-
-        const materialNameContent = wikiUrl
-          ? html`<a
-              href="${wikiUrl}"
-              target="_blank"
-            >
-              <span class="material-name-text">${nameInCell}</span>
-              <span class="material-name-text"><br />(</span
-              ><span class="material-type-${typeInCell}"><code>${id}</code></span
-              ><span class="material-name-text">)</span>
-            </a>`
-          : html`<span class="material-name-text">${nameInCell}</span> <span class="material-name-text"><br />(</span
-              ><span class="material-type-${typeInCell}"><code>${id}</code></span
-              ><span class="material-name-text">)</span>`;
-
-        return html` <div
-          class="material"
-          style="display: flex; align-items: center; height: 30px; padding: 2px 0;"
-        >
-          ${imageUrl
-            ? html`<div
-                class="material-image"
-                style="height: 48px; margin-right: 5px; flex-shrink: 0;"
-              >
-                <img
-                  src="${imageUrl}"
-                  alt="${nameInCell}"
-                  style="width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated;"
-                  onerror="this.style.display='none'"
-                />
-              </div>`
-            : html`<div
-                style="width:48px; height:48px; margin-right:5px; flex-shrink:0; border:1px dashed #ccc; font-size:9px; display:flex; align-items:center; justify-content:center; color: #ccc;"
-              >
-                N/I
-              </div>`}
-          <span
-            class="material-name"
-            style="white-space: normal; line-height: 1.2;"
-          >
-            ${materialNameContent}
-          </span>
-        </div>`;
-      };
-
-      const currentTableOptions = { ...baseTableOptions, format: {} };
-      ["input_cell1", "input_cell2", "input_cell3", "output_cell1", "output_cell2", "output_cell3"].forEach((col) => {
-        currentTableOptions.format[col] = formatMaterialCellInTable;
-      });
-
-      function getFilteredReactions() {
-        if (!Array.isArray(reactions) || reactions.length === 0) {
-          return [];
-        }
-
-        const result = reactions.filter((reaction) => {
-          if (window.appState.selectedReagents.length > 0) {
-            const reactionInputs = [reaction.input_cell1, reaction.input_cell2, reaction.input_cell3].filter(Boolean);
-            if (!window.appState.selectedReagents.every((reagent) => reactionInputs.includes(reagent))) {
-              return false;
-            }
-          }
-
-          if (window.appState.selectedProduct) {
-            const reactionOutputs = [reaction.output_cell1, reaction.output_cell2, reaction.output_cell3].filter(
-              Boolean
-            );
-            if (!reactionOutputs.includes(window.appState.selectedProduct)) {
-              return false;
-            }
-          }
-
-          return true;
-        });
-
-        return result;
-      }
-
-      function updateUI() {
-        try {
-          const filteredReactions = getFilteredReactions();
-
-          if (tableContainer) {
-            const newTable = Inputs.table(filteredReactions, currentTableOptions);
-            tableContainer.innerHTML = "";
-            tableContainer.appendChild(newTable);
-          }
-
-          if (reactionsCountContainer) {
-            reactionsCountContainer.innerHTML = `Reactions found: <code class="bigger-number-better">${filteredReactions.length}</code>`;
-          }
-
-          if (!window.appState.isResetting) {
-            updateURL();
-          }
-        } catch (error) {
-          console.error("Error updating UI:", error);
-        }
-      }
-
-      function updateURL() {
-        try {
-          const url = new URL(window.location.href);
-          url.search = "";
-
-          if (window.appState.selectedReagents.length > 0) {
-            url.searchParams.set("reagents", window.appState.selectedReagents.join(","));
-          }
-          if (window.appState.selectedProduct) {
-            url.searchParams.set("product", window.appState.selectedProduct);
-          }
-
-          window.history.replaceState({}, "", url.toString());
-        } catch (error) {
-          console.error("Error updating URL:", error);
-        }
-      }
-
+      // Debounced update function
       let updateTimeout;
       const debouncedUpdate = () => {
         clearTimeout(updateTimeout);
@@ -816,43 +722,79 @@ const baseTableOptions = {
         }, 100);
       };
 
+      // Event handlers
       reagentSelectorElement.addEventListener("change", () => {
-        try {
-          if (reagentChoices && reagentChoices.initialised && !window.appState.isResetting) {
-            window.appState.selectedReagents = reagentChoices.getValue(true);
-            debouncedUpdate();
-          }
-        } catch (error) {
-          console.error("Error in reagent change handler:", error);
+        if (window.appState.reagentChoices?.initialised && !window.appState.isResetting) {
+          window.appState.selectedReagents = window.appState.reagentChoices.getValue(true);
+          debouncedUpdate();
         }
       });
 
       productSelectorElement.addEventListener("change", () => {
-        try {
-          if (productChoices && productChoices.initialised && !window.appState.isResetting) {
-            const selectedValues = productChoices.getValue(true);
-            window.appState.selectedProduct =
-              Array.isArray(selectedValues) && selectedValues.length > 0 ? selectedValues[0] : "";
-            debouncedUpdate();
-          }
-        } catch (error) {
-          console.error("Error in product change handler:", error);
+        if (window.appState.productChoices?.initialised && !window.appState.isResetting) {
+          const selectedValues = window.appState.productChoices.getValue(true);
+          window.appState.selectedProduct =
+            Array.isArray(selectedValues) && selectedValues.length > 0 ? selectedValues[0] : "";
+          debouncedUpdate();
         }
       });
 
-      window.appState.reagentChoices = reagentChoices;
-      window.appState.productChoices = productChoices;
-      window.appState.updateChoicesOptions = updateChoicesOptions;
-      window.appState.updateUI = updateUI;
+      // Toggle event handlers
+      excludeSpecialToggle.addEventListener("input", () => {
+        window.appState.excludeSpecialMaterials = excludeSpecialToggle.value;
+
+        // Clear conflicting selections when filter is enabled
+        if (window.appState.excludeSpecialMaterials) {
+          // Remove special materials from selected reagents
+          window.appState.selectedReagents = window.appState.selectedReagents.filter(
+            (reagent) => !specialMaterials.has(reagent)
+          );
+
+          // Clear selected product if it's a special material
+          if (specialMaterials.has(window.appState.selectedProduct)) {
+            window.appState.selectedProduct = "";
+          }
+
+          // Update the UI selectors
+          if (window.appState.reagentChoices?.initialised) {
+            window.appState.reagentChoices.removeActiveItems();
+            window.appState.selectedReagents.forEach((value) => {
+              window.appState.reagentChoices.setChoiceByValue(value);
+            });
+          }
+
+          if (window.appState.productChoices?.initialised) {
+            window.appState.productChoices.removeActiveItems();
+            if (window.appState.selectedProduct) {
+              window.appState.productChoices.setChoiceByValue(window.appState.selectedProduct);
+            }
+          }
+        }
+
+        debouncedUpdate();
+      });
+
+      onlyPracticalToggle.addEventListener("input", () => {
+        window.appState.onlyPracticalReactions = onlyPracticalToggle.value;
+        debouncedUpdate();
+      });
 
       // Initial state setup and UI update
-      if (window.appState.selectedReagents.length > 0 || window.appState.selectedProduct) {
+      // Set toggle values from URL parameters
+      excludeSpecialToggle.value = window.appState.excludeSpecialMaterials;
+      onlyPracticalToggle.value = window.appState.onlyPracticalReactions;
+
+      if (
+        window.appState.selectedReagents.length > 0 ||
+        window.appState.selectedProduct ||
+        window.appState.excludeSpecialMaterials ||
+        window.appState.onlyPracticalReactions
+      ) {
         requestAnimationFrame(() => {
-          updateChoicesOptions(); // Update available options for dropdowns based on initial selections
-          updateUI(); // Initial UI update based on URL params
+          updateChoicesOptions();
+          updateUI();
         });
       } else {
-        // Initial UI update if no URL parameters are present
         updateUI();
       }
     } catch (error) {
@@ -868,18 +810,20 @@ const baseTableOptions = {
 }
 ```
 
-<div class="grid grid-cols-4">
-  <div class="card grid-colspan-2">
+<div class="grid grid-cols-4 gap-1" style="margin-bottom: 1rem; width: 100%; box-sizing: border-box;">
+  <div class="card grid-colspan-2" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">
     <select id="choicesSelector" multiple></select>
   </div>
-  <div class="card grid-colspan-1">
+  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">
     <select id="productChoicesSelector" multiple></select>
   </div>
-  <div class="card grid-colspan-1"><h2 id="reactionsCount">Reactions found: <code class="bigger-number-better">5589</code></h2></div>
+  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box; font-size: 0.9rem;"><h2 id="reactionsCount" style="margin: 0; font-size: 0.9rem;">Reactions found: <code class="bigger-number-better">5589</code></h2></div>
 </div>
-<div class="grid grid-cols-4">
-  <div class="card grid-colspan-1">${resetButton}</div>
-  <div class="card grid-colspan-1">${shareButton}</div>
+<div class="grid grid-cols-4 gap-1" style="width: 100%; box-sizing: border-box;">
+  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${resetButton}</div>
+  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${shareButton}</div>
+  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${excludeSpecialToggle}</div>
+  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${onlyPracticalToggle}</div>
 </div>
 <div class="grid grid-cols-1 grid-rowspan-1" style="grid-auto-rows: auto">
   <div class="card grid-colspan-1 grid-rowspan-1" style="padding: 0" id="tableContainer"></div>
