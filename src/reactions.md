@@ -417,12 +417,12 @@ const shareButton = Inputs.button(
 
 // Filter toggles
 const excludeSpecialToggle = Inputs.toggle({
-  label: "Exclude Mimicium, Alchemic Precursor, Draught Of Midas",
+  label: "Show only "chemical" reactions\n(no Mimicium, Alchemic Precursor, Draught Of Midas)",
   value: window.appState.excludeSpecialMaterials,
 });
 
 const onlyPracticalToggle = Inputs.toggle({
-  label: "Show only practical reactions (reaction speed > 5)",
+  label: "Show only practical reactions\n(reaction speed higher than 5)",
   value: window.appState.onlyPracticalReactions,
 });
 ```
