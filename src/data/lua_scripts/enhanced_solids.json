@@ -1,0 +1,926 @@
+[
+  {
+    "name": "waterrock",
+    "id": 28,
+    "ui_name": "$mat_waterrock",
+    "type": "solid",
+    "translated_name": "rock"
+  },
+  {
+    "name": "ice_glass",
+    "id": 29,
+    "ui_name": "$mat_ice_glass",
+    "type": "solid",
+    "translated_name": "ice"
+  },
+  {
+    "name": "ice_glass_b2",
+    "id": 30,
+    "ui_name": "$mat_ice_glass_b2",
+    "type": "solid",
+    "translated_name": "ice"
+  },
+  {
+    "name": "glass_brittle",
+    "id": 31,
+    "ui_name": "$mat_glass_brittle",
+    "type": "solid",
+    "translated_name": "brittle glass"
+  },
+  {
+    "name": "wood_player_b2",
+    "id": 180,
+    "ui_name": "$mat_wood_player_b2",
+    "type": "solid",
+    "translated_name": "wood"
+  },
+  {
+    "name": "wood",
+    "id": 181,
+    "ui_name": "$mat_wood",
+    "type": "solid",
+    "translated_name": "wood"
+  },
+  {
+    "name": "wax_b2",
+    "id": 182,
+    "ui_name": "$mat_wax_b2",
+    "type": "solid",
+    "translated_name": "wax"
+  },
+  {
+    "name": "fuse",
+    "id": 183,
+    "ui_name": "$mat_fuse",
+    "type": "solid",
+    "translated_name": "bomb"
+  },
+  {
+    "name": "wood_loose",
+    "id": 184,
+    "ui_name": "$mat_wood_loose",
+    "type": "solid",
+    "translated_name": "wood"
+  },
+  {
+    "name": "rock_loose",
+    "id": 185,
+    "ui_name": "$mat_rock_loose",
+    "type": "solid",
+    "translated_name": "rock"
+  },
+  {
+    "name": "ice_ceiling",
+    "id": 186,
+    "ui_name": "$mat_ice_ceiling",
+    "type": "solid",
+    "translated_name": "ice"
+  },
+  {
+    "name": "brick",
+    "id": 187,
+    "ui_name": "$mat_brick",
+    "type": "solid",
+    "translated_name": "brick wall"
+  },
+  {
+    "name": "concrete_collapsed",
+    "id": 188,
+    "ui_name": "$mat_concrete_collapsed",
+    "type": "solid",
+    "translated_name": "collapsed concrete"
+  },
+  {
+    "name": "tnt",
+    "id": 189,
+    "ui_name": "$mat_tnt",
+    "type": "solid",
+    "translated_name": "tnt"
+  },
+  {
+    "name": "tnt_static",
+    "id": 190,
+    "ui_name": "$mat_tnt",
+    "type": "solid",
+    "translated_name": "tnt"
+  },
+  {
+    "name": "meteorite",
+    "id": 192,
+    "ui_name": "$mat_meteorite",
+    "type": "solid",
+    "translated_name": "meteorite"
+  },
+  {
+    "name": "sulphur_box2d",
+    "id": 193,
+    "ui_name": "$mat_sulphur",
+    "type": "solid",
+    "translated_name": "sulphur"
+  },
+  {
+    "name": "meteorite_test",
+    "id": 194,
+    "ui_name": "$mat_meteorite",
+    "type": "solid",
+    "translated_name": "meteorite"
+  },
+  {
+    "name": "meteorite_green",
+    "id": 195,
+    "ui_name": "$mat_meteorite_green",
+    "type": "solid",
+    "translated_name": "green meteorite"
+  },
+  {
+    "name": "steel",
+    "id": 196,
+    "ui_name": "$mat_steel",
+    "type": "solid",
+    "translated_name": "steel"
+  },
+  {
+    "name": "steel_rust",
+    "id": 197,
+    "ui_name": "$mat_steel_rust",
+    "type": "solid",
+    "translated_name": "rusted steel"
+  },
+  {
+    "name": "metal_rust_rust",
+    "id": 198,
+    "ui_name": "$mat_metal_rust_rust",
+    "type": "solid",
+    "translated_name": "rusted metal"
+  },
+  {
+    "name": "metal_rust_barrel_rust",
+    "id": 199,
+    "ui_name": "$mat_metal_rust_barrel_rust",
+    "type": "solid",
+    "translated_name": "rusted metal"
+  },
+  {
+    "name": "plastic",
+    "id": 200,
+    "ui_name": "$mat_plastic",
+    "type": "solid",
+    "translated_name": "plastic"
+  },
+  {
+    "name": "aluminium",
+    "id": 201,
+    "ui_name": "$mat_aluminium",
+    "type": "solid",
+    "translated_name": "aluminium"
+  },
+  {
+    "name": "rock_static_box2d",
+    "id": 202,
+    "ui_name": "$mat_rock_static_box2d",
+    "type": "solid",
+    "translated_name": "rock"
+  },
+  {
+    "name": "rock_box2d",
+    "id": 203,
+    "ui_name": "$mat_rock_box2d",
+    "type": "solid",
+    "translated_name": "rock"
+  },
+  {
+    "name": "crystal",
+    "id": 204,
+    "ui_name": "$mat_crystal",
+    "type": "solid",
+    "translated_name": "crystal"
+  },
+  {
+    "name": "magic_crystal",
+    "id": 205,
+    "ui_name": "$mat_magic_crystal",
+    "type": "solid",
+    "translated_name": "Magical crystal"
+  },
+  {
+    "name": "crystal_magic",
+    "id": 206,
+    "ui_name": "$mat_crystal_magic",
+    "type": "solid",
+    "translated_name": "crystal"
+  },
+  {
+    "name": "aluminium_oxide",
+    "id": 207,
+    "ui_name": "$mat_aluminium_oxide",
+    "type": "solid",
+    "translated_name": "aluminium"
+  },
+  {
+    "name": "meat",
+    "id": 208,
+    "ui_name": "$mat_meat",
+    "type": "solid",
+    "translated_name": "meat"
+  },
+  {
+    "name": "meat_slime",
+    "id": 209,
+    "ui_name": "$mat_meat_slime",
+    "type": "solid",
+    "translated_name": "slimy meat"
+  },
+  {
+    "name": "physics_throw_material_part2",
+    "id": 213,
+    "ui_name": "$mat_physics_throw_material_part2",
+    "type": "solid",
+    "translated_name": "who knows"
+  },
+  {
+    "name": "ice_melting_perf_killer",
+    "id": 215,
+    "ui_name": "$mat_ice_melting_perf_killer",
+    "type": "solid",
+    "translated_name": "ice"
+  },
+  {
+    "name": "ice_b2",
+    "id": 216,
+    "ui_name": "$mat_ice_b2",
+    "type": "solid",
+    "translated_name": "ice"
+  },
+  {
+    "name": "glass_liquidcave",
+    "id": 217,
+    "ui_name": "$mat_glass_liquidcave",
+    "type": "solid",
+    "translated_name": "Tempered glass"
+  },
+  {
+    "name": "glass",
+    "id": 218,
+    "ui_name": "$mat_glass",
+    "type": "solid",
+    "translated_name": "glass"
+  },
+  {
+    "name": "neon_tube_purple",
+    "id": 220,
+    "ui_name": "$mat_neon_tube_purple",
+    "type": "solid",
+    "translated_name": "neon tube"
+  },
+  {
+    "name": "snow_b2",
+    "id": 222,
+    "ui_name": "$mat_snow_b2",
+    "type": "solid",
+    "translated_name": "snow"
+  },
+  {
+    "name": "neon_tube_blood_red",
+    "id": 225,
+    "ui_name": "$mat_neon_tube_blood_red",
+    "type": "solid",
+    "translated_name": "neon tube"
+  },
+  {
+    "name": "neon_tube_cyan",
+    "id": 226,
+    "ui_name": "$mat_neon_tube_cyan",
+    "type": "solid",
+    "translated_name": "neon tube"
+  },
+  {
+    "name": "meat_burned",
+    "id": 228,
+    "ui_name": "$mat_meat_burned",
+    "type": "solid",
+    "translated_name": "Burned meat"
+  },
+  {
+    "name": "meat_done",
+    "id": 229,
+    "ui_name": "$mat_meat_done",
+    "type": "solid",
+    "translated_name": "Fully-cooked meat"
+  },
+  {
+    "name": "meat_hot",
+    "id": 230,
+    "ui_name": "$mat_meat_hot",
+    "type": "solid",
+    "translated_name": "Cooked meat"
+  },
+  {
+    "name": "meat_warm",
+    "id": 231,
+    "ui_name": "$mat_meat_warm",
+    "type": "solid",
+    "translated_name": "Lightly-cooked meat"
+  },
+  {
+    "name": "meat_fruit",
+    "id": 233,
+    "ui_name": "$mat_meat_fruit",
+    "type": "solid",
+    "translated_name": "Fruit flesh"
+  },
+  {
+    "name": "crystal_solid",
+    "id": 234,
+    "ui_name": "$mat_crystal",
+    "type": "solid",
+    "translated_name": "crystal"
+  },
+  {
+    "name": "crystal_purple",
+    "id": 235,
+    "ui_name": "$mat_crystal_purple",
+    "type": "solid",
+    "translated_name": "purple crystal"
+  },
+  {
+    "name": "gold_b2",
+    "id": 236,
+    "ui_name": "$mat_gold_b2",
+    "type": "solid",
+    "translated_name": "gold"
+  },
+  {
+    "name": "magic_crystal_green",
+    "id": 237,
+    "ui_name": "$mat_magic_crystal",
+    "type": "solid",
+    "translated_name": "Magical crystal"
+  },
+  {
+    "name": "bone_box2d",
+    "id": 238,
+    "ui_name": "$mat_bone_box2d",
+    "type": "solid",
+    "translated_name": "bone"
+  },
+  {
+    "name": "metal_rust_barrel",
+    "id": 239,
+    "ui_name": "$mat_metal_rust_barrel",
+    "type": "solid",
+    "translated_name": "rusted metal"
+  },
+  {
+    "name": "metal_rust",
+    "id": 240,
+    "ui_name": "$mat_metal_rust",
+    "type": "solid",
+    "translated_name": "rusted metal"
+  },
+  {
+    "name": "metal_wire_nohit",
+    "id": 241,
+    "ui_name": "$mat_metal_nohit",
+    "type": "solid",
+    "translated_name": "metal"
+  },
+  {
+    "name": "metal_chain_nohit",
+    "id": 242,
+    "ui_name": "$mat_metal_nohit",
+    "type": "solid",
+    "translated_name": "metal"
+  },
+  {
+    "name": "metal_nohit",
+    "id": 243,
+    "ui_name": "$mat_metal_nohit",
+    "type": "solid",
+    "translated_name": "metal"
+  },
+  {
+    "name": "glass_box2d",
+    "id": 257,
+    "ui_name": "$mat_glass_box2d",
+    "type": "solid",
+    "translated_name": "glass"
+  },
+  {
+    "name": "potion_glass_box2d",
+    "id": 258,
+    "ui_name": "$mat_potion_glass_box2d",
+    "type": "solid",
+    "translated_name": "glass"
+  },
+  {
+    "name": "gem_box2d",
+    "id": 259,
+    "ui_name": "$mat_gem_box2d",
+    "type": "solid",
+    "translated_name": "gem"
+  },
+  {
+    "name": "item_box2d_glass",
+    "id": 261,
+    "ui_name": "$mat_item_box2d",
+    "type": "solid",
+    "translated_name": "item"
+  },
+  {
+    "name": "item_box2d",
+    "id": 262,
+    "ui_name": "$mat_item_box2d",
+    "type": "solid",
+    "translated_name": "item"
+  },
+  {
+    "name": "rock_box2d_nohit_hard",
+    "id": 263,
+    "ui_name": "$mat_rock_box2d_nohit_hard",
+    "type": "solid",
+    "translated_name": "dense rock"
+  },
+  {
+    "name": "rock_box2d_nohit_heavy",
+    "id": 264,
+    "ui_name": "$mat_rock_box2d_nohit",
+    "type": "solid",
+    "translated_name": "rock"
+  },
+  {
+    "name": "rock_box2d_nohit",
+    "id": 265,
+    "ui_name": "$mat_rock_box2d_nohit",
+    "type": "solid",
+    "translated_name": "rock"
+  },
+  {
+    "name": "poop_box2d_hard",
+    "id": 266,
+    "ui_name": "$mat_rock_box2d_hard",
+    "type": "solid",
+    "translated_name": "rock"
+  },
+  {
+    "name": "rock_box2d_hard",
+    "id": 267,
+    "ui_name": "$mat_rock_box2d_hard",
+    "type": "solid",
+    "translated_name": "rock"
+  },
+  {
+    "name": "templebrick_box2d_edgetiles",
+    "id": 268,
+    "ui_name": "$mat_templebrick_box2d",
+    "type": "solid",
+    "translated_name": "brickwork"
+  },
+  {
+    "name": "metal_hard",
+    "id": 269,
+    "ui_name": "$mat_metal",
+    "type": "solid",
+    "translated_name": "metal"
+  },
+  {
+    "name": "metal",
+    "id": 270,
+    "ui_name": "$mat_metal",
+    "type": "solid",
+    "translated_name": "metal"
+  },
+  {
+    "name": "metal_prop_loose",
+    "id": 271,
+    "ui_name": "$mat_metal_prop",
+    "type": "solid",
+    "translated_name": "metal"
+  },
+  {
+    "name": "metal_prop_low_restitution",
+    "id": 272,
+    "ui_name": "$mat_metal_prop",
+    "type": "solid",
+    "translated_name": "metal"
+  },
+  {
+    "name": "metal_prop",
+    "id": 273,
+    "ui_name": "$mat_metal_prop",
+    "type": "solid",
+    "translated_name": "metal"
+  },
+  {
+    "name": "aluminium_robot",
+    "id": 274,
+    "ui_name": "$mat_aluminium",
+    "type": "solid",
+    "translated_name": "aluminium"
+  },
+  {
+    "name": "plastic_prop",
+    "id": 275,
+    "ui_name": "$mat_plastic",
+    "type": "solid",
+    "translated_name": "plastic"
+  },
+  {
+    "name": "meteorite_crackable",
+    "id": 276,
+    "ui_name": "$mat_meteorite_crackable",
+    "type": "solid",
+    "translated_name": "meteorite"
+  },
+  {
+    "name": "wood_prop_durable",
+    "id": 280,
+    "ui_name": "$mat_wood_prop_durable",
+    "type": "solid",
+    "translated_name": "tough wood"
+  },
+  {
+    "name": "cloth_box2d",
+    "id": 281,
+    "ui_name": "$mat_cloth",
+    "type": "solid",
+    "translated_name": ""
+  },
+  {
+    "name": "wood_prop_noplayerhit",
+    "id": 282,
+    "ui_name": "$mat_wood_prop",
+    "type": "solid",
+    "translated_name": "wood"
+  },
+  {
+    "name": "wood_prop",
+    "id": 283,
+    "ui_name": "$mat_wood_prop",
+    "type": "solid",
+    "translated_name": "wood"
+  },
+  {
+    "name": "fungus_loose_trippy",
+    "id": 284,
+    "ui_name": "$mat_fungi_trippy",
+    "type": "solid",
+    "translated_name": "weird fungus"
+  },
+  {
+    "name": "fungus_loose_green",
+    "id": 285,
+    "ui_name": "$mat_fungus_loose",
+    "type": "solid",
+    "translated_name": "fungus"
+  },
+  {
+    "name": "fungus_loose",
+    "id": 286,
+    "ui_name": "$mat_fungus_loose",
+    "type": "solid",
+    "translated_name": "fungus"
+  },
+  {
+    "name": "grass_loose",
+    "id": 287,
+    "ui_name": "$mat_grass_loose",
+    "type": "solid",
+    "translated_name": "fungal matter"
+  },
+  {
+    "name": "cactus",
+    "id": 288,
+    "ui_name": "$mat_wood_loose",
+    "type": "solid",
+    "translated_name": "wood"
+  },
+  {
+    "name": "wood_wall",
+    "id": 289,
+    "ui_name": "$mat_wood_wall",
+    "type": "solid",
+    "translated_name": "wood"
+  },
+  {
+    "name": "wood_trailer",
+    "id": 290,
+    "ui_name": "$mat_wood_trailer",
+    "type": "solid",
+    "translated_name": "wood"
+  },
+  {
+    "name": "templebrick_box2d",
+    "id": 291,
+    "ui_name": "$mat_templebrick_box2d",
+    "type": "solid",
+    "translated_name": "brickwork"
+  },
+  {
+    "name": "fuse_holy",
+    "id": 292,
+    "ui_name": "$mat_fuse_holy",
+    "type": "solid",
+    "translated_name": "holy matter"
+  },
+  {
+    "name": "fuse_tnt",
+    "id": 293,
+    "ui_name": "$mat_fuse_tnt",
+    "type": "solid",
+    "translated_name": "tnt"
+  },
+  {
+    "name": "fuse_bright",
+    "id": 294,
+    "ui_name": "$mat_fuse",
+    "type": "solid",
+    "translated_name": "bomb"
+  },
+  {
+    "name": "wood_player_b2_vertical",
+    "id": 295,
+    "ui_name": "$mat_wood_player_b2_vertical",
+    "type": "solid",
+    "translated_name": "wood"
+  },
+  {
+    "name": "meat_confusion",
+    "id": 313,
+    "ui_name": "$mat_meat_confusion",
+    "type": "solid",
+    "translated_name": "Ambiguous meat"
+  },
+  {
+    "name": "meat_polymorph_protection",
+    "id": 314,
+    "ui_name": "$mat_meat_polymorph_protection",
+    "type": "solid",
+    "translated_name": "Stinky meat"
+  },
+  {
+    "name": "meat_polymorph",
+    "id": 315,
+    "ui_name": "$mat_meat_polymorph",
+    "type": "solid",
+    "translated_name": "Unstable meat"
+  },
+  {
+    "name": "meat_fast",
+    "id": 316,
+    "ui_name": "$mat_meat_fast",
+    "type": "solid",
+    "translated_name": "Wobbly meat"
+  },
+  {
+    "name": "meat_teleport",
+    "id": 317,
+    "ui_name": "$mat_meat_teleport",
+    "type": "solid",
+    "translated_name": "Ethereal meat"
+  },
+  {
+    "name": "meat_slime_cursed",
+    "id": 318,
+    "ui_name": "$mat_meat_slime_cursed",
+    "type": "solid",
+    "translated_name": "Slimy cursed meat"
+  },
+  {
+    "name": "meat_cursed",
+    "id": 320,
+    "ui_name": "$mat_meat_cursed",
+    "type": "solid",
+    "translated_name": "Cursed meat"
+  },
+  {
+    "name": "meat_trippy",
+    "id": 322,
+    "ui_name": "$mat_meat_trippy",
+    "type": "solid",
+    "translated_name": "Weird meat"
+  },
+  {
+    "name": "meat_helpless",
+    "id": 323,
+    "ui_name": "$mat_meat_helpless",
+    "type": "solid",
+    "translated_name": "Meat of an innocent creature"
+  },
+  {
+    "name": "meat_worm",
+    "id": 324,
+    "ui_name": "$mat_meat_worm",
+    "type": "solid",
+    "translated_name": "worm meat"
+  },
+  {
+    "name": "meat_slime_orange",
+    "id": 325,
+    "ui_name": "$mat_meat_slime_orange",
+    "type": "solid",
+    "translated_name": "slimy meat"
+  },
+  {
+    "name": "meat_slime_green",
+    "id": 326,
+    "ui_name": "$mat_meat_slime_green",
+    "type": "solid",
+    "translated_name": "green slimy meat"
+  },
+  {
+    "name": "ice_slime_glass",
+    "id": 386,
+    "ui_name": "$mat_ice_slime_glass",
+    "type": "solid",
+    "translated_name": "Frozen slime"
+  },
+  {
+    "name": "ice_blood_glass",
+    "id": 387,
+    "ui_name": "$mat_ice_blood_glass",
+    "type": "solid",
+    "translated_name": "Frozen blood"
+  },
+  {
+    "name": "ice_poison_glass",
+    "id": 388,
+    "ui_name": "$mat_ice_poison_glass",
+    "type": "solid",
+    "translated_name": "Frozen poison"
+  },
+  {
+    "name": "ice_radioactive_glass",
+    "id": 389,
+    "ui_name": "$mat_ice_radioactive_glass",
+    "type": "solid",
+    "translated_name": "toxic ice"
+  },
+  {
+    "name": "ice_cold_glass",
+    "id": 390,
+    "ui_name": "$mat_ice_cold_glass",
+    "type": "solid",
+    "translated_name": "ice"
+  },
+  {
+    "name": "ice_acid_glass",
+    "id": 391,
+    "ui_name": "$mat_ice_acid_glass",
+    "type": "solid",
+    "translated_name": "frozen acid"
+  },
+  {
+    "name": "tube_physics",
+    "id": 392,
+    "ui_name": "$mat_tube_physics",
+    "type": "solid",
+    "translated_name": "neon tube"
+  },
+  {
+    "name": "rock_eroding",
+    "id": 434,
+    "ui_name": "$mat_rock_eroding",
+    "type": "solid",
+    "translated_name": "eroding rock"
+  },
+  {
+    "name": "meat_pumpkin",
+    "id": 436,
+    "ui_name": "$mat_meat_fruit",
+    "type": "solid",
+    "translated_name": "Fruit flesh"
+  },
+  {
+    "name": "meat_frog",
+    "id": 445,
+    "ui_name": "$mat_meat_frog",
+    "type": "solid",
+    "translated_name": "frog meat"
+  },
+  {
+    "name": "meat_cursed_dry",
+    "id": 446,
+    "ui_name": "$mat_meat_cursed",
+    "type": "solid",
+    "translated_name": "Cursed meat"
+  },
+  {
+    "name": "nest_box2d",
+    "id": 448,
+    "ui_name": "$mat_nest_box2d",
+    "type": "solid",
+    "translated_name": "nest"
+  },
+  {
+    "name": "nest_firebug_box2d",
+    "id": 449,
+    "ui_name": "$mat_nest_box2d",
+    "type": "solid",
+    "translated_name": "nest"
+  },
+  {
+    "name": "cocoon_box2d",
+    "id": 450,
+    "ui_name": "$mat_cocoon_box2d",
+    "type": "solid",
+    "translated_name": "cocoon"
+  },
+  {
+    "name": "item_box2d_meat",
+    "id": 451,
+    "ui_name": "$mat_meat",
+    "type": "solid",
+    "translated_name": "meat"
+  },
+  {
+    "name": "gem_box2d_yellow_sun",
+    "id": 452,
+    "ui_name": "$mat_gem_box2d_red",
+    "type": "solid",
+    "translated_name": "gem"
+  },
+  {
+    "name": "gem_box2d_red_float",
+    "id": 453,
+    "ui_name": "$mat_gem_box2d_red",
+    "type": "solid",
+    "translated_name": "gem"
+  },
+  {
+    "name": "gem_box2d_yellow_sun_gravity",
+    "id": 454,
+    "ui_name": "$mat_gem_box2d_red",
+    "type": "solid",
+    "translated_name": "gem"
+  },
+  {
+    "name": "gem_box2d_darksun",
+    "id": 455,
+    "ui_name": "$mat_gem_box2d_red",
+    "type": "solid",
+    "translated_name": "gem"
+  },
+  {
+    "name": "gem_box2d_pink",
+    "id": 456,
+    "ui_name": "$mat_gem_box2d_pink",
+    "type": "solid",
+    "translated_name": "gem"
+  },
+  {
+    "name": "gem_box2d_red",
+    "id": 457,
+    "ui_name": "$mat_gem_box2d_red",
+    "type": "solid",
+    "translated_name": "gem"
+  },
+  {
+    "name": "gem_box2d_turquoise",
+    "id": 458,
+    "ui_name": "$mat_gem_box2d_turquoise",
+    "type": "solid",
+    "translated_name": "Turquoise gemstone"
+  },
+  {
+    "name": "gem_box2d_opal",
+    "id": 459,
+    "ui_name": "$mat_gem_box2d_turquoise",
+    "type": "solid",
+    "translated_name": "Turquoise gemstone"
+  },
+  {
+    "name": "gem_box2d_white",
+    "id": 460,
+    "ui_name": "$mat_gem_box2d_white",
+    "type": "solid",
+    "translated_name": ""
+  },
+  {
+    "name": "gem_box2d_green",
+    "id": 461,
+    "ui_name": "$mat_gem_box2d_green",
+    "type": "solid",
+    "translated_name": "gem"
+  },
+  {
+    "name": "gem_box2d_orange",
+    "id": 462,
+    "ui_name": "$mat_gem_box2d_orange",
+    "type": "solid",
+    "translated_name": "gem"
+  },
+  {
+    "name": "gold_box2d",
+    "id": 463,
+    "ui_name": "$mat_gold_box2d",
+    "type": "solid",
+    "translated_name": "gold"
+  },
+  {
+    "name": "bloodgold_box2d",
+    "id": 464,
+    "ui_name": "$mat_bloodgold_box2d",
+    "type": "solid",
+    "translated_name": "Ruby"
+  }
+]

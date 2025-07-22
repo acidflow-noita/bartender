@@ -1,0 +1,1304 @@
+[
+  {
+    "name": "sand_static",
+    "id": 5,
+    "ui_name": "$mat_sand_static",
+    "type": "powder",
+    "translated_name": "ground"
+  },
+  {
+    "name": "nest_static",
+    "id": 6,
+    "ui_name": "$mat_nest_static",
+    "type": "powder",
+    "translated_name": "nest"
+  },
+  {
+    "name": "bluefungi_static",
+    "id": 7,
+    "ui_name": "$mat_bluefungi_static",
+    "type": "powder",
+    "translated_name": "blue fungus"
+  },
+  {
+    "name": "rock_static",
+    "id": 8,
+    "ui_name": "$mat_rock_static",
+    "type": "powder",
+    "translated_name": "rock"
+  },
+  {
+    "name": "lavarock_static",
+    "id": 13,
+    "ui_name": "$mat_lavarock_static",
+    "type": "powder",
+    "translated_name": "volcanic rock"
+  },
+  {
+    "name": "static_magic_material",
+    "id": 14,
+    "ui_name": "$mat_static_magic_material",
+    "type": "powder",
+    "translated_name": "australium"
+  },
+  {
+    "name": "meteorite_static",
+    "id": 15,
+    "ui_name": "$mat_meteorite_static",
+    "type": "powder",
+    "translated_name": "meteorite"
+  },
+  {
+    "name": "templerock_static",
+    "id": 16,
+    "ui_name": "$mat_templerock_static",
+    "type": "powder",
+    "translated_name": "brickwork"
+  },
+  {
+    "name": "steel_static",
+    "id": 17,
+    "ui_name": "$mat_steel_static",
+    "type": "powder",
+    "translated_name": "steel"
+  },
+  {
+    "name": "rock_static_glow",
+    "id": 18,
+    "ui_name": "$mat_rock_static_glow",
+    "type": "powder",
+    "translated_name": "glowing matter"
+  },
+  {
+    "name": "snow_static",
+    "id": 19,
+    "ui_name": "$mat_snow_static",
+    "type": "powder",
+    "translated_name": "packed snow"
+  },
+  {
+    "name": "ice_static",
+    "id": 20,
+    "ui_name": "$mat_ice_static",
+    "type": "powder",
+    "translated_name": "ice"
+  },
+  {
+    "name": "ice_acid_static",
+    "id": 21,
+    "ui_name": "$mat_ice_acid_static",
+    "type": "powder",
+    "translated_name": "frozen acid"
+  },
+  {
+    "name": "ice_cold_static",
+    "id": 22,
+    "ui_name": "$mat_ice_cold_static",
+    "type": "powder",
+    "translated_name": "ice"
+  },
+  {
+    "name": "ice_radioactive_static",
+    "id": 23,
+    "ui_name": "$mat_ice_radioactive_static",
+    "type": "powder",
+    "translated_name": "toxic ice"
+  },
+  {
+    "name": "ice_poison_static",
+    "id": 24,
+    "ui_name": "$mat_ice_poison_static",
+    "type": "powder",
+    "translated_name": "Frozen poison"
+  },
+  {
+    "name": "ice_meteor_static",
+    "id": 25,
+    "ui_name": "$mat_ice_meteor_static",
+    "type": "powder",
+    "translated_name": "ice"
+  },
+  {
+    "name": "tubematerial",
+    "id": 26,
+    "ui_name": "$mat_tubematerial",
+    "type": "powder",
+    "translated_name": "neon tube"
+  },
+  {
+    "name": "glass_static",
+    "id": 27,
+    "ui_name": "$mat_glass_static",
+    "type": "powder",
+    "translated_name": "glass"
+  },
+  {
+    "name": "snowrock_static",
+    "id": 32,
+    "ui_name": "$mat_snowrock_static",
+    "type": "powder",
+    "translated_name": "frozen rock"
+  },
+  {
+    "name": "concrete_static",
+    "id": 33,
+    "ui_name": "$mat_concrete_static",
+    "type": "powder",
+    "translated_name": "concrete"
+  },
+  {
+    "name": "wood_static",
+    "id": 34,
+    "ui_name": "$mat_wood_static",
+    "type": "powder",
+    "translated_name": "wood"
+  },
+  {
+    "name": "cheese_static",
+    "id": 35,
+    "ui_name": "$mat_cheese_static",
+    "type": "powder",
+    "translated_name": "cheese"
+  },
+  {
+    "name": "mud",
+    "id": 93,
+    "ui_name": "$mat_mud",
+    "type": "powder",
+    "translated_name": "mud"
+  },
+  {
+    "name": "concrete_sand",
+    "id": 113,
+    "ui_name": "$mat_concrete_sand",
+    "type": "powder",
+    "translated_name": "concrete"
+  },
+  {
+    "name": "sand",
+    "id": 114,
+    "ui_name": "$mat_sand",
+    "type": "powder",
+    "translated_name": "sand"
+  },
+  {
+    "name": "bone",
+    "id": 115,
+    "ui_name": "$mat_bone",
+    "type": "powder",
+    "translated_name": "bone dust"
+  },
+  {
+    "name": "soil",
+    "id": 116,
+    "ui_name": "$mat_soil",
+    "type": "powder",
+    "translated_name": "soil"
+  },
+  {
+    "name": "sandstone",
+    "id": 117,
+    "ui_name": "$mat_sandstone",
+    "type": "powder",
+    "translated_name": "sandstone"
+  },
+  {
+    "name": "fungisoil",
+    "id": 118,
+    "ui_name": "$mat_fungisoil",
+    "type": "powder",
+    "translated_name": "fungal soil"
+  },
+  {
+    "name": "honey",
+    "id": 119,
+    "ui_name": "$mat_honey",
+    "type": "powder",
+    "translated_name": "honey"
+  },
+  {
+    "name": "glue",
+    "id": 120,
+    "ui_name": "$mat_glue",
+    "type": "powder",
+    "translated_name": "Glue"
+  },
+  {
+    "name": "explosion_dirt",
+    "id": 124,
+    "ui_name": "$mat_explosion_dirt",
+    "type": "powder",
+    "translated_name": "dirt"
+  },
+  {
+    "name": "vine",
+    "id": 125,
+    "ui_name": "$mat_vine",
+    "type": "powder",
+    "translated_name": "vine"
+  },
+  {
+    "name": "root",
+    "id": 126,
+    "ui_name": "$mat_root",
+    "type": "powder",
+    "translated_name": "vine"
+  },
+  {
+    "name": "snow",
+    "id": 127,
+    "ui_name": "$mat_snow",
+    "type": "powder",
+    "translated_name": "snow"
+  },
+  {
+    "name": "snow_sticky",
+    "id": 128,
+    "ui_name": "$mat_snow",
+    "type": "powder",
+    "translated_name": "snow"
+  },
+  {
+    "name": "rotten_meat",
+    "id": 129,
+    "ui_name": "$mat_rotten_meat",
+    "type": "powder",
+    "translated_name": "rotten meat"
+  },
+  {
+    "name": "meat_slime_sand",
+    "id": 130,
+    "ui_name": "$mat_meat_slime_sand",
+    "type": "powder",
+    "translated_name": "slimy meat"
+  },
+  {
+    "name": "rotten_meat_radioactive",
+    "id": 131,
+    "ui_name": "$mat_rotten_meat_radioactive",
+    "type": "powder",
+    "translated_name": "toxic meat"
+  },
+  {
+    "name": "ice",
+    "id": 132,
+    "ui_name": "$mat_ice",
+    "type": "powder",
+    "translated_name": "ice"
+  },
+  {
+    "name": "sand_herb",
+    "id": 133,
+    "ui_name": "$mat_sand_herb",
+    "type": "powder",
+    "translated_name": "herb"
+  },
+  {
+    "name": "wax",
+    "id": 134,
+    "ui_name": "$mat_wax",
+    "type": "powder",
+    "translated_name": "wax"
+  },
+  {
+    "name": "gold",
+    "id": 135,
+    "ui_name": "$mat_gold",
+    "type": "powder",
+    "translated_name": "gold"
+  },
+  {
+    "name": "silver",
+    "id": 136,
+    "ui_name": "$mat_silver",
+    "type": "powder",
+    "translated_name": "silver"
+  },
+  {
+    "name": "copper",
+    "id": 137,
+    "ui_name": "$mat_copper",
+    "type": "powder",
+    "translated_name": "copper"
+  },
+  {
+    "name": "brass",
+    "id": 138,
+    "ui_name": "$mat_brass",
+    "type": "powder",
+    "translated_name": "brass"
+  },
+  {
+    "name": "diamond",
+    "id": 139,
+    "ui_name": "$mat_diamond",
+    "type": "powder",
+    "translated_name": "diamond"
+  },
+  {
+    "name": "coal",
+    "id": 140,
+    "ui_name": "$mat_coal",
+    "type": "powder",
+    "translated_name": "coal"
+  },
+  {
+    "name": "sulphur",
+    "id": 141,
+    "ui_name": "$mat_sulphur",
+    "type": "powder",
+    "translated_name": "sulphur"
+  },
+  {
+    "name": "salt",
+    "id": 142,
+    "ui_name": "$mat_salt",
+    "type": "powder",
+    "translated_name": "salt"
+  },
+  {
+    "name": "sodium_unstable",
+    "id": 143,
+    "ui_name": "$mat_sodium_unstable",
+    "type": "powder",
+    "translated_name": "wet sodium"
+  },
+  {
+    "name": "gunpowder",
+    "id": 144,
+    "ui_name": "$mat_gunpowder",
+    "type": "powder",
+    "translated_name": "gunpowder"
+  },
+  {
+    "name": "gunpowder_explosive",
+    "id": 145,
+    "ui_name": "$mat_gunpowder_explosive",
+    "type": "powder",
+    "translated_name": "gunpowder"
+  },
+  {
+    "name": "gunpowder_tnt",
+    "id": 146,
+    "ui_name": "$mat_gunpowder_tnt",
+    "type": "powder",
+    "translated_name": "gunpowder"
+  },
+  {
+    "name": "gunpowder_unstable",
+    "id": 147,
+    "ui_name": "$mat_gunpowder_unstable",
+    "type": "powder",
+    "translated_name": "gunpowder"
+  },
+  {
+    "name": "gunpowder_unstable_big",
+    "id": 148,
+    "ui_name": "$mat_gunpowder_unstable",
+    "type": "powder",
+    "translated_name": "gunpowder"
+  },
+  {
+    "name": "monster_powder_test",
+    "id": 149,
+    "ui_name": "$mat_monster_powder_test",
+    "type": "powder",
+    "translated_name": "Monstrous powder"
+  },
+  {
+    "name": "rat_powder",
+    "id": 150,
+    "ui_name": "$mat_rat_powder",
+    "type": "powder",
+    "translated_name": "Ratty powder"
+  },
+  {
+    "name": "fungus_powder",
+    "id": 151,
+    "ui_name": "$mat_fungisoil",
+    "type": "powder",
+    "translated_name": "fungal soil"
+  },
+  {
+    "name": "orb_powder",
+    "id": 152,
+    "ui_name": "$mat_orb_powder",
+    "type": "powder",
+    "translated_name": "Guiding powder"
+  },
+  {
+    "name": "gunpowder_unstable_boss_limbs",
+    "id": 153,
+    "ui_name": "$mat_gunpowder_unstable_boss_limbs",
+    "type": "powder",
+    "translated_name": "slimy meat"
+  },
+  {
+    "name": "plastic_red",
+    "id": 154,
+    "ui_name": "$mat_plastic_red",
+    "type": "powder",
+    "translated_name": "plastic"
+  },
+  {
+    "name": "plastic_grey",
+    "id": 155,
+    "ui_name": "$mat_plastic_red",
+    "type": "powder",
+    "translated_name": "plastic"
+  },
+  {
+    "name": "grass",
+    "id": 158,
+    "ui_name": "$mat_grass",
+    "type": "powder",
+    "translated_name": "grass"
+  },
+  {
+    "name": "grass_holy",
+    "id": 159,
+    "ui_name": "$mat_grass_holy",
+    "type": "powder",
+    "translated_name": "Divine Ground"
+  },
+  {
+    "name": "grass_darker",
+    "id": 160,
+    "ui_name": "$mat_grass",
+    "type": "powder",
+    "translated_name": "grass"
+  },
+  {
+    "name": "grass_ice",
+    "id": 161,
+    "ui_name": "$mat_ice",
+    "type": "powder",
+    "translated_name": "ice"
+  },
+  {
+    "name": "grass_dry",
+    "id": 162,
+    "ui_name": "$mat_grass",
+    "type": "powder",
+    "translated_name": "grass"
+  },
+  {
+    "name": "fungi",
+    "id": 163,
+    "ui_name": "$mat_fungi_trippy",
+    "type": "powder",
+    "translated_name": "weird fungus"
+  },
+  {
+    "name": "spore",
+    "id": 164,
+    "ui_name": "$mat_spore",
+    "type": "powder",
+    "translated_name": "seed"
+  },
+  {
+    "name": "moss",
+    "id": 165,
+    "ui_name": "$mat_moss",
+    "type": "powder",
+    "translated_name": "moss"
+  },
+  {
+    "name": "plant_material",
+    "id": 166,
+    "ui_name": "$mat_plant_material",
+    "type": "powder",
+    "translated_name": "plant material"
+  },
+  {
+    "name": "plant_material_red",
+    "id": 167,
+    "ui_name": "$mat_plant_material_red",
+    "type": "powder",
+    "translated_name": "seed"
+  },
+  {
+    "name": "plant_material_dark",
+    "id": 168,
+    "ui_name": "$mat_plant_material",
+    "type": "powder",
+    "translated_name": "plant material"
+  },
+  {
+    "name": "ceiling_plant_material",
+    "id": 169,
+    "ui_name": "$mat_ceiling_plant_material",
+    "type": "powder",
+    "translated_name": "seed"
+  },
+  {
+    "name": "mushroom_seed",
+    "id": 170,
+    "ui_name": "$mat_mushroom_seed",
+    "type": "powder",
+    "translated_name": "fungal spore"
+  },
+  {
+    "name": "plant_seed",
+    "id": 171,
+    "ui_name": "$mat_plant_seed",
+    "type": "powder",
+    "translated_name": "plant seed"
+  },
+  {
+    "name": "mushroom",
+    "id": 172,
+    "ui_name": "$mat_mushroom",
+    "type": "powder",
+    "translated_name": "fungal spore"
+  },
+  {
+    "name": "mushroom_giant_red",
+    "id": 173,
+    "ui_name": "$mat_mushroom_giant_red",
+    "type": "powder",
+    "translated_name": "fungal spore"
+  },
+  {
+    "name": "mushroom_giant_blue",
+    "id": 174,
+    "ui_name": "$mat_mushroom_giant_blue",
+    "type": "powder",
+    "translated_name": "fungal spore"
+  },
+  {
+    "name": "glowshroom",
+    "id": 175,
+    "ui_name": "$mat_glowshroom",
+    "type": "powder",
+    "translated_name": "glowing fungal spore"
+  },
+  {
+    "name": "bush_seed",
+    "id": 176,
+    "ui_name": "$mat_bush_seed",
+    "type": "powder",
+    "translated_name": "evergreen seed"
+  },
+  {
+    "name": "wood_player",
+    "id": 179,
+    "ui_name": "$mat_wood_player",
+    "type": "powder",
+    "translated_name": "wood"
+  },
+  {
+    "name": "trailer_text",
+    "id": 191,
+    "ui_name": "$mat_trailer_text",
+    "type": "powder",
+    "translated_name": "text"
+  },
+  {
+    "name": "poo",
+    "id": 211,
+    "ui_name": "$mat_poo",
+    "type": "powder",
+    "translated_name": "excrement"
+  },
+  {
+    "name": "mammi",
+    "id": 212,
+    "ui_name": "$mat_mammi",
+    "type": "powder",
+    "translated_name": "mämmi"
+  },
+  {
+    "name": "glass_broken",
+    "id": 219,
+    "ui_name": "$mat_glass",
+    "type": "powder",
+    "translated_name": "glass"
+  },
+  {
+    "name": "blood_thick",
+    "id": 221,
+    "ui_name": "$mat_blood_thick",
+    "type": "powder",
+    "translated_name": "blood"
+  },
+  {
+    "name": "sand_static_rainforest",
+    "id": 255,
+    "ui_name": "$mat_sand_static_rainforest",
+    "type": "powder",
+    "translated_name": "lush ground"
+  },
+  {
+    "name": "sand_static_rainforest_dark",
+    "id": 256,
+    "ui_name": "$mat_sand_static_rainforest",
+    "type": "powder",
+    "translated_name": "lush ground"
+  },
+  {
+    "name": "bone_static",
+    "id": 260,
+    "ui_name": "$mat_bone_static",
+    "type": "powder",
+    "translated_name": "bone wall"
+  },
+  {
+    "name": "rust_static",
+    "id": 277,
+    "ui_name": "$mat_rust_static",
+    "type": "powder",
+    "translated_name": "rusted metal"
+  },
+  {
+    "name": "sand_static_bright",
+    "id": 278,
+    "ui_name": "$mat_sand_static_bright",
+    "type": "powder",
+    "translated_name": "granite ground"
+  },
+  {
+    "name": "meat_static",
+    "id": 279,
+    "ui_name": "$mat_meat",
+    "type": "powder",
+    "translated_name": "meat"
+  },
+  {
+    "name": "moss_rust",
+    "id": 296,
+    "ui_name": "$mat_moss_rust",
+    "type": "powder",
+    "translated_name": "rusty moss"
+  },
+  {
+    "name": "fungi_creeping_secret",
+    "id": 298,
+    "ui_name": "$mat_fungi_green",
+    "type": "powder",
+    "translated_name": "fungus"
+  },
+  {
+    "name": "fungi_creeping",
+    "id": 299,
+    "ui_name": "$mat_fungi_creeping",
+    "type": "powder",
+    "translated_name": "Mystery fungus"
+  },
+  {
+    "name": "grass_dark",
+    "id": 300,
+    "ui_name": "$mat_grass",
+    "type": "powder",
+    "translated_name": "grass"
+  },
+  {
+    "name": "sand_static_red",
+    "id": 301,
+    "ui_name": "$mat_sand_static_red",
+    "type": "powder",
+    "translated_name": "rusty ground"
+  },
+  {
+    "name": "fungi_green",
+    "id": 302,
+    "ui_name": "$mat_fungi_green",
+    "type": "powder",
+    "translated_name": "fungus"
+  },
+  {
+    "name": "shock_powder",
+    "id": 305,
+    "ui_name": "$mat_fungisoil",
+    "type": "powder",
+    "translated_name": "fungal soil"
+  },
+  {
+    "name": "fungus_powder_bad",
+    "id": 306,
+    "ui_name": "$mat_fungisoil",
+    "type": "powder",
+    "translated_name": "fungal soil"
+  },
+  {
+    "name": "burning_powder",
+    "id": 307,
+    "ui_name": "$mat_burning_powder",
+    "type": "powder",
+    "translated_name": "burning powder"
+  },
+  {
+    "name": "purifying_powder",
+    "id": 308,
+    "ui_name": "$mat_purifying_powder",
+    "type": "powder",
+    "translated_name": "Purifying powder"
+  },
+  {
+    "name": "sodium",
+    "id": 309,
+    "ui_name": "$mat_sodium",
+    "type": "powder",
+    "translated_name": "sodium"
+  },
+  {
+    "name": "metal_sand",
+    "id": 310,
+    "ui_name": "$mat_metal_sand",
+    "type": "powder",
+    "translated_name": "Metal dust"
+  },
+  {
+    "name": "steel_sand",
+    "id": 311,
+    "ui_name": "$mat_steel_sand",
+    "type": "powder",
+    "translated_name": "steel"
+  },
+  {
+    "name": "gold_radioactive",
+    "id": 312,
+    "ui_name": "$mat_gold_radioactive",
+    "type": "powder",
+    "translated_name": "toxic gold"
+  },
+  {
+    "name": "rock_static_intro",
+    "id": 319,
+    "ui_name": "$mat_rock_static_intro",
+    "type": "powder",
+    "translated_name": "rock"
+  },
+  {
+    "name": "rock_static_trip_secret",
+    "id": 321,
+    "ui_name": "$mat_rock_static",
+    "type": "powder",
+    "translated_name": "rock"
+  },
+  {
+    "name": "endslime_blood",
+    "id": 327,
+    "ui_name": "$mat_endslime_blood",
+    "type": "powder",
+    "translated_name": "hell slime"
+  },
+  {
+    "name": "endslime",
+    "id": 328,
+    "ui_name": "$mat_endslime",
+    "type": "powder",
+    "translated_name": "hell slime"
+  },
+  {
+    "name": "rock_static_trip_secret2",
+    "id": 329,
+    "ui_name": "$mat_rock_static",
+    "type": "powder",
+    "translated_name": "rock"
+  },
+  {
+    "name": "sandstone_surface",
+    "id": 332,
+    "ui_name": "$mat_sandstone",
+    "type": "powder",
+    "translated_name": "sandstone"
+  },
+  {
+    "name": "soil_dark",
+    "id": 333,
+    "ui_name": "$mat_soil_dead",
+    "type": "powder",
+    "translated_name": "barren soil"
+  },
+  {
+    "name": "soil_dead",
+    "id": 334,
+    "ui_name": "$mat_soil_dead",
+    "type": "powder",
+    "translated_name": "barren soil"
+  },
+  {
+    "name": "soil_lush_dark",
+    "id": 335,
+    "ui_name": "$mat_soil_lush",
+    "type": "powder",
+    "translated_name": "soil"
+  },
+  {
+    "name": "soil_lush",
+    "id": 336,
+    "ui_name": "$mat_soil_lush",
+    "type": "powder",
+    "translated_name": "soil"
+  },
+  {
+    "name": "sand_petrify",
+    "id": 337,
+    "ui_name": "$mat_sand",
+    "type": "powder",
+    "translated_name": "sand"
+  },
+  {
+    "name": "lavasand",
+    "id": 338,
+    "ui_name": "$mat_lavasand",
+    "type": "powder",
+    "translated_name": "volcanic sand"
+  },
+  {
+    "name": "sand_surface",
+    "id": 339,
+    "ui_name": "$mat_sand",
+    "type": "powder",
+    "translated_name": "sand"
+  },
+  {
+    "name": "sand_blue",
+    "id": 340,
+    "ui_name": "$mat_sand_blue",
+    "type": "powder",
+    "translated_name": "blue sand"
+  },
+  {
+    "name": "plasma_fading_pink",
+    "id": 354,
+    "ui_name": "$mat_plasma_fading_pink",
+    "type": "powder",
+    "translated_name": "magical liquid"
+  },
+  {
+    "name": "plasma_fading_green",
+    "id": 355,
+    "ui_name": "$mat_plasma_fading_green",
+    "type": "powder",
+    "translated_name": "magical liquid"
+  },
+  {
+    "name": "corruption_static",
+    "id": 376,
+    "ui_name": "$mat_corruption_static",
+    "type": "powder",
+    "translated_name": "corrupted rock"
+  },
+  {
+    "name": "wood_static_gas",
+    "id": 377,
+    "ui_name": "$mat_wood_static_gas",
+    "type": "powder",
+    "translated_name": "pressurized wood"
+  },
+  {
+    "name": "wood_static_vertical",
+    "id": 378,
+    "ui_name": "$mat_wood_static_vertical",
+    "type": "powder",
+    "translated_name": "wood"
+  },
+  {
+    "name": "gold_static_dark",
+    "id": 379,
+    "ui_name": "$mat_gold_static_dark",
+    "type": "powder",
+    "translated_name": "vibrant gold vein"
+  },
+  {
+    "name": "gold_static_radioactive",
+    "id": 380,
+    "ui_name": "$mat_gold_radioactive",
+    "type": "powder",
+    "translated_name": "toxic gold"
+  },
+  {
+    "name": "gold_static",
+    "id": 381,
+    "ui_name": "$mat_gold_static",
+    "type": "powder",
+    "translated_name": "gold vein"
+  },
+  {
+    "name": "creepy_liquid_emitter",
+    "id": 382,
+    "ui_name": "$mat_creepy_liquid_emitter",
+    "type": "powder",
+    "translated_name": "brick wall"
+  },
+  {
+    "name": "wood_burns_forever",
+    "id": 383,
+    "ui_name": "$mat_wood_static",
+    "type": "powder",
+    "translated_name": "wood"
+  },
+  {
+    "name": "root_growth",
+    "id": 384,
+    "ui_name": "$mat_root",
+    "type": "powder",
+    "translated_name": "vine"
+  },
+  {
+    "name": "wood_static_wet",
+    "id": 385,
+    "ui_name": "$mat_wood_static_wet",
+    "type": "powder",
+    "translated_name": "damp wood"
+  },
+  {
+    "name": "ice_slime_static",
+    "id": 393,
+    "ui_name": "$mat_ice_slime_static",
+    "type": "powder",
+    "translated_name": "Frozen slime"
+  },
+  {
+    "name": "ice_blood_static",
+    "id": 394,
+    "ui_name": "$mat_ice_blood_static",
+    "type": "powder",
+    "translated_name": "frozen blood"
+  },
+  {
+    "name": "rock_static_intro_breakable",
+    "id": 395,
+    "ui_name": "$mat_rock_static_intro_breakable",
+    "type": "powder",
+    "translated_name": "rock"
+  },
+  {
+    "name": "steel_static_unmeltable",
+    "id": 396,
+    "ui_name": "$mat_steel_static_unmeltable",
+    "type": "powder",
+    "translated_name": "hardened steel"
+  },
+  {
+    "name": "steel_static_strong",
+    "id": 397,
+    "ui_name": "$mat_steel_static_strong",
+    "type": "powder",
+    "translated_name": "dense steel"
+  },
+  {
+    "name": "steelpipe_static",
+    "id": 398,
+    "ui_name": "$mat_steelpipe_static",
+    "type": "powder",
+    "translated_name": "metal pipe"
+  },
+  {
+    "name": "steelsmoke_static",
+    "id": 399,
+    "ui_name": "$mat_steelsmoke_static",
+    "type": "powder",
+    "translated_name": "smoking steel"
+  },
+  {
+    "name": "steelmoss_slanted",
+    "id": 400,
+    "ui_name": "$mat_steelmoss_slanted",
+    "type": "powder",
+    "translated_name": "mossy steel"
+  },
+  {
+    "name": "steelfrost_static",
+    "id": 401,
+    "ui_name": "$mat_steelfrost_static",
+    "type": "powder",
+    "translated_name": "Frozen steel"
+  },
+  {
+    "name": "rock_static_cursed",
+    "id": 402,
+    "ui_name": "$mat_rock_static_cursed",
+    "type": "powder",
+    "translated_name": "Cursed rock"
+  },
+  {
+    "name": "rock_static_purple",
+    "id": 403,
+    "ui_name": "$mat_rock_static_intro",
+    "type": "powder",
+    "translated_name": "rock"
+  },
+  {
+    "name": "steelmoss_static",
+    "id": 404,
+    "ui_name": "$mat_steelrusted",
+    "type": "powder",
+    "translated_name": "rusted steel"
+  },
+  {
+    "name": "rock_hard",
+    "id": 405,
+    "ui_name": "$mat_rock_hard",
+    "type": "powder",
+    "translated_name": "dense rock"
+  },
+  {
+    "name": "templebrick_moss_static",
+    "id": 406,
+    "ui_name": "$mat_templebrick_moss_static",
+    "type": "powder",
+    "translated_name": "mossy brickwork"
+  },
+  {
+    "name": "templebrick_red",
+    "id": 407,
+    "ui_name": "$mat_templebrick_red",
+    "type": "powder",
+    "translated_name": "brickwork"
+  },
+  {
+    "name": "glowstone_potion",
+    "id": 408,
+    "ui_name": "$mat_glowstone_potion",
+    "type": "powder",
+    "translated_name": "glowing stone"
+  },
+  {
+    "name": "glowstone_altar_hdr",
+    "id": 409,
+    "ui_name": "$mat_glowstone_altar",
+    "type": "powder",
+    "translated_name": "glowing stone"
+  },
+  {
+    "name": "glowstone_altar",
+    "id": 410,
+    "ui_name": "$mat_glowstone_altar",
+    "type": "powder",
+    "translated_name": "glowing stone"
+  },
+  {
+    "name": "glowstone",
+    "id": 411,
+    "ui_name": "$mat_glowstone",
+    "type": "powder",
+    "translated_name": "glowing stone"
+  },
+  {
+    "name": "templebrick_static_ruined",
+    "id": 412,
+    "ui_name": "$mat_templebrick_static_ruined",
+    "type": "powder",
+    "translated_name": "Ruined brick wall"
+  },
+  {
+    "name": "templebrick_diamond_static",
+    "id": 413,
+    "ui_name": "$mat_templebrick_diamond_static",
+    "type": "powder",
+    "translated_name": "Diamond brickwork"
+  },
+  {
+    "name": "templebrick_golden_static",
+    "id": 414,
+    "ui_name": "$mat_templebrick_golden_static",
+    "type": "powder",
+    "translated_name": "Fool's gold"
+  },
+  {
+    "name": "wizardstone",
+    "id": 415,
+    "ui_name": "$mat_wizardstone",
+    "type": "powder",
+    "translated_name": "Odd brickwork"
+  },
+  {
+    "name": "templebrickdark_static",
+    "id": 416,
+    "ui_name": "$mat_templebrickdark_static",
+    "type": "powder",
+    "translated_name": "brickwork"
+  },
+  {
+    "name": "rock_static_fungal",
+    "id": 417,
+    "ui_name": "$mat_fungisoil",
+    "type": "powder",
+    "translated_name": "fungal soil"
+  },
+  {
+    "name": "wood_tree",
+    "id": 418,
+    "ui_name": "$mat_wood",
+    "type": "powder",
+    "translated_name": "wood"
+  },
+  {
+    "name": "rock_static_noedge",
+    "id": 419,
+    "ui_name": "$mat_rock_static_noedge",
+    "type": "powder",
+    "translated_name": "rock"
+  },
+  {
+    "name": "rock_hard_border",
+    "id": 420,
+    "ui_name": "$mat_rock_hard_border",
+    "type": "powder",
+    "translated_name": "extremely dense rock"
+  },
+  {
+    "name": "templerock_soft",
+    "id": 421,
+    "ui_name": "$mat_templerock_static",
+    "type": "powder",
+    "translated_name": "brickwork"
+  },
+  {
+    "name": "templebrick_noedge_static",
+    "id": 422,
+    "ui_name": "$mat_templebrick_noedge_static",
+    "type": "powder",
+    "translated_name": "brickwork"
+  },
+  {
+    "name": "templebrick_static_soft",
+    "id": 423,
+    "ui_name": "$mat_templebrick_static",
+    "type": "powder",
+    "translated_name": "brickwork"
+  },
+  {
+    "name": "templebrick_static_broken",
+    "id": 424,
+    "ui_name": "$mat_templebrick_static",
+    "type": "powder",
+    "translated_name": "brickwork"
+  },
+  {
+    "name": "templebrick_static",
+    "id": 425,
+    "ui_name": "$mat_templebrick_static",
+    "type": "powder",
+    "translated_name": "brickwork"
+  },
+  {
+    "name": "rock_static_wet",
+    "id": 426,
+    "ui_name": "$mat_rock_static_wet",
+    "type": "powder",
+    "translated_name": "damp rock"
+  },
+  {
+    "name": "rock_magic_gate",
+    "id": 427,
+    "ui_name": "$mat_rock_magic_gate",
+    "type": "powder",
+    "translated_name": "magic gate"
+  },
+  {
+    "name": "rock_static_poison",
+    "id": 428,
+    "ui_name": "$mat_rock_static_poison",
+    "type": "powder",
+    "translated_name": "poisonous rock"
+  },
+  {
+    "name": "rock_static_cursed_green",
+    "id": 429,
+    "ui_name": "$mat_rock_static_cursed_green",
+    "type": "powder",
+    "translated_name": "Greed-cursed rock"
+  },
+  {
+    "name": "rock_static_radioactive",
+    "id": 430,
+    "ui_name": "$mat_rock_static_radioactive",
+    "type": "powder",
+    "translated_name": "toxic rock"
+  },
+  {
+    "name": "rock_static_grey",
+    "id": 431,
+    "ui_name": "$mat_rock_static_grey",
+    "type": "powder",
+    "translated_name": "grey rock"
+  },
+  {
+    "name": "coal_static",
+    "id": 432,
+    "ui_name": "$mat_coal_static",
+    "type": "powder",
+    "translated_name": "coal vein"
+  },
+  {
+    "name": "rock_vault",
+    "id": 433,
+    "ui_name": "$mat_rock_vault",
+    "type": "powder",
+    "translated_name": "vault rock"
+  },
+  {
+    "name": "rock_magic_bottom",
+    "id": 435,
+    "ui_name": "$mat_rock_magic_bottom",
+    "type": "powder",
+    "translated_name": "magic wall"
+  },
+  {
+    "name": "templebrick_thick_static",
+    "id": 437,
+    "ui_name": "$mat_templebrick_thick_static",
+    "type": "powder",
+    "translated_name": "brickwork"
+  },
+  {
+    "name": "templebrick_thick_static_noedge",
+    "id": 438,
+    "ui_name": "$mat_templebrick_thick_static",
+    "type": "powder",
+    "translated_name": "brickwork"
+  },
+  {
+    "name": "templeslab_static",
+    "id": 439,
+    "ui_name": "$mat_templeslab_static",
+    "type": "powder",
+    "translated_name": "brickwork"
+  },
+  {
+    "name": "templeslab_crumbling_static",
+    "id": 440,
+    "ui_name": "$mat_templeslab_crumbling_static",
+    "type": "powder",
+    "translated_name": "brickwork"
+  },
+  {
+    "name": "the_end",
+    "id": 441,
+    "ui_name": "$mat_the_end",
+    "type": "powder",
+    "translated_name": "hell rock"
+  },
+  {
+    "name": "steel_rusted_no_holes",
+    "id": 442,
+    "ui_name": "$mat_steelrusted",
+    "type": "powder",
+    "translated_name": "rusted steel"
+  },
+  {
+    "name": "steel_grey_static",
+    "id": 443,
+    "ui_name": "$mat_steel_static_strong",
+    "type": "powder",
+    "translated_name": "dense steel"
+  },
+  {
+    "name": "fungi_yellow",
+    "id": 447,
+    "ui_name": "$mat_fungi_green",
+    "type": "powder",
+    "translated_name": "fungus"
+  },
+  {
+    "name": "skullrock",
+    "id": 465,
+    "ui_name": "$mat_skullrock",
+    "type": "powder",
+    "translated_name": "hell rock"
+  }
+]

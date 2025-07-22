@@ -1,0 +1,723 @@
+[
+  {
+    "name": "water_static",
+    "id": 9,
+    "ui_name": "$mat_water_static",
+    "type": "liquid",
+    "translated_name": "Water"
+  },
+  {
+    "name": "endslime_static",
+    "id": 10,
+    "ui_name": "$mat_endslime_static",
+    "type": "liquid",
+    "translated_name": "hell slime"
+  },
+  {
+    "name": "slime_static",
+    "id": 11,
+    "ui_name": "$mat_slime_static",
+    "type": "liquid",
+    "translated_name": "slime"
+  },
+  {
+    "name": "spore_pod_stalk",
+    "id": 12,
+    "ui_name": "$mat_bluefungi_static",
+    "type": "liquid",
+    "translated_name": "blue fungus"
+  },
+  {
+    "name": "water",
+    "id": 56,
+    "ui_name": "$mat_water",
+    "type": "liquid",
+    "translated_name": "Water"
+  },
+  {
+    "name": "water_temp",
+    "id": 57,
+    "ui_name": "$mat_water_temp",
+    "type": "liquid",
+    "translated_name": "Water"
+  },
+  {
+    "name": "water_ice",
+    "id": 58,
+    "ui_name": "$mat_water_ice",
+    "type": "liquid",
+    "translated_name": "chilly water"
+  },
+  {
+    "name": "water_swamp",
+    "id": 59,
+    "ui_name": "$mat_water_swamp",
+    "type": "liquid",
+    "translated_name": "swamp"
+  },
+  {
+    "name": "oil",
+    "id": 60,
+    "ui_name": "$mat_oil",
+    "type": "liquid",
+    "translated_name": "oil"
+  },
+  {
+    "name": "alcohol",
+    "id": 61,
+    "ui_name": "$mat_alcohol",
+    "type": "liquid",
+    "translated_name": "whiskey"
+  },
+  {
+    "name": "beer",
+    "id": 62,
+    "ui_name": "$mat_beer",
+    "type": "liquid",
+    "translated_name": "beer"
+  },
+  {
+    "name": "milk",
+    "id": 63,
+    "ui_name": "$mat_milk",
+    "type": "liquid",
+    "translated_name": "milk"
+  },
+  {
+    "name": "molut",
+    "id": 64,
+    "ui_name": "$mat_molut",
+    "type": "liquid",
+    "translated_name": "molut"
+  },
+  {
+    "name": "sima",
+    "id": 65,
+    "ui_name": "$mat_sima",
+    "type": "liquid",
+    "translated_name": "Sima"
+  },
+  {
+    "name": "juhannussima",
+    "id": 66,
+    "ui_name": "$mat_juhannussima",
+    "type": "liquid",
+    "translated_name": "Juhannussima"
+  },
+  {
+    "name": "magic_liquid",
+    "id": 68,
+    "ui_name": "$mat_magic_liquid",
+    "type": "liquid",
+    "translated_name": "gate-opener"
+  },
+  {
+    "name": "material_confusion",
+    "id": 69,
+    "ui_name": "$mat_confusion",
+    "type": "liquid",
+    "translated_name": "flummoxium"
+  },
+  {
+    "name": "material_darkness",
+    "id": 70,
+    "ui_name": "$mat_darkness",
+    "type": "liquid",
+    "translated_name": "Ominous liquid"
+  },
+  {
+    "name": "material_rainbow",
+    "id": 71,
+    "ui_name": "$mat_rainbow",
+    "type": "liquid",
+    "translated_name": "Rainbow"
+  },
+  {
+    "name": "magic_liquid_weakness",
+    "id": 72,
+    "ui_name": "$magic_liquid_weakness",
+    "type": "liquid",
+    "translated_name": "diminution"
+  },
+  {
+    "name": "magic_liquid_movement_faster",
+    "id": 73,
+    "ui_name": "$mat_magic_liquid_movement_faster",
+    "type": "liquid",
+    "translated_name": "acceleratium"
+  },
+  {
+    "name": "magic_liquid_faster_levitation",
+    "id": 74,
+    "ui_name": "$mat_magic_liquid_faster_levitation",
+    "type": "liquid",
+    "translated_name": "levitatium"
+  },
+  {
+    "name": "magic_liquid_faster_levitation_and_movement",
+    "id": 75,
+    "ui_name": "$mat_magic_liquid_faster_levitation_and_movement",
+    "type": "liquid",
+    "translated_name": "hastium"
+  },
+  {
+    "name": "magic_liquid_worm_attractor",
+    "id": 76,
+    "ui_name": "$mat_magic_liquid_worm_attractor",
+    "type": "liquid",
+    "translated_name": "worm pheromone"
+  },
+  {
+    "name": "magic_liquid_protection_all",
+    "id": 77,
+    "ui_name": "$mat_magic_liquid_protection_all",
+    "type": "liquid",
+    "translated_name": "ambrosia"
+  },
+  {
+    "name": "magic_liquid_mana_regeneration",
+    "id": 78,
+    "ui_name": "$mat_magic_liquid_mana_regeneration",
+    "type": "liquid",
+    "translated_name": "concentrated mana"
+  },
+  {
+    "name": "magic_liquid_unstable_teleportation",
+    "id": 79,
+    "ui_name": "$mat_magic_liquid_unstable_teleportation",
+    "type": "liquid",
+    "translated_name": "unstable teleportatium"
+  },
+  {
+    "name": "magic_liquid_teleportation",
+    "id": 80,
+    "ui_name": "$mat_magic_liquid_teleportation",
+    "type": "liquid",
+    "translated_name": "teleportatium"
+  },
+  {
+    "name": "magic_liquid_hp_regeneration",
+    "id": 81,
+    "ui_name": "$mat_magic_liquid_hp_regeneration",
+    "type": "liquid",
+    "translated_name": "healthium"
+  },
+  {
+    "name": "magic_liquid_hp_regeneration_unstable",
+    "id": 82,
+    "ui_name": "$mat_magic_liquid_hp_regeneration_unstable",
+    "type": "liquid",
+    "translated_name": "lively concoction"
+  },
+  {
+    "name": "magic_liquid_polymorph",
+    "id": 83,
+    "ui_name": "$mat_magic_liquid_polymorph",
+    "type": "liquid",
+    "translated_name": "polymorphine"
+  },
+  {
+    "name": "magic_liquid_random_polymorph",
+    "id": 84,
+    "ui_name": "$mat_magic_liquid_random_polymorph",
+    "type": "liquid",
+    "translated_name": "chaotic polymorphine"
+  },
+  {
+    "name": "magic_liquid_unstable_polymorph",
+    "id": 85,
+    "ui_name": "$mat_magic_liquid_unstable_polymorph",
+    "type": "liquid",
+    "translated_name": "unstable polymorphine"
+  },
+  {
+    "name": "magic_liquid_berserk",
+    "id": 86,
+    "ui_name": "$mat_magic_liquid_berserk",
+    "type": "liquid",
+    "translated_name": "berserkium"
+  },
+  {
+    "name": "magic_liquid_charm",
+    "id": 87,
+    "ui_name": "$mat_magic_liquid_charm",
+    "type": "liquid",
+    "translated_name": "pheromone"
+  },
+  {
+    "name": "magic_liquid_invisibility",
+    "id": 88,
+    "ui_name": "$mat_magic_liquid_invisibility",
+    "type": "liquid",
+    "translated_name": "invisiblium"
+  },
+  {
+    "name": "cloud_radioactive",
+    "id": 89,
+    "ui_name": "$mat_cloud_radioactive",
+    "type": "liquid",
+    "translated_name": "toxic mist"
+  },
+  {
+    "name": "cloud_blood",
+    "id": 90,
+    "ui_name": "$mat_cloud_blood",
+    "type": "liquid",
+    "translated_name": "blood mist"
+  },
+  {
+    "name": "cloud_slime",
+    "id": 91,
+    "ui_name": "$mat_cloud_slime",
+    "type": "liquid",
+    "translated_name": "slime mist"
+  },
+  {
+    "name": "swamp",
+    "id": 92,
+    "ui_name": "$mat_swamp",
+    "type": "liquid",
+    "translated_name": "swamp"
+  },
+  {
+    "name": "blood",
+    "id": 94,
+    "ui_name": "$mat_blood",
+    "type": "liquid",
+    "translated_name": "blood"
+  },
+  {
+    "name": "blood_fading",
+    "id": 95,
+    "ui_name": "$mat_blood_fading",
+    "type": "liquid",
+    "translated_name": "blood"
+  },
+  {
+    "name": "blood_fungi",
+    "id": 96,
+    "ui_name": "$mat_blood_fungi",
+    "type": "liquid",
+    "translated_name": "fungus blood"
+  },
+  {
+    "name": "blood_worm",
+    "id": 97,
+    "ui_name": "$mat_blood_worm",
+    "type": "liquid",
+    "translated_name": "worm blood"
+  },
+  {
+    "name": "porridge",
+    "id": 98,
+    "ui_name": "$mat_porridge",
+    "type": "liquid",
+    "translated_name": "Hearty Porridge"
+  },
+  {
+    "name": "blood_cold",
+    "id": 99,
+    "ui_name": "$mat_blood_cold",
+    "type": "liquid",
+    "translated_name": "freezing liquid"
+  },
+  {
+    "name": "radioactive_liquid",
+    "id": 100,
+    "ui_name": "$mat_radioactive_liquid",
+    "type": "liquid",
+    "translated_name": "toxic sludge"
+  },
+  {
+    "name": "radioactive_liquid_fading",
+    "id": 101,
+    "ui_name": "$mat_radioactive_liquid_fading",
+    "type": "liquid",
+    "translated_name": "toxic sludge"
+  },
+  {
+    "name": "plasma_fading",
+    "id": 102,
+    "ui_name": "$mat_plasma_fading",
+    "type": "liquid",
+    "translated_name": "magical liquid"
+  },
+  {
+    "name": "gold_molten",
+    "id": 103,
+    "ui_name": "$mat_gold_molten",
+    "type": "liquid",
+    "translated_name": "molten gold"
+  },
+  {
+    "name": "wax_molten",
+    "id": 104,
+    "ui_name": "$mat_wax_molten",
+    "type": "liquid",
+    "translated_name": "molten wax"
+  },
+  {
+    "name": "silver_molten",
+    "id": 105,
+    "ui_name": "$mat_silver_molten",
+    "type": "liquid",
+    "translated_name": "molten silver"
+  },
+  {
+    "name": "copper_molten",
+    "id": 106,
+    "ui_name": "$mat_copper_molten",
+    "type": "liquid",
+    "translated_name": "molten copper"
+  },
+  {
+    "name": "brass_molten",
+    "id": 107,
+    "ui_name": "$mat_brass_molten",
+    "type": "liquid",
+    "translated_name": "molten brass"
+  },
+  {
+    "name": "glass_molten",
+    "id": 108,
+    "ui_name": "$mat_glass_molten",
+    "type": "liquid",
+    "translated_name": "molten glass"
+  },
+  {
+    "name": "glass_broken_molten",
+    "id": 109,
+    "ui_name": "$mat_glass_broken_molten",
+    "type": "liquid",
+    "translated_name": "molten glass"
+  },
+  {
+    "name": "steel_molten",
+    "id": 110,
+    "ui_name": "$mat_steel_molten",
+    "type": "liquid",
+    "translated_name": "molten metal"
+  },
+  {
+    "name": "creepy_liquid",
+    "id": 111,
+    "ui_name": "$mat_creepy_liquid",
+    "type": "liquid",
+    "translated_name": "creepy liquid"
+  },
+  {
+    "name": "cement",
+    "id": 112,
+    "ui_name": "$mat_cement",
+    "type": "liquid",
+    "translated_name": "cement"
+  },
+  {
+    "name": "slime",
+    "id": 121,
+    "ui_name": "$mat_slime_pink",
+    "type": "liquid",
+    "translated_name": "slime"
+  },
+  {
+    "name": "slush",
+    "id": 122,
+    "ui_name": "$mat_slush",
+    "type": "liquid",
+    "translated_name": "Slush"
+  },
+  {
+    "name": "vomit",
+    "id": 123,
+    "ui_name": "$mat_vomit",
+    "type": "liquid",
+    "translated_name": "Vomit"
+  },
+  {
+    "name": "plastic_red_molten",
+    "id": 156,
+    "ui_name": "$mat_plastic_red_molten",
+    "type": "liquid",
+    "translated_name": "molten plastic"
+  },
+  {
+    "name": "plastic_grey_molten",
+    "id": 157,
+    "ui_name": "$mat_plastic_red_molten",
+    "type": "liquid",
+    "translated_name": "molten plastic"
+  },
+  {
+    "name": "acid",
+    "id": 177,
+    "ui_name": "$mat_acid",
+    "type": "liquid",
+    "translated_name": "acid"
+  },
+  {
+    "name": "lava",
+    "id": 178,
+    "ui_name": "$mat_lava",
+    "type": "liquid",
+    "translated_name": "lava"
+  },
+  {
+    "name": "urine",
+    "id": 210,
+    "ui_name": "$mat_urine",
+    "type": "liquid",
+    "translated_name": "urine"
+  },
+  {
+    "name": "rocket_particles",
+    "id": 214,
+    "ui_name": "$mat_rocket_particles",
+    "type": "liquid",
+    "translated_name": "smoke"
+  },
+  {
+    "name": "fungal_shift_particle_fx",
+    "id": 223,
+    "ui_name": "fungal_shift_particle_fx",
+    "type": "liquid",
+    "translated_name": "fungal_shift_particle_fx"
+  },
+  {
+    "name": "peat",
+    "id": 297,
+    "ui_name": "$mat_peat",
+    "type": "liquid",
+    "translated_name": "Peat"
+  },
+  {
+    "name": "plastic_prop_molten",
+    "id": 303,
+    "ui_name": "$mat_plastic_prop_molten",
+    "type": "liquid",
+    "translated_name": "molten plastic"
+  },
+  {
+    "name": "plastic_molten",
+    "id": 304,
+    "ui_name": "$mat_plastic_molten",
+    "type": "liquid",
+    "translated_name": "molten plastic"
+  },
+  {
+    "name": "slime_yellow",
+    "id": 330,
+    "ui_name": "$mat_slime_static",
+    "type": "liquid",
+    "translated_name": "slime"
+  },
+  {
+    "name": "slime_green",
+    "id": 331,
+    "ui_name": "$mat_slime_green",
+    "type": "liquid",
+    "translated_name": "slime"
+  },
+  {
+    "name": "aluminium_oxide_molten",
+    "id": 341,
+    "ui_name": "$mat_aluminium_oxide_molten",
+    "type": "liquid",
+    "translated_name": "molten aluminium"
+  },
+  {
+    "name": "steel_rust_molten",
+    "id": 342,
+    "ui_name": "$mat_steel_rust_molten",
+    "type": "liquid",
+    "translated_name": "molten steel"
+  },
+  {
+    "name": "metal_prop_molten",
+    "id": 343,
+    "ui_name": "$mat_metal_prop_molten",
+    "type": "liquid",
+    "translated_name": "molten metal"
+  },
+  {
+    "name": "aluminium_robot_molten",
+    "id": 344,
+    "ui_name": "$mat_aluminium_robot_molten",
+    "type": "liquid",
+    "translated_name": "molten aluminium"
+  },
+  {
+    "name": "aluminium_molten",
+    "id": 345,
+    "ui_name": "$mat_aluminium_molten",
+    "type": "liquid",
+    "translated_name": "molten aluminium"
+  },
+  {
+    "name": "metal_nohit_molten",
+    "id": 346,
+    "ui_name": "$mat_metal_nohit_molten",
+    "type": "liquid",
+    "translated_name": "molten metal"
+  },
+  {
+    "name": "metal_rust_molten",
+    "id": 347,
+    "ui_name": "$mat_metal_rust_molten",
+    "type": "liquid",
+    "translated_name": "molten metal"
+  },
+  {
+    "name": "metal_molten",
+    "id": 348,
+    "ui_name": "$mat_metal_molten",
+    "type": "liquid",
+    "translated_name": "molten metal"
+  },
+  {
+    "name": "metal_sand_molten",
+    "id": 349,
+    "ui_name": "$mat_metal_sand_molten",
+    "type": "liquid",
+    "translated_name": "Molten metal"
+  },
+  {
+    "name": "steelsmoke_static_molten",
+    "id": 350,
+    "ui_name": "$mat_steelsmoke_static_molten",
+    "type": "liquid",
+    "translated_name": "molten steel"
+  },
+  {
+    "name": "steelmoss_static_molten",
+    "id": 351,
+    "ui_name": "$mat_steelmoss_static_molten",
+    "type": "liquid",
+    "translated_name": "molten steel"
+  },
+  {
+    "name": "steelmoss_slanted_molten",
+    "id": 352,
+    "ui_name": "$mat_steelmoss_slanted_molten",
+    "type": "liquid",
+    "translated_name": "molten steel"
+  },
+  {
+    "name": "steel_static_molten",
+    "id": 353,
+    "ui_name": "$mat_steel_static_molten",
+    "type": "liquid",
+    "translated_name": "molten steel"
+  },
+  {
+    "name": "plasma_fading_bright",
+    "id": 356,
+    "ui_name": "$mat_plasma_fading",
+    "type": "liquid",
+    "translated_name": "magical liquid"
+  },
+  {
+    "name": "radioactive_liquid_yellow",
+    "id": 357,
+    "ui_name": "$mat_radioactive_liquid_yellow",
+    "type": "liquid",
+    "translated_name": "toxic sludge"
+  },
+  {
+    "name": "cursed_liquid",
+    "id": 358,
+    "ui_name": "$mat_cursed_liquid",
+    "type": "liquid",
+    "translated_name": "Greed-cursed liquid"
+  },
+  {
+    "name": "poison",
+    "id": 359,
+    "ui_name": "$mat_poison",
+    "type": "liquid",
+    "translated_name": "Poison"
+  },
+  {
+    "name": "blood_fading_slow",
+    "id": 360,
+    "ui_name": "$mat_blood",
+    "type": "liquid",
+    "translated_name": "blood"
+  },
+  {
+    "name": "pus",
+    "id": 361,
+    "ui_name": "$mat_pus",
+    "type": "liquid",
+    "translated_name": "pus"
+  },
+  {
+    "name": "midas",
+    "id": 362,
+    "ui_name": "$mat_midas",
+    "type": "liquid",
+    "translated_name": "draught of midas"
+  },
+  {
+    "name": "midas_precursor",
+    "id": 363,
+    "ui_name": "$mat_midas_precursor",
+    "type": "liquid",
+    "translated_name": "alchemic precursor"
+  },
+  {
+    "name": "liquid_fire_weak",
+    "id": 364,
+    "ui_name": "$mat_liquid_fire_weak",
+    "type": "liquid",
+    "translated_name": "liquid fire"
+  },
+  {
+    "name": "liquid_fire",
+    "id": 365,
+    "ui_name": "$mat_liquid_fire",
+    "type": "liquid",
+    "translated_name": "fire"
+  },
+  {
+    "name": "just_death",
+    "id": 366,
+    "ui_name": "$mat_magic_liquid_death",
+    "type": "liquid",
+    "translated_name": "instant deathium"
+  },
+  {
+    "name": "mimic_liquid",
+    "id": 367,
+    "ui_name": "$mat_mimic_liquid",
+    "type": "liquid",
+    "translated_name": "mimicium"
+  },
+  {
+    "name": "void_liquid",
+    "id": 368,
+    "ui_name": "$mat_void_liquid",
+    "type": "liquid",
+    "translated_name": "Void liquid"
+  },
+  {
+    "name": "water_salt",
+    "id": 369,
+    "ui_name": "$mat_water_salt",
+    "type": "liquid",
+    "translated_name": "brine"
+  },
+  {
+    "name": "water_fading",
+    "id": 370,
+    "ui_name": "$mat_water_fading",
+    "type": "liquid",
+    "translated_name": "Water"
+  },
+  {
+    "name": "pea_soup",
+    "id": 444,
+    "ui_name": "$mat_pea_soup",
+    "type": "liquid",
+    "translated_name": "pea soup"
+  }
+]

@@ -95,7 +95,7 @@ function extractHealthPoints(xmlContent) {
 async function fetchWikiData() {
   console.log("Fetching wiki data...");
   const response = await fetch(
-    "https://noita.wiki.gg/api.php?action=cargoquery&tables=Materials&fields=Materials.name,Materials.id,Materials.image,Materials.icon,Materials.pouchIcon,Materials._pageName=wikipage&group_by=Materials.id&order_by=Materials.name&limit=500&offset=0&format=json"
+    "https://noita.wiki.gg/api.php?action=cargoquery&tables=Materials&fields=Materials.name,Materials.id,Materials.type,Materials.image,Materials.icon,Materials.pouchIcon,Materials._pageName=wikipage&group_by=Materials.id&order_by=Materials.name&limit=500&offset=0&format=json"
   );
 
   if (!response.ok) throw new Error(`Wiki fetch failed: ${response.status}`);
@@ -120,11 +120,20 @@ async function processMaterials(urlMap) {
     // Find corresponding wiki data
     const wikiMaterial = wikiMaterials.find((wiki) => wiki.id === material.id);
 
-    // Rename cell_type to type
-    if (processedMaterial.cell_type !== undefined) {
-      processedMaterial.type = processedMaterial.cell_type;
-      delete processedMaterial.cell_type;
+    // Use wiki's type if available, otherwise keep original cell_type
+    if (wikiMaterial && wikiMaterial.type) {
+      processedMaterial.type = wikiMaterial.type;
+    } else {
+      processedMaterial.type = processedMaterial.cell_type || "";
     }
+
+    // Handle special cases that should be "no type"
+    if (material.id === "air" || material.id === "fungal_shift_particle_fx") {
+      processedMaterial.type = "no type";
+    }
+
+    // Keep original cell_type for reference
+    processedMaterial.original_cell_type = processedMaterial.cell_type;
 
     // Rename hp to hardness to avoid confusion
     if (processedMaterial.hp !== undefined) {
