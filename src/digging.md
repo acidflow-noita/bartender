@@ -26,7 +26,7 @@ import { checkAuthAndRender } from "./components/auth.js";
 // Check authentication before rendering content
 const authResult = await checkAuthAndRender();
 if (authResult !== null) {
-  display(htl.html`${authResult}`);
+  display(authResult);
   // Stop execution if not authenticated
   throw new Error("Authentication required");
 }
