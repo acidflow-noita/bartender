@@ -30,6 +30,8 @@ renderAuthStatus();
 const authResult = await checkAuthAndRender();
 if (authResult !== null) {
   display(authResult);
+  // Stop execution - user is not authenticated/authorized
+  throw new Error("Authentication required - stopping page execution");
 }
 ```
 

@@ -224,11 +224,16 @@ async function handleCallback(request, env) {
     await env.AUTH_DB.prepare("DELETE FROM oauth_states WHERE state = ?").bind(state).run();
 
     // Redirect with session cookie
+    // For cross-domain cookies, we need SameSite=None and Secure
+    const cookieOptions = env.MAIN_SITE_URL.includes("localhost")
+      ? `bartender_session=${sessionId}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400`
+      : `bartender_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=86400`;
+
     return new Response(null, {
       status: 302,
       headers: {
         Location: `${env.MAIN_SITE_URL}/?auth=success`,
-        "Set-Cookie": `bartender_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=86400`,
+        "Set-Cookie": cookieOptions,
       },
     });
   } catch (error) {
@@ -239,8 +244,11 @@ async function handleCallback(request, env) {
 
 async function handleAuthCheck(request, env) {
   const sessionId = getSessionFromRequest(request);
+  console.log("Auth check - sessionId:", sessionId);
+  console.log("Auth check - cookies:", request.headers.get("Cookie"));
 
   if (!sessionId) {
+    console.log("No session ID found");
     return addCORSHeaders(
       new Response(JSON.stringify({ authenticated: false }), {
         headers: { "Content-Type": "application/json" },
@@ -253,7 +261,10 @@ async function handleAuthCheck(request, env) {
     .bind(sessionId, Date.now())
     .first();
 
+  console.log("Session found:", session);
+
   if (!session) {
+    console.log("No valid session found");
     return addCORSHeaders(
       new Response(JSON.stringify({ authenticated: false }), {
         headers: { "Content-Type": "application/json" },
@@ -291,7 +302,7 @@ async function handleLogout(request, env) {
     env
   );
 
-  response.headers.set("Set-Cookie", "bartender_session=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0");
+  response.headers.set("Set-Cookie", "bartender_session=; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=0");
 
   return response;
 }
