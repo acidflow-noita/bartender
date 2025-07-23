@@ -15,7 +15,19 @@ const materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json(
 ```js
 import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();
+import { materialTypeColors, getSymbolConfig } from "./components/materialTypeStyles.js";
 import { wuoteLogo } from "./components/wuoteLogo.js";
+import { checkAuthAndRender } from "./components/auth.js";
+```
+
+```js
+// Check authentication before rendering content
+const authResult = await checkAuthAndRender();
+if (authResult !== null) {
+  display(html`${authResult}`);
+  // Stop execution if not authenticated
+  throw new Error("Authentication required");
+}
 ```
 
 ```js
@@ -29,49 +41,12 @@ const tableImageWidth = 32;
 ```js
 const materialsWithCombined = materials.map((material) => ({
   ...material,
-  combinedName: { name: material.name, id: material.id, wikipage: material.wikipage },
+  combinedName: { name: material.name, id: material.id, wikipage: material.wikipage, type: material.type },
 }));
 ```
 
 ```js
-const durabilityPlot = Plot.plot({
-  inset: 20,
-  // width: 500,
-  marks: [
-    Plot.image(
-      materials,
-      Plot.dodgeX({
-        anchor: "left",
-        y: "durability",
-        strokeWidth: 40,
-        r: (d) => d.durability * 5,
-        src: (d) => `https://noita-bartender-images.acidflow.stream/images/materials/${d.image_local}`,
-        target: "_blank",
-        href: (d) => `https://noita.wiki.gg/wiki/${d.wikipage}`,
-        tip: true,
-        channels: { durability: "durability", name: "name", id: "id" },
-      })
-    ),
-    Plot.frame(),
-    Plot.image(wuoteLogo, {
-      frameAnchor: "top-right",
-      dx: -70,
-      dy: 0,
-      width: 100,
-      src: "logo_with_card_bg",
-    }),
-  ],
-});
-```
-
-```js
-const durabilityPlot33 = Plot.auto(materials, {
-  filter: (d) => d.durability !== null,
-  x: "type",
-  y: "durability",
-  tip: true,
-  channels: { durability: "durability", name: "type", id: "id" },
-}).plot();
+const materialTypes = [...new Set(materials.map((d) => d.type).filter(Boolean))];
 ```
 
 ```js
@@ -86,12 +61,27 @@ const durabilitySelectorValue = Generators.input(durabilitySelectorInput);
 ```
 
 ```js
-const durabilityTable = Inputs.table(
-  materialsWithCombined.filter((d) => d.durability !== null && d.durability <= durabilitySelectorValue),
+const resetButton = Inputs.button(
+  htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" />Reset`,
   {
+    label: "",
+    reduce: () => {
+      durabilitySelectorInput.value = Math.max(...distinctDurability);
+      durabilitySelectorInput.dispatchEvent(new Event("input"));
+      return null;
+    },
+  }
+);
+```
+
+```js
+function durabilityTable(materials, width) {
+  const filteredMaterials = materials.filter((d) => d.durability !== null && d.durability <= durabilitySelectorValue);
+
+  return Inputs.table(filteredMaterials, {
     width: {
-      durability: 60,
-      combinedName: 250,
+      durability: 70,
+      combinedName: Math.min(250, width * 0.4),
     },
     align: {
       durability: "right",
@@ -101,6 +91,7 @@ const durabilityTable = Inputs.table(
     multiple: false,
     sort: "durability",
     reverse: true,
+    rows: width < 600 ? 10 : 15,
     columns: ["durability", "combinedName", "image_local", "icon_local", "pouch_local"],
     header: {
       combinedName: "Material",
@@ -123,18 +114,93 @@ const durabilityTable = Inputs.table(
       pouch_local: (d) =>
         htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/materials/${d}" width=${tableImageWidth} height="auto" style="image-rendering: pixelated; vertical-align: middle;" />`,
     },
-  }
-);
+  });
+}
+```
+
+```js
+function durabilityPlot(materials, width) {
+  const isMobile = width < 600;
+  const plotHeight = isMobile ? 400 : 500;
+  const fontSize = isMobile ? 10 : 12;
+
+  const filteredMaterials = materials.filter((d) => d.durability !== null);
+
+  return Plot.plot({
+    symbol: { legend: true },
+    width,
+    height: plotHeight,
+    marginLeft: 60,
+    marginBottom: 60,
+    marginTop: 40,
+    marginRight: 40,
+    x: {
+      label: "Material Type",
+      tickRotate: isMobile ? 45 : 0,
+    },
+    y: {
+      label: "Durability",
+      grid: true,
+      type: "log",
+      domain: [0.1, Math.max(...distinctDurability)],
+    },
+    color: {
+      domain: materialTypeColors.map((d) => d.type), // Extract the types
+      range: materialTypeColors.map((d) => d.color), // Extract the colors
+    },
+    symbol: {
+      legend: true,
+      ...getSymbolConfig(),
+    },
+    marks: [
+      Plot.dot(
+        filteredMaterials.filter((d) => d.durability <= durabilitySelectorValue),
+        Plot.dodgeX({
+          x: "type",
+          y: "durability",
+          fill: "type",
+          symbol: "type",
+          r: isMobile ? 3 : 4,
+          padding: 2,
+          stroke: "white",
+          strokeWidth: 0.5,
+          tip: {
+            lineWidth: 300,
+            textPadding: 12,
+            pointerSize: 8,
+            fontSize: fontSize,
+            lineHeight: 1.1,
+            dx: 0,
+            dy: -10,
+            format: { opacity: false, fill: false, fy: false, stroke: false },
+          },
+          title: (d) =>
+            [`Material: ${d.name}`, `ID: ${d.id}`, `Type: ${d.type}`, `Durability: ${d.durability}`].join("\n"),
+        })
+      ),
+      Plot.frame(),
+    ],
+  });
+}
 ```
 
 <div class="grid grid-cols-4">
-  <div class="card grid-rowspan-1 grid-colspan-2"><h2>Durability</h2>${durabilityPlot}</div>
-<div class="card grid-colspan-2 grid-rowspan-1" style="padding: 0">
-  <div style="padding: 1rem"><h2>Durability</h2>${durabilitySelectorInput}</div>
-  ${durabilityTable}
-</div>
-</div>
-
-<div class="grid grid-cols-4">
-  <div class="card grid-rowspan-1 grid-colspan-2"><h2>Durability</h2>${durabilityPlot33}</div>
+  <div class="card grid-colspan-2 grid-rowspan-1" style="padding: 0;">
+    <div style="padding: 1rem;">
+      <h2>Durability Filter</h2>
+      <div style="display: flex; gap: 1rem; align-items: flex-end; margin-bottom: 1rem; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 200px;">
+          ${durabilitySelectorInput}
+        </div>
+        <div>
+          ${resetButton}
+        </div>
+      </div>
+    </div>
+    ${resize((width) => durabilityTable(materialsWithCombined, width))}
+  </div>
+  <div class="card grid-colspan-2 grid-rowspan-1">
+    <h2>Durability by Type</h2>
+    ${resize((width) => durabilityPlot(materials, width))}
+  </div>
 </div>

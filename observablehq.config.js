@@ -19,29 +19,29 @@ export default {
       name: "Credits",
       pages: [{ name: "Thanks", path: "/thanks" }],
     },
-    // {
-    //   name: "Materials properties",
-    //   pages: [
-    //     { name: "Materials Explorer", path: "/materials" },
-    //     { name: "Hardness", path: "/hardness" },
-    //     { name: "Density", path: "/density" },
-    //     { name: "Durability", path: "/durability" },
-    //   ],
-    // },
-    // {
-    //   name: "Spells",
-    //   pages: [{ name: "Spells' Digging Ability", path: "/digging" }],
-    // },
-    // {
-    //   name: "Work in progress",
-    //   pages: [
-    //     { name: "Materials Distribution Graph", path: "/exploration" },
-    //     { name: "Streamer Wands Integration", path: "/onlywands_integration" },
-    //     { name: "Status Effects", path: "/status_effects" },
-    //     { name: "Material Tags", path: "/tags" },
-    //     { name: "WIP creatures", path: "/creatures" },
-    //   ],
-    // },
+    {
+      name: "Materials properties",
+      pages: [
+        { name: "Materials Explorer", path: "/materials" },
+        { name: "Hardness", path: "/hardness" },
+        { name: "Density", path: "/density" },
+        { name: "Durability", path: "/durability" },
+      ],
+    },
+    {
+      name: "Spells",
+      pages: [{ name: "Spells' Digging Ability", path: "/digging" }],
+    },
+    {
+      name: "Work in progress",
+      pages: [
+        { name: "Materials Distribution Graph", path: "/exploration" },
+        { name: "Streamer Wands Integration", path: "/onlywands_integration" },
+        { name: "Status Effects", path: "/status_effects" },
+        { name: "Material Tags", path: "/tags" },
+        { name: "WIP creatures", path: "/creatures" },
+      ],
+    },
   ],
 
   // Content to add to the head of the page, e.g. for a favicon:

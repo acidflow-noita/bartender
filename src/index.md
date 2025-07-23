@@ -20,12 +20,16 @@ draft: false
 
 <link href="custom.css" rel="stylesheet"></link>
 
-<h1 id="acidTitle" class="bartender-heading-decrypted">Noita Bartender</h1>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+  <h1 id="acidTitle" class="bartender-heading-decrypted" style="margin: 0;">Noita Bartender</h1>
+  ${await renderAuthStatus()}
+</div>
 
 ```js
-import { materialTypeColors } from "./components/materialTypeColors.js";
+import { materialTypeColors } from "./components/materialTypeStyles.js";
 import { wuoteLogo } from "./components/wuoteLogo.js";
 import { initializeTitleAnimation } from "./components/titleAnimation.js";
+import { renderAuthStatus } from "./components/auth.js";
 initializeTitleAnimation();
 ```
 
@@ -65,7 +69,7 @@ const materialTypesPlot = Plot.plot({
   color: {
     legend: false,
     // TODO: Re-enable after fixing the material types extraction (celldata trets powders as solids)
-    // domain: materialTypeColors.map((d) => d.type), // Extract the types
+    domain: materialTypeColors.map((d) => d.type), // Extract the types
     range: materialTypeColors.map((d) => d.color), // Extract the colors
   },
   x: { label: "Number of materials per type" },

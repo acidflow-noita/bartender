@@ -8,7 +8,7 @@ draft: false
 <h1 id="acidTitle" class="bartender-heading-decrypted">Thank You!</h1>
 
 ```js
-import { materialTypeColors } from "./components/materialTypeColors.js";
+import { materialTypeColors } from "./components/materialTypeStyles.js";
 import { wuoteLogo } from "./components/wuoteLogo.js";
 import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();

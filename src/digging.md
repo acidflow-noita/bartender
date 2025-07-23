@@ -20,6 +20,17 @@ const mina = {
 ```js
 import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();
+import { checkAuthAndRender } from "./components/auth.js";
+```
+
+```js
+// Check authentication before rendering content
+const authResult = await checkAuthAndRender();
+if (authResult !== null) {
+  display(html`${authResult}`);
+  // Stop execution if not authenticated
+  throw new Error("Authentication required");
+}
 ```
 
 ```js
@@ -27,7 +38,6 @@ const groundIgnoringDiggingSpells = spells.filter(
   (d) => "groundPenetrationCoeff" in d && d.groundPenetrationCoeff !== 0 && d.groundPenetrationCoeff !== null
 );
 const spellsWithDiggingTag = spells.filter((d) => d.tags.includes("digging"));
-view(spellsWithDiggingTag);
 ```
 
 ```js

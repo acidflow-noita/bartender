@@ -16,8 +16,19 @@ const spells = await FileAttachment("./data/FULL_SPELLS_FINAL.json").json();
 ```js
 import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();
-import { materialTypeColors } from "./components/materialTypeColors.js";
+import { materialTypeColors } from "./components/materialTypeStyles.js";
 import { wuoteLogo } from "./components/wuoteLogo.js";
+import { checkAuthAndRender } from "./components/auth.js";
+```
+
+```js
+// Check authentication before rendering content
+const authResult = await checkAuthAndRender();
+if (authResult !== null) {
+  display(html`${authResult}`);
+  // Stop execution if not authenticated
+  throw new Error("Authentication required");
+}
 ```
 
 ```js
@@ -62,17 +73,32 @@ const hardnessSelectorValue = Generators.input(hardnessSelectorInput);
 ```
 
 ```js
+const resetButton = Inputs.button(
+  htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" />Reset`,
+  {
+    label: "",
+    reduce: () => {
+      hardnessSelectorInput.value = maxHardness;
+      hardnessSelectorInput.dispatchEvent(new Event("input"));
+      return null;
+    },
+  }
+);
+```
+
+```js
 const materialsWithCombined = materials.map((material) => ({
   ...material,
   combinedName: material,
 }));
 
-const hardnessTable = Inputs.table(
-  materialsWithCombined.filter((d) => d.hardness !== null && d.hardness <= hardnessSelectorValue),
-  {
+function hardnessTable(materials, width) {
+  const filteredMaterials = materials.filter((d) => d.hardness !== null && d.hardness <= hardnessSelectorValue);
+
+  return Inputs.table(filteredMaterials, {
     width: {
       hardness: 70,
-      combinedName: 250,
+      combinedName: Math.min(250, width * 0.4),
     },
     align: {
       hardness: "right",
@@ -82,6 +108,7 @@ const hardnessTable = Inputs.table(
     reverse: true,
     select: true,
     multiple: false,
+    rows: width < 600 ? 10 : 15,
     columns: ["hardness", "combinedName", "image_local", "icon_local", "pouch_local"],
     header: {
       hardness: "Hardness",
@@ -104,82 +131,98 @@ const hardnessTable = Inputs.table(
       pouch_local: (d) =>
         htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/materials/${d}" width=${tableImageWidth} height="auto" style="image-rendering: pixelated;" />`,
     },
-  }
-);
+  });
+}
 ```
 
 ```js
-const hardnessPlot = Plot.plot({
-  inset: 10,
-  width: 1500,
-  height: 1000,
-  x: { type: "log", label: "Durability", axis: "bottom", domain: [minHardness, maxHardness] },
-  y: {
-    type: "log",
-    label: "Hardness",
-  },
-  color: {
-    legend: false,
-    domain: materialTypes,
-    range: materialTypeColors,
-  },
-  marks: [
-    Plot.dot(
-      materials,
-      Plot.dodgeX({
-        filter: (d) => d.hardness !== null,
-        x: "durability",
-        y: "hardness",
-        symbol: { legend: true },
-        // r: 10,
-        width: 20,
-        height: 20,
-        padding: 5,
-        opacity: (d) => (d.hardness <= hardnessSelectorValue ? 1 : 0.1),
-        channels: { type: { label: "Type", value: (d) => `${d.name} (${d.id})` } },
-        tip: {
-          lineWidth: 300,
-          textPadding: 12,
-          pointerSize: 8,
-          fontSize: 14,
-          lineHeight: 1.1,
-          dx: 0,
-          dy: -10,
-          format: { opacity: false, type: false, fy: false, stroke: "type" },
-        },
-        title: (d) => [`Material: ${d.name}`, `Owners: ${d}`].join("\n\n"),
-      })
-    ),
-    Plot.tip(materials, {
-      channels: {
-        type: true,
-      },
-      format: {
-        x: "durability",
-        y: "hardness",
-      },
-    }),
-    Plot.frame(),
-    Plot.image(wuoteLogo, {
-      frameAnchor: "top-right",
-      dx: -70,
-      dy: 0,
-      width: 100,
-      src: "logo_with_card_bg",
-    }),
-  ],
-});
+function hardnessPlot(materials, width) {
+  const isMobile = width < 600;
+  const plotHeight = isMobile ? 400 : 600;
+  const fontSize = isMobile ? 10 : 12;
+
+  return Plot.plot({
+    width,
+    height: plotHeight,
+    marginLeft: 60,
+    marginBottom: 60,
+    marginTop: 40,
+    marginRight: 40,
+    x: {
+      type: "log",
+      label: "Durability",
+      domain: [
+        0.1,
+        d3.max(
+          materials.filter((d) => d.durability !== null),
+          (d) => d.durability
+        ),
+      ],
+      grid: true,
+    },
+    y: {
+      type: "log",
+      label: "Hardness",
+      domain: [0.1, maxHardness],
+      grid: true,
+    },
+    color: {
+      legend: true,
+      domain: materialTypes,
+      range: materialTypeColors,
+    },
+    marks: [
+      Plot.dot(
+        materials.filter((d) => d.hardness !== null && d.durability !== null),
+        {
+          x: "durability",
+          y: "hardness",
+          fill: "type",
+          r: isMobile ? 3 : 4,
+          opacity: (d) => (d.hardness <= hardnessSelectorValue ? 0.8 : 0.2),
+          tip: {
+            lineWidth: 300,
+            textPadding: 12,
+            pointerSize: 8,
+            fontSize: fontSize,
+            lineHeight: 1.1,
+            dx: 0,
+            dy: -10,
+            format: { opacity: false, fill: false, fy: false },
+          },
+          title: (d) =>
+            [
+              `Material: ${d.name}`,
+              `ID: ${d.id}`,
+              `Type: ${d.type}`,
+              `Hardness: ${d.hardness}`,
+              `Durability: ${d.durability}`,
+            ].join("\n"),
+        }
+      ),
+      Plot.frame(),
+    ],
+  });
+}
 ```
 
 <div class="grid grid-cols-4 grid-rowspan-1" style="grid-auto-rows: auto;">
     <div class="card grid-colspan-2 grid-rowspan-1" style="padding: 0;">
         <div style="padding: 1rem;">
-            <h2>Hardness</h2>
-            ${hardnessSelectorInput}
+            <h2>Hardness Filter</h2>
+            <div style="display: flex; gap: 1rem; align-items: flex-end; margin-bottom: 1rem; flex-wrap: wrap;">
+              <div style="flex: 1; min-width: 200px;">
+                ${hardnessSelectorInput}
+              </div>
+              <div>
+                ${resetButton}
+              </div>
+            </div>
         </div>
-        ${hardnessTable}
+        ${resize((width) => hardnessTable(materialsWithCombined, width))}
     </div>
   <div class="card grid-colspan-2 grid-rowspan-1">
-      ${hardnessPlot}
+      <h2>Hardness vs Durability</h2>
+      ${resize((width) => hardnessPlot(materials, width))}
   </div>
 </div>
