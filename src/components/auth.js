@@ -2,9 +2,9 @@
  * Authentication utilities for protected pages
  */
 
-const AUTH_API_BASE = "https://bartender-auth-test.wuote.workers.dev";
+// htl.html is available globally in Observable Framework
 
-// Use htl.html which is available in Observable Framework
+const AUTH_API_BASE = "https://bartender-auth-test.wuote.workers.dev";
 
 export class AuthManager {
   constructor() {
@@ -169,14 +169,14 @@ export class AuthGuard {
     const state = await this.authManager.checkAuth();
 
     if (state.loading) {
-      return html`<div class="auth-loading">
+      return htl.html`<div class="auth-loading">
         <div class="spinner"></div>
         <p>Checking authentication...</p>
       </div>`;
     }
 
     if (!state.authenticated) {
-      return html`<div class="auth-required">
+      return htl.html`<div class="auth-required">
         <div class="auth-card">
           <h2>🔒 Follower-Only Content</h2>
           <p>This page is exclusive to <strong>WUOTE's Twitch followers</strong>.</p>
@@ -200,7 +200,7 @@ export class AuthGuard {
     }
 
     if (state.authenticated && !state.isFollower) {
-      return html`<div class="auth-required">
+      return htl.html`<div class="auth-required">
         <div class="auth-card">
           <h2>👋 Thanks for signing in, ${state.username}!</h2>
           <p>This content is exclusive to <strong>WUOTE's Twitch followers</strong>.</p>
