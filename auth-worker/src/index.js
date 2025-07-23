@@ -187,7 +187,11 @@ async function handleCallback(request, env) {
       }
     );
 
-    const isFollower = followsResponse.ok && (await followsResponse.json()).data.length > 0;
+    console.log("Follows API response status:", followsResponse.status);
+    const followsData = await followsResponse.json();
+    console.log("Follows API response:", followsData);
+
+    const isFollower = followsResponse.ok && followsData.data && followsData.data.length > 0;
 
     if (!isFollower) {
       return redirectToMain("/auth-error?error=not_follower", env);
