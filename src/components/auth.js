@@ -240,19 +240,58 @@ if (typeof window !== "undefined") {
 
 // Auth status display function
 export async function renderAuthStatus() {
-  const state = await authManager.checkAuth();
   const container = document.getElementById("auth-status-container");
-
   if (!container) return;
 
+  // Subscribe to auth state changes to update UI automatically
+  const unsubscribe = authManager.subscribe((state) => {
+    updateAuthStatusUI(container, state);
+  });
+
+  // Check for auth callback success in URL first
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get("auth") === "success") {
+    // Remove the parameter from URL
+    const newUrl = new URL(window.location);
+    newUrl.searchParams.delete("auth");
+    window.history.replaceState({}, "", newUrl);
+
+    // Force a re-check of auth status after callback
+    setTimeout(async () => {
+      await authManager.checkAuth();
+    }, 500);
+  }
+
+  // Initial render
+  const state = await authManager.checkAuth();
+  updateAuthStatusUI(container, state);
+
+  // Return unsubscribe function for cleanup if needed
+  return unsubscribe;
+}
+
+function updateAuthStatusUI(container, state) {
   if (state.loading) {
-    container.innerHTML = `<div class="auth-status loading">...</div>`;
+    container.innerHTML = `<div class="auth-status loading">Checking auth...</div>`;
     return;
   }
 
-  if (state.authenticated) {
+  if (state.authenticated && state.isFollower) {
     container.innerHTML = `<div class="auth-status authenticated">
       <span>👋 ${state.username}</span>
+      <button
+        onclick="window.authManager.logout()"
+        class="auth-logout-btn"
+      >
+        Logout
+      </button>
+    </div>`;
+    return;
+  }
+
+  if (state.authenticated && !state.isFollower) {
+    container.innerHTML = `<div class="auth-status not-follower">
+      <span>👋 ${state.username} (not following)</span>
       <button
         onclick="window.authManager.logout()"
         class="auth-logout-btn"
