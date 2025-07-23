@@ -2,7 +2,7 @@
  * Authentication utilities for protected pages
  */
 
-const AUTH_API_BASE = "https://bartender-auth.wuote.workers.dev";
+const AUTH_API_BASE = "https://bartender-auth-test.wuote.workers.dev";
 
 // Use htl.html which is available in Observable Framework
 
