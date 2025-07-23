@@ -4,7 +4,10 @@ title: Spells' Digging Ability
 
 <link href="custom.css" rel="stylesheet"></link>
 
-<h1 id="acidTitle" class="bartender-heading-decrypted">Spells' Digging Ability</h1>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+  <h1 id="acidTitle" class="bartender-heading-decrypted" style="margin: 0;">Spells' Digging Ability</h1>
+  <div id="auth-status-container"></div>
+</div>
 <h2>Select a spell and a material to see how effectively the spell can dig through it.</h2>
 
 ```js
@@ -19,7 +22,9 @@ const mina = {
 ```js
 import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();
-import { checkAuthAndRender } from "./components/auth.js";
+import { checkAuthAndRender, renderAuthStatus } from "./components/auth.js";
+import * as htl from "htl";
+renderAuthStatus();
 ```
 
 ```js
@@ -27,8 +32,6 @@ import { checkAuthAndRender } from "./components/auth.js";
 const authResult = await checkAuthAndRender();
 if (authResult !== null) {
   display(authResult);
-  // Stop execution if not authenticated
-  throw new Error("Authentication required");
 }
 ```
 

@@ -15,7 +15,7 @@ export default {
 
     // Handle CORS preflight
     if (request.method === "OPTIONS") {
-      return handleCORS();
+      return handleCORS(env);
     }
 
     try {
@@ -78,22 +78,32 @@ async function initializeDatabase(env) {
   }
 }
 
-function handleCORS() {
+function handleCORS(env) {
   return new Response(null, {
     status: 204,
     headers: {
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": env.MAIN_SITE_URL || "https://bartender.runfast.stream",
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization, Cookie",
+      "Access-Control-Allow-Credentials": "true",
       "Access-Control-Max-Age": "86400",
     },
   });
 }
 
-function addCORSHeaders(response) {
-  response.headers.set("Access-Control-Allow-Origin", "*");
+function addCORSHeaders(response, env) {
+  // Use specific origin instead of * when credentials are needed
+  const allowedOrigins = [
+    env.MAIN_SITE_URL,
+    "https://bartender.runfast.stream",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+  ];
+
+  response.headers.set("Access-Control-Allow-Origin", env.MAIN_SITE_URL || "https://bartender.runfast.stream");
   response.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  response.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  response.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization, Cookie");
+  response.headers.set("Access-Control-Allow-Credentials", "true");
   return response;
 }
 
@@ -217,7 +227,7 @@ async function handleCallback(request, env) {
     return new Response(null, {
       status: 302,
       headers: {
-        Location: `${env.MAIN_SITE_URL}/`,
+        Location: `${env.MAIN_SITE_URL}/?auth=success`,
         "Set-Cookie": `bartender_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=86400`,
       },
     });
@@ -234,7 +244,8 @@ async function handleAuthCheck(request, env) {
     return addCORSHeaders(
       new Response(JSON.stringify({ authenticated: false }), {
         headers: { "Content-Type": "application/json" },
-      })
+      }),
+      env
     );
   }
 
@@ -246,7 +257,8 @@ async function handleAuthCheck(request, env) {
     return addCORSHeaders(
       new Response(JSON.stringify({ authenticated: false }), {
         headers: { "Content-Type": "application/json" },
-      })
+      }),
+      env
     );
   }
 
@@ -260,7 +272,8 @@ async function handleAuthCheck(request, env) {
       {
         headers: { "Content-Type": "application/json" },
       }
-    )
+    ),
+    env
   );
 }
 
@@ -274,7 +287,8 @@ async function handleLogout(request, env) {
   const response = addCORSHeaders(
     new Response(JSON.stringify({ success: true }), {
       headers: { "Content-Type": "application/json" },
-    })
+    }),
+    env
   );
 
   response.headers.set("Set-Cookie", "bartender_session=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0");
