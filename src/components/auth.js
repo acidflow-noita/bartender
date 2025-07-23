@@ -2,7 +2,7 @@
  * Authentication utilities for protected pages
  */
 
-// htl.html is available globally in Observable Framework
+import * as htl from "htl";
 
 const AUTH_API_BASE = "https://bartender-auth-test.wuote.workers.dev";
 
