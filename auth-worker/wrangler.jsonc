@@ -3,7 +3,7 @@
   "compatibility_date": "2025-07-22",
   "main": "src/index.js",
 
-  // Non-sensitive environment variables
+  // Production environment (default)
   "vars": {
     "MAIN_SITE_URL": "https://bartender.runfast.stream"
   },
@@ -14,5 +14,22 @@
       "database_name": "bartender-auth",
       "database_id": "4cd0b81e-f1d8-4652-8699-5bbad6bee190"
     }
-  ]
+  ],
+
+  // Environment configurations
+  "env": {
+    "test": {
+      "name": "bartender-auth-test",
+      "vars": {
+        "MAIN_SITE_URL": "https://auth-test-bartender.wuote.workers.dev"
+      },
+      "d1_databases": [
+        {
+          "binding": "AUTH_DB",
+          "database_name": "bartender-auth-test",
+          "database_id": "c27f6d8e-f541-4af2-8ed7-d25cf8f66f5d"
+        }
+      ]
+    }
+  }
 }
