@@ -1,6 +1,5 @@
 ---
 title: Spells' Digging Ability
-draft: false
 ---
 
 <link href="custom.css" rel="stylesheet"></link>

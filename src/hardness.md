@@ -1,6 +1,5 @@
 ---
 title: Hardness
-draft: false
 ---
 
 <link href="custom.css" rel="stylesheet"></link>

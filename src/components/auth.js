@@ -4,14 +4,7 @@
 
 const AUTH_API_BASE = "https://bartender-auth.wuote.workers.dev";
 
-// Simple HTML template function for Observable Framework
-function html(strings, ...values) {
-  let result = strings[0];
-  for (let i = 0; i < values.length; i++) {
-    result += values[i] + strings[i + 1];
-  }
-  return result;
-}
+// Use htl.html which is available in Observable Framework
 
 export class AuthManager {
   constructor() {
@@ -248,13 +241,17 @@ if (typeof window !== "undefined") {
 // Auth status display function
 export async function renderAuthStatus() {
   const state = await authManager.checkAuth();
+  const container = document.getElementById("auth-status-container");
+
+  if (!container) return;
 
   if (state.loading) {
-    return html`<div class="auth-status loading">...</div>`;
+    container.innerHTML = `<div class="auth-status loading">...</div>`;
+    return;
   }
 
   if (state.authenticated) {
-    return html`<div class="auth-status authenticated">
+    container.innerHTML = `<div class="auth-status authenticated">
       <span>👋 ${state.username}</span>
       <button
         onclick="window.authManager.logout()"
@@ -263,9 +260,10 @@ export async function renderAuthStatus() {
         Logout
       </button>
     </div>`;
+    return;
   }
 
-  return html`<div class="auth-status">
+  container.innerHTML = `<div class="auth-status">
     <button
       onclick="window.authManager.login()"
       class="auth-login-btn"

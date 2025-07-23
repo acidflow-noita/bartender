@@ -22,7 +22,7 @@ draft: false
 
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
   <h1 id="acidTitle" class="bartender-heading-decrypted" style="margin: 0;">Noita Bartender</h1>
-  ${await renderAuthStatus()}
+  <div id="auth-status-container"></div>
 </div>
 
 ```js
@@ -31,6 +31,7 @@ import { wuoteLogo } from "./components/wuoteLogo.js";
 import { initializeTitleAnimation } from "./components/titleAnimation.js";
 import { renderAuthStatus } from "./components/auth.js";
 initializeTitleAnimation();
+renderAuthStatus();
 ```
 
 ```js
