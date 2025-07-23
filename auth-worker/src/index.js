@@ -178,7 +178,7 @@ async function handleCallback(request, env) {
 
     // Check if user follows the channel
     const followsResponse = await fetch(
-      `https://api.twitch.tv/helix/channels/followers?broadcaster_id=${env.WUOTE_USER_ID_SECRET}&user_id=${user.id}`,
+      `https://api.twitch.tv/helix/channels/followed?user_id=${user.id}&broadcaster_id=${env.WUOTE_USER_ID_SECRET}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
