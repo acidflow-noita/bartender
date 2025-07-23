@@ -5,7 +5,8 @@
 
   // Production environment (default)
   "vars": {
-    "MAIN_SITE_URL": "https://bartender.runfast.stream"
+    "MAIN_SITE_URL": "https://bartender.runfast.stream",
+    "WORKER_URL": "https://bartender-auth.wuote.workers.dev"
   },
 
   "d1_databases": [
@@ -21,7 +22,8 @@
     "test": {
       "name": "bartender-auth-test",
       "vars": {
-        "MAIN_SITE_URL": "https://auth-test-bartender.wuote.workers.dev"
+        "MAIN_SITE_URL": "https://auth-test-bartender.wuote.workers.dev",
+        "WORKER_URL": "https://bartender-auth-test.wuote.workers.dev"
       },
       "d1_databases": [
         {

@@ -99,7 +99,7 @@ function addCORSHeaders(response) {
 
 async function handleLogin(env) {
   const state = crypto.randomUUID();
-  const redirectUri = `https://bartender-auth.wuote.workers.dev/auth/callback`;
+  const redirectUri = `${env.WORKER_URL || "https://bartender-auth.wuote.workers.dev"}/auth/callback`;
 
   const twitchAuthUrl = new URL("https://id.twitch.tv/oauth2/authorize");
   twitchAuthUrl.searchParams.set("client_id", env.TWITCH_CLIENT_ID_SECRET);
@@ -150,7 +150,7 @@ async function handleCallback(request, env) {
         client_secret: env.TWITCH_CLIENT_SECRET_SECRET,
         code: code,
         grant_type: "authorization_code",
-        redirect_uri: `https://bartender-auth.wuote.workers.dev/auth/callback`,
+        redirect_uri: `${env.WORKER_URL || "https://bartender-auth.wuote.workers.dev"}/auth/callback`,
       }),
     });
 
