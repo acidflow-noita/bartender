@@ -84,7 +84,7 @@ export async function checkAuthAndRender(contentCallback) {
   const state = await authManager.checkAuth();
 
   if (state.loading) {
-    return html`<div class="auth-loading">
+    return htl.html`<div class="auth-loading">
       <div class="spinner"></div>
       <p>Checking authentication...</p>
     </div>`;
@@ -92,7 +92,7 @@ export async function checkAuthAndRender(contentCallback) {
 
   // If there's an error (e.g., auth service unavailable), show error message
   if (state.error) {
-    return html`<div class="auth-required">
+    return htl.html`<div class="auth-required">
       <div class="auth-card">
         <h2>⚠️ Authentication Service Unavailable</h2>
         <p>Unable to verify authentication status. Please try again later.</p>
@@ -108,7 +108,7 @@ export async function checkAuthAndRender(contentCallback) {
   }
 
   if (!state.authenticated) {
-    return html`<div class="auth-required">
+    return htl.html`<div class="auth-required">
       <div class="auth-card">
         <h2>🔒 Follower-Only Content</h2>
         <p>This page is exclusive to <strong>WUOTE's Twitch followers</strong>.</p>
@@ -132,7 +132,7 @@ export async function checkAuthAndRender(contentCallback) {
   }
 
   if (state.authenticated && !state.isFollower) {
-    return html`<div class="auth-required">
+    return htl.html`<div class="auth-required">
       <div class="auth-card">
         <h2>👋 Thanks for signing in, ${state.username}!</h2>
         <p>This content is exclusive to <strong>WUOTE's Twitch followers</strong>.</p>
