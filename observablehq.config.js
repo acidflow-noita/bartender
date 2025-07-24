@@ -6,43 +6,43 @@ export default {
   // The pages and sections in the sidebar. If you don’t specify this option,
   // all pages will be listed in alphabetical order. Listing pages explicitly
   // lets you organize them into sections and have unlisted pages.
-  pages: [
-    {
-      name: "Mixology",
-      pages: [{ name: "Reactions Finder", path: "/reactions" }],
-    },
-    {
-      name: "Upcoming Features",
-      pages: [{ name: "The Future", path: "/upcoming" }],
-    },
-    {
-      name: "Credits",
-      pages: [{ name: "Thanks", path: "/thanks" }],
-    },
-    {
-      name: "Materials properties",
-      pages: [
-        { name: "Materials Explorer", path: "/materials" },
-        { name: "Hardness", path: "/hardness" },
-        { name: "Density", path: "/density" },
-        { name: "Durability", path: "/durability" },
-      ],
-    },
-    {
-      name: "Spells",
-      pages: [{ name: "Spells' Digging Ability", path: "/digging" }],
-    },
-    {
-      name: "Work in progress",
-      pages: [
-        { name: "Materials Distribution Graph", path: "/exploration" },
-        { name: "Streamer Wands Integration", path: "/onlywands_integration" },
-        { name: "Status Effects", path: "/status_effects" },
-        { name: "Material Tags", path: "/tags" },
-        { name: "WIP creatures", path: "/creatures" },
-      ],
-    },
-  ],
+  // pages: [
+  //   {
+  //     name: "Mixology",
+  //     pages: [{ name: "Reactions Finder", path: "/reactions" }],
+  //   },
+  //   {
+  //     name: "Upcoming Features",
+  //     pages: [{ name: "The Future", path: "/upcoming" }],
+  //   },
+  //   {
+  //     name: "Credits",
+  //     pages: [{ name: "Thanks", path: "/thanks" }],
+  //   },
+  //   {
+  //     name: "Materials properties",
+  //     pages: [
+  //       { name: "Materials Explorer", path: "/materials" },
+  //       { name: "Hardness", path: "/hardness" },
+  //       { name: "Density", path: "/density" },
+  //       { name: "Durability", path: "/durability" },
+  //     ],
+  //   },
+  //   {
+  //     name: "Spells",
+  //     pages: [{ name: "Spells' Digging Ability", path: "/digging" }],
+  //   },
+  //   {
+  //     name: "Work in progress",
+  //     pages: [
+  //       { name: "Materials Distribution Graph", path: "/exploration" },
+  //       { name: "Streamer Wands Integration", path: "/onlywands_integration" },
+  //       { name: "Status Effects", path: "/status_effects" },
+  //       { name: "Material Tags", path: "/tags" },
+  //       { name: "WIP creatures", path: "/creatures" },
+  //     ],
+  //   },
+  // ],
 
   // Content to add to the head of the page, e.g. for a favicon:
   head: '<link rel="icon" href="favicon.svg" type="image/png">',

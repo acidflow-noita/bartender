@@ -11,7 +11,7 @@ title: Density
 <h2>Liquids with different density values form layers.</h2>
 
 ```js
-const materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
+const all_materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
 ```
 
 ```js
@@ -19,19 +19,19 @@ import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();
 import { materialTypeColors, getSymbolConfig } from "./components/materialTypeStyles.js";
 import { wuoteLogo } from "./components/wuoteLogo.js";
-import { checkAuthAndRender, renderAuthStatus } from "./components/auth.js";
-import * as htl from "htl";
+import { authManager, renderAuthStatus } from "./components/auth.js";
+import { html } from "htl";
 renderAuthStatus();
 ```
 
 ```js
-// Check authentication before rendering content
-const authResult = await checkAuthAndRender();
-if (authResult !== null) {
-  display(authResult);
-  // Stop execution - user is not authenticated/authorized
-  throw new Error("Authentication required - stopping page execution");
-}
+const authState = await authManager.checkAuth();
+```
+
+```js
+const materials = (authState.authenticated && authState.isFollower)
+  ? all_materials
+  : all_materials.filter(d => ["acid", "water"].includes(d.id));
 ```
 
 ```js
@@ -45,10 +45,10 @@ const distinctDensity = [...new Set(materials.filter((d) => d.type === "Liquid")
 ```
 
 ```js
-const liquidsDensitySelectorInput = Inputs.range([Math.min(...distinctDensity), Math.max(...distinctDensity)], {
+const liquidsDensitySelectorInput = distinctDensity.length > 0 ? Inputs.range([Math.min(...distinctDensity), Math.max(...distinctDensity)], {
   value: Math.max(...distinctDensity),
   step: 0.5,
-});
+}) : html`<div></div>`;
 ```
 
 ```js
@@ -57,12 +57,14 @@ const liquidsDensitySelectorValue = Generators.input(liquidsDensitySelectorInput
 
 ```js
 const resetButton = Inputs.button(
-  htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" />Reset`,
+  html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" />Reset`,
   {
     label: "",
     reduce: () => {
-      liquidsDensitySelectorInput.value = Math.max(...distinctDensity);
-      liquidsDensitySelectorInput.dispatchEvent(new Event("input"));
+      if (distinctDensity.length > 0) {
+        liquidsDensitySelectorInput.value = Math.max(...distinctDensity);
+        liquidsDensitySelectorInput.dispatchEvent(new Event("input"));
+      }
       return null;
     },
   }
@@ -110,11 +112,26 @@ function densityTable(materials, width) {
             }"><code>${id}</code></span><span class="material-name-text">)</span>
       </a>`,
       image_local: (d) =>
-        htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/materials/${d}" width=${tableImageWidth} height="auto" style="image-rendering: pixelated;" />`,
+        html`<img
+          src="https://noita-bartender-images.acidflow.stream/images/materials/${d}"
+          width=${tableImageWidth}
+          height="auto"
+          style="image-rendering: pixelated;"
+        />`,
       icon_local: (d) =>
-        htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/materials/${d}" width=${tableImageWidth} height="auto" style="image-rendering: pixelated;" />`,
+        html`<img
+          src="https://noita-bartender-images.acidflow.stream/images/materials/${d}"
+          width=${tableImageWidth}
+          height="auto"
+          style="image-rendering: pixelated;"
+        />`,
       pouch_local: (d) =>
-        htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/materials/${d}" width=${tableImageWidth} height="auto" style="image-rendering: pixelated;" />`,
+        html`<img
+          src="https://noita-bartender-images.acidflow.stream/images/materials/${d}"
+          width=${tableImageWidth}
+          height="auto"
+          style="image-rendering: pixelated;"
+        />`,
     },
   });
 }
@@ -129,6 +146,10 @@ function densityPlot(materials, width) {
   const liquidsData = materials.filter(
     (d) => d.density !== null && d.density > 0 && d.name && d.image_local && d.type == "Liquid"
   );
+
+  if (liquidsData.length === 0) {
+    return html`<div>No liquid data to display.</div>`;
+  }
 
   const filteredLiquids = liquidsData.filter((d) => d.density <= liquidsDensitySelectorValue);
 

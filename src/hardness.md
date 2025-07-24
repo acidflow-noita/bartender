@@ -11,8 +11,18 @@ title: Hardness
 <h2>Hardness determines resistance to damage, secondarily to <a href="durability">durability</a>.</h2>
 
 ```js
-const materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
-const spells = await FileAttachment("./data/FULL_SPELLS_FINAL.json").json();
+const all_materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
+const all_spells = await FileAttachment("./data/FULL_SPELLS_FINAL.json").json();
+
+const authState = await authManager.checkAuth();
+
+const materials = (authState.authenticated && authState.isFollower)
+  ? all_materials
+  : all_materials.filter(d => ["rock_static", "sand_static", "wood_static", "coal", "gold"].includes(d.id));
+
+const spells = (authState.authenticated && authState.isFollower)
+  ? all_spells
+  : all_spells.filter(d => ["SPARK_BOLT", "MAGIC_ARROW"].includes(d.id));
 ```
 
 ```js
@@ -20,19 +30,8 @@ import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();
 import { materialTypeColors } from "./components/materialTypeStyles.js";
 import { wuoteLogo } from "./components/wuoteLogo.js";
-import { checkAuthAndRender, renderAuthStatus } from "./components/auth.js";
-import * as htl from "htl";
+import { authManager, renderAuthStatus } from "./components/auth.js";
 renderAuthStatus();
-```
-
-```js
-// Check authentication before rendering content
-const authResult = await checkAuthAndRender();
-if (authResult !== null) {
-  display(authResult);
-  // Stop execution - user is not authenticated/authorized
-  throw new Error("Authentication required - stopping page execution");
-}
 ```
 
 ```js
@@ -78,7 +77,7 @@ const hardnessSelectorValue = Generators.input(hardnessSelectorInput);
 
 ```js
 const resetButton = Inputs.button(
-  htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" />Reset`,
+  html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" />Reset`,
   {
     label: "",
     reduce: () => {
@@ -129,11 +128,26 @@ function hardnessTable(materials, width) {
             }"><code>${id}</code></span><span class="material-name-text">)</span>
       </a>`,
       image_local: (d) =>
-        htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/materials/${d}" width=${tableImageWidth} height="auto" style="image-rendering: pixelated;" />`,
+        html`<img
+          src="https://noita-bartender-images.acidflow.stream/images/materials/${d}"
+          width=${tableImageWidth}
+          height="auto"
+          style="image-rendering: pixelated;"
+        />`,
       icon_local: (d) =>
-        htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/materials/${d}" width=${tableImageWidth} height="auto" style="image-rendering: pixelated;" />`,
+        html`<img
+          src="https://noita-bartender-images.acidflow.stream/images/materials/${d}"
+          width=${tableImageWidth}
+          height="auto"
+          style="image-rendering: pixelated;"
+        />`,
       pouch_local: (d) =>
-        htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/materials/${d}" width=${tableImageWidth} height="auto" style="image-rendering: pixelated;" />`,
+        html`<img
+          src="https://noita-bartender-images.acidflow.stream/images/materials/${d}"
+          width=${tableImageWidth}
+          height="auto"
+          style="image-rendering: pixelated;"
+        />`,
     },
   });
 }

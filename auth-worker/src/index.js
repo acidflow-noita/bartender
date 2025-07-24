@@ -3,11 +3,10 @@
  * Uses D1 database for session storage (free tier compatible)
  */
 
-const PROTECTED_PATHS = ["/density", "/durability", "/hardness", "/digging"];
-const TWITCH_CHANNEL = "wuote"; // The channel users need to follow
+// Configuration - channel checking is done via WUOTE_USER_ID_SECRET env var
 
 export default {
-  async fetch(request, env, ctx) {
+  async fetch(request, env) {
     const url = new URL(request.url);
 
     // Initialize database on first run
@@ -31,6 +30,9 @@ export default {
 
         case "/auth/logout":
           return handleLogout(request, env);
+
+        case "/api/protected-content":
+          return handleProtectedContent(request, env);
 
         default:
           return new Response("Not Found", { status: 404 });
@@ -69,6 +71,8 @@ async function initializeDatabase(env) {
     `
     ).run();
 
+    
+
     // Clean up expired sessions and states
     const now = Date.now();
     await env.AUTH_DB.prepare("DELETE FROM sessions WHERE expires_at < ?").bind(now).run();
@@ -78,11 +82,11 @@ async function initializeDatabase(env) {
   }
 }
 
-function handleCORS(env) {
+function handleCORS(request, env, allowedOrigin) {
   return new Response(null, {
     status: 204,
     headers: {
-      "Access-Control-Allow-Origin": env.MAIN_SITE_URL || "https://bartender.runfast.stream",
+      "Access-Control-Allow-Origin": allowedOrigin,
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, Authorization, Cookie",
       "Access-Control-Allow-Credentials": "true",
@@ -91,16 +95,8 @@ function handleCORS(env) {
   });
 }
 
-function addCORSHeaders(response, env) {
-  // Use specific origin instead of * when credentials are needed
-  const allowedOrigins = [
-    env.MAIN_SITE_URL,
-    "https://bartender.runfast.stream",
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-  ];
-
-  response.headers.set("Access-Control-Allow-Origin", env.MAIN_SITE_URL || "https://bartender.runfast.stream");
+function addCORSHeaders(response, allowedOrigin) {
+  response.headers.set("Access-Control-Allow-Origin", allowedOrigin);
   response.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   response.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization, Cookie");
   response.headers.set("Access-Control-Allow-Credentials", "true");
@@ -203,7 +199,12 @@ async function handleCallback(request, env) {
 
     const isFollower = followsResponse.ok && followsData.data && followsData.data.length > 0;
 
+    // Log follower check for debugging
+    console.log("User ID:", user.id, "Username:", user.display_name);
+    console.log("Is follower:", isFollower);
+
     if (!isFollower) {
+      console.log("User is not a follower, redirecting to error page");
       return redirectToMain("/auth-error?error=not_follower", env);
     }
 
@@ -319,6 +320,54 @@ function getSessionFromRequest(request) {
 
   return cookies.bartender_session;
 }
+
+async function validateSession(request, env) {
+  const sessionId = getSessionFromRequest(request);
+
+  if (!sessionId) {
+    return { valid: false, status: 401, error: "Authentication required" };
+  }
+
+  const session = await env.AUTH_DB.prepare("SELECT * FROM sessions WHERE id = ? AND expires_at > ?")
+    .bind(sessionId, Date.now())
+    .first();
+
+  if (!session || session.is_follower !== 1) {
+    return { valid: false, status: 403, error: "Follower access required" };
+  }
+
+  return { valid: true, session };
+}
+
+async function handleProtectedContent(request, env) {
+  const validation = await validateSession(request, env);
+
+  if (!validation.valid) {
+    return addCORSHeaders(
+      new Response(JSON.stringify({ error: validation.error }), {
+        status: validation.status,
+        headers: { "Content-Type": "application/json" },
+      }),
+      env
+    );
+  }
+
+  return addCORSHeaders(
+    new Response(
+      JSON.stringify({
+        success: true,
+        message: "Welcome to protected content!",
+        username: validation.session.username,
+      }),
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    ),
+    env
+  );
+}
+
+
 
 function redirectToMain(path, env) {
   return Response.redirect(`${env.MAIN_SITE_URL}${path}`, 302);

@@ -2,7 +2,7 @@
  * Authentication utilities for protected pages
  */
 
-import * as htl from "htl";
+import { html } from "htl";
 
 const AUTH_API_BASE = "https://bartender-auth-test.wuote.workers.dev";
 
@@ -79,85 +79,7 @@ export class AuthManager {
 // Global auth manager instance
 export const authManager = new AuthManager();
 
-// Auth guard function for protected pages
-export async function checkAuthAndRender(contentCallback) {
-  const state = await authManager.checkAuth();
 
-  if (state.loading) {
-    return htl.html`<div class="auth-loading">
-      <div class="spinner"></div>
-      <p>Checking authentication...</p>
-    </div>`;
-  }
-
-  // If there's an error (e.g., auth service unavailable), show error message
-  if (state.error) {
-    return htl.html`<div class="auth-required">
-      <div class="auth-card">
-        <h2>⚠️ Authentication Service Unavailable</h2>
-        <p>Unable to verify authentication status. Please try again later.</p>
-        <p>If the problem persists, contact support.</p>
-        <button
-          onclick="window.location.reload()"
-          class="auth-button"
-        >
-          Retry
-        </button>
-      </div>
-    </div>`;
-  }
-
-  if (!state.authenticated) {
-    return htl.html`<div class="auth-required">
-      <div class="auth-card">
-        <h2>🔒 Follower-Only Content</h2>
-        <p>This page is exclusive to <strong>WUOTE's Twitch followers</strong>.</p>
-        <p>
-          Follow
-          <a
-            href="https://www.twitch.tv/wuote"
-            target="_blank"
-            >@WUOTE on Twitch</a
-          >
-          and sign in to access this content.
-        </p>
-        <button
-          onclick="window.authManager.login()"
-          class="auth-button"
-        >
-          Sign in with Twitch
-        </button>
-      </div>
-    </div>`;
-  }
-
-  if (state.authenticated && !state.isFollower) {
-    return htl.html`<div class="auth-required">
-      <div class="auth-card">
-        <h2>👋 Thanks for signing in, ${state.username}!</h2>
-        <p>This content is exclusive to <strong>WUOTE's Twitch followers</strong>.</p>
-        <p>
-          Please
-          <a
-            href="https://www.twitch.tv/wuote"
-            target="_blank"
-            >follow @WUOTE on Twitch</a
-          >
-          to access this page.
-        </p>
-        <button
-          onclick="window.location.reload()"
-          class="auth-button"
-        >
-          Refresh after following
-        </button>
-      </div>
-    </div>`;
-  }
-
-  // User is authenticated and authorized, render the content
-  return contentCallback ? contentCallback() : null;
-}
 
 // Alternative auth guard class for different usage patterns
 export class AuthGuard {
@@ -169,14 +91,14 @@ export class AuthGuard {
     const state = await this.authManager.checkAuth();
 
     if (state.loading) {
-      return htl.html`<div class="auth-loading">
+      return html`<div class="auth-loading">
         <div class="spinner"></div>
         <p>Checking authentication...</p>
       </div>`;
     }
 
     if (!state.authenticated) {
-      return htl.html`<div class="auth-required">
+      return html`<div class="auth-required">
         <div class="auth-card">
           <h2>🔒 Follower-Only Content</h2>
           <p>This page is exclusive to <strong>WUOTE's Twitch followers</strong>.</p>
@@ -200,7 +122,7 @@ export class AuthGuard {
     }
 
     if (state.authenticated && !state.isFollower) {
-      return htl.html`<div class="auth-required">
+      return html`<div class="auth-required">
         <div class="auth-card">
           <h2>👋 Thanks for signing in, ${state.username}!</h2>
           <p>This content is exclusive to <strong>WUOTE's Twitch followers</strong>.</p>
@@ -232,6 +154,8 @@ export class AuthGuard {
 export function createAuthGuard() {
   return new AuthGuard();
 }
+
+
 
 // Make auth manager globally available
 if (typeof window !== "undefined") {

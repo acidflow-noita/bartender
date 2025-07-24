@@ -11,8 +11,18 @@ title: Spells' Digging Ability
 <h2>Select a spell and a material to see how effectively the spell can dig through it.</h2>
 
 ```js
-const spells = await FileAttachment("./data/FULL_SPELLS_FINAL.json").json();
-const materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
+const all_spells = await FileAttachment("./data/FULL_SPELLS_FINAL.json").json();
+const all_materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
+
+const authState = await authManager.checkAuth();
+
+const spells = (authState.authenticated && authState.isFollower)
+  ? all_spells
+  : all_spells.filter(d => ["SPARK_BOLT", "DIGGING_BOLT"].includes(d.id));
+
+const materials = (authState.authenticated && authState.isFollower)
+  ? all_materials
+  : all_materials.filter(d => ["dirt", "rock"].includes(d.id));
 const mina = {
   img_src: "https://noita-bartender-images.acidflow.stream/images/mina/mina.png",
   img_outline_src: "https://noita-bartender-images.acidflow.stream/images/mina/mina_outline.png",
@@ -23,7 +33,7 @@ const mina = {
 import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();
 import { checkAuthAndRender, renderAuthStatus } from "./components/auth.js";
-import * as htl from "htl";
+import { html } from "htl";
 renderAuthStatus();
 ```
 
@@ -32,8 +42,6 @@ renderAuthStatus();
 const authResult = await checkAuthAndRender();
 if (authResult !== null) {
   display(authResult);
-  // Stop execution - user is not authenticated/authorized
-  throw new Error("Authentication required - stopping page execution");
 }
 ```
 
@@ -46,7 +54,7 @@ const spellsWithDiggingTag = spells.filter((d) => d.tags.includes("digging"));
 
 ```js
 const resetSearchButton = Inputs.button(
-  htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" />Reset`,
+  html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" />Reset`,
   {
     label: "",
     reduce: () => {
@@ -192,9 +200,19 @@ const spellsTable = Inputs.table(spellsWithDiggingTag, {
     rayEnergy: "Ray Energy",
   },
   format: {
-    combinedSpellName: (d) => htl.html`<a href="${d.url}" target="_blank">${d.name}<br />(${d.id})</a>`,
+    combinedSpellName: (d) =>
+      html`<a
+        href="${d.url}"
+        target="_blank"
+        >${d.name}<br />(${d.id})</a
+      >`,
     image_local: (d) =>
-      htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/spells/${d}" style="image-rendering: pixelated;" width="64" height="auto" />`,
+      html`<img
+        src="https://noita-bartender-images.acidflow.stream/images/spells/${d}"
+        style="image-rendering: pixelated;"
+        width="64"
+        height="auto"
+      />`,
   },
 });
 ```
@@ -225,9 +243,19 @@ const materialsTable = Inputs.table(materialsToShow, {
     durability: "Durability",
   },
   format: {
-    combinedMaterialName: (d) => htl.html`<a href="${d.url}" target="_blank">${d.name}<br/>(<code>${d.id}</code>)</a>`,
+    combinedMaterialName: (d) =>
+      html`<a
+        href="${d.url}"
+        target="_blank"
+        >${d.name}<br />(<code>${d.id}</code>)</a
+      >`,
     image_local: (d) =>
-      htl.html`<img src="${getImagePath(d)}" width=32 height="auto" style="image-rendering: pixelated;" />`,
+      html`<img
+        src="${getImagePath(d)}"
+        width="32"
+        height="auto"
+        style="image-rendering: pixelated;"
+      />`,
   },
 });
 ```

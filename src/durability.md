@@ -11,27 +11,24 @@ title: Durability
 <h2>Durability determines material's resistance to damage.</h2>
 
 ```js
-const materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
-```
-
-```js
 import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();
 import { materialTypeColors, getSymbolConfig } from "./components/materialTypeStyles.js";
 import { wuoteLogo } from "./components/wuoteLogo.js";
-import { checkAuthAndRender, renderAuthStatus } from "./components/auth.js";
-import * as htl from "htl";
+import { authManager, renderAuthStatus } from "./components/auth.js";
+import { html } from "htl";
 renderAuthStatus();
 ```
 
 ```js
-// Check authentication before rendering content
-const authResult = await checkAuthAndRender();
-if (authResult !== null) {
-  display(authResult);
-  // Stop execution - user is not authenticated/authorized
-  throw new Error("Authentication required - stopping page execution");
-}
+const authState = await authManager.checkAuth();
+```
+
+```js
+const all_materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
+const materials = (authState.authenticated && authState.isFollower)
+  ? all_materials
+  : all_materials.filter(d => ["acid", "water", "rock_static", "sand_static", "wood_static"].includes(d.id));
 ```
 
 ```js
@@ -66,7 +63,7 @@ const durabilitySelectorValue = Generators.input(durabilitySelectorInput);
 
 ```js
 const resetButton = Inputs.button(
-  htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" />Reset`,
+  html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" />Reset`,
   {
     label: "",
     reduce: () => {
@@ -112,11 +109,26 @@ function durabilityTable(materials, width) {
             }"><code>${id}</code></span><span class="material-name-text">)</span>
       </a>`,
       image_local: (d) =>
-        htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/materials/${d}" width=${tableImageWidth} height="auto" style="image-rendering: pixelated; vertical-align: middle;" />`,
+        html`<img
+          src="https://noita-bartender-images.acidflow.stream/images/materials/${d}"
+          width=${tableImageWidth}
+          height="auto"
+          style="image-rendering: pixelated; vertical-align: middle;"
+        />`,
       icon_local: (d) =>
-        htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/materials/${d}" width=${tableImageWidth} height="auto" style="image-rendering: pixelated; vertical-align: middle;" />`,
+        html`<img
+          src="https://noita-bartender-images.acidflow.stream/images/materials/${d}"
+          width=${tableImageWidth}
+          height="auto"
+          style="image-rendering: pixelated; vertical-align: middle;"
+        />`,
       pouch_local: (d) =>
-        htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/materials/${d}" width=${tableImageWidth} height="auto" style="image-rendering: pixelated; vertical-align: middle;" />`,
+        html`<img
+          src="https://noita-bartender-images.acidflow.stream/images/materials/${d}"
+          width=${tableImageWidth}
+          height="auto"
+          style="image-rendering: pixelated; vertical-align: middle;"
+        />`,
     },
   });
 }
