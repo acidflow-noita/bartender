@@ -19,14 +19,23 @@ export class AuthManager {
 
   async checkAuth() {
     try {
+      console.log("Checking auth...");
       const response = await fetch(`${AUTH_API_BASE}/auth/check`, {
         credentials: "include",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
+
+      console.log("Auth check response:", response.status, response.ok);
 
       if (response.ok) {
         const data = await response.json();
+        console.log("Auth data received:", data);
         this.authState = { ...data, loading: false };
       } else {
+        console.log("Auth check failed with status:", response.status);
         this.authState = { authenticated: false, loading: false };
       }
     } catch (error) {
@@ -35,6 +44,7 @@ export class AuthManager {
       this.authState = { authenticated: false, loading: false, error: true };
     }
 
+    console.log("Final auth state:", this.authState);
     this.notifyListeners();
     return this.authState;
   }
@@ -78,8 +88,6 @@ export class AuthManager {
 
 // Global auth manager instance
 export const authManager = new AuthManager();
-
-
 
 // Alternative auth guard class for different usage patterns
 export class AuthGuard {
@@ -155,8 +163,6 @@ export function createAuthGuard() {
   return new AuthGuard();
 }
 
-
-
 // Make auth manager globally available
 if (typeof window !== "undefined") {
   window.authManager = authManager;
@@ -165,16 +171,23 @@ if (typeof window !== "undefined") {
 // Auth status display function
 export async function renderAuthStatus() {
   const container = document.getElementById("auth-status-container");
-  if (!container) return;
+  if (!container) {
+    console.log("No auth-status-container found");
+    return;
+  }
+
+  console.log("Setting up auth status rendering");
 
   // Subscribe to auth state changes to update UI automatically
   const unsubscribe = authManager.subscribe((state) => {
+    console.log("Auth state changed, updating UI:", state);
     updateAuthStatusUI(container, state);
   });
 
   // Check for auth callback success in URL first
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get("auth") === "success") {
+    console.log("Auth success detected in URL");
     // Remove the parameter from URL
     const newUrl = new URL(window.location);
     newUrl.searchParams.delete("auth");
@@ -182,11 +195,15 @@ export async function renderAuthStatus() {
 
     // Force a re-check of auth status after callback
     setTimeout(async () => {
+      console.log("Re-checking auth after callback");
       await authManager.checkAuth();
-    }, 500);
+      // Force page reload to update all data
+      window.location.reload();
+    }, 1000);
   }
 
   // Initial render
+  console.log("Performing initial auth check");
   const state = await authManager.checkAuth();
   updateAuthStatusUI(container, state);
 
@@ -195,12 +212,15 @@ export async function renderAuthStatus() {
 }
 
 function updateAuthStatusUI(container, state) {
+  console.log("Updating auth UI with state:", state);
+
   if (state.loading) {
     container.innerHTML = `<div class="auth-status loading">Checking auth...</div>`;
     return;
   }
 
   if (state.authenticated && state.isFollower) {
+    console.log("Rendering authenticated follower UI");
     container.innerHTML = `<div class="auth-status authenticated">
       <span>👋 ${state.username}</span>
       <button
@@ -214,6 +234,7 @@ function updateAuthStatusUI(container, state) {
   }
 
   if (state.authenticated && !state.isFollower) {
+    console.log("Rendering authenticated non-follower UI");
     container.innerHTML = `<div class="auth-status not-follower">
       <span>👋 ${state.username} (not following)</span>
       <button
@@ -226,6 +247,7 @@ function updateAuthStatusUI(container, state) {
     return;
   }
 
+  console.log("Rendering login button");
   container.innerHTML = `<div class="auth-status">
     <button
       onclick="window.authManager.login()"

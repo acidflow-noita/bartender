@@ -16,13 +16,15 @@ const all_materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").j
 
 const authState = await authManager.checkAuth();
 
-const spells = (authState.authenticated && authState.isFollower)
-  ? all_spells
-  : all_spells.filter(d => ["SPARK_BOLT", "DIGGING_BOLT"].includes(d.id));
+const spells =
+  authState.authenticated && authState.isFollower
+    ? all_spells
+    : all_spells.filter((d) => ["SPARK_BOLT", "DIGGING_BOLT"].includes(d.id));
 
-const materials = (authState.authenticated && authState.isFollower)
-  ? all_materials
-  : all_materials.filter(d => ["dirt", "rock"].includes(d.id));
+const materials =
+  authState.authenticated && authState.isFollower
+    ? all_materials
+    : all_materials.filter((d) => ["dirt", "rock"].includes(d.id));
 const mina = {
   img_src: "https://noita-bartender-images.acidflow.stream/images/mina/mina.png",
   img_outline_src: "https://noita-bartender-images.acidflow.stream/images/mina/mina_outline.png",

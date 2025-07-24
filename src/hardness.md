@@ -16,13 +16,15 @@ const all_spells = await FileAttachment("./data/FULL_SPELLS_FINAL.json").json();
 
 const authState = await authManager.checkAuth();
 
-const materials = (authState.authenticated && authState.isFollower)
-  ? all_materials
-  : all_materials.filter(d => ["rock_static", "sand_static", "wood_static", "coal", "gold"].includes(d.id));
+const materials =
+  authState.authenticated && authState.isFollower
+    ? all_materials
+    : all_materials.filter((d) => ["rock_static", "sand_static", "wood_static", "coal", "gold"].includes(d.id));
 
-const spells = (authState.authenticated && authState.isFollower)
-  ? all_spells
-  : all_spells.filter(d => ["SPARK_BOLT", "MAGIC_ARROW"].includes(d.id));
+const spells =
+  authState.authenticated && authState.isFollower
+    ? all_spells
+    : all_spells.filter((d) => ["SPARK_BOLT", "MAGIC_ARROW"].includes(d.id));
 ```
 
 ```js

@@ -26,9 +26,10 @@ const authState = await authManager.checkAuth();
 
 ```js
 const all_materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
-const materials = (authState.authenticated && authState.isFollower)
-  ? all_materials
-  : all_materials.filter(d => ["acid", "water", "rock_static", "sand_static", "wood_static"].includes(d.id));
+const materials =
+  authState.authenticated && authState.isFollower
+    ? all_materials
+    : all_materials.filter((d) => ["acid", "water", "rock_static", "sand_static", "wood_static"].includes(d.id));
 ```
 
 ```js

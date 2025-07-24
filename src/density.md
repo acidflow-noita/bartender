@@ -29,9 +29,15 @@ const authState = await authManager.checkAuth();
 ```
 
 ```js
-const materials = (authState.authenticated && authState.isFollower)
-  ? all_materials
-  : all_materials.filter(d => ["acid", "water"].includes(d.id));
+// Filter materials based on auth status - show all for followers, limited for non-followers
+const materials =
+  authState.authenticated && authState.isFollower
+    ? all_materials
+    : all_materials.filter((d) => ["acid", "water"].includes(d.id));
+
+console.log("All materials count:", all_materials.length);
+console.log("Filtered materials count:", materials.length);
+console.log("Auth status:", authState.authenticated, "Is follower:", authState.isFollower);
 ```
 
 ```js
@@ -39,16 +45,22 @@ const tableImageWidth = 32;
 ```
 
 ```js
-const distinctDensity = [...new Set(materials.filter((d) => d.type === "Liquid").map((d) => d.density))].filter(
-  (d) => d !== null
-);
+const distinctDensity =
+  materials && materials.length > 0
+    ? [...new Set(materials.filter((d) => d.type === "Liquid").map((d) => d.density))].filter((d) => d !== null)
+    : [];
+
+console.log("Distinct density values:", distinctDensity.length);
 ```
 
 ```js
-const liquidsDensitySelectorInput = distinctDensity.length > 0 ? Inputs.range([Math.min(...distinctDensity), Math.max(...distinctDensity)], {
-  value: Math.max(...distinctDensity),
-  step: 0.5,
-}) : html`<div></div>`;
+const liquidsDensitySelectorInput =
+  distinctDensity.length > 0
+    ? Inputs.range([Math.min(...distinctDensity), Math.max(...distinctDensity)], {
+        value: Math.max(...distinctDensity),
+        step: 0.5,
+      })
+    : html`<div></div>`;
 ```
 
 ```js

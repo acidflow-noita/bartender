@@ -14,7 +14,8 @@ export default {
 
     // Handle CORS preflight
     if (request.method === "OPTIONS") {
-      return handleCORS(env);
+      const allowedOrigin = env.MAIN_SITE_URL || "https://bartender.runfast.stream";
+      return handleCORS(request, env, allowedOrigin);
     }
 
     try {
@@ -70,8 +71,6 @@ async function initializeDatabase(env) {
       )
     `
     ).run();
-
-    
 
     // Clean up expired sessions and states
     const now = Date.now();
@@ -183,30 +182,42 @@ async function handleCallback(request, env) {
     const user = userData.data[0];
 
     // Check if user follows the channel
-    const followsResponse = await fetch(
-      `https://api.twitch.tv/helix/channels/followed?user_id=${user.id}&broadcaster_id=${env.WUOTE_USER_ID_SECRET}`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Client-Id": env.TWITCH_CLIENT_ID_SECRET,
-        },
+    let isFollower = false;
+
+    try {
+      const followsResponse = await fetch(
+        `https://api.twitch.tv/helix/channels/followed?user_id=${user.id}&broadcaster_id=${env.WUOTE_USER_ID_SECRET}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Client-Id": env.TWITCH_CLIENT_ID_SECRET,
+          },
+        }
+      );
+
+      console.log("Follows API response status:", followsResponse.status);
+
+      if (followsResponse.ok) {
+        const followsData = await followsResponse.json();
+        console.log("Follows API response data:", followsData);
+        isFollower = followsData.data && followsData.data.length > 0;
+      } else {
+        const errorText = await followsResponse.text();
+        console.log("Follows API error:", errorText);
+
+        // If the API call fails, we'll still create a session but mark as non-follower
+        // This prevents auth from completely breaking if Twitch API is down
+        isFollower = false;
       }
-    );
-
-    console.log("Follows API response status:", followsResponse.status);
-    const followsData = await followsResponse.json();
-    console.log("Follows API response:", followsData);
-
-    const isFollower = followsResponse.ok && followsData.data && followsData.data.length > 0;
+    } catch (error) {
+      console.error("Error checking follower status:", error);
+      // On error, assume not a follower but don't break auth completely
+      isFollower = false;
+    }
 
     // Log follower check for debugging
     console.log("User ID:", user.id, "Username:", user.display_name);
     console.log("Is follower:", isFollower);
-
-    if (!isFollower) {
-      console.log("User is not a follower, redirecting to error page");
-      return redirectToMain("/auth-error?error=not_follower", env);
-    }
 
     // Create session (expires in 24 hours)
     const sessionId = crypto.randomUUID();
@@ -218,7 +229,7 @@ async function handleCallback(request, env) {
       VALUES (?, ?, ?, ?, ?, ?)
     `
     )
-      .bind(sessionId, user.id, user.display_name, 1, Date.now(), expiresAt)
+      .bind(sessionId, user.id, user.display_name, isFollower ? 1 : 0, Date.now(), expiresAt)
       .run();
 
     // Clean up state
@@ -230,10 +241,11 @@ async function handleCallback(request, env) {
       ? `bartender_session=${sessionId}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400`
       : `bartender_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=86400`;
 
+    console.log("Redirecting to main site with session cookie");
     return new Response(null, {
       status: 302,
       headers: {
-        Location: `${env.MAIN_SITE_URL}/?auth=success`,
+        Location: `${env.MAIN_SITE_URL || "https://bartender.runfast.stream"}/?auth=success`,
         "Set-Cookie": cookieOptions,
       },
     });
@@ -250,11 +262,12 @@ async function handleAuthCheck(request, env) {
 
   if (!sessionId) {
     console.log("No session ID found");
+    const allowedOrigin = env.MAIN_SITE_URL || "https://bartender.runfast.stream";
     return addCORSHeaders(
       new Response(JSON.stringify({ authenticated: false }), {
         headers: { "Content-Type": "application/json" },
       }),
-      env
+      allowedOrigin
     );
   }
 
@@ -266,14 +279,16 @@ async function handleAuthCheck(request, env) {
 
   if (!session) {
     console.log("No valid session found");
+    const allowedOrigin = env.MAIN_SITE_URL || "https://bartender.runfast.stream";
     return addCORSHeaders(
       new Response(JSON.stringify({ authenticated: false }), {
         headers: { "Content-Type": "application/json" },
       }),
-      env
+      allowedOrigin
     );
   }
 
+  const allowedOrigin = env.MAIN_SITE_URL || "https://bartender.runfast.stream";
   return addCORSHeaders(
     new Response(
       JSON.stringify({
@@ -285,7 +300,7 @@ async function handleAuthCheck(request, env) {
         headers: { "Content-Type": "application/json" },
       }
     ),
-    env
+    allowedOrigin
   );
 }
 
@@ -296,11 +311,12 @@ async function handleLogout(request, env) {
     await env.AUTH_DB.prepare("DELETE FROM sessions WHERE id = ?").bind(sessionId).run();
   }
 
+  const allowedOrigin = env.MAIN_SITE_URL || "https://bartender.runfast.stream";
   const response = addCORSHeaders(
     new Response(JSON.stringify({ success: true }), {
       headers: { "Content-Type": "application/json" },
     }),
-    env
+    allowedOrigin
   );
 
   response.headers.set("Set-Cookie", "bartender_session=; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=0");
@@ -342,13 +358,15 @@ async function validateSession(request, env) {
 async function handleProtectedContent(request, env) {
   const validation = await validateSession(request, env);
 
+  const allowedOrigin = env.MAIN_SITE_URL || "https://bartender.runfast.stream";
+
   if (!validation.valid) {
     return addCORSHeaders(
       new Response(JSON.stringify({ error: validation.error }), {
         status: validation.status,
         headers: { "Content-Type": "application/json" },
       }),
-      env
+      allowedOrigin
     );
   }
 
@@ -363,11 +381,9 @@ async function handleProtectedContent(request, env) {
         headers: { "Content-Type": "application/json" },
       }
     ),
-    env
+    allowedOrigin
   );
 }
-
-
 
 function redirectToMain(path, env) {
   return Response.redirect(`${env.MAIN_SITE_URL}${path}`, 302);
