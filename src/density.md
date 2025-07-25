@@ -33,11 +33,46 @@ const authState = await authManager.checkAuth();
 const materials =
   authState.authenticated && authState.isFollower
     ? all_materials
-    : all_materials.filter((d) => ["acid", "water"].includes(d.id));
+    : all_materials.filter((d) => {
+        // For non-followers, show common liquids that definitely have density values
+        const allowedIds = ["water", "acid", "oil", "blood", "lava", "toxic_sludge", "swamp", "mud"];
+        return allowedIds.includes(d.id) && d.type === "Liquid" && d.density !== null;
+      });
 
 console.log("All materials count:", all_materials.length);
 console.log("Filtered materials count:", materials.length);
 console.log("Auth status:", authState.authenticated, "Is follower:", authState.isFollower);
+```
+
+```js
+// Show content limitation notice for non-followers
+const contentNotice =
+  authState.authenticated && authState.isFollower
+    ? html``
+    : html`<div
+        style="background: #2a2a2a; border: 1px solid #444; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;"
+      >
+        <h3 style="margin: 0 0 0.5rem 0; color: #ffa500;">⚠️ Limited Preview</h3>
+        <p style="margin: 0; color: #ccc;">
+          You're seeing only ${materials.length} of ${all_materials.length} materials.
+          <a
+            href="https://www.twitch.tv/wuote"
+            target="_blank"
+            style="color: #9146ff;"
+            >Follow @WUOTE on Twitch</a
+          >
+          and
+          <button
+            onclick="window.authLogin && window.authLogin()"
+            style="background: #9146ff; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer;"
+          >
+            sign in
+          </button>
+          to see all materials.
+        </p>
+      </div>`;
+
+contentNotice;
 ```
 
 ```js
@@ -47,10 +82,14 @@ const tableImageWidth = 32;
 ```js
 const distinctDensity =
   materials && materials.length > 0
-    ? [...new Set(materials.filter((d) => d.type === "Liquid").map((d) => d.density))].filter((d) => d !== null)
+    ? [...new Set(materials.filter((d) => d.type === "Liquid" && d.density !== null).map((d) => d.density))]
     : [];
 
+console.log("Materials count:", materials.length);
+console.log("Liquid materials:", materials.filter((d) => d.type === "Liquid").length);
+console.log("Liquids with density:", materials.filter((d) => d.type === "Liquid" && d.density !== null).length);
 console.log("Distinct density values:", distinctDensity.length);
+console.log("Sample densities:", distinctDensity.slice(0, 5));
 ```
 
 ```js
@@ -93,6 +132,12 @@ function densityTable(materials, width) {
   const filteredMaterials = materials.filter(
     (d) => d.density !== null && d.density <= liquidsDensitySelectorValue && d.type == "Liquid"
   );
+
+  console.log("Table filtered materials:", filteredMaterials.length);
+
+  if (filteredMaterials.length === 0) {
+    return html`<div>No materials match the current density filter.</div>`;
+  }
 
   return Inputs.table(filteredMaterials, {
     width: {
@@ -181,7 +226,7 @@ function densityPlot(materials, width) {
       reverse: true,
       label: "Density",
       grid: true,
-      domain: [0, Math.max(...distinctDensity)],
+      domain: distinctDensity.length > 0 ? [0, Math.max(...distinctDensity)] : [0, 10],
     },
     color: {
       domain: materialTypeColors.map((d) => d.type),

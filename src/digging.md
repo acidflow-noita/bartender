@@ -25,11 +25,46 @@ const materials =
   authState.authenticated && authState.isFollower
     ? all_materials
     : all_materials.filter((d) => ["dirt", "rock"].includes(d.id));
-const mina = {
-  img_src: "https://noita-bartender-images.acidflow.stream/images/mina/mina.png",
-  img_outline_src: "https://noita-bartender-images.acidflow.stream/images/mina/mina_outline.png",
-};
 ```
+
+```js
+// Show content limitation notice for non-followers
+const contentNotice =
+  authState.authenticated && authState.isFollower
+    ? html``
+    : html`<div
+        style="background: #2a2a2a; border: 1px solid #444; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;"
+      >
+        <h3 style="margin: 0 0 0.5rem 0; color: #ffa500;">⚠️ Limited Preview</h3>
+        <p style="margin: 0; color: #ccc;">
+          You're seeing only ${spells.length} spells and ${materials.length} materials of ${all_spells.length} spells and
+          ${all_materials.length} materials total.
+          <a
+            href="https://www.twitch.tv/wuote"
+            target="_blank"
+            style="color: #9146ff;"
+            >Follow @WUOTE on Twitch</a
+          >
+          and
+          <button
+            onclick="window.authLogin && window.authLogin()"
+            style="background: #9146ff; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer;"
+          >
+            sign in
+          </button>
+          to see all content.
+        </p>
+      </div>`;
+
+contentNotice;
+```
+
+const mina = {
+img_src: "https://noita-bartender-images.acidflow.stream/images/mina/mina.png",
+img_outline_src: "https://noita-bartender-images.acidflow.stream/images/mina/mina_outline.png",
+};
+
+````
 
 ```js
 import { initializeTitleAnimation } from "./components/titleAnimation.js";
@@ -37,7 +72,7 @@ initializeTitleAnimation();
 import { checkAuthAndRender, renderAuthStatus } from "./components/auth.js";
 import { html } from "htl";
 renderAuthStatus();
-```
+````
 
 ```js
 // Check authentication before rendering content

@@ -120,7 +120,7 @@ export class AuthGuard {
             and sign in to access this content.
           </p>
           <button
-            onclick="window.authManager.login()"
+            onclick="window.authLogin && window.authLogin()"
             class="auth-button"
           >
             Sign in with Twitch
@@ -144,10 +144,10 @@ export class AuthGuard {
             to access this page.
           </p>
           <button
-            onclick="window.location.reload()"
+            onclick="window.authCheck && window.authCheck().then(() => window.location.reload())"
             class="auth-button"
           >
-            Refresh after following
+            Check Follower Status
           </button>
         </div>
       </div>`;
@@ -166,6 +166,11 @@ export function createAuthGuard() {
 // Make auth manager globally available
 if (typeof window !== "undefined") {
   window.authManager = authManager;
+
+  // Also ensure it's available for onclick handlers
+  window.authLogin = () => authManager.login();
+  window.authLogout = () => authManager.logout();
+  window.authCheck = () => authManager.checkAuth();
 }
 
 // Auth status display function
@@ -224,7 +229,7 @@ function updateAuthStatusUI(container, state) {
     container.innerHTML = `<div class="auth-status authenticated">
       <span>👋 ${state.username}</span>
       <button
-        onclick="window.authManager.logout()"
+        onclick="window.authLogout && window.authLogout()"
         class="auth-logout-btn"
       >
         Logout
@@ -238,7 +243,7 @@ function updateAuthStatusUI(container, state) {
     container.innerHTML = `<div class="auth-status not-follower">
       <span>👋 ${state.username} (not following)</span>
       <button
-        onclick="window.authManager.logout()"
+        onclick="window.authLogout && window.authLogout()"
         class="auth-logout-btn"
       >
         Logout
@@ -250,7 +255,7 @@ function updateAuthStatusUI(container, state) {
   console.log("Rendering login button");
   container.innerHTML = `<div class="auth-status">
     <button
-      onclick="window.authManager.login()"
+      onclick="window.authLogin && window.authLogin()"
       class="auth-login-btn"
     >
       Sign in with Twitch
