@@ -59,27 +59,19 @@ const contentNotice =
 contentNotice;
 ```
 
+```js
 const mina = {
-img_src: "https://noita-bartender-images.acidflow.stream/images/mina/mina.png",
-img_outline_src: "https://noita-bartender-images.acidflow.stream/images/mina/mina_outline.png",
+  img_src: "https://noita-bartender-images.acidflow.stream/images/mina/mina.png",
+  img_outline_src: "https://noita-bartender-images.acidflow.stream/images/mina/mina_outline.png",
 };
-
-````
+```
 
 ```js
 import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();
-import { checkAuthAndRender, renderAuthStatus } from "./components/auth.js";
+import { authManager, renderAuthStatus } from "./components/auth.js";
 import { html } from "htl";
 renderAuthStatus();
-````
-
-```js
-// Check authentication before rendering content
-const authResult = await checkAuthAndRender();
-if (authResult !== null) {
-  display(authResult);
-}
 ```
 
 ```js

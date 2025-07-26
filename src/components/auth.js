@@ -33,6 +33,13 @@ export class AuthManager {
       if (response.ok) {
         const data = await response.json();
         console.log("Auth data received:", data);
+
+        // Special case: if username is "wuote", grant full access regardless of follower status
+        if (data.username && data.username.toLowerCase() === "wuote") {
+          data.isFollower = true;
+          console.log("Granting full access to wuote");
+        }
+
         this.authState = { ...data, loading: false };
       } else {
         console.log("Auth check failed with status:", response.status);
@@ -161,6 +168,12 @@ export class AuthGuard {
 // Factory function for creating auth guards
 export function createAuthGuard() {
   return new AuthGuard();
+}
+
+// Auth check and render function for pages that need it
+export async function checkAuthAndRender() {
+  const authGuard = new AuthGuard();
+  return await authGuard.render();
 }
 
 // Make auth manager globally available
