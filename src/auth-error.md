@@ -12,7 +12,7 @@ const error = urlParams.get("error");
 
 const errorMessages = {
   not_follower: {
-    title: "👋 Thanks for signing in!",
+    title: "Thanks for signing in!",
     message:
       "This content is exclusive to WUOTE's Twitch followers. Please follow @WUOTE on Twitch to access this page.",
     action: "Follow WUOTE",

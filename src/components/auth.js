@@ -139,7 +139,7 @@ export class AuthGuard {
     if (state.authenticated && !state.isFollower) {
       return html`<div class="auth-required">
         <div class="auth-card">
-          <h2>👋 Thanks for signing in, ${state.username}!</h2>
+          <h2>Thanks for signing in, ${state.username}!</h2>
           <p>This content is exclusive to <strong>WUOTE's Twitch followers</strong>.</p>
           <p>
             Please
@@ -240,7 +240,7 @@ function updateAuthStatusUI(container, state) {
   if (state.authenticated && state.isFollower) {
     console.log("Rendering authenticated follower UI");
     container.innerHTML = `<div class="auth-status authenticated">
-      <span>👋 ${state.username}</span>
+      <span>${state.username}</span>
       <button
         onclick="window.authLogout && window.authLogout()"
         class="auth-logout-btn"
@@ -254,7 +254,7 @@ function updateAuthStatusUI(container, state) {
   if (state.authenticated && !state.isFollower) {
     console.log("Rendering authenticated non-follower UI");
     container.innerHTML = `<div class="auth-status not-follower">
-      <span>👋 ${state.username} (not following)</span>
+      <span>${state.username} (not following)</span>
       <button
         onclick="window.authLogout && window.authLogout()"
         class="auth-logout-btn"

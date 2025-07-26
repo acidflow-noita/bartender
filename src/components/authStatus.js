@@ -35,7 +35,7 @@ export function createHeaderAuthStatus() {
     if (currentState.authenticated) {
       container.innerHTML = `
         <div class="auth-status authenticated">
-          <span>👋 ${currentState.username}</span>
+          <span>${currentState.username}</span>
           <button onclick="authManager.logout()" class="auth-logout-btn">
             Logout
           </button>
