@@ -1,3 +1,8 @@
+---
+title: Auth Test Page
+draft: false
+---
+
 # Auth Test Page
 
 This is a simple test page to verify authentication is working.

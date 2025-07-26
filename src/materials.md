@@ -385,7 +385,7 @@ const selectedMaterial = Generators.input(materialsTable);
 ```
 
 <div class="grid grid-cols-4 gap-4">
-  <div clasBomb (BOMB)s="card grid-colspan-1">${searchMaterials}</div>
+  <div class="card grid-colspan-1">${searchMaterials}</div>
   <div class="card grid-colspan-1">${resetButton}</div>
 </div>
 

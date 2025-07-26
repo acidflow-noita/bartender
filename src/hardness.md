@@ -19,7 +19,7 @@ const authState = await authManager.checkAuth();
 const materials =
   authState.authenticated && authState.isFollower
     ? all_materials
-    : all_materials.filter((d) => ["rock_static", "sand_static", "wood_static", "coal", "gold"].includes(d.id));
+    : all_materials.filter((d) => ["rock_static", "wood_static", "coal", "gold"].includes(d.id));
 
 const spells =
   authState.authenticated && authState.isFollower
@@ -28,33 +28,13 @@ const spells =
 ```
 
 ```js
-// Show content limitation notice for non-followers
-const contentNotice =
-  authState.authenticated && authState.isFollower
-    ? html``
-    : html`<div
-        style="background: #2a2a2a; border: 1px solid #444; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;"
-      >
-        <h3 style="margin: 0 0 0.5rem 0; color: #ffa500;">⚠️ Limited Preview</h3>
-        <p style="margin: 0; color: #ccc;">
-          You're seeing only ${materials.length} materials and ${spells.length} spells of ${all_materials.length} materials
-          and ${all_spells.length} spells total.
-          <a
-            href="https://www.twitch.tv/wuote"
-            target="_blank"
-            style="color: #9146ff;"
-            >Follow @WUOTE on Twitch</a
-          >
-          and
-          <button
-            onclick="window.authLogin && window.authLogin()"
-            style="background: #9146ff; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer;"
-          >
-            sign in
-          </button>
-          to see all content.
-        </p>
-      </div>`;
+import { createContentNotice } from "./components/contentNotice.js";
+const contentNotice = createContentNotice(authState, {
+  materials: materials.length,
+  spells: spells.length,
+  totalMaterials: all_materials.length,
+  totalSpells: all_spells.length,
+});
 
 contentNotice;
 ```
@@ -257,6 +237,8 @@ function hardnessPlot(materials, width) {
   });
 }
 ```
+
+${contentNotice}
 
 <div class="grid grid-cols-4 grid-rowspan-1" style="grid-auto-rows: auto;">
     <div class="card grid-colspan-2 grid-rowspan-1" style="padding: 0;">

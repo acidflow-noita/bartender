@@ -3,56 +3,80 @@ export default {
   // The app’s title; used in the sidebar and webpage titles.
   title: "Noita Bartender",
 
-  // The pages and sections in the sidebar. If you don’t specify this option,
-  // all pages will be listed in alphabetical order. Listing pages explicitly
-  // lets you organize them into sections and have unlisted pages.
-  // pages: [
-  //   {
-  //     name: "Mixology",
-  //     pages: [{ name: "Reactions Finder", path: "/reactions" }],
-  //   },
-  //   {
-  //     name: "Upcoming Features",
-  //     pages: [{ name: "The Future", path: "/upcoming" }],
-  //   },
-  //   {
-  //     name: "Credits",
-  //     pages: [{ name: "Thanks", path: "/thanks" }],
-  //   },
-  //   {
-  //     name: "Materials properties",
-  //     pages: [
-  //       { name: "Materials Explorer", path: "/materials" },
-  //       { name: "Hardness", path: "/hardness" },
-  //       { name: "Density", path: "/density" },
-  //       { name: "Durability", path: "/durability" },
-  //     ],
-  //   },
-  //   {
-  //     name: "Spells",
-  //     pages: [{ name: "Spells' Digging Ability", path: "/digging" }],
-  //   },
-  //   {
-  //     name: "Work in progress",
-  //     pages: [
-  //       { name: "Materials Distribution Graph", path: "/exploration" },
-  //       { name: "Streamer Wands Integration", path: "/onlywands_integration" },
-  //       { name: "Status Effects", path: "/status_effects" },
-  //       { name: "Material Tags", path: "/tags" },
-  //       { name: "WIP creatures", path: "/creatures" },
-  //     ],
-  //   },
-  // ],
+  pages: [
+    {
+      name: "Mixology",
+      pages: [{ name: "Reactions Finder", path: "/reactions" }],
+    },
+    {
+      name: "Materials properties",
+      pages: [
+        // { name: "Materials Explorer", path: "/materials" },
+        { name: "Hardness", path: "/hardness" },
+        { name: "Density", path: "/density" },
+        { name: "Durability", path: "/durability" },
+      ],
+    },
+    // {
+    //   name: "Spells",
+    //   pages: [{ name: "Spells' Digging Ability", path: "/digging" }],
+    // },
+    // {
+    //   name: "Work in progress",
+    //   pages: [
+    //     { name: "Materials Distribution Graph", path: "/exploration" },
+    //     { name: "Streamer Wands Integration", path: "/onlywands_integration" },
+    //     { name: "Status Effects", path: "/status_effects" },
+    //     { name: "Material Tags", path: "/tags" },
+    //     { name: "WIP creatures", path: "/creatures" },
+    //   ],
+    // },
+    {
+      name: "Upcoming Features",
+      pages: [{ name: "The Future", path: "/upcoming" }],
+    },
+    {
+      name: "Main Website",
+      pages: [
+        {
+          name: "Noita Bartender",
+          path: "https://runfast.stream/",
+        },
+      ],
+    },
+    {
+      name: "Credits",
+      pages: [{ name: "Thanks", path: "/thanks" }],
+    },
+  ],
 
   // Content to add to the head of the page, e.g. for a favicon:
-  head: '<link rel="icon" href="favicon.svg" type="image/png">',
+  head: `<link rel="icon" href="favicon.svg" type="image/png">
+<style>
+  nav a[href="https://runfast.stream/"],
+  nav a[href="https://runfast.stream/"]:hover,
+  nav a[href="https://runfast.stream/"]:focus,
+  nav a[href="https://runfast.stream/"]:active {
+    display: block !important;
+    height: 1.2em !important;
+    background-image: url("https://noita-bartender-images.acidflow.stream/images/logo/runfast-logo.svg") !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: 1rem center !important;
+    text-indent: -9999px !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
+</style>`,
 
   // The path to the source root.
   root: "src",
 
   // Some additional configuration options and their defaults:
   theme: ["ocean-floor", "alt", "wide"],
-  home: '<img src="https://noita-bartender-images.acidflow.stream/images/logo/bartender_logo.svg" alt="Noita Bartender"', // the content of the home page, which is shown in the sidebar
+  home: '<img src="https://noita-bartender-images.acidflow.stream/images/logo/bartender_logo.svg" alt="Noita Bartender">', // the content of the home page, which is shown in the sidebar
   footer:
     '<br /><br /><div class="footer-container"><div style="display: flex; align-items: center; gap: 8px;">Made by<a href="https://www.twitch.tv/WUOTE"><img src="https://noita-bartender-images.acidflow.stream/images/logo/WUOTE_LOGO.svg" style="width:100px;"></a></div><div class="bg-glow rounded-full inline-block"><a href="https://runfast.stream/donate/"><div id="dono-button" class="overflow-hidden bg-main text-white border border-2 border-white rounded-full px-6 py-3">Donate</div></a><div class="bg-glow-inner"></div></div></div>',
   sidebar: true, // whether to show the sidebar
