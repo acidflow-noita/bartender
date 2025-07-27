@@ -42,9 +42,10 @@ contentNotice;
 ```js
 import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();
-import { materialTypeColors } from "./components/materialTypeStyles.js";
+import { materialTypeColors, getSymbolConfig } from "./components/materialTypeStyles.js";
 import { wuoteLogo } from "./components/wuoteLogo.js";
 import { authManager, renderAuthStatus } from "./components/auth.js";
+import { html } from "htl";
 renderAuthStatus();
 ```
 
