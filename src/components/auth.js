@@ -215,29 +215,23 @@ export async function renderAuthStatus() {
   if (urlParams.get("auth") === "success") {
     console.log("Auth success detected in URL");
 
-    const token = urlParams.get("token");
-    if (token) {
-      console.log("Exchanging temp token for session cookie");
-      try {
-        const response = await fetch(`${AUTH_API_BASE}/auth/session?token=${token}`, {
-          method: "GET",
-          credentials: "include",
-        });
-
-        if (response.ok) {
-          console.log("Session cookie set successfully");
-        } else {
-          console.error("Failed to exchange token:", response.status);
-        }
-      } catch (error) {
-        console.error("Token exchange failed:", error);
-      }
+    // Set session cookie if provided (for cross-domain production setup)
+    const sessionId = urlParams.get("session");
+    if (sessionId) {
+      console.log("Setting session cookie from URL parameter");
+      // Set cookie without HttpOnly so we can set it from JavaScript
+      const isSecure = window.location.protocol === "https:";
+      const cookieString = isSecure
+        ? `bartender_session=${sessionId}; Path=/; Secure; SameSite=Lax; Max-Age=86400`
+        : `bartender_session=${sessionId}; Path=/; SameSite=Lax; Max-Age=86400`;
+      document.cookie = cookieString;
+      console.log("Session cookie set:", cookieString);
     }
 
     // Remove the parameters from URL
     const newUrl = new URL(window.location);
     newUrl.searchParams.delete("auth");
-    newUrl.searchParams.delete("token");
+    newUrl.searchParams.delete("session");
     window.history.replaceState({}, "", newUrl);
 
     // Force a re-check of auth status after callback

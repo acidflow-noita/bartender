@@ -237,18 +237,33 @@ async function handleCallback(request, env) {
 
     // Redirect with session cookie
     const cookieOptions = env.MAIN_SITE_URL.includes("localhost")
-      ? `bartender_session=${sessionId}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400`
-      : `bartender_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=86400`;
+      ? `bartender_session=${sessionId}; Path=/; SameSite=Lax; Max-Age=86400`
+      : `bartender_session=${sessionId}; Path=/; Secure; SameSite=Lax; Max-Age=86400`;
 
     console.log("Redirecting to main site with session cookie");
 
-    return new Response(null, {
-      status: 302,
-      headers: {
-        Location: `${env.MAIN_SITE_URL || "https://bartender.runfast.stream"}/?auth=success`,
-        "Set-Cookie": cookieOptions,
-      },
-    });
+    // For cross-domain setup, we need to redirect with session ID for main site to set cookie
+    const isLocalhost = env.MAIN_SITE_URL.includes("localhost");
+    const isSameDomain = env.MAIN_SITE_URL.includes("workers.dev");
+
+    if (isLocalhost || isSameDomain) {
+      // Same domain or localhost - can set cookie directly
+      return new Response(null, {
+        status: 302,
+        headers: {
+          Location: `${env.MAIN_SITE_URL || "https://bartender.runfast.stream"}/?auth=success`,
+          "Set-Cookie": cookieOptions,
+        },
+      });
+    } else {
+      // Cross-domain - redirect with session ID in URL for main site to set cookie
+      return new Response(null, {
+        status: 302,
+        headers: {
+          Location: `${env.MAIN_SITE_URL || "https://bartender.runfast.stream"}/?auth=success&session=${sessionId}`,
+        },
+      });
+    }
   } catch (error) {
     console.error("Callback error:", error);
     return redirectToMain("/auth-error?error=server_error", env);
@@ -410,8 +425,8 @@ async function handleSessionExchange(request, env) {
 
   const allowedOrigin = env.MAIN_SITE_URL || "https://bartender.runfast.stream";
   const cookieOptions = env.MAIN_SITE_URL.includes("localhost")
-    ? `bartender_session=${session.id}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400`
-    : `bartender_session=${session.id}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=86400`;
+    ? `bartender_session=${session.id}; Path=/; SameSite=Lax; Max-Age=86400`
+    : `bartender_session=${session.id}; Path=/; Secure; SameSite=Lax; Max-Age=86400`;
 
   const response = addCORSHeaders(
     new Response(JSON.stringify({ success: true }), {
