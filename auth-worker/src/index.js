@@ -35,6 +35,9 @@ export default {
         case "/api/protected-content":
           return handleProtectedContent(request, env);
 
+        case "/auth/session":
+          return handleSessionExchange(request, env);
+
         default:
           return new Response("Not Found", { status: 404 });
       }
@@ -56,7 +59,8 @@ async function initializeDatabase(env) {
         username TEXT NOT NULL,
         is_follower INTEGER NOT NULL,
         created_at INTEGER NOT NULL,
-        expires_at INTEGER NOT NULL
+        expires_at INTEGER NOT NULL,
+        temp_token TEXT
       )
     `
     ).run();
@@ -221,15 +225,16 @@ async function handleCallback(request, env) {
 
     // Create session (expires in 24 hours)
     const sessionId = crypto.randomUUID();
+    const tempToken = crypto.randomUUID();
     const expiresAt = Date.now() + 24 * 60 * 60 * 1000;
 
     await env.AUTH_DB.prepare(
       `
-      INSERT INTO sessions (id, user_id, username, is_follower, created_at, expires_at) 
-      VALUES (?, ?, ?, ?, ?, ?)
+      INSERT INTO sessions (id, user_id, username, is_follower, created_at, expires_at, temp_token) 
+      VALUES (?, ?, ?, ?, ?, ?, ?)
     `
     )
-      .bind(sessionId, user.id, user.display_name, isFollower ? 1 : 0, Date.now(), expiresAt)
+      .bind(sessionId, user.id, user.display_name, isFollower ? 1 : 0, Date.now(), expiresAt, tempToken)
       .run();
 
     // Clean up state
@@ -241,12 +246,11 @@ async function handleCallback(request, env) {
       ? `bartender_session=${sessionId}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400`
       : `bartender_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=86400`;
 
-    console.log("Redirecting to main site with session cookie");
+    console.log("Redirecting to main site with temp token");
     return new Response(null, {
       status: 302,
       headers: {
-        Location: `${env.MAIN_SITE_URL || "https://bartender.runfast.stream"}/?auth=success`,
-        "Set-Cookie": cookieOptions,
+        Location: `${env.MAIN_SITE_URL || "https://bartender.runfast.stream"}/?auth=success&token=${tempToken}`,
       },
     });
   } catch (error) {
@@ -319,7 +323,10 @@ async function handleLogout(request, env) {
     allowedOrigin
   );
 
-  response.headers.set("Set-Cookie", "bartender_session=; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=0");
+  response.headers.set(
+    "Set-Cookie",
+    "bartender_session=; Path=/; HttpOnly; Secure; SameSite=None; Domain=.runfast.stream; Max-Age=0"
+  );
 
   return response;
 }
@@ -383,6 +390,42 @@ async function handleProtectedContent(request, env) {
     ),
     allowedOrigin
   );
+}
+
+async function handleSessionExchange(request, env) {
+  const url = new URL(request.url);
+  const tempToken = url.searchParams.get("token");
+
+  if (!tempToken) {
+    return new Response("Missing token", { status: 400 });
+  }
+
+  // Look up session by temp token (we'll store this temporarily)
+  const session = await env.AUTH_DB.prepare("SELECT * FROM sessions WHERE temp_token = ? AND expires_at > ?")
+    .bind(tempToken, Date.now())
+    .first();
+
+  if (!session) {
+    return new Response("Invalid or expired token", { status: 404 });
+  }
+
+  // Clear the temp token
+  await env.AUTH_DB.prepare("UPDATE sessions SET temp_token = NULL WHERE id = ?").bind(session.id).run();
+
+  const allowedOrigin = env.MAIN_SITE_URL || "https://bartender.runfast.stream";
+  const cookieOptions = env.MAIN_SITE_URL.includes("localhost")
+    ? `bartender_session=${session.id}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400`
+    : `bartender_session=${session.id}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=86400`;
+
+  const response = addCORSHeaders(
+    new Response(JSON.stringify({ success: true }), {
+      headers: { "Content-Type": "application/json" },
+    }),
+    allowedOrigin
+  );
+
+  response.headers.set("Set-Cookie", cookieOptions);
+  return response;
 }
 
 function redirectToMain(path, env) {

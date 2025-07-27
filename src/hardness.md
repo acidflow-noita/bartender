@@ -14,6 +14,10 @@ title: Hardness (β)
 const all_materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
 const all_spells = await FileAttachment("./data/FULL_SPELLS_FINAL.json").json();
 
+// Import auth manager first
+import { authManager } from "./components/auth.js";
+
+// Check auth state - this will be fast if already cached
 const authState = await authManager.checkAuth();
 
 const materials =
@@ -44,7 +48,7 @@ import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();
 import { materialTypeColors, getSymbolConfig } from "./components/materialTypeStyles.js";
 import { wuoteLogo } from "./components/wuoteLogo.js";
-import { authManager, renderAuthStatus } from "./components/auth.js";
+import { renderAuthStatus } from "./components/auth.js";
 import { html } from "htl";
 renderAuthStatus();
 ```

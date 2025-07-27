@@ -214,9 +214,30 @@ export async function renderAuthStatus() {
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get("auth") === "success") {
     console.log("Auth success detected in URL");
-    // Remove the parameter from URL
+
+    const token = urlParams.get("token");
+    if (token) {
+      console.log("Exchanging temp token for session cookie");
+      try {
+        const response = await fetch(`${AUTH_API_BASE}/auth/session?token=${token}`, {
+          method: "GET",
+          credentials: "include",
+        });
+
+        if (response.ok) {
+          console.log("Session cookie set successfully");
+        } else {
+          console.error("Failed to exchange token:", response.status);
+        }
+      } catch (error) {
+        console.error("Token exchange failed:", error);
+      }
+    }
+
+    // Remove the parameters from URL
     const newUrl = new URL(window.location);
     newUrl.searchParams.delete("auth");
+    newUrl.searchParams.delete("token");
     window.history.replaceState({}, "", newUrl);
 
     // Force a re-check of auth status after callback
