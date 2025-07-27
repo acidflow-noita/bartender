@@ -1,0 +1,184 @@
+[
+  {
+    "name": "smoke",
+    "id": 36,
+    "ui_name": "$mat_smoke",
+    "type": "gas",
+    "translated_name": "smoke"
+  },
+  {
+    "name": "cloud",
+    "id": 37,
+    "ui_name": "$mat_cloud",
+    "type": "gas",
+    "translated_name": "cloud"
+  },
+  {
+    "name": "cloud_lighter",
+    "id": 38,
+    "ui_name": "$mat_cloud",
+    "type": "gas",
+    "translated_name": "cloud"
+  },
+  {
+    "name": "smoke_explosion",
+    "id": 39,
+    "ui_name": "$mat_smoke_explosion",
+    "type": "gas",
+    "translated_name": "smoke"
+  },
+  {
+    "name": "steam",
+    "id": 40,
+    "ui_name": "$mat_steam",
+    "type": "gas",
+    "translated_name": "steam"
+  },
+  {
+    "name": "acid_gas",
+    "id": 41,
+    "ui_name": "$mat_acid_gas",
+    "type": "gas",
+    "translated_name": "flammable gas"
+  },
+  {
+    "name": "acid_gas_static",
+    "id": 42,
+    "ui_name": "$mat_acid_gas_static",
+    "type": "gas",
+    "translated_name": "flammable gas"
+  },
+  {
+    "name": "smoke_static",
+    "id": 43,
+    "ui_name": "$mat_smoke_static",
+    "type": "gas",
+    "translated_name": "smoke"
+  },
+  {
+    "name": "blood_cold_vapour",
+    "id": 44,
+    "ui_name": "$mat_blood_cold_vapour",
+    "type": "gas",
+    "translated_name": "freezing vapour"
+  },
+  {
+    "name": "sand_herb_vapour",
+    "id": 45,
+    "ui_name": "$mat_sand_herb_vapour",
+    "type": "gas",
+    "translated_name": "funky vapour"
+  },
+  {
+    "name": "radioactive_gas",
+    "id": 46,
+    "ui_name": "$mat_radioactive_gas",
+    "type": "gas",
+    "translated_name": "toxic gas"
+  },
+  {
+    "name": "radioactive_gas_static",
+    "id": 47,
+    "ui_name": "$mat_radioactive_gas_static",
+    "type": "gas",
+    "translated_name": "toxic gas"
+  },
+  {
+    "name": "magic_gas_hp_regeneration",
+    "id": 48,
+    "ui_name": "$mat_magic_gas_hp_regeneration",
+    "type": "gas",
+    "translated_name": "Healium"
+  },
+  {
+    "name": "magic_gas_midas",
+    "id": 49,
+    "ui_name": "$mat_magic_gas_midas",
+    "type": "gas",
+    "translated_name": "gas of midas"
+  },
+  {
+    "name": "magic_gas_worm_blood",
+    "id": 50,
+    "ui_name": "$mat_magic_gas_worm_blood",
+    "type": "gas",
+    "translated_name": "worm gas"
+  },
+  {
+    "name": "rainbow_gas",
+    "id": 51,
+    "ui_name": "$mat_rainbow_gas",
+    "type": "gas",
+    "translated_name": "Unicorn farts"
+  },
+  {
+    "name": "magic_gas_polymorph",
+    "id": 52,
+    "ui_name": "$mat_magic_gas_polymorph",
+    "type": "gas",
+    "translated_name": "polymorphine cloud"
+  },
+  {
+    "name": "magic_gas_weakness",
+    "id": 53,
+    "ui_name": "$mat_magic_gas_weakness",
+    "type": "gas",
+    "translated_name": "diminution cloud"
+  },
+  {
+    "name": "magic_gas_teleport",
+    "id": 54,
+    "ui_name": "$mat_magic_gas_teleport",
+    "type": "gas",
+    "translated_name": "teleportatium cloud"
+  },
+  {
+    "name": "magic_gas_fungus",
+    "id": 55,
+    "ui_name": "$mat_magic_gas_fungus",
+    "type": "gas",
+    "translated_name": "funky cloud"
+  },
+  {
+    "name": "alcohol_gas",
+    "id": 67,
+    "ui_name": "$mat_alcohol_gas",
+    "type": "gas",
+    "translated_name": "Whiskey fumes"
+  },
+  {
+    "name": "poo_gas",
+    "id": 371,
+    "ui_name": "$mat_poo_gas",
+    "type": "gas",
+    "translated_name": "Nauseating gas"
+  },
+  {
+    "name": "fungal_gas",
+    "id": 372,
+    "ui_name": "$mat_fungal_gas",
+    "type": "gas",
+    "translated_name": "fungal gas"
+  },
+  {
+    "name": "poison_gas",
+    "id": 373,
+    "ui_name": "$mat_poison_gas",
+    "type": "gas",
+    "translated_name": "poison gas"
+  },
+  {
+    "name": "steam_trailer",
+    "id": 374,
+    "ui_name": "$mat_steam",
+    "type": "gas",
+    "translated_name": "steam"
+  },
+  {
+    "name": "smoke_magic",
+    "id": 375,
+    "ui_name": "$mat_smoke_magic",
+    "type": "gas",
+    "translated_name": "smoke"
+  }
+]

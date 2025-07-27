@@ -1,16 +1,45 @@
 ---
 title: Spells' Digging Ability
-draft: true
 ---
 
 <link href="custom.css" rel="stylesheet"></link>
 
-<h1 id="acidTitle" class="bartender-heading-decrypted">Spells' Digging Ability</h1>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+  <h1 id="acidTitle" class="bartender-heading-decrypted" style="margin: 0;">Spells' Digging Ability</h1>
+  <div id="auth-status-container"></div>
+</div>
 <h2>Select a spell and a material to see how effectively the spell can dig through it.</h2>
 
 ```js
-const spells = await FileAttachment("./data/FULL_SPELLS_FINAL.json").json();
-const materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
+const all_spells = await FileAttachment("./data/FULL_SPELLS_FINAL.json").json();
+const all_materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
+
+const authState = await authManager.checkAuth();
+
+const spells =
+  authState.authenticated && authState.isFollower
+    ? all_spells
+    : all_spells.filter((d) => ["SPARK_BOLT", "DIGGING_BOLT"].includes(d.id));
+
+const materials =
+  authState.authenticated && authState.isFollower
+    ? all_materials
+    : all_materials.filter((d) => ["dirt", "rock"].includes(d.id));
+```
+
+```js
+import { createContentNotice } from "./components/contentNotice.js";
+const contentNotice = createContentNotice(authState, {
+  spells: spells.length,
+  materials: materials.length,
+  totalSpells: all_spells.length,
+  totalMaterials: all_materials.length,
+});
+
+contentNotice;
+```
+
+```js
 const mina = {
   img_src: "https://noita-bartender-images.acidflow.stream/images/mina/mina.png",
   img_outline_src: "https://noita-bartender-images.acidflow.stream/images/mina/mina_outline.png",
@@ -20,6 +49,9 @@ const mina = {
 ```js
 import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();
+import { authManager, renderAuthStatus } from "./components/auth.js";
+import { html } from "htl";
+renderAuthStatus();
 ```
 
 ```js
@@ -27,12 +59,11 @@ const groundIgnoringDiggingSpells = spells.filter(
   (d) => "groundPenetrationCoeff" in d && d.groundPenetrationCoeff !== 0 && d.groundPenetrationCoeff !== null
 );
 const spellsWithDiggingTag = spells.filter((d) => d.tags.includes("digging"));
-view(spellsWithDiggingTag);
 ```
 
 ```js
 const resetSearchButton = Inputs.button(
-  htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" />Reset`,
+  html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" />Reset`,
   {
     label: "",
     reduce: () => {
@@ -178,9 +209,19 @@ const spellsTable = Inputs.table(spellsWithDiggingTag, {
     rayEnergy: "Ray Energy",
   },
   format: {
-    combinedSpellName: (d) => htl.html`<a href="${d.url}" target="_blank">${d.name}<br />(${d.id})</a>`,
+    combinedSpellName: (d) =>
+      html`<a
+        href="${d.url}"
+        target="_blank"
+        >${d.name}<br />(${d.id})</a
+      >`,
     image_local: (d) =>
-      htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/spells/${d}" style="image-rendering: pixelated;" width="64" height="auto" />`,
+      html`<img
+        src="https://noita-bartender-images.acidflow.stream/images/spells/${d}"
+        style="image-rendering: pixelated;"
+        width="64"
+        height="auto"
+      />`,
   },
 });
 ```
@@ -211,9 +252,19 @@ const materialsTable = Inputs.table(materialsToShow, {
     durability: "Durability",
   },
   format: {
-    combinedMaterialName: (d) => htl.html`<a href="${d.url}" target="_blank">${d.name}<br/>(<code>${d.id}</code>)</a>`,
+    combinedMaterialName: (d) =>
+      html`<a
+        href="${d.url}"
+        target="_blank"
+        >${d.name}<br />(<code>${d.id}</code>)</a
+      >`,
     image_local: (d) =>
-      htl.html`<img src="${getImagePath(d)}" width=32 height="auto" style="image-rendering: pixelated;" />`,
+      html`<img
+        src="${getImagePath(d)}"
+        width="32"
+        height="auto"
+        style="image-rendering: pixelated;"
+      />`,
   },
 });
 ```
@@ -274,6 +325,8 @@ const plotResult = (() => {
   });
 })();
 ```
+
+${contentNotice}
 
 <div class="grid grid-cols-4 gap-4">
   <div class="card grid-colspan-2">${searchSpells}</div>

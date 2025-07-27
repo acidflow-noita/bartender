@@ -1,25 +1,51 @@
 ---
-title: Durability
-draft: true
+title: Durability (Beta)
 ---
 
 <link href="custom.css" rel="stylesheet"></link>
 
-<h1 id="acidTitle" class="bartender-heading-decrypted">Durability</h1>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+  <h1 id="acidTitle" class="bartender-heading-decrypted" style="margin: 0;">Durability</h1>
+  <div id="auth-status-container"></div>
+</div>
 <h2>Durability determines material's resistance to damage.</h2>
-
-```js
-const materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
-```
 
 ```js
 import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();
+import { materialTypeColors, getSymbolConfig } from "./components/materialTypeStyles.js";
 import { wuoteLogo } from "./components/wuoteLogo.js";
+import { authManager, renderAuthStatus } from "./components/auth.js";
+import { html } from "htl";
+renderAuthStatus();
 ```
 
 ```js
-const distinctDurability = [...new Set(materials.flatMap(({ durability }) => durability))].filter((d) => d !== null);
+const authState = await authManager.checkAuth();
+```
+
+```js
+const all_materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
+const materials =
+  authState.authenticated && authState.isFollower
+    ? all_materials
+    : all_materials.filter((d) => ["snow", "rock_static", "sand_static", "wood_static"].includes(d.id));
+```
+
+```js
+import { createContentNotice } from "./components/contentNotice.js";
+const contentNotice = createContentNotice(authState, {
+  materials: materials.length,
+  totalMaterials: all_materials.length,
+});
+
+contentNotice;
+```
+
+```js
+const distinctDurability = [...new Set(materials.flatMap(({ durability }) => durability))].filter(
+  (d) => d !== null && d > 0
+);
 ```
 
 ```js
@@ -29,49 +55,12 @@ const tableImageWidth = 32;
 ```js
 const materialsWithCombined = materials.map((material) => ({
   ...material,
-  combinedName: { name: material.name, id: material.id, wikipage: material.wikipage },
+  combinedName: { name: material.name, id: material.id, wikipage: material.wikipage, type: material.type },
 }));
 ```
 
 ```js
-const durabilityPlot = Plot.plot({
-  inset: 20,
-  // width: 500,
-  marks: [
-    Plot.image(
-      materials,
-      Plot.dodgeX({
-        anchor: "left",
-        y: "durability",
-        strokeWidth: 40,
-        r: (d) => d.durability * 5,
-        src: (d) => `https://noita-bartender-images.acidflow.stream/images/materials/${d.image_local}`,
-        target: "_blank",
-        href: (d) => `https://noita.wiki.gg/wiki/${d.wikipage}`,
-        tip: true,
-        channels: { durability: "durability", name: "name", id: "id" },
-      })
-    ),
-    Plot.frame(),
-    Plot.image(wuoteLogo, {
-      frameAnchor: "top-right",
-      dx: -70,
-      dy: 0,
-      width: 100,
-      src: "logo_with_card_bg",
-    }),
-  ],
-});
-```
-
-```js
-const durabilityPlot33 = Plot.auto(materials, {
-  filter: (d) => d.durability !== null,
-  x: "type",
-  y: "durability",
-  tip: true,
-  channels: { durability: "durability", name: "type", id: "id" },
-}).plot();
+const materialTypes = [...new Set(materials.map((d) => d.type).filter(Boolean))];
 ```
 
 ```js
@@ -86,12 +75,27 @@ const durabilitySelectorValue = Generators.input(durabilitySelectorInput);
 ```
 
 ```js
-const durabilityTable = Inputs.table(
-  materialsWithCombined.filter((d) => d.durability !== null && d.durability <= durabilitySelectorValue),
+const resetButton = Inputs.button(
+  html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" />Reset`,
   {
+    label: "",
+    reduce: () => {
+      durabilitySelectorInput.value = Math.max(...distinctDurability);
+      durabilitySelectorInput.dispatchEvent(new Event("input"));
+      return null;
+    },
+  }
+);
+```
+
+```js
+function durabilityTable(materials, width) {
+  const filteredMaterials = materials.filter((d) => d.durability !== null && d.durability <= durabilitySelectorValue);
+
+  return Inputs.table(filteredMaterials, {
     width: {
-      durability: 60,
-      combinedName: 250,
+      durability: 70,
+      combinedName: Math.min(250, width * 0.4),
     },
     align: {
       durability: "right",
@@ -101,6 +105,7 @@ const durabilityTable = Inputs.table(
     multiple: false,
     sort: "durability",
     reverse: true,
+    rows: width < 600 ? 10 : 15,
     columns: ["durability", "combinedName", "image_local", "icon_local", "pouch_local"],
     header: {
       combinedName: "Material",
@@ -117,24 +122,113 @@ const durabilityTable = Inputs.table(
             }"><code>${id}</code></span><span class="material-name-text">)</span>
       </a>`,
       image_local: (d) =>
-        htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/materials/${d}" width=${tableImageWidth} height="auto" style="image-rendering: pixelated; vertical-align: middle;" />`,
+        html`<img
+          src="https://noita-bartender-images.acidflow.stream/images/materials/${d}"
+          width=${tableImageWidth}
+          height="auto"
+          style="image-rendering: pixelated; vertical-align: middle;"
+        />`,
       icon_local: (d) =>
-        htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/materials/${d}" width=${tableImageWidth} height="auto" style="image-rendering: pixelated; vertical-align: middle;" />`,
+        html`<img
+          src="https://noita-bartender-images.acidflow.stream/images/materials/${d}"
+          width=${tableImageWidth}
+          height="auto"
+          style="image-rendering: pixelated; vertical-align: middle;"
+        />`,
       pouch_local: (d) =>
-        htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/materials/${d}" width=${tableImageWidth} height="auto" style="image-rendering: pixelated; vertical-align: middle;" />`,
+        html`<img
+          src="https://noita-bartender-images.acidflow.stream/images/materials/${d}"
+          width=${tableImageWidth}
+          height="auto"
+          style="image-rendering: pixelated; vertical-align: middle;"
+        />`,
     },
-  }
-);
+  });
+}
 ```
 
-<div class="grid grid-cols-4">
-  <div class="card grid-rowspan-1 grid-colspan-2"><h2>Durability</h2>${durabilityPlot}</div>
-<div class="card grid-colspan-2 grid-rowspan-1" style="padding: 0">
-  <div style="padding: 1rem"><h2>Durability</h2>${durabilitySelectorInput}</div>
-  ${durabilityTable}
-</div>
-</div>
+```js
+function durabilityPlot(materials, width) {
+  const isMobile = width < 600;
+  const plotHeight = isMobile ? 400 : 500;
+  const fontSize = isMobile ? 10 : 12;
+
+  const filteredMaterials = materials.filter((d) => d.durability !== null && d.durability > 0);
+
+  return Plot.plot({
+    symbol: { legend: true },
+    width,
+    height: plotHeight,
+    marginLeft: 60,
+    marginBottom: 60,
+    marginTop: 40,
+    marginRight: 40,
+    y: {
+      label: "Durability",
+      grid: true,
+      type: "pow",
+      exponent: 1 / 3,
+      nice: true,
+      domain: [Math.min(...distinctDurability), Math.max(...distinctDurability)],
+    },
+    color: {
+      domain: materialTypeColors.map((d) => d.type), // Extract the types
+      range: materialTypeColors.map((d) => d.color), // Extract the colors
+    },
+    symbol: {
+      legend: true,
+      ...getSymbolConfig(),
+    },
+    marks: [
+      Plot.dot(
+        filteredMaterials.filter((d) => d.durability <= durabilitySelectorValue),
+        Plot.dodgeX({
+          y: "durability",
+          fill: "type",
+          symbol: "type",
+          r: isMobile ? 3 : 4,
+          padding: 2,
+          stroke: "white",
+          strokeWidth: 0.5,
+          tip: {
+            lineWidth: 300,
+            textPadding: 12,
+            pointerSize: 8,
+            fontSize: fontSize,
+            lineHeight: 1.1,
+            dx: 0,
+            dy: -10,
+            format: { opacity: false, fill: false, fy: false, stroke: false },
+          },
+          title: (d) =>
+            [`Material: ${d.name}`, `ID: ${d.id}`, `Type: ${d.type}`, `Durability: ${d.durability}`].join("\n"),
+        })
+      ),
+      Plot.frame(),
+    ],
+  });
+}
+```
+
+${contentNotice}
 
 <div class="grid grid-cols-4">
-  <div class="card grid-rowspan-1 grid-colspan-2"><h2>Durability</h2>${durabilityPlot33}</div>
+  <div class="card grid-colspan-2 grid-rowspan-1" style="padding: 0;">
+    <div style="padding: 1rem;">
+      <h2>Durability Filter</h2>
+      <div style="display: flex; gap: 1rem; align-items: flex-end; margin-bottom: 1rem; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 200px;">
+          ${durabilitySelectorInput}
+        </div>
+        <div>
+          ${resetButton}
+        </div>
+      </div>
+    </div>
+    ${resize((width) => durabilityTable(materialsWithCombined, width))}
+  </div>
+  <div class="card grid-colspan-2 grid-rowspan-1">
+    <h2>Durability for materials with durability higher than 0</h2>
+    ${resize((width) => durabilityPlot(materials, width))}
+  </div>
 </div>

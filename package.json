@@ -11,7 +11,8 @@
   "dependencies": {
     "@observablehq/framework": "^1.13.3",
     "choices.js": "^11.1.0",
-    "gsap": "^3.13.0"
+    "gsap": "^3.13.0",
+    "htl": "^0.3.1"
   },
   "devDependencies": {
     "fast-xml-parser": "^5.2.0",

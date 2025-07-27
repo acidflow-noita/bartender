@@ -1,0 +1,25 @@
+als{
+  "name": "bartender-proxy",
+  "main": "src/index.js",
+  "compatibility_date": "2024-07-22",
+  "routes": [
+    {
+      "pattern": "bartender.runfast.stream/*",
+      "zone_name": "runfast.stream"
+    }
+  ],
+  "env": {
+    "production": {
+      "name": "bartender-proxy",
+      "routes": [
+        {
+          "pattern": "bartender.runfast.stream/*",
+          "zone_name": "runfast.stream"
+        }
+      ]
+    },
+    "development": {
+      "name": "bartender-proxy-dev"
+    }
+  }
+}

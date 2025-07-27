@@ -1,0 +1,128 @@
+[
+  {
+    "name": "fire",
+    "id": 1,
+    "ui_name": "$mat_fire",
+    "type": "fire",
+    "translated_name": "fire"
+  },
+  {
+    "name": "spark",
+    "id": 2,
+    "ui_name": "$mat_spark",
+    "type": "fire",
+    "translated_name": "spark"
+  },
+  {
+    "name": "spark_electric",
+    "id": 3,
+    "ui_name": "$mat_spark_electric",
+    "type": "fire",
+    "translated_name": "electric spark"
+  },
+  {
+    "name": "flame",
+    "id": 4,
+    "ui_name": "$mat_flame",
+    "type": "fire",
+    "translated_name": "fire"
+  },
+  {
+    "name": "fire_blue",
+    "id": 224,
+    "ui_name": "$mat_fire_blue",
+    "type": "fire",
+    "translated_name": "fire"
+  },
+  {
+    "name": "spark_green",
+    "id": 227,
+    "ui_name": "$mat_spark_green",
+    "type": "fire",
+    "translated_name": "spark"
+  },
+  {
+    "name": "spark_green_bright",
+    "id": 232,
+    "ui_name": "$mat_spark_green",
+    "type": "fire",
+    "translated_name": "spark"
+  },
+  {
+    "name": "spark_blue",
+    "id": 244,
+    "ui_name": "$mat_spark_blue",
+    "type": "fire",
+    "translated_name": "spark"
+  },
+  {
+    "name": "spark_blue_dark",
+    "id": 245,
+    "ui_name": "$mat_spark_blue",
+    "type": "fire",
+    "translated_name": "spark"
+  },
+  {
+    "name": "spark_red",
+    "id": 246,
+    "ui_name": "$mat_spark_red",
+    "type": "fire",
+    "translated_name": "spark"
+  },
+  {
+    "name": "spark_red_bright",
+    "id": 247,
+    "ui_name": "$mat_spark_red",
+    "type": "fire",
+    "translated_name": "spark"
+  },
+  {
+    "name": "spark_white",
+    "id": 248,
+    "ui_name": "$mat_spark_white",
+    "type": "fire",
+    "translated_name": "spark"
+  },
+  {
+    "name": "spark_white_bright",
+    "id": 249,
+    "ui_name": "$mat_spark_white",
+    "type": "fire",
+    "translated_name": "spark"
+  },
+  {
+    "name": "spark_yellow",
+    "id": 250,
+    "ui_name": "$mat_spark_yellow",
+    "type": "fire",
+    "translated_name": "spark"
+  },
+  {
+    "name": "spark_purple",
+    "id": 251,
+    "ui_name": "$mat_spark_purple",
+    "type": "fire",
+    "translated_name": "spark"
+  },
+  {
+    "name": "spark_purple_bright",
+    "id": 252,
+    "ui_name": "$mat_spark_purple",
+    "type": "fire",
+    "translated_name": "spark"
+  },
+  {
+    "name": "spark_player",
+    "id": 253,
+    "ui_name": "$mat_spark_player",
+    "type": "fire",
+    "translated_name": "spark"
+  },
+  {
+    "name": "spark_teal",
+    "id": 254,
+    "ui_name": "$mat_spark_teal",
+    "type": "fire",
+    "translated_name": "spark"
+  }
+]
