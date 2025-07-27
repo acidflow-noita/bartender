@@ -1,5 +1,5 @@
 ---
-title: Hardness
+title: Hardness (Beta)
 ---
 
 <link href="custom.css" rel="stylesheet"></link>
@@ -61,6 +61,17 @@ const minHardness = d3.min(
 const maxHardness = d3.max(
   materials.filter((m) => m.hardness !== null),
   (d) => d.hardness
+);
+```
+
+```js
+const minDurability = d3.min(
+  materials.filter((m) => m.durability !== null),
+  (d) => d.durability
+);
+const maxDurability = d3.max(
+  materials.filter((m) => m.durability !== null),
+  (d) => d.durability
 );
 ```
 
@@ -182,21 +193,19 @@ function hardnessPlot(materials, width) {
     marginTop: 40,
     marginRight: 40,
     x: {
-      type: "log",
+      type: "pow",
+      exponent: 1 / 3,
+      nice: true,
       label: "Durability",
-      domain: [
-        0.1,
-        d3.max(
-          materials.filter((d) => d.durability !== null),
-          (d) => d.durability
-        ),
-      ],
+      domain: [minDurability, maxDurability],
       grid: true,
     },
     y: {
-      type: "log",
+      type: "pow",
+      exponent: 1 / 3,
+      nice: true,
       label: "Hardness",
-      domain: [1, maxHardness],
+      domain: [minHardness, maxHardness],
       grid: true,
     },
     color: {
@@ -214,6 +223,7 @@ function hardnessPlot(materials, width) {
           x: "durability",
           y: "hardness",
           fill: "type",
+          symbol: "type",
           r: isMobile ? 3 : 4,
           opacity: (d) => (d.hardness <= hardnessSelectorValue ? 0.8 : 0.2),
           tip: {

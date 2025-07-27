@@ -1,5 +1,5 @@
 ---
-title: Density
+title: Density (Beta)
 ---
 
 <link href="custom.css" rel="stylesheet" />
@@ -8,7 +8,7 @@ title: Density
   <h1 id="acidTitle" class="bartender-heading-decrypted" style="margin: 0;">Density</h1>
   <div id="auth-status-container"></div>
 </div>
-<h2>Liquids with different density values form layers.</h2>
+<h2>Liquids with different density values form layers. Some non-liquids have density too.</h2>
 
 ```js
 const all_materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
@@ -35,8 +35,8 @@ const materials =
     ? all_materials
     : all_materials.filter((d) => {
         // For non-followers, show common liquids that definitely have density values
-        const allowedIds = ["acid", "oil", "blood", "lava", "toxic_sludge"];
-        return allowedIds.includes(d.id) && d.type === "Liquid" && d.density !== null;
+        const allowedIds = ["acid", "oil", "blood", "lava", "snow", "toxic_sludge"];
+        return allowedIds.includes(d.id) && d.density !== null;
       });
 
 console.log("All materials count:", all_materials.length);
@@ -61,12 +61,12 @@ const tableImageWidth = 32;
 ```js
 const distinctDensity =
   materials && materials.length > 0
-    ? [...new Set(materials.filter((d) => d.type === "Liquid" && d.density !== null).map((d) => d.density))]
+    ? [...new Set(materials.filter((d) => d.density !== null).map((d) => d.density))]
     : [];
 
 console.log("Materials count:", materials.length);
 console.log("Liquid materials:", materials.filter((d) => d.type === "Liquid").length);
-console.log("Liquids with density:", materials.filter((d) => d.type === "Liquid" && d.density !== null).length);
+console.log("Liquids with density:", materials.filter((d) => d.density !== null).length);
 console.log("Distinct density values:", distinctDensity.length);
 console.log("Sample densities:", distinctDensity.slice(0, 5));
 ```

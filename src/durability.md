@@ -1,5 +1,5 @@
 ---
-title: Durability
+title: Durability (Beta)
 ---
 
 <link href="custom.css" rel="stylesheet"></link>
@@ -168,8 +168,10 @@ function durabilityPlot(materials, width) {
     y: {
       label: "Durability",
       grid: true,
-      type: "log",
-      domain: [0.1, Math.max(...distinctDurability)],
+      type: "pow",
+      exponent: 1 / 3,
+      nice: true,
+      domain: [Math.min(...distinctDurability), Math.max(...distinctDurability)],
     },
     color: {
       domain: materialTypeColors.map((d) => d.type), // Extract the types
