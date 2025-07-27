@@ -187,6 +187,7 @@ function durabilityPlot(materials, width) {
           fill: "type",
           symbol: "type",
           r: isMobile ? 3 : 4,
+          opacity: (d) => (d.durability <= durabilitySelectorValue ? 0.8 : 0.1),
           padding: 2,
           stroke: "white",
           strokeWidth: 0.5,

@@ -61,7 +61,7 @@ const tableImageWidth = 32;
 ```js
 const distinctDensity =
   materials && materials.length > 0
-    ? [...new Set(materials.filter((d) => d.density !== null).map((d) => d.density))]
+    ? [...new Set(materials.filter((d) => d.density !== null && d.type === "Liquid").map((d) => d.density))]
     : [];
 
 console.log("Materials count:", materials.length);
@@ -109,7 +109,7 @@ const materialsWithCombined = materials.map((material) => ({
 
 function densityTable(materials, width) {
   const filteredMaterials = materials.filter(
-    (d) => d.density !== null && d.density <= liquidsDensitySelectorValue && d.type == "Liquid"
+    (d) => d.density !== null && d.density <= liquidsDensitySelectorValue && d.type === "Liquid"
   );
 
   console.log("Table filtered materials:", filteredMaterials.length);
@@ -180,7 +180,7 @@ function densityPlot(materials, width) {
   const fontSize = isMobile ? 10 : 12;
 
   const liquidsData = materials.filter(
-    (d) => d.density !== null && d.density > 0 && d.name && d.image_local && d.type == "Liquid"
+    (d) => d.density !== null && d.density > 0 && d.name && d.image_local && d.type === "Liquid"
   );
 
   if (liquidsData.length === 0) {
