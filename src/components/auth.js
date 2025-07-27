@@ -4,7 +4,15 @@
 
 import { html } from "htl";
 
-const AUTH_API_BASE = "https://bartender-auth-test.wuote.workers.dev";
+// Environment-aware auth API base URL
+const AUTH_API_BASE = (() => {
+  // Check if we're in development mode
+  if (typeof window !== "undefined" && window.location.hostname === "localhost") {
+    return "https://bartender-auth-test.wuote.workers.dev";
+  }
+  // Production
+  return "https://bartender-auth.wuote.workers.dev";
+})();
 
 export class AuthManager {
   constructor() {
