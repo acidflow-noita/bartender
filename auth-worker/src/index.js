@@ -35,9 +35,6 @@ export default {
         case "/api/protected-content":
           return handleProtectedContent(request, env);
 
-        case "/auth/session":
-          return handleSessionExchange(request, env);
-
         default:
           return new Response("Not Found", { status: 404 });
       }
@@ -59,8 +56,7 @@ async function initializeDatabase(env) {
         username TEXT NOT NULL,
         is_follower INTEGER NOT NULL,
         created_at INTEGER NOT NULL,
-        expires_at INTEGER NOT NULL,
-        temp_token TEXT
+        expires_at INTEGER NOT NULL
       )
     `
     ).run();
@@ -225,32 +221,32 @@ async function handleCallback(request, env) {
 
     // Create session (expires in 24 hours)
     const sessionId = crypto.randomUUID();
-    const tempToken = crypto.randomUUID();
     const expiresAt = Date.now() + 24 * 60 * 60 * 1000;
 
     await env.AUTH_DB.prepare(
       `
-      INSERT INTO sessions (id, user_id, username, is_follower, created_at, expires_at, temp_token) 
-      VALUES (?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO sessions (id, user_id, username, is_follower, created_at, expires_at) 
+      VALUES (?, ?, ?, ?, ?, ?)
     `
     )
-      .bind(sessionId, user.id, user.display_name, isFollower ? 1 : 0, Date.now(), expiresAt, tempToken)
+      .bind(sessionId, user.id, user.display_name, isFollower ? 1 : 0, Date.now(), expiresAt)
       .run();
 
     // Clean up state
     await env.AUTH_DB.prepare("DELETE FROM oauth_states WHERE state = ?").bind(state).run();
 
     // Redirect with session cookie
-    // For cross-domain cookies, we need SameSite=None and Secure
     const cookieOptions = env.MAIN_SITE_URL.includes("localhost")
       ? `bartender_session=${sessionId}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400`
-      : `bartender_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=86400`;
+      : `bartender_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=86400`;
 
-    console.log("Redirecting to main site with temp token");
+    console.log("Redirecting to main site with session cookie");
+
     return new Response(null, {
       status: 302,
       headers: {
-        Location: `${env.MAIN_SITE_URL || "https://bartender.runfast.stream"}/?auth=success&token=${tempToken}`,
+        Location: `${env.MAIN_SITE_URL || "https://bartender.runfast.stream"}/?auth=success`,
+        "Set-Cookie": cookieOptions,
       },
     });
   } catch (error) {
