@@ -12,9 +12,9 @@ export default {
       name: "Materials properties",
       pages: [
         // { name: "Materials Explorer", path: "/materials" },
-        { name: "Hardness (Beta)", path: "/hardness" },
-        { name: "Density (Beta)", path: "/density" },
-        { name: "Durability (Beta)", path: "/durability" },
+        { name: "Hardness (β)", path: "/hardness" },
+        { name: "Density (β)", path: "/density" },
+        { name: "Durability (β)", path: "/durability" },
       ],
     },
     // {

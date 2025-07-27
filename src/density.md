@@ -1,11 +1,11 @@
 ---
-title: Density (Beta)
+title: Density (β)
 ---
 
 <link href="custom.css" rel="stylesheet" />
 
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-  <h1 id="acidTitle" class="bartender-heading-decrypted" style="margin: 0;">Density</h1>
+  <h1 id="acidTitle" class="bartender-heading-decrypted" style="margin: 0;">Density (β)</h1>
   <div id="auth-status-container"></div>
 </div>
 <h2>Liquids with different density values form layers. Some non-liquids have density too.</h2>

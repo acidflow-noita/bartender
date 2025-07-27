@@ -1,11 +1,11 @@
 ---
-title: Hardness (Beta)
+title: Hardness (β)
 ---
 
 <link href="custom.css" rel="stylesheet"></link>
 
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-  <h1 id="acidTitle" class="bartender-heading-decrypted" style="margin: 0;">Hardness</h1>
+  <h1 id="acidTitle" class="bartender-heading-decrypted" style="margin: 0;">Hardness (β)</h1>
   <div id="auth-status-container"></div>
 </div>
 <h2>Hardness determines resistance to damage, secondarily to <a href="durability">durability</a>.</h2>

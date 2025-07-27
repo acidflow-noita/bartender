@@ -5,7 +5,7 @@ title: Durability (Beta)
 <link href="custom.css" rel="stylesheet"></link>
 
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-  <h1 id="acidTitle" class="bartender-heading-decrypted" style="margin: 0;">Durability</h1>
+  <h1 id="acidTitle" class="bartender-heading-decrypted" style="margin: 0;">Durability (β)</h1>
   <div id="auth-status-container"></div>
 </div>
 <h2>Durability determines material's resistance to damage.</h2>
