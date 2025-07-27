@@ -160,8 +160,8 @@ export class AuthGuard {
       </div>`;
     }
 
-    // User is authenticated and authorized, return null to continue
-    return null;
+    // User is authenticated and authorized, return empty string to continue
+    return "";
   }
 }
 
