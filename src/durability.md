@@ -1,5 +1,5 @@
 ---
-title: Durability (Beta)
+title: Durability (β)
 ---
 
 <link href="custom.css" rel="stylesheet"></link>
