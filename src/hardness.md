@@ -195,13 +195,16 @@ function hardnessPlot(materials, width) {
     y: {
       type: "log",
       label: "Hardness",
-      domain: [0.1, maxHardness],
+      domain: [1, maxHardness],
       grid: true,
     },
     color: {
+      domain: materialTypeColors.map((d) => d.type),
+      range: materialTypeColors.map((d) => d.color),
+    },
+    symbol: {
       legend: true,
-      domain: materialTypes,
-      range: materialTypeColors,
+      ...getSymbolConfig(),
     },
     marks: [
       Plot.dot(
