@@ -205,7 +205,10 @@ function densityPlot(materials, width) {
       reverse: true,
       label: "Density",
       grid: true,
-      domain: distinctDensity.length > 0 ? [0, Math.max(...distinctDensity)] : [0, 10],
+      type: "pow",
+      exponent: 1 / 3,
+      nice: true,
+      domain: [Math.min(...distinctDensity), Math.max(...distinctDensity)],
     },
     color: {
       domain: materialTypeColors.map((d) => d.type),

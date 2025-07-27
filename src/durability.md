@@ -43,7 +43,9 @@ contentNotice;
 ```
 
 ```js
-const distinctDurability = [...new Set(materials.flatMap(({ durability }) => durability))].filter((d) => d !== null);
+const distinctDurability = [...new Set(materials.flatMap(({ durability }) => durability))].filter(
+  (d) => d !== null && d > 0
+);
 ```
 
 ```js
@@ -151,7 +153,7 @@ function durabilityPlot(materials, width) {
   const plotHeight = isMobile ? 400 : 500;
   const fontSize = isMobile ? 10 : 12;
 
-  const filteredMaterials = materials.filter((d) => d.durability !== null);
+  const filteredMaterials = materials.filter((d) => d.durability !== null && d.durability > 0);
 
   return Plot.plot({
     symbol: { legend: true },
@@ -161,10 +163,6 @@ function durabilityPlot(materials, width) {
     marginBottom: 60,
     marginTop: 40,
     marginRight: 40,
-    x: {
-      label: "Material Type",
-      tickRotate: isMobile ? 45 : 0,
-    },
     y: {
       label: "Durability",
       grid: true,
@@ -185,7 +183,6 @@ function durabilityPlot(materials, width) {
       Plot.dot(
         filteredMaterials.filter((d) => d.durability <= durabilitySelectorValue),
         Plot.dodgeX({
-          x: "type",
           y: "durability",
           fill: "type",
           symbol: "type",
@@ -231,7 +228,7 @@ ${contentNotice}
     ${resize((width) => durabilityTable(materialsWithCombined, width))}
   </div>
   <div class="card grid-colspan-2 grid-rowspan-1">
-    <h2>Durability by Type</h2>
+    <h2>Durability for materials with durability higher than 0</h2>
     ${resize((width) => durabilityPlot(materials, width))}
   </div>
 </div>
