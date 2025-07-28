@@ -38,12 +38,21 @@ export class AuthManager {
   async checkAuth() {
     try {
       console.log("Checking auth...");
+
+      // Get session from localStorage for cross-domain support
+      const sessionId = localStorage.getItem("bartender_session");
+      const headers = {
+        "Content-Type": "application/json",
+      };
+
+      if (sessionId) {
+        headers["Authorization"] = `Bearer ${sessionId}`;
+      }
+
       const response = await fetch(`${AUTH_API_BASE}/auth/check`, {
         credentials: "include",
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers,
       });
 
       console.log("Auth check response:", response.status, response.ok);
@@ -224,9 +233,17 @@ export async function renderAuthStatus() {
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get("auth") === "success") {
     console.log("Auth success detected in URL");
-    // Remove the parameter from URL
+
+    const sessionId = urlParams.get("session");
+    if (sessionId) {
+      console.log("Session ID found in URL, storing in localStorage");
+      localStorage.setItem("bartender_session", sessionId);
+    }
+
+    // Remove the parameters from URL
     const newUrl = new URL(window.location);
     newUrl.searchParams.delete("auth");
+    newUrl.searchParams.delete("session");
     window.history.replaceState({}, "", newUrl);
 
     // Force a re-check of auth status after callback

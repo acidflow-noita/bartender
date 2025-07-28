@@ -241,11 +241,11 @@ async function handleCallback(request, env) {
       ? `bartender_session=${sessionId}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400`
       : `bartender_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=86400`;
 
-    console.log("Redirecting to main site with session cookie");
+    console.log("Redirecting to main site with session cookie and URL parameter");
     return new Response(null, {
       status: 302,
       headers: {
-        Location: `${env.MAIN_SITE_URL || "https://bartender.runfast.stream"}/?auth=success`,
+        Location: `${env.MAIN_SITE_URL || "https://bartender.runfast.stream"}/?auth=success&session=${sessionId}`,
         "Set-Cookie": cookieOptions,
       },
     });
@@ -256,9 +256,19 @@ async function handleCallback(request, env) {
 }
 
 async function handleAuthCheck(request, env) {
-  const sessionId = getSessionFromRequest(request);
+  let sessionId = getSessionFromRequest(request);
+
+  // Also check Authorization header for cross-domain requests
+  if (!sessionId) {
+    const authHeader = request.headers.get("Authorization");
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      sessionId = authHeader.substring(7);
+    }
+  }
+
   console.log("Auth check - sessionId:", sessionId);
   console.log("Auth check - cookies:", request.headers.get("Cookie"));
+  console.log("Auth check - authorization:", request.headers.get("Authorization"));
 
   if (!sessionId) {
     console.log("No session ID found");
