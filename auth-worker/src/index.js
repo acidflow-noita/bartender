@@ -235,10 +235,17 @@ async function handleCallback(request, env) {
     // Clean up state
     await env.AUTH_DB.prepare("DELETE FROM oauth_states WHERE state = ?").bind(state).run();
 
-    // Redirect with session cookie
-    const cookieOptions = env.MAIN_SITE_URL.includes("localhost")
-      ? `bartender_session=${sessionId}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400`
-      : `bartender_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=86400`;
+    // Redirect with session cookie - handle different environments
+    let cookieOptions;
+    if (env.MAIN_SITE_URL.includes("localhost")) {
+      cookieOptions = `bartender_session=${sessionId}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400`;
+    } else if (env.MAIN_SITE_URL.includes("workers.dev")) {
+      // For workers.dev domains, don't set domain to allow cross-subdomain cookies
+      cookieOptions = `bartender_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=86400`;
+    } else {
+      // For custom domains like runfast.stream
+      cookieOptions = `bartender_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=86400`;
+    }
 
     console.log("Redirecting to main site with session cookie");
     return new Response(null, {
@@ -327,10 +334,13 @@ async function handleLogout(request, env) {
     allowedOrigin
   );
 
-  response.headers.set(
-    "Set-Cookie",
-    "bartender_session=; Path=/; HttpOnly; Secure; SameSite=None; Domain=.runfast.stream; Max-Age=0"
-  );
+  // Set cookie expiration based on environment
+  const cookieOptions =
+    env.MAIN_SITE_URL.includes("localhost") || env.MAIN_SITE_URL.includes("workers.dev")
+      ? "bartender_session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0"
+      : "bartender_session=; Path=/; HttpOnly; Secure; SameSite=Lax; Domain=.runfast.stream; Max-Age=0";
+
+  response.headers.set("Set-Cookie", cookieOptions);
 
   return response;
 }
@@ -417,9 +427,14 @@ async function handleSessionExchange(request, env) {
   await env.AUTH_DB.prepare("UPDATE sessions SET temp_token = NULL WHERE id = ?").bind(session.id).run();
 
   const allowedOrigin = env.MAIN_SITE_URL || "https://bartender.runfast.stream";
-  const cookieOptions = env.MAIN_SITE_URL.includes("localhost")
-    ? `bartender_session=${session.id}; Path=/; SameSite=Lax; Max-Age=86400`
-    : `bartender_session=${session.id}; Path=/; Secure; SameSite=Lax; Max-Age=86400`;
+  let cookieOptions;
+  if (env.MAIN_SITE_URL.includes("localhost")) {
+    cookieOptions = `bartender_session=${session.id}; Path=/; SameSite=Lax; Max-Age=86400`;
+  } else if (env.MAIN_SITE_URL.includes("workers.dev")) {
+    cookieOptions = `bartender_session=${session.id}; Path=/; Secure; SameSite=None; Max-Age=86400`;
+  } else {
+    cookieOptions = `bartender_session=${session.id}; Path=/; Secure; SameSite=Lax; Max-Age=86400`;
+  }
 
   const response = addCORSHeaders(
     new Response(JSON.stringify({ success: true }), {

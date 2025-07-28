@@ -13,5 +13,11 @@
       "pattern": "bartender.runfast.stream",
       "custom_domain": true
     }
-  ]
+  ],
+  "env": {
+    "test": {
+      "name": "auth-test-bartender",
+      "routes": []
+    }
+  }
 }

@@ -6,11 +6,24 @@ import { html } from "htl";
 
 // Environment-aware auth API base URL
 const AUTH_API_BASE = (() => {
-  // Check if we're in development mode
-  if (typeof window !== "undefined" && window.location.hostname === "localhost") {
-    return "https://bartender-auth-test.wuote.workers.dev";
+  if (typeof window !== "undefined") {
+    const hostname = window.location.hostname;
+
+    // Local development (localhost:3000) - uses test auth worker
+    if (hostname === "localhost") {
+      return "https://bartender-auth-test.wuote.workers.dev";
+    }
+
+    // Dev/test environment (auth-test-bartender.wuote.workers.dev) - uses test auth worker
+    if (hostname.includes("auth-test-bartender")) {
+      return "https://bartender-auth-test.wuote.workers.dev";
+    }
+
+    // Production (bartender.runfast.stream) - uses production auth worker
+    // Falls through to default
   }
-  // Production
+
+  // Production default - production auth worker
   return "https://bartender-auth.wuote.workers.dev";
 })();
 
@@ -28,37 +41,6 @@ export class AuthManager {
   async checkAuth() {
     try {
       console.log("Checking auth...");
-
-      // For cross-domain, check localStorage first
-      const storedSession = localStorage.getItem("bartender_session");
-      const storedExpires = localStorage.getItem("bartender_session_expires");
-
-      if (storedSession && storedExpires && Date.now() < parseInt(storedExpires)) {
-        // Use stored session for cross-domain
-        const response = await fetch(`${AUTH_API_BASE}/auth/check`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${storedSession}`,
-          },
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          console.log("Auth data received from localStorage session:", data);
-
-          if (data.username && data.username.toLowerCase() === "wuote") {
-            data.isFollower = true;
-            console.log("Granting full access to wuote");
-          }
-
-          this.authState = { ...data, loading: false };
-          this.notifyListeners();
-          return this.authState;
-        }
-      }
-
-      // Fallback to cookie-based auth
       const response = await fetch(`${AUTH_API_BASE}/auth/check`, {
         credentials: "include",
         method: "GET",
@@ -246,18 +228,9 @@ export async function renderAuthStatus() {
   if (urlParams.get("auth") === "success") {
     console.log("Auth success detected in URL");
 
-    // Set session from URL parameter
-    const sessionId = urlParams.get("session");
-    if (sessionId) {
-      console.log("Setting session from URL parameter");
-      localStorage.setItem("bartender_session", sessionId);
-      localStorage.setItem("bartender_session_expires", Date.now() + 24 * 60 * 60 * 1000);
-    }
-
-    // Remove the parameters from URL
+    // Remove the parameter from URL
     const newUrl = new URL(window.location);
     newUrl.searchParams.delete("auth");
-    newUrl.searchParams.delete("session");
     window.history.replaceState({}, "", newUrl);
 
     // Force a re-check of auth status after callback
