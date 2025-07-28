@@ -38,8 +38,6 @@ const contentNotice = createContentNotice(authState, {
   materials: materials.length,
   totalMaterials: all_materials.length,
 });
-
-contentNotice;
 ```
 
 ```js

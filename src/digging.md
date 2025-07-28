@@ -35,8 +35,6 @@ const contentNotice = createContentNotice(authState, {
   totalSpells: all_spells.length,
   totalMaterials: all_materials.length,
 });
-
-contentNotice;
 ```
 
 ```js
