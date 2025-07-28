@@ -181,13 +181,13 @@ function durabilityPlot(materials, width) {
     },
     marks: [
       Plot.dot(
-        filteredMaterials.filter((d) => d.durability <= durabilitySelectorValue),
+        filteredMaterials,
         Plot.dodgeX({
           y: "durability",
           fill: "type",
           symbol: "type",
-          r: isMobile ? 3 : 4,
-          opacity: (d) => (d.durability <= durabilitySelectorValue ? 0.8 : 0.1),
+          r: isMobile ? 4 : 6,
+          opacity: (d) => (d.durability <= durabilitySelectorValue ? 1 : 0.1),
           padding: 2,
           stroke: "white",
           strokeWidth: 0.5,

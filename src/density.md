@@ -220,7 +220,7 @@ function densityPlot(materials, width) {
     },
     marks: [
       Plot.dot(
-        filteredLiquids,
+        liquidsData,
         Plot.dodgeX({
           y: "density",
           fill: "type",
@@ -229,6 +229,7 @@ function densityPlot(materials, width) {
           padding: 2,
           stroke: "white",
           strokeWidth: 0.5,
+          opacity: (d) => (d.density <= liquidsDensitySelectorValue ? 1 : 0.1),
           tip: {
             lineWidth: 300,
             textPadding: 12,

@@ -228,8 +228,8 @@ function hardnessPlot(materials, width) {
           y: "hardness",
           fill: "type",
           symbol: "type",
-          r: isMobile ? 3 : 4,
-          opacity: (d) => (d.hardness <= hardnessSelectorValue ? 0.8 : 0.1),
+          r: isMobile ? 4 : 6,
+          opacity: (d) => (d.hardness <= hardnessSelectorValue ? 1 : 0.1),
           tip: {
             lineWidth: 300,
             textPadding: 12,
