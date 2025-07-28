@@ -97,7 +97,10 @@ const materialTypesPlot = Plot.plot({
           title: (d) => {
             const typeCount = materials.filter((m) => (m.type || "N/A") === (d.type || "N/A")).length;
             const percentage = ((typeCount / materials.length) * 100).toFixed(1);
-            return [`Material Type: ${d.type || "N/A"}`, `Percentage of total: ${percentage}%`].join("\n\n");
+            return [
+              `Material Type: ${d.type || "N/A"}`,
+              `Percentage of total: ${percentage}% (${typeCount} out of ${materials.length})`,
+            ].join("\n\n");
           },
         }
       )
