@@ -41,14 +41,21 @@ export class AuthManager {
   async checkAuth() {
     try {
       console.log("Checking auth...");
+
+      // Add timeout to prevent hanging
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+
       const response = await fetch(`${AUTH_API_BASE}/auth/check`, {
         credentials: "include",
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
+        signal: controller.signal,
       });
 
+      clearTimeout(timeoutId);
       console.log("Auth check response:", response.status, response.ok);
 
       if (response.ok) {
@@ -68,7 +75,7 @@ export class AuthManager {
       }
     } catch (error) {
       console.error("Auth check failed:", error);
-      // In case of network error, assume not authenticated but don't block the page
+      // In case of network error, timeout, or CORS error - assume not authenticated but don't block the page
       this.authState = { authenticated: false, loading: false, error: true };
     }
 
@@ -217,6 +224,9 @@ export async function renderAuthStatus() {
 
   console.log("Setting up auth status rendering");
 
+  // IMMEDIATELY show login button - don't wait for auth check
+  updateAuthStatusUI(container, { loading: false, authenticated: false });
+
   // Subscribe to auth state changes to update UI automatically
   const unsubscribe = authManager.subscribe((state) => {
     console.log("Auth state changed, updating UI:", state);
@@ -242,10 +252,13 @@ export async function renderAuthStatus() {
     }, 1000);
   }
 
-  // Initial render
-  console.log("Performing initial auth check");
-  const state = await authManager.checkAuth();
-  updateAuthStatusUI(container, state);
+  // Perform auth check in background - don't block UI
+  console.log("Performing background auth check");
+  authManager.checkAuth().catch((error) => {
+    console.error("Background auth check failed:", error);
+    // Ensure UI shows login button on error
+    updateAuthStatusUI(container, { loading: false, authenticated: false });
+  });
 
   // Return unsubscribe function for cleanup if needed
   return unsubscribe;
@@ -253,11 +266,6 @@ export async function renderAuthStatus() {
 
 function updateAuthStatusUI(container, state) {
   console.log("Updating auth UI with state:", state);
-
-  if (state.loading) {
-    container.innerHTML = `<div class="auth-status loading">Checking auth...</div>`;
-    return;
-  }
 
   if (state.authenticated && state.isFollower) {
     console.log("Rendering authenticated follower UI");
@@ -287,7 +295,11 @@ function updateAuthStatusUI(container, state) {
     return;
   }
 
+  // Show login button immediately - no loading state blocking
   console.log("Rendering login button");
+  const loadingIndicator = state.loading
+    ? '<span style="opacity: 0.6; font-size: 12px; margin-left: 8px;">checking...</span>'
+    : "";
   container.innerHTML = `<div class="auth-status">
     <button
       onclick="window.authLogin && window.authLogin()"
@@ -295,5 +307,6 @@ function updateAuthStatusUI(container, state) {
     >
       Sign in with Twitch
     </button>
+    ${loadingIndicator}
   </div>`;
 }
