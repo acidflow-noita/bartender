@@ -28,6 +28,37 @@ export class AuthManager {
   async checkAuth() {
     try {
       console.log("Checking auth...");
+
+      // For cross-domain, check localStorage first
+      const storedSession = localStorage.getItem("bartender_session");
+      const storedExpires = localStorage.getItem("bartender_session_expires");
+
+      if (storedSession && storedExpires && Date.now() < parseInt(storedExpires)) {
+        // Use stored session for cross-domain
+        const response = await fetch(`${AUTH_API_BASE}/auth/check`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${storedSession}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Auth data received from localStorage session:", data);
+
+          if (data.username && data.username.toLowerCase() === "wuote") {
+            data.isFollower = true;
+            console.log("Granting full access to wuote");
+          }
+
+          this.authState = { ...data, loading: false };
+          this.notifyListeners();
+          return this.authState;
+        }
+      }
+
+      // Fallback to cookie-based auth
       const response = await fetch(`${AUTH_API_BASE}/auth/check`, {
         credentials: "include",
         method: "GET",
@@ -215,17 +246,12 @@ export async function renderAuthStatus() {
   if (urlParams.get("auth") === "success") {
     console.log("Auth success detected in URL");
 
-    // Set session cookie if provided (for cross-domain production setup)
+    // Set session from URL parameter
     const sessionId = urlParams.get("session");
     if (sessionId) {
-      console.log("Setting session cookie from URL parameter");
-      // Set cookie without HttpOnly so we can set it from JavaScript
-      const isSecure = window.location.protocol === "https:";
-      const cookieString = isSecure
-        ? `bartender_session=${sessionId}; Path=/; Secure; SameSite=Lax; Max-Age=86400`
-        : `bartender_session=${sessionId}; Path=/; SameSite=Lax; Max-Age=86400`;
-      document.cookie = cookieString;
-      console.log("Session cookie set:", cookieString);
+      console.log("Setting session from URL parameter");
+      localStorage.setItem("bartender_session", sessionId);
+      localStorage.setItem("bartender_session_expires", Date.now() + 24 * 60 * 60 * 1000);
     }
 
     // Remove the parameters from URL
