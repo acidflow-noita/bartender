@@ -21,7 +21,7 @@ import { materialTypeColors, getSymbolConfig } from "./components/materialTypeSt
 import { wuoteLogo } from "./components/wuoteLogo.js";
 import { authManager, renderAuthStatus } from "./components/auth.js";
 import { html } from "htl";
-renderAuthStatus();
+const authStatusCleanup = renderAuthStatus();
 ```
 
 ```js

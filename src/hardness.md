@@ -50,7 +50,7 @@ import { materialTypeColors, getSymbolConfig } from "./components/materialTypeSt
 import { wuoteLogo } from "./components/wuoteLogo.js";
 import { renderAuthStatus } from "./components/auth.js";
 import { html } from "htl";
-renderAuthStatus();
+const authStatusCleanup = renderAuthStatus();
 ```
 
 ```js

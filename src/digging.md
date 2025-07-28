@@ -51,7 +51,7 @@ import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();
 import { authManager, renderAuthStatus } from "./components/auth.js";
 import { html } from "htl";
-renderAuthStatus();
+const authStatusCleanup = renderAuthStatus();
 ```
 
 ```js

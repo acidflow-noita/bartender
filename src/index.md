@@ -31,7 +31,7 @@ import { wuoteLogo } from "./components/wuoteLogo.js";
 import { initializeTitleAnimation } from "./components/titleAnimation.js";
 import { renderAuthStatus } from "./components/auth.js";
 initializeTitleAnimation();
-renderAuthStatus();
+const authStatusCleanup = renderAuthStatus();
 ```
 
 ```js
