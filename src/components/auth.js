@@ -9,9 +9,9 @@ const AUTH_API_BASE = (() => {
   if (typeof window !== "undefined") {
     const hostname = window.location.hostname;
 
-    // Local development (localhost:3000) - uses test auth worker
+    // Local development (localhost:3000) - uses local auth worker
     if (hostname === "localhost") {
-      return "https://bartender-auth-test.wuote.workers.dev";
+      return "http://localhost:8787";
     }
 
     // Dev/test environment (auth-test-bartender.wuote.workers.dev) - uses test auth worker

@@ -7,7 +7,7 @@ import { html } from "htl";
 export function createContentNotice(authState, counts) {
   // If user is authenticated and a follower, don't show the notice
   if (authState.authenticated && authState.isFollower) {
-    return "";
+    return null;
   }
 
   const containerStyle = "text-align: center; margin: 1rem 0;";
@@ -105,5 +105,5 @@ export function createContentNotice(authState, counts) {
     </div>`;
   }
 
-  return html``;
+  return null;
 }
