@@ -33,54 +33,75 @@ export class AuthManager {
       loading: true,
     };
     this.listeners = [];
+    this.checkAuthPromise = null;
   }
 
   async checkAuth() {
-    try {
-      console.log("Checking auth...");
-
-      // Get session from localStorage for cross-domain support
-      const sessionId = localStorage.getItem("bartender_session");
-      const headers = {
-        "Content-Type": "application/json",
-      };
-
-      if (sessionId) {
-        headers["Authorization"] = `Bearer ${sessionId}`;
-      }
-
-      const response = await fetch(`${AUTH_API_BASE}/auth/check`, {
-        credentials: "include",
-        method: "GET",
-        headers,
-      });
-
-      console.log("Auth check response:", response.status, response.ok);
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Auth data received:", data);
-
-        // Special case: if username is "wuote", grant full access regardless of follower status
-        if (data.username && data.username.toLowerCase() === "wuote") {
-          data.isFollower = true;
-          console.log("Granting full access to wuote");
-        }
-
-        this.authState = { ...data, loading: false };
-      } else {
-        console.log("Auth check failed with status:", response.status);
-        this.authState = { authenticated: false, loading: false };
-      }
-    } catch (error) {
-      console.error("Auth check failed:", error);
-      // In case of network error, assume not authenticated but don't block the page
-      this.authState = { authenticated: false, loading: false, error: true };
+    // If auth state is already loaded, return it immediately.
+    if (this.authState.loading === false) {
+      return this.authState;
     }
 
-    console.log("Final auth state:", this.authState);
-    this.notifyListeners();
-    return this.authState;
+    // If a check is already in progress, return the existing promise to avoid concurrent requests.
+    if (this.checkAuthPromise) {
+      return this.checkAuthPromise;
+    }
+
+    // Start a new authentication check.
+    this.checkAuthPromise = (async () => {
+      try {
+        console.log("Checking auth...");
+
+        // Get session from localStorage for cross-domain support
+        const sessionId = localStorage.getItem("bartender_session");
+        const headers = {
+          "Content-Type": "application/json",
+        };
+
+        if (sessionId) {
+          headers["Authorization"] = `Bearer ${sessionId}`;
+        }
+
+        const response = await fetch(`${AUTH_API_BASE}/auth/check`, {
+          credentials: "include",
+          method: "GET",
+          headers,
+        });
+
+        console.log("Auth check response:", response.status, response.ok);
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Auth data received:", data);
+
+          // Special case: if username is "wuote", grant full access regardless of follower status
+          if (data.username && data.username.toLowerCase() === "wuote") {
+            data.isFollower = true;
+            console.log("Granting full access to wuote");
+          }
+
+          this.authState = { ...data, loading: false };
+        } else {
+          console.log("Auth check failed with status:", response.status);
+          this.authState = { authenticated: false, username: null, isFollower: false, loading: false };
+        }
+      } catch (error) {
+        console.error("Auth check failed:", error);
+        // In case of network error, assume not authenticated but don't block the page
+        this.authState = { authenticated: false, username: null, isFollower: false, loading: false, error: true };
+      }
+
+      console.log("Final auth state:", this.authState);
+      this.notifyListeners();
+      return this.authState;
+    })();
+
+    // After the promise settles, clear it to allow future checks if needed (e.g., manual refresh).
+    this.checkAuthPromise.finally(() => {
+      this.checkAuthPromise = null;
+    });
+
+    return this.checkAuthPromise;
   }
 
   async login() {
