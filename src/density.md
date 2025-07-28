@@ -50,6 +50,13 @@ const contentNotice = createContentNotice(authState, {
   materials: materials.length,
   totalMaterials: all_materials.length,
 });
+
+if (contentNotice) {
+  const container = document.getElementById("content-notice-container");
+  if (container) {
+    container.append(contentNotice);
+  }
+}
 ```
 
 ```js
@@ -248,7 +255,7 @@ function densityPlot(materials, width) {
 }
 ```
 
-${contentNotice}
+<div id="content-notice-container"></div>
 
 <div class="grid grid-cols-4 grid-rowspan-1" style="grid-auto-rows: auto;">
     <div class="card grid-colspan-2 grid-rowspan-1" style="padding: 0;">
