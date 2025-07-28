@@ -243,8 +243,8 @@ async function handleCallback(request, env) {
       // For workers.dev domains, don't set domain to allow cross-subdomain cookies
       cookieOptions = `bartender_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=86400`;
     } else {
-      // For custom domains like runfast.stream
-      cookieOptions = `bartender_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=86400`;
+      // For custom domains like runfast.stream - set domain to allow subdomain sharing
+      cookieOptions = `bartender_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=Lax; Domain=.runfast.stream; Max-Age=86400`;
     }
 
     console.log("Redirecting to main site with session cookie");
@@ -433,7 +433,7 @@ async function handleSessionExchange(request, env) {
   } else if (env.MAIN_SITE_URL.includes("workers.dev")) {
     cookieOptions = `bartender_session=${session.id}; Path=/; Secure; SameSite=None; Max-Age=86400`;
   } else {
-    cookieOptions = `bartender_session=${session.id}; Path=/; Secure; SameSite=Lax; Max-Age=86400`;
+    cookieOptions = `bartender_session=${session.id}; Path=/; Secure; SameSite=Lax; Domain=.runfast.stream; Max-Age=86400`;
   }
 
   const response = addCORSHeaders(
