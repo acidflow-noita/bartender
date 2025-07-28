@@ -32,6 +32,9 @@ export default {
         case "/auth/logout":
           return handleLogout(request, env);
 
+        case "/auth/exchange":
+          return handleTokenExchange(request, env);
+
         case "/api/protected-content":
           return handleProtectedContent(request, env);
 
@@ -56,7 +59,9 @@ async function initializeDatabase(env) {
         username TEXT NOT NULL,
         is_follower INTEGER NOT NULL,
         created_at INTEGER NOT NULL,
-        expires_at INTEGER NOT NULL
+        expires_at INTEGER NOT NULL,
+        temp_token TEXT,
+        temp_token_expires INTEGER
       )
     `
     ).run();
@@ -243,16 +248,24 @@ async function handleCallback(request, env) {
       // For workers.dev domains, don't set domain to allow cross-subdomain cookies
       cookieOptions = `bartender_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=86400`;
     } else {
-      // For custom domains like runfast.stream - set domain to allow subdomain sharing
-      cookieOptions = `bartender_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=Lax; Domain=.runfast.stream; Max-Age=86400`;
+      // For custom domains like runfast.stream - cross-domain cookies need SameSite=None
+      cookieOptions = `bartender_session=${sessionId}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=86400`;
     }
 
-    console.log("Redirecting to main site with session cookie");
+    // For cross-domain issues, use a temporary token approach
+    const tempToken = crypto.randomUUID();
+    const tempTokenExpiry = Date.now() + 5 * 60 * 1000; // 5 minutes
+
+    // Store temp token in session record
+    await env.AUTH_DB.prepare("UPDATE sessions SET temp_token = ?, temp_token_expires = ? WHERE id = ?")
+      .bind(tempToken, tempTokenExpiry, sessionId)
+      .run();
+
+    console.log("Redirecting to main site with temp token");
     return new Response(null, {
       status: 302,
       headers: {
-        Location: `${env.MAIN_SITE_URL || "https://bartender.runfast.stream"}/?auth=success`,
-        "Set-Cookie": cookieOptions,
+        Location: `${env.MAIN_SITE_URL || "https://bartender.runfast.stream"}/?auth=success&token=${tempToken}`,
       },
     });
   } catch (error) {
@@ -338,7 +351,7 @@ async function handleLogout(request, env) {
   const cookieOptions =
     env.MAIN_SITE_URL.includes("localhost") || env.MAIN_SITE_URL.includes("workers.dev")
       ? "bartender_session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0"
-      : "bartender_session=; Path=/; HttpOnly; Secure; SameSite=Lax; Domain=.runfast.stream; Max-Age=0";
+      : "bartender_session=; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=0";
 
   response.headers.set("Set-Cookie", cookieOptions);
 
@@ -406,7 +419,7 @@ async function handleProtectedContent(request, env) {
   );
 }
 
-async function handleSessionExchange(request, env) {
+async function handleTokenExchange(request, env) {
   const url = new URL(request.url);
   const tempToken = url.searchParams.get("token");
 
@@ -414,9 +427,11 @@ async function handleSessionExchange(request, env) {
     return new Response("Missing token", { status: 400 });
   }
 
-  // Look up session by temp token (we'll store this temporarily)
-  const session = await env.AUTH_DB.prepare("SELECT * FROM sessions WHERE temp_token = ? AND expires_at > ?")
-    .bind(tempToken, Date.now())
+  // Look up session by temp token
+  const session = await env.AUTH_DB.prepare(
+    "SELECT * FROM sessions WHERE temp_token = ? AND temp_token_expires > ? AND expires_at > ?"
+  )
+    .bind(tempToken, Date.now(), Date.now())
     .first();
 
   if (!session) {
@@ -424,22 +439,32 @@ async function handleSessionExchange(request, env) {
   }
 
   // Clear the temp token
-  await env.AUTH_DB.prepare("UPDATE sessions SET temp_token = NULL WHERE id = ?").bind(session.id).run();
+  await env.AUTH_DB.prepare("UPDATE sessions SET temp_token = NULL, temp_token_expires = NULL WHERE id = ?")
+    .bind(session.id)
+    .run();
 
   const allowedOrigin = env.MAIN_SITE_URL || "https://bartender.runfast.stream";
+
+  // Set cookie for the main site domain
   let cookieOptions;
   if (env.MAIN_SITE_URL.includes("localhost")) {
-    cookieOptions = `bartender_session=${session.id}; Path=/; SameSite=Lax; Max-Age=86400`;
-  } else if (env.MAIN_SITE_URL.includes("workers.dev")) {
-    cookieOptions = `bartender_session=${session.id}; Path=/; Secure; SameSite=None; Max-Age=86400`;
+    cookieOptions = `bartender_session=${session.id}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400`;
   } else {
-    cookieOptions = `bartender_session=${session.id}; Path=/; Secure; SameSite=Lax; Domain=.runfast.stream; Max-Age=86400`;
+    // For production, set cookie for the main site domain
+    cookieOptions = `bartender_session=${session.id}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=86400`;
   }
 
   const response = addCORSHeaders(
-    new Response(JSON.stringify({ success: true }), {
-      headers: { "Content-Type": "application/json" },
-    }),
+    new Response(
+      JSON.stringify({
+        success: true,
+        username: session.username,
+        isFollower: session.is_follower === 1,
+      }),
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    ),
     allowedOrigin
   );
 
