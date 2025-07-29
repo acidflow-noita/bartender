@@ -10,8 +10,8 @@ const AUTH_API_BASE = (() => {
     const hostname = window.location.hostname;
     console.log("Detected hostname:", hostname);
 
-    // Local development (localhost:3000) - uses local auth worker
-    if (hostname === "localhost") {
+    // Local development (localhost or 127.0.0.1) - uses local auth worker
+    if (hostname === "localhost" || hostname === "127.0.0.1") {
       console.log("Using localhost auth worker");
       return "http://localhost:8787";
     }
