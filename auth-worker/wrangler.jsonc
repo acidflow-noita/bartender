@@ -25,6 +25,10 @@
   "env": {
     "local": {
       "name": "bartender-auth-local",
+      "vars": {
+        "MAIN_SITE_URL": "http://localhost:3000",
+        "WORKER_URL": "http://localhost:8787"
+      },
       "d1_databases": [
         {
           "binding": "AUTH_DB",
