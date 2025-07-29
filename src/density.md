@@ -265,9 +265,7 @@ function densityPlot(materials, width) {
               <div style="flex: 1; min-width: 200px;">
                 ${liquidsDensitySelectorInput}
               </div>
-              <div>
                 ${resetButton}
-              </div>
             </div>
         </div>
         ${resize((width) => densityTable(materialsWithCombined, width))}

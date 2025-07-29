@@ -271,9 +271,7 @@ function hardnessPlot(materials, width) {
               <div style="flex: 1; min-width: 200px;">
                 ${hardnessSelectorInput}
               </div>
-              <div>
                 ${resetButton}
-              </div>
             </div>
         </div>
         ${resize((width) => hardnessTable(materialsWithCombined, width))}

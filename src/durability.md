@@ -226,9 +226,7 @@ function durabilityPlot(materials, width) {
         <div style="flex: 1; min-width: 200px;">
           ${durabilitySelectorInput}
         </div>
-        <div>
           ${resetButton}
-        </div>
       </div>
     </div>
     ${resize((width) => durabilityTable(materialsWithCombined, width))}
