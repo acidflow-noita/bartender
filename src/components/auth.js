@@ -8,19 +8,23 @@ import { html } from "htl";
 const AUTH_API_BASE = (() => {
   if (typeof window !== "undefined") {
     const hostname = window.location.hostname;
+    console.log("Detected hostname:", hostname);
 
     // Local development (localhost:3000) - uses local auth worker
     if (hostname === "localhost") {
+      console.log("Using localhost auth worker");
       return "http://localhost:8787";
     }
 
     // Dev/test environment (auth-test-bartender.wuote.workers.dev) - uses test auth worker
     if (hostname.includes("auth-test-bartender")) {
+      console.log("Using test auth worker");
       return "https://bartender-auth-test.wuote.workers.dev";
     }
   }
 
   // Production default - production auth worker
+  console.log("Using production auth worker");
   return "https://bartender-auth.wuote.workers.dev";
 })();
 
@@ -168,6 +172,8 @@ export class AuthManager {
   }
 
   async login() {
+    console.log("AUTH_API_BASE:", AUTH_API_BASE);
+    console.log("Login URL:", `${AUTH_API_BASE}/auth/login`);
     window.location.href = `${AUTH_API_BASE}/auth/login`;
   }
 
