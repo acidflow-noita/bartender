@@ -275,7 +275,10 @@ async function handleAuthCheck(request, env) {
     const allowedOrigin = env.MAIN_SITE_URL || "https://bartender.runfast.stream";
     return addCORSHeaders(
       new Response(JSON.stringify({ authenticated: false }), {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "private, max-age=60", // Cache negative results for 1 minute
+        },
       }),
       allowedOrigin
     );
@@ -292,7 +295,10 @@ async function handleAuthCheck(request, env) {
     const allowedOrigin = env.MAIN_SITE_URL || "https://bartender.runfast.stream";
     return addCORSHeaders(
       new Response(JSON.stringify({ authenticated: false }), {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "private, max-age=60", // Cache negative results for 1 minute
+        },
       }),
       allowedOrigin
     );
@@ -307,7 +313,10 @@ async function handleAuthCheck(request, env) {
         isFollower: session.is_follower === 1,
       }),
       {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "private, max-age=3600", // Cache for 1 hour
+        },
       }
     ),
     allowedOrigin

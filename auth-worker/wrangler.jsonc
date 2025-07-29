@@ -2,6 +2,10 @@
   "name": "bartender-auth",
   "compatibility_date": "2025-07-22",
   "main": "src/index.js",
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
 
   // Production environment (default)
   "vars": {
@@ -19,6 +23,16 @@
 
   // Environment configurations
   "env": {
+    "local": {
+      "name": "bartender-auth-local",
+      "d1_databases": [
+        {
+          "binding": "AUTH_DB",
+          "database_name": "bartender-auth-local",
+          "database_id": "local"
+        }
+      ]
+    },
     "test": {
       "name": "bartender-auth-test",
       "vars": {

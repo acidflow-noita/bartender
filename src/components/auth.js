@@ -34,12 +34,67 @@ export class AuthManager {
     };
     this.listeners = [];
     this.checkAuthPromise = null;
+    this.cacheKey = "bartender_auth_cache";
+    this.cacheExpiry = 60 * 60 * 1000; // 1 hour cache
   }
 
-  async checkAuth() {
-    // If auth state is already loaded, return it immediately.
-    if (this.authState.loading === false) {
+  // Check if cached auth data is still valid
+  getCachedAuth() {
+    try {
+      const cached = localStorage.getItem(this.cacheKey);
+      if (!cached) return null;
+
+      const { data, timestamp } = JSON.parse(cached);
+      const now = Date.now();
+
+      // Check if cache is still valid
+      if (now - timestamp < this.cacheExpiry) {
+        console.log("Using cached auth data");
+        return data;
+      } else {
+        console.log("Auth cache expired");
+        localStorage.removeItem(this.cacheKey);
+        return null;
+      }
+    } catch (error) {
+      console.error("Error reading auth cache:", error);
+      localStorage.removeItem(this.cacheKey);
+      return null;
+    }
+  }
+
+  // Cache auth data with timestamp
+  setCachedAuth(authData) {
+    try {
+      const cacheData = {
+        data: authData,
+        timestamp: Date.now(),
+      };
+      localStorage.setItem(this.cacheKey, JSON.stringify(cacheData));
+    } catch (error) {
+      console.error("Error caching auth data:", error);
+    }
+  }
+
+  // Clear auth cache
+  clearAuthCache() {
+    localStorage.removeItem(this.cacheKey);
+  }
+
+  async checkAuth(forceRefresh = false) {
+    // If auth state is already loaded and we're not forcing refresh, return it immediately.
+    if (this.authState.loading === false && !forceRefresh) {
       return this.authState;
+    }
+
+    // Check cache first (unless forcing refresh)
+    if (!forceRefresh) {
+      const cachedAuth = this.getCachedAuth();
+      if (cachedAuth) {
+        this.authState = { ...cachedAuth, loading: false };
+        this.notifyListeners();
+        return this.authState;
+      }
     }
 
     // If a check is already in progress, return the existing promise to avoid concurrent requests.
@@ -50,7 +105,7 @@ export class AuthManager {
     // Start a new authentication check.
     this.checkAuthPromise = (async () => {
       try {
-        console.log("Checking auth...");
+        console.log("Checking auth from server...");
 
         // Get session from localStorage for cross-domain support
         const sessionId = localStorage.getItem("bartender_session");
@@ -81,14 +136,22 @@ export class AuthManager {
           }
 
           this.authState = { ...data, loading: false };
+
+          // Cache the successful auth result
+          this.setCachedAuth(this.authState);
         } else {
           console.log("Auth check failed with status:", response.status);
           this.authState = { authenticated: false, username: null, isFollower: false, loading: false };
+
+          // Cache the failed auth result (shorter cache time)
+          this.setCachedAuth(this.authState);
         }
       } catch (error) {
         console.error("Auth check failed:", error);
         // In case of network error, assume not authenticated but don't block the page
         this.authState = { authenticated: false, username: null, isFollower: false, loading: false, error: true };
+
+        // Don't cache network errors - they should retry
       }
 
       console.log("Final auth state:", this.authState);
@@ -116,6 +179,11 @@ export class AuthManager {
       });
 
       this.authState = { authenticated: false, loading: false };
+
+      // Clear cache and session storage
+      this.clearAuthCache();
+      localStorage.removeItem("bartender_session");
+
       this.notifyListeners();
 
       // Redirect to home
@@ -199,7 +267,7 @@ export class AuthGuard {
             to access this page.
           </p>
           <button
-            onclick="window.authCheck && window.authCheck().then(() => window.location.reload())"
+            onclick="window.authCheckForce && window.authCheckForce().then(() => window.location.reload())"
             class="auth-button"
           >
             Check Follower Status
@@ -232,6 +300,7 @@ if (typeof window !== "undefined") {
   window.authLogin = () => authManager.login();
   window.authLogout = () => authManager.logout();
   window.authCheck = () => authManager.checkAuth();
+  window.authCheckForce = () => authManager.checkAuth(true);
 }
 
 // Auth status display function
@@ -270,7 +339,9 @@ export async function renderAuthStatus() {
     // Force a re-check of auth status after callback
     setTimeout(async () => {
       console.log("Re-checking auth after callback");
-      await authManager.checkAuth();
+      // Clear cache and force refresh after successful login
+      authManager.clearAuthCache();
+      await authManager.checkAuth(true);
       // Force page reload to update all data
       window.location.reload();
     }, 1000);
