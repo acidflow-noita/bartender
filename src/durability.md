@@ -155,15 +155,17 @@ function durabilityTable(materials, width) {
 ```js
 function durabilityPlot(materials, width) {
   const isMobile = width < 600;
-  const plotHeight = isMobile ? 400 : 500;
+  const plotHeight = isMobile ? 400 : 600;
   const fontSize = isMobile ? 10 : 12;
 
   const filteredMaterials = materials.filter((d) => d.durability !== null && d.durability > 0);
 
   return Plot.plot({
+    marginLeft: 60,
+    marginBottom: 60,
+    marginTop: 40,
+    marginRight: 40,
     symbol: { legend: true },
-    width,
-    height: plotHeight,
     marginLeft: 60,
     marginBottom: 60,
     marginTop: 40,
@@ -171,8 +173,6 @@ function durabilityPlot(materials, width) {
     y: {
       label: "Durability",
       grid: true,
-      type: "pow",
-      exponent: 1 / 3,
       nice: true,
       domain: [Math.min(...distinctDurability), Math.max(...distinctDurability)],
     },
@@ -191,11 +191,8 @@ function durabilityPlot(materials, width) {
           y: "durability",
           fill: "type",
           symbol: "type",
-          r: isMobile ? 4 : 6,
           opacity: (d) => (d.durability <= durabilitySelectorValue ? 1 : 0.1),
-          padding: 2,
-          stroke: "white",
-          strokeWidth: 0.5,
+          padding: isMobile ? 0.5 : 2,
           tip: {
             lineWidth: 300,
             textPadding: 12,

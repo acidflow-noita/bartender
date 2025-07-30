@@ -202,8 +202,6 @@ function hardnessPlot(materials, width) {
     marginTop: 40,
     marginRight: 40,
     x: {
-      type: "pow",
-      exponent: 1 / 3,
       nice: true,
       label: "Durability",
       domain: [minDurability, maxDurability],
@@ -211,7 +209,7 @@ function hardnessPlot(materials, width) {
     },
     y: {
       type: "pow",
-      exponent: 1 / 3,
+      exponent: 1 / 4,
       nice: true,
       label: "Hardness",
       domain: [minHardness, maxHardness],
