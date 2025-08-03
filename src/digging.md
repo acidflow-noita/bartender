@@ -1,5 +1,6 @@
 ---
 title: Spells' Digging Ability
+draft: true
 ---
 
 <link href="custom.css" rel="stylesheet"></link>
@@ -13,9 +14,14 @@ title: Spells' Digging Ability
 ```js
 const all_spells = await FileAttachment("./data/FULL_SPELLS_FINAL.json").json();
 const all_materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
+```
 
+```js
 const authState = await authManager.checkAuth();
+```
 
+```js
+// Filter materials and spells based on auth status - show all for followers, limited for non-followers
 const spells =
   authState.authenticated && authState.isFollower
     ? all_spells
@@ -38,18 +44,18 @@ const contentNotice = createContentNotice(authState, {
 ```
 
 ```js
-const mina = {
-  img_src: "https://noita-bartender-images.acidflow.stream/images/mina/mina.png",
-  img_outline_src: "https://noita-bartender-images.acidflow.stream/images/mina/mina_outline.png",
-};
-```
-
-```js
 import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();
 import { authManager, renderAuthStatus } from "./components/auth.js";
 import { html } from "htl";
 const authStatusCleanup = renderAuthStatus();
+```
+
+```js
+const mina = {
+  img_src: "https://noita-bartender-images.acidflow.stream/images/mina/mina.png",
+  img_outline_src: "https://noita-bartender-images.acidflow.stream/images/mina/mina_outline.png",
+};
 ```
 
 ```js
@@ -173,8 +179,7 @@ const calculateDigRadius = (spell, material) => {
 
 ```js
 // Independent spell table (not filtered by material selection)
-// const spellsTable = Inputs.table(filteredSpells, {
-const spellsTable = Inputs.table(spellsWithDiggingTag, {
+const spellsTable = Inputs.table(searchSpellsValue, {
   width: { combinedSpellName: 250 },
   layout: "fixed",
   sort: "rayEnergy",
@@ -182,23 +187,7 @@ const spellsTable = Inputs.table(spellsWithDiggingTag, {
   select: "first",
   multiple: false,
   rows: 22,
-  columns: [
-    "combinedSpellName",
-    "image_local",
-    "radius",
-    "maxDuraToDestroy",
-    "rayEnergy",
-    "groundPenetrationCoeff",
-    "groundPenetrationMaxDura",
-    "groundPenetrationCoeff",
-    "groundPenetrationMaxDura",
-    "spawnEntity",
-    "spawnEntityIsProjectile",
-    "cellEaterRadius",
-    "cellEaterLimitedMaterials",
-    "cellEaterIgnoredMaterialTag",
-    "cellEaterMaterials",
-  ],
+  columns: ["combinedSpellName", "image_local", "radius", "maxDuraToDestroy", "rayEnergy"],
   header: {
     combinedSpellName: "Spell",
     image_local: "Image",
@@ -281,43 +270,61 @@ const plotResult = (() => {
     return html`<div class="card-placeholder">Select both a spell and a material to see the visualization.</div>`;
   }
 
-  const plotWidth = 252;
   const materialImageUrl = getImagePath(selectedMaterial.image_local);
+
+  // Make the plot BIG
+  const plotWidth = 252 * 5;
+  const plotHeight = 252 * 3;
+  const minaWidth = 48;
+  const minaHeight = 108;
 
   return Plot.plot({
     width: plotWidth,
-    height: plotWidth,
+    height: plotHeight,
     style: {
       background: `url(${materialImageUrl})`,
+      backgroundRepeat: "repeat",
+      imageRendering: "pixelated",
     },
-    x: { axis: null },
-    y: { axis: null },
+    x: {
+      axis: null,
+      domain: [-plotWidth / 2, plotWidth / 2],
+    },
+    y: {
+      axis: null,
+      domain: [-plotHeight / 2, plotHeight / 2],
+    },
     marks: [
-      Plot.dot([{ x: 0, y: 0 }], {
-        x: "x",
-        y: "y",
-        r: digRadius,
-        stroke: "red",
-        strokeWidth: 4,
-        fill: "rgba(255, 0, 0, 0.2)",
-      }),
-      Plot.text([{ x: 0, y: 0, label: `Dig Radius: ${digRadius.toFixed(2)}` }], {
+      Plot.text([{ x: 0, y: 0, label: `Dig Radius: ${digRadius.toFixed(0)}` }], {
         x: "x",
         y: "y",
         text: "label",
-        dy: -10,
+        dy: -Math.min(digRadius + 20, plotHeight / 2 - 10),
         fill: "white",
         stroke: "black",
         strokeWidth: 2,
+        fontSize: 12,
       }),
-      Plot.image([{ x: plotWidth, y: plotWidth }], {
-        frameAnchor: "bottom-right",
+      Plot.image([{ x: plotWidth / 2, y: plotHeight / 2 }], {
+        width: minaWidth,
+        height: minaHeight,
+
+        // Corner pos for mina
+        // dy: -minaHeight / 2,
+        // dx: -minaWidth / 2,
+        // frameAnchor: "bottom-right",
+
+        frameAnchor: "middle",
         imageRendering: "pixelated",
-        preserveAspectRatio: "xMaxYMid meet",
-        dx: -53,
-        dy: -53,
         src: mina.img_outline_src,
-        width: 108,
+      }),
+      Plot.dot([{ x: 0, y: 0 }], {
+        x: "x",
+        y: "y",
+        r: digRadius * 6,
+        stroke: "red",
+        strokeWidth: 2,
+        fill: "rgba(255, 0, 0, 0.2)",
       }),
     ],
   });
