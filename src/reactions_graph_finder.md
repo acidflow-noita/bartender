@@ -485,6 +485,11 @@ const renderGraph = (filteredReactions) => {
     container.innerHTML = `<div style="text-align: center; padding: 2rem; color: #666;">No reactions found with current filters</div>`;
     return;
   }
+
+  if (filteredReactions.length >= 1000) {
+    container.innerHTML = `<div style="text-align: center; padding: 2rem; color: #666;">Too much reactions with current filters</div>`;
+    return;
+  }
   
   const width = container.clientWidth;
   const height = Math.max(600, width * 0.6);
@@ -529,7 +534,7 @@ const renderGraph = (filteredReactions) => {
             type: "material",
             material: material,
             radius: 25,
-            color: material?.color || "#4ecdc4",
+            color: material?.color || "#505050ff",
             imageUrl: imageUrl,
             name: material?.name || inputId
           });
@@ -584,17 +589,7 @@ const renderGraph = (filteredReactions) => {
     .force("center", d3.forceCenter(width / 2, height / 2))
     .force("collision", d3.forceCollide().radius(d => d.radius + 15));
   
-  // Create links with different styles for inputs and outputs
-  const link = g.append("g")
-    .selectAll("line")
-    .data(linkArray)
-    .join("line")
-    .attr("stroke", d => d.type === "input" ? "#24c93aff" : "#45b7d1")
-    .attr("stroke-width", 3)
-    .attr("stroke-opacity", 0.7)
-    .attr("marker-end", d => `url(#arrow-${d.type})`);
-  
-  // Create arrow markers
+  // Create arrow markers - simple version, one per type
   const defs = svg.append("defs");
   
   defs.append("marker")
@@ -620,6 +615,21 @@ const renderGraph = (filteredReactions) => {
     .append("path")
     .attr("d", "M0,-5L10,0L0,5")
     .attr("fill", "#45b7d1");
+  
+  // Create link groups (each group contains the line and inherits opacity)
+  const linkGroups = g.append("g")
+    .attr("class", "links")
+    .selectAll("g")
+    .data(linkArray)
+    .join("g")
+    .attr("class", "link-group")
+    .style("opacity", 0.7);
+  
+  // Add lines to each link group
+  const link = linkGroups.append("line")
+    .attr("stroke", d => d.type === "input" ? "#24c93aff" : "#45b7d1")
+    .attr("stroke-width", 3)
+    .attr("marker-end", d => `url(#arrow-${d.type})`);
   
   // Create nodes group
   const node = g.append("g")
@@ -650,29 +660,30 @@ const renderGraph = (filteredReactions) => {
   
   // Add material images
   node.filter(d => d.type === "material")
+    .append("g")
+    .attr("clip-path", d => `url(#clip-${d.id})`)
     .append("image")
     .attr("href", d => d.imageUrl)
     .attr("x", d => -d.radius * 0.65)
     .attr("y", d => -d.radius * 0.65)
-    .attr("clip-path", d => `url(#clip-${d.id})`)
+    .attr("transform", "scale(2)")
     .attr("class", "material-image")
     .on("error", function() {
       d3.select(this).style("display", "none");
-  });
+    });
 
-  
-  // Add fallback text for missing images
-  node.filter(d => d.type === "material")
-    .append("text")
+  // Add labels for all nodes
+  node.append("text")
     .attr("text-anchor", "middle")
-    .attr("dy", 4)
-    .attr("font-size", "10px")
-    .attr("fill", "#fff")
+    .attr("dy", d => d.type === "material" ? d.radius + 20 : d.radius + 15)
+    .attr("font-size", "11px")
+    .attr("fill", "#2d3436")
     .attr("font-weight", "bold")
-    .attr("class", "material-fallback-text")
+    .attr("class", "node-label")
     .text(d => {
-      const material = materialsMap.get(d.id);
-      return material?.name ? material.name.charAt(0).toUpperCase() : "?";
+      if (d.type === "material") {
+        return d.name.length > 15 ? d.name.substring(0, 12) + "..." : d.name;
+      }
     });
   
   // Add reaction nodes (circles with speed number)
@@ -694,22 +705,6 @@ const renderGraph = (filteredReactions) => {
     .attr("font-weight", "bold")
     .attr("class", "reaction-speed");
   
-  // Add labels for all nodes
-  node.append("text")
-    .attr("text-anchor", "middle")
-    .attr("dy", d => d.type === "material" ? d.radius + 20 : d.radius + 15)
-    .attr("font-size", "11px")
-    .attr("fill", "#2d3436")
-    .attr("font-weight", "bold")
-    .attr("class", "node-label")
-    .text(d => {
-      if (d.type === "material") {
-        return d.name.length > 15 ? d.name.substring(0, 12) + "..." : d.name;
-      } else {
-        return "Reaction";
-      }
-    });
-  
   // Add tooltips
   node.append("title")
     .text(d => {
@@ -730,27 +725,6 @@ const renderGraph = (filteredReactions) => {
       }
     });
   
-  // Hover effects
-  node.on("mouseover", function(event, d) {
-    
-    d3.select(this).select(".node-id-label")
-      .transition()
-      .duration(200)
-      .style("opacity", 1);
-    
-    // Highlight connected nodes and links
-    link.style("stroke-opacity", l => 
-      (l.source === d || l.target === d) ? 1 : 0.2
-    );
-    
-    node.style("opacity", n => 
-      (n === d || linkArray.some(l => 
-        (l.source === d && l.target === n) || 
-        (l.target === d && l.source === n)
-      )) ? 1 : 0.3
-    );
-  });
-  
   node.on("mouseout", function(event, d) {
     d3.select(this).select(".node-background, .reaction-circle")
       .transition()
@@ -762,21 +736,92 @@ const renderGraph = (filteredReactions) => {
       .transition()
       .duration(200)
       .style("opacity", 0);
-    
-    // Reset all nodes and links
-    link.style("stroke-opacity", 0.7);
-    node.style("opacity", 1);
   });
   
-  // Click behavior - unselecte current material and selected the one clicked
+  // Double click behavior - highlight the reactions linked
   node.on("click", (event, d) => {
-    // todo
+    // Prevent event propagation
+    event.stopPropagation();
+    
+    // Reset all highlighting first
+    node.style("opacity", 1);
+    linkGroups.style("opacity", 0.7);
+    node.select(".node-background, .reaction-circle")
+      .attr("stroke", "#fff")
+      .attr("stroke-width", 3);
+    
+    // If it's a material node, highlight it and its direct connections only
+    if (d.type === "material") {
+      // Highlight the clicked material
+      d3.select(event.currentTarget).select(".node-background")
+        .attr("stroke", "#ff6b6b")
+        .attr("stroke-width", 5);
+      
+      // Find directly connected reactions
+      const connectedReactionIds = new Set();
+      linkArray.forEach(link => {
+        if (link.source.id === d.id && link.target.type === "reaction") {
+          connectedReactionIds.add(link.target.id);
+        }
+        if (link.target.id === d.id && link.source.type === "reaction") {
+          connectedReactionIds.add(link.source.id);
+        }
+      });
+      
+      // Highlight connected reactions and their materials
+      connectedReactionIds.forEach(reactionId => {
+        const reactionNode = node.filter(n => n.id === reactionId);
+        reactionNode.select(".reaction-circle")
+          .attr("stroke", "#ff6b6b")
+          .attr("stroke-width", 5);
+        
+        // Highlight materials connected to these reactions
+        linkArray.forEach(link => {
+          if (link.source.id === reactionId && link.target.type === "material") {
+            const materialNode = node.filter(n => n.id === link.target.id);
+            materialNode.select(".node-background")
+              .attr("stroke", "#45b7d1")
+              .attr("stroke-width", 4);
+          }
+          if (link.target.id === reactionId && link.source.type === "material") {
+            const materialNode = node.filter(n => n.id === link.source.id);
+            materialNode.select(".node-background")
+              .attr("stroke", "#24c93aff")
+              .attr("stroke-width", 4);
+          }
+        });
+      });
+      
+      // Dim non-connected nodes
+      const allConnectedIds = new Set([d.id, ...connectedReactionIds]);
+      linkArray.forEach(link => {
+        if (connectedReactionIds.has(link.source.id)) allConnectedIds.add(link.target.id);
+        if (connectedReactionIds.has(link.target.id)) allConnectedIds.add(link.source.id);
+      });
+      
+      node.style("opacity", n => allConnectedIds.has(n.id) ? 1 : 0.3);
+      linkGroups.style("opacity", l => 
+        (allConnectedIds.has(l.source.id) && allConnectedIds.has(l.target.id)) ? 1 : 0.2
+      );
+    }
+  });
+  
+  // Click on empty space to deselect
+  svg.on("click", () => {
+    node.style("opacity", 1);
+    linkGroups.style("opacity", 0.7);
+    node.select(".node-background, .reaction-circle")
+      .attr("stroke", "#fff")
+      .attr("stroke-width", 3);
   });
   
   // Double-click to reset view
   svg.on("dblclick", () => {
     node.style("opacity", 1);
-    link.style("stroke-opacity", 0.7);
+    linkGroups.style("opacity", 0.7);
+    node.select(".node-background, .reaction-circle")
+      .attr("stroke", "#fff")
+      .attr("stroke-width", 3);
   });
   
   // Update positions on simulation tick
