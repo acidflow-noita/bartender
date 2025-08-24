@@ -3,6 +3,17 @@ title: "Reactions Finder"
 draft: false
 ---
 
+<!-- TODO
+  
+  Double click behaviour -> change filter
+  Right click -> link to wiki + more info
+
+  --- maybe ---
+
+  display sub graph
+
+ -->
+
 <!-- Facebook Meta Tags -->
 <meta property="og:url" content="https://bartender.runfast.stream">
 <meta property="og:type" content="website">
@@ -70,8 +81,8 @@ window.appState = {
   reagentChoices: null,
   productChoices: null,
   isResetting: false,
-  excludeSpecialMaterials: false,
-  onlyPracticalReactions: false,
+  excludeSpecialMaterials: true,
+  onlyPracticalReactions: true,
 };
 
 // Parse URL parameters
@@ -441,8 +452,8 @@ const resetButton = Inputs.button(
 
       window.appState.selectedReagents = [];
       window.appState.selectedProduct = "";
-      window.appState.excludeSpecialMaterials = false;
-      window.appState.onlyPracticalReactions = false;
+      window.appState.excludeSpecialMaterials = true;
+      window.appState.onlyPracticalReactions = true;
 
       if (window.appState.reagentChoices?.initialised) {
         window.appState.reagentChoices.removeActiveItems();
@@ -452,8 +463,8 @@ const resetButton = Inputs.button(
       }
 
       // Reset toggle states
-      excludeSpecialToggle.value = false;
-      onlyPracticalToggle.value = false;
+      excludeSpecialToggle.value = true;
+      onlyPracticalToggle.value = true;
 
       updateChoicesOptions();
       updateUI();
@@ -738,7 +749,7 @@ const renderGraph = (filteredReactions) => {
       .style("opacity", 0);
   });
   
-  // Double click behavior - highlight the reactions linked
+  // Click behavior - highlight the reactions linked
   node.on("click", (event, d) => {
     // Prevent event propagation
     event.stopPropagation();
@@ -803,20 +814,42 @@ const renderGraph = (filteredReactions) => {
       linkGroups.style("opacity", l => 
         (allConnectedIds.has(l.source.id) && allConnectedIds.has(l.target.id)) ? 1 : 0.2
       );
+    } else if (d.type === "reaction") {
+      d3.select(event.currentTarget).select(".reaction-circle")
+        .attr("stroke", "#ff6b6b")
+        .attr("stroke-width", 5);
+      
+      // Find all materials connected to this reaction
+      const connectedMaterialIds = new Set();
+      linkArray.forEach(link => {
+        if (link.source.id === d.id && link.target.type === "material") {
+          connectedMaterialIds.add(link.target.id);
+        }
+        if (link.target.id === d.id && link.source.type === "material") {
+          connectedMaterialIds.add(link.source.id);
+        }
+      });
+      
+      // Highlight connected materials
+      connectedMaterialIds.forEach(materialId => {
+        const materialNode = node.filter(n => n.id === materialId);
+        materialNode.select(".node-background")
+          .attr("stroke", "#45b7d1")
+          .attr("stroke-width", 4);
+      });
+      
+      // Dim non-connected nodes
+      const allConnectedIds = new Set([d.id, ...connectedMaterialIds]);
+      
+      node.style("opacity", n => allConnectedIds.has(n.id) ? 1 : 0.3);
+      linkGroups.style("opacity", l => 
+        (allConnectedIds.has(l.source.id) && allConnectedIds.has(l.target.id)) ? 1 : 0.2
+      );
     }
   });
   
   // Click on empty space to deselect
   svg.on("click", () => {
-    node.style("opacity", 1);
-    linkGroups.style("opacity", 0.7);
-    node.select(".node-background, .reaction-circle")
-      .attr("stroke", "#fff")
-      .attr("stroke-width", 3);
-  });
-  
-  // Double-click to reset view
-  svg.on("dblclick", () => {
     node.style("opacity", 1);
     linkGroups.style("opacity", 0.7);
     node.select(".node-background, .reaction-circle")
