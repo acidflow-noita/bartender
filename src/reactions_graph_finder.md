@@ -345,20 +345,21 @@ const getFilteredReactions = (selectedReagents = [], selectedProduct = "") => {
     );
   }
 
-    if (window.appState.excludeCatalysts) {
+  if (window.appState.excludeCatalysts && window.appState.selectedProduct) {
     relevantReactionIndices = new Set(
       [...relevantReactionIndices].filter((index) => {
         const r = reactions[index];
-        // si le produit choisi est aussi un input => c'est un catalyseur
         const outputs = [r.output_cell1, r.output_cell2, r.output_cell3].filter(Boolean);
         const inputs = [r.input_cell1, r.input_cell2, r.input_cell3].filter(Boolean);
 
-        // On filtre les réactions où tous les produits apparaissent déjà comme réactifs
-        const allCatalysts = outputs.every(o => inputs.includes(o));
-        return !allCatalysts;
+        const isCatalyst = outputs.includes(window.appState.selectedProduct) &&
+                          inputs.includes(window.appState.selectedProduct);
+
+        return !isCatalyst;
       })
     );
   }
+
 
   // Get filtered reactions
   return Array.from(relevantReactionIndices)
