@@ -97,6 +97,16 @@ window.appState.onlyPracticalReactions = urlParams.get("onlyPractical") === "tru
 // Special materials to exclude
 const specialMaterials = new Set(["mimic_liquid", "midas_precursor", "midas"]);
 
+const EventBus = {
+  events: {},
+  on(event, handler) {
+    (this.events[event] ||= []).push(handler);
+  },
+  emit(event, payload) {
+    (this.events[event] || []).forEach((fn) => fn(payload));
+  }
+};
+
 // Optimized functions using indexes
 const getAvailableReagents = (selectedReagents = [], selectedProduct = "") => {
   if (!selectedProduct && selectedReagents.length === 0) {
@@ -749,10 +759,58 @@ const renderGraph = (filteredReactions) => {
       .style("opacity", 0);
   });
   
-  // Click behavior - highlight the reactions linked
   node.on("click", (event, d) => {
-    // Prevent event propagation
     event.stopPropagation();
+
+    // Ctrl+click → toggle reagent
+    if (event.ctrlKey && !event.shiftKey && d.type === "material") {
+      const isSelected = window.appState.selectedReagents.includes(d.id);
+
+      if (!isSelected) {
+        // Add reagent
+        window.appState.selectedReagents.push(d.id);
+
+        // Check if any reactions remain
+        const testReactions = getFilteredReactions(window.appState.selectedReagents, window.appState.selectedProduct);
+        if (testReactions.length === 0) {
+          // Undo and warn
+          window.appState.selectedReagents = window.appState.selectedReagents.filter(r => r !== d.id);
+          createNotification("That selection leaves no valid reactions");
+          return;
+        }
+
+        EventBus.emit("stateChanged");
+      } else {
+        // Try removing reagent
+        const testReagents = window.appState.selectedReagents.filter(r => r !== d.id);
+        const testReactions = getFilteredReactions(testReagents, window.appState.selectedProduct);
+
+        if (testReactions.length > 0) {
+          window.appState.selectedReagents = testReagents;
+          EventBus.emit("stateChanged");
+        } else {
+          createNotification("At least one valid reaction must remain");
+        }
+      }
+
+      return;
+    }
+
+    // // Ctrl+Shift+click → reset & select reagent
+    // if (event.ctrlKey && event.shiftKey && d.type === "material") {
+    //   window.appState.selectedReagents = d.id;
+    //   window.appState.selectedProduct = [];
+    //   EventBus.emit("stateChanged");
+    //   return;
+    // }
+
+    // Shift+click → reset & select product
+    if (event.shiftKey && d.type === "material") {
+      window.appState.selectedReagents = [];
+      window.appState.selectedProduct = d.id;
+      EventBus.emit("stateChanged");
+      return;
+    }
     
     // Reset all highlighting first
     node.style("opacity", 1);
@@ -1143,6 +1201,12 @@ const updateUI = () => {
     } catch (error) {
       console.error("Failed to initialize app:", error);
     }
+
+    // Hook into update cycle
+    EventBus.on("stateChanged", () => {
+      updateChoicesOptions();
+      updateUI();
+    });
   };
 
   if (document.readyState === "loading") {
