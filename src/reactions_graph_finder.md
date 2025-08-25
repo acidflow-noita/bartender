@@ -763,54 +763,73 @@ const renderGraph = (filteredReactions) => {
     event.stopPropagation();
 
     // Ctrl+click → toggle reagent
-    if (event.ctrlKey && !event.shiftKey && d.type === "material") {
-      const isSelected = window.appState.selectedReagents.includes(d.id);
+    // if (event.ctrlKey && !event.shiftKey && d.type === "material") {
+    //   const isSelected = window.appState.selectedReagents.includes(d.id);
 
-      if (!isSelected) {
-        // Add reagent
-        window.appState.selectedReagents.push(d.id);
+    //   if (!isSelected) {
+    //     // Add reagent
+    //     window.appState.selectedReagents.push(d.id);
 
-        // Check if any reactions remain
-        const testReactions = getFilteredReactions(window.appState.selectedReagents, window.appState.selectedProduct);
-        if (testReactions.length === 0) {
-          // Undo and warn
-          window.appState.selectedReagents = window.appState.selectedReagents.filter(r => r !== d.id);
-          createNotification("That selection leaves no valid reactions");
-          return;
-        }
+    //     // Check if any reactions remain
+    //     const testReactions = getFilteredReactions(window.appState.selectedReagents, window.appState.selectedProduct);
+    //     if (testReactions.length === 0) {
+    //       // Undo and warn
+    //       window.appState.selectedReagents = window.appState.selectedReagents.filter(r => r !== d.id);
+    //       createNotification("That selection leaves no valid reactions");
+    //       return;
+    //     }
 
+    //     EventBus.emit("stateChanged");
+    //   } else {
+    //     // Try removing reagent
+    //     const testReagents = window.appState.selectedReagents.filter(r => r !== d.id);
+    //     const testReactions = getFilteredReactions(testReagents, window.appState.selectedProduct);
+
+    //     if (testReactions.length > 0) {
+    //       window.appState.selectedReagents = testReagents;
+    //       EventBus.emit("stateChanged");
+    //     } else {
+    //       createNotification("At least one valid reaction must remain");
+    //     }
+    //   }
+
+    //   return;
+    // }
+
+    // Shift+click → reset & select product
+    if (!event.ctrlKey && event.shiftKey && d.type === "material") {
+      const testReagents = [];
+      const testProduct = d.id;
+      const testReactions = getFilteredReactions(testReagents, testProduct);
+
+      if (testReactions.length > 0) {
+        window.appState.selectedReagents = [];
+        window.appState.selectedProduct = d.id;
         EventBus.emit("stateChanged");
       } else {
-        // Try removing reagent
-        const testReagents = window.appState.selectedReagents.filter(r => r !== d.id);
-        const testReactions = getFilteredReactions(testReagents, window.appState.selectedProduct);
-
-        if (testReactions.length > 0) {
-          window.appState.selectedReagents = testReagents;
-          EventBus.emit("stateChanged");
-        } else {
-          createNotification("At least one valid reaction must remain");
-        }
+        createNotification("No valid reactions with this product");
       }
 
       return;
     }
 
-    // // Ctrl+Shift+click → reset & select reagent
-    // if (event.ctrlKey && event.shiftKey && d.type === "material") {
-    //   window.appState.selectedReagents = d.id;
-    //   window.appState.selectedProduct = [];
-    //   EventBus.emit("stateChanged");
-    //   return;
-    // }
+    // Shift+click → reset & select reagent
+    if (event.ctrlKey && !event.shiftKey && d.type === "material") {
+      const testReagents = [d.id];
+      const testProduct = "";
+      const testReactions = getFilteredReactions(testReagents, testProduct);
 
-    // Shift+click → reset & select product
-    if (event.shiftKey && d.type === "material") {
-      window.appState.selectedReagents = [];
-      window.appState.selectedProduct = d.id;
-      EventBus.emit("stateChanged");
+      if (testReactions.length > 0) {
+        window.appState.selectedReagents = [d.id];
+        window.appState.selectedProduct = "";
+        EventBus.emit("stateChanged");
+      } else {
+        createNotification("No valid reactions with this reagent");
+      }
+
       return;
     }
+
     
     // Reset all highlighting first
     node.style("opacity", 1);
