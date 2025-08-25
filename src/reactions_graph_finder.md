@@ -83,6 +83,7 @@ window.appState = {
   isResetting: false,
   excludeSpecialMaterials: true,
   onlyPracticalReactions: true,
+  excludeCatalysts: true,
 };
 
 // Parse URL parameters
@@ -344,6 +345,21 @@ const getFilteredReactions = (selectedReagents = [], selectedProduct = "") => {
     );
   }
 
+    if (window.appState.excludeCatalysts) {
+    relevantReactionIndices = new Set(
+      [...relevantReactionIndices].filter((index) => {
+        const r = reactions[index];
+        // si le produit choisi est aussi un input => c'est un catalyseur
+        const outputs = [r.output_cell1, r.output_cell2, r.output_cell3].filter(Boolean);
+        const inputs = [r.input_cell1, r.input_cell2, r.input_cell3].filter(Boolean);
+
+        // On filtre les réactions où tous les produits apparaissent déjà comme réactifs
+        const allCatalysts = outputs.every(o => inputs.includes(o));
+        return !allCatalysts;
+      })
+    );
+  }
+
   // Get filtered reactions
   return Array.from(relevantReactionIndices)
     .map((index) => reactions[index])
@@ -445,6 +461,11 @@ const excludeSpecialToggle = Inputs.toggle({
 const onlyPracticalToggle = Inputs.toggle({
   label: "Show only practical reactions (reaction speed higher than 5)",
   value: window.appState.onlyPracticalReactions,
+});
+
+const excludeCatalystToggle = Inputs.toggle({
+  label: "Hide reactions where product is only a catalyst",
+  value: window.appState.excludeCatalysts,
 });
 ```
 
@@ -1199,6 +1220,11 @@ const updateUI = () => {
         debouncedUpdate();
       });
 
+      excludeCatalystToggle.addEventListener("input", () => {
+        window.appState.excludeCatalysts = excludeCatalystToggle.value;
+        updateUI();
+      });
+
       // Initial state setup and UI update
       // Set toggle values from URL parameters
       excludeSpecialToggle.value = window.appState.excludeSpecialMaterials;
@@ -1245,11 +1271,16 @@ const updateUI = () => {
   </div>
   <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box; font-size: 0.9rem;"><h2 id="reactionsCount" style="margin: 0; font-size: 0.9rem;">Reactions found: <code class="bigger-number-better">5589</code></h2></div>
 </div>
-<div class="grid grid-cols-4 gap-1" style="width: 100%; box-sizing: border-box;">
-  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${resetButton}</div>
-  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${shareButton}</div>
-  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${excludeSpecialToggle}</div>
-  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${onlyPracticalToggle}</div>
+<div class="grid grid-cols-2 gap-1" style="width: 100%; box-sizing: border-box;">
+  <div class="grid grid-cols-2 gap-1" style="width: 100%; box-sizing: border-box;">
+    <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${resetButton}</div>
+    <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${shareButton}</div>
+  </div>
+  <div class="grid grid-cols-3 gap-1" style="width: 100%; box-sizing: border-box;">
+    <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${excludeSpecialToggle}</div>
+    <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${onlyPracticalToggle}</div>
+    <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${excludeCatalystToggle}</div>
+  </div>
 </div>
 <div class="grid grid-cols-1 grid-rowspan-1" style="grid-auto-rows: auto">
   <div class="card" id="tableContainer"></div>
