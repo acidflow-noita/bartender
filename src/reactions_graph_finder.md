@@ -533,17 +533,27 @@ const renderGraph = (filteredReactions) => {
     container.innerHTML = `<div style="text-align: center; padding: 2rem; color: #666;">Too much reactions with current filters</div>`;
     return;
   }
+
+  const wrapper = document.createElement("div");
+  wrapper.style.width = "100%";
+  wrapper.style.height = "100%";
+  wrapper.style.overflow = "hidden";
+  wrapper.style.position = "relative";
+  container.appendChild(wrapper);
   
   const width = container.clientWidth;
   const height = Math.max(600, width * 0.6);
   
   // Create SVG with a group for the zoomable content
-  const svg = d3.select(container)
+  const svg = d3.select(wrapper)
     .append("svg")
     .attr("width", width)
     .attr("height", height)
     .attr("viewBox", [0, 0, width, height])
-    .attr("style", "max-width: 100%; height: auto;");
+    .attr("preserveAspectRatio", "none")
+    .style("position", "absolute")
+    .style("left", 0)
+    .style("top", 0);
   
   // Create a group for all zoomable content
   const g = svg.append("g");
