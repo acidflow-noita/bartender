@@ -546,7 +546,7 @@ const graphStyleConfig = {
     linkDistance: 120,
     chargeStrength: -400
   },
-  
+
   opacities: {
     default: 1,
     linkDefault: 0.7,
@@ -742,6 +742,7 @@ const renderGraph = (filteredReactions) => {
       graphStyleConfig.colors.inputArrow : 
       graphStyleConfig.colors.outputArrow)
     .attr("stroke-width", graphStyleConfig.sizes.strokeWidth)
+    .attr("stroke-dasharray", d => d.type === "input" ? "5,5" : null)
     .attr("marker-end", d => `url(#arrow-${d.type})`);
   
   // Create nodes group
@@ -904,6 +905,21 @@ const renderGraph = (filteredReactions) => {
     //   return;
     // }
 
+    // Ctrl+Shift+click → wiki
+    if (event.shiftKey && event.ctrlKey && d.type === "material") {
+      const material = d.material;
+      const wikiUrl = material?.wikipage
+        ? `https://noita.wiki.gg/wiki/${encodeURIComponent(material.wikipage)}`
+        : "";
+
+      if (wikiUrl) {
+        window.open(wikiUrl, "_blank");
+      } else {
+        createNotification("No wiki page found for this material");
+      }
+      return;
+    }
+
     // Shift+click → reset & select product
     if (!event.ctrlKey && event.shiftKey && d.type === "material") {
       const testReagents = [];
@@ -921,7 +937,7 @@ const renderGraph = (filteredReactions) => {
       return;
     }
 
-    // Shift+click → reset & select reagent
+    // Ctrl+click → reset & select reagent
     if (event.ctrlKey && !event.shiftKey && d.type === "material") {
       const testReagents = [d.id];
       const testProduct = "";
@@ -1329,6 +1345,24 @@ const updateUI = () => {
       updateChoicesOptions();
       updateUI();
     });
+
+    const resizeGraph = () => {
+      const container = document.getElementById("tableContainer");
+      const svg = container.querySelector("svg");
+      if (!svg) return;
+
+      const width = container.clientWidth;
+      const height = Math.max(
+        graphStyleConfig.layout.minHeight,
+        width * graphStyleConfig.layout.heightRatio
+      );
+
+      svg.setAttribute("width", width);
+      svg.setAttribute("height", height);
+      svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    };
+
+    window.addEventListener("resize", resizeGraph);
   };
 
   if (document.readyState === "loading") {
