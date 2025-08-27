@@ -519,18 +519,73 @@ const isBigScreen = getRowCount(width);
 ```
 
 ```js
+const graphStyleConfig = {
+  colors: {
+    reactionNode: "#ff6b6b",
+    materialNodeDefault: "#505050ff",
+    materialNodeOutput: "#45b7d1",
+    inputArrow: "#24c93aff",
+    outputArrow: "#45b7d1",
+    nodeStroke: "#fff",
+    nodeStrokeHighlight: "#ff6b6b",
+    inputHighlight: "#24c93aff",
+    outputHighlight: "#45b7d1",
+    text: "#2d3436",
+    textLight: "#666",
+    white: "#fff"
+  },
+  
+  sizes: {
+    reactionRadius: 15,
+    materialRadius: 25,
+    strokeWidth: 3,
+    strokeWidthHighlight: 5,
+    strokeWidthMedium: 4,
+    fontSizeSmall: "11px",
+    fontSizeMedium: "12px",
+    linkDistance: 120,
+    chargeStrength: -400
+  },
+  
+  opacities: {
+    default: 1,
+    linkDefault: 0.7,
+    dimmed: 0.3,
+    veryDimmed: 0.2
+  },
+  
+  animations: {
+    duration: 200
+  },
+  
+  layout: {
+    heightRatio: 0.6,
+    minHeight: 600,
+    labelOffsetMaterial: 20,
+    labelOffsetReaction: 15,
+    imageScale: 2,
+    imagePosition: 0.65
+  },
+  
+  constraints: {
+    maxReactions: 1000,
+    maxNameLength: 15,
+    truncatedNameLength: 12
+  }
+};
+
 // Graph visualization with D3.js
 const renderGraph = (filteredReactions) => {
   const container = document.getElementById("tableContainer");
   container.innerHTML = "";
   
   if (filteredReactions.length === 0) {
-    container.innerHTML = `<div style="text-align: center; padding: 2rem; color: #666;">No reactions found with current filters</div>`;
+    container.innerHTML = `<div style="text-align: center; padding: 2rem; color: ${graphStyleConfig.colors.textLight};">No reactions found with current filters</div>`;
     return;
   }
 
-  if (filteredReactions.length >= 1000) {
-    container.innerHTML = `<div style="text-align: center; padding: 2rem; color: #666;">Too much reactions with current filters</div>`;
+  if (filteredReactions.length >= graphStyleConfig.constraints.maxReactions) {
+    container.innerHTML = `<div style="text-align: center; padding: 2rem; color: ${graphStyleConfig.colors.textLight};">Too many reactions with current filters</div>`;
     return;
   }
 
@@ -542,7 +597,10 @@ const renderGraph = (filteredReactions) => {
   container.appendChild(wrapper);
   
   const width = container.clientWidth;
-  const height = Math.max(600, width * 0.6);
+  const height = Math.max(
+    graphStyleConfig.layout.minHeight, 
+    width * graphStyleConfig.layout.heightRatio
+  );
   
   // Create SVG with a group for the zoomable content
   const svg = d3.select(wrapper)
@@ -571,8 +629,8 @@ const renderGraph = (filteredReactions) => {
       id: reactionId,
       type: "reaction",
       reaction: reaction,
-      radius: 15,
-      color: "#ff6b6b"
+      radius: graphStyleConfig.sizes.reactionRadius,
+      color: graphStyleConfig.colors.reactionNode
     });
     
     // Process inputs
@@ -586,8 +644,8 @@ const renderGraph = (filteredReactions) => {
             id: inputId,
             type: "material",
             material: material,
-            radius: 25,
-            color: material?.color || "#505050ff",
+            radius: graphStyleConfig.sizes.materialRadius,
+            color: material?.color || graphStyleConfig.colors.materialNodeDefault,
             imageUrl: imageUrl,
             name: material?.name || inputId
           });
@@ -612,8 +670,8 @@ const renderGraph = (filteredReactions) => {
             id: outputId,
             type: "material",
             material: material,
-            radius: 25,
-            color: material?.color || "#45b7d1",
+            radius: graphStyleConfig.sizes.materialRadius,
+            color: material?.color || graphStyleConfig.colors.materialNodeOutput,
             imageUrl: imageUrl,
             name: material?.name || outputId
           });
@@ -637,51 +695,53 @@ const renderGraph = (filteredReactions) => {
   
   // Create simulation
   const simulation = d3.forceSimulation(nodeArray)
-    .force("link", d3.forceLink(linkArray).id(d => d.id).distance(120))
-    .force("charge", d3.forceManyBody().strength(-400))
+    .force("link", d3.forceLink(linkArray).id(d => d.id).distance(graphStyleConfig.sizes.linkDistance))
+    .force("charge", d3.forceManyBody().strength(graphStyleConfig.sizes.chargeStrength))
     .force("center", d3.forceCenter(width / 2, height / 2))
     .force("collision", d3.forceCollide().radius(d => d.radius + 15));
   
-  // Create arrow markers - simple version, one per type
+  // Create arrow markers
   const defs = svg.append("defs");
-  
+
   defs.append("marker")
     .attr("id", "arrow-input")
     .attr("viewBox", "0 -5 10 10")
-    .attr("refX", 25)
+    .attr("refX", graphStyleConfig.sizes.materialRadius)
     .attr("refY", 0)
     .attr("markerWidth", 8)
     .attr("markerHeight", 8)
     .attr("orient", "auto")
     .append("path")
     .attr("d", "M0,-5L10,0L0,5")
-    .attr("fill", "#24c93aff");
+    .attr("fill", graphStyleConfig.colors.inputArrow);
   
   defs.append("marker")
     .attr("id", "arrow-output")
     .attr("viewBox", "0 -5 10 10")
-    .attr("refX", 25)
+    .attr("refX", graphStyleConfig.sizes.materialRadius)
     .attr("refY", 0)
     .attr("markerWidth", 8)
     .attr("markerHeight", 8)
     .attr("orient", "auto")
     .append("path")
     .attr("d", "M0,-5L10,0L0,5")
-    .attr("fill", "#45b7d1");
+    .attr("fill", graphStyleConfig.colors.outputArrow);
   
-  // Create link groups (each group contains the line and inherits opacity)
+  // Create link groups
   const linkGroups = g.append("g")
     .attr("class", "links")
     .selectAll("g")
     .data(linkArray)
     .join("g")
     .attr("class", "link-group")
-    .style("opacity", 0.7);
+    .style("opacity", graphStyleConfig.opacities.linkDefault);
   
   // Add lines to each link group
   const link = linkGroups.append("line")
-    .attr("stroke", d => d.type === "input" ? "#24c93aff" : "#45b7d1")
-    .attr("stroke-width", 3)
+    .attr("stroke", d => d.type === "input" ? 
+      graphStyleConfig.colors.inputArrow : 
+      graphStyleConfig.colors.outputArrow)
+    .attr("stroke-width", graphStyleConfig.sizes.strokeWidth)
     .attr("marker-end", d => `url(#arrow-${d.type})`);
   
   // Create nodes group
@@ -707,8 +767,8 @@ const renderGraph = (filteredReactions) => {
     .append("circle")
     .attr("r", d => d.radius)
     .attr("fill", d => d.color)
-    .attr("stroke", "#fff")
-    .attr("stroke-width", 3)
+    .attr("stroke", graphStyleConfig.colors.nodeStroke)
+    .attr("stroke-width", graphStyleConfig.sizes.strokeWidth)
     .attr("class", "node-background");
   
   // Add material images
@@ -717,9 +777,9 @@ const renderGraph = (filteredReactions) => {
     .attr("clip-path", d => `url(#clip-${d.id})`)
     .append("image")
     .attr("href", d => d.imageUrl)
-    .attr("x", d => -d.radius * 0.65)
-    .attr("y", d => -d.radius * 0.65)
-    .attr("transform", "scale(2)")
+    .attr("x", d => -d.radius * graphStyleConfig.layout.imagePosition)
+    .attr("y", d => -d.radius * graphStyleConfig.layout.imagePosition)
+    .attr("transform", `scale(${graphStyleConfig.layout.imageScale})`)
     .attr("class", "material-image")
     .on("error", function() {
       d3.select(this).style("display", "none");
@@ -728,14 +788,20 @@ const renderGraph = (filteredReactions) => {
   // Add labels for all nodes
   node.append("text")
     .attr("text-anchor", "middle")
-    .attr("dy", d => d.type === "material" ? d.radius + 20 : d.radius + 15)
-    .attr("font-size", "11px")
-    .attr("fill", "#2d3436")
+    .attr("dy", d => d.type === "material" ? 
+      d.radius + graphStyleConfig.layout.labelOffsetMaterial : 
+      d.radius + graphStyleConfig.layout.labelOffsetReaction)
+    .attr("font-size", graphStyleConfig.sizes.fontSizeSmall)
+    .attr("fill", graphStyleConfig.colors.text)
     .attr("font-weight", "bold")
     .attr("class", "node-label")
     .text(d => {
       if (d.type === "material") {
-        return d.name.length > 15 ? d.name.substring(0, 12) + "..." : d.name;
+        const maxLength = graphStyleConfig.constraints.maxNameLength;
+        const truncatedLength = graphStyleConfig.constraints.truncatedNameLength;
+        return d.name.length > maxLength ? 
+          d.name.substring(0, truncatedLength) + "..." : 
+          d.name;
       }
     });
   
@@ -744,8 +810,8 @@ const renderGraph = (filteredReactions) => {
     .append("circle")
     .attr("r", d => d.radius)
     .attr("fill", d => d.color)
-    .attr("stroke", "#fff")
-    .attr("stroke-width", 3)
+    .attr("stroke", graphStyleConfig.colors.nodeStroke)
+    .attr("stroke-width", graphStyleConfig.sizes.strokeWidth)
     .attr("class", "reaction-circle");
   
   node.filter(d => d.type === "reaction")
@@ -753,8 +819,8 @@ const renderGraph = (filteredReactions) => {
     .text(d => d.reaction.reaction_rate)
     .attr("text-anchor", "middle")
     .attr("dy", 5)
-    .attr("font-size", "12px")
-    .attr("fill", "#fff")
+    .attr("font-size", graphStyleConfig.sizes.fontSizeMedium)
+    .attr("fill", graphStyleConfig.colors.white)
     .attr("font-weight", "bold")
     .attr("class", "reaction-speed");
   
@@ -778,19 +844,29 @@ const renderGraph = (filteredReactions) => {
       }
     });
   
+  // Mouseout event handler
   node.on("mouseout", function(event, d) {
     d3.select(this).select(".node-background, .reaction-circle")
       .transition()
-      .duration(200)
-      .attr("stroke-width", 3)
-      .attr("stroke", "#fff");
+      .duration(graphStyleConfig.animations.duration)
+      .attr("stroke-width", graphStyleConfig.sizes.strokeWidth)
+      .attr("stroke", graphStyleConfig.colors.nodeStroke);
     
     d3.select(this).select(".node-id-label")
       .transition()
-      .duration(200)
+      .duration(graphStyleConfig.animations.duration)
       .style("opacity", 0);
   });
   
+  // Click event for background (reset)
+  svg.on("click", () => {
+    node.style("opacity", graphStyleConfig.opacities.default);
+    linkGroups.style("opacity", graphStyleConfig.opacities.linkDefault);
+    node.select(".node-background, .reaction-circle")
+      .attr("stroke", graphStyleConfig.colors.nodeStroke)
+      .attr("stroke-width", graphStyleConfig.sizes.strokeWidth);
+  });
+
   node.on("click", (event, d) => {
     event.stopPropagation();
 
@@ -864,18 +940,17 @@ const renderGraph = (filteredReactions) => {
 
     
     // Reset all highlighting first
-    node.style("opacity", 1);
-    linkGroups.style("opacity", 0.7);
+    node.style("opacity", graphStyleConfig.opacities.default);
+    linkGroups.style("opacity", graphStyleConfig.opacities.linkDefault);
     node.select(".node-background, .reaction-circle")
-      .attr("stroke", "#fff")
-      .attr("stroke-width", 3);
-    
-    // If it's a material node, highlight it and its direct connections only
+      .attr("stroke", graphStyleConfig.colors.nodeStroke)
+      .attr("stroke-width", graphStyleConfig.sizes.strokeWidth);
+
     if (d.type === "material") {
-      // Highlight the clicked material
       d3.select(event.currentTarget).select(".node-background")
-        .attr("stroke", "#ff6b6b")
-        .attr("stroke-width", 5);
+        .attr("stroke", graphStyleConfig.colors.nodeStrokeHighlight)
+        .attr("stroke-width", graphStyleConfig.sizes.strokeWidthHighlight);
+      
       
       // Find directly connected reactions
       const connectedReactionIds = new Set();
@@ -925,8 +1000,8 @@ const renderGraph = (filteredReactions) => {
       );
     } else if (d.type === "reaction") {
       d3.select(event.currentTarget).select(".reaction-circle")
-        .attr("stroke", "#ff6b6b")
-        .attr("stroke-width", 5);
+        .attr("stroke", graphStyleConfig.colors.nodeStrokeHighlight)
+        .attr("stroke-width", graphStyleConfig.sizes.strokeWidthHighlight);
       
       // Find all materials connected to this reaction
       const connectedMaterialIds = new Set();
@@ -943,7 +1018,7 @@ const renderGraph = (filteredReactions) => {
       connectedMaterialIds.forEach(materialId => {
         const materialNode = node.filter(n => n.id === materialId);
         materialNode.select(".node-background")
-          .attr("stroke", "#45b7d1")
+          .attr("stroke", graphStyleConfig.colors.nodeStrokeHighlight)
           .attr("stroke-width", 4);
       });
       
@@ -955,15 +1030,6 @@ const renderGraph = (filteredReactions) => {
         (allConnectedIds.has(l.source.id) && allConnectedIds.has(l.target.id)) ? 1 : 0.2
       );
     }
-  });
-  
-  // Click on empty space to deselect
-  svg.on("click", () => {
-    node.style("opacity", 1);
-    linkGroups.style("opacity", 0.7);
-    node.select(".node-background, .reaction-circle")
-      .attr("stroke", "#fff")
-      .attr("stroke-width", 3);
   });
   
   // Update positions on simulation tick
