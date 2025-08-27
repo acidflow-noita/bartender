@@ -96,7 +96,7 @@ window.appState.onlyPracticalReactions = urlParams.get("onlyPractical") === "tru
 
 ```js
 // Special materials to exclude
-const specialMaterials = new Set(["mimic_liquid", "midas_precursor", "midas"]);
+const specialMaterials = new Set(["mimic_liquid", "midas_precursor", "midas", "magic_gas_midas", "corruption_static"]);
 
 const EventBus = {
   events: {},
@@ -455,7 +455,7 @@ const shareButton = Inputs.button(
 
 // Filter toggles
 const excludeSpecialToggle = Inputs.toggle({
-  label: "Exclude Mimicium, Alchemic Precursor, Draught Of Midas",
+  label: "Exclude generic reaction : Midas, Mimicium, Corrupted Rock",
   value: window.appState.excludeSpecialMaterials,
 });
 
