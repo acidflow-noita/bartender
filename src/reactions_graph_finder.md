@@ -519,20 +519,20 @@ const isBigScreen = getRowCount(width);
 ```
 
 ```js
+// Simple and clean graph configuration
 const graphStyleConfig = {
   colors: {
     reactionNode: "#ff6b6b",
-    materialNodeDefault: "#505050ff",
+    materialNodeDefault: "#505050",
     materialNodeOutput: "#45b7d1",
-    inputArrow: "#24c93aff",
+    inputArrow: "#24c93a",
     outputArrow: "#45b7d1",
-    nodeStroke: "#fff",
+    nodeStroke: "#ffffff",
     nodeStrokeHighlight: "#ff6b6b",
-    inputHighlight: "#24c93aff",
+    inputHighlight: "#24c93a",
     outputHighlight: "#45b7d1",
-    text: "#2d3436",
-    textLight: "#666",
-    white: "#fff"
+    text: "#ffffff",
+    textLight: "#ffffff"
   },
   
   sizes: {
@@ -550,8 +550,8 @@ const graphStyleConfig = {
   opacities: {
     default: 1,
     linkDefault: 0.7,
-    dimmed: 0.3,
-    veryDimmed: 0.2
+    dimmed: 0.15,
+    veryDimmed: 0.05
   },
   
   animations: {
@@ -821,7 +821,7 @@ const renderGraph = (filteredReactions) => {
     .attr("text-anchor", "middle")
     .attr("dy", 5)
     .attr("font-size", graphStyleConfig.sizes.fontSizeMedium)
-    .attr("fill", graphStyleConfig.colors.white)
+    .attr("fill", graphStyleConfig.colors.text)
     .attr("font-weight", "bold")
     .attr("class", "reaction-speed");
   
@@ -979,30 +979,29 @@ const renderGraph = (filteredReactions) => {
         }
       });
       
-      // Highlight connected reactions and their materials
-      connectedReactionIds.forEach(reactionId => {
-        const reactionNode = node.filter(n => n.id === reactionId);
-        reactionNode.select(".reaction-circle")
-          .attr("stroke", "#ff6b6b")
-          .attr("stroke-width", 5);
-        
-        // Highlight materials connected to these reactions
-        linkArray.forEach(link => {
-          if (link.source.id === reactionId && link.target.type === "material") {
-            const materialNode = node.filter(n => n.id === link.target.id);
-            materialNode.select(".node-background")
-              .attr("stroke", "#45b7d1")
-              .attr("stroke-width", 4);
-          }
-          if (link.target.id === reactionId && link.source.type === "material") {
-            const materialNode = node.filter(n => n.id === link.source.id);
-            materialNode.select(".node-background")
-              .attr("stroke", "#24c93aff")
-              .attr("stroke-width", 4);
-          }
-        });
-      });
+    // Highlight connected reactions and their materials
+    connectedReactionIds.forEach(reactionId => {
+      const reactionNode = node.filter(n => n.id === reactionId);
+      reactionNode.select(".reaction-circle")
+        .attr("stroke", graphStyleConfig.colors.nodeStrokeHighlight)
+        .attr("stroke-width", graphStyleConfig.sizes.strokeWidthHighlight);
       
+      // Highlight materials connected to these reactions
+      linkArray.forEach(link => {
+        if (link.source.id === reactionId && link.target.type === "material") {
+          const materialNode = node.filter(n => n.id === link.target.id);
+          materialNode.select(".node-background")
+            .attr("stroke", graphStyleConfig.colors.outputHighlight)
+            .attr("stroke-width", graphStyleConfig.sizes.strokeWidthMedium);
+        }
+        if (link.target.id === reactionId && link.source.type === "material") {
+          const materialNode = node.filter(n => n.id === link.source.id);
+          materialNode.select(".node-background")
+            .attr("stroke", graphStyleConfig.colors.inputHighlight)
+            .attr("stroke-width", graphStyleConfig.sizes.strokeWidthMedium);
+        }
+      });
+    });
       // Dim non-connected nodes
       const allConnectedIds = new Set([d.id, ...connectedReactionIds]);
       linkArray.forEach(link => {
@@ -1010,9 +1009,9 @@ const renderGraph = (filteredReactions) => {
         if (connectedReactionIds.has(link.target.id)) allConnectedIds.add(link.source.id);
       });
       
-      node.style("opacity", n => allConnectedIds.has(n.id) ? 1 : 0.3);
+      node.style("opacity", n => allConnectedIds.has(n.id) ? graphStyleConfig.opacities.default : graphStyleConfig.opacities.dimmed);
       linkGroups.style("opacity", l => 
-        (allConnectedIds.has(l.source.id) && allConnectedIds.has(l.target.id)) ? 1 : 0.2
+        (allConnectedIds.has(l.source.id) && allConnectedIds.has(l.target.id)) ? graphStyleConfig.opacities.default : graphStyleConfig.opacities.veryDimmed
       );
     } else if (d.type === "reaction") {
       d3.select(event.currentTarget).select(".reaction-circle")
@@ -1041,9 +1040,9 @@ const renderGraph = (filteredReactions) => {
       // Dim non-connected nodes
       const allConnectedIds = new Set([d.id, ...connectedMaterialIds]);
       
-      node.style("opacity", n => allConnectedIds.has(n.id) ? 1 : 0.3);
+      node.style("opacity", n => allConnectedIds.has(n.id) ? graphStyleConfig.opacities.default : graphStyleConfig.opacities.dimmed);
       linkGroups.style("opacity", l => 
-        (allConnectedIds.has(l.source.id) && allConnectedIds.has(l.target.id)) ? 1 : 0.2
+        (allConnectedIds.has(l.source.id) && allConnectedIds.has(l.target.id)) ? graphStyleConfig.opacities.default : graphStyleConfig.opacities.veryDimmed
       );
     }
   });
