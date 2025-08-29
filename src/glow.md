@@ -188,7 +188,7 @@ function glowPlot(materials, width) {
   const plotHeight = isMobile ? 400 : 560;
   const fontSize = isMobile ? 10 : 12;
 
-  const glowData = materials.filter((d) => d.gfx_glow !== null && d.gfx_glow > 0 && d.name && d.image_local);
+  const glowData = materials.filter((d) => d.gfx_glow !== null && d.gfx_glow > 0);
 
   if (glowData.length === 0) {
     return html`<div>No glow data to display.</div>`;
@@ -209,7 +209,7 @@ function glowPlot(materials, width) {
       tickFormat: "",
     },
     y: {
-      reverse: true,
+      reverse: false,
       label: "Glow Intensity",
       grid: true,
       type: "pow",
@@ -232,7 +232,7 @@ function glowPlot(materials, width) {
           y: "gfx_glow",
           fill: "type",
           symbol: "type",
-          r: isMobile ? 5 : 14,
+          r: isMobile ? 5 : 8,
           padding: 2,
           opacity: (d) => (d.gfx_glow <= glowSelectorValue ? 1 : 0.1),
           tip: {
