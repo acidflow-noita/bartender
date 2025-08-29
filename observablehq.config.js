@@ -15,6 +15,7 @@ export default {
         { name: "Hardness (β)", path: "/hardness" },
         { name: "Density (β)", path: "/density" },
         { name: "Durability (β)", path: "/durability" },
+        { name: "Glow (β)", path: "/glow" },
       ],
     },
     // {
