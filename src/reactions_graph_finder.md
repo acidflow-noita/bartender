@@ -45,6 +45,24 @@ initializeTitleAnimation();
 // Load data
 const materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
 const reactions = await FileAttachment("./data/jsons/reactions.json").json();
+// TODO 
+// utiliser data/reactions.json & material_associations.json
+// structure pour reactions.json :
+  // {
+    // "reactionRate": 0,
+    // "reagent1": "[lava]",
+    // "reagent2": "air",
+    // "reagent3": null,
+    // "product1": "smoke",
+    // "product2": "air",
+    // "product3": null,
+    // "notes": null
+  // },
+  // les elements entre crochet sont des tags, pour retrouver quels sont les elements concerné on utilise material_associations.json qui a la strucutre suivante
+  // {
+  //   "id": "water",
+  //   "tag": "liquid"
+  // },
 ```
 
 ```js
@@ -54,6 +72,9 @@ const materialsMap = new Map(materials.map((m) => [m.id, m]));
 const reactionInputsIndex = new Map();
 const reactionOutputsIndex = new Map();
 
+// TODO
+// modifer la recherche pour recuperer l'ensemble des reagent1/2/3 (dont les tags) puis recuperer les elements concerné par les tags, potentiellement faire des index pour les materiaux et des index pour les tags separement
+
 reactions.forEach((reaction, index) => {
   // Index inputs
   [reaction.input_cell1, reaction.input_cell2, reaction.input_cell3].filter(Boolean).forEach((input) => {
@@ -62,6 +83,9 @@ reactions.forEach((reaction, index) => {
     }
     reactionInputsIndex.get(input).push(index);
   });
+
+// TODO
+// aussi adapter, mais pour product1/2/3 ici
 
   // Index outputs
   [reaction.output_cell1, reaction.output_cell2, reaction.output_cell3].filter(Boolean).forEach((output) => {
@@ -109,6 +133,7 @@ const EventBus = {
 };
 
 // Optimized functions using indexes
+// TODO toutes les fonctions qui manipule les reagents et produit vont probablement devoir etre adapter puisqu'on manipule les reactions directement depuis les tags maintenant
 const getAvailableReagents = (selectedReagents = [], selectedProduct = "") => {
   if (!selectedProduct && selectedReagents.length === 0) {
     // Return all materials that appear as inputs in reactions
@@ -185,6 +210,8 @@ const getAvailableReagents = (selectedReagents = [], selectedProduct = "") => {
   }
 
   // Collect all input materials from relevant reactions
+  // TODO 
+  // on doit recupere les tags aussi
   const availableReagentIds = new Set();
   relevantReactionIndices.forEach((index) => {
     const reaction = reactions[index];
@@ -208,7 +235,8 @@ const getAvailableReagents = (selectedReagents = [], selectedProduct = "") => {
     .filter(Boolean)
     .sort((a, b) => a.name.localeCompare(b.name));
 };
-
+  // TODO 
+  // on doit recupere les tags aussi
 const getAvailableProducts = (selectedReagents = []) => {
   if (selectedReagents.length === 0) {
     // Return all products from all reactions
@@ -273,6 +301,8 @@ const getAvailableProducts = (selectedReagents = []) => {
   }
 
   // Collect all output materials from relevant reactions
+  // TODO
+  // on doit recupere les tags aussi
   const availableProductIds = new Set();
   relevantReactionIndices.forEach((index) => {
     const reaction = reactions[index];
@@ -296,7 +326,8 @@ const getAvailableProducts = (selectedReagents = []) => {
     .filter(Boolean)
     .sort((a, b) => a.name.localeCompare(b.name));
 };
-
+  // TODO
+  // on doit prendre en compte les tags aussi et plus generalement faire attention au changement dans la strucutre de donnée utilisé
 const getFilteredReactions = (selectedReagents = [], selectedProduct = "") => {
   // Use indexes for faster filtering
   let relevantReactionIndices = new Set(Array.from({ length: reactions.length }, (_, i) => i));
@@ -520,6 +551,7 @@ const isBigScreen = getRowCount(width);
 
 ```js
 // Simple and clean graph configuration
+// ajouter la config pour les nodes tags
 const graphStyleConfig = {
   colors: {
     reactionNode: "#ff6b6b",
@@ -624,6 +656,9 @@ const renderGraph = (filteredReactions) => {
   filteredReactions.forEach((reaction, index) => {
     const reactionId = `reaction_${index}`;
     
+    // TODO
+    // maintenant au lieu d'ajouter toutes les nodes material directement, on doit faire les lien input->reaction->output et si input ou output sont des tags, faire tout les lien material->tags pour les materials concerné
+
     // Add reaction node
     nodes.set(reactionId, {
       id: reactionId,
@@ -871,39 +906,7 @@ const renderGraph = (filteredReactions) => {
   node.on("click", (event, d) => {
     event.stopPropagation();
 
-    // Ctrl+click → toggle reagent
-    // if (event.ctrlKey && !event.shiftKey && d.type === "material") {
-    //   const isSelected = window.appState.selectedReagents.includes(d.id);
-
-    //   if (!isSelected) {
-    //     // Add reagent
-    //     window.appState.selectedReagents.push(d.id);
-
-    //     // Check if any reactions remain
-    //     const testReactions = getFilteredReactions(window.appState.selectedReagents, window.appState.selectedProduct);
-    //     if (testReactions.length === 0) {
-    //       // Undo and warn
-    //       window.appState.selectedReagents = window.appState.selectedReagents.filter(r => r !== d.id);
-    //       createNotification("That selection leaves no valid reactions");
-    //       return;
-    //     }
-
-    //     EventBus.emit("stateChanged");
-    //   } else {
-    //     // Try removing reagent
-    //     const testReagents = window.appState.selectedReagents.filter(r => r !== d.id);
-    //     const testReactions = getFilteredReactions(testReagents, window.appState.selectedProduct);
-
-    //     if (testReactions.length > 0) {
-    //       window.appState.selectedReagents = testReagents;
-    //       EventBus.emit("stateChanged");
-    //     } else {
-    //       createNotification("At least one valid reaction must remain");
-    //     }
-    //   }
-
-    //   return;
-    // }
+// On veut pouvoir toggle l'affichage des materials qui ne sont affiché que parce qu'ils sont lié à un ou des tags, ceux qui sont directement des inputs ou output doivent toujours etre affiché mais on peut envisager une propriété de visibilité
 
     // Ctrl+Shift+click → wiki
     if (event.shiftKey && event.ctrlKey && d.type === "material") {
@@ -1087,6 +1090,9 @@ const renderGraph = (filteredReactions) => {
 ```
 
 ```js
+// TODO
+// mettre à jour pour prendre en compte les tags
+
 // Update functions
 const updateChoicesOptions = () => {
   const availableReagents = getAvailableReagents(window.appState.selectedReagents, window.appState.selectedProduct);
@@ -1143,6 +1149,9 @@ const updateUI = () => {
 ```
 
 ```js
+// TODO
+// mettre à jour pour prendre en compte les tags
+
 // Initialize choices
 {
   const waitForElement = (id, timeout = 5000) => {
