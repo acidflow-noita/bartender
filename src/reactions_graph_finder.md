@@ -44,7 +44,7 @@ initializeTitleAnimation();
 ```js
 // Load data
 const materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
-const reactions = await FileAttachment("./data/reactions.json").json();
+const reactions = await FileAttachment("./data/reactions_from_materials.json").json();
 const materialAssociations = await FileAttachment("./data/jsons/material_associations.json").json();
 
 // Create mapping from tags to materials
@@ -525,6 +525,7 @@ const resetButton = Inputs.button(
       url.search = "";
       window.history.replaceState({}, "", url.toString());
 
+      window.appState.visibleTagMaterials.clear();
       window.appState.selectedReagents = [];
       window.appState.selectedProduct = "";
       window.appState.excludeSpecialMaterials = true;
@@ -620,7 +621,7 @@ const graphStyleConfig = {
   },
   
   constraints: {
-    maxReactions: 100,
+    maxReactions: 350,
     maxNameLength: 30,
     truncatedNameLength: 20
   }
@@ -1176,21 +1177,23 @@ node.filter(d => d.type === "tag")
   });
 
 // Graph visualization with D3.js - updated for tags
-// REMOVE the direct call to getFilteredReactions in the click handlers
+// Update the click handler to highlight tag materials when the tag is highlighted
 node.on("click", (event, d) => {
   event.stopPropagation();
 
-  // Double click on tag to toggle visibility of associated materials
+  // Double click on tag to toggle visibility of ALL associated materials
   if (event.detail === 2 && d.type === "tag") {
     const materialIds = resolveTag(d.id);
+    const allCurrentlyVisible = materialIds.every(id => window.appState.visibleTagMaterials.has(id));
+    
     materialIds.forEach(materialId => {
-      if (window.appState.visibleTagMaterials.has(materialId)) {
+      if (allCurrentlyVisible) {
         window.appState.visibleTagMaterials.delete(materialId);
       } else {
         window.appState.visibleTagMaterials.add(materialId);
       }
     });
-    // Use EventBus instead of direct call
+    
     EventBus.emit("stateChanged");
     return;
   }
@@ -1247,104 +1250,121 @@ node.on("click", (event, d) => {
     return;
   }
     
-    // Reset all highlighting first
-    node.style("opacity", graphStyleConfig.opacities.default);
-    linkGroups.style("opacity", d => {
-      if (d.type === "tag-association") return graphStyleConfig.opacities.dimmed;
-      return graphStyleConfig.opacities.linkDefault;
-    });
-    node.select(".node-background, .reaction-circle")
-      .attr("stroke", graphStyleConfig.colors.nodeStroke)
-      .attr("stroke-width", graphStyleConfig.sizes.strokeWidth);
+  // Reset all highlighting first
+  node.style("opacity", graphStyleConfig.opacities.default);
+  linkGroups.style("opacity", d => {
+    if (d.type === "tag-association") return graphStyleConfig.opacities.dimmed;
+    return graphStyleConfig.opacities.linkDefault;
+  });
+  node.select(".node-background, .reaction-circle")
+    .attr("stroke", graphStyleConfig.colors.nodeStroke)
+    .attr("stroke-width", graphStyleConfig.sizes.strokeWidth);
 
-    if (d.type === "material" || d.type === "tag") {
-      d3.select(event.currentTarget).select(".node-background")
-        .attr("stroke", graphStyleConfig.colors.nodeStrokeHighlight)
-        .attr("stroke-width", graphStyleConfig.sizes.strokeWidthHighlight);
-      
-      // Find directly connected reactions
-      const connectedReactionIds = new Set();
-      linkArray.forEach(link => {
-        if (link.source.id === d.id && link.target.type === "reaction") {
-          connectedReactionIds.add(link.target.id);
-        }
-        if (link.target.id === d.id && link.source.type === "reaction") {
-          connectedReactionIds.add(link.source.id);
-        }
-      });
-      
-      // Highlight connected reactions and their materials
-      connectedReactionIds.forEach(reactionId => {
-        const reactionNode = node.filter(n => n.id === reactionId);
-        reactionNode.select(".reaction-circle")
-          .attr("stroke", graphStyleConfig.colors.nodeStrokeHighlight)
-          .attr("stroke-width", graphStyleConfig.sizes.strokeWidthHighlight);
-        
-        // Highlight materials connected to these reactions
-        linkArray.forEach(link => {
-          if (link.source.id === reactionId && (link.target.type === "material" || link.target.type === "tag")) {
-            const materialNode = node.filter(n => n.id === link.target.id);
-            materialNode.select(".node-background")
-              .attr("stroke", graphStyleConfig.colors.outputHighlight)
-              .attr("stroke-width", graphStyleConfig.sizes.strokeWidthMedium);
-          }
-          if (link.target.id === reactionId && (link.source.type === "material" || link.source.type === "tag")) {
-            const materialNode = node.filter(n => n.id === link.source.id);
-            materialNode.select(".node-background")
-              .attr("stroke", graphStyleConfig.colors.inputHighlight)
-              .attr("stroke-width", graphStyleConfig.sizes.strokeWidthMedium);
-          }
-        });
-      });
-      
-      // Dim non-connected nodes
-      const allConnectedIds = new Set([d.id, ...connectedReactionIds]);
-      linkArray.forEach(link => {
-        if (connectedReactionIds.has(link.source.id)) allConnectedIds.add(link.target.id);
-        if (connectedReactionIds.has(link.target.id)) allConnectedIds.add(link.source.id);
-      });
-      
-      node.style("opacity", n => allConnectedIds.has(n.id) ? graphStyleConfig.opacities.default : graphStyleConfig.opacities.dimmed);
-      linkGroups.style("opacity", l => 
-        (allConnectedIds.has(l.source.id) && allConnectedIds.has(l.target.id)) ? 
-        (l.type === "tag-association" ? graphStyleConfig.opacities.dimmed : graphStyleConfig.opacities.default) : 
-        graphStyleConfig.opacities.veryDimmed
-      );
-    } else if (d.type === "reaction") {
-      d3.select(event.currentTarget).select(".reaction-circle")
-        .attr("stroke", graphStyleConfig.colors.nodeStrokeHighlight)
-        .attr("stroke-width", graphStyleConfig.sizes.strokeWidthHighlight);
-      
-      // Find all materials connected to this reaction
-      const connectedMaterialIds = new Set();
-      linkArray.forEach(link => {
-        if (link.source.id === d.id && (link.target.type === "material" || link.target.type === "tag")) {
-          connectedMaterialIds.add(link.target.id);
-        }
-        if (link.target.id === d.id && (link.source.type === "material" || link.source.type === "tag")) {
-          connectedMaterialIds.add(link.source.id);
-        }
-      });
-      
-      // Highlight connected materials
-      connectedMaterialIds.forEach(materialId => {
+  if (d.type === "material" || d.type === "tag") {
+    d3.select(event.currentTarget).select(".node-background")
+      .attr("stroke", graphStyleConfig.colors.nodeStrokeHighlight)
+      .attr("stroke-width", graphStyleConfig.sizes.strokeWidthHighlight);
+    
+    // Update the tag material highlighting to add a special class for animation
+    if (d.type === "tag") {
+      const materialIds = resolveTag(d.id);
+      materialIds.forEach(materialId => {
         const materialNode = node.filter(n => n.id === materialId);
         materialNode.select(".node-background")
-          .attr("stroke", graphStyleConfig.colors.nodeStrokeHighlight)
-          .attr("stroke-width", 4);
+          .attr("stroke", graphStyleConfig.colors.tagVisible)
+          .attr("stroke-width", graphStyleConfig.sizes.strokeWidthMedium)
+          .classed("tag-material-highlighted", true); // Add special class for animation
       });
-      
-      // Dim non-connected nodes
-      const allConnectedIds = new Set([d.id, ...connectedMaterialIds]);
-      
-      node.style("opacity", n => allConnectedIds.has(n.id) ? graphStyleConfig.opacities.default : graphStyleConfig.opacities.dimmed);
-      linkGroups.style("opacity", l => 
-        (allConnectedIds.has(l.source.id) && allConnectedIds.has(l.target.id)) ? 
-        (l.type === "tag-association" ? graphStyleConfig.opacities.dimmed : graphStyleConfig.opacities.default) : 
-        graphStyleConfig.opacities.veryDimmed
-      );
     }
-  });
+    // Find directly connected reactions
+    const connectedReactionIds = new Set();
+    linkArray.forEach(link => {
+      if (link.source.id === d.id && link.target.type === "reaction") {
+        connectedReactionIds.add(link.target.id);
+      }
+      if (link.target.id === d.id && link.source.type === "reaction") {
+        connectedReactionIds.add(link.source.id);
+      }
+    });
+    
+    // Highlight connected reactions and their materials
+    connectedReactionIds.forEach(reactionId => {
+      const reactionNode = node.filter(n => n.id === reactionId);
+      reactionNode.select(".reaction-circle")
+        .attr("stroke", graphStyleConfig.colors.nodeStrokeHighlight)
+        .attr("stroke-width", graphStyleConfig.sizes.strokeWidthHighlight);
+      
+      // Highlight materials connected to these reactions
+      linkArray.forEach(link => {
+        if (link.source.id === reactionId && (link.target.type === "material" || link.target.type === "tag")) {
+          const materialNode = node.filter(n => n.id === link.target.id);
+          materialNode.select(".node-background")
+            .attr("stroke", graphStyleConfig.colors.outputHighlight)
+            .attr("stroke-width", graphStyleConfig.sizes.strokeWidthMedium);
+        }
+        if (link.target.id === reactionId && (link.source.type === "material" || link.source.type === "tag")) {
+          const materialNode = node.filter(n => n.id === link.source.id);
+          materialNode.select(".node-background")
+            .attr("stroke", graphStyleConfig.colors.inputHighlight)
+            .attr("stroke-width", graphStyleConfig.sizes.strokeWidthMedium);
+        }
+      });
+    });
+    
+    // Dim non-connected nodes
+    const allConnectedIds = new Set([d.id, ...connectedReactionIds]);
+    linkArray.forEach(link => {
+      if (connectedReactionIds.has(link.source.id)) allConnectedIds.add(link.target.id);
+      if (connectedReactionIds.has(link.target.id)) allConnectedIds.add(link.source.id);
+    });
+    
+    // If it's a tag, include all associated materials in the connected set
+    if (d.type === "tag") {
+      const materialIds = resolveTag(d.id);
+      materialIds.forEach(materialId => allConnectedIds.add(materialId));
+    }
+    
+    node.style("opacity", n => allConnectedIds.has(n.id) ? graphStyleConfig.opacities.default : graphStyleConfig.opacities.dimmed);
+    linkGroups.style("opacity", l => 
+      (allConnectedIds.has(l.source.id) && allConnectedIds.has(l.target.id)) ? 
+      (l.type === "tag-association" ? graphStyleConfig.opacities.dimmed : graphStyleConfig.opacities.default) : 
+      graphStyleConfig.opacities.veryDimmed
+    );
+  } else if (d.type === "reaction") {
+    d3.select(event.currentTarget).select(".reaction-circle")
+      .attr("stroke", graphStyleConfig.colors.nodeStrokeHighlight)
+      .attr("stroke-width", graphStyleConfig.sizes.strokeWidthHighlight);
+    
+    // Find all materials connected to this reaction
+    const connectedMaterialIds = new Set();
+    linkArray.forEach(link => {
+      if (link.source.id === d.id && (link.target.type === "material" || link.target.type === "tag")) {
+        connectedMaterialIds.add(link.target.id);
+      }
+      if (link.target.id === d.id && (link.source.type === "material" || link.source.type === "tag")) {
+        connectedMaterialIds.add(link.source.id);
+      }
+    });
+    
+    // Highlight connected materials
+    connectedMaterialIds.forEach(materialId => {
+      const materialNode = node.filter(n => n.id === materialId);
+      materialNode.select(".node-background")
+        .attr("stroke", graphStyleConfig.colors.nodeStrokeHighlight)
+        .attr("stroke-width", graphStyleConfig.sizes.strokeWidthMedium);
+    });
+    
+    // Dim non-connected nodes
+    const allConnectedIds = new Set([d.id, ...connectedMaterialIds]);
+    
+    node.style("opacity", n => allConnectedIds.has(n.id) ? graphStyleConfig.opacities.default : graphStyleConfig.opacities.dimmed);
+    linkGroups.style("opacity", l => 
+      (allConnectedIds.has(l.source.id) && allConnectedIds.has(l.target.id)) ? 
+      (l.type === "tag-association" ? graphStyleConfig.opacities.dimmed : graphStyleConfig.opacities.default) : 
+      graphStyleConfig.opacities.veryDimmed
+    );
+  }
+});
   
   // Update positions on simulation tick
   simulation.on("tick", () => {
@@ -1633,7 +1653,7 @@ const updateUI = () => {
   <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">
     <select id="productChoicesSelector" multiple></select>
   </div>
-  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box; font-size: 0.9rem;"><h2 id="reactionsCount" style="margin: 0; font-size: 0.9rem;">Reactions found: <code class="bigger-number-better">248</code></h2></div>
+  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box; font-size: 0.9rem;"><h2 id="reactionsCount" style="margin: 0; font-size: 0.9rem;">Reactions found: <code class="bigger-number-better">319</code></h2></div>
 </div>
 <div class="grid grid-cols-2 gap-1" style="width: 100%; box-sizing: border-box;">
   <div class="grid grid-cols-2 gap-1" style="width: 100%; box-sizing: border-box;">
