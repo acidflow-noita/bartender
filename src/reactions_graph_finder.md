@@ -620,9 +620,9 @@ const graphStyleConfig = {
   },
   
   constraints: {
-    maxReactions: 1000,
-    maxNameLength: 15,
-    truncatedNameLength: 12
+    maxReactions: 100,
+    maxNameLength: 30,
+    truncatedNameLength: 20
   }
 };
 
@@ -1633,7 +1633,7 @@ const updateUI = () => {
   <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">
     <select id="productChoicesSelector" multiple></select>
   </div>
-  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box; font-size: 0.9rem;"><h2 id="reactionsCount" style="margin: 0; font-size: 0.9rem;">Reactions found: <code class="bigger-number-better">5589</code></h2></div>
+  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box; font-size: 0.9rem;"><h2 id="reactionsCount" style="margin: 0; font-size: 0.9rem;">Reactions found: <code class="bigger-number-better">248</code></h2></div>
 </div>
 <div class="grid grid-cols-2 gap-1" style="width: 100%; box-sizing: border-box;">
   <div class="grid grid-cols-2 gap-1" style="width: 100%; box-sizing: border-box;">
