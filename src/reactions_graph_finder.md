@@ -109,9 +109,6 @@ window.appState = {
   reagentChoices: null,
   productChoices: null,
   isResetting: false,
-  excludeSpecialMaterials: true,
-  onlyPracticalReactions: true,
-  excludeCatalysts: true,
   visibleTagMaterials: new Set(), // Track which tag materials are visible
 };
 
@@ -119,8 +116,6 @@ window.appState = {
 const urlParams = new URLSearchParams(window.location.search);
 window.appState.selectedReagents = urlParams.get("reagents")?.split(",").filter(Boolean) || [];
 window.appState.selectedProduct = urlParams.get("product") || "";
-window.appState.excludeSpecialMaterials = urlParams.get("excludeSpecial") !== "false";
-window.appState.onlyPracticalReactions = urlParams.get("onlyPractical") !== "false";
 ```
 
 ```js
@@ -143,11 +138,6 @@ const getAvailableReagents = (selectedReagents = [], selectedProduct = "") => {
   if (!selectedProduct && selectedReagents.length === 0) {
     // Return all materials that appear as inputs in reactions (excluding tags)
     let availableIds = Array.from(reactionInputsIndex.keys()).filter(id => !isTag(id));
-
-    // Filter out special materials if needed
-    if (window.appState.excludeSpecialMaterials) {
-      availableIds = availableIds.filter((id) => !specialMaterials.has(id));
-    }
 
     return availableIds
       .map((id) => {
@@ -180,38 +170,6 @@ const getAvailableReagents = (selectedReagents = [], selectedProduct = "") => {
       const reagentReactions = new Set(reactionInputsIndex.get(reagent) || []);
       relevantReactionIndices = new Set([...relevantReactionIndices].filter((x) => reagentReactions.has(x)));
     });
-  }
-
-  // Apply filters to reactions
-  if (window.appState.excludeSpecialMaterials || window.appState.onlyPracticalReactions) {
-    relevantReactionIndices = new Set(
-      [...relevantReactionIndices].filter((index) => {
-        const reaction = reactions[index];
-
-        // Filter out low-speed reactions
-        if (window.appState.onlyPracticalReactions && reaction.reactionRate <= 5) {
-          return false;
-        }
-
-        // Filter out reactions with special materials
-        if (window.appState.excludeSpecialMaterials) {
-          const allReagents = [reaction.reagent1, reaction.reagent2, reaction.reagent3].filter(Boolean);
-          const allProducts = [reaction.product1, reaction.product2, reaction.product3].filter(Boolean);
-          
-          // Resolve all materials (including tags)
-          const allMaterials = [
-            ...allReagents.flatMap(resolveTag),
-            ...allProducts.flatMap(resolveTag)
-          ];
-
-          if (allMaterials.some((id) => specialMaterials.has(id))) {
-            return false;
-          }
-        }
-
-        return true;
-      })
-    );
   }
 
   // Collect all input materials from relevant reactions (excluding tags)
@@ -247,11 +205,6 @@ const getAvailableProducts = (selectedReagents = []) => {
     // Return all products from all reactions (excluding tags)
     let availableIds = Array.from(reactionOutputsIndex.keys()).filter(id => !isTag(id));
 
-    // Filter out special materials if needed
-    if (window.appState.excludeSpecialMaterials) {
-      availableIds = availableIds.filter((id) => !specialMaterials.has(id));
-    }
-
     return availableIds
       .map((id) => {
         const material = materialsMap.get(id);
@@ -272,37 +225,6 @@ const getAvailableProducts = (selectedReagents = []) => {
     const reagentReactions = new Set(reactionInputsIndex.get(reagent) || []);
     relevantReactionIndices = new Set([...relevantReactionIndices].filter((x) => reagentReactions.has(x)));
   });
-
-  // Apply filters to reactions
-  if (window.appState.excludeSpecialMaterials || window.appState.onlyPracticalReactions) {
-    relevantReactionIndices = new Set(
-      [...relevantReactionIndices].filter((index) => {
-        const reaction = reactions[index];
-
-        // Filter out low-speed reactions
-        if (window.appState.onlyPracticalReactions && reaction.reactionRate <= 5) {
-          return false;
-        }
-
-        // Filter out reactions with special materials
-        if (window.appState.excludeSpecialMaterials) {
-          const allReagents = [reaction.reagent1, reaction.reagent2, reaction.reagent3].filter(Boolean);
-          const allProducts = [reaction.product1, reaction.product2, reaction.product3].filter(Boolean);
-          
-          const allMaterials = [
-            ...allReagents.flatMap(resolveTag),
-            ...allProducts.flatMap(resolveTag)
-          ];
-
-          if (allMaterials.some((id) => specialMaterials.has(id))) {
-            return false;
-          }
-        }
-
-        return true;
-      })
-    );
-  }
 
   // Collect all output materials from relevant reactions (excluding tags)
   const availableProductIds = new Set();
@@ -331,6 +253,27 @@ const getAvailableProducts = (selectedReagents = []) => {
     .sort((a, b) => a.name.localeCompare(b.name));
 };
 
+// Utility function to check assignments without conflict
+const canAssignWithoutConflict = (possibleAssignments) => {
+  const backtrack = (index, usedSlots) => {
+    if (index >= possibleAssignments.length) return true;
+    
+    const currentOptions = possibleAssignments[index];
+    for (const slot of currentOptions) {
+      if (!usedSlots.has(slot)) {
+        usedSlots.add(slot);
+        if (backtrack(index + 1, usedSlots)) {
+          return true;
+        }
+        usedSlots.delete(slot);
+      }
+    }
+    return false;
+  };
+  
+  return backtrack(0, new Set());
+};
+
 const getFilteredReactions = (selectedReagents = [], selectedProduct = "") => {
   // Use indexes for faster filtering
   let relevantReactionIndices = new Set(Array.from({ length: reactions.length }, (_, i) => i));
@@ -347,48 +290,26 @@ const getFilteredReactions = (selectedReagents = [], selectedProduct = "") => {
     });
   }
 
-  // Apply filters to reactions
-  if (window.appState.excludeSpecialMaterials || window.appState.onlyPracticalReactions) {
+  if (selectedReagents.length > 0) {
     relevantReactionIndices = new Set(
       [...relevantReactionIndices].filter((index) => {
         const reaction = reactions[index];
-
-        // Filter out low-speed reactions
-        if (window.appState.onlyPracticalReactions && reaction.reactionRate <= 5) {
-          return false;
-        }
-
-        // Filter out reactions with special materials
-        if (window.appState.excludeSpecialMaterials) {
-          const allReagents = [reaction.reagent1, reaction.reagent2, reaction.reagent3].filter(Boolean);
-          const allProducts = [reaction.product1, reaction.product2, reaction.product3].filter(Boolean);
-          
-          const allMaterials = [
-            ...allReagents.flatMap(resolveTag),
-            ...allProducts.flatMap(resolveTag)
-          ];
-
-          if (allMaterials.some((id) => specialMaterials.has(id))) {
-            return false;
-          }
-        }
-
-        return true;
-      })
-    );
-  }
-
-  if (window.appState.excludeCatalysts && window.appState.selectedProduct) {
-    relevantReactionIndices = new Set(
-      [...relevantReactionIndices].filter((index) => {
-        const r = reactions[index];
-        const outputs = [r.product1, r.product2, r.product3].filter(Boolean).flatMap(resolveTag);
-        const inputs = [r.reagent1, r.reagent2, r.reagent3].filter(Boolean).flatMap(resolveTag);
-
-        const isCatalyst = outputs.includes(window.appState.selectedProduct) &&
-                          inputs.includes(window.appState.selectedProduct);
-
-        return !isCatalyst;
+        const reactionInputs = [reaction.reagent1, reaction.reagent2, reaction.reagent3].filter(Boolean);
+        
+        // Pour chaque réactif sélectionné, trouver les slots possibles
+        const possibleAssignments = selectedReagents.map(reagent => {
+          return reactionInputs.filter(slot => {
+            if (isTag(slot)) {
+              const tagMaterials = resolveTag(slot);
+              return tagMaterials.includes(reagent);
+            } else {
+              return slot === reagent;
+            }
+          });
+        });
+        
+        // Vérifier qu'on peut assigner chaque réactif à un slot différent
+        return canAssignWithoutConflict(possibleAssignments);
       })
     );
   }
@@ -470,12 +391,6 @@ const shareButton = Inputs.button(
       if (window.appState.selectedProduct) {
         url.searchParams.set("product", window.appState.selectedProduct);
       }
-      if (window.appState.excludeSpecialMaterials) {
-        url.searchParams.set("excludeSpecial", "true");
-      }
-      if (window.appState.onlyPracticalReactions) {
-        url.searchParams.set("onlyPractical", "true");
-      }
 
       const shareUrl = url.toString();
       navigator.clipboard
@@ -495,22 +410,6 @@ const shareButton = Inputs.button(
     },
   }
 );
-
-// Filter toggles
-const excludeSpecialToggle = Inputs.toggle({
-  label: "Exclude generic reaction : Midas, Mimicium, Corrupted Rock",
-  value: window.appState.excludeSpecialMaterials,
-});
-
-const onlyPracticalToggle = Inputs.toggle({
-  label: "Show only practical reactions (reaction speed higher than 5)",
-  value: window.appState.onlyPracticalReactions,
-});
-
-const excludeCatalystToggle = Inputs.toggle({
-  label: "Hide reactions where product is only a catalyst",
-  value: window.appState.excludeCatalysts,
-});
 ```
 
 ```js
@@ -528,8 +427,6 @@ const resetButton = Inputs.button(
       window.appState.visibleTagMaterials.clear();
       window.appState.selectedReagents = [];
       window.appState.selectedProduct = "";
-      window.appState.excludeSpecialMaterials = true;
-      window.appState.onlyPracticalReactions = true;
 
       if (window.appState.reagentChoices?.initialised) {
         window.appState.reagentChoices.removeActiveItems();
@@ -537,10 +434,6 @@ const resetButton = Inputs.button(
       if (window.appState.productChoices?.initialised) {
         window.appState.productChoices.removeActiveItems();
       }
-
-      // Reset toggle states
-      excludeSpecialToggle.value = true;
-      onlyPracticalToggle.value = true;
 
       updateChoicesOptions();
       updateUI();
@@ -1450,12 +1343,6 @@ const updateUI = () => {
     if (window.appState.selectedProduct) {
       url.searchParams.set("product", window.appState.selectedProduct);
     }
-    if (window.appState.excludeSpecialMaterials) {
-      url.searchParams.set("excludeSpecial", "true");
-    }
-    if (window.appState.onlyPracticalReactions) {
-      url.searchParams.set("onlyPractical", "true");
-    }
     window.history.replaceState({}, "", url.toString());
   }
 };
@@ -1590,22 +1477,6 @@ const updateUI = () => {
         }
       });
 
-      // Toggle event handlers - use EventBus
-      excludeSpecialToggle.addEventListener("input", () => {
-        window.appState.excludeSpecialMaterials = excludeSpecialToggle.value;
-        EventBus.emit("stateChanged");
-      });
-
-      onlyPracticalToggle.addEventListener("input", () => {
-        window.appState.onlyPracticalReactions = onlyPracticalToggle.value;
-        EventBus.emit("stateChanged");
-      });
-
-      excludeCatalystToggle.addEventListener("input", () => {
-        window.appState.excludeCatalysts = excludeCatalystToggle.value;
-        EventBus.emit("uiUpdateNeeded");
-      });
-
       // Hook into update cycle properly
       EventBus.on("stateChanged", () => {
         updateChoicesOptions();
@@ -1659,11 +1530,6 @@ const updateUI = () => {
   <div class="grid grid-cols-2 gap-1" style="width: 100%; box-sizing: border-box;">
     <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${resetButton}</div>
     <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${shareButton}</div>
-  </div>
-  <div class="grid grid-cols-3 gap-1" style="width: 100%; box-sizing: border-box;">
-    <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${excludeSpecialToggle}</div>
-    <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${onlyPracticalToggle}</div>
-    <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${excludeCatalystToggle}</div>
   </div>
 </div>
 <div class="grid grid-cols-1 grid-rowspan-1" style="grid-auto-rows: auto">
