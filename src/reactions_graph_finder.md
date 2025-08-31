@@ -514,7 +514,7 @@ const graphStyleConfig = {
   },
   
   constraints: {
-    maxReactions: 350,
+    maxReactions: 318,
     maxNameLength: 30,
     truncatedNameLength: 20
   }
