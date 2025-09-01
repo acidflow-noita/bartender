@@ -520,6 +520,154 @@ const graphStyleConfig = {
   }
 };
 
+const createLegend = () => {
+  // Remove any existing legend first
+  const existingLegend = document.getElementById("graph-legend");
+  if (existingLegend) {
+    existingLegend.remove();
+  }
+  
+  const legendContainer = document.createElement("div");
+  legendContainer.id = "graph-legend";
+  legendContainer.className = "card";
+  legendContainer.style.marginTop = "10px";
+  legendContainer.style.padding = "15px";
+  legendContainer.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+  legendContainer.style.borderRadius = "8px";
+  legendContainer.style.color = "#fff";
+  legendContainer.style.fontSize = "14px";
+  legendContainer.style.maxWidth = "100%";
+  
+  // Legend content
+  legendContainer.innerHTML = `
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #555; padding-bottom: 10px;">
+      <h3 style="margin: 0; font-size: 16px;">Graph Legend</h3>
+      <div id="legend-toggle" style="cursor: pointer; font-size: 18px; padding: 0 8px; background: #555; border-radius: 4px;">−</div>
+    </div>
+    <div id="legend-content">
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px;">
+        <!-- Nodes -->
+        <div>
+          <h4 style="margin: 0 0 10px 0; color: #45b7d1;">NODES</h4>
+          
+          <div style="display: flex; align-items: center; margin-bottom: 8px;">
+            <svg width="24" height="24">
+              <circle cx="12" cy="12" r="10" fill="${graphStyleConfig.colors.materialNodeOutput}" stroke="${graphStyleConfig.colors.nodeStroke}" stroke-width="2"></circle>
+            </svg>
+            <span style="margin-left: 10px;">Material</span>
+          </div>
+          
+          <div style="display: flex; align-items: center; margin-bottom: 8px;">
+            <svg width="24" height="24">
+              <circle cx="12" cy="12" r="8" fill="${graphStyleConfig.colors.reactionNode}" stroke="${graphStyleConfig.colors.nodeStroke}" stroke-width="2"></circle>
+              <text x="12" y="16" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">5</text>
+            </svg>
+            <span style="margin-left: 10px;">Reaction (number = speed)</span>
+          </div>
+          
+          <div style="display: flex; align-items: center; margin-bottom: 8px;">
+            <svg width="24" height="24">
+              <circle cx="12" cy="12" r="8" fill="${graphStyleConfig.colors.tagNode}" stroke="${graphStyleConfig.colors.tagVisible}" stroke-width="2" stroke-dasharray="4,2"></circle>
+              <image x="8" y="8" width="8" height="8" xlink:href="https://noita-bartender-images.acidflow.stream/images/icons/eye-open.svg"></image>
+            </svg>
+            <span style="margin-left: 10px;">Tag (group of materials)</span>
+          </div>
+        </div>
+        
+        <!-- Connections -->
+        <div>
+          <h4 style="margin: 0 0 10px 0; color: #45b7d1;">CONNECTIONS</h4>
+          <div style="display: flex; align-items: center; margin-bottom: 8px;">
+            <svg width="24" height="24">
+              <line x1="2" y1="12" x2="22" y2="12" stroke="${graphStyleConfig.colors.inputArrow}" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-input-mini)"></line>
+              <defs>
+                <marker id="arrow-input-mini" viewBox="0 -5 10 10" refX="9" refY="0" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M0,-5L10,0L0,5" fill="${graphStyleConfig.colors.inputArrow}"></path>
+                </marker>
+              </defs>
+            </svg>
+            <span style="margin-left: 10px;">Input/Reagent -> reaction</span>
+          </div>
+          
+          <div style="display: flex; align-items: center; margin-bottom: 8px;">
+            <svg width="24" height="24">
+              <line x1="2" y1="12" x2="22" y2="12" stroke="${graphStyleConfig.colors.outputArrow}" stroke-width="2" marker-end="url(#arrow-output-mini)"></line>
+              <defs>
+                <marker id="arrow-output-mini" viewBox="0 -5 10 10" refX="9" refY="0" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M0,-5L10,0L0,5" fill="${graphStyleConfig.colors.outputArrow}"></path>
+                </marker>
+              </defs>
+            </svg>
+            <span style="margin-left: 10px;">reaction -> Output/Product</span>
+          </div>
+          
+          <div style="display: flex; align-items: center; margin-bottom: 8px;">
+            <svg width="24" height="24">
+              <line x1="2" y1="12" x2="22" y2="12" stroke="${graphStyleConfig.colors.tagNode}" stroke-width="1.5" stroke-opacity="0.7"></line>
+            </svg>
+            <span style="margin-left: 10px;">Tag association</span>
+          </div>
+        </div>
+        
+        <!-- Interactions -->
+        <div>
+          <h4 style="margin: 0 0 10px 0; color: #45b7d1;">INTERACTIONS</h4>
+          <div style="display: flex; align-items: flex-start; margin-bottom: 8px;">
+            <div style="min-width: 40px; text-align: center; font-weight: bold; background: #555; border-radius: 4px; margin-right: 10px; padding: 2px 4px;">Dbl Click</div>
+            <span>Tag: Show/hide all materials in tag</span>
+          </div>
+          
+          <div style="display: flex; align-items: flex-start; margin-bottom: 8px;">
+            <div style="min-width: 40px; text-align: center; font-weight: bold; background: #555; border-radius: 4px; margin-right: 10px; padding: 2px 4px;">Ctrl+Click</div>
+            <span>Material: Set as reagent</span>
+          </div>
+          
+          <div style="display: flex; align-items: flex-start; margin-bottom: 8px;">
+            <div style="min-width: 40px; text-align: center; font-weight: bold; background: #555; border-radius: 4px; margin-right: 10px; padding: 2px 4px;">Shift+Click</div>
+            <span>Material: Set as product</span>
+          </div>
+          
+          <div style="display: flex; align-items: flex-start; margin-bottom: 8px;">
+            <div style="min-width: 40px; text-align: center; font-weight: bold; background: #555; border-radius: 4px; margin-right: 10px; padding: 2px 4px;">Ctrl+Shift+Click</div>
+            <span>Material: Open wiki page</span>
+          </div>
+          
+          <div style="display: flex; align-items: flex-start;">
+            <div style="min-width: 40px; text-align: center; font-weight: bold; background: #555; border-radius: 4px; margin-right: 10px; padding: 2px 4px;">Click</div>
+            <span>Background: Reset highlighting</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  // Add legend to the page after the graph container
+  const tableContainer = document.getElementById("tableContainer");
+  if (tableContainer && tableContainer.parentNode) {
+    tableContainer.parentNode.appendChild(legendContainer);
+    
+    // Add toggle functionality
+    const legendToggle = document.getElementById("legend-toggle");
+    const legendContent = document.getElementById("legend-content");
+    
+    let isLegendVisible = true;
+    legendToggle.addEventListener("click", () => {
+      isLegendVisible = !isLegendVisible;
+      if (isLegendVisible) {
+        legendContent.style.display = "block";
+        legendToggle.textContent = "−";
+        legendContainer.style.padding = "15px";
+      } else {
+        legendContent.style.display = "none";
+        legendToggle.textContent = "+";
+        legendContainer.style.padding = "10px 15px";
+      }
+    });
+  }
+  
+  return legendContainer;
+};
+
 // Graph visualization with D3.js - updated for tags
 const renderGraph = (filteredReactions) => {
   const container = document.getElementById("tableContainer");
@@ -1513,6 +1661,7 @@ const updateUI = () => {
     document.addEventListener("DOMContentLoaded", initializeApp);
   } else {
     initializeApp();
+    createLegend();
   }
 }
 ```
