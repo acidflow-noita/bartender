@@ -1570,16 +1570,6 @@
     "notes": null
   },
   {
-    "reactionRate": "95",
-    "reagent1": "[fire]",
-    "reagent2": "[slime]",
-    "reagent3": null,
-    "product1": "[slime]",
-    "product2": "[slime]",
-    "product3": null,
-    "notes": null
-  },
-  {
     "reactionRate": "70",
     "reagent1": "[fire]",
     "reagent2": "[slime]",
@@ -1877,16 +1867,6 @@
     "product1": "creepy_liquid",
     "product2": "creepy_liquid",
     "product3": null,
-    "notes": null
-  },
-  {
-    "reactionRate": "100",
-    "reagent1": "magic_liquid_charm",
-    "reagent2": "[blood]",
-    "reagent3": "[magic_polymorph]",
-    "product1": "magic_liquid_hp_regeneration",
-    "product2": "magic_liquid_hp_regeneration",
-    "product3": "magic_liquid_hp_regeneration",
     "notes": null
   },
   {
