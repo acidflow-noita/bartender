@@ -3,17 +3,6 @@ title: "Reactions Finder"
 draft: false
 ---
 
-<!-- TODO
-  
-  Double click behaviour -> change filter
-  Right click -> link to wiki + more info
-
-  --- maybe ---
-
-  display sub graph
-
- -->
-
 <!-- Facebook Meta Tags -->
 <meta property="og:url" content="https://bartender.runfast.stream">
 <meta property="og:type" content="website">
@@ -42,319 +31,467 @@ initializeTitleAnimation();
 ```
 
 ```js
-// Load data
+// ============================================================================
+// CONFIGURATION
+// ============================================================================
+
+const CONFIG = {
+  graph: {
+    colors: {
+      reactionNode: "#ff6b6b",
+      materialNodeDefault: "#505050",
+      materialNodeOutput: "#45b7d1",
+      tagNode: "#ffa500",
+      tagVisible: "#24c93a",
+      tagHidden: "#ff6b6b",
+      selectedHighlight: "#ffff00",
+      directMaterialHighlight: "#00ffff",
+      inputArrow: "#24c93a",
+      outputArrow: "#45b7d1",
+      nodeStroke: "#ffffff",
+      nodeStrokeHighlight: "#ff6b6b",
+      inputHighlight: "#24c93a",
+      outputHighlight: "#45b7d1",
+      text: "#ffffff",
+      textLight: "#ffffff"
+    },
+    sizes: {
+      reactionRadius: 15,
+      materialRadius: 25,
+      tagRadius: 20,
+      strokeWidth: 3,
+      strokeWidthHighlight: 5,
+      strokeWidthMedium: 4,
+      fontSizeSmall: "11px",
+      fontSizeMedium: "12px",
+      linkDistance: 120,
+      chargeStrength: -400
+    },
+    opacities: {
+      default: 1,
+      linkDefault: 0.7,
+      tagAssociation: 0.3,
+      dimmed: 0.15,
+      veryDimmed: 0.05,
+      hidden: 0
+    },
+    animations: {
+      duration: 200
+    },
+    layout: {
+      heightRatio: 0.6,
+      minHeight: 600,
+      labelOffsetMaterial: 20,
+      labelOffsetReaction: 15,
+      imageScale: 2,
+      imagePosition: 0.65
+    },
+    constraints: {
+      maxReactions: 317,
+      maxNameLength: 30,
+      truncatedNameLength: 20
+    }
+  },
+  ui: {
+    debounceDelay: 100,
+    notificationDuration: 2500,
+    maxReagentSelection: 3,
+    maxProductSelection: 1
+  },
+  urls: {
+    imageBase: "https://noita-bartender-images.acidflow.stream",
+    wikiBase: "https://noita.wiki.gg/wiki/"
+  }
+};
+```
+
+```js
+// ============================================================================
+// DATA LOADING
+// ============================================================================
+
 const materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
 const reactions = await FileAttachment("./data/reactions_from_materials.json").json();
 const materialAssociations = await FileAttachment("./data/jsons/material_associations.json").json();
-
-// Create mapping from tags to materials
-const tagToMaterialsMap = new Map();
-materialAssociations.forEach(assoc => {
-  if (!tagToMaterialsMap.has(assoc.tag)) {
-    tagToMaterialsMap.set(assoc.tag, []);
-  }
-  tagToMaterialsMap.get(assoc.tag).push(assoc.id);
-});
-
-// Helper function to resolve tags to material IDs
-const resolveTag = (identifier) => {
-  if (identifier && identifier.startsWith('[') && identifier.endsWith(']')) {
-    const tag = identifier.slice(1, -1);
-    return tagToMaterialsMap.get(tag) || [];
-  }
-  return [identifier];
-};
-
-// Helper function to check if an identifier is a tag
-const isTag = (identifier) => {
-  return identifier && identifier.startsWith('[') && identifier.endsWith(']');
-};
-
-const materialsMap = new Map(materials.map((m) => [m.id, m]));
-
-// Build indexes for faster filtering - now including tags
-const reactionInputsIndex = new Map();
-const reactionOutputsIndex = new Map();
-
-reactions.forEach((reaction, index) => {
-  // Index inputs (including tags)
-  [reaction.reagent1, reaction.reagent2, reaction.reagent3].filter(Boolean).forEach((input) => {
-    const resolvedInputs = resolveTag(input);
-    resolvedInputs.forEach(resolvedInput => {
-      if (!reactionInputsIndex.has(resolvedInput)) {
-        reactionInputsIndex.set(resolvedInput, []);
-      }
-      reactionInputsIndex.get(resolvedInput).push(index);
-    });
-  });
-
-  // Index outputs (including tags)
-  [reaction.product1, reaction.product2, reaction.product3].filter(Boolean).forEach((output) => {
-    const resolvedOutputs = resolveTag(output);
-    resolvedOutputs.forEach(resolvedOutput => {
-      if (!reactionOutputsIndex.has(resolvedOutput)) {
-        reactionOutputsIndex.set(resolvedOutput, []);
-      }
-      reactionOutputsIndex.get(resolvedOutput).push(index);
-    });
-  });
-});
 ```
 
 ```js
-// Global state - add visibility state for tag materials
-window.appState = {
-  selectedReagents: [],
-  selectedProduct: "",
-  reagentChoices: null,
-  productChoices: null,
-  isResetting: false,
-  visibleTagMaterials: new Set(), // Track which tag materials are visible
-};
+// ============================================================================
+// CORE CLASSES
+// ============================================================================
 
-// Parse URL parameters
-const urlParams = new URLSearchParams(window.location.search);
-window.appState.selectedReagents = urlParams.get("reagents")?.split(",").filter(Boolean) || [];
-window.appState.selectedProduct = urlParams.get("product") || "";
-```
-
-```js
-// Special materials to exclude
-const specialMaterials = new Set(["mimic_liquid", "midas_precursor", "midas", "magic_gas_midas", "corruption_static"]);
-
-const EventBus = {
-  events: {},
+class EventBus {
+  constructor() {
+    this.events = {};
+  }
+  
   on(event, handler) {
     (this.events[event] ||= []).push(handler);
-  },
-  emit(event, payload) {
-    (this.events[event] || []).forEach((fn) => fn(payload));
   }
-};
-
-// Optimized functions using indexes - now handling tags
-// REMOVE the getFilteredReactions call from getAvailableReagents
-const getAvailableReagents = (selectedReagents = [], selectedProduct = "") => {
-  if (!selectedProduct && selectedReagents.length === 0) {
-    // Return all materials that appear as inputs in reactions (excluding tags)
-    let availableIds = Array.from(reactionInputsIndex.keys()).filter(id => !isTag(id));
-
-    return availableIds
-      .map((id) => {
-        const material = materialsMap.get(id);
-        return material
-          ? {
-              value: id,
-              label: `${material.name} (${id})`,
-              name: material.name,
-              type: material.type || "",
-            }
-          : null;
-      })
-      .filter(Boolean)
-      .sort((a, b) => a.name.localeCompare(b.name));
-  }
-
-  // Get relevant reaction indices using indexes
-  let relevantReactionIndices = new Set();
-
-  if (selectedProduct) {
-    const productReactions = reactionOutputsIndex.get(selectedProduct) || [];
-    relevantReactionIndices = new Set(productReactions);
-  } else {
-    relevantReactionIndices = new Set(Array.from({ length: reactions.length }, (_, i) => i));
-  }
-
-  if (selectedReagents.length > 0) {
-    selectedReagents.forEach((reagent) => {
-      const reagentReactions = new Set(reactionInputsIndex.get(reagent) || []);
-      relevantReactionIndices = new Set([...relevantReactionIndices].filter((x) => reagentReactions.has(x)));
-    });
-  }
-
-  // Collect all input materials from relevant reactions (excluding tags)
-  const availableReagentIds = new Set();
-  relevantReactionIndices.forEach((index) => {
-    const reaction = reactions[index];
-    [reaction.reagent1, reaction.reagent2, reaction.reagent3]
-      .filter(Boolean)
-      .flatMap(resolveTag)
-      .forEach((id) => availableReagentIds.add(id));
-  });
-
-  return Array.from(availableReagentIds)
-    .filter(id => !isTag(id)) // Exclude tags from selection
-    .map((id) => {
-      const material = materialsMap.get(id);
-      return material
-        ? {
-            value: id,
-            label: `${material.name} (${id})`,
-            name: material.name,
-            type: material.type || "",
-          }
-        : null;
-    })
-    .filter(Boolean)
-    .sort((a, b) => a.name.localeCompare(b.name));
-};
-
-// Similarly fix getAvailableProducts to avoid circular dependencies
-const getAvailableProducts = (selectedReagents = []) => {
-  if (selectedReagents.length === 0) {
-    // Return all products from all reactions (excluding tags)
-    let availableIds = Array.from(reactionOutputsIndex.keys()).filter(id => !isTag(id));
-
-    return availableIds
-      .map((id) => {
-        const material = materialsMap.get(id);
-        return {
-          value: id,
-          label: material ? `${material.name} (${id})` : `${id} (${id})`,
-          name: material ? material.name : id,
-          type: material ? material.type || "" : "",
-        };
-      })
-      .sort((a, b) => a.name.localeCompare(b.name));
-  }
-
-  // Get relevant reaction indices using indexes
-  let relevantReactionIndices = new Set(Array.from({ length: reactions.length }, (_, i) => i));
-
-  selectedReagents.forEach((reagent) => {
-    const reagentReactions = new Set(reactionInputsIndex.get(reagent) || []);
-    relevantReactionIndices = new Set([...relevantReactionIndices].filter((x) => reagentReactions.has(x)));
-  });
-
-  // Collect all output materials from relevant reactions (excluding tags)
-  const availableProductIds = new Set();
-  relevantReactionIndices.forEach((index) => {
-    const reaction = reactions[index];
-    [reaction.product1, reaction.product2, reaction.product3]
-      .filter(Boolean)
-      .flatMap(resolveTag)
-      .forEach((id) => availableProductIds.add(id));
-  });
-
-  return Array.from(availableProductIds)
-    .filter(id => !isTag(id)) // Exclude tags from selection
-    .map((id) => {
-      const material = materialsMap.get(id);
-      return material
-        ? {
-            value: id,
-            label: `${material.name} (${id})`,
-            name: material.name,
-            type: material.type || "",
-          }
-        : null;
-    })
-    .filter(Boolean)
-    .sort((a, b) => a.name.localeCompare(b.name));
-};
-
-// Utility function to check assignments without conflict
-const canAssignWithoutConflict = (possibleAssignments) => {
-  const backtrack = (index, usedSlots) => {
-    if (index >= possibleAssignments.length) return true;
-    
-    const currentOptions = possibleAssignments[index];
-    for (const slot of currentOptions) {
-      if (!usedSlots.has(slot)) {
-        usedSlots.add(slot);
-        if (backtrack(index + 1, usedSlots)) {
-          return true;
-        }
-        usedSlots.delete(slot);
-      }
-    }
-    return false;
-  };
   
-  return backtrack(0, new Set());
-};
-
-const getFilteredReactions = (selectedReagents = [], selectedProduct = "") => {
-  // Use indexes for faster filtering
-  let relevantReactionIndices = new Set(Array.from({ length: reactions.length }, (_, i) => i));
-
-  if (selectedProduct) {
-    const productReactions = new Set(reactionOutputsIndex.get(selectedProduct) || []);
-    relevantReactionIndices = new Set([...relevantReactionIndices].filter((x) => productReactions.has(x)));
+  emit(event, payload) {
+    (this.events[event] || []).forEach(fn => fn(payload));
   }
+  
+  off(event, handler) {
+    if (!this.events[event]) return;
+    this.events[event] = this.events[event].filter(h => h !== handler);
+  }
+}
 
-  if (selectedReagents.length > 0) {
-    selectedReagents.forEach((reagent) => {
-      const reagentReactions = new Set(reactionInputsIndex.get(reagent) || []);
-      relevantReactionIndices = new Set([...relevantReactionIndices].filter((x) => reagentReactions.has(x)));
+const eventBus = new EventBus();
+```
+
+```js
+class DataRepository {
+  constructor(materials, reactions, materialAssociations) {
+    this.materialsMap = new Map(materials.map(m => [m.id, m]));
+    this.reactions = reactions;
+    this.tagToMaterialsMap = this._buildTagMap(materialAssociations);
+    this.inputIndex = this._buildIndex(r => [r.reagent1, r.reagent2, r.reagent3]);
+    this.outputIndex = this._buildIndex(r => [r.product1, r.product2, r.product3]);
+  }
+  
+  _buildTagMap(associations) {
+    const map = new Map();
+    associations.forEach(assoc => {
+      if (!map.has(assoc.tag)) map.set(assoc.tag, []);
+      map.get(assoc.tag).push(assoc.id);
     });
+    return map;
   }
+  
+  _buildIndex(getFields) {
+    const index = new Map();
+    this.reactions.forEach((reaction, reactionIndex) => {
+      getFields(reaction).filter(Boolean).forEach(field => {
+        this.resolveTag(field).forEach(resolvedId => {
+          if (!index.has(resolvedId)) index.set(resolvedId, []);
+          index.get(resolvedId).push(reactionIndex);
+        });
+      });
+    });
+    return index;
+  }
+  
+  isTag(identifier) {
+    return identifier?.startsWith('[') && identifier?.endsWith(']');
+  }
+  
+  resolveTag(identifier) {
+    if (!this.isTag(identifier)) return [identifier];
+    const tag = identifier.slice(1, -1);
+    return this.tagToMaterialsMap.get(tag) || [];
+  }
+  
+  getMaterial(id) {
+    return this.materialsMap.get(id);
+  }
+  
+  getReaction(index) {
+    return this.reactions[index];
+  }
+  
+  getReactionsWithInput(materialId) {
+    return this.inputIndex.get(materialId) || [];
+  }
+  
+  getReactionsWithOutput(materialId) {
+    return this.outputIndex.get(materialId) || [];
+  }
+}
 
-  if (selectedReagents.length > 0) {
-    relevantReactionIndices = new Set(
-      [...relevantReactionIndices].filter((index) => {
-        const reaction = reactions[index];
+const dataRepo = new DataRepository(materials, reactions, materialAssociations);
+```
+
+```js
+class AppState {
+  constructor() {
+    this.selectedReagents = [];
+    this.selectedProduct = "";
+    this.visibleTagMaterials = new Set();
+    this.reagentChoices = null;
+    this.productChoices = null;
+    this.isResetting = false;
+    this.minReactionSpeed = 0;
+    this._initializeFromURL();
+  }
+  
+  _initializeFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    this.selectedReagents = urlParams.get("reagents")?.split(",").filter(Boolean) || [];
+    this.selectedProduct = urlParams.get("product") || "";
+    const speedParam = urlParams.get("minSpeed");
+    this.minReactionSpeed = speedParam ? parseInt(speedParam) : 0;
+  }
+  
+  update(changes) {
+    Object.assign(this, changes);
+    eventBus.emit("stateChanged", this);
+  }
+  
+  toggleTagVisibility(tagId) {
+    const materialIds = dataRepo.resolveTag(tagId);
+    const allVisible = materialIds.every(id => this.visibleTagMaterials.has(id));
+    
+    materialIds.forEach(id => {
+      allVisible ? this.visibleTagMaterials.delete(id) : this.visibleTagMaterials.add(id);
+    });
+    
+    eventBus.emit("stateChanged", this);
+  }
+  
+  selectReagent(reagentId) {
+    if (dataRepo.getReactionsWithInput(reagentId).length === 0) return false;
+    
+    this.visibleTagMaterials.clear();
+    this.update({
+      selectedReagents: [reagentId],
+      selectedProduct: ""
+    });
+    return true;
+  }
+  
+  selectProduct(productId) {
+    if (dataRepo.getReactionsWithOutput(productId).length === 0) return false;
+    
+    this.visibleTagMaterials.clear();
+    this.update({
+      selectedReagents: [],
+      selectedProduct: productId
+    });
+    return true;
+  }
+  
+  setMinReactionSpeed(speed) {
+    this.update({ minReactionSpeed: speed });
+  }
+  
+  reset() {
+    this.isResetting = true;
+    this.visibleTagMaterials.clear();
+    this.selectedReagents = [];
+    this.selectedProduct = "";
+    
+    if (this.reagentChoices?.initialised) this.reagentChoices.removeActiveItems();
+    if (this.productChoices?.initialised) this.productChoices.removeActiveItems();
+    
+    const url = new URL(window.location.href);
+    url.search = "";
+    window.history.replaceState({}, "", url.toString());
+    
+    this.isResetting = false;
+    eventBus.emit("stateChanged", this);
+  }
+  
+  updateURL() {
+    if (this.isResetting) return;
+    
+    const url = new URL(window.location.href);
+    url.search = "";
+    
+    if (this.selectedReagents.length > 0) {
+      url.searchParams.set("reagents", this.selectedReagents.join(","));
+    }
+    if (this.selectedProduct) {
+      url.searchParams.set("product", this.selectedProduct);
+    }
+    if (this.minReactionSpeed > 0) {
+      url.searchParams.set("minSpeed", this.minReactionSpeed.toString());
+    }
+    
+    window.history.replaceState({}, "", url.toString());
+  }
+}
+
+const appState = new AppState();
+```
+
+```js
+class ReactionFilter {
+  constructor(dataRepo) {
+    this.dataRepo = dataRepo;
+  }
+  
+  getFilteredReactions(selectedReagents = [], selectedProduct = "", minSpeed = 0) {
+    let indices = new Set(Array.from({ length: this.dataRepo.reactions.length }, (_, i) => i));
+    
+    if (selectedProduct) {
+      const productReactions = new Set(this.dataRepo.getReactionsWithOutput(selectedProduct));
+      indices = new Set([...indices].filter(x => productReactions.has(x)));
+    }
+    
+    if (selectedReagents.length > 0) {
+      selectedReagents.forEach(reagent => {
+        const reagentReactions = new Set(this.dataRepo.getReactionsWithInput(reagent));
+        indices = new Set([...indices].filter(x => reagentReactions.has(x)));
+      });
+      
+      indices = new Set([...indices].filter(index => {
+        const reaction = this.dataRepo.getReaction(index);
         const reactionInputs = [reaction.reagent1, reaction.reagent2, reaction.reagent3].filter(Boolean);
         
-        // Pour chaque réactif sélectionné, trouver les slots possibles
         const possibleAssignments = selectedReagents.map(reagent => {
           return reactionInputs.filter(slot => {
-            if (isTag(slot)) {
-              const tagMaterials = resolveTag(slot);
-              return tagMaterials.includes(reagent);
-            } else {
-              return slot === reagent;
+            if (this.dataRepo.isTag(slot)) {
+              return this.dataRepo.resolveTag(slot).includes(reagent);
             }
+            return slot === reagent;
           });
         });
         
-        // Vérifier qu'on peut assigner chaque réactif à un slot différent
-        return canAssignWithoutConflict(possibleAssignments);
-      })
-    );
+        return this._canAssignWithoutConflict(possibleAssignments);
+      }));
+    }
+    
+    // Filter by minimum reaction speed
+    if (minSpeed > 0) {
+      indices = new Set([...indices].filter(index => {
+        const reaction = this.dataRepo.getReaction(index);
+        return reaction.reactionRate >= minSpeed;
+      }));
+    }
+    
+    return Array.from(indices)
+      .map(index => this.dataRepo.getReaction(index))
+      .sort((a, b) => b.reactionRate - a.reactionRate);
   }
+  
+  _canAssignWithoutConflict(possibleAssignments) {
+    const backtrack = (index, usedSlots) => {
+      if (index >= possibleAssignments.length) return true;
+      
+      for (const slot of possibleAssignments[index]) {
+        if (!usedSlots.has(slot)) {
+          usedSlots.add(slot);
+          if (backtrack(index + 1, usedSlots)) return true;
+          usedSlots.delete(slot);
+        }
+      }
+      return false;
+    };
+    
+    return backtrack(0, new Set());
+  }
+  
+  getAvailableReagents(selectedReagents = [], selectedProduct = "") {
+    if (!selectedProduct && selectedReagents.length === 0) {
+      return this._createChoices(Array.from(this.dataRepo.inputIndex.keys()));
+    }
+    
+    let indices = selectedProduct 
+      ? new Set(this.dataRepo.getReactionsWithOutput(selectedProduct))
+      : new Set(Array.from({ length: this.dataRepo.reactions.length }, (_, i) => i));
+    
+    if (selectedReagents.length > 0) {
+      selectedReagents.forEach(reagent => {
+        const reagentReactions = new Set(this.dataRepo.getReactionsWithInput(reagent));
+        indices = new Set([...indices].filter(x => reagentReactions.has(x)));
+      });
+    }
+    
+    const availableIds = new Set();
+    indices.forEach(index => {
+      const reaction = this.dataRepo.getReaction(index);
+      [reaction.reagent1, reaction.reagent2, reaction.reagent3]
+        .filter(Boolean)
+        .flatMap(id => this.dataRepo.resolveTag(id))
+        .forEach(id => availableIds.add(id));
+    });
+    
+    return this._createChoices(Array.from(availableIds));
+  }
+  
+  getAvailableProducts(selectedReagents = []) {
+    if (selectedReagents.length === 0) {
+      return this._createChoices(Array.from(this.dataRepo.outputIndex.keys()));
+    }
+    
+    let indices = new Set(Array.from({ length: this.dataRepo.reactions.length }, (_, i) => i));
+    
+    selectedReagents.forEach(reagent => {
+      const reagentReactions = new Set(this.dataRepo.getReactionsWithInput(reagent));
+      indices = new Set([...indices].filter(x => reagentReactions.has(x)));
+    });
+    
+    const availableIds = new Set();
+    indices.forEach(index => {
+      const reaction = this.dataRepo.getReaction(index);
+      [reaction.product1, reaction.product2, reaction.product3]
+        .filter(Boolean)
+        .flatMap(id => this.dataRepo.resolveTag(id))
+        .forEach(id => availableIds.add(id));
+    });
+    
+    return this._createChoices(Array.from(availableIds));
+  }
+  
+  _createChoices(materialIds) {
+    return materialIds
+      .filter(id => !this.dataRepo.isTag(id))
+      .map(id => {
+        const material = this.dataRepo.getMaterial(id);
+        return material ? {
+          value: id,
+          label: `${material.name} (${id})`,
+          name: material.name,
+          type: material.type || ""
+        } : null;
+      })
+      .filter(Boolean)
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }
+}
 
-  // Get filtered reactions
-  return Array.from(relevantReactionIndices)
-    .map((index) => reactions[index])
-    .sort((a, b) => b.reactionRate - a.reactionRate);
-};
+const reactionFilter = new ReactionFilter(dataRepo);
 ```
 
 ```js
-// Utility functions - add tag detection
-const getMaterialImageUrl = (id) => {
-  if (!id) return "";
-  if (isTag(id)) {
-    return `https://noita-bartender-images.acidflow.stream/images/icons/tag.svg`;
+class UIHelper {
+  static imageUrlCache = new Map();
+  
+  static getMaterialImageUrl(id) {
+    if (!id) return "";
+    if (!this.imageUrlCache.has(id)) {
+      const url = dataRepo.isTag(id)
+        ? `${CONFIG.urls.imageBase}/images/icons/tag.svg`
+        : `${CONFIG.urls.imageBase}/images/materials/Material_${id}.png`;
+      this.imageUrlCache.set(id, url);
+    }
+    return this.imageUrlCache.get(id);
   }
-  return `https://noita-bartender-images.acidflow.stream/images/materials/Material_${id}.png`;
-};
-
-const getMaterialName = (id) => {
-  if (isTag(id)) {
-    return `[${id.slice(1, -1)}]`;
+  
+  static getMaterialName(id) {
+    if (dataRepo.isTag(id)) return `[${id.slice(1, -1)}]`;
+    const material = dataRepo.getMaterial(id);
+    return material?.name || id;
   }
-  const material = materialsMap.get(id);
-  return material ? material.name : id;
-};
-
-const createNotification = (text, notifID = "share-notification", parentID = "observablehq-main") => {
-  const parentElement = document.getElementById(parentID);
-  if (!parentElement || document.getElementById(notifID)) return;
-
-  const notification = document.createElement("p");
-  notification.id = notifID;
-  notification.textContent = text;
-  notification.classList.add("notification");
-  parentElement.appendChild(notification);
-
-  setTimeout(() => (notification.style.opacity = 1), 100);
-  setTimeout(() => {
-    notification.style.opacity = 0;
-    setTimeout(() => parentElement.removeChild(notification), 500);
-  }, 2500);
-};
+  
+  static truncateName(name, maxLength = CONFIG.graph.constraints.maxNameLength) {
+    return name.length > maxLength 
+      ? name.substring(0, CONFIG.graph.constraints.truncatedNameLength) + "..." 
+      : name;
+  }
+  
+  static showNotification(text) {
+    const parentElement = document.getElementById("observablehq-main");
+    const notifID = "share-notification";
+    
+    if (!parentElement || document.getElementById(notifID)) return;
+    
+    const notification = document.createElement("p");
+    notification.id = notifID;
+    notification.textContent = text;
+    notification.classList.add("notification");
+    parentElement.appendChild(notification);
+    
+    setTimeout(() => notification.style.opacity = 1, 100);
+    setTimeout(() => {
+      notification.style.opacity = 0;
+      setTimeout(() => parentElement.removeChild(notification), 500);
+    }, CONFIG.ui.notificationDuration);
+  }
+}
 
 // Add notification styles
 const notificationStyle = document.createElement("style");
@@ -376,1137 +513,1077 @@ document.head.appendChild(notificationStyle);
 ```
 
 ```js
-// Share button
-const shareButton = Inputs.button(
-  htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/copy.svg" />Share`,
-  {
-    value: null,
-    reduce: () => {
-      const url = new URL(window.location.href);
-      url.search = "";
-
-      if (window.appState.selectedReagents.length > 0) {
-        url.searchParams.set("reagents", window.appState.selectedReagents.join(","));
-      }
-      if (window.appState.selectedProduct) {
-        url.searchParams.set("product", window.appState.selectedProduct);
-      }
-
-      const shareUrl = url.toString();
-      navigator.clipboard
-        .writeText(shareUrl)
-        .then(() => createNotification("URL copied to clipboard"))
-        .catch(() => {
-          const textArea = document.createElement("textarea");
-          textArea.value = shareUrl;
-          document.body.appendChild(textArea);
-          textArea.select();
-          document.execCommand("copy");
-          document.body.removeChild(textArea);
-          createNotification("URL copied to clipboard");
+class GraphDataBuilder {
+  constructor(dataRepo) {
+    this.dataRepo = dataRepo;
+  }
+  
+  buildGraphData(filteredReactions) {
+    const nodes = new Map();
+    const links = [];
+    const linkKeys = new Set();
+    
+    filteredReactions.forEach((reaction, index) => {
+      const reactionId = `reaction_${index}`;
+      nodes.set(reactionId, {
+        id: reactionId,
+        type: "reaction",
+        reaction,
+        radius: CONFIG.graph.sizes.reactionRadius,
+        color: CONFIG.graph.colors.reactionNode
+      });
+      
+      this._processFields(
+        [reaction.reagent1, reaction.reagent2, reaction.reagent3],
+        reactionId,
+        "input",
+        nodes,
+        links,
+        linkKeys,
+        (tagId, reactionId, index) => ({ source: tagId, target: reactionId, type: "input", index }),
+        (materialId, reactionId, index) => ({ source: materialId, target: reactionId, type: "input", index }),
+        (materialId, tagId, index) => ({ source: materialId, target: tagId, type: "tag-association", index })
+      );
+      
+      this._processFields(
+        [reaction.product1, reaction.product2, reaction.product3],
+        reactionId,
+        "output",
+        nodes,
+        links,
+        linkKeys,
+        (tagId, reactionId, index) => ({ source: reactionId, target: tagId, type: "output", index }),
+        (materialId, reactionId, index) => ({ source: reactionId, target: materialId, type: "output", index }),
+        (materialId, tagId, index) => ({ source: tagId, target: materialId, type: "tag-association", index })
+      );
+    });
+    
+    return { nodes, links };
+  }
+  
+  _processFields(fields, reactionId, direction, nodes, links, linkKeys, tagLinkFn, materialLinkFn, assocLinkFn) {
+    fields.filter(Boolean).forEach((fieldId, index) => {
+      if (this.dataRepo.isTag(fieldId)) {
+        this._addTagNode(fieldId, nodes);
+        this._addLinkIfUnique(tagLinkFn(fieldId, reactionId, index), links, linkKeys);
+        
+        this.dataRepo.resolveTag(fieldId).forEach(materialId => {
+          this._addMaterialNode(materialId, nodes, true, fieldId);
+          this._addLinkIfUnique(assocLinkFn(materialId, fieldId, index), links, linkKeys);
         });
-
-      return shareUrl;
-    },
-  }
-);
-```
-
-```js
-// Reset button
-const resetButton = Inputs.button(
-  htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" />Reset`,
-  {
-    reduce: () => {
-      window.appState.isResetting = true;
-
-      const url = new URL(window.location.href);
-      url.search = "";
-      window.history.replaceState({}, "", url.toString());
-
-      window.appState.visibleTagMaterials.clear();
-      window.appState.selectedReagents = [];
-      window.appState.selectedProduct = "";
-
-      if (window.appState.reagentChoices?.initialised) {
-        window.appState.reagentChoices.removeActiveItems();
+      } else {
+        this._addMaterialNode(fieldId, nodes, false);
+        this._addLinkIfUnique(materialLinkFn(fieldId, reactionId, index), links, linkKeys);
       }
-      if (window.appState.productChoices?.initialised) {
-        window.appState.productChoices.removeActiveItems();
+    });
+  }
+  
+  _addLinkIfUnique(link, links, linkKeys) {
+    const key = `${link.source}-${link.target}-${link.type}`;
+    if (!linkKeys.has(key)) {
+      linkKeys.add(key);
+      links.push(link);
+    }
+  }
+  
+  _addMaterialNode(materialId, nodes, isTagMaterial, parentTag = null) {
+    if (!nodes.has(materialId)) {
+      const material = this.dataRepo.getMaterial(materialId);
+      nodes.set(materialId, {
+        id: materialId,
+        type: "material",
+        material,
+        radius: CONFIG.graph.sizes.materialRadius,
+        color: material?.color || CONFIG.graph.colors.materialNodeDefault,
+        imageUrl: UIHelper.getMaterialImageUrl(materialId),
+        name: material?.name || materialId,
+        isTagMaterial,
+        parentTag
+      });
+    }
+  }
+  
+  _addTagNode(tagId, nodes) {
+    if (!nodes.has(tagId)) {
+      nodes.set(tagId, {
+        id: tagId,
+        type: "tag",
+        tag: tagId.slice(1, -1),
+        radius: CONFIG.graph.sizes.tagRadius,
+        color: CONFIG.graph.colors.tagNode,
+        imageUrl: UIHelper.getMaterialImageUrl(tagId),
+        name: UIHelper.getMaterialName(tagId)
+      });
+    }
+  }
+  
+  filterVisibleNodes(nodeArray, state) {
+    return nodeArray.filter(node => {
+      if (state.selectedReagents.includes(node.id) || state.selectedProduct === node.id) return true;
+      if (node.type === "tag" || node.type === "reaction") return true;
+      if (node.type === "material" && !node.isTagMaterial) return true;
+      if (node.type === "material" && node.isTagMaterial) {
+        return state.visibleTagMaterials.has(node.id);
       }
-
-      updateChoicesOptions();
-      updateUI();
-      window.appState.isResetting = false;
-      return null;
-    },
+      return true;
+    });
   }
-);
+  
+  filterVisibleLinks(linkArray, visibleNodes) {
+    const visibleNodeIds = new Set(visibleNodes.map(n => n.id));
+    return linkArray.filter(link => 
+      visibleNodeIds.has(link.source.id) && visibleNodeIds.has(link.target.id)
+    );
+  }
+}
+
+const graphDataBuilder = new GraphDataBuilder(dataRepo);
 ```
 
 ```js
-// Responsive row count logic
-const getRowCount = (width) => {
-  if (width > 1400) return 33;
-  if (width > 1170) return 13;
-  if (width > 768) return 13;
-  return 10;
-};
-const isBigScreen = getRowCount(width);
+class GraphRenderer {
+  constructor(dataRepo, state) {
+    this.dataRepo = dataRepo;
+    this.state = state;
+    this.currentCleanup = null;
+  }
+  
+  render(filteredReactions) {
+    const container = document.getElementById("tableContainer");
+    container.innerHTML = "";
+    
+    if (this.currentCleanup) {
+      this.currentCleanup();
+      this.currentCleanup = null;
+    }
+    
+    if (filteredReactions.length === 0) {
+      container.innerHTML = `<div style="text-align: center; padding: 2rem; color: ${CONFIG.graph.colors.textLight};">No reactions found with current filters</div>`;
+      return;
+    }
+    
+    if (filteredReactions.length >= CONFIG.graph.constraints.maxReactions) {
+      container.innerHTML = `<div style="text-align: center; padding: 2rem; color: ${CONFIG.graph.colors.textLight};">Too many reactions with current filters</div>`;
+      return;
+    }
+    
+    const width = container.clientWidth;
+    const height = Math.max(CONFIG.graph.layout.minHeight, width * CONFIG.graph.layout.heightRatio);
+    
+    const { nodes, links } = graphDataBuilder.buildGraphData(filteredReactions);
+    const nodeArray = Array.from(nodes.values());
+    const linkArray = links.map(link => ({
+      ...link,
+      source: nodes.get(link.source),
+      target: nodes.get(link.target)
+    }));
+    
+    let visibleNodes = graphDataBuilder.filterVisibleNodes(nodeArray, this.state);
+    
+    // Add directly involved materials
+    visibleNodes = nodeArray.filter(node => {
+      if (visibleNodes.includes(node)) return true;
+      if (node.type === "material" && node.isTagMaterial) {
+        return this._isMaterialDirectlyInvolved(node.id, linkArray);
+      }
+      return false;
+    });
+    
+    const visibleLinks = graphDataBuilder.filterVisibleLinks(linkArray, visibleNodes);
+    
+    const { svg, g } = this._createSVG(container, width, height);
+    this._createArrowMarkers(svg);
+    
+    const linkGroups = this._createLinks(g, visibleLinks);
+    const simulation = this._createSimulation(visibleNodes, visibleLinks, width, height);
+    const nodeSelection = this._createNodes(g, visibleNodes, linkArray, simulation);
+    
+    simulation.on("tick", () => {
+      linkGroups.selectAll("line")
+        .attr("x1", d => d.source.x)
+        .attr("y1", d => d.source.y)
+        .attr("x2", d => d.target.x)
+        .attr("y2", d => d.target.y);
+      
+      nodeSelection.attr("transform", d => `translate(${d.x},${d.y})`);
+    });
+    
+    const resizeHandler = () => this._handleResize(container, svg);
+    window.addEventListener("resize", resizeHandler);
+    
+    this.currentCleanup = () => {
+      window.removeEventListener("resize", resizeHandler);
+      simulation.stop();
+    };
+  }
+  
+  _isMaterialDirectlyInvolved(materialId, linkArray) {
+    return linkArray.some(link => 
+      (link.source.id === materialId && link.target.type === "reaction" && link.type === "input") ||
+      (link.target.id === materialId && link.source.type === "reaction" && link.type === "output")
+    );
+  }
+  
+  _createSVG(container, width, height) {
+    const wrapper = document.createElement("div");
+    wrapper.style.cssText = "width:100%;height:100%;overflow:hidden;position:relative;";
+    container.appendChild(wrapper);
+    
+    const svg = d3.select(wrapper)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("viewBox", [0, 0, width, height])
+      .attr("preserveAspectRatio", "none")
+      .style("position", "absolute")
+      .style("left", 0)
+      .style("top", 0);
+    
+    const g = svg.append("g");
+    
+    const zoom = d3.zoom()
+      .scaleExtent([0.1, 4])
+      .on("zoom", event => g.attr("transform", event.transform));
+    
+    svg.call(zoom);
+    svg.on("click", () => this._resetHighlighting(d3.selectAll(".node")));
+    
+    return { svg, g };
+  }
+  
+  _createArrowMarkers(svg) {
+    const defs = svg.append("defs");
+    
+    [
+      { id: "arrow-input", color: CONFIG.graph.colors.inputArrow },
+      { id: "arrow-output", color: CONFIG.graph.colors.outputArrow }
+    ].forEach(({ id, color }) => {
+      defs.append("marker")
+        .attr("id", id)
+        .attr("viewBox", "0 -5 10 10")
+        .attr("refX", CONFIG.graph.sizes.materialRadius)
+        .attr("refY", 0)
+        .attr("markerWidth", 8)
+        .attr("markerHeight", 8)
+        .attr("orient", "auto")
+        .append("path")
+        .attr("d", "M0,-5L10,0L0,5")
+        .attr("fill", color);
+    });
+  }
+  
+  _createLinks(g, visibleLinks) {
+    const linkGroups = g.append("g")
+      .attr("class", "links")
+      .selectAll("g")
+      .data(visibleLinks)
+      .join("g")
+      .attr("class", d => `link-group ${d.type}-link`)
+      .style("opacity", d => d.type === "tag-association" ? CONFIG.graph.opacities.tagAssociation : CONFIG.graph.opacities.linkDefault);
+    
+    linkGroups.append("line")
+      .attr("stroke", d => {
+        if (d.type === "input") return CONFIG.graph.colors.inputArrow;
+        if (d.type === "output") return CONFIG.graph.colors.outputArrow;
+        if (d.type === "tag-association") return CONFIG.graph.colors.tagNode;
+        return "#ccc";
+      })
+      .attr("stroke-width", d => d.type === "tag-association" ? CONFIG.graph.sizes.strokeWidth - 1 : CONFIG.graph.sizes.strokeWidth)
+      .attr("stroke-dasharray", d => d.type === "input" ? "5,5" : null)
+      .attr("marker-end", d => {
+        if (d.type === "input") return "url(#arrow-input)";
+        if (d.type === "output") return "url(#arrow-output)";
+        return null;
+      });
+    
+    return linkGroups;
+  }
+  
+  _createSimulation(visibleNodes, visibleLinks, width, height) {
+    return d3.forceSimulation(visibleNodes)
+      .force("link", d3.forceLink(visibleLinks).id(d => d.id).distance(CONFIG.graph.sizes.linkDistance))
+      .force("charge", d3.forceManyBody().strength(CONFIG.graph.sizes.chargeStrength))
+      .force("center", d3.forceCenter(width / 2, height / 2))
+      .force("collision", d3.forceCollide().radius(d => d.radius + 15));
+  }
+  
+  _createNodes(g, visibleNodes, linkArray, simulation) {
+    const drag = d3.drag()
+      .on("start", (event, d) => {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+      })
+      .on("drag", (event, d) => {
+        d.fx = event.x;
+        d.fy = event.y;
+      })
+      .on("end", (event, d) => {
+        if (!event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+      });
+    
+    const nodeSelection = g.append("g")
+      .selectAll("g")
+      .data(visibleNodes)
+      .join("g")
+      .attr("class", d => `node ${d.type}-node`)
+      .call(drag);
+    
+    // Create material nodes
+    nodeSelection.filter(d => d.type === "material").each((d, i, nodes) => {
+      const selection = d3.select(nodes[i]);
+      this._createMaterialNode(d, selection, linkArray);
+    });
+    
+    // Create tag nodes
+    nodeSelection.filter(d => d.type === "tag").each((d, i, nodes) => {
+      const selection = d3.select(nodes[i]);
+      this._createTagNode(d, selection);
+    });
+    
+    // Create reaction nodes
+    nodeSelection.filter(d => d.type === "reaction").each((d, i, nodes) => {
+      const selection = d3.select(nodes[i]);
+      this._createReactionNode(d, selection);
+    });
+    
+    // Add click handlers
+    nodeSelection.on("click", (event, d) => this._handleNodeClick(event, d, nodeSelection, linkArray));
+    
+    return nodeSelection;
+  }
+  
+  _createMaterialNode(node, selection, linkArray) {
+    const isDirectMaterial = this._isMaterialDirectlyInvolved(node.id, linkArray);
+    
+    // Highlight
+    selection.append("circle")
+      .attr("r", node.radius + 4)
+      .attr("fill", "transparent")
+      .attr("stroke", () => {
+        if (this.state.selectedReagents.includes(node.id) || this.state.selectedProduct === node.id) {
+          return CONFIG.graph.colors.selectedHighlight;
+        }
+        if (isDirectMaterial) return CONFIG.graph.colors.directMaterialHighlight;
+        return "transparent";
+      })
+      .attr("stroke-width", 2)
+      .attr("class", "material-highlight")
+      .style("opacity", (this.state.selectedReagents.includes(node.id) || this.state.selectedProduct === node.id || isDirectMaterial) ? 1 : 0);
+    
+    // Background
+    selection.append("circle")
+      .attr("r", node.radius)
+      .attr("fill", node.color)
+      .attr("stroke", CONFIG.graph.colors.nodeStroke)
+      .attr("stroke-width", CONFIG.graph.sizes.strokeWidth)
+      .attr("class", "node-background");
+    
+    // Clip path and image
+    selection.append("clipPath")
+      .attr("id", `clip-${node.id}`)
+      .append("circle")
+      .attr("r", node.radius);
+    
+    selection.append("g")
+      .attr("clip-path", `url(#clip-${node.id})`)
+      .append("image")
+      .attr("href", node.imageUrl)
+      .attr("x", -node.radius * CONFIG.graph.layout.imagePosition)
+      .attr("y", -node.radius * CONFIG.graph.layout.imagePosition)
+      .attr("transform", `scale(${CONFIG.graph.layout.imageScale})`)
+      .attr("class", "material-image")
+      .on("error", function() { d3.select(this).style("display", "none"); });
+    
+    // Label
+    selection.append("text")
+      .attr("text-anchor", "middle")
+      .attr("dy", node.radius + CONFIG.graph.layout.labelOffsetMaterial)
+      .attr("font-size", CONFIG.graph.sizes.fontSizeSmall)
+      .attr("fill", CONFIG.graph.colors.text)
+      .attr("font-weight", "bold")
+      .attr("class", "node-label")
+      .text(UIHelper.truncateName(node.name || node.id));
+    
+    // Tooltip
+    selection.append("title").text(`${node.name} (${node.id})`);
+  }
+  
+  _createTagNode(node, selection) {
+    const materialIds = this.dataRepo.resolveTag(node.id);
+    const hasVisibleMaterials = materialIds.some(id => this.state.visibleTagMaterials.has(id));
+    
+    // Background
+    selection.append("circle")
+      .attr("r", node.radius)
+      .attr("fill", node.color)
+      .attr("stroke", CONFIG.graph.colors.nodeStroke)
+      .attr("stroke-width", CONFIG.graph.sizes.strokeWidth)
+      .attr("class", "node-background");
+    
+    // Icon
+    selection.append("image")
+      .attr("href", hasVisibleMaterials 
+        ? `${CONFIG.urls.imageBase}/images/icons/eye-open.svg`
+        : `${CONFIG.urls.imageBase}/images/icons/eye-closed.svg`)
+      .attr("x", -node.radius * 0.5)
+      .attr("y", -node.radius * 0.5)
+      .attr("width", node.radius)
+      .attr("height", node.radius)
+      .attr("class", "tag-visibility-icon");
+    
+    // Border
+    selection.append("circle")
+      .attr("r", node.radius + 2)
+      .attr("fill", "transparent")
+      .attr("stroke", hasVisibleMaterials ? CONFIG.graph.colors.tagVisible : CONFIG.graph.colors.tagHidden)
+      .attr("stroke-width", 3)
+      .attr("stroke-dasharray", "4,2")
+      .attr("class", "tag-border");
+    
+    // Label
+    selection.append("text")
+      .attr("text-anchor", "middle")
+      .attr("dy", node.radius + CONFIG.graph.layout.labelOffsetReaction)
+      .attr("font-size", CONFIG.graph.sizes.fontSizeSmall)
+      .attr("fill", CONFIG.graph.colors.text)
+      .attr("font-weight", "bold")
+      .attr("class", "node-label")
+      .text(UIHelper.truncateName(node.name || node.id));
+    
+    // Tooltip
+    const visibleCount = materialIds.filter(id => this.state.visibleTagMaterials.has(id)).length;
+    const totalCount = materialIds.length;
+    const tagName = node.tag;
+    
+    let tooltipText;
+    if (visibleCount === totalCount) {
+      tooltipText = `Tag: [${tagName}]\nAll ${totalCount} materials visible\nDouble-click to hide all`;
+    } else if (visibleCount > 0) {
+      tooltipText = `Tag: [${tagName}]\n${visibleCount} of ${totalCount} materials visible\nDouble-click to toggle all`;
+    } else {
+      tooltipText = `Tag: [${tagName}]\nAll ${totalCount} materials hidden\nDouble-click to show all`;
+    }
+    
+    selection.append("title").text(tooltipText);
+  }
+  
+  _createReactionNode(node, selection) {
+    // Circle
+    selection.append("circle")
+      .attr("r", node.radius)
+      .attr("fill", node.color)
+      .attr("stroke", CONFIG.graph.colors.nodeStroke)
+      .attr("stroke-width", CONFIG.graph.sizes.strokeWidth)
+      .attr("class", "reaction-circle");
+    
+    // Speed number
+    selection.append("text")
+      .text(node.reaction.reactionRate)
+      .attr("text-anchor", "middle")
+      .attr("dy", 5)
+      .attr("font-size", CONFIG.graph.sizes.fontSizeMedium)
+      .attr("fill", CONFIG.graph.colors.text)
+      .attr("font-weight", "bold")
+      .attr("class", "reaction-speed");
+    
+    // Tooltip
+    const inputs = [node.reaction.reagent1, node.reaction.reagent2, node.reaction.reagent3]
+      .filter(Boolean)
+      .map(id => UIHelper.getMaterialName(id))
+      .join(" + ");
+    
+    const outputs = [node.reaction.product1, node.reaction.product2, node.reaction.product3]
+      .filter(Boolean)
+      .map(id => UIHelper.getMaterialName(id))
+      .join(" + ");
+    
+    selection.append("title").text(`Reaction (Speed: ${node.reaction.reactionRate})\n${inputs} → ${outputs}`);
+  }
+  
+  _handleNodeClick(event, node, allNodes, linkArray) {
+    event.stopPropagation();
+    
+    // Double click on tag
+    if (event.detail === 2 && node.type === "tag") {
+      this.state.toggleTagVisibility(node.id);
+      return;
+    }
+    
+    // Ctrl+Shift+click → wiki
+    if (event.shiftKey && event.ctrlKey && node.type === "material") {
+      const wikiUrl = node.material?.wikipage
+        ? `${CONFIG.urls.wikiBase}${encodeURIComponent(node.material.wikipage)}`
+        : "";
+      
+      if (wikiUrl) {
+        window.open(wikiUrl, "_blank");
+      } else {
+        UIHelper.showNotification("No wiki page found for this material");
+      }
+      return;
+    }
+    
+    // Shift+click → select as product
+    if (!event.ctrlKey && event.shiftKey && node.type === "material") {
+      if (this.state.selectProduct(node.id)) {
+        eventBus.emit("stateChanged", this.state);
+      } else {
+        UIHelper.showNotification("No valid reactions with this product");
+      }
+      return;
+    }
+    
+    // Ctrl+click → select as reagent
+    if (event.ctrlKey && !event.shiftKey && node.type === "material") {
+      if (this.state.selectReagent(node.id)) {
+        eventBus.emit("stateChanged", this.state);
+      } else {
+        UIHelper.showNotification("No valid reactions with this reagent");
+      }
+      return;
+    }
+    
+    // Regular click → highlight
+    this._highlightConnections(node, allNodes, linkArray);
+  }
+  
+  _highlightConnections(node, allNodes, linkArray) {
+    this._resetHighlighting(allNodes);
+    
+    if (node.type === "material" || node.type === "tag") {
+      allNodes.filter(n => n.id === node.id)
+        .select(".node-background")
+        .attr("stroke", CONFIG.graph.colors.nodeStrokeHighlight)
+        .attr("stroke-width", CONFIG.graph.sizes.strokeWidthHighlight);
+      
+      if (node.type === "tag") {
+        const materialIds = this.dataRepo.resolveTag(node.id);
+        materialIds.forEach(materialId => {
+          allNodes.filter(n => n.id === materialId)
+            .select(".node-background")
+            .attr("stroke", CONFIG.graph.colors.tagVisible)
+            .attr("stroke-width", CONFIG.graph.sizes.strokeWidthMedium);
+        });
+      }
+      
+      const connectedReactionIds = new Set();
+      linkArray.forEach(link => {
+        if (link.source.id === node.id && link.target.type === "reaction") {
+          connectedReactionIds.add(link.target.id);
+        }
+        if (link.target.id === node.id && link.source.type === "reaction") {
+          connectedReactionIds.add(link.source.id);
+        }
+      });
+      
+      connectedReactionIds.forEach(reactionId => {
+        allNodes.filter(n => n.id === reactionId)
+          .select(".reaction-circle")
+          .attr("stroke", CONFIG.graph.colors.nodeStrokeHighlight)
+          .attr("stroke-width", CONFIG.graph.sizes.strokeWidthHighlight);
+        
+        linkArray.forEach(link => {
+          if (link.source.id === reactionId && (link.target.type === "material" || link.target.type === "tag")) {
+            allNodes.filter(n => n.id === link.target.id)
+              .select(".node-background")
+              .attr("stroke", CONFIG.graph.colors.outputHighlight)
+              .attr("stroke-width", CONFIG.graph.sizes.strokeWidthMedium);
+          }
+          if (link.target.id === reactionId && (link.source.type === "material" || link.source.type === "tag")) {
+            allNodes.filter(n => n.id === link.source.id)
+              .select(".node-background")
+              .attr("stroke", CONFIG.graph.colors.inputHighlight)
+              .attr("stroke-width", CONFIG.graph.sizes.strokeWidthMedium);
+          }
+        });
+      });
+      
+      const allConnectedIds = this._getConnectedNodeIds(node.id, node.type, linkArray);
+      
+      allNodes.style("opacity", n => allConnectedIds.has(n.id) ? CONFIG.graph.opacities.default : CONFIG.graph.opacities.dimmed);
+      
+      d3.selectAll(".link-group").style("opacity", l => 
+        (allConnectedIds.has(l.source.id) && allConnectedIds.has(l.target.id)) ? 
+        (l.type === "tag-association" ? CONFIG.graph.opacities.tagAssociation : CONFIG.graph.opacities.default) : 
+        CONFIG.graph.opacities.veryDimmed
+      );
+      
+    } else if (node.type === "reaction") {
+      allNodes.filter(n => n.id === node.id)
+        .select(".reaction-circle")
+        .attr("stroke", CONFIG.graph.colors.nodeStrokeHighlight)
+        .attr("stroke-width", CONFIG.graph.sizes.strokeWidthHighlight);
+      
+      const connectedMaterialIds = new Set();
+      linkArray.forEach(link => {
+        if (link.source.id === node.id && (link.target.type === "material" || link.target.type === "tag")) {
+          connectedMaterialIds.add(link.target.id);
+        }
+        if (link.target.id === node.id && (link.source.type === "material" || link.source.type === "tag")) {
+          connectedMaterialIds.add(link.source.id);
+        }
+      });
+      
+      connectedMaterialIds.forEach(materialId => {
+        allNodes.filter(n => n.id === materialId)
+          .select(".node-background")
+          .attr("stroke", CONFIG.graph.colors.nodeStrokeHighlight)
+          .attr("stroke-width", CONFIG.graph.sizes.strokeWidthMedium);
+      });
+      
+      const allConnectedIds = new Set([node.id, ...connectedMaterialIds]);
+      
+      allNodes.style("opacity", n => allConnectedIds.has(n.id) ? CONFIG.graph.opacities.default : CONFIG.graph.opacities.dimmed);
+      
+      d3.selectAll(".link-group").style("opacity", l => 
+        (allConnectedIds.has(l.source.id) && allConnectedIds.has(l.target.id)) ? 
+        (l.type === "tag-association" ? CONFIG.graph.opacities.tagAssociation : CONFIG.graph.opacities.default) : 
+        CONFIG.graph.opacities.veryDimmed
+      );
+    }
+  }
+  
+  _getConnectedNodeIds(nodeId, nodeType, linkArray) {
+    const connected = new Set([nodeId]);
+    
+    if (nodeType === "material" || nodeType === "tag") {
+      const connectedReactions = new Set();
+      linkArray.forEach(link => {
+        if (link.source.id === nodeId && link.target.type === "reaction") {
+          connectedReactions.add(link.target.id);
+        }
+        if (link.target.id === nodeId && link.source.type === "reaction") {
+          connectedReactions.add(link.source.id);
+        }
+      });
+      
+      connectedReactions.forEach(id => connected.add(id));
+      
+      connectedReactions.forEach(reactionId => {
+        linkArray.forEach(link => {
+          if (link.source.id === reactionId && (link.target.type === "material" || link.target.type === "tag")) {
+            connected.add(link.target.id);
+          }
+          if (link.target.id === reactionId && (link.source.type === "material" || link.source.type === "tag")) {
+            connected.add(link.source.id);
+          }
+        });
+      });
+      
+      if (nodeType === "tag") {
+        const materialIds = this.dataRepo.resolveTag(nodeId);
+        materialIds.forEach(materialId => connected.add(materialId));
+      }
+    }
+    
+    return connected;
+  }
+  
+  _resetHighlighting(allNodes) {
+    allNodes.style("opacity", CONFIG.graph.opacities.default);
+    
+    d3.selectAll(".link-group").style("opacity", d => {
+      if (d.type === "tag-association") return CONFIG.graph.opacities.tagAssociation;
+      return CONFIG.graph.opacities.linkDefault;
+    });
+    
+    allNodes.select(".node-background, .reaction-circle")
+      .attr("stroke", CONFIG.graph.colors.nodeStroke)
+      .attr("stroke-width", CONFIG.graph.sizes.strokeWidth);
+  }
+  
+  _handleResize(container, svg) {
+    const width = container.clientWidth;
+    const height = Math.max(CONFIG.graph.layout.minHeight, width * CONFIG.graph.layout.heightRatio);
+    
+    svg.attr("width", width)
+      .attr("height", height)
+      .attr("viewBox", `0 0 ${width} ${height}`);
+  }
+}
+
+const graphRenderer = new GraphRenderer(dataRepo, appState);
 ```
 
 ```js
-// Simple and clean graph configuration - add tag node config
-const graphStyleConfig = {
-  colors: {
-    reactionNode: "#ff6b6b",
-    materialNodeDefault: "#505050",
-    materialNodeOutput: "#45b7d1",
-
-    tagNode: "#ffa500",
-    tagVisible: "#24c93a",
-    tagHidden: "#ff6b6b",
-    selectedHighlight: "#ffff00",
-    directMaterialHighlight: "#00ffff",
-
-    inputArrow: "#24c93a",
-    outputArrow: "#45b7d1",
-    nodeStroke: "#ffffff",
-    nodeStrokeHighlight: "#ff6b6b",
-    inputHighlight: "#24c93a",
-    outputHighlight: "#45b7d1",
-    text: "#ffffff",
-    textLight: "#ffffff"
-  },
-  
-  sizes: {
-    reactionRadius: 15,
-    materialRadius: 25,
-    tagRadius: 20, // Smaller radius for tags
-    strokeWidth: 3,
-    strokeWidthHighlight: 5,
-    strokeWidthMedium: 4,
-    fontSizeSmall: "11px",
-    fontSizeMedium: "12px",
-    linkDistance: 120,
-    chargeStrength: -400
-  },
-
-  opacities: {
-    default: 1,
-    linkDefault: 0.7,
-    dimmed: 0.15,
-    veryDimmed: 0.05,
-    hidden: 0 // For hidden tag materials
-  },
-  
-  animations: {
-    duration: 200
-  },
-  
-  layout: {
-    heightRatio: 0.6,
-    minHeight: 600,
-    labelOffsetMaterial: 20,
-    labelOffsetReaction: 15,
-    imageScale: 2,
-    imagePosition: 0.65
-  },
-  
-  constraints: {
-    maxReactions: 316,
-    maxNameLength: 30,
-    truncatedNameLength: 20
-  }
-};
-
-const createLegend = () => {
-  // Remove any existing legend first
-  const existingLegend = document.getElementById("graph-legend");
-  if (existingLegend) {
-    existingLegend.remove();
-  }
-  
-  const legendContainer = document.createElement("div");
-  legendContainer.id = "graph-legend";
-  legendContainer.className = "card";
-  legendContainer.style.marginTop = "10px";
-  legendContainer.style.padding = "15px";
-  legendContainer.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
-  legendContainer.style.borderRadius = "8px";
-  legendContainer.style.color = "#fff";
-  legendContainer.style.fontSize = "14px";
-  legendContainer.style.maxWidth = "100%";
-  
-  // Legend content
-  legendContainer.innerHTML = `
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #555; padding-bottom: 10px;">
-      <h3 style="margin: 0; font-size: 16px;">Graph Legend</h3>
-      <div id="legend-toggle" style="cursor: pointer; font-size: 18px; padding: 0 8px; background: #555; border-radius: 4px;">−</div>
-    </div>
-    <div id="legend-content">
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px;">
-        <!-- Nodes -->
-        <div>
-          <h4 style="margin: 0 0 10px 0; color: #45b7d1;">NODES</h4>
-          
-          <div style="display: flex; align-items: center; margin-bottom: 8px;">
-            <svg width="24" height="24">
-              <circle cx="12" cy="12" r="10" fill="${graphStyleConfig.colors.materialNodeOutput}" stroke="${graphStyleConfig.colors.nodeStroke}" stroke-width="2"></circle>
-            </svg>
-            <span style="margin-left: 10px;">Material</span>
-          </div>
-          
-          <div style="display: flex; align-items: center; margin-bottom: 8px;">
-            <svg width="24" height="24">
-              <circle cx="12" cy="12" r="8" fill="${graphStyleConfig.colors.reactionNode}" stroke="${graphStyleConfig.colors.nodeStroke}" stroke-width="2"></circle>
-              <text x="12" y="16" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">5</text>
-            </svg>
-            <span style="margin-left: 10px;">Reaction (number = speed)</span>
-          </div>
-          
-          <div style="display: flex; align-items: center; margin-bottom: 8px;">
-            <svg width="24" height="24">
-              <circle cx="12" cy="12" r="8" fill="${graphStyleConfig.colors.tagNode}" stroke="${graphStyleConfig.colors.tagVisible}" stroke-width="2" stroke-dasharray="4,2"></circle>
-              <image x="8" y="8" width="8" height="8" xlink:href="https://noita-bartender-images.acidflow.stream/images/icons/eye-open.svg"></image>
-            </svg>
-            <span style="margin-left: 10px;">Tag (group of materials)</span>
-          </div>
-        </div>
-        
-        <!-- Connections -->
-        <div>
-          <h4 style="margin: 0 0 10px 0; color: #45b7d1;">CONNECTIONS</h4>
-          <div style="display: flex; align-items: center; margin-bottom: 8px;">
-            <svg width="24" height="24">
-              <line x1="2" y1="12" x2="22" y2="12" stroke="${graphStyleConfig.colors.inputArrow}" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow-input-mini)"></line>
-              <defs>
-                <marker id="arrow-input-mini" viewBox="0 -5 10 10" refX="9" refY="0" markerWidth="6" markerHeight="6" orient="auto">
-                  <path d="M0,-5L10,0L0,5" fill="${graphStyleConfig.colors.inputArrow}"></path>
-                </marker>
-              </defs>
-            </svg>
-            <span style="margin-left: 10px;">Input/Reagent -> reaction</span>
-          </div>
-          
-          <div style="display: flex; align-items: center; margin-bottom: 8px;">
-            <svg width="24" height="24">
-              <line x1="2" y1="12" x2="22" y2="12" stroke="${graphStyleConfig.colors.outputArrow}" stroke-width="2" marker-end="url(#arrow-output-mini)"></line>
-              <defs>
-                <marker id="arrow-output-mini" viewBox="0 -5 10 10" refX="9" refY="0" markerWidth="6" markerHeight="6" orient="auto">
-                  <path d="M0,-5L10,0L0,5" fill="${graphStyleConfig.colors.outputArrow}"></path>
-                </marker>
-              </defs>
-            </svg>
-            <span style="margin-left: 10px;">reaction -> Output/Product</span>
-          </div>
-          
-          <div style="display: flex; align-items: center; margin-bottom: 8px;">
-            <svg width="24" height="24">
-              <line x1="2" y1="12" x2="22" y2="12" stroke="${graphStyleConfig.colors.tagNode}" stroke-width="1.5" stroke-opacity="0.7"></line>
-            </svg>
-            <span style="margin-left: 10px;">Tag association</span>
-          </div>
-        </div>
-        
-        <!-- Interactions -->
-        <div>
-          <h4 style="margin: 0 0 10px 0; color: #45b7d1;">INTERACTIONS</h4>
-          <div style="display: flex; align-items: flex-start; margin-bottom: 8px;">
-            <div style="min-width: 40px; text-align: center; font-weight: bold; background: #555; border-radius: 4px; margin-right: 10px; padding: 2px 4px;">Dbl Click</div>
-            <span>Tag: Show/hide all materials in tag</span>
-          </div>
-          
-          <div style="display: flex; align-items: flex-start; margin-bottom: 8px;">
-            <div style="min-width: 40px; text-align: center; font-weight: bold; background: #555; border-radius: 4px; margin-right: 10px; padding: 2px 4px;">Ctrl+Click</div>
-            <span>Material: Set as reagent</span>
-          </div>
-          
-          <div style="display: flex; align-items: flex-start; margin-bottom: 8px;">
-            <div style="min-width: 40px; text-align: center; font-weight: bold; background: #555; border-radius: 4px; margin-right: 10px; padding: 2px 4px;">Shift+Click</div>
-            <span>Material: Set as product</span>
-          </div>
-          
-          <div style="display: flex; align-items: flex-start; margin-bottom: 8px;">
-            <div style="min-width: 40px; text-align: center; font-weight: bold; background: #555; border-radius: 4px; margin-right: 10px; padding: 2px 4px;">Ctrl+Shift+Click</div>
-            <span>Material: Open wiki page</span>
-          </div>
-          
-          <div style="display: flex; align-items: flex-start;">
-            <div style="min-width: 40px; text-align: center; font-weight: bold; background: #555; border-radius: 4px; margin-right: 10px; padding: 2px 4px;">Click</div>
-            <span>Background: Reset highlighting</span>
-          </div>
+class LegendManager {
+  static create() {
+    const existingLegend = document.getElementById("graph-legend");
+    if (existingLegend) existingLegend.remove();
+    
+    const legendContainer = document.createElement("div");
+    legendContainer.id = "graph-legend";
+    legendContainer.className = "card";
+    legendContainer.style.cssText = "margin-top:10px;padding:15px;background-color:rgba(0,0,0,0.7);border-radius:8px;color:#fff;font-size:14px;max-width:100%;";
+    
+    legendContainer.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;border-bottom:1px solid #555;padding-bottom:10px;">
+        <h3 style="margin:0;font-size:16px;">Graph Legend</h3>
+        <div id="legend-toggle" style="cursor:pointer;font-size:18px;padding:0 8px;background:#555;border-radius:4px;">−</div>
+      </div>
+      <div id="legend-content">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:15px;">
+          ${this._getNodesSection()}
+          ${this._getConnectionsSection()}
+          ${this._getInteractionsSection()}
         </div>
       </div>
-    </div>
-  `;
-  
-  // Add legend to the page after the graph container
-  const tableContainer = document.getElementById("tableContainer");
-  if (tableContainer && tableContainer.parentNode) {
-    tableContainer.parentNode.appendChild(legendContainer);
+    `;
     
-    // Add toggle functionality
+    const tableContainer = document.getElementById("tableContainer");
+    if (tableContainer?.parentNode) {
+      tableContainer.parentNode.appendChild(legendContainer);
+      this._setupToggle();
+    }
+  }
+  
+  static _getNodesSection() {
+    return `
+      <div>
+        <h4 style="margin:0 0 10px 0;color:#45b7d1;">NODES</h4>
+        <div style="display:flex;align-items:center;margin-bottom:8px;">
+          <svg width="24" height="24">
+            <circle cx="12" cy="12" r="10" fill="${CONFIG.graph.colors.materialNodeOutput}" stroke="${CONFIG.graph.colors.nodeStroke}" stroke-width="2"></circle>
+          </svg>
+          <span style="margin-left:10px;">Material</span>
+        </div>
+        <div style="display:flex;align-items:center;margin-bottom:8px;">
+          <svg width="24" height="24">
+            <circle cx="12" cy="12" r="8" fill="${CONFIG.graph.colors.reactionNode}" stroke="${CONFIG.graph.colors.nodeStroke}" stroke-width="2"></circle>
+            <text x="12" y="16" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">5</text>
+          </svg>
+          <span style="margin-left:10px;">Reaction (number = speed)</span>
+        </div>
+        <div style="display:flex;align-items:center;margin-bottom:8px;">
+          <svg width="24" height="24">
+            <circle cx="12" cy="12" r="8" fill="${CONFIG.graph.colors.tagNode}" stroke="${CONFIG.graph.colors.tagVisible}" stroke-width="2" stroke-dasharray="4,2"></circle>
+            <image x="8" y="8" width="8" height="8" xlink:href="${CONFIG.urls.imageBase}/images/icons/eye-open.svg"></image>
+          </svg>
+          <span style="margin-left:10px;">Tag (group of materials)</span>
+        </div>
+      </div>
+    `;
+  }
+  
+  static _getConnectionsSection() {
+    return `
+      <div>
+        <h4 style="margin:0 0 10px 0;color:#45b7d1;">CONNECTIONS</h4>
+        <div style="display:flex;align-items:center;margin-bottom:8px;">
+          <svg width="24" height="24">
+            <line x1="2" y1="12" x2="22" y2="12" stroke="${CONFIG.graph.colors.inputArrow}" stroke-width="2" stroke-dasharray="5,5"></line>
+          </svg>
+          <span style="margin-left:10px;">Input/Reagent → reaction</span>
+        </div>
+        <div style="display:flex;align-items:center;margin-bottom:8px;">
+          <svg width="24" height="24">
+            <line x1="2" y1="12" x2="22" y2="12" stroke="${CONFIG.graph.colors.outputArrow}" stroke-width="2"></line>
+          </svg>
+          <span style="margin-left:10px;">reaction → Output/Product</span>
+        </div>
+        <div style="display:flex;align-items:center;margin-bottom:8px;">
+          <svg width="24" height="24">
+            <line x1="2" y1="12" x2="22" y2="12" stroke="${CONFIG.graph.colors.tagNode}" stroke-width="1.5" stroke-opacity="0.7"></line>
+          </svg>
+          <span style="margin-left:10px;">Tag association</span>
+        </div>
+      </div>
+    `;
+  }
+  
+  static _getInteractionsSection() {
+    return `
+      <div>
+        <h4 style="margin:0 0 10px 0;color:#45b7d1;">INTERACTIONS</h4>
+        <div style="display:flex;align-items:flex-start;margin-bottom:8px;">
+          <div style="min-width:40px;text-align:center;font-weight:bold;background:#555;border-radius:4px;margin-right:10px;padding:2px 4px;">Dbl Click</div>
+          <span>Tag: Show/hide all materials in tag</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;margin-bottom:8px;">
+          <div style="min-width:40px;text-align:center;font-weight:bold;background:#555;border-radius:4px;margin-right:10px;padding:2px 4px;">Ctrl+Click</div>
+          <span>Material: Set as reagent</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;margin-bottom:8px;">
+          <div style="min-width:40px;text-align:center;font-weight:bold;background:#555;border-radius:4px;margin-right:10px;padding:2px 4px;">Shift+Click</div>
+          <span>Material: Set as product</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;margin-bottom:8px;">
+          <div style="min-width:40px;text-align:center;font-weight:bold;background:#555;border-radius:4px;margin-right:10px;padding:2px 4px;">Ctrl+Shift+Click</div>
+          <span>Material: Open wiki page</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;">
+          <div style="min-width:40px;text-align:center;font-weight:bold;background:#555;border-radius:4px;margin-right:10px;padding:2px 4px;">Click</div>
+          <span>Background: Reset highlighting</span>
+        </div>
+      </div>
+    `;
+  }
+  
+  static _setupToggle() {
     const legendToggle = document.getElementById("legend-toggle");
     const legendContent = document.getElementById("legend-content");
+    const legendContainer = document.getElementById("graph-legend");
     
-    let isLegendVisible = true;
+    if (!legendToggle || !legendContent || !legendContainer) return;
+    
+    let isVisible = true;
     legendToggle.addEventListener("click", () => {
-      isLegendVisible = !isLegendVisible;
-      if (isLegendVisible) {
-        legendContent.style.display = "block";
-        legendToggle.textContent = "−";
-        legendContainer.style.padding = "15px";
-      } else {
-        legendContent.style.display = "none";
-        legendToggle.textContent = "+";
-        legendContainer.style.padding = "10px 15px";
-      }
+      isVisible = !isVisible;
+      legendContent.style.display = isVisible ? "block" : "none";
+      legendToggle.textContent = isVisible ? "−" : "+";
+      legendContainer.style.padding = isVisible ? "15px" : "10px 15px";
     });
   }
-  
-  return legendContainer;
-};
-
-// Graph visualization with D3.js - updated for tags
-const renderGraph = (filteredReactions) => {
-  const container = document.getElementById("tableContainer");
-  container.innerHTML = "";
-  
-  if (filteredReactions.length === 0) {
-    container.innerHTML = `<div style="text-align: center; padding: 2rem; color: ${graphStyleConfig.colors.textLight};">No reactions found with current filters</div>`;
-    return;
-  }
-
-  if (filteredReactions.length >= graphStyleConfig.constraints.maxReactions) {
-    container.innerHTML = `<div style="text-align: center; padding: 2rem; color: ${graphStyleConfig.colors.textLight};">Too many reactions with current filters</div>`;
-    return;
-  }
-
-  const wrapper = document.createElement("div");
-  wrapper.style.width = "100%";
-  wrapper.style.height = "100%";
-  wrapper.style.overflow = "hidden";
-  wrapper.style.position = "relative";
-  container.appendChild(wrapper);
-  
-  const width = container.clientWidth;
-  const height = Math.max(
-    graphStyleConfig.layout.minHeight, 
-    width * graphStyleConfig.layout.heightRatio
-  );
-  
-  // Create SVG with a group for the zoomable content
-  const svg = d3.select(wrapper)
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .attr("viewBox", [0, 0, width, height])
-    .attr("preserveAspectRatio", "none")
-    .style("position", "absolute")
-    .style("left", 0)
-    .style("top", 0);
-  
-  // Create a group for all zoomable content
-  const g = svg.append("g");
-  
-  // Create a force-directed graph
-  const nodes = new Map();
-  const links = [];
-  
-  // Process reactions to create nodes and links with tags
-  filteredReactions.forEach((reaction, index) => {
-    const reactionId = `reaction_${index}`;
-    
-    // Add reaction node
-    nodes.set(reactionId, {
-      id: reactionId,
-      type: "reaction",
-      reaction: reaction,
-      radius: graphStyleConfig.sizes.reactionRadius,
-      color: graphStyleConfig.colors.reactionNode
-    });
-    
-    // Process inputs (including tags)
-    [reaction.reagent1, reaction.reagent2, reaction.reagent3]
-      .filter(Boolean)
-      .forEach((inputId, inputIndex) => {
-        if (isTag(inputId)) {
-          // Handle tag node
-          if (!nodes.has(inputId)) {
-            nodes.set(inputId, {
-              id: inputId,
-              type: "tag",
-              tag: inputId.slice(1, -1),
-              radius: graphStyleConfig.sizes.tagRadius,
-              color: graphStyleConfig.colors.tagNode,
-              imageUrl: getMaterialImageUrl(inputId),
-              name: getMaterialName(inputId)
-            });
-          }
-          
-          links.push({
-            source: inputId,
-            target: reactionId,
-            type: "input",
-            index: inputIndex
-          });
-          
-          // Add connections from tag to all associated materials
-          const materialIds = resolveTag(inputId);
-          materialIds.forEach(materialId => {
-            if (!nodes.has(materialId)) {
-              const material = materialsMap.get(materialId);
-              const imageUrl = getMaterialImageUrl(materialId);
-              nodes.set(materialId, {
-                id: materialId,
-                type: "material",
-                material: material,
-                radius: graphStyleConfig.sizes.materialRadius,
-                color: material?.color || graphStyleConfig.colors.materialNodeDefault,
-                imageUrl: imageUrl,
-                name: material?.name || materialId,
-                isTagMaterial: true,
-                parentTag: inputId
-              });
-            }
-            
-            links.push({
-              source: materialId,
-              target: inputId,
-              type: "tag-association",
-              index: inputIndex
-            });
-          });
-        } else {
-          // Handle regular material
-          if (!nodes.has(inputId)) {
-            const material = materialsMap.get(inputId);
-            const imageUrl = getMaterialImageUrl(inputId);
-            nodes.set(inputId, {
-              id: inputId,
-              type: "material",
-              material: material,
-              radius: graphStyleConfig.sizes.materialRadius,
-              color: material?.color || graphStyleConfig.colors.materialNodeDefault,
-              imageUrl: imageUrl,
-              name: material?.name || inputId,
-              isTagMaterial: false
-            });
-          }
-          
-          links.push({
-            source: inputId,
-            target: reactionId,
-            type: "input",
-            index: inputIndex
-          });
-        }
-      });
-    
-    // Process outputs (including tags)
-    [reaction.product1, reaction.product2, reaction.product3]
-      .filter(Boolean)
-      .forEach((outputId, outputIndex) => {
-        if (isTag(outputId)) {
-          // Handle tag node
-          if (!nodes.has(outputId)) {
-            nodes.set(outputId, {
-              id: outputId,
-              type: "tag",
-              tag: outputId.slice(1, -1),
-              radius: graphStyleConfig.sizes.tagRadius,
-              color: graphStyleConfig.colors.tagNode,
-              imageUrl: getMaterialImageUrl(outputId),
-              name: getMaterialName(outputId)
-            });
-          }
-          
-          links.push({
-            source: reactionId,
-            target: outputId,
-            type: "output",
-            index: outputIndex
-          });
-          
-          // Add connections from tag to all associated materials
-          const materialIds = resolveTag(outputId);
-          materialIds.forEach(materialId => {
-            if (!nodes.has(materialId)) {
-              const material = materialsMap.get(materialId);
-              const imageUrl = getMaterialImageUrl(materialId);
-              nodes.set(materialId, {
-                id: materialId,
-                type: "material",
-                material: material,
-                radius: graphStyleConfig.sizes.materialRadius,
-                color: material?.color || graphStyleConfig.colors.materialNodeOutput,
-                imageUrl: imageUrl,
-                name: material?.name || materialId,
-                isTagMaterial: true,
-                parentTag: outputId
-              });
-            }
-            
-            links.push({
-              source: outputId,
-              target: materialId,
-              type: "tag-association",
-              index: outputIndex
-            });
-          });
-        } else {
-          // Handle regular material
-          if (!nodes.has(outputId)) {
-            const material = materialsMap.get(outputId);
-            const imageUrl = getMaterialImageUrl(outputId);
-            nodes.set(outputId, {
-              id: outputId,
-              type: "material",
-              material: material,
-              radius: graphStyleConfig.sizes.materialRadius,
-              color: material?.color || graphStyleConfig.colors.materialNodeOutput,
-              imageUrl: imageUrl,
-              name: material?.name || outputId,
-              isTagMaterial: false
-            });
-          }
-          
-          links.push({
-            source: reactionId,
-            target: outputId,
-            type: "output",
-            index: outputIndex
-          });
-        }
-      });
-  });
-  
-  const nodeArray = Array.from(nodes.values());
-  const linkArray = links.map(link => ({
-    ...link,
-    source: nodes.get(link.source),
-    target: nodes.get(link.target)
-  }));
-  
-// Add a function to check if a material is directly involved in any reaction
-const isMaterialDirectlyInvolved = (materialId) => {
-  return linkArray.some(link => 
-    (link.source.id === materialId && link.target.type === "reaction" && link.type === "input") ||
-    (link.target.id === materialId && link.source.type === "reaction" && link.type === "output")
-  );
-};
-
-// Update the node filtering to use the helper function
-const visibleNodes = nodeArray.filter(node => {
-  // Always show selected reagents and products
-  if (window.appState.selectedReagents.includes(node.id) || 
-      window.appState.selectedProduct === node.id) {
-    return true;
-  }
-  
-  // Always show materials that are directly involved in reactions
-  if (node.type === "material" && isMaterialDirectlyInvolved(node.id)) {
-    return true; // Override tag visibility for direct materials
-  }
-  
-  // Always show tags
-  if (node.type === "tag") {
-    return true;
-  }
-  
-  // Always show reactions
-  if (node.type === "reaction") {
-    return true;
-  }
-  
-  // For tag materials that are not directly involved, respect the visibility setting
-  if (node.type === "material" && node.isTagMaterial) {
-    return window.appState.visibleTagMaterials.has(node.id);
-  }
-  
-  return true;
-});
-  
-  const visibleLinks = linkArray.filter(link => {
-    const sourceVisible = visibleNodes.includes(link.source);
-    const targetVisible = visibleNodes.includes(link.target);
-    return sourceVisible && targetVisible;
-  });
-  
-  // Create simulation with visible nodes only
-  const simulation = d3.forceSimulation(visibleNodes)
-    .force("link", d3.forceLink(visibleLinks).id(d => d.id).distance(graphStyleConfig.sizes.linkDistance))
-    .force("charge", d3.forceManyBody().strength(graphStyleConfig.sizes.chargeStrength))
-    .force("center", d3.forceCenter(width / 2, height / 2))
-    .force("collision", d3.forceCollide().radius(d => d.radius + 15));
-  
-  // Create arrow markers
-  const defs = svg.append("defs");
-
-  defs.append("marker")
-    .attr("id", "arrow-input")
-    .attr("viewBox", "0 -5 10 10")
-    .attr("refX", d => graphStyleConfig.sizes.materialRadius)
-    .attr("refY", 0)
-    .attr("markerWidth", 8)
-    .attr("markerHeight", 8)
-    .attr("orient", "auto")
-    .append("path")
-    .attr("d", "M0,-5L10,0L0,5")
-    .attr("fill", graphStyleConfig.colors.inputArrow);
-  
-  defs.append("marker")
-    .attr("id", "arrow-output")
-    .attr("viewBox", "0 -5 10 10")
-    .attr("refX", d => graphStyleConfig.sizes.materialRadius)
-    .attr("refY", 0)
-    .attr("markerWidth", 8)
-    .attr("markerHeight", 8)
-    .attr("orient", "auto")
-    .append("path")
-    .attr("d", "M0,-5L10,0L0,5")
-    .attr("fill", graphStyleConfig.colors.outputArrow);
-  
-  // Create link groups
-  const linkGroups = g.append("g")
-    .attr("class", "links")
-    .selectAll("g")
-    .data(visibleLinks)
-    .join("g")
-    .attr("class", d => `link-group ${d.type}-link`)
-    .style("opacity", d => {
-      if (d.type === "tag-association") return graphStyleConfig.opacities.dimmed;
-      return graphStyleConfig.opacities.linkDefault;
-    });
-  
-  // Add lines to each link group
-  const link = linkGroups.append("line")
-    .attr("stroke", d => {
-      if (d.type === "input") return graphStyleConfig.colors.inputArrow;
-      if (d.type === "output") return graphStyleConfig.colors.outputArrow;
-      if (d.type === "tag-association") return graphStyleConfig.colors.tagNode;
-      return "#ccc";
-    })
-    .attr("stroke-width", d => {
-      if (d.type === "tag-association") return graphStyleConfig.sizes.strokeWidth - 1;
-      return graphStyleConfig.sizes.strokeWidth;
-    })
-    .attr("stroke-dasharray", d => d.type === "input" ? "5,5" : null)
-    .attr("marker-end", d => {
-      if (d.type === "input") return "url(#arrow-input)";
-      if (d.type === "output") return "url(#arrow-output)";
-      return null;
-    });
-  
-  // Create nodes group
-  const node = g.append("g")
-    .selectAll("g")
-    .data(visibleNodes)
-    .join("g")
-    .attr("class", d => `node ${d.type}-node`)
-    .call(d3.drag()
-      .on("start", dragstarted)
-      .on("drag", dragged)
-      .on("end", dragended));
-  
-  // Create clip paths for circular images (only for material nodes)
-  node.filter(d => d.type === "material")
-    .append("clipPath")
-    .attr("id", d => `clip-${d.id}`)
-    .append("circle")
-    .attr("r", d => d.radius);
-  
-// Update material highlight to properly identify direct materials
-node.filter(d => d.type === "material")
-  .append("circle")
-  .attr("r", d => d.radius + 4)
-  .attr("fill", "transparent")
-  .attr("stroke", d => {
-    // Check if material is directly involved in any reaction as input or output
-    const isDirectMaterial = linkArray.some(link => 
-      (link.source.id === d.id && link.target.type === "reaction" && link.type === "input") ||
-      (link.target.id === d.id && link.source.type === "reaction" && link.type === "output")
-    );
-    
-    if (window.appState.selectedReagents.includes(d.id) || 
-        window.appState.selectedProduct === d.id) {
-      return graphStyleConfig.colors.selectedHighlight;
-    }
-    
-    if (isDirectMaterial) {
-      return graphStyleConfig.colors.directMaterialHighlight;
-    }
-    
-    return "transparent";
-  })
-  .attr("stroke-width", 2)
-  .attr("class", "material-highlight")
-  .style("opacity", d => {
-    const isDirectMaterial = linkArray.some(link => 
-      (link.source.id === d.id && link.target.type === "reaction" && link.type === "input") ||
-      (link.target.id === d.id && link.source.type === "reaction" && link.type === "output")
-    );
-    
-    if (window.appState.selectedReagents.includes(d.id) || 
-        window.appState.selectedProduct === d.id ||
-        isDirectMaterial) {
-      return 1;
-    }
-    return 0;
-  });
-
-  // Add background circles for material and tag nodes
-  node.filter(d => d.type === "material" || d.type === "tag")
-    .append("circle")
-    .attr("r", d => d.radius)
-    .attr("fill", d => d.color)
-    .attr("stroke", graphStyleConfig.colors.nodeStroke)
-    .attr("stroke-width", graphStyleConfig.sizes.strokeWidth)
-    .attr("class", "node-background");
-  
-  // Add material images
-  node.filter(d => d.type === "material")
-    .append("g")
-    .attr("clip-path", d => `url(#clip-${d.id})`)
-    .append("image")
-    .attr("href", d => d.imageUrl)
-    .attr("x", d => -d.radius * graphStyleConfig.layout.imagePosition)
-    .attr("y", d => -d.radius * graphStyleConfig.layout.imagePosition)
-    .attr("transform", `scale(${graphStyleConfig.layout.imageScale})`)
-    .attr("class", "material-image")
-    .on("error", function() {
-      d3.select(this).style("display", "none");
-    });
-
-// Update the tag visual indicators to use images instead of text
-node.filter(d => d.type === "tag")
-  .append("image")
-  .attr("href", d => {
-    const materialIds = resolveTag(d.id);
-    const hasVisibleMaterials = materialIds.some(id => window.appState.visibleTagMaterials.has(id));
-    return hasVisibleMaterials 
-      ? "https://noita-bartender-images.acidflow.stream/images/icons/eye-open.svg"
-      : "https://noita-bartender-images.acidflow.stream/images/icons/eye-closed.svg";
-  })
-  .attr("x", d => -d.radius * 0.5)
-  .attr("y", d => -d.radius * 0.5)
-  .attr("width", d => d.radius)
-  .attr("height", d => d.radius)
-  .attr("class", "tag-visibility-icon");
-
-// Update tag border to use config colors
-node.filter(d => d.type === "tag")
-  .append("circle")
-  .attr("r", d => d.radius + 2)
-  .attr("fill", "transparent")
-  .attr("stroke", d => {
-    const materialIds = resolveTag(d.id);
-    const hasVisibleMaterials = materialIds.some(id => window.appState.visibleTagMaterials.has(id));
-    return hasVisibleMaterials 
-      ? graphStyleConfig.colors.tagVisible 
-      : graphStyleConfig.colors.tagHidden;
-  })
-  .attr("stroke-width", 3)
-  .attr("stroke-dasharray", "4,2")
-  .attr("class", "tag-border");
-
-  // Add labels for all nodes
-  node.filter(d => d.type != "reaction")
-    .append("text")
-    .attr("text-anchor", "middle")
-    .attr("dy", d => d.type === "material" ? 
-      d.radius + graphStyleConfig.layout.labelOffsetMaterial : 
-      d.radius + graphStyleConfig.layout.labelOffsetReaction)
-    .attr("font-size", graphStyleConfig.sizes.fontSizeSmall)
-    .attr("fill", graphStyleConfig.colors.text)
-    .attr("font-weight", "bold")
-    .attr("class", "node-label")
-    .text(d => {
-      const maxLength = graphStyleConfig.constraints.maxNameLength;
-      const truncatedLength = graphStyleConfig.constraints.truncatedNameLength;
-      const name = d.name || d.id;
-      return name.length > maxLength ? 
-        name.substring(0, truncatedLength) + "..." : 
-        name;
-    });
-  
-  // Add reaction nodes (circles with speed number)
-  node.filter(d => d.type === "reaction")
-    .append("circle")
-    .attr("r", d => d.radius)
-    .attr("fill", d => d.color)
-    .attr("stroke", graphStyleConfig.colors.nodeStroke)
-    .attr("stroke-width", graphStyleConfig.sizes.strokeWidth)
-    .attr("class", "reaction-circle");
-  
-  node.filter(d => d.type === "reaction")
-    .append("text")
-    .text(d => d.reaction.reactionRate)
-    .attr("text-anchor", "middle")
-    .attr("dy", 5)
-    .attr("font-size", graphStyleConfig.sizes.fontSizeMedium)
-    .attr("fill", graphStyleConfig.colors.text)
-    .attr("font-weight", "bold")
-    .attr("class", "reaction-speed");
-
-  // Add tooltips
-  node.append("title")
-    .text(d => {
-      if (d.type === "material") {
-        return `${d.name} (${d.id})`;
-      } else if (d.type === "tag") {
-        const materials = resolveTag(d.id);
-        return `Tag: ${d.tag}\nMaterials: ${materials.join(", ")}`;
-      } else {
-        const inputs = [d.reaction.reagent1, d.reaction.reagent2, d.reaction.reagent3]
-          .filter(Boolean)
-          .map(id => getMaterialName(id))
-          .join(" + ");
-        
-        const outputs = [d.reaction.product1, d.reaction.product2, d.reaction.product3]
-          .filter(Boolean)
-          .map(id => getMaterialName(id))
-          .join(" + ");
-        
-        return `Reaction (Speed: ${d.reaction.reactionRate})\n${inputs} → ${outputs}`;
-      }
-    });
-
-  // Update tooltip to be more informative
-  node.filter(d => d.type === "tag")
-    .append("title")
-    .text(d => {
-      const materialIds = resolveTag(d.id);
-      const visibleCount = materialIds.filter(id => window.appState.visibleTagMaterials.has(id)).length;
-      const totalCount = materialIds.length;
-      const tagName = d.tag;
-      
-      if (visibleCount === totalCount) {
-        return `Tag: [${tagName}]\nAll ${totalCount} materials visible\nDouble-click to hide all`;
-      } else if (visibleCount > 0) {
-        return `Tag: [${tagName}]\n${visibleCount} of ${totalCount} materials visible\nDouble-click to toggle all`;
-      } else {
-        return `Tag: [${tagName}]\nAll ${totalCount} materials hidden\nDouble-click to show all`;
-      }
-    });
-  
-  // Mouseout event handler
-  node.on("mouseout", function(event, d) {
-    d3.select(this).select(".node-background, .reaction-circle")
-      .transition()
-      .duration(graphStyleConfig.animations.duration)
-      .attr("stroke-width", graphStyleConfig.sizes.strokeWidth)
-      .attr("stroke", graphStyleConfig.colors.nodeStroke);
-    
-    d3.select(this).select(".node-id-label")
-      .transition()
-      .duration(graphStyleConfig.animations.duration)
-      .style("opacity", 0);
-  });
-  
-  // Click event for background (reset)
-  svg.on("click", () => {
-    node.style("opacity", graphStyleConfig.opacities.default);
-    linkGroups.style("opacity", d => {
-      if (d.type === "tag-association") return graphStyleConfig.opacities.dimmed;
-      return graphStyleConfig.opacities.linkDefault;
-    });
-    node.select(".node-background, .reaction-circle")
-      .attr("stroke", graphStyleConfig.colors.nodeStroke)
-      .attr("stroke-width", graphStyleConfig.sizes.strokeWidth);
-  });
-
-// Graph visualization with D3.js - updated for tags
-// Update the click handler to highlight tag materials when the tag is highlighted
-node.on("click", (event, d) => {
-  event.stopPropagation();
-
-  // Double click on tag to toggle visibility of ALL associated materials
-  if (event.detail === 2 && d.type === "tag") {
-    const materialIds = resolveTag(d.id);
-    const allCurrentlyVisible = materialIds.every(id => window.appState.visibleTagMaterials.has(id));
-    
-    materialIds.forEach(materialId => {
-      if (allCurrentlyVisible) {
-        window.appState.visibleTagMaterials.delete(materialId);
-      } else {
-        window.appState.visibleTagMaterials.add(materialId);
-      }
-    });
-    
-    EventBus.emit("stateChanged");
-    return;
-  }
-
-  // Ctrl+Shift+click → wiki (for materials only)
-  if (event.shiftKey && event.ctrlKey && d.type === "material") {
-    const material = d.material;
-    const wikiUrl = material?.wikipage
-      ? `https://noita.wiki.gg/wiki/${encodeURIComponent(material.wikipage)}`
-      : "";
-
-    if (wikiUrl) {
-      window.open(wikiUrl, "_blank");
-    } else {
-      createNotification("No wiki page found for this material");
-    }
-    return;
-  }
-
-  // Shift+click → reset & select product (for materials only)
-  if (!event.ctrlKey && event.shiftKey && d.type === "material") {
-    // Use the existing reaction filtering logic instead of calling getFilteredReactions directly
-    const testReagents = [];
-    const testProduct = d.id;
-    
-    // Check if there are any reactions using indexes
-    const productReactions = reactionOutputsIndex.get(testProduct) || [];
-    const hasReactions = productReactions.length > 0;
-    
-    if (hasReactions) {
-      window.appState.selectedReagents = [];
-      window.appState.selectedProduct = d.id;
-      EventBus.emit("stateChanged");
-    } else {
-      createNotification("No valid reactions with this product");
-    }
-    return;
-  }
-
-  // Ctrl+click → reset & select reagent (for materials only)
-  if (event.ctrlKey && !event.shiftKey && d.type === "material") {
-    // Check if there are any reactions using indexes
-    const testReagent = d.id;
-    const reagentReactions = reactionInputsIndex.get(testReagent) || [];
-    const hasReactions = reagentReactions.length > 0;
-    
-    if (hasReactions) {
-      window.appState.selectedReagents = [d.id];
-      window.appState.selectedProduct = "";
-      EventBus.emit("stateChanged");
-    } else {
-      createNotification("No valid reactions with this reagent");
-    }
-    return;
-  }
-    
-  // Reset all highlighting first
-  node.style("opacity", graphStyleConfig.opacities.default);
-  linkGroups.style("opacity", d => {
-    if (d.type === "tag-association") return graphStyleConfig.opacities.dimmed;
-    return graphStyleConfig.opacities.linkDefault;
-  });
-  node.select(".node-background, .reaction-circle")
-    .attr("stroke", graphStyleConfig.colors.nodeStroke)
-    .attr("stroke-width", graphStyleConfig.sizes.strokeWidth);
-
-  if (d.type === "material" || d.type === "tag") {
-    d3.select(event.currentTarget).select(".node-background")
-      .attr("stroke", graphStyleConfig.colors.nodeStrokeHighlight)
-      .attr("stroke-width", graphStyleConfig.sizes.strokeWidthHighlight);
-    
-    // Update the tag material highlighting to add a special class for animation
-    if (d.type === "tag") {
-      const materialIds = resolveTag(d.id);
-      materialIds.forEach(materialId => {
-        const materialNode = node.filter(n => n.id === materialId);
-        materialNode.select(".node-background")
-          .attr("stroke", graphStyleConfig.colors.tagVisible)
-          .attr("stroke-width", graphStyleConfig.sizes.strokeWidthMedium)
-          .classed("tag-material-highlighted", true); // Add special class for animation
-      });
-    }
-    // Find directly connected reactions
-    const connectedReactionIds = new Set();
-    linkArray.forEach(link => {
-      if (link.source.id === d.id && link.target.type === "reaction") {
-        connectedReactionIds.add(link.target.id);
-      }
-      if (link.target.id === d.id && link.source.type === "reaction") {
-        connectedReactionIds.add(link.source.id);
-      }
-    });
-    
-    // Highlight connected reactions and their materials
-    connectedReactionIds.forEach(reactionId => {
-      const reactionNode = node.filter(n => n.id === reactionId);
-      reactionNode.select(".reaction-circle")
-        .attr("stroke", graphStyleConfig.colors.nodeStrokeHighlight)
-        .attr("stroke-width", graphStyleConfig.sizes.strokeWidthHighlight);
-      
-      // Highlight materials connected to these reactions
-      linkArray.forEach(link => {
-        if (link.source.id === reactionId && (link.target.type === "material" || link.target.type === "tag")) {
-          const materialNode = node.filter(n => n.id === link.target.id);
-          materialNode.select(".node-background")
-            .attr("stroke", graphStyleConfig.colors.outputHighlight)
-            .attr("stroke-width", graphStyleConfig.sizes.strokeWidthMedium);
-        }
-        if (link.target.id === reactionId && (link.source.type === "material" || link.source.type === "tag")) {
-          const materialNode = node.filter(n => n.id === link.source.id);
-          materialNode.select(".node-background")
-            .attr("stroke", graphStyleConfig.colors.inputHighlight)
-            .attr("stroke-width", graphStyleConfig.sizes.strokeWidthMedium);
-        }
-      });
-    });
-    
-    // Dim non-connected nodes
-    const allConnectedIds = new Set([d.id, ...connectedReactionIds]);
-    linkArray.forEach(link => {
-      if (connectedReactionIds.has(link.source.id)) allConnectedIds.add(link.target.id);
-      if (connectedReactionIds.has(link.target.id)) allConnectedIds.add(link.source.id);
-    });
-    
-    // If it's a tag, include all associated materials in the connected set
-    if (d.type === "tag") {
-      const materialIds = resolveTag(d.id);
-      materialIds.forEach(materialId => allConnectedIds.add(materialId));
-    }
-    
-    node.style("opacity", n => allConnectedIds.has(n.id) ? graphStyleConfig.opacities.default : graphStyleConfig.opacities.dimmed);
-    linkGroups.style("opacity", l => 
-      (allConnectedIds.has(l.source.id) && allConnectedIds.has(l.target.id)) ? 
-      (l.type === "tag-association" ? graphStyleConfig.opacities.dimmed : graphStyleConfig.opacities.default) : 
-      graphStyleConfig.opacities.veryDimmed
-    );
-  } else if (d.type === "reaction") {
-    d3.select(event.currentTarget).select(".reaction-circle")
-      .attr("stroke", graphStyleConfig.colors.nodeStrokeHighlight)
-      .attr("stroke-width", graphStyleConfig.sizes.strokeWidthHighlight);
-    
-    // Find all materials connected to this reaction
-    const connectedMaterialIds = new Set();
-    linkArray.forEach(link => {
-      if (link.source.id === d.id && (link.target.type === "material" || link.target.type === "tag")) {
-        connectedMaterialIds.add(link.target.id);
-      }
-      if (link.target.id === d.id && (link.source.type === "material" || link.source.type === "tag")) {
-        connectedMaterialIds.add(link.source.id);
-      }
-    });
-    
-    // Highlight connected materials
-    connectedMaterialIds.forEach(materialId => {
-      const materialNode = node.filter(n => n.id === materialId);
-      materialNode.select(".node-background")
-        .attr("stroke", graphStyleConfig.colors.nodeStrokeHighlight)
-        .attr("stroke-width", graphStyleConfig.sizes.strokeWidthMedium);
-    });
-    
-    // Dim non-connected nodes
-    const allConnectedIds = new Set([d.id, ...connectedMaterialIds]);
-    
-    node.style("opacity", n => allConnectedIds.has(n.id) ? graphStyleConfig.opacities.default : graphStyleConfig.opacities.dimmed);
-    linkGroups.style("opacity", l => 
-      (allConnectedIds.has(l.source.id) && allConnectedIds.has(l.target.id)) ? 
-      (l.type === "tag-association" ? graphStyleConfig.opacities.dimmed : graphStyleConfig.opacities.default) : 
-      graphStyleConfig.opacities.veryDimmed
-    );
-  }
-});
-  
-  // Update positions on simulation tick
-  simulation.on("tick", () => {
-    link
-      .attr("x1", d => d.source.x)
-      .attr("y1", d => d.source.y)
-      .attr("x2", d => d.target.x)
-      .attr("y2", d => d.target.y);
-    
-    node.attr("transform", d => `translate(${d.x},${d.y})`);
-  });
-  
-  function dragstarted(event, d) {
-    if (!event.active) simulation.alphaTarget(0.3).restart();
-    d.fx = d.x;
-    d.fy = d.y;
-  }
-  
-  function dragged(event, d) {
-    d.fx = event.x;
-    d.fy = event.y;
-  }
-  
-  function dragended(event, d) {
-    if (!event.active) simulation.alphaTarget(0);
-    d.fx = null;
-    d.fy = null;
-  }
-  
-  // Add zoom behavior
-  const zoom = d3.zoom()
-    .scaleExtent([0.1, 4])
-    .on("zoom", (event) => {
-      g.attr("transform", event.transform);
-    });
-  
-  svg.call(zoom);
-};
+}
 ```
 
 ```js
-// Update functions - now handling tags
-const updateChoicesOptions = () => {
-  const availableReagents = getAvailableReagents(window.appState.selectedReagents, window.appState.selectedProduct);
-  const availableProducts = getAvailableProducts(window.appState.selectedReagents);
-
-  if (window.appState.reagentChoices?.initialised) {
-    window.appState.reagentChoices.clearStore();
-    window.appState.reagentChoices.setChoices(availableReagents, "value", "label", true);
-    window.appState.selectedReagents.forEach((value) => {
-      if (availableReagents.some((r) => r.value === value)) {
-        window.appState.reagentChoices.setChoiceByValue(value);
+class UIController {
+  constructor(state, reactionFilter) {
+    this.state = state;
+    this.reactionFilter = reactionFilter;
+  }
+  
+  createShareButton() {
+    return Inputs.button(
+      htl.html`<img src="${CONFIG.urls.imageBase}/images/icons/copy.svg" />Share`,
+      {
+        value: null,
+        reduce: () => {
+          const url = new URL(window.location.href);
+          url.search = "";
+          
+          if (this.state.selectedReagents.length > 0) {
+            url.searchParams.set("reagents", this.state.selectedReagents.join(","));
+          }
+          if (this.state.selectedProduct) {
+            url.searchParams.set("product", this.state.selectedProduct);
+          }
+          if (this.state.minReactionSpeed > 0) {
+            url.searchParams.set("minSpeed", this.state.minReactionSpeed.toString());
+          }
+          
+          const shareUrl = url.toString();
+          navigator.clipboard
+            .writeText(shareUrl)
+            .then(() => UIHelper.showNotification("URL copied to clipboard"))
+            .catch(() => {
+              const textArea = document.createElement("textarea");
+              textArea.value = shareUrl;
+              document.body.appendChild(textArea);
+              textArea.select();
+              document.execCommand("copy");
+              document.body.removeChild(textArea);
+              UIHelper.showNotification("URL copied to clipboard");
+            });
+          
+          return shareUrl;
+        },
       }
+    );
+  }
+  
+  createResetButton() {
+    return Inputs.button(
+      htl.html`<img src="${CONFIG.urls.imageBase}/images/icons/arrow-counterclockwise.svg" />Reset`,
+      {
+        reduce: () => {
+          this.state.reset();
+          
+          // Reset speed slider
+          const speedSlider = document.getElementById("speedSlider");
+          if (speedSlider) speedSlider.value = 0;
+          const speedValue = document.getElementById("speedValue");
+          if (speedValue) speedValue.textContent = "0";
+          
+          this.updateChoicesOptions();
+          this.updateUI();
+          return null;
+        },
+      }
+    );
+  }
+  
+  createExportButton() {
+    return Inputs.button(
+      htl.html`<img src="${CONFIG.urls.imageBase}/images/icons/download.svg" />Export SVG`,
+      {
+        reduce: () => {
+          this.exportGraphAsSVG();
+          return null;
+        },
+      }
+    );
+  }
+
+  exportGraphAsSVG() {
+    const svgElement = document.querySelector("#tableContainer svg");
+    
+    if (!svgElement) {
+      UIHelper.showNotification("No graph to export");
+      return;
+    }
+
+    // Clone the SVG to avoid modifying the original
+    const clonedSvg = svgElement.cloneNode(true);
+    
+    // Remove interactive elements that might interfere with display
+    const removeElements = clonedSvg.querySelectorAll('.tag-visibility-icon, image[href*="icons/"]');
+    removeElements.forEach(el => el.remove());
+    
+    // Ensure proper styling for export
+    const style = document.createElement('style');
+    style.textContent = `
+      .node-label { font-family: Arial, sans-serif; }
+      .material-image { image-rendering: optimizeQuality; }
+    `;
+    clonedSvg.insertBefore(style, clonedSvg.firstChild);
+    
+    // Serialize SVG
+    const serializer = new XMLSerializer();
+    let svgString = serializer.serializeToString(clonedSvg);
+    
+    // Add XML declaration and proper namespaces
+    if (!svgString.includes('<?xml')) {
+      svgString = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n' + svgString;
+    }
+    
+    // Create download link
+    const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    
+    // Generate filename with current selections
+    let filename = 'reactions_graph';
+    if (this.state.selectedReagents.length > 0) {
+      filename += `_reagents_${this.state.selectedReagents.join('_')}`;
+    }
+    if (this.state.selectedProduct) {
+      filename += `_product_${this.state.selectedProduct}`;
+    }
+    filename += '.svg';
+    
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    
+    UIHelper.showNotification("Graph exported as SVG");
+  }
+
+  createSpeedSlider() {
+    const container = document.createElement("div");
+    container.style.cssText = "display:flex;flex-direction:column;gap:8px;";
+    
+    const labelRow = document.createElement("div");
+    labelRow.style.cssText = "display:flex;justify-content:space-between;align-items:center;";
+    
+    const label = document.createElement("label");
+    label.textContent = "Min Reaction Speed:";
+    label.style.cssText = "font-weight:bold;font-size:0.9rem;";
+    
+    const valueDisplay = document.createElement("span");
+    valueDisplay.id = "speedValue";
+    valueDisplay.textContent = this.state.minReactionSpeed.toString();
+    valueDisplay.style.cssText = "font-weight:bold;color:#45b7d1;font-size:0.9rem;min-width:30px;text-align:right;";
+    
+    labelRow.appendChild(label);
+    labelRow.appendChild(valueDisplay);
+    
+    const slider = document.createElement("input");
+    slider.type = "range";
+    slider.id = "speedSlider";
+    slider.min = "0";
+    slider.max = "100";
+    slider.value = this.state.minReactionSpeed.toString();
+    slider.step = "5";
+    slider.style.cssText = "width:100%;cursor:pointer;";
+    
+    slider.addEventListener("input", (e) => {
+      const value = parseInt(e.target.value);
+      valueDisplay.textContent = value.toString();
+      this.state.setMinReactionSpeed(value);
     });
+    
+    container.appendChild(labelRow);
+    container.appendChild(slider);
+    
+    return container;
   }
-
-  if (window.appState.productChoices?.initialised) {
-    window.appState.productChoices.clearStore();
-    window.appState.productChoices.setChoices(availableProducts, "value", "label", true);
-    if (window.appState.selectedProduct && availableProducts.some((p) => p.value === window.appState.selectedProduct)) {
-      window.appState.productChoices.setChoiceByValue(window.appState.selectedProduct);
+  
+  updateChoicesOptions() {
+    const availableReagents = this.reactionFilter.getAvailableReagents(
+      this.state.selectedReagents,
+      this.state.selectedProduct
+    );
+    const availableProducts = this.reactionFilter.getAvailableProducts(
+      this.state.selectedReagents
+    );
+    
+    if (this.state.reagentChoices?.initialised) {
+      this.state.reagentChoices.clearStore();
+      this.state.reagentChoices.setChoices(availableReagents, "value", "label", true);
+      this.state.selectedReagents.forEach(value => {
+        if (availableReagents.some(r => r.value === value)) {
+          this.state.reagentChoices.setChoiceByValue(value);
+        }
+      });
+    }
+    
+    if (this.state.productChoices?.initialised) {
+      this.state.productChoices.clearStore();
+      this.state.productChoices.setChoices(availableProducts, "value", "label", true);
+      if (this.state.selectedProduct && availableProducts.some(p => p.value === this.state.selectedProduct)) {
+        this.state.productChoices.setChoiceByValue(this.state.selectedProduct);
+      }
     }
   }
-};
-
-const updateUI = () => {
-  const filteredReactions = getFilteredReactions(window.appState.selectedReagents, window.appState.selectedProduct);
-
-  const reactionsCountContainer = document.getElementById("reactionsCount");
-  if (reactionsCountContainer) {
-    reactionsCountContainer.innerHTML = `Reactions found: <code class="bigger-number-better">${filteredReactions.length}</code>`;
-  }
-
-  // Render graph instead of table
-  renderGraph(filteredReactions);
-
-  if (!window.appState.isResetting) {
-    const url = new URL(window.location.href);
-    url.search = "";
-    if (window.appState.selectedReagents.length > 0) {
-      url.searchParams.set("reagents", window.appState.selectedReagents.join(","));
+  
+  updateUI() {
+    const filteredReactions = this.reactionFilter.getFilteredReactions(
+      this.state.selectedReagents,
+      this.state.selectedProduct,
+      this.state.minReactionSpeed
+    );
+    
+    const reactionsCountContainer = document.getElementById("reactionsCount");
+    if (reactionsCountContainer) {
+      reactionsCountContainer.innerHTML = `Reactions found: <code class="bigger-number-better">${filteredReactions.length}</code>`;
     }
-    if (window.appState.selectedProduct) {
-      url.searchParams.set("product", window.appState.selectedProduct);
-    }
-    window.history.replaceState({}, "", url.toString());
+    
+    graphRenderer.render(filteredReactions);
+    this.state.updateURL();
   }
-};
+}
+
+const uiController = new UIController(appState, reactionFilter);
+
+const shareButton = uiController.createShareButton();
+const resetButton = uiController.createResetButton();
+const speedSlider = uiController.createSpeedSlider();
+const exportButton = uiController.createExportButton();
 ```
 
 ```js
-// Initialize choices
-{
-  const waitForElement = (id, timeout = 5000) => {
+class ChoicesInitializer {
+  constructor(state, uiController) {
+    this.state = state;
+    this.uiController = uiController;
+  }
+  
+  async waitForElement(id, timeout = 5000) {
     return new Promise((resolve, reject) => {
       const element = document.getElementById(id);
       if (element) {
         resolve(element);
         return;
       }
-
+      
       const observer = new MutationObserver((mutations, obs) => {
         const element = document.getElementById(id);
         if (element) {
@@ -1514,155 +1591,150 @@ const updateUI = () => {
           resolve(element);
         }
       });
-
+      
       observer.observe(document.body, { childList: true, subtree: true });
       setTimeout(() => {
         observer.disconnect();
         reject(new Error(`Element ${id} not found within ${timeout}ms`));
       }, timeout);
     });
-  };
-
-  const initializeApp = async () => {
+  }
+  
+  createChoicesTemplates(strToEl) {
+    return {
+      choice: ({ classNames }, data) => {
+        if (!data) {
+          return strToEl(`<div class="${classNames.item} ${classNames.itemChoice} ${classNames.itemSelectable}">Invalid Data</div>`);
+        }
+        
+        const imageUrl = UIHelper.getMaterialImageUrl(data.value || "");
+        const nameForDisplay = data.name || (data.label ? data.label.split(" (")[0] : data.value || "Unknown");
+        const typeForDisplay = (data.type || "").toLowerCase();
+        const safeValue = data.value || "";
+        const safeId = data.id || "";
+        
+        return strToEl(`<div class="${classNames.item} ${classNames.itemChoice} ${classNames.itemSelectable}" data-choice data-choice-selectable data-id="${safeId}" data-value="${safeValue}" role="option">
+          <img src="${imageUrl}" style="height:24px;display:inline-block;vertical-align:middle;margin-right:8px;" alt="${nameForDisplay}" />
+          <span class="material-name-text">${nameForDisplay}</span>
+          (<span class="material-type-${typeForDisplay}">${safeValue}</span>)
+        </div>`);
+      },
+      
+      item: ({ classNames }, data) => {
+        if (!data) return strToEl(`<div class="${classNames.item}">Invalid Data</div>`);
+        
+        const imageUrl = UIHelper.getMaterialImageUrl(data.value || "");
+        const nameForDisplay = data.name || (data.label ? data.label.split(" (")[0] : data.value || "Unknown");
+        const typeForDisplay = (data.type || "").toLowerCase();
+        const safeValue = data.value || "";
+        const safeId = data.id || "";
+        
+        return strToEl(`<div class="${classNames.item}" data-item data-id="${safeId}" data-value="${safeValue}" aria-selected="true" role="option" data-deletable>
+          <img src="${imageUrl}" style="height:24px;display:inline-block;vertical-align:middle;margin:8px;" alt="${nameForDisplay}" />
+          <span class="material-name-text">${nameForDisplay}</span>
+          (<span class="material-type-${typeForDisplay}"><code>${safeValue}</code></span>)
+          <button type="button" class="${classNames.button}" aria-label="Remove item: ${nameForDisplay}" data-button>Remove item</button>
+        </div>`);
+      },
+    };
+  }
+  
+  async initialize() {
     try {
       const [reagentSelectorElement, productSelectorElement] = await Promise.all([
-        waitForElement("choicesSelector"),
-        waitForElement("productChoicesSelector"),
+        this.waitForElement("choicesSelector"),
+        this.waitForElement("productChoicesSelector"),
       ]);
-
+      
       if (reagentSelectorElement.classList.contains("choices__input")) return;
-
-      const createChoicesTemplates = (strToEl) => ({
-        choice: ({ classNames }, data) => {
-          if (!data)
-            return strToEl(
-              `<div class="${classNames.item} ${classNames.itemChoice} ${classNames.itemSelectable}">Invalid Data</div>`
-            );
-
-          const imageUrl = getMaterialImageUrl(data.value || "");
-          const nameForDisplay = data.name || (data.label ? data.label.split(" (")[0] : data.value || "Unknown");
-          const typeForDisplay = (data.type || "").toLowerCase();
-          const safeValue = data.value || "";
-          const safeId = data.id || "";
-
-          return strToEl(`<div class="${classNames.item} ${classNames.itemChoice} ${classNames.itemSelectable}" data-choice data-choice-selectable data-id="${safeId}" data-value="${safeValue}" role="option">
-            <img src="${imageUrl}" style="height: 24px; display: inline-block; vertical-align: middle; margin-right: 8px;" alt="${nameForDisplay}" />
-            <span class="material-name-text">${nameForDisplay}</span>
-            (<span class="material-type-${typeForDisplay}">${safeValue}</span>)
-          </div>`);
-        },
-        item: ({ classNames }, data) => {
-          if (!data) return strToEl(`<div class="${classNames.item}">Invalid Data</div>`);
-
-          const imageUrl = getMaterialImageUrl(data.value || "");
-          const nameForDisplay = data.name || (data.label ? data.label.split(" (")[0] : data.value || "Unknown");
-          const typeForDisplay = (data.type || "").toLowerCase();
-          const safeValue = data.value || "";
-          const safeId = data.id || "";
-
-          return strToEl(`<div class="${classNames.item}" data-item data-id="${safeId}" data-value="${safeValue}" aria-selected="true" role="option" data-deletable>
-            <img src="${imageUrl}" style="height: 24px; display: inline-block; vertical-align: middle; margin: 8px;" alt="${nameForDisplay}" />
-            <span class="material-name-text">${nameForDisplay}</span>
-            (<span class="material-type-${typeForDisplay}"><code>${safeValue}</code></span>)
-            <button type="button" class="${classNames.button}" aria-label="Remove item: ${nameForDisplay}" data-button>Remove item</button>
-          </div>`);
-        },
-      });
-
+      
       // Initialize reagent choices
-      window.appState.reagentChoices = new Choices(reagentSelectorElement, {
+      const reagentChoices = new Choices(reagentSelectorElement, {
         silent: false,
-        maxItemCount: 3,
+        maxItemCount: CONFIG.ui.maxReagentSelection,
         allowHTML: true,
         placeholder: true,
         placeholderValue: "Search Reagents",
         removeItemButton: true,
-        choices: getAvailableReagents(window.appState.selectedReagents, window.appState.selectedProduct),
+        choices: reactionFilter.getAvailableReagents(this.state.selectedReagents, this.state.selectedProduct),
         searchEnabled: true,
         renderSelectedChoices: "auto",
-        callbackOnCreateTemplates: createChoicesTemplates,
+        callbackOnCreateTemplates: this.createChoicesTemplates,
         noChoicesText: "There are no reactions with one more ingredient",
       });
-
+      
       // Initialize product choices
-      window.appState.productChoices = new Choices(productSelectorElement, {
+      const productChoices = new Choices(productSelectorElement, {
         silent: false,
-        maxItemCount: 1,
+        maxItemCount: CONFIG.ui.maxProductSelection,
         allowHTML: true,
         placeholder: true,
         placeholderValue: "Search Products",
         removeItemButton: true,
-        choices: getAvailableProducts(window.appState.selectedReagents),
+        choices: reactionFilter.getAvailableProducts(this.state.selectedReagents),
         searchEnabled: true,
         renderSelectedChoices: "always",
         maxItemText: () => "You can only search for one product at a time",
-        callbackOnCreateTemplates: createChoicesTemplates,
+        callbackOnCreateTemplates: this.createChoicesTemplates,
       });
-
-      let updateTimeout;
-      const debouncedUpdate = () => {
-        clearTimeout(updateTimeout);
-        updateTimeout = setTimeout(() => {
-          updateChoicesOptions();
-          EventBus.emit("uiUpdateNeeded");
-        }, 100);
-      };
-
-      // Event handlers - use EventBus instead of direct calls
-      reagentSelectorElement.addEventListener("change", () => {
-        if (window.appState.reagentChoices?.initialised && !window.appState.isResetting) {
-          window.appState.selectedReagents = window.appState.reagentChoices.getValue(true);
-          EventBus.emit("stateChanged");
-        }
+      
+      // Store choices instances
+      this.state.update({
+        reagentChoices,
+        productChoices
       });
-
-      productSelectorElement.addEventListener("change", () => {
-        if (window.appState.productChoices?.initialised && !window.appState.isResetting) {
-          const selectedValues = window.appState.productChoices.getValue(true);
-          window.appState.selectedProduct =
-            Array.isArray(selectedValues) && selectedValues.length > 0 ? selectedValues[0] : "";
-          EventBus.emit("stateChanged");
-        }
-      });
-
-      // Hook into update cycle properly
-      EventBus.on("stateChanged", () => {
-        updateChoicesOptions();
-        EventBus.emit("uiUpdateNeeded");
-      });
-
-      EventBus.on("uiUpdateNeeded", () => {
-        updateUI();
-      });
-
-    const resizeGraph = () => {
-      const container = document.getElementById("tableContainer");
-      const svg = container.querySelector("svg");
-      if (!svg) return;
-
-      const width = container.clientWidth;
-      const height = Math.max(
-        graphStyleConfig.layout.minHeight,
-        width * graphStyleConfig.layout.heightRatio
-      );
-
-      svg.setAttribute("width", width);
-      svg.setAttribute("height", height);
-      svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-    };
-
-    window.addEventListener("resize", resizeGraph);
-        } catch (error) {
+      
+      // Setup event handlers
+      this.setupEventHandlers(reagentSelectorElement, productSelectorElement);
+      
+      // Initial UI update
+      this.uiController.updateUI();
+      
+      // Create legend
+      LegendManager.create();
+      
+    } catch (error) {
       console.error("Failed to initialize app:", error);
     }
-  };
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initializeApp);
-  } else {
-    initializeApp();
-    createLegend();
   }
+  
+  setupEventHandlers(reagentSelectorElement, productSelectorElement) {
+    // Reagent change handler
+    reagentSelectorElement.addEventListener("change", () => {
+      if (this.state.reagentChoices?.initialised && !this.state.isResetting) {
+        this.state.visibleTagMaterials.clear();
+        this.state.update({
+          selectedReagents: this.state.reagentChoices.getValue(true)
+        });
+      }
+    });
+    
+    // Product change handler
+    productSelectorElement.addEventListener("change", () => {
+      if (this.state.productChoices?.initialised && !this.state.isResetting) {
+        const selectedValues = this.state.productChoices.getValue(true);
+        this.state.visibleTagMaterials.clear();
+        this.state.update({
+          selectedProduct: Array.isArray(selectedValues) && selectedValues.length > 0 ? selectedValues[0] : ""
+        });
+      }
+    });
+    
+    // State change handler
+    eventBus.on("stateChanged", () => {
+      this.uiController.updateChoicesOptions();
+      this.uiController.updateUI();
+    });
+  }
+}
+
+const choicesInitializer = new ChoicesInitializer(appState, uiController);
+
+// Initialize app
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => choicesInitializer.initialize());
+} else {
+  choicesInitializer.initialize();
 }
 ```
 
@@ -1673,13 +1745,15 @@ const updateUI = () => {
   <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">
     <select id="productChoicesSelector" multiple></select>
   </div>
-  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box; font-size: 0.9rem;"><h2 id="reactionsCount" style="margin: 0; font-size: 0.9rem;">Reactions found: <code class="bigger-number-better">317</code></h2></div>
-</div>
-<div class="grid grid-cols-2 gap-1" style="width: 100%; box-sizing: border-box;">
-  <div class="grid grid-cols-2 gap-1" style="width: 100%; box-sizing: border-box;">
-    <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${resetButton}</div>
-    <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${shareButton}</div>
+  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box; font-size: 0.9rem;">
+    <h2 id="reactionsCount" style="margin: 0; font-size: 0.9rem;">Reactions found: <code class="bigger-number-better">317</code></h2>
   </div>
+</div>
+<div class="grid grid-cols-3 gap-1" style="width: 100%; box-sizing: border-box; margin-bottom: 1rem;">
+  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">
+    ${resetButton} ${shareButton} ${exportButton}
+  </div>
+  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box; padding: 15px;">${speedSlider}</div>
 </div>
 <div class="grid grid-cols-1 grid-rowspan-1" style="grid-auto-rows: auto">
   <div class="card" id="tableContainer"></div>
