@@ -87,7 +87,7 @@ const CONFIG = {
       imagePosition: 0.65
     },
     constraints: {
-      maxReactions: 317,
+      maxReactions: 316,
       maxNameLength: 30,
       truncatedNameLength: 20
     }
@@ -111,8 +111,36 @@ const CONFIG = {
 // ============================================================================
 
 const materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
-const reactions = await FileAttachment("./data/reactions_from_materials.json").json();
+const baseReactions = await FileAttachment("./data/reactions_from_materials.json").json();
 const materialAssociations = await FileAttachment("./data/jsons/material_associations.json").json();
+
+// Load extension reactions (add your extension files here)
+const reactionSources = {
+  "base": {
+    name: "Base Game",
+    reactions: baseReactions
+  },
+
+  "apotheosis": {
+    name: "Apotheosis",
+    reactions: await FileAttachment("./data/apotheosis/reactions_apotheosis.json").json()
+  }
+  // Add more sources like:
+  // "mod_name": {
+  //   name: "Mod Display Name",
+  //   reactions: await FileAttachment("./data/mod_reactions.json").json()
+  // }
+};
+
+try {
+  const allModsReactions = await FileAttachment("./data/reactions_all_mods.json").json();
+  reactionSources["all_mods"] = {
+    name: "All Mods",
+    reactions: allModsReactions
+  };
+} catch (e) {
+  console.log("All mods reactions not found, skipping");
+}
 ```
 
 ```js
@@ -144,10 +172,36 @@ const eventBus = new EventBus();
 
 ```js
 class DataRepository {
-  constructor(materials, reactions, materialAssociations) {
+  constructor(materials, reactionSources, materialAssociations) {
     this.materialsMap = new Map(materials.map(m => [m.id, m]));
-    this.reactions = reactions;
+    this.reactionSources = reactionSources;
+    this.currentSource = "base";
+    this.reactions = reactionSources["base"].reactions;
     this.tagToMaterialsMap = this._buildTagMap(materialAssociations);
+    this._rebuildIndexes();
+  }
+  
+  setReactionSource(sourceId) {
+    if (!this.reactionSources[sourceId]) {
+      console.error(`Unknown reaction source: ${sourceId}`);
+      return false;
+    }
+    
+    this.currentSource = sourceId;
+    this.reactions = this.reactionSources[sourceId].reactions;
+    this._rebuildIndexes();
+    return true;
+  }
+  
+  getAvailableSources() {
+    return Object.entries(this.reactionSources).map(([id, source]) => ({
+      id,
+      name: source.name,
+      count: source.reactions.length
+    }));
+  }
+  
+  _rebuildIndexes() {
     this.inputIndex = this._buildIndex(r => [r.reagent1, r.reagent2, r.reagent3]);
     this.outputIndex = this._buildIndex(r => [r.product1, r.product2, r.product3]);
   }
@@ -201,7 +255,7 @@ class DataRepository {
   }
 }
 
-const dataRepo = new DataRepository(materials, reactions, materialAssociations);
+const dataRepo = new DataRepository(materials, reactionSources, materialAssociations);
 ```
 
 ```js
@@ -214,6 +268,7 @@ class AppState {
     this.productChoices = null;
     this.isResetting = false;
     this.minReactionSpeed = 0;
+    this.reactionSource = "base";
     this._initializeFromURL();
   }
   
@@ -223,11 +278,35 @@ class AppState {
     this.selectedProduct = urlParams.get("product") || "";
     const speedParam = urlParams.get("minSpeed");
     this.minReactionSpeed = speedParam ? parseInt(speedParam) : 0;
+    const sourceParam = urlParams.get("source");
+    this.reactionSource = sourceParam || "base";
+    
+    // Apply reaction source
+    if (sourceParam && dataRepo.setReactionSource(sourceParam)) {
+      console.log(`Loaded reaction source: ${sourceParam}`);
+    }
   }
   
   update(changes) {
     Object.assign(this, changes);
     eventBus.emit("stateChanged", this);
+  }
+  
+  setReactionSource(sourceId) {
+    if (dataRepo.setReactionSource(sourceId)) {
+      this.reactionSource = sourceId;
+      // Clear selections when changing source
+      this.visibleTagMaterials.clear();
+      this.selectedReagents = [];
+      this.selectedProduct = "";
+      
+      if (this.reagentChoices?.initialised) this.reagentChoices.removeActiveItems();
+      if (this.productChoices?.initialised) this.productChoices.removeActiveItems();
+      
+      eventBus.emit("reactionSourceChanged", this);
+      return true;
+    }
+    return false;
   }
   
   toggleTagVisibility(tagId) {
@@ -272,12 +351,18 @@ class AppState {
     this.visibleTagMaterials.clear();
     this.selectedReagents = [];
     this.selectedProduct = "";
+    this.minReactionSpeed = 0;
+    // Don't reset reaction source on reset
     
     if (this.reagentChoices?.initialised) this.reagentChoices.removeActiveItems();
     if (this.productChoices?.initialised) this.productChoices.removeActiveItems();
     
     const url = new URL(window.location.href);
     url.search = "";
+    // Keep source in URL
+    if (this.reactionSource !== "base") {
+      url.searchParams.set("source", this.reactionSource);
+    }
     window.history.replaceState({}, "", url.toString());
     
     this.isResetting = false;
@@ -298,6 +383,9 @@ class AppState {
     }
     if (this.minReactionSpeed > 0) {
       url.searchParams.set("minSpeed", this.minReactionSpeed.toString());
+    }
+    if (this.reactionSource !== "base") {
+      url.searchParams.set("source", this.reactionSource);
     }
     
     window.history.replaceState({}, "", url.toString());
@@ -1406,7 +1494,7 @@ class UIController {
       }
     );
   }
-  
+    
   createExportButton() {
     return Inputs.button(
       htl.html`<img src="${CONFIG.urls.imageBase}/images/icons/download.svg" />Export SVG`,
@@ -1516,6 +1604,72 @@ class UIController {
     return container;
   }
   
+  createSourceSelector() {
+    const container = document.createElement("div");
+    container.style.cssText = "display:flex;flex-direction:column;gap:8px;";
+    
+    const label = document.createElement("label");
+    label.textContent = "Reaction Source:";
+    label.style.cssText = "font-weight:bold;font-size:0.9rem;";
+    
+    const select = document.createElement("select");
+    select.id = "sourceSelector";
+    select.style.cssText = "width:100%;padding:8px;border-radius:4px;border:1px solid #555;background:#2a2a2a;color:#fff;cursor:pointer;font-size:0.9rem;";
+    
+    const sources = dataRepo.getAvailableSources();
+    sources.forEach(source => {
+      const option = document.createElement("option");
+      option.value = source.id;
+      option.textContent = `${source.name} (${source.count} reactions)`;
+      option.selected = source.id === this.state.reactionSource;
+      select.appendChild(option);
+    });
+    
+    select.addEventListener("change", (e) => {
+      const sourceId = e.target.value;
+      UIHelper.showNotification(`Loading ${sources.find(s => s.id === sourceId)?.name}...`);
+      this.state.setReactionSource(sourceId);
+    });
+    
+    container.appendChild(label);
+    container.appendChild(select);
+    
+    return container;
+  }
+  
+  createSourceSelector() {
+    const container = document.createElement("div");
+    container.style.cssText = "display:flex;flex-direction:column;gap:8px;";
+    
+    const label = document.createElement("label");
+    label.textContent = "Reaction Source:";
+    label.style.cssText = "font-weight:bold;font-size:0.9rem;";
+    
+    const select = document.createElement("select");
+    select.id = "sourceSelector";
+    select.style.cssText = "width:100%;padding:8px;border-radius:4px;border:1px solid #555;background:#2a2a2a;color:#fff;cursor:pointer;font-size:0.9rem;";
+    
+    const sources = dataRepo.getAvailableSources();
+    sources.forEach(source => {
+      const option = document.createElement("option");
+      option.value = source.id;
+      option.textContent = `${source.name} (${source.count} reactions)`;
+      option.selected = source.id === this.state.reactionSource;
+      select.appendChild(option);
+    });
+    
+    select.addEventListener("change", (e) => {
+      const sourceId = e.target.value;
+      UIHelper.showNotification(`Loading ${sources.find(s => s.id === sourceId)?.name}...`);
+      this.state.setReactionSource(sourceId);
+    });
+    
+    container.appendChild(label);
+    container.appendChild(select);
+    
+    return container;
+  }
+  
   updateChoicesOptions() {
     const availableReagents = this.reactionFilter.getAvailableReagents(
       this.state.selectedReagents,
@@ -1567,6 +1721,13 @@ const shareButton = uiController.createShareButton();
 const resetButton = uiController.createResetButton();
 const speedSlider = uiController.createSpeedSlider();
 const exportButton = uiController.createExportButton();
+const sourceSelector = uiController.createSourceSelector();
+
+// Listen for source changes
+eventBus.on("reactionSourceChanged", () => {
+  uiController.updateChoicesOptions();
+  uiController.updateUI();
+});
 ```
 
 ```js
@@ -1754,6 +1915,8 @@ if (document.readyState === "loading") {
     ${resetButton} ${shareButton} ${exportButton}
   </div>
   <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box; padding: 15px;">${speedSlider}</div>
+  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box; padding: 15px;">${sourceSelector}</div>
+</div>
 </div>
 <div class="grid grid-cols-1 grid-rowspan-1" style="grid-auto-rows: auto">
   <div class="card" id="tableContainer"></div>

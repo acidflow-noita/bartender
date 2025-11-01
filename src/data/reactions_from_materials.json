@@ -2400,16 +2400,6 @@
     "notes": null
   },
   {
-    "reactionRate": "100",
-    "reagent1": "material_confusion",
-    "reagent2": "magic_liquid_teleportation",
-    "reagent3": null,
-    "product1": "orb_powder",
-    "product2": "fire",
-    "product3": null,
-    "notes": null
-  },
-  {
     "reactionRate": "50",
     "reagent1": "wizardstone",
     "reagent2": "[fire]",

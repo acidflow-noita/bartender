@@ -1,0 +1,1042 @@
+[
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "apotheosis_redstone",
+    "reagent3": null,
+    "product1": "lavarock_static",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "water_fading",
+    "reagent3": null,
+    "product1": "rock_static",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "water_fading",
+    "reagent2": "radioactive_liquid",
+    "reagent3": null,
+    "product1": "water_fading",
+    "product2": "water",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "apotheosis_redstone",
+    "reagent2": "blood",
+    "reagent3": null,
+    "product1": "apotheosis_redstone",
+    "product2": "apotheosis_redstone",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "mud",
+    "reagent2": "magic_liquid_charm",
+    "reagent3": null,
+    "product1": "apotheosis_mudman_mud",
+    "product2": "apotheosis_mudman_mud",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "[fire]",
+    "reagent2": "apotheosis_smoke_static_slowburn",
+    "reagent3": null,
+    "product1": "apotheosis_smoke_static_slowburn_gas",
+    "product2": "apotheosis_smoke_static_slowburn_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "[apotheosis_bloody]",
+    "reagent2": "[liquid]",
+    "reagent3": null,
+    "product1": "[apotheosis_bloody]",
+    "product2": "apotheosis_blood_infectious",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "[apotheosis_bloody]",
+    "reagent2": "[slime]",
+    "reagent3": null,
+    "product1": "[apotheosis_bloody]",
+    "product2": "apotheosis_blood_infectious",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "apotheosis_blood_infectious",
+    "reagent2": "[liquid]",
+    "reagent3": null,
+    "product1": "apotheosis_blood_infectious",
+    "product2": "apotheosis_blood_infectious",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "apotheosis_blood_infectious",
+    "reagent2": "[slime]",
+    "reagent3": null,
+    "product1": "apotheosis_blood_infectious",
+    "product2": "apotheosis_blood_infectious",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "apotheosis_blood_infectious_fading_slow",
+    "reagent2": "[liquid]",
+    "reagent3": null,
+    "product1": "apotheosis_blood_infectious_fading_slow",
+    "product2": "apotheosis_blood_infectious",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "apotheosis_blood_infectious_fading_slow",
+    "reagent2": "[slime]",
+    "reagent3": null,
+    "product1": "apotheosis_blood_infectious_fading_slow",
+    "product2": "apotheosis_blood_infectious",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "1",
+    "reagent1": "apotheosis_eviltemple_stone",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "apotheosis_eviltemple_stone",
+    "product2": "apotheosis_blood_infectious",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "apotheosis_eviltemple_stone",
+    "reagent2": "apotheosis_blood_infectious",
+    "reagent3": null,
+    "product1": "apotheosis_eviltemple_stone",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "apotheosis_corrupt_flesh_static",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "apotheosis_corrupt_flesh_static",
+    "product2": "apotheosis_blood_infectious",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "apotheosis_corrupt_flesh_static",
+    "reagent2": "apotheosis_blood_infectious",
+    "reagent3": null,
+    "product1": "apotheosis_corrupt_flesh_static",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "1",
+    "reagent1": "apotheosis_sandtemple_stone",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "apotheosis_sandtemple_stone",
+    "product2": "sand",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "apotheosis_sandtemple_stone",
+    "reagent2": "sand",
+    "reagent3": null,
+    "product1": "apotheosis_sandtemple_stone",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "apotheosis_sandtemple_stone",
+    "reagent2": "[liquid]",
+    "reagent3": null,
+    "product1": "apotheosis_sandtemple_stone",
+    "product2": "sand",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "1",
+    "reagent1": "apotheosis_wood_static_bloody",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "apotheosis_wood_static_bloody",
+    "product2": "apotheosis_blood_infectious",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "apotheosis_wood_static_bloody",
+    "reagent2": "apotheosis_blood_infectious",
+    "reagent3": null,
+    "product1": "apotheosis_wood_static_bloody",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "apotheosis_wood_prop_bloody",
+    "reagent2": "apotheosis_blood_infectious",
+    "reagent3": null,
+    "product1": "apotheosis_wood_prop_bloody",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "apotheosis_magic_liquid_divine",
+    "reagent2": "apotheosis_blood_infectious",
+    "reagent3": null,
+    "product1": "apotheosis_magic_liquid_divine",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "apotheosis_magic_liquid_divine",
+    "reagent2": "apotheosis_eviltemple_stone",
+    "reagent3": null,
+    "product1": "smoke",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "apotheosis_magic_liquid_divine",
+    "reagent2": "apotheosis_wood_static_bloody",
+    "reagent3": null,
+    "product1": "smoke",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "apotheosis_magic_liquid_divine",
+    "reagent2": "apotheosis_wood_prop_bloody",
+    "reagent3": null,
+    "product1": "smoke",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "75",
+    "reagent1": "apotheosis_magic_liquid_divine",
+    "reagent2": "[apotheosis_fleshy]",
+    "reagent3": null,
+    "product1": "apotheosis_magic_liquid_divine",
+    "product2": "apotheosis_magic_liquid_divine",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "75",
+    "reagent1": "apotheosis_meat_heretic_eye",
+    "reagent2": "apotheosis_magic_liquid_divine",
+    "reagent3": null,
+    "product1": "apotheosis_meat_heretic_eye",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "apotheosis_magic_liquid_divine",
+    "reagent2": "mimic_liquid",
+    "reagent3": null,
+    "product1": "smoke",
+    "product2": "mimic_liquid",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "2",
+    "reagent1": "apotheosis_meat_heretic",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "apotheosis_meat_heretic",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "apotheosis_meat_heretic",
+    "reagent2": "apotheosis_corrupt_flesh_slime",
+    "reagent3": null,
+    "product1": "apotheosis_corrupt_flesh_slime",
+    "product2": "apotheosis_corrupt_flesh_slime",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "apotheosis_corrupt_flesh_slime",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "apotheosis_corrupt_flesh_static",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "apotheosis_corrupt_flesh_slime",
+    "reagent2": "apotheosis_corrupt_flesh_static",
+    "reagent3": null,
+    "product1": "apotheosis_corrupt_flesh_static",
+    "product2": "apotheosis_corrupt_flesh_static",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "apotheosis_magic_liquid_protection_all_fading",
+    "reagent2": "[solid]",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "[solid]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "30",
+    "reagent1": "apotheosis_lavarock_superhot",
+    "reagent2": "[water]",
+    "reagent3": null,
+    "product1": "apotheosis_lavarock_superhot",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "apotheosis_lavarock_superhot",
+    "reagent2": "alcohol",
+    "reagent3": null,
+    "product1": "apotheosis_lavarock_superhot",
+    "product2": "fire",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "apotheosis_lavarock_superhot",
+    "reagent2": "oil",
+    "reagent3": null,
+    "product1": "apotheosis_lavarock_superhot",
+    "product2": "fire",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "15",
+    "reagent1": "apotheosis_lavarock_superhot",
+    "reagent2": "magic_liquid_teleportation",
+    "reagent3": null,
+    "product1": "apotheosis_lavarock_superhot",
+    "product2": "fire",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "15",
+    "reagent1": "apotheosis_lavarock_superhot",
+    "reagent2": "magic_liquid_unstable_teleportation",
+    "reagent3": null,
+    "product1": "apotheosis_lavarock_superhot",
+    "product2": "fire",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "apotheosis_lavarock_superhot",
+    "reagent2": "radioactive_liquid",
+    "reagent3": null,
+    "product1": "apotheosis_lavarock_superhot",
+    "product2": "radioactive_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "apotheosis_cursed_liquid_red_static",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "apotheosis_cursed_liquid_red_static",
+    "product2": "apotheosis_cursed_liquid_red",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "45",
+    "reagent1": "magic_liquid_faster_levitation",
+    "reagent2": "magic_liquid_mana_regeneration",
+    "reagent3": null,
+    "product1": "apotheosis_magic_liquid_infinite_flight",
+    "product2": "apotheosis_magic_liquid_infinite_flight",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "45",
+    "reagent1": "apotheosis_magic_liquid_infinite_flight",
+    "reagent2": "alcohol",
+    "reagent3": null,
+    "product1": "magic_liquid_faster_levitation",
+    "product2": "magic_liquid_faster_levitation",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "45",
+    "reagent1": "apotheosis_meat_duck",
+    "reagent2": "magic_liquid_mana_regeneration",
+    "reagent3": null,
+    "product1": "apotheosis_magic_liquid_infinite_flight",
+    "product2": "apotheosis_magic_liquid_infinite_flight",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "magic_liquid_protection_all",
+    "reagent2": "magic_liquid_faster_levitation_and_movement",
+    "reagent3": null,
+    "product1": "apotheosis_magic_liquid_escapium",
+    "product2": "apotheosis_magic_liquid_escapium",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "material_confusion",
+    "reagent2": "apotheosis_magic_liquid_attunium",
+    "reagent3": null,
+    "product1": "apotheosis_magic_liquid_velocium",
+    "product2": "apotheosis_magic_liquid_velocium",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "slime",
+    "reagent2": "apotheosis_magic_liquid_velocium",
+    "reagent3": null,
+    "product1": "apotheosis_magic_liquid_attunium",
+    "product2": "apotheosis_magic_liquid_attunium",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "apotheosis_magic_liquid_pure_light",
+    "reagent2": "[magic_liquid]",
+    "reagent3": null,
+    "product1": "apotheosis_magic_liquid_pure_light",
+    "product2": "apotheosis_magic_liquid_pure_light",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "apotheosis_magic_liquid_protection_all_fading_dulled",
+    "reagent2": "magic_liquid_protection_all",
+    "reagent3": null,
+    "product1": "apotheosis_magic_liquid_protection_all_fading_dulled",
+    "product2": "apotheosis_magic_liquid_protection_all_fading_dulled",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "apotheosis_magic_liquid_suffocatium_fading",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "apotheosis_magic_liquid_ant_pheromones",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "water_fading",
+    "reagent2": "magic_liquid_mana_regeneration",
+    "reagent3": null,
+    "product1": "magic_liquid_mana_regeneration",
+    "product2": "magic_liquid_mana_regeneration",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "water_static",
+    "reagent2": "magic_liquid_mana_regeneration",
+    "reagent3": null,
+    "product1": "magic_liquid_mana_regeneration",
+    "product2": "magic_liquid_mana_regeneration",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "15",
+    "reagent1": "apotheosis_magic_liquid_velocium",
+    "reagent2": "[meltable_metal]",
+    "reagent3": null,
+    "product1": "apotheosis_magic_liquid_velocium",
+    "product2": "poison_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "15",
+    "reagent1": "apotheosis_magic_liquid_velocium",
+    "reagent2": "[meltable_metal_generic]",
+    "reagent3": null,
+    "product1": "apotheosis_magic_liquid_velocium",
+    "product2": "poison_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "apotheosis_milk",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "cheese_static",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "apotheosis_milk",
+    "reagent2": "cheese_static",
+    "reagent3": null,
+    "product1": "cheese_static",
+    "product2": "cheese_static",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "apotheosis_milk_powder",
+    "reagent2": "[water]",
+    "reagent3": null,
+    "product1": "apotheosis_milk",
+    "product2": "apotheosis_milk",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "apotheosis_milk",
+    "reagent2": "magic_liquid_polymorph",
+    "reagent3": null,
+    "product1": "apotheosis_milk_polymorph_polymorph",
+    "product2": "apotheosis_milk_polymorph_polymorph",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "milk",
+    "reagent2": "magic_liquid_polymorph",
+    "reagent3": null,
+    "product1": "apotheosis_milk_polymorph_polymorph",
+    "product2": "apotheosis_milk_polymorph_polymorph",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "beer",
+    "reagent2": "apotheosis_milk",
+    "reagent3": null,
+    "product1": "molut",
+    "product2": "molut",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "apotheosis_magic_liquid_mimic",
+    "reagent2": "[liquid]",
+    "reagent3": null,
+    "product1": "[liquid]",
+    "product2": "[liquid]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "13",
+    "reagent1": "water",
+    "reagent2": "apotheosis_radioactive_liquid_strong",
+    "reagent3": null,
+    "product1": "apotheosis_radioactive_liquid_strong",
+    "product2": "apotheosis_radioactive_liquid_strong",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "13",
+    "reagent1": "water_swamp",
+    "reagent2": "apotheosis_radioactive_liquid_strong",
+    "reagent3": null,
+    "product1": "apotheosis_radioactive_liquid_strong",
+    "product2": "apotheosis_radioactive_liquid_strong",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "13",
+    "reagent1": "water_static",
+    "reagent2": "apotheosis_radioactive_liquid_strong",
+    "reagent3": null,
+    "product1": "apotheosis_radioactive_liquid_strong",
+    "product2": "apotheosis_radioactive_liquid_strong",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "13",
+    "reagent1": "water_fading",
+    "reagent2": "apotheosis_radioactive_liquid_strong",
+    "reagent3": null,
+    "product1": "apotheosis_radioactive_liquid_strong",
+    "product2": "apotheosis_radioactive_liquid_strong",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "13",
+    "reagent1": "water_salt",
+    "reagent2": "apotheosis_radioactive_liquid_strong",
+    "reagent3": null,
+    "product1": "apotheosis_radioactive_liquid_strong",
+    "product2": "apotheosis_radioactive_liquid_strong",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "13",
+    "reagent1": "apotheosis_water_fading_fast",
+    "reagent2": "apotheosis_radioactive_liquid_strong",
+    "reagent3": null,
+    "product1": "apotheosis_radioactive_liquid_strong",
+    "product2": "apotheosis_radioactive_liquid_strong",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "magic_liquid_polymorph",
+    "reagent2": "apotheosis_radioactive_liquid_strong",
+    "reagent3": null,
+    "product1": "magic_liquid_random_polymorph",
+    "product2": "apotheosis_radioactive_liquid_strong",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "radioactive_liquid",
+    "reagent2": "apotheosis_radioactive_liquid_strong",
+    "reagent3": null,
+    "product1": "apotheosis_radioactive_liquid_strong",
+    "product2": "apotheosis_radioactive_liquid_strong",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "2",
+    "reagent1": "apotheosis_radioactive_liquid_strong",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "apotheosis_radioactive_liquid_strong",
+    "product2": "apotheosis_radioactive_gas_fading",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "15",
+    "reagent1": "blood",
+    "reagent2": "magic_liquid_teleportation",
+    "reagent3": null,
+    "product1": "steam",
+    "product2": "apotheosis_magic_liquid_rideshare",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "wizardstone",
+    "reagent2": "blood",
+    "reagent3": null,
+    "product1": "steam",
+    "product2": "apotheosis_magic_liquid_rideshare",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "blood_worm",
+    "reagent2": "magic_liquid_random_polymorph",
+    "reagent3": null,
+    "product1": "apotheosis_blood_worm_centipede",
+    "product2": "magic_liquid_random_polymorph",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "meat",
+    "reagent2": "coal",
+    "reagent3": null,
+    "product1": "apotheosis_insect_husk",
+    "product2": "apotheosis_insect_husk",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "magic_liquid_faster_levitation",
+    "reagent2": "apotheosis_magic_liquid_infinite_flight",
+    "reagent3": null,
+    "product1": "apotheosis_magic_liquid_moon_portal",
+    "product2": "apotheosis_magic_liquid_moon_portal",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "apotheosis_magic_liquid_moon_portal",
+    "reagent2": "[dairy]",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "apotheosis_cursed_liquid_red",
+    "reagent3": null,
+    "product1": "rock_static_cursed",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "apotheosis_cursed_liquid_red_static",
+    "reagent3": null,
+    "product1": "rock_static_cursed",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "apotheosis_redstone",
+    "reagent2": "fungi",
+    "reagent3": "alcohol",
+    "product1": "apotheosis_unholy_concoction",
+    "product2": "apotheosis_unholy_concoction",
+    "product3": "apotheosis_unholy_concoction",
+    "notes": null
+  },
+  {
+    "reactionRate": "3",
+    "reagent1": "alcohol",
+    "reagent2": "apotheosis_unholy_concoction",
+    "reagent3": null,
+    "product1": "apotheosis_unholy_concoction",
+    "product2": "apotheosis_unholy_concoction",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "apotheosis_milk",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "cheese_static",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "apotheosis_milk_powder",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "cheese_static",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "3",
+    "reagent1": "[lava]",
+    "reagent2": "cheese_static",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "fire",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "apotheosis_magic_liquid_attunium",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "apotheosis_magic_liquid_attunium_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "apotheosis_magic_liquid_attunium_gas",
+    "reagent2": "steam",
+    "reagent3": null,
+    "product1": "apotheosis_magic_liquid_attunium",
+    "product2": "apotheosis_magic_liquid_attunium",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "apotheosis_magic_liquid_velocium",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "apotheosis_magic_liquid_velocium_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "apotheosis_magic_liquid_velocium_gas",
+    "reagent2": "steam",
+    "reagent3": null,
+    "product1": "apotheosis_magic_liquid_velocium",
+    "product2": "apotheosis_magic_liquid_velocium",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "apotheosis_magic_liquid_nukes",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "apotheosis_magic_liquid_nukes_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "apotheosis_magic_liquid_nukes_gas",
+    "reagent2": "steam",
+    "reagent3": null,
+    "product1": "apotheosis_magic_liquid_nukes",
+    "product2": "apotheosis_magic_liquid_nukes",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "apotheosis_magic_liquid_rideshare",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "apotheosis_magic_liquid_rideshare_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "apotheosis_magic_liquid_rideshare_gas",
+    "reagent2": "steam",
+    "reagent3": null,
+    "product1": "apotheosis_magic_liquid_rideshare",
+    "product2": "apotheosis_magic_liquid_rideshare",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "apotheosis_magic_liquid_infinite_flight",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "apotheosis_magic_liquid_infinite_flight_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "apotheosis_magic_liquid_infinite_flight_gas",
+    "reagent2": "steam",
+    "reagent3": null,
+    "product1": "apotheosis_magic_liquid_infinite_flight",
+    "product2": "apotheosis_magic_liquid_infinite_flight",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "apotheosis_magic_liquid_escapium",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "apotheosis_magic_liquid_escapium_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "apotheosis_magic_liquid_escapium_gas",
+    "reagent2": "steam",
+    "reagent3": null,
+    "product1": "apotheosis_magic_liquid_escapium",
+    "product2": "apotheosis_magic_liquid_escapium",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "apotheosis_blood_worm_centipede",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "magic_gas_worm_blood",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "apotheosis_magic_liquid_crafting",
+    "reagent2": "apotheosis_magic_liquid_attunium",
+    "reagent3": "[sand_metal]",
+    "product1": "air",
+    "product2": "air",
+    "product3": "air",
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "apotheosis_magic_liquid_crafting",
+    "reagent2": "apotheosis_magic_liquid_velocium",
+    "reagent3": "[sand_metal]",
+    "product1": "air",
+    "product2": "air",
+    "product3": "air",
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "apotheosis_magic_liquid_crafting",
+    "reagent2": "magic_liquid_berserk",
+    "reagent3": "[sand_metal]",
+    "product1": "air",
+    "product2": "air",
+    "product3": "air",
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "apotheosis_magic_liquid_crafting",
+    "reagent2": "magic_liquid_teleportation",
+    "reagent3": "[sand_metal]",
+    "product1": "air",
+    "product2": "air",
+    "product3": "air",
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "apotheosis_magic_liquid_crafting",
+    "reagent2": "magic_liquid_faster_levitation",
+    "reagent3": "[sand_metal]",
+    "product1": "air",
+    "product2": "air",
+    "product3": "air",
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "apotheosis_magic_liquid_crafting",
+    "reagent2": "magic_liquid_movement_faster",
+    "reagent3": "[sand_metal]",
+    "product1": "air",
+    "product2": "air",
+    "product3": "air",
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "apotheosis_magic_liquid_crafting",
+    "reagent2": "[regenerative]",
+    "reagent3": "[sand_metal]",
+    "product1": "air",
+    "product2": "air",
+    "product3": "air",
+    "notes": null
+  }
+]
