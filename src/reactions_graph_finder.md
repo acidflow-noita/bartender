@@ -124,6 +124,11 @@ const reactionSources = {
   "apotheosis": {
     name: "Apotheosis",
     reactions: await FileAttachment("./data/apotheosis/reactions_apotheosis.json").json()
+  },
+
+  "apotheosis_secret": {
+    name: "Apotheosis Secret",
+    reactions: await FileAttachment("./data/apotheosis/reactions_apotheosis_secret.json").json()
   }
   // Add more sources like:
   // "mod_name": {
