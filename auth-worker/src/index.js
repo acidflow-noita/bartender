@@ -5,6 +5,37 @@
 
 // Configuration - channel checking is done via WUOTE_USER_ID_SECRET env var
 
+// Additional allowed origins for cross-site auth (dunkbinstats, etc.)
+const ADDITIONAL_ALLOWED_ORIGINS = [
+  "https://dunkbinstats.runfast.stream",
+  "https://dunkbinstats.acidflow.stream",
+  // Add any other domains that should use this auth worker
+];
+
+// Get the allowed origin for CORS based on the request
+function getAllowedOrigin(request, env) {
+  const origin = request.headers.get("Origin");
+  const mainSiteUrl = env.MAIN_SITE_URL || "https://bartender.runfast.stream";
+  
+  // Always allow the main site
+  if (origin === mainSiteUrl) {
+    return origin;
+  }
+  
+  // Allow localhost for development
+  if (origin && (origin.includes("localhost") || origin.includes("127.0.0.1"))) {
+    return origin;
+  }
+  
+  // Check additional allowed origins
+  if (origin && ADDITIONAL_ALLOWED_ORIGINS.includes(origin)) {
+    return origin;
+  }
+  
+  // Default to main site URL
+  return mainSiteUrl;
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -14,7 +45,7 @@ export default {
 
     // Handle CORS preflight
     if (request.method === "OPTIONS") {
-      const allowedOrigin = env.MAIN_SITE_URL || "https://bartender.runfast.stream";
+      const allowedOrigin = getAllowedOrigin(request, env);
       return handleCORS(request, env, allowedOrigin);
     }
 
@@ -270,9 +301,10 @@ async function handleAuthCheck(request, env) {
   console.log("Auth check - cookies:", request.headers.get("Cookie"));
   console.log("Auth check - authorization:", request.headers.get("Authorization"));
 
+  const allowedOrigin = getAllowedOrigin(request, env);
+
   if (!sessionId) {
     console.log("No session ID found");
-    const allowedOrigin = env.MAIN_SITE_URL || "https://bartender.runfast.stream";
     return addCORSHeaders(
       new Response(JSON.stringify({ authenticated: false }), {
         headers: {
@@ -292,7 +324,6 @@ async function handleAuthCheck(request, env) {
 
   if (!session) {
     console.log("No valid session found");
-    const allowedOrigin = env.MAIN_SITE_URL || "https://bartender.runfast.stream";
     return addCORSHeaders(
       new Response(JSON.stringify({ authenticated: false }), {
         headers: {
@@ -304,7 +335,6 @@ async function handleAuthCheck(request, env) {
     );
   }
 
-  const allowedOrigin = env.MAIN_SITE_URL || "https://bartender.runfast.stream";
   return addCORSHeaders(
     new Response(
       JSON.stringify({
@@ -330,7 +360,7 @@ async function handleLogout(request, env) {
     await env.AUTH_DB.prepare("DELETE FROM sessions WHERE id = ?").bind(sessionId).run();
   }
 
-  const allowedOrigin = env.MAIN_SITE_URL || "https://bartender.runfast.stream";
+  const allowedOrigin = getAllowedOrigin(request, env);
   const response = addCORSHeaders(
     new Response(JSON.stringify({ success: true }), {
       headers: { "Content-Type": "application/json" },
@@ -377,7 +407,7 @@ async function validateSession(request, env) {
 async function handleProtectedContent(request, env) {
   const validation = await validateSession(request, env);
 
-  const allowedOrigin = env.MAIN_SITE_URL || "https://bartender.runfast.stream";
+  const allowedOrigin = getAllowedOrigin(request, env);
 
   if (!validation.valid) {
     return addCORSHeaders(
