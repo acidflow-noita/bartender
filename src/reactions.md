@@ -70,16 +70,16 @@ window.appState = {
   reagentChoices: null,
   productChoices: null,
   isResetting: false,
-  excludeSpecialMaterials: false,
-  onlyPracticalReactions: false,
+  excludeSpecialMaterials: true,
+  onlyPracticalReactions: true,
 };
 
 // Parse URL parameters
 const urlParams = new URLSearchParams(window.location.search);
 window.appState.selectedReagents = urlParams.get("reagents")?.split(",").filter(Boolean) || [];
 window.appState.selectedProduct = urlParams.get("product") || "";
-window.appState.excludeSpecialMaterials = urlParams.get("excludeSpecial") === "true";
-window.appState.onlyPracticalReactions = urlParams.get("onlyPractical") === "true";
+window.appState.excludeSpecialMaterials = urlParams.get("excludeSpecial") !== "false";
+window.appState.onlyPracticalReactions = urlParams.get("onlyPractical") !== "false";
 ```
 
 ```js
@@ -389,11 +389,11 @@ const shareButton = Inputs.button(
       if (window.appState.selectedProduct) {
         url.searchParams.set("product", window.appState.selectedProduct);
       }
-      if (window.appState.excludeSpecialMaterials) {
-        url.searchParams.set("excludeSpecial", "true");
+      if (!window.appState.excludeSpecialMaterials) {
+        url.searchParams.set("excludeSpecial", "false");
       }
-      if (window.appState.onlyPracticalReactions) {
-        url.searchParams.set("onlyPractical", "true");
+      if (!window.appState.onlyPracticalReactions) {
+        url.searchParams.set("onlyPractical", "false");
       }
 
       const shareUrl = url.toString();
@@ -441,8 +441,8 @@ const resetButton = Inputs.button(
 
       window.appState.selectedReagents = [];
       window.appState.selectedProduct = "";
-      window.appState.excludeSpecialMaterials = false;
-      window.appState.onlyPracticalReactions = false;
+      window.appState.excludeSpecialMaterials = true;
+      window.appState.onlyPracticalReactions = true;
 
       if (window.appState.reagentChoices?.initialised) {
         window.appState.reagentChoices.removeActiveItems();
@@ -452,8 +452,8 @@ const resetButton = Inputs.button(
       }
 
       // Reset toggle states
-      excludeSpecialToggle.value = false;
-      onlyPracticalToggle.value = false;
+      excludeSpecialToggle.value = true;
+      onlyPracticalToggle.value = true;
 
       updateChoicesOptions();
       updateUI();
@@ -598,11 +598,11 @@ const updateUI = () => {
     if (window.appState.selectedProduct) {
       url.searchParams.set("product", window.appState.selectedProduct);
     }
-    if (window.appState.excludeSpecialMaterials) {
-      url.searchParams.set("excludeSpecial", "true");
+    if (!window.appState.excludeSpecialMaterials) {
+      url.searchParams.set("excludeSpecial", "false");
     }
-    if (window.appState.onlyPracticalReactions) {
-      url.searchParams.set("onlyPractical", "true");
+    if (!window.appState.onlyPracticalReactions) {
+      url.searchParams.set("onlyPractical", "false");
     }
     window.history.replaceState({}, "", url.toString());
   }
