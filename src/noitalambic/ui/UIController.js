@@ -71,7 +71,7 @@ export class UIController {
   }
 
   createExportButton(Inputs, htl) {
-    return Inputs.button(htl.html`<img src="${CONFIG.urls.imageBase}/images/icons/download.svg" />Export SVG`, {
+    return Inputs.button(htl.html`<img src="${CONFIG.urls.imageBase}/images/icons/arrow-doawn-tray.svg" />Export SVG`, {
       reduce: () => {
         this.exportGraphAsSVG();
         return null;
@@ -80,7 +80,7 @@ export class UIController {
   }
 
   exportGraphAsSVG() {
-    const svgElement = document.querySelector("#tableContainer svg");
+    const svgElement = document.querySelector("#graphContainer svg");
 
     if (!svgElement) {
       UIHelper.showNotification("No graph to export");

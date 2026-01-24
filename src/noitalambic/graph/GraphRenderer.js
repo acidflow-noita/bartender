@@ -14,7 +14,7 @@ export class GraphRenderer {
   }
 
   render(filteredReactions) {
-    const container = document.getElementById("tableContainer");
+    const container = document.getElementById("graphContainer");
     container.innerHTML = "";
 
     if (this.currentCleanup) {

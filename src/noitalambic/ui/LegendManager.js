@@ -29,7 +29,7 @@ export class LegendManager {
       </div>
     `;
 
-    const tableContainer = document.getElementById("tableContainer");
+    const tableContainer = document.getElementById("graphContainer");
     if (tableContainer?.parentNode) {
       tableContainer.parentNode.appendChild(legendContainer);
       this._setupToggle();

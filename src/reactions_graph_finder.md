@@ -139,5 +139,5 @@ if (document.readyState === "loading") {
 </div>
 </div>
 <div class="grid grid-cols-1 grid-rowspan-1" style="grid-auto-rows: auto">
-  <div class="card" id="tableContainer"></div>
+  <div class="card" id="graphContainer"></div>
 </div>
