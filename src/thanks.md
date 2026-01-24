@@ -22,4 +22,5 @@ I'd like to thank (in no particular order):
 - necauqua -- for replacing the list of reactions I've initially made -- with the one extracted directly from the engine's <code class="bigger-number-better">CellFactory</code>.
 - NathanSnail -- for making [LuaNXML](https://github.com/NathanSnail/luanxml).
 - Horscht -- for making [EZWand](https://github.com/TheHorscht/EZWand).
+- [Kedesiklem](https://github.com/kedesiklem) -- for the [graph extention](https://bartender.runfast.stream/reactions_graph_finder)
 - 「sophie」, DunkOrSlam, UserK, FuryForged -- for providing early feedback.
