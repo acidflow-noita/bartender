@@ -41,27 +41,27 @@ const materialAssociations = await FileAttachment("./data/jsons/material_associa
 
 // Load extension reactions
 const reactionSources = {
-  "base": {
+  base: {
     name: "Base Game",
-    reactions: baseReactions
+    reactions: baseReactions,
   },
 
-  "apotheosis": {
+  apotheosis: {
     name: "Apotheosis",
-    reactions: await FileAttachment("./data/apotheosis/reactions_apotheosis.json").json()
+    reactions: await FileAttachment("./data/apotheosis/reactions_apotheosis.json").json(),
   },
 
-  "apotheosis_secret": {
+  apotheosis_secret: {
     name: "Apotheosis Secret",
-    reactions: await FileAttachment("./data/apotheosis/reactions_apotheosis_secret.json").json()
-  }
+    reactions: await FileAttachment("./data/apotheosis/reactions_apotheosis_secret.json").json(),
+  },
 };
 
 try {
   const allModsReactions = await FileAttachment("./data/reactions_all_mods.json").json();
   reactionSources["all_mods"] = {
     name: "All Mods",
-    reactions: allModsReactions
+    reactions: allModsReactions,
   };
 } catch (e) {
   console.log("All mods reactions not found, skipping");

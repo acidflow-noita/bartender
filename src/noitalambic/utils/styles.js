@@ -3,8 +3,8 @@
 // ============================================================================
 
 export function injectNotificationStyles() {
-    const notificationStyle = document.createElement("style");
-    notificationStyle.textContent = `
+  const notificationStyle = document.createElement("style");
+  notificationStyle.textContent = `
     .notification {
       position: fixed; z-index: 9999; inset: 5% 0 0 50%; translate: -50% 0;
       width: max-content; height: max-content;
@@ -18,5 +18,5 @@ export function injectNotificationStyles() {
       100% { transform: translateY(0); opacity: 1; }
     }
   `;
-    document.head.appendChild(notificationStyle);
+  document.head.appendChild(notificationStyle);
 }

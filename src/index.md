@@ -102,15 +102,15 @@ const materialTypesPlot = Plot.plot({
               `Percentage of total: ${percentage}% (${typeCount} out of ${materials.length})`,
             ].join("\n\n");
           },
-        }
-      )
+        },
+      ),
     ),
     Plot.text(
       materials,
       Plot.groupY(
         { x: "count", text: "count" },
-        { y: (d) => d.type || "N/A", sort: { y: "-x" }, dx: 25, fill: "white", textAnchor: "end", fontSize }
-      )
+        { y: (d) => d.type || "N/A", sort: { y: "-x" }, dx: 25, fill: "white", textAnchor: "end", fontSize },
+      ),
     ),
     Plot.frame(),
     Plot.image(wuoteLogo, {

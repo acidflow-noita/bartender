@@ -332,7 +332,7 @@ h6,
   font-size: 14px;
 }
 
-label+p {
+label + p {
   margin-top: -4px;
 }
 
@@ -477,10 +477,6 @@ body {
   background-color: #3b3b3b;
 }
 
-.choices__inner {
-  /* border-radius: 0.75rem; */
-}
-
 .choices__list--dropdown,
 .choices__list[aria-expanded] {
   background: oklch(20.8% 0.042 265.755);
@@ -563,7 +559,7 @@ body {
 }
 
 /* Make parentheses white */
-.material-name>span:not([class^="material-type-"]) {
+.material-name > span:not([class^="material-type-"]) {
   color: #fff;
 }
 
@@ -597,20 +593,22 @@ body {
   filter: blur(25px);
   mask-image: radial-gradient(black 20%, transparent 70%);
 
-  background: linear-gradient(45deg,
-      #ff0000,
-      #ff7300,
-      #fffb00,
-      #48ff00,
-      #00ffd5,
-      #002bff,
-      #7a00ff,
-      #ff00c8,
-      #ff0000,
-      #ff7300,
-      #fffb00,
-      #48ff00,
-      #00ffd5);
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5
+  );
   background-size: 400px 200px;
   animation: glowing 10s linear infinite;
 }
@@ -1303,7 +1301,7 @@ text {
 }
 
 .node-id-label {
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   pointer-events: none;
 }
 

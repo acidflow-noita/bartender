@@ -2,19 +2,20 @@
 // LEGEND MANAGER - Creates and manages the graph legend
 // ============================================================================
 
-import { CONFIG } from '../config/config.js';
+import { CONFIG } from "../config/config.js";
 
 export class LegendManager {
-    static create() {
-        const existingLegend = document.getElementById("graph-legend");
-        if (existingLegend) existingLegend.remove();
+  static create() {
+    const existingLegend = document.getElementById("graph-legend");
+    if (existingLegend) existingLegend.remove();
 
-        const legendContainer = document.createElement("div");
-        legendContainer.id = "graph-legend";
-        legendContainer.className = "card";
-        legendContainer.style.cssText = "margin-top:10px;padding:15px;background-color:rgba(0,0,0,0.7);border-radius:8px;color:#fff;font-size:14px;max-width:100%;";
+    const legendContainer = document.createElement("div");
+    legendContainer.id = "graph-legend";
+    legendContainer.className = "card";
+    legendContainer.style.cssText =
+      "margin-top:10px;padding:15px;background-color:rgba(0,0,0,0.7);border-radius:8px;color:#fff;font-size:14px;max-width:100%;";
 
-        legendContainer.innerHTML = `
+    legendContainer.innerHTML = `
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;border-bottom:1px solid #555;padding-bottom:10px;">
         <h3 style="margin:0;font-size:16px;">Graph Legend</h3>
         <div id="legend-toggle" style="cursor:pointer;font-size:18px;padding:0 8px;background:#555;border-radius:4px;">−</div>
@@ -28,15 +29,15 @@ export class LegendManager {
       </div>
     `;
 
-        const tableContainer = document.getElementById("tableContainer");
-        if (tableContainer?.parentNode) {
-            tableContainer.parentNode.appendChild(legendContainer);
-            this._setupToggle();
-        }
+    const tableContainer = document.getElementById("tableContainer");
+    if (tableContainer?.parentNode) {
+      tableContainer.parentNode.appendChild(legendContainer);
+      this._setupToggle();
     }
+  }
 
-    static _getNodesSection() {
-        return `
+  static _getNodesSection() {
+    return `
       <div>
         <h4 style="margin:0 0 10px 0;color:#45b7d1;">NODES</h4>
         <div style="display:flex;align-items:center;margin-bottom:8px;">
@@ -61,10 +62,10 @@ export class LegendManager {
         </div>
       </div>
     `;
-    }
+  }
 
-    static _getConnectionsSection() {
-        return `
+  static _getConnectionsSection() {
+    return `
       <div>
         <h4 style="margin:0 0 10px 0;color:#45b7d1;">CONNECTIONS</h4>
         <div style="display:flex;align-items:center;margin-bottom:8px;">
@@ -87,10 +88,10 @@ export class LegendManager {
         </div>
       </div>
     `;
-    }
+  }
 
-    static _getInteractionsSection() {
-        return `
+  static _getInteractionsSection() {
+    return `
       <div>
         <h4 style="margin:0 0 10px 0;color:#45b7d1;">INTERACTIONS</h4>
         <div style="display:flex;align-items:flex-start;margin-bottom:8px;">
@@ -115,21 +116,21 @@ export class LegendManager {
         </div>
       </div>
     `;
-    }
+  }
 
-    static _setupToggle() {
-        const legendToggle = document.getElementById("legend-toggle");
-        const legendContent = document.getElementById("legend-content");
-        const legendContainer = document.getElementById("graph-legend");
+  static _setupToggle() {
+    const legendToggle = document.getElementById("legend-toggle");
+    const legendContent = document.getElementById("legend-content");
+    const legendContainer = document.getElementById("graph-legend");
 
-        if (!legendToggle || !legendContent || !legendContainer) return;
+    if (!legendToggle || !legendContent || !legendContainer) return;
 
-        let isVisible = true;
-        legendToggle.addEventListener("click", () => {
-            isVisible = !isVisible;
-            legendContent.style.display = isVisible ? "block" : "none";
-            legendToggle.textContent = isVisible ? "−" : "+";
-            legendContainer.style.padding = isVisible ? "15px" : "10px 15px";
-        });
-    }
+    let isVisible = true;
+    legendToggle.addEventListener("click", () => {
+      isVisible = !isVisible;
+      legendContent.style.display = isVisible ? "block" : "none";
+      legendToggle.textContent = isVisible ? "−" : "+";
+      legendContainer.style.padding = isVisible ? "15px" : "10px 15px";
+    });
+  }
 }
