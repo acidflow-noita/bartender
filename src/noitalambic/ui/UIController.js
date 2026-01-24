@@ -71,7 +71,7 @@ export class UIController {
   }
 
   createExportButton(Inputs, htl) {
-    return Inputs.button(htl.html`<img src="${CONFIG.urls.imageBase}/images/icons/arrow-doawn-tray.svg" />Export SVG`, {
+    return Inputs.button(htl.html`<img src="${CONFIG.urls.imageBase}/images/icons/download.svg" />Export SVG`, {
       reduce: () => {
         this.exportGraphAsSVG();
         return null;
