@@ -6,7 +6,10 @@ export default {
   pages: [
     {
       name: "Mixology",
-      pages: [{ name: "Reactions Finder", path: "/reactions" }],
+      pages: [
+        { name: "Reactions Finder", path: "/reactions" },
+        { name: "Reactions Graph", path: "/reactions_graph_finder" },
+      ],
     },
     {
       name: "Materials properties",

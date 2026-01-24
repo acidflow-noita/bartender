@@ -1,0 +1,3162 @@
+[
+  {
+    "reactionRate": "70",
+    "reagent1": "cement",
+    "reagent2": "concrete_static",
+    "reagent3": null,
+    "product1": "concrete_static",
+    "product2": "concrete_static",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "cement",
+    "reagent2": "fire",
+    "reagent3": "cement",
+    "product1": "concrete_static",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "cement",
+    "reagent2": "[lava]",
+    "reagent3": null,
+    "product1": "rock_static_grey",
+    "product2": "rock_static_grey",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "cement",
+    "reagent2": "water",
+    "reagent3": null,
+    "product1": "concrete_static",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "cement",
+    "reagent2": "wood_player",
+    "reagent3": null,
+    "product1": "concrete_static",
+    "product2": "wood_player",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "90",
+    "reagent1": "cement",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "concrete_static",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "water",
+    "reagent2": "cement",
+    "reagent3": null,
+    "product1": "concrete_static",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "3",
+    "reagent1": "steam",
+    "reagent2": "[static]",
+    "reagent3": null,
+    "product1": "water",
+    "product2": "[static]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "steam_trailer",
+    "reagent2": "[static]",
+    "reagent3": null,
+    "product1": "water",
+    "product2": "[static]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "[fire]",
+    "reagent2": "water",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "[fire]",
+    "reagent2": "snow",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "[fire]",
+    "reagent2": "snow_static",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "40",
+    "reagent1": "[fire]",
+    "reagent2": "ice",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "water",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "40",
+    "reagent1": "[fire]",
+    "reagent2": "ice_static",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "water",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[fire]",
+    "reagent2": "snow_static",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "water",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[fire]",
+    "reagent2": "snow",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "water",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "60",
+    "reagent1": "[fire]",
+    "reagent2": "[meltable_to_water]",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "water",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "40",
+    "reagent1": "[fire]",
+    "reagent2": "[meltable_to_blood]",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "blood",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "40",
+    "reagent1": "[fire]",
+    "reagent2": "[meltable_to_slime]",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "slime",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "30",
+    "reagent1": "[fire_strong]",
+    "reagent2": "[meltable_metal]",
+    "reagent3": null,
+    "product1": "[fire_strong]",
+    "product2": "[meltable_metal]_molten",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "1",
+    "reagent1": "ice",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "water",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "1",
+    "reagent1": "ice_static",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "water",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "1",
+    "reagent1": "water",
+    "reagent2": "ice",
+    "reagent3": null,
+    "product1": "water",
+    "product2": "water_ice",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "1",
+    "reagent1": "water",
+    "reagent2": "ice_static",
+    "reagent3": null,
+    "product1": "water",
+    "product2": "water_ice",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "1",
+    "reagent1": "water",
+    "reagent2": "[ice]",
+    "reagent3": null,
+    "product1": "water",
+    "product2": "water_ice",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "8",
+    "reagent1": "ice_static",
+    "reagent2": "water",
+    "reagent3": null,
+    "product1": "ice_static",
+    "product2": "water_ice",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "6",
+    "reagent1": "snow_static",
+    "reagent2": "water",
+    "reagent3": null,
+    "product1": "snow_static",
+    "product2": "water_ice",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "4",
+    "reagent1": "snow_sticky",
+    "reagent2": "water",
+    "reagent3": "air",
+    "product1": "snow_sticky",
+    "product2": "water_ice",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "snowrock_static",
+    "reagent2": "water",
+    "reagent3": null,
+    "product1": "snowrock_static",
+    "product2": "water_ice",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "ice",
+    "reagent2": "water_ice",
+    "reagent3": null,
+    "product1": "ice_static",
+    "product2": "ice_static",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "8",
+    "reagent1": "ice",
+    "reagent2": "water",
+    "reagent3": null,
+    "product1": "ice_static",
+    "product2": "water_ice",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "35",
+    "reagent1": "water_ice",
+    "reagent2": "ice_static",
+    "reagent3": "air",
+    "product1": "ice_static",
+    "product2": "ice_static",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "35",
+    "reagent1": "water_ice",
+    "reagent2": "ice",
+    "reagent3": "air",
+    "product1": "ice_static",
+    "product2": "ice_static",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "35",
+    "reagent1": "water_ice",
+    "reagent2": "snow_static",
+    "reagent3": "air",
+    "product1": "ice_static",
+    "product2": "snow_static",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "35",
+    "reagent1": "water_ice",
+    "reagent2": "snowrock_static",
+    "reagent3": "air",
+    "product1": "ice_static",
+    "product2": "snowrock_static",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "13",
+    "reagent1": "water",
+    "reagent2": "radioactive_liquid",
+    "reagent3": null,
+    "product1": "water",
+    "product2": "water",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "15",
+    "reagent1": "mud",
+    "reagent2": "radioactive_liquid",
+    "reagent3": null,
+    "product1": "mud",
+    "product2": "water_swamp",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "15",
+    "reagent1": "water_static",
+    "reagent2": "radioactive_liquid",
+    "reagent3": null,
+    "product1": "water_static",
+    "product2": "water",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "15",
+    "reagent1": "water_ice",
+    "reagent2": "radioactive_liquid",
+    "reagent3": null,
+    "product1": "water_ice",
+    "product2": "water_ice",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "17",
+    "reagent1": "water_swamp",
+    "reagent2": "radioactive_liquid",
+    "reagent3": null,
+    "product1": "water_swamp",
+    "product2": "water_swamp",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "water_salt",
+    "reagent2": "radioactive_liquid",
+    "reagent3": null,
+    "product1": "water_salt",
+    "product2": "water",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "snow",
+    "reagent2": "radioactive_liquid",
+    "reagent3": null,
+    "product1": "water",
+    "product2": "radioactive_liquid",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "15",
+    "reagent1": "swamp",
+    "reagent2": "radioactive_liquid",
+    "reagent3": null,
+    "product1": "swamp",
+    "product2": "water_swamp",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "salt",
+    "reagent2": "water",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "water_salt",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "salt",
+    "reagent2": "water_ice",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "water_salt",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "[fire]",
+    "reagent2": "water_salt",
+    "reagent3": "water_salt",
+    "product1": "[fire]",
+    "product2": "salt",
+    "product3": "steam",
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "sodium",
+    "reagent2": "[water]",
+    "reagent3": null,
+    "product1": "sodium",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "[slime]",
+    "reagent2": "[magic_faster]",
+    "reagent3": null,
+    "product1": "fire_blue",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "endslime",
+    "reagent2": "[magic_faster]",
+    "reagent3": null,
+    "product1": "fire_blue",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "burning_powder",
+    "reagent2": "[water]",
+    "reagent3": null,
+    "product1": "burning_powder",
+    "product2": "fire",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "60",
+    "reagent1": "steam",
+    "reagent2": "waterrock",
+    "reagent3": null,
+    "product1": "steam",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "1",
+    "reagent1": "ice_melting_perf_killer",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "water",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "[acid]",
+    "reagent2": "[corrodible]",
+    "reagent3": null,
+    "product1": "[acid]",
+    "product2": "acid_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "[acid]",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "acid_gas",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "12",
+    "reagent1": "[acid]",
+    "reagent2": "acid_gas",
+    "reagent3": null,
+    "product1": "acid_gas",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "[fire]",
+    "reagent2": "[meltable]",
+    "reagent3": null,
+    "product1": "smoke",
+    "product2": "[meltable]_molten",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "[meltable]_molten",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "[meltable]",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "[meltable]_molten",
+    "reagent2": "water",
+    "reagent3": null,
+    "product1": "[meltable]",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[meltable]",
+    "reagent2": "[lava]",
+    "reagent3": null,
+    "product1": "[meltable]_molten",
+    "product2": "[lava]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[meltable_metal]",
+    "reagent2": "[lava]",
+    "reagent3": null,
+    "product1": "[meltable_metal]_molten",
+    "product2": "[lava]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "[fire]",
+    "reagent2": "[meltable_plastic]",
+    "reagent3": null,
+    "product1": "smoke",
+    "product2": "[meltable_plastic]_molten",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "[meltable_plastic]_molten",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "plastic_grey",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "[meltable_plastic]_molten",
+    "reagent2": "water",
+    "reagent3": null,
+    "product1": "plastic_grey",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[meltable_plastic]",
+    "reagent2": "[lava]",
+    "reagent3": null,
+    "product1": "[meltable_plastic]_molten",
+    "product2": "[lava]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "0",
+    "reagent1": "[lava]",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "smoke",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "water",
+    "reagent3": null,
+    "product1": "rock_static",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "water_ice",
+    "reagent3": null,
+    "product1": "rock_static",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "mud",
+    "reagent3": null,
+    "product1": "sand_static",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "water_salt",
+    "reagent3": null,
+    "product1": "rock_static_glow",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "water_fading",
+    "reagent3": null,
+    "product1": "rock_static",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "sima",
+    "reagent3": null,
+    "product1": "rock_static",
+    "product2": "fire",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "juhannussima",
+    "reagent3": null,
+    "product1": "rock_static",
+    "product2": "fire",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "magic_liquid",
+    "reagent3": null,
+    "product1": "static_magic_material",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "pea_soup",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "liquid_fire",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "midas_precursor",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "magic_gas_midas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "magic_liquid_polymorph",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "magic_gas_polymorph",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "magic_liquid_teleportation",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "magic_gas_teleport",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "magic_liquid_weakness",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "magic_gas_weakness",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "slime",
+    "reagent3": null,
+    "product1": "endslime",
+    "product2": "endslime",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "blood",
+    "reagent3": null,
+    "product1": "lavarock_static",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "blood_fading",
+    "reagent3": null,
+    "product1": "lavarock_static",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "blood_fading_slow",
+    "reagent3": null,
+    "product1": "lavarock_static",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "cloud_blood",
+    "reagent3": null,
+    "product1": "lavarock_static",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "cursed_liquid",
+    "reagent3": null,
+    "product1": "rock_static_cursed_green",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "slime_green",
+    "reagent3": null,
+    "product1": "fungi_green",
+    "product2": "fungal_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "slime_yellow",
+    "reagent3": null,
+    "product1": "fungi_yellow",
+    "product2": "fungal_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "[radioactive]",
+    "reagent3": null,
+    "product1": "rock_static_radioactive",
+    "product2": "radioactive_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "[regenerative]",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "magic_gas_hp_regeneration",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "urine",
+    "reagent3": null,
+    "product1": "templebrick_golden_static",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "poison",
+    "reagent3": null,
+    "product1": "rock_static_poison",
+    "product2": "poison_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[lava]",
+    "reagent2": "blood_worm",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "magic_gas_worm_blood",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "magic_gas_worm_blood",
+    "reagent2": "steam",
+    "reagent3": null,
+    "product1": "blood_worm",
+    "product2": "blood_worm",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "[lava]",
+    "reagent2": "vomit",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "acid",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "8",
+    "reagent1": "[lava]",
+    "reagent2": "[burnable]",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "fire",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "[burnable_fast]",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "fire",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "40",
+    "reagent1": "[fire]",
+    "reagent2": "[burnable_fast]",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "fire",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "3",
+    "reagent1": "[lava]",
+    "reagent2": "[meltable_to_lava]",
+    "reagent3": null,
+    "product1": "smoke",
+    "product2": "fire",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "[meltable_to_lava_fast]",
+    "reagent3": null,
+    "product1": "smoke",
+    "product2": "lava",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "60",
+    "reagent1": "[lava]",
+    "reagent2": "[meltable_to_water]",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "water",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "[meltable_to_acid]",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "acid",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "90",
+    "reagent1": "[fire]",
+    "reagent2": "[meltable_to_acid]",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "acid",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "[meltable_to_cold]",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "blood_cold",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "90",
+    "reagent1": "[fire]",
+    "reagent2": "[meltable_to_cold]",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "blood_cold",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "[meltable_to_radioactive]",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "radioactive_liquid",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "90",
+    "reagent1": "[fire]",
+    "reagent2": "[meltable_to_radioactive]",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "radioactive_liquid",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "[meltable_to_poison]",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "poison",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "90",
+    "reagent1": "[fire]",
+    "reagent2": "[meltable_to_poison]",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "poison",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "8",
+    "reagent1": "[lava]",
+    "reagent2": "gunpowder",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "fire",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "8",
+    "reagent1": "[lava]",
+    "reagent2": "gunpowder_explosive",
+    "reagent3": null,
+    "product1": "[lava]",
+    "product2": "fire",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "[fire]",
+    "reagent2": "[meltable_by_fire]",
+    "reagent3": null,
+    "product1": "lava",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[lava]",
+    "reagent2": "poo",
+    "reagent3": null,
+    "product1": "soil",
+    "product2": "poo_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "15",
+    "reagent1": "[evaporable]",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "45",
+    "reagent1": "[evaporable_fast]",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[evaporable_by_fire]",
+    "reagent2": "[lava]",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "[lava]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[evaporable_by_fire]",
+    "reagent2": "[fire]",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "[fire]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[evaporable_custom]",
+    "reagent2": "[lava]",
+    "reagent3": null,
+    "product1": "[evaporable_custom]_vapour",
+    "product2": "[lava]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "[fire]",
+    "reagent2": "[evaporable_custom]",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "[evaporable_custom]_vapour",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "cactus",
+    "reagent2": "[lava]",
+    "reagent3": null,
+    "product1": "sand_herb_vapour",
+    "product2": "[lava]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "[fire]",
+    "reagent2": "cactus",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "sand_herb_vapour",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "[fire]",
+    "reagent2": "wood_static_gas",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "steam_trailer",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "2",
+    "reagent1": "[grows_grass]",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "grass",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "2",
+    "reagent1": "[grows_fungus]",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "fungi",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "8",
+    "reagent1": "fungi",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "fungi",
+    "product2": "fungi",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "30",
+    "reagent1": "fungi",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "fungi",
+    "product2": "fungi",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "90",
+    "reagent1": "spore",
+    "reagent2": "[sand_ground]",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "[sand_ground]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "2",
+    "reagent1": "spore",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "60",
+    "reagent1": "vine",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "vine",
+    "product2": "vine",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "30",
+    "reagent1": "vine",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "vine",
+    "product2": "vine",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "30",
+    "reagent1": "vine",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "vine",
+    "product2": "vine",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "60",
+    "reagent1": "root",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "root",
+    "product2": "root",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "30",
+    "reagent1": "root",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "root",
+    "product2": "root",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "30",
+    "reagent1": "root",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "root",
+    "product2": "root",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "mushroom_seed",
+    "reagent2": "water",
+    "reagent3": "air",
+    "product1": "mushroom",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "templebrick_moss_static",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "templebrick_moss_static",
+    "product2": "moss",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "sand_static_rainforest",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "sand_static_rainforest",
+    "product2": "soil_lush",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "90",
+    "reagent1": "rocket_particles",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "coal",
+    "reagent2": "fire",
+    "reagent3": null,
+    "product1": "fire",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "snow",
+    "reagent2": "urine",
+    "reagent3": null,
+    "product1": "water",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "40",
+    "reagent1": "steelsmoke_static",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "steelsmoke_static",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "rock_static_glow",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "rock_static_glow",
+    "product2": "slime_green",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "slime_green",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "2",
+    "reagent1": "honey",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "honey",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "90",
+    "reagent1": "blood_cold",
+    "reagent2": "[freezable]",
+    "reagent3": null,
+    "product1": "blood_cold",
+    "product2": "ice_static",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "blood_cold",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "blood_cold_vapour",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "blood_cold",
+    "reagent2": "blood_worm",
+    "reagent3": null,
+    "product1": "blood_worm",
+    "product2": "blood_worm",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "blood_cold",
+    "reagent2": "[fire]",
+    "reagent3": null,
+    "product1": "blood_cold_vapour",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "blood_cold",
+    "reagent2": "lava",
+    "reagent3": null,
+    "product1": "blood_cold_vapour",
+    "product2": "rock_hard",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "steelfrost_static",
+    "reagent2": "[fire]",
+    "reagent3": null,
+    "product1": "steel_static",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "steelfrost_static",
+    "reagent2": "lava",
+    "reagent3": null,
+    "product1": "steel_static",
+    "product2": "lavarock_static",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "steelfrost_static",
+    "reagent2": "[water]",
+    "reagent3": null,
+    "product1": "steelfrost_static",
+    "product2": "ice_static",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "beer",
+    "reagent2": "milk",
+    "reagent3": null,
+    "product1": "molut",
+    "product2": "molut",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "30",
+    "reagent1": "[vapour]",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "60",
+    "reagent1": "alcohol",
+    "reagent2": "[fire]",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "alcohol_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "60",
+    "reagent1": "alcohol",
+    "reagent2": "[lava]",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "alcohol_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "4",
+    "reagent1": "alcohol",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "alcohol",
+    "product2": "alcohol_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "[fire]",
+    "reagent2": "alcohol_gas",
+    "reagent3": null,
+    "product1": "alcohol_gas",
+    "product2": "alcohol_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "60",
+    "reagent1": "glue",
+    "reagent2": "[fire]",
+    "reagent3": null,
+    "product1": "[fire]",
+    "product2": "poison_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "[fire]",
+    "reagent2": "[slime]",
+    "reagent3": null,
+    "product1": "cloud_slime",
+    "product2": "cloud_slime",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "water",
+    "reagent2": "[slime]",
+    "reagent3": null,
+    "product1": "water",
+    "product2": "cloud_slime",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "30",
+    "reagent1": "alcohol",
+    "reagent2": "[slime]",
+    "reagent3": null,
+    "product1": "alcohol",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "water",
+    "reagent2": "soil_lush",
+    "reagent3": null,
+    "product1": "swamp",
+    "product2": "soil",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "water",
+    "reagent2": "fungisoil",
+    "reagent3": null,
+    "product1": "swamp",
+    "product2": "soil",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "1",
+    "reagent1": "swamp",
+    "reagent2": "water",
+    "reagent3": null,
+    "product1": "swamp",
+    "product2": "water_swamp",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "6",
+    "reagent1": "water_swamp",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "peat",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "3",
+    "reagent1": "blood_thick",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "blood_fading",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "15",
+    "reagent1": "poison",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "poison_gas",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "1",
+    "reagent1": "[rust]",
+    "reagent2": "[water]",
+    "reagent3": null,
+    "product1": "rust_static",
+    "product2": "[water]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "1",
+    "reagent1": "[rust_box2d]",
+    "reagent2": "[water]",
+    "reagent3": null,
+    "product1": "[rust_box2d]_rust",
+    "product2": "[water]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "1",
+    "reagent1": "[rust_oxide]",
+    "reagent2": "[water]",
+    "reagent3": null,
+    "product1": "[rust_oxide]_oxide",
+    "product2": "[water]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "water",
+    "reagent2": "soil",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "mud",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "3",
+    "reagent1": "mud",
+    "reagent2": "soil",
+    "reagent3": "mud",
+    "product1": "soil",
+    "product2": "mud",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "0.3",
+    "reagent1": "soil",
+    "reagent2": "mud",
+    "reagent3": "soil",
+    "product1": "soil",
+    "product2": "soil",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "90",
+    "reagent1": "magic_liquid",
+    "reagent2": "rock_magic_bottom",
+    "reagent3": null,
+    "product1": "magic_liquid",
+    "product2": "magic_liquid",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "40",
+    "reagent1": "magic_liquid",
+    "reagent2": "soil",
+    "reagent3": null,
+    "product1": "smoke",
+    "product2": "magic_liquid",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "rock_static_wet",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "rock_static_wet",
+    "product2": "water_fading",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "2",
+    "reagent1": "water_fading",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "2",
+    "reagent1": "[water]",
+    "reagent2": "liquid_fire",
+    "reagent3": null,
+    "product1": "fire",
+    "product2": "liquid_fire",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "midas_precursor",
+    "reagent2": "[meat]",
+    "reagent3": null,
+    "product1": "midas",
+    "product2": "midas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "midas_precursor",
+    "reagent2": "midas",
+    "reagent3": null,
+    "product1": "midas",
+    "product2": "midas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "smoke_static",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "smoke_static",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "acid_gas_static",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "acid_gas_static",
+    "product2": "acid_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "radioactive_gas_static",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "radioactive_gas_static",
+    "product2": "radioactive_gas",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "midas",
+    "reagent2": "[alchemy]",
+    "reagent3": null,
+    "product1": "midas",
+    "product2": "gold",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "90",
+    "reagent1": "magic_gas_midas",
+    "reagent2": "[alchemy]",
+    "reagent3": null,
+    "product1": "gold",
+    "product2": "gold",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "rock_eroding",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "creepy_liquid_emitter",
+    "reagent2": "fire",
+    "reagent3": null,
+    "product1": "creepy_liquid",
+    "product2": "creepy_liquid",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "90",
+    "reagent1": "creepy_liquid",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "creepy_liquid",
+    "product2": "creepy_liquid",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "corruption_static",
+    "reagent2": "[alchemy]",
+    "reagent3": null,
+    "product1": "corruption_static",
+    "product2": "corruption_static",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "radioactive_liquid",
+    "reagent2": "blood_worm",
+    "reagent3": "fungi",
+    "product1": "void_liquid",
+    "product2": "void_liquid",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "radioactive_liquid",
+    "reagent2": "sand",
+    "reagent3": "blood_fungi",
+    "product1": "fungi_creeping",
+    "product2": "fungi_creeping",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "fungi_creeping",
+    "reagent2": "sand",
+    "reagent3": null,
+    "product1": "fungi_creeping",
+    "product2": "fungi_creeping",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "fungi_creeping",
+    "reagent2": "radioactive_liquid",
+    "reagent3": null,
+    "product1": "fungi_creeping",
+    "product2": "fungi_creeping",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "fungi_creeping",
+    "reagent2": "radioactive_liquid_yellow",
+    "reagent3": null,
+    "product1": "fungi_creeping",
+    "product2": "fungi_creeping",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "fungi_creeping_secret",
+    "reagent2": "[liquid]",
+    "reagent3": null,
+    "product1": "fungi_creeping_secret",
+    "product2": "fungi_creeping_secret",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "brass",
+    "reagent2": "diamond",
+    "reagent3": null,
+    "product1": "purifying_powder",
+    "product2": "purifying_powder",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "purifying_powder",
+    "reagent2": "[impure]",
+    "reagent3": null,
+    "product1": "purifying_powder",
+    "product2": "water",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "purifying_powder",
+    "reagent2": "[regenerative]",
+    "reagent3": null,
+    "product1": "gunpowder_unstable",
+    "product2": "gunpowder_unstable",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "15",
+    "reagent1": "magic_liquid_faster_levitation",
+    "reagent2": "magic_liquid_movement_faster",
+    "reagent3": null,
+    "product1": "magic_liquid_faster_levitation_and_movement",
+    "product2": "magic_liquid_faster_levitation_and_movement",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "25",
+    "reagent1": "magic_liquid_mana_regeneration",
+    "reagent2": "water",
+    "reagent3": null,
+    "product1": "magic_liquid_mana_regeneration",
+    "product2": "magic_liquid_mana_regeneration",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "25",
+    "reagent1": "magic_liquid_mana_regeneration",
+    "reagent2": "[meltable_metal]",
+    "reagent3": null,
+    "product1": "magic_liquid_mana_regeneration",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "25",
+    "reagent1": "magic_liquid_mana_regeneration",
+    "reagent2": "gold_box2d",
+    "reagent3": null,
+    "product1": "magic_liquid_mana_regeneration",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "25",
+    "reagent1": "magic_liquid_mana_regeneration",
+    "reagent2": "bloodgold_box2d",
+    "reagent3": null,
+    "product1": "magic_liquid_mana_regeneration",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "25",
+    "reagent1": "magic_liquid_mana_regeneration",
+    "reagent2": "[meltable_metal_generic]",
+    "reagent3": null,
+    "product1": "magic_liquid_mana_regeneration",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "25",
+    "reagent1": "material_confusion",
+    "reagent2": "magic_liquid_berserk",
+    "reagent3": null,
+    "product1": "magic_liquid_charm",
+    "product2": "magic_liquid_charm",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "15",
+    "reagent1": "magic_liquid_worm_attractor",
+    "reagent2": "blood_worm",
+    "reagent3": null,
+    "product1": "material_confusion",
+    "product2": "material_confusion",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "21",
+    "reagent1": "magic_liquid_invisibility",
+    "reagent2": "water",
+    "reagent3": null,
+    "product1": "water",
+    "product2": "water",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "35",
+    "reagent1": "material_confusion",
+    "reagent2": "blood",
+    "reagent3": "oil",
+    "product1": "magic_liquid_unstable_polymorph",
+    "product2": "magic_liquid_unstable_polymorph",
+    "product3": "magic_liquid_unstable_polymorph",
+    "notes": null
+  },
+  {
+    "reactionRate": "5",
+    "reagent1": "magic_liquid_unstable_teleportation",
+    "reagent2": "magic_liquid_teleportation",
+    "reagent3": "water",
+    "product1": "magic_liquid_unstable_teleportation",
+    "product2": "magic_liquid_unstable_teleportation",
+    "product3": "magic_liquid_unstable_teleportation",
+    "notes": null
+  },
+  {
+    "reactionRate": "21",
+    "reagent1": "magic_liquid_teleportation",
+    "reagent2": "alcohol",
+    "reagent3": null,
+    "product1": "magic_liquid_unstable_teleportation",
+    "product2": "alcohol",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "magic_liquid_unstable_teleportation",
+    "reagent2": "[slime]",
+    "reagent3": null,
+    "product1": "magic_liquid_teleportation",
+    "product2": "magic_liquid_teleportation",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "magic_liquid_unstable_teleportation",
+    "reagent2": "endslime",
+    "reagent3": null,
+    "product1": "magic_liquid_teleportation",
+    "product2": "magic_liquid_teleportation",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "magic_liquid_teleportation",
+    "reagent2": "magic_liquid_mana_regeneration",
+    "reagent3": null,
+    "product1": "fire",
+    "product2": "magic_liquid_mana_regeneration",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "magic_liquid_unstable_teleportation",
+    "reagent2": "magic_liquid_mana_regeneration",
+    "reagent3": null,
+    "product1": "fire",
+    "product2": "magic_liquid_mana_regeneration",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "15",
+    "reagent1": "magic_liquid_polymorph",
+    "reagent2": "radioactive_liquid",
+    "reagent3": null,
+    "product1": "magic_liquid_random_polymorph",
+    "product2": "radioactive_liquid",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "45",
+    "reagent1": "material_confusion",
+    "reagent2": "[sand_metal]",
+    "reagent3": null,
+    "product1": "magic_liquid_faster_levitation",
+    "product2": "magic_liquid_faster_levitation",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "alcohol",
+    "reagent2": "meat_frog",
+    "reagent3": null,
+    "product1": "magic_liquid_berserk",
+    "product2": "meat_frog",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "honey",
+    "reagent2": "diamond",
+    "reagent3": null,
+    "product1": "magic_liquid_protection_all",
+    "product2": "poison",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "material_confusion",
+    "reagent2": "magic_liquid_unstable_teleportation",
+    "reagent3": null,
+    "product1": "orb_powder",
+    "product2": "fire",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "60",
+    "reagent1": "magic_liquid_weakness",
+    "reagent2": "magic_liquid_teleportation",
+    "reagent3": null,
+    "product1": "magic_liquid_weakness",
+    "product2": "magic_liquid_unstable_teleportation",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "60",
+    "reagent1": "magic_liquid_weakness",
+    "reagent2": "magic_liquid_berserk",
+    "reagent3": null,
+    "product1": "magic_liquid_weakness",
+    "product2": "water",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "60",
+    "reagent1": "magic_liquid_weakness",
+    "reagent2": "magic_liquid_polymorph",
+    "reagent3": null,
+    "product1": "magic_liquid_weakness",
+    "product2": "magic_liquid_random_polymorph",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "60",
+    "reagent1": "magic_liquid_weakness",
+    "reagent2": "magic_liquid_faster_levitation",
+    "reagent3": null,
+    "product1": "radioactive_liquid",
+    "product2": "radioactive_liquid",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "60",
+    "reagent1": "magic_liquid_weakness",
+    "reagent2": "magic_liquid_mana_regeneration",
+    "reagent3": null,
+    "product1": "steam",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "60",
+    "reagent1": "magic_liquid_weakness",
+    "reagent2": "[fungus]",
+    "reagent3": null,
+    "product1": "magic_liquid_weakness",
+    "product2": "sand",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "60",
+    "reagent1": "magic_liquid_weakness",
+    "reagent2": "fungisoil",
+    "reagent3": null,
+    "product1": "magic_liquid_weakness",
+    "product2": "soil",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "magic_liquid_weakness",
+    "reagent2": "[gold]",
+    "reagent3": null,
+    "product1": "magic_liquid_weakness",
+    "product2": "silver",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "magic_liquid_weakness",
+    "reagent2": "gold_molten",
+    "reagent3": null,
+    "product1": "magic_liquid_weakness",
+    "product2": "silver_molten",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "magic_liquid_weakness",
+    "reagent2": "diamond",
+    "reagent3": null,
+    "product1": "steam",
+    "product2": "radioactive_liquid",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "magic_liquid_weakness",
+    "reagent2": "salt",
+    "reagent3": null,
+    "product1": "magic_liquid_weakness",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "magic_liquid_weakness",
+    "reagent2": "acid_gas",
+    "reagent3": null,
+    "product1": "magic_liquid_weakness",
+    "product2": "magic_liquid_weakness",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "magic_liquid_weakness",
+    "reagent2": "acid_gas_static",
+    "reagent3": null,
+    "product1": "magic_liquid_weakness",
+    "product2": "magic_liquid_weakness",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "magic_liquid_weakness",
+    "reagent2": "magic_liquid_protection_all",
+    "reagent3": null,
+    "product1": "smoke",
+    "product2": "acid",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "magic_liquid_weakness",
+    "reagent2": "midas",
+    "reagent3": null,
+    "product1": "smoke",
+    "product2": "liquid_fire",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "magic_liquid_weakness",
+    "reagent2": "midas_precursor",
+    "reagent3": null,
+    "product1": "smoke",
+    "product2": "liquid_fire",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "40",
+    "reagent1": "vomit",
+    "reagent2": "bone",
+    "reagent3": null,
+    "product1": "magic_liquid_weakness",
+    "product2": "magic_liquid_weakness",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "40",
+    "reagent1": "vomit",
+    "reagent2": "bone_box2d",
+    "reagent3": null,
+    "product1": "magic_liquid_weakness",
+    "product2": "magic_liquid_weakness",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "40",
+    "reagent1": "vomit",
+    "reagent2": "bone_static",
+    "reagent3": null,
+    "product1": "magic_liquid_weakness",
+    "product2": "magic_liquid_weakness",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "magic_liquid_polymorph",
+    "reagent2": "copper",
+    "reagent3": null,
+    "product1": "magic_gas_polymorph",
+    "product2": "magic_gas_polymorph",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "magic_liquid_teleportation",
+    "reagent2": "silver",
+    "reagent3": null,
+    "product1": "magic_gas_teleport",
+    "product2": "magic_gas_teleport",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "[fungus]",
+    "reagent2": "brass",
+    "reagent3": null,
+    "product1": "magic_gas_fungus",
+    "product2": "magic_gas_fungus",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "wizardstone",
+    "reagent2": "[fire]",
+    "reagent3": null,
+    "product1": "steam",
+    "product2": "lava",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "wizardstone",
+    "reagent2": "[water]",
+    "reagent3": null,
+    "product1": "smoke",
+    "product2": "magic_liquid_teleportation",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "wizardstone",
+    "reagent2": "magic_liquid_protection_all",
+    "reagent3": null,
+    "product1": "steam",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "wizardstone",
+    "reagent2": "magic_liquid_mana_regeneration",
+    "reagent3": null,
+    "product1": "smoke",
+    "product2": "acid",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "gold_molten",
+    "reagent2": "[cold]",
+    "reagent3": null,
+    "product1": "gold",
+    "product2": "[cold]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "silver_molten",
+    "reagent2": "[cold]",
+    "reagent3": null,
+    "product1": "silver",
+    "product2": "[cold]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "copper_molten",
+    "reagent2": "[cold]",
+    "reagent3": null,
+    "product1": "copper",
+    "product2": "[cold]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "brass_molten",
+    "reagent2": "[cold]",
+    "reagent3": null,
+    "product1": "brass",
+    "product2": "[cold]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "steel_molten",
+    "reagent2": "[cold]",
+    "reagent3": null,
+    "product1": "steel_sand",
+    "product2": "[cold]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "wax_molten",
+    "reagent2": "[cold]",
+    "reagent3": null,
+    "product1": "wax",
+    "product2": "[cold]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "[molten_metal]",
+    "reagent2": "[cold]",
+    "reagent3": null,
+    "product1": "metal_sand",
+    "product2": "[cold]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "gold_molten",
+    "reagent2": "[water]",
+    "reagent3": null,
+    "product1": "gold",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "silver_molten",
+    "reagent2": "[water]",
+    "reagent3": null,
+    "product1": "silver",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "copper_molten",
+    "reagent2": "[water]",
+    "reagent3": null,
+    "product1": "copper",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "brass_molten",
+    "reagent2": "[water]",
+    "reagent3": null,
+    "product1": "brass",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "steel_molten",
+    "reagent2": "[water]",
+    "reagent3": null,
+    "product1": "steel_sand",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "wax_molten",
+    "reagent2": "[water]",
+    "reagent3": null,
+    "product1": "wax",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "[molten_metal]",
+    "reagent2": "[water]",
+    "reagent3": null,
+    "product1": "metal_sand",
+    "product2": "steam",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "gold_molten",
+    "reagent2": "[frozen]",
+    "reagent3": null,
+    "product1": "gold",
+    "product2": "[frozen]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "silver_molten",
+    "reagent2": "[frozen]",
+    "reagent3": null,
+    "product1": "silver",
+    "product2": "[frozen]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "copper_molten",
+    "reagent2": "[frozen]",
+    "reagent3": null,
+    "product1": "copper",
+    "product2": "[frozen]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "brass_molten",
+    "reagent2": "[frozen]",
+    "reagent3": null,
+    "product1": "brass",
+    "product2": "[frozen]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "steel_molten",
+    "reagent2": "[frozen]",
+    "reagent3": null,
+    "product1": "steel_sand",
+    "product2": "[frozen]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "wax_molten",
+    "reagent2": "[frozen]",
+    "reagent3": null,
+    "product1": "wax",
+    "product2": "[frozen]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "[molten_metal]",
+    "reagent2": "[frozen]",
+    "reagent3": null,
+    "product1": "metal_sand",
+    "product2": "[frozen]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "30",
+    "reagent1": "[meltable_metal_generic]",
+    "reagent2": "[fire_strong]",
+    "reagent3": null,
+    "product1": "metal_sand_molten",
+    "product2": "[fire_strong]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "30",
+    "reagent1": "[meltable_metal_generic]",
+    "reagent2": "[lava]",
+    "reagent3": null,
+    "product1": "metal_sand_molten",
+    "product2": "[lava]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "rat_powder",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "fungus_powder",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "fungus_powder_bad",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "acid_gas_static",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "acid_gas",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "diamond",
+    "reagent2": "magic_liquid_random_polymorph",
+    "reagent3": null,
+    "product1": "silver",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "gold",
+    "reagent2": "magic_liquid_random_polymorph",
+    "reagent3": null,
+    "product1": "silver",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "silver",
+    "reagent2": "magic_liquid_polymorph",
+    "reagent3": null,
+    "product1": "copper",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "copper",
+    "reagent2": "magic_liquid_teleportation",
+    "reagent3": null,
+    "product1": "brass",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "brass",
+    "reagent2": "magic_liquid_unstable_teleportation",
+    "reagent3": null,
+    "product1": "metal_sand",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "magic_liquid_teleportation",
+    "reagent2": "[lava]",
+    "reagent3": null,
+    "product1": "blood_cold_vapour",
+    "product2": "[lava]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "70",
+    "reagent1": "magic_liquid_unstable_teleportation",
+    "reagent2": "[lava]",
+    "reagent3": null,
+    "product1": "blood_cold_vapour",
+    "product2": "[lava]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "blood",
+    "reagent2": "poison",
+    "reagent3": null,
+    "product1": "slime",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "blood",
+    "reagent2": "poison_gas",
+    "reagent3": null,
+    "product1": "slime",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "copper",
+    "reagent2": "brass",
+    "reagent3": "water",
+    "product1": "silver",
+    "product2": "smoke",
+    "product3": "smoke",
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "silver",
+    "reagent2": "copper",
+    "reagent3": "blood",
+    "product1": "diamond",
+    "product2": "smoke",
+    "product3": "smoke",
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "diamond",
+    "reagent2": "silver",
+    "reagent3": "blood_worm",
+    "product1": "purifying_powder",
+    "product2": "smoke",
+    "product3": "smoke",
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "diamond",
+    "reagent2": "magic_liquid_random_polymorph",
+    "reagent3": "radioactive_liquid",
+    "product1": "void_liquid",
+    "product2": "void_liquid",
+    "product3": "void_liquid",
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "void_liquid",
+    "reagent2": "radioactive_liquid",
+    "reagent3": null,
+    "product1": "void_liquid",
+    "product2": "void_liquid",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "void_liquid",
+    "reagent2": "[fungus]",
+    "reagent3": null,
+    "product1": "void_liquid",
+    "product2": "void_liquid",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "mimic_liquid",
+    "reagent2": "[any_liquid]",
+    "reagent3": null,
+    "product1": "[any_liquid]",
+    "product2": "[any_liquid]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "meat",
+    "reagent2": "poison",
+    "reagent3": null,
+    "product1": "rotten_meat",
+    "product2": "poison",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "50",
+    "reagent1": "brass",
+    "reagent2": "[fire_strong]",
+    "reagent3": null,
+    "product1": "shock_powder",
+    "product2": "[fire_strong]",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "shock_powder",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "100",
+    "reagent1": "purifying_powder",
+    "reagent2": "lava",
+    "reagent3": null,
+    "product1": "gunpowder_unstable",
+    "product2": "gunpowder_unstable",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "meat",
+    "reagent2": "[fire]",
+    "reagent3": "oil",
+    "product1": "meat_warm",
+    "product2": "[fire]",
+    "product3": "smoke",
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "meat_warm",
+    "reagent2": "[fire]",
+    "reagent3": "oil",
+    "product1": "meat_hot",
+    "product2": "[fire]",
+    "product3": "smoke",
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "meat_hot",
+    "reagent2": "[fire]",
+    "reagent3": "oil",
+    "product1": "meat_done",
+    "product2": "[fire]",
+    "product3": "smoke",
+    "notes": null
+  },
+  {
+    "reactionRate": "2",
+    "reagent1": "meat_done",
+    "reagent2": "[fire]",
+    "reagent3": "oil",
+    "product1": "meat_burned",
+    "product2": "[fire]",
+    "product3": "smoke",
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "meat",
+    "reagent2": "[lava]",
+    "reagent3": "oil",
+    "product1": "meat_warm",
+    "product2": "[lava]",
+    "product3": "smoke",
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "meat_warm",
+    "reagent2": "[lava]",
+    "reagent3": "oil",
+    "product1": "meat_hot",
+    "product2": "[lava]",
+    "product3": "smoke",
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "meat_hot",
+    "reagent2": "[lava]",
+    "reagent3": "oil",
+    "product1": "meat_done",
+    "product2": "[lava]",
+    "product3": "smoke",
+    "notes": null
+  },
+  {
+    "reactionRate": "2",
+    "reagent1": "meat_done",
+    "reagent2": "[lava]",
+    "reagent3": "oil",
+    "product1": "meat_burned",
+    "product2": "[lava]",
+    "product3": "smoke",
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "pus",
+    "reagent2": "water",
+    "reagent3": null,
+    "product1": "pus",
+    "product2": "pus",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "pus",
+    "reagent2": "radioactive_liquid",
+    "reagent3": null,
+    "product1": "pus",
+    "product2": "pus",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "40",
+    "reagent1": "pus",
+    "reagent2": "[fungus]",
+    "reagent3": null,
+    "product1": "fungi",
+    "product2": "fungi",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "pus",
+    "reagent2": "[gold]",
+    "reagent3": null,
+    "product1": "pus",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "pus",
+    "reagent2": "silver",
+    "reagent3": null,
+    "product1": "pus",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "pus",
+    "reagent2": "copper",
+    "reagent3": null,
+    "product1": "pus",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "20",
+    "reagent1": "pus",
+    "reagent2": "brass",
+    "reagent3": null,
+    "product1": "pus",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "pus",
+    "reagent2": "aluminium",
+    "reagent3": null,
+    "product1": "pus",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "pus",
+    "reagent2": "grass",
+    "reagent3": null,
+    "product1": "pus",
+    "product2": "smoke",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "pus",
+    "reagent2": "sand_static_rainforest",
+    "reagent3": null,
+    "product1": "pus",
+    "product2": "coal_static",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "pus",
+    "reagent2": "sand_static_rainforest_dark",
+    "reagent3": null,
+    "product1": "pus",
+    "product2": "coal_static",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "pus",
+    "reagent2": "soil_lush",
+    "reagent3": null,
+    "product1": "pus",
+    "product2": "coal",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "pus",
+    "reagent2": "soil_lush_dark",
+    "reagent3": null,
+    "product1": "pus",
+    "product2": "coal",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "pus",
+    "reagent2": "urine",
+    "reagent3": "material_confusion",
+    "product1": "magic_liquid",
+    "product2": "magic_liquid",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "10",
+    "reagent1": "just_death",
+    "reagent2": "air",
+    "reagent3": null,
+    "product1": "air",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "grass",
+    "reagent2": "magic_liquid_hp_regeneration",
+    "reagent3": null,
+    "product1": "grass_holy",
+    "product2": "air",
+    "product3": null,
+    "notes": null
+  },
+  {
+    "reactionRate": "80",
+    "reagent1": "grass_holy",
+    "reagent2": "urine",
+    "reagent3": null,
+    "product1": "grass",
+    "product2": "magic_gas_hp_regeneration",
+    "product3": null,
+    "notes": null
+  }
+]

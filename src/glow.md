@@ -108,7 +108,7 @@ const resetButton = Inputs.button(
       }
       return null;
     },
-  }
+  },
 );
 ```
 
@@ -246,7 +246,7 @@ function glowPlot(materials, width) {
             format: { opacity: false, fill: false, fy: false, stroke: false },
           },
           title: (d) => [`Material: ${d.name}`, `ID: ${d.id}`, `Glow: ${d.gfx_glow}`, `Type: ${d.type}`].join("\n"),
-        })
+        }),
       ),
       Plot.ruleY([0]),
       Plot.frame(),

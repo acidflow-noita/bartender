@@ -20,7 +20,12 @@ async function scrapeWikiPages(materialTags) {
       let description = $("#mw-content-text > div.mw-parser-output > p").first().text().trim();
 
       if (!description) {
-        description = $("#mw-content-text > div.mw-parser-output > div.spoiler-toggle.noexcerpt > div.spoiler-content > p").first().text().trim();
+        description = $(
+          "#mw-content-text > div.mw-parser-output > div.spoiler-toggle.noexcerpt > div.spoiler-content > p",
+        )
+          .first()
+          .text()
+          .trim();
       }
 
       // Add the description to the material object
