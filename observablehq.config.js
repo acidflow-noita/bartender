@@ -49,6 +49,15 @@ export default {
       ],
     },
     {
+      name: "Source Code",
+      pages: [
+        {
+          name: "GitHub",
+          path: "https://github.com/acidflow-noita/bartender/",
+        },
+      ],
+    },
+    {
       name: "Credits",
       pages: [{ name: "Thanks", path: "/thanks" }],
     },
@@ -56,22 +65,46 @@ export default {
 
   // Content to add to the head of the page, e.g. for a favicon:
   head: `<link rel="icon" href="favicon.svg" type="image/png">
+         <link rel="icon" href="github.svg" type="image/png">
 <style>
   nav a[href="https://runfast.stream/"],
   nav a[href="https://runfast.stream/"]:hover,
   nav a[href="https://runfast.stream/"]:focus,
   nav a[href="https://runfast.stream/"]:active {
-    display: block !important;
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    text-indent: -9999px !important;
+    overflow: hidden !important;
+  }
+  nav a[href="https://runfast.stream/"]::before {
+    content: "" !important;
+    display: inline-block !important;
+    width: 100% !important;
     height: 1.2em !important;
     background-image: url("https://noita-bartender-images.acidflow.stream/images/logo/runfast-logo.svg") !important;
     background-size: contain !important;
     background-repeat: no-repeat !important;
-    background-position: 1rem center !important;
-    text-indent: -9999px !important;
-    overflow: hidden !important;
+    background-position: left center !important;
+  }
+  nav a[href="https://github.com/acidflow-noita/bartender/"],
+  nav a[href="https://github.com/acidflow-noita/bartender/"]:hover,
+  nav a[href="https://github.com/acidflow-noita/bartender/"]:focus,
+  nav a[href="https://github.com/acidflow-noita/bartender/"]:active {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5em !important;
     width: 100% !important;
-    margin-left: 0 !important;
-    padding-left: 0 !important;
+  }
+  nav a[href="https://github.com/acidflow-noita/bartender/"]::before {
+    content: "" !important;
+    display: inline-block !important;
+    width: 1.2em !important;
+    height: 1.2em !important;
+    background-image: url("https://noita-bartender-images.acidflow.stream/images/icons/github.svg") !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
   }
 </style>`,
 
