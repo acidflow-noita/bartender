@@ -141,3 +141,12 @@ if (document.readyState === "loading") {
 <div class="grid grid-cols-1 grid-rowspan-1" style="grid-auto-rows: auto">
   <div class="card" id="graphContainer"></div>
 </div>
+
+  <div style="font-size: 0.85rem; text-align: left; color: rgba(255,255,255,0.7);">
+  <p style="margin: 0.5rem 0;">
+    Reactions Graph visualization by 
+    <a href="https://www.twitch.tv/kedesiklem" style="color: inherit; text-decoration: underline;">
+      <img src="https://noita-bartender-images.acidflow.stream/images/logo/KED.svg" style="width: 40px; vertical-align: middle; margin: 0 5px;">
+    </a>
+  </p>
+</div>
