@@ -91,29 +91,40 @@ export class LegendManager {
   }
 
   static _getInteractionsSection() {
+    const interactions = [
+      { keys: "Dbl Click", description: "Tag: Show/hide all materials in tag" },
+      { keys: "Ctrl+Click", description: "Material: Set as reagent" },
+      { keys: "Shift+Click", description: "Material: Set as product" },
+      { keys: "Ctrl+Shift+Click", description: "Material: Open wiki page" },
+      { keys: "Click", description: "Background: Reset highlighting" },
+    ];
+
+    const rows = interactions
+      .map(
+        (item) => `
+      <div style="display:flex;gap:12px;align-items:center;margin-bottom:8px;">
+        <kbd style="
+          background:#555;
+          border:1px solid #777;
+          border-radius:4px;
+          padding:4px 8px;
+          font-family:monospace;
+          font-size:11px;
+          font-weight:bold;
+          white-space:nowrap;
+          box-shadow:0 2px 0 #333;
+          flex-shrink:0;
+        ">${item.keys}</kbd>
+        <span style="font-size:13px;color:#ddd;white-space:nowrap;flex-shrink:0;">${item.description}</span>
+      </div>
+    `,
+      )
+      .join("");
+
     return `
-      <div>
-        <h4 style="margin:0 0 10px 0;color:#45b7d1;">INTERACTIONS</h4>
-        <div style="display:flex;align-items:flex-start;margin-bottom:8px;">
-          <div style="min-width:40px;text-align:center;font-weight:bold;background:#555;border-radius:4px;margin-right:10px;padding:2px 4px;">Dbl Click</div>
-          <span>Tag: Show/hide all materials in tag</span>
-        </div>
-        <div style="display:flex;align-items:flex-start;margin-bottom:8px;">
-          <div style="min-width:40px;text-align:center;font-weight:bold;background:#555;border-radius:4px;margin-right:10px;padding:2px 4px;">Ctrl+Click</div>
-          <span>Material: Set as reagent</span>
-        </div>
-        <div style="display:flex;align-items:flex-start;margin-bottom:8px;">
-          <div style="min-width:40px;text-align:center;font-weight:bold;background:#555;border-radius:4px;margin-right:10px;padding:2px 4px;">Shift+Click</div>
-          <span>Material: Set as product</span>
-        </div>
-        <div style="display:flex;align-items:flex-start;margin-bottom:8px;">
-          <div style="min-width:40px;text-align:center;font-weight:bold;background:#555;border-radius:4px;margin-right:10px;padding:2px 4px;">Ctrl+Shift+Click</div>
-          <span>Material: Open wiki page</span>
-        </div>
-        <div style="display:flex;align-items:flex-start;">
-          <div style="min-width:40px;text-align:center;font-weight:bold;background:#555;border-radius:4px;margin-right:10px;padding:2px 4px;">Click</div>
-          <span>Background: Reset highlighting</span>
-        </div>
+      <div style="padding:8px 0;">
+         <h4 style="margin:0 0 10px 0;color:#45b7d1;">INTERACTIONS</h4>
+        ${rows}
       </div>
     `;
   }
