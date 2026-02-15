@@ -125,6 +125,15 @@ export class ChoicesInitializer {
         productChoices,
       });
 
+      // Set initial selections from URL parameters
+      this.state.selectedReagents.forEach((reagentId) => {
+        reagentChoices.setChoiceByValue(reagentId);
+      });
+
+      if (this.state.selectedProduct) {
+        productChoices.setChoiceByValue(this.state.selectedProduct);
+      }
+
       // Setup event handlers
       this.setupEventHandlers(reagentSelectorElement, productSelectorElement);
 
