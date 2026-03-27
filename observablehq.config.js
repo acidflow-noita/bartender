@@ -64,8 +64,7 @@ export default {
   ],
 
   // Content to add to the head of the page, e.g. for a favicon:
-  head: `<link rel="icon" href="favicon.svg" type="image/svg+xml">
-         <link rel="icon" href="https://noita-bartender-images.acidflow.stream/images/icons/github.svg" type="image/svg+xml">
+  head: `<link rel="icon" href="favicon.ico" type="image/x-icon">
 <style>
   nav a[href="https://runfast.stream/"],
   nav a[href="https://runfast.stream/"]:hover,
