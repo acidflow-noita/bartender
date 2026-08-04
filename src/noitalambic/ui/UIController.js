@@ -6,11 +6,17 @@ import { CONFIG } from "../config/config.js";
 import { UIHelper } from "./UIHelper.js";
 
 export class UIController {
-  constructor(state, reactionFilter, graphRenderer, dataRepo) {
+  // reactionSetWorkspace/reactionSetPanel are optional: pass them once the multi-set feature
+  // (ReactionSetPanel) is mounted, so the Share/Reset buttons can also account for the active
+  // reaction sets and groups. Existing callers that only use the legacy single-selection mode
+  // keep working unchanged.
+  constructor(state, reactionFilter, graphRenderer, dataRepo, reactionSetWorkspace = null, reactionSetPanel = null) {
     this.state = state;
     this.reactionFilter = reactionFilter;
     this.graphRenderer = graphRenderer;
     this.dataRepo = dataRepo;
+    this.reactionSetWorkspace = reactionSetWorkspace;
+    this.reactionSetPanel = reactionSetPanel;
   }
 
   createShareButton(Inputs, htl) {
@@ -28,6 +34,9 @@ export class UIController {
         }
         if (this.state.minReactionSpeed > 0) {
           url.searchParams.set("minSpeed", this.state.minReactionSpeed.toString());
+        }
+        if (this.reactionSetWorkspace && this.reactionSetWorkspace.manager.sets.length > 0) {
+          url.searchParams.set("sets", this.reactionSetWorkspace.encodeToURLParam());
         }
 
         const shareUrl = url.toString();
@@ -64,6 +73,13 @@ export class UIController {
 
           this.updateChoicesOptions();
           this.updateUI();
+
+          // Reset also clears the reaction sets panel, if present, back to a single empty set.
+          if (this.reactionSetWorkspace) {
+            this.reactionSetWorkspace.reset(true);
+            this.reactionSetPanel?.rebuild();
+          }
+
           return null;
         },
       },
@@ -90,12 +106,28 @@ export class UIController {
     // Clone the SVG to avoid modifying the original
     const clonedSvg = svgElement.cloneNode(true);
 
+    // Bake the ACTUAL rendered colors into the clone before anything else changes it. A
+    // standalone exported .svg file has no access to this page's stylesheets (custom.css, or
+    // any <style> injected elsewhere in the document) - only whatever travels as attributes/
+    // inline styles on the elements themselves. Material node colors are normally set as a
+    // plain inline "fill" attribute, but presentation attributes lose to CSS rules in the
+    // cascade: any stylesheet rule that happens to target these nodes on screen (even
+    // unintentionally, e.g. a generic "circle" or theme selector in custom.css) silently wins
+    // live and is exactly what disappears on export, since none of that CSS travels with the
+    // file. Reading the live, computed fill/stroke of every element and writing it back as an
+    // explicit inline style on the clone guarantees the export matches what is actually on
+    // screen, regardless of where that color came from.
+    this._inlineComputedColors(svgElement, clonedSvg);
+
     // Remove interactive elements that might interfere with display
     const removeElements = clonedSvg.querySelectorAll('.tag-visibility-icon, image[href*="icons/"]');
     removeElements.forEach((el) => el.remove());
 
-    // Ensure proper styling for export
-    const style = document.createElement("style");
+    // Ensure proper styling for export. Uses the SVG namespace explicitly - document.createElement
+    // always creates an HTML-namespaced element, which is invalid once this file is reopened as
+    // standalone SVG/XML rather than embedded in this HTML page, and can cause stricter SVG
+    // parsers to reject or mishandle the whole document.
+    const style = document.createElementNS("http://www.w3.org/2000/svg", "style");
     style.textContent = `
       .node-label { font-family: Arial, sans-serif; }
       .material-image { image-rendering: optimizeQuality; }
@@ -134,6 +166,28 @@ export class UIController {
     URL.revokeObjectURL(url);
 
     UIHelper.showNotification("Graph exported as SVG");
+  }
+
+  // Copies the live, computed fill/stroke of every element in liveRoot onto the corresponding
+  // element in cloneRoot. Both trees must still be structurally identical when this runs (call
+  // it right after cloneNode(true), before removing or otherwise mutating the clone), since
+  // pairing is done by matching traversal order via querySelectorAll("*").
+  _inlineComputedColors(liveRoot, cloneRoot) {
+    const liveElements = liveRoot.querySelectorAll("*");
+    const cloneElements = cloneRoot.querySelectorAll("*");
+
+    liveElements.forEach((liveEl, index) => {
+      const cloneEl = cloneElements[index];
+      if (!cloneEl) return;
+
+      const computed = window.getComputedStyle(liveEl);
+      if (computed.fill && computed.fill !== "none") {
+        cloneEl.style.fill = computed.fill;
+      }
+      if (computed.stroke && computed.stroke !== "none") {
+        cloneEl.style.stroke = computed.stroke;
+      }
+    });
   }
 
   createSpeedSlider() {
@@ -250,5 +304,16 @@ export class UIController {
 
     this.graphRenderer.render(filteredReactions);
     this.state.updateURL();
+  }
+
+  // Multi-set counterpart of updateUI(), called by ReactionSetPanel every time the union /
+  // intersection / difference of the active reaction sets is recomputed.
+  updateUIFromResolvedSets(result) {
+    const reactionsCountContainer = document.getElementById("reactionsCount");
+    if (reactionsCountContainer) {
+      reactionsCountContainer.innerHTML = `Reactions found: <code class="bigger-number-better">${result.totalCount}</code>`;
+    }
+
+    this.graphRenderer.render(result.entries);
   }
 }
