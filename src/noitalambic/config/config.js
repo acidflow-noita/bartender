@@ -69,4 +69,20 @@ export const CONFIG = {
     imageBase: "https://noita-bartender-images.acidflow.stream",
     wikiBase: "https://noita.wiki.gg/wiki/",
   },
+  // Configuration for the multi-selection "reaction set" feature.
+  reactionSets: {
+    // Maximum number of reaction sets a user can create in parallel.
+    maxSets: 8,
+    // Default color palette assigned to new sets, used for the union rings on the graph.
+    defaultColors: ["#ff6b6b", "#45b7d1", "#ffd93d", "#6bcb77", "#c77dff", "#ff9f1c", "#f72585", "#4cc9f0"],
+    // localStorage key used to persist named configurations (save/load feature).
+    storageKey: "noitalambic.reactionSets.savedConfigs",
+  },
+  // Default values for the advanced reaction filters available per reaction set.
+  advancedFilters: {
+    minReagentCount: 0,
+    maxReagentCount: 3,
+    minProductCount: 0,
+    maxProductCount: 3,
+  },
 };

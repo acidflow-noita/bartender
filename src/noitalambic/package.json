@@ -1,0 +1,12 @@
+{
+  "name": "noitalambic",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  },
+  "devDependencies": {
+    "jsdom": "^24.0.0",
+    "d3": "^7.9.0"
+  }
+}

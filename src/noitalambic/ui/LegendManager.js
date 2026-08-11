@@ -185,6 +185,11 @@ export class LegendManager {
                 <image x="8" y="8" width="8" height="8" xlink:href="${CONFIG.urls.imageBase}/images/icons/eye-open.svg"></image>`,
         label: "Tag (group of materials)",
       },
+      {
+        icon: `<circle cx="12" cy="12" r="6" fill="${CONFIG.graph.colors.reactionNode}" stroke="${CONFIG.graph.colors.nodeStroke}" stroke-width="1"></circle>
+                <circle cx="12" cy="12" r="10" fill="none" stroke="#c77dff" stroke-width="3"></circle>`,
+        label: "Colored ring = originating reaction set(s)",
+      },
     ];
 
     const items = nodes
@@ -293,7 +298,7 @@ export class LegendManager {
       }
     });
 
-    // Stocker les listeners pour nettoyage ultérieur
+    // Store the listeners so they can be cleaned up later
     if (!this.#tooltipListeners.has(container)) {
       this.#tooltipListeners.set(container, []);
     }

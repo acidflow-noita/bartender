@@ -10,12 +10,23 @@ export class GraphDataBuilder {
     this.dataRepo = dataRepo;
   }
 
+  // filteredReactions accepts two shapes for backward compatibility:
+  //  - a plain array of reaction objects (legacy single-selection mode), or
+  //  - an array of {reaction, index, setIds, colors, names} entries produced by
+  //    ReactionSetResolver.resolve() for the multi-set union/intersection/difference feature.
+  // In the legacy shape, the reaction node id is derived from the array position (unchanged
+  // behavior). In the entry shape, the *original* dataRepo index is used instead, which is what
+  // allows several reaction sets to be merged/deduplicated correctly by the resolver.
   buildGraphData(filteredReactions) {
+    const entries = filteredReactions.map((item, position) =>
+      item && item.reaction ? item : { reaction: item, index: position, setIds: [], colors: [], names: [] },
+    );
+
     const nodes = new Map();
     const links = [];
     const linkKeys = new Set();
 
-    filteredReactions.forEach((reaction, index) => {
+    entries.forEach(({ reaction, index, setIds, colors, names }) => {
       const reactionId = `reaction_${index}`;
       nodes.set(reactionId, {
         id: reactionId,
@@ -23,6 +34,10 @@ export class GraphDataBuilder {
         reaction,
         radius: CONFIG.graph.sizes.reactionRadius,
         color: CONFIG.graph.colors.reactionNode,
+        // Which reaction set(s) this reaction came from, used to draw the origin ring.
+        setIds: setIds || [],
+        setColors: colors || [],
+        setNames: names || [],
       });
 
       this._processFields(
