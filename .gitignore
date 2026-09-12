@@ -5,3 +5,6 @@ yarn-error.log
 .kiro/
 auth-worker/.dev.vars
 /task/
+
+# Generated .js bridge for Observable preview (source is the Git submodule).
+/src/fungal/_upstream/
