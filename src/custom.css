@@ -444,18 +444,30 @@ body {
   opacity: 1;
 }
 
+:root {
+  --choices-control-height: 56px;
+}
+
+/* Reserve selected-item space on every page. Extra chips scroll inside the
+   control; the dropdown is a sibling, so its menu is not clipped. */
 .choices__inner {
   display: inline-block;
   vertical-align: top;
   width: 100%;
   max-width: 100%;
   background-color: #3b3b3b;
-  padding: 7.5px 7.5px 3.75px;
+  padding: 6px;
   border: 1px solid #ddd;
   border-radius: 2.5px;
   font-size: 14px;
-  min-height: 44px;
-  overflow: hidden;
+  height: var(--choices-control-height);
+  min-height: var(--choices-control-height);
+  max-height: var(--choices-control-height);
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
   box-sizing: border-box;
   /* border-radius: 0.75rem; */
 }
@@ -532,6 +544,16 @@ body {
 /* Style for highlighted items in the dropdown */
 .choices__list[aria-expanded] .choices__item--selectable.is-highlighted {
   background-color: oklch(30.8% 0.042 265.755);
+}
+
+/* Keep material chips compact enough to fit the reserved field height.
+   Older page templates have inline image margins; normalize those here. */
+.choices__list--multiple .choices__item img {
+  width: 24px;
+  height: 24px !important;
+  margin: 0 6px 0 0 !important;
+  vertical-align: middle;
+  object-fit: contain;
 }
 
 /* Style for selected items */

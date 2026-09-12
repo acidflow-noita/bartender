@@ -12,6 +12,10 @@ export default {
       ],
     },
     {
+      name: "Fungal shifting (Experimental)",
+      pages: [{ name: "Fungal Shift Planner", path: "/fungal_shifting" }],
+    },
+    {
       name: "Materials properties",
       pages: [
         // { name: "Materials Explorer", path: "/materials" },

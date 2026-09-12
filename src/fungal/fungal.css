@@ -1,0 +1,132 @@
+/* Deliberately scoped: Observable's native forms/tables, with no changes to
+   other pages and no inherited fixed label widths inside the layout. */
+#fungal-app {
+  --fs-control-height: 36px;
+  font: 14px/1.5 var(--sans-serif, system-ui, sans-serif);
+  width: 100%;
+}
+#fungal-app [hidden] { display: none !important; }
+#fungal-app h1 { margin: 0 0 .4rem; font-size: 28px; }
+#fungal-app h2 { margin: 0 0 .4rem; font: 600 18px/1.4 var(--sans-serif, system-ui, sans-serif); }
+#fungal-app h3 { margin: 1rem 0 .6rem; font: 600 15px/1.4 var(--sans-serif, system-ui, sans-serif); }
+#fungal-app p { margin: 0; max-width: none; font: inherit; }
+#fungal-app header { display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.2rem; }
+#fungal-app header p,
+#fungal-app section > p { color: var(--theme-foreground-muted); }
+#fungal-app form { width: auto; max-width: none; min-width: 0; margin: 0; }
+#fungal-app form > label { width: auto; align-self: auto; padding: 0; margin: 0; }
+#fungal-app label { margin: 0; font-family: inherit; }
+#fungal-app form button {
+  width: auto;
+  min-height: var(--fs-control-height);
+  padding: .4rem .8rem;
+  border: 1px solid var(--theme-foreground-fainter);
+  border-radius: 5px;
+  background: var(--theme-background-alt);
+  color: var(--theme-foreground);
+  font: 500 13px/1.2 var(--sans-serif, system-ui, sans-serif);
+  white-space: nowrap;
+  cursor: pointer;
+}
+#fungal-app form button:hover:enabled { border-color: var(--theme-foreground-focus); }
+#fungal-app form button:disabled { opacity: .45; cursor: default; }
+#fungal-app :is(button, input, select):focus-visible { outline: 2px solid var(--theme-foreground-focus); outline-offset: 2px; }
+#fungal-app .fs-inline { display: flex; align-items: center; flex-wrap: wrap; gap: .6rem; }
+#fungal-app .fs-inline > form { width: auto; }
+#fungal-app .fs-setup {
+  display: grid;
+  grid-template-columns: minmax(15rem, 1fr) minmax(20rem, 1.6fr);
+  gap: 1.5rem;
+  padding: 1rem;
+  border: 1px solid var(--theme-foreground-faintest);
+  border-radius: 8px;
+  background: var(--theme-background-alt);
+}
+#fungal-app .fs-seed-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: .5rem; }
+#fungal-app .fs-seed-row > form:first-child { display: flex; flex-direction: column; align-items: stretch; gap: 6px; width: 100%; }
+#fungal-app .fs-seed-row > form:first-child > label { font-weight: 600; font-size: 13px; }
+#fungal-app input:is([type="text"], [type="number"]) { min-height: var(--fs-control-height); min-width: 0; padding: .35rem .5rem; border-radius: 5px; }
+#fungal-app .fs-status { min-height: 1.5em; margin-top: .4rem; font-size: 12px; color: var(--theme-foreground-muted); }
+#fungal-app .fs-error { margin-top: .4rem; font-size: 13px; color: #fda4af; }
+#fungal-app .fs-mode-summary { margin-block: .6rem; min-height: 1.4em; font-size: 12px; }
+#fungal-app .fs-modes { display: flex; flex-direction: column; align-items: stretch; gap: 6px; width: 100%; }
+#fungal-app .fs-modes > label { font-size: 13px; font-weight: 600; }
+#fungal-app .fs-modes > div { display: flex; flex-wrap: wrap; gap: .4rem; }
+#fungal-app .fs-modes > div > label { display: inline-flex; align-items: center; gap: .4rem; min-height: var(--fs-control-height); margin: 0; padding: .35rem .6rem; border: 1px solid var(--theme-foreground-fainter); border-radius: 5px; font-size: 13px; white-space: nowrap; }
+#fungal-app .fs-modes input { margin: 0; }
+#fungal-app .fs-modes label:has(input:checked) { border-color: var(--theme-foreground-focus); background: color-mix(in srgb, var(--theme-foreground-focus) 12%, transparent); }
+#fungal-app .fs-setup form:has(> input[type="checkbox"]) { gap: .5rem; margin-top: .55rem; }
+#fungal-app .fs-setup form > input[type="checkbox"] { order: -1; margin: 0; }
+#fungal-app .fs-tabs { display: block; width: 100%; max-width: none; margin: 1rem 0; }
+#fungal-app .fs-tabs > div { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; border-bottom: 1px solid var(--theme-foreground-faintest); }
+#fungal-app .fs-tabs > div > label { position: relative; display: flex; justify-content: center; align-items: center; min-height: 44px; margin: 0; padding: .6rem; border-bottom: 2px solid transparent; font-size: 14px; font-weight: 600; color: var(--theme-foreground-muted); text-align: center; }
+#fungal-app .fs-tabs label:has(input:checked) { color: var(--theme-foreground-focus); border-bottom-color: currentColor; background: color-mix(in srgb, var(--theme-foreground-focus) 7%, transparent); }
+#fungal-app .fs-tabs label:focus-within { outline: 2px solid var(--theme-foreground-focus); outline-offset: -3px; }
+#fungal-app .fs-tabs input { position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0; }
+#fungal-app section[data-view] { margin-block: 1.25rem; }
+#fungal-app .fs-goals { margin-block: 1rem; }
+#fungal-app .fs-goal { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) 36px; align-items: end; gap: .75rem; margin-bottom: .8rem; }
+#fungal-app .fs-remove { align-self: end; margin-bottom: calc((var(--choices-control-height) - 36px) / 2); }
+#fungal-app .fs-remove button { width: 36px; padding: 0; font-size: 22px; background: transparent; }
+#fungal-app .fs-remove button:hover { color: #fda4af; }
+#fungal-app .fs-material-field { min-width: 0; }
+#fungal-app .fs-material-field > label { display: block; margin: 0 0 6px; font: 600 13px/1.4 var(--sans-serif, system-ui, sans-serif); }
+#fungal-app .fs-material-count { color: var(--theme-foreground-muted); font-weight: 400; font-variant-numeric: tabular-nums; }
+#fungal-app .choices { margin: 0; }
+#fungal-app .choices__inner { display: flex; align-items: center; border-radius: 5px; }
+#fungal-app .choices__input--cloned { flex: 1 1 2rem; min-width: 1ch; max-width: 100%; margin: 0; }
+#fungal-app .choices__list--multiple { flex: 0 1 auto; min-width: 0; max-width: 100%; }
+#fungal-app .choices__list--multiple .choices__item { position: relative; max-width: 100%; margin: 0; padding-right: 2.4rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#fungal-app .choices__list--multiple .choices__button { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); margin: 0; }
+#fungal-app .choices__list--dropdown { width: 100%; }
+#fungal-app .choices__list--dropdown .choices__item--selectable { padding-right: .8rem; }
+#fungal-app .fs-material { display: inline-flex; align-items: center; gap: .4rem; max-width: 100%; font-size: 13px; line-height: 1.35; text-align: left; }
+#fungal-app .fs-material img { flex: 0 0 24px; width: 24px; height: 24px; object-fit: contain; image-rendering: pixelated; }
+#fungal-app .fs-material > span:last-child { font-size: 12px; overflow-wrap: anywhere; }
+#fungal-app .fs-materials { display: flex; flex-direction: column; gap: .25rem; }
+#fungal-app .fs-held { font-weight: 600; color: var(--theme-foreground-focus); }
+#fungal-app .fs-muted { color: var(--theme-foreground-muted); }
+#fungal-app .fs-search-actions { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--theme-foreground-faintest); }
+#fungal-app .fs-search-status { min-height: 1.5em; margin-top: .5rem; font-size: 13px; }
+#fungal-app .fs-primary button { border-color: var(--theme-foreground-focus); background: color-mix(in srgb, var(--theme-foreground-focus) 18%, var(--theme-background)); }
+#fungal-app .fs-recipes { margin-top: 1.25rem; }
+#fungal-app .fs-recipes > p { margin-top: .75rem; }
+#fungal-app .fs-table { width: 100%; min-width: 0; max-width: 100%; margin-block: 1rem; overflow: hidden; contain: inline-size; }
+#fungal-app .fs-table form { width: 100%; max-width: none; margin: 0; }
+#fungal-app .fs-table table { min-width: 640px; }
+#fungal-app .fs-table td { height: auto; min-height: 0; padding: .5rem; }
+#fungal-app .fs-table th { white-space: normal; }
+#fungal-app .fs-table .fs-material { flex-wrap: wrap; }
+#fungal-app .fs-table .fs-material > span:last-child { width: 100%; padding-left: 30px; }
+#fungal-app .fs-steps { height: 340px; }
+#fungal-app .fs-world, #fungal-app .fs-pool-table { height: 300px; }
+#fungal-app .fs-progress { height: 85px; }
+#fungal-app .fs-predictions { height: 440px; }
+#fungal-app .fs-pools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+#fungal-app .fs-pool-table table { min-width: 320px; }
+#fungal-app .fs-simulation-controls { display: grid; grid-template-columns: 7rem 10rem minmax(12rem, 1fr) auto; align-items: end; gap: .75rem; margin-block: 1rem; }
+#fungal-app .fs-simulation-controls > form:has(input[type="number"]) { display: flex; flex-direction: column; align-items: stretch; gap: 6px; width: 100%; }
+#fungal-app .fs-simulation-controls > form:has(input[type="number"]) > label { font-size: 13px; line-height: 1.4; min-height: 2.8em; }
+#fungal-app .fs-simulation-controls input[type="number"] { height: var(--choices-control-height); }
+#fungal-app .fs-simulation-controls > form:last-child { margin-bottom: calc((var(--choices-control-height) - var(--fs-control-height)) / 2); }
+#fungal-app .fs-slider { margin-block: 1rem; }
+#fungal-app .fs-slider form { width: 100%; gap: 1rem; }
+#fungal-app .fs-slider input[type="number"] { flex: 0 0 5rem; width: 5rem; }
+#fungal-app details { margin-block: .8rem; }
+#fungal-app summary { width: fit-content; cursor: pointer; font-size: 13px; color: var(--theme-foreground-muted); }
+#fungal-app details > p { margin-top: .6rem; }
+#fungal-app .fs-help .fs-inline { margin-block: .8rem; }
+.fs-attribution { color: var(--theme-foreground-muted); font: 12px/1.5 var(--sans-serif, system-ui, sans-serif); }
+@media (max-width: 1100px) {
+  #fungal-app .fs-setup { grid-template-columns: minmax(0, 1fr); gap: .8rem; }
+  #fungal-app .fs-goal { grid-template-columns: minmax(0, 1fr) 36px; padding-bottom: .8rem; border-bottom: 1px solid var(--theme-foreground-faintest); }
+  #fungal-app .fs-goal > .fs-material-field { grid-column: 1; }
+  #fungal-app .fs-goal > .fs-remove { grid-column: 2; grid-row: 1; }
+  #fungal-app .fs-simulation-controls { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  #fungal-app .fs-pools { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 600px) {
+  #fungal-app .fs-tabs > div > label { font-size: 12px; padding-inline: .2rem; }
+  #fungal-app .fs-simulation-controls { grid-template-columns: minmax(0, 1fr); }
+  #fungal-app .fs-slider form { flex-direction: column; align-items: stretch; gap: .5rem; }
+}

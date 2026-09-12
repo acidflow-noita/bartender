@@ -24,3 +24,5 @@ I'd like to thank (in no particular order):
 - Horscht -- for making [EZWand](https://github.com/TheHorscht/EZWand).
 - [Kedesiklem](https://github.com/kedesiklem) -- for the [graph extention](https://bartender.runfast.stream/reactions_graph_finder)
 - 「sophie」, DunkOrSlam, UserK, FuryForged -- for providing early feedback.
+
+- [liquidcake1](https://github.com/liquidcake1/noita-fungal), [Lymm](https://github.com/Lymm37/noita-telescope), and [Seva Maltsev](https://github.com/TwoAbove/noita-tools) — for the fungal-shifting planner, prediction logic, and Noita PRNG.

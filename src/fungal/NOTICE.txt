@@ -1,0 +1,43 @@
+Fungal shift prediction and planning logic ported from:
+https://github.com/liquidcake1/noita-fungal
+Revision dd54fd7669b6a218e72bf500eade560173beff65
+The original solver and other original contributions are dedicated to the public
+domain under CC0: https://creativecommons.org/publicdomain/zero/1.0/
+The source HTML/CSS UI is not included in this port.
+shifts.js, materials.js, nolla-prng.js, and solver.js retain the source logic
+verbatim; only relative import paths and this attribution header are adapted.
+engine.js adapts the original index.html table calculations to data for native
+Observable tables; goals.js contains its original constraint function unchanged.
+The worker calls the source solver directly, without changed search ranges,
+candidate pruning, probability weights, recipe sorting, or automatic job limits.
+The source UI and solver use 20 iterations in all modes; the underlying source
+prediction helper separately supports 200 in Hyper. The UI keeps the former.
+Material options follow the source seed-generated Set, including Air and
+custom additions, and accumulate across seed/mode changes. Bartender metadata
+provides labels/images only; it never widens the selectable material set.
+
+The shift engine and Nolla PRNG derive from Lymm's Telescope:
+https://github.com/Lymm37/noita-telescope
+Copyright (c) 2026 Lymm
+and noita-tools (Noitool): https://github.com/TwoAbove/noita-tools
+Copyright (c) 2022 Seva Maltsev <me@seva.dev> (https://seva.dev/)
+
+MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
