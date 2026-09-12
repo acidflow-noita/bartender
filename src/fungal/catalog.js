@@ -45,14 +45,16 @@ export function apotheosisMaterials(base, documents) {
 
 // The original seed_changed adds these IDs to a session-wide Set. It does
 // not clear materials when the seed or mode changes, and does not enumerate
-// the metadata database or every possible branch of by_held.
+// the metadata database. The current source includes every held/reroll branch.
 export function appendSourceMaterials(ids, world) {
   if (!world) return;
   ids.add("air");
   for (const shifts of world.all_shifts) {
-    for (const shift of shifts) {
-      for (const id of shift.base) ids.add(id);
-      ids.add(shift.target);
+    for (const branches of shifts) {
+      for (const shift of Object.values(branches)) {
+        for (const id of shift.fromMaterials) ids.add(id);
+        ids.add(shift.toMaterial);
+      }
     }
   }
 }

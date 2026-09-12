@@ -1,4 +1,4 @@
-import { sourceState, seedNumber, compileGoals, MODES } from "./engine.js";
+import { sourceState, seedNumber, compileGoals, goalErrorMessage, MODES, maxShifts } from "./engine.js";
 import { materialCatalog, appendSourceMaterials } from "./catalog.js";
 import { emptySession, EMPTY_GOAL, VIEWS, isMaterialId } from "./session.js";
 
@@ -38,8 +38,11 @@ export function createModel(initial, {base, apotheosis, workerFactory}) {
     // become selectable before restoring their values.
     const restoredIds = [...input.custom, ...input.goals.flatMap((g) => Object.values(g)), ...input.held].filter(Boolean);
     for (const id of restoredIds) materialIds.add(id);
+    const limit = maxShifts[input.mode];
+    input.after = Math.max(0, Math.min(input.after, limit));
+    input.transition = input.cycle === 28 ? limit : Math.max(1, Math.min(input.transition ?? limit, limit));
     const calculation = calculate(input, clear ? null : state?.world);
-    state = {...input, ...calculation, catalog: catalogue(input, calculation.world, true), search: idleSearch()};
+    state = {...input, ...calculation, catalog: catalogue(input, calculation.world, true), search: idleSearch(), simulationSolution: null};
     notify();
   }
   restore(initial, true);
@@ -47,7 +50,7 @@ export function createModel(initial, {base, apotheosis, workerFactory}) {
   return {
     get: () => state,
     snapshot: () => ({seed: state.seed, mode: state.mode, spoilers: state.spoilers, view: state.view,
-      cycle: state.cycle, goals: state.goals, custom: state.custom, held: state.held, after: state.after}),
+      cycle: state.cycle, goals: state.goals, custom: state.custom, held: state.held, after: state.after, transition: state.transition}),
     subscribe(listener) { listeners.add(listener); listener(state); return () => listeners.delete(listener); },
     restore: (next) => restore(next),
     reset: () => restore(emptySession(), true),
@@ -57,27 +60,42 @@ export function createModel(initial, {base, apotheosis, workerFactory}) {
       cancelWorker();
       const input = {...state, seed};
       const calculation = calculate(input, state.world);
-      patch({seed, ...calculation, catalog: catalogue(input, calculation.world), search: idleSearch()});
+      patch({seed, ...calculation, catalog: catalogue(input, calculation.world), search: idleSearch(), simulationSolution: null});
     },
     setMode(mode) {
       if (!MODES.some((m) => m.id === mode) || mode === state.mode) return;
       cancelWorker();
-      const input = {...state, mode};
+      const previousLimit = maxShifts[state.mode], limit = maxShifts[mode];
+      const after = state.after === previousLimit ? limit : Math.min(state.after, limit);
+      const transition = state.transition === previousLimit || state.cycle === 28 ? limit : Math.min(state.transition, limit);
+      const input = {...state, mode, after, transition};
       const calculation = calculate(input, state.world);
-      patch({mode, ...calculation, catalog: catalogue(input, calculation.world), search: idleSearch()});
+      patch({mode, after, transition, held: state.held.slice(0, limit), ...calculation, catalog: catalogue(input, calculation.world), search: idleSearch(), simulationSolution: null});
     },
     setSpoilers(spoilers) { if (!!spoilers !== state.spoilers) patch({spoilers: !!spoilers}); },
     setView(view) { if (VIEWS.includes(view) && view !== state.view) patch({view}); },
-    setCycle(cycle) { if (Number.isInteger(cycle) && cycle >= 0 && cycle <= 28 && cycle !== state.cycle) patch({cycle}); },
-    setAfter(after) { if (Number.isInteger(after) && after >= 0 && after <= 20 && after !== state.after) patch({after}); },
+    setCycle(cycle) {
+      if (Number.isInteger(cycle) && cycle >= 0 && cycle <= 28 && cycle !== state.cycle) {
+        patch({cycle, transition: cycle === 28 ? maxShifts[state.mode] : state.transition, simulationSolution: null});
+      }
+    },
+    setAfter(after) {
+      const limit = state.simulationSolution == null ? maxShifts[state.mode] : state.search.recipes[state.simulationSolution].length;
+      if (Number.isInteger(after) && after >= 0 && after <= limit && after !== state.after) patch({after});
+    },
+    setTransition(transition) {
+      if (state.cycle < 28 && Number.isInteger(transition) && transition >= 1 && transition <= maxShifts[state.mode] && transition !== state.transition) {
+        patch({transition, simulationSolution: null});
+      }
+    },
     setGoal(index, key, value) {
       if (!state.goals[index] || !["base", "target", "stain"].includes(key) || !materialIds.has(value)) return;
       if (state.goals[index][key] === value) return;
       cancelWorker();
-      patch({goals: state.goals.map((g, i) => i === index ? {...g, [key]: value} : g), search: idleSearch()});
+      patch({goals: state.goals.map((g, i) => i === index ? {...g, [key]: value} : g), search: idleSearch(), simulationSolution: null});
     },
-    addGoal() { cancelWorker(); patch({goals: [...state.goals, EMPTY_GOAL()], search: idleSearch()}); },
-    removeGoal(index) { cancelWorker(); patch({goals: state.goals.filter((_, i) => i !== index), search: idleSearch()}); },
+    addGoal() { cancelWorker(); patch({goals: [...state.goals, EMPTY_GOAL()], search: idleSearch(), simulationSolution: null}); },
+    removeGoal(index) { cancelWorker(); patch({goals: state.goals.filter((_, i) => i !== index), search: idleSearch(), simulationSolution: null}); },
     addMaterial(value) {
       const id = value.trim();
       if (!isMaterialId(id)) throw new Error("Use a material ID containing letters, numbers and underscores.");
@@ -87,27 +105,31 @@ export function createModel(initial, {base, apotheosis, workerFactory}) {
       patch({custom, catalog: materialCatalog(base, apotheosis, state.mode, materialIds)});
     },
     setHeld(index, value) {
-      if (!Number.isInteger(index) || index < 0 || index >= 20 || !materialIds.has(value)) return;
+      if (!Number.isInteger(index) || index < 0 || index >= maxShifts[state.mode] || !materialIds.has(value)) return;
       if ((state.held[index] || "air") === value) return;
       const held = state.held.slice();
       held[index] = value;
-      patch({held});
+      patch({held, simulationSolution: null});
     },
-    clearHeld() { patch({held: []}); },
+    clearHeld() { patch({held: [], simulationSolution: null}); },
+    useManualSimulation() { if (state.simulationSolution != null) patch({simulationSolution: null}); },
     selectRecipe(index) {
-      if (Number.isInteger(index) && index >= 0 && index < state.search.recipes.length && index !== state.search.selected) {
-        patch({search: {...state.search, selected: index}});
-      }
+      if (!Number.isInteger(index) || index < 0 || index >= state.search.recipes.length) return;
+      const recipe = state.search.recipes[index];
+      for (const id of recipe.held_materials) if (typeof id === "string") materialIds.add(id);
+      patch({view: "simulation", cycle: recipe.base_ng, held: recipe.held_materials.slice(), after: recipe.length,
+        transition: recipe.shift_nr < recipe.length ? recipe.shift_nr : maxShifts[state.mode], simulationSolution: index,
+        catalog: materialCatalog(base, apotheosis, state.mode, materialIds), search: {...state.search, selected: index}});
     },
     startSearch() {
       cancelWorker();
       try {
         const seed = seedNumber(state.seed);
         const {constraints, error} = compileGoals(state.goals);
-        if (error) throw new Error(error);
+        if (error) throw new Error(goalErrorMessage(error));
         const active = worker = workerFactory();
         const token = generation;
-        patch({search: {...idleSearch(), status: "running"}});
+        patch({search: {...idleSearch(), status: "running"}, simulationSolution: null});
         active.onmessage = ({data}) => {
           if (disposed || token !== generation) return;
           if (data.type === "error") {
@@ -125,7 +147,7 @@ export function createModel(initial, {base, apotheosis, workerFactory}) {
         };
         active.postMessage({type: "start", seed, constraints, mode: state.mode});
       } catch (error) {
-        cancelWorker(); patch({search: {...idleSearch(), status: "error", error: error.message}});
+        cancelWorker(); patch({search: {...idleSearch(), status: "error", error: error.message}, simulationSolution: null});
       }
     },
     stopSearch() {

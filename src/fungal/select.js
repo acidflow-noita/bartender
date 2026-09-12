@@ -7,6 +7,7 @@ let nextId = 0;
 
 export function materialNode(id, catalog) {
   if (id === "NOTHING") id = "air";
+  if (id === "air") return html`<span class="fs-air" title="Air is not shiftable. In an empty field it means no selection or no held material.">Air <small>(not shiftable)</small></span>`;
   if (id === "OTHER" || id === "presentation") return html`<span class="fs-held">Held material</span>`;
   if (!id) return html`<span class="fs-muted">—</span>`;
   id = String(id); // Match the source table's text conversion without altering engine data.
@@ -31,7 +32,7 @@ export function materialSelect(catalog, {label, value = "air", count = false, pl
   const select = html`<select id=${id} multiple aria-label=${label}></select>`;
   const counter = html`<span class="fs-material-count">(${catalog.length})</span>`;
   const root = html`<div class="fs-material-field"><label for=${id}>${label} ${count ? counter : ""}</label>${select}</div>`;
-  const options = (materials, selected) => materials.map((m) => ({value: m.id, label: `${m.name} (${m.id})`, selected: m.id === selected}));
+  const options = (materials, selected) => materials.map((m) => ({value: m.id, label: m.id === "air" ? "Air — not shiftable (no selection)" : `${m.name} (${m.id})`, selected: m.id === selected}));
   const choices = new Choices(select, {
     // An implicit Air sentinel is an empty field, not a preselected chip.
     choices: options([...catalog].sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0), value === "air" ? "" : value), allowHTML: false, shouldSort: false,

@@ -1,20 +1,23 @@
-Fungal shift prediction and planning logic ported from:
+Fungal shift prediction and planning source:
 https://github.com/liquidcake1/noita-fungal
-Revision dd54fd7669b6a218e72bf500eade560173beff65
+Pinned submodule: src/vendor/noita-fungal
+Revision 233955ea2bb48fe6fb3bd58dd9936da023d84b2d
+
 The original solver and other original contributions are dedicated to the public
 domain under CC0: https://creativecommons.org/publicdomain/zero/1.0/
-The source HTML/CSS UI is not included in this port.
-shifts.js, materials.js, nolla-prng.js, and solver.js retain the source logic
-verbatim; only relative import paths and this attribution header are adapted.
-engine.js adapts the original index.html table calculations to data for native
-Observable tables; goals.js contains its original constraint function unchanged.
-The worker calls the source solver directly, without changed search ranges,
-candidate pruning, probability weights, recipe sorting, or automatic job limits.
-The source UI and solver use 20 iterations in all modes; the underlying source
-prediction helper separately supports 200 in Hyper. The UI keeps the former.
-Material options follow the source seed-generated Set, including Air and
-custom additions, and accumulate across seed/mode changes. Bartender metadata
-provides labels/images only; it never widens the selectable material set.
+The source HTML/CSS UI is not included in this integration.
+The application uses main.mjs, fungal.mjs, fungal_materials.mjs, and nolla_prng.mjs
+from the submodule through an automatically generated .js compatibility bridge.
+Observable preview cannot serve .mjs module paths. Only relative import extensions
+are renamed; calculations are unchanged. No hand-maintained solver copy is used.
+engine.js adapts the source table calculations for native Observable tables;
+goals.js retains the source constraint validation, with plain-language UI errors.
+The worker runs upstream search without changed ranges, candidate pruning,
+probability weights, result ordering, or automatic job limits. This revision
+includes reroll-aware search and all 200 Hyper shifts.
+Material options follow the source seed-generated Set, including Air and custom
+additions, and accumulate across seed/mode changes. Bartender metadata provides
+labels/images only; it does not widen the selectable set.
 
 The shift engine and Nolla PRNG derive from Lymm's Telescope:
 https://github.com/Lymm37/noita-telescope

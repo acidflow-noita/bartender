@@ -1,5 +1,5 @@
 // Original noita-fungal regression cases (CC0); see src/fungal/NOTICE.txt.
-import { getFungalShift } from "../src/fungal/shifts.js";
+import { getFungalShift } from "../src/vendor/noita-fungal/fungal.mjs";
 
 import { strict as assert } from 'node:assert';
 

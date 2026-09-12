@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {emptySession, readSession, sessionUrl, syncAddress} from "../src/fungal/session.js";
+import {emptySession, readSession, sessionUrl, syncAddress, copyLinkText} from "../src/fungal/session.js";
 
 function addressFixture() {
   const location = {href: "https://example.test/fungal_shifting"};
@@ -74,4 +74,63 @@ test("partial goals, removals, and Air selections update the copied browser URL"
   assert.deepEqual(readSession(f.location.href).state.goals, []);
   assert.deepEqual(readSession(f.location.href).state.held, []);
   f.sync.dispose();
+});
+
+test("share URLs are readable, omit defaults and support 200 Hyper shifts", () => {
+  const state = {...emptySession(), seed: "12345", mode: "apotheosis_bungal_spam", spoilers: true,
+    view: "simulation", cycle: 3, after: 200, transition: 38,
+    goals: [{base: "water", target: "oil", stain: "air"}, {base: "lava", target: "blood", stain: "sand"}],
+    held: Array.from({length: 200}, (_, i) => i === 199 ? "blood" : i === 1 ? "oil" : "air")};
+  const href = sessionUrl("https://example.test/fungal_shifting?old=1#old", state);
+  assert.equal(href, "https://example.test/fungal_shifting?seed=12345&mode=hyper&spoilers=1&view=simulation&ng=3&goal=water:oil&goal=lava:blood:sand&hold=2:oil,200:blood&next=38");
+  assert.deepEqual(readSession(href), {state, error: ""});
+  assert.equal(sessionUrl("https://example.test/fungal_shifting", emptySession()), "https://example.test/fungal_shifting");
+  assert.equal(readSession("https://example.test/?mode=hyper").state.after, 200);
+  assert.equal(readSession("https://example.test/?mode=spell").state.after, 20);
+});
+
+test("address synchronization survives a transient History API error and still flushes the latest setup", () => {
+  const location = {href: "https://example.test/fungal_shifting"};
+  const errors = [];
+  let fail = true, next;
+  const history = {state: {keep: true}, replaceState(state, title, href) {
+    if (fail) throw new Error("History rate limit");
+    assert.equal(state, this.state);
+    location.href = href;
+  }};
+  const address = syncAddress({location, history}, {schedule: (fn) => {next = fn; return 1;}, cancel: () => {next = undefined;}, onError: (error) => errors.push(error)});
+  address.update({...emptySession(), seed: "12"});
+  assert.equal(errors.length, 1);
+  address.update({...emptySession(), seed: "13", goals: [{base: "water", target: "oil", stain: "air"}]});
+  fail = false;
+  next();
+  assert.equal(location.href, "https://example.test/fungal_shifting?seed=13&goal=water:oil");
+  address.update({...emptySession(), seed: "14"});
+  address.flush();
+  assert.equal(readSession(location.href).state.seed, "14");
+  address.dispose();
+});
+
+test("reset/back navigation cancels pending URL writes", () => {
+  const f = addressFixture();
+  f.sync.update({...emptySession(), seed: "1"});
+  f.sync.update({...emptySession(), seed: "2"});
+  f.sync.clear();
+  f.location.href = "https://example.test/fungal_shifting?seed=3";
+  f.tick();
+  assert.equal(readSession(f.location.href).state.seed, "3");
+  f.sync.update({...emptySession(), seed: "3"});
+  assert.equal(f.writes.length, 1);
+  f.sync.dispose();
+});
+
+test("Copy link supports Clipboard API, permission failure, fallback, and explicit manual-copy failure", async () => {
+  const href = "https://example.test/fungal_shifting?seed=12&goal=water:oil";
+  const copied = [];
+  assert.equal(await copyLinkText(href, {clipboard: {async writeText(text) {copied.push(text);}}, fallback() {throw new Error("fallback should not run");}}), true);
+  assert.deepEqual(copied, [href]);
+  assert.equal(await copyLinkText(href, {clipboard: {async writeText() {throw new Error("Permission denied");}}, fallback(text) {copied.push(text); return true;}}), true);
+  assert.deepEqual(copied, [href, href]);
+  assert.equal(await copyLinkText(href, {clipboard: undefined, fallback: () => false}), false);
+  assert.equal(await copyLinkText(href, {clipboard: undefined, fallback: () => {throw new Error("Unavailable");}}), false);
 });

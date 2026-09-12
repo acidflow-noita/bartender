@@ -1,12 +1,16 @@
-// Optional fixture generation: requires the pinned source in task/noita-fungal.
+// Optional fixture generation: uses the pinned source in src/vendor/noita-fungal.
 // Do not regenerate fixtures to mask a mismatch in the implementation.
 import fs from 'node:fs';
 import vm from 'node:vm';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
-import {init,run_queue_step} from '../task/noita-fungal/main.mjs';
+import {execFileSync} from 'node:child_process';
+import {init,run_queue_step} from '../src/vendor/noita-fungal/main.mjs';
+import {getFungalShifts} from '../src/vendor/noita-fungal/fungal.mjs';
+import * as tables from '../src/vendor/noita-fungal/fungal_materials.mjs';
 const root=fileURLToPath(new URL('../', import.meta.url));
-const source=fs.readFileSync(root+'task/noita-fungal/index.html','utf8');
+const sourceRoot=root+'src/vendor/noita-fungal/';
+const source=fs.readFileSync(sourceRoot+'index.html','utf8');
 const functionSource=(name,next)=>source.slice(source.indexOf(`function ${name}(`),source.indexOf(`\n\t\t\tfunction ${next}(`)).replaceAll('\n\t\t\t','\n');
 const hash=value=>createHash('sha256').update(typeof value==='string'?value:JSON.stringify(value)).digest('hex');
 // Data collector only: executes original table-producing functions in Node,
@@ -18,12 +22,32 @@ function record(tag='text',value='') {
 }
 function context(ids,state) {
  const document={getElementById:id=>ids[id],createElement:tag=>record(tag),createTextNode:text=>record('text',String(text))};
- const ctx=vm.createContext({document,state,console:{log(){}}});
+ const ctx=vm.createContext({document,state,maxShifts:tables.maxShifts,console:{log(){}}});
  for(const [name,next]of [['make_td','make_material'],['make_material','make_material_td'],['make_material_td','cycle_changed'],['cycle_changed','pray_to_gods'],['recipe_changed','mode_changed']])vm.runInContext(functionSource(name,next),ctx);
  vm.runInContext('function td_text(text){let td=document.createElement("td");td.appendChild(document.createTextNode(text));return td;}',ctx);
  return ctx;
 }
-const fixture=JSON.parse(fs.readFileSync(root+'tests/fungal-upstream-fixtures.json','utf8'));
+const fixture={revision:execFileSync('git',['-C',sourceRoot,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),files:{},tables:hash(tables),predictions:[],catalogs:[],searches:[]};
+for(const file of ['fungal.mjs','fungal_materials.mjs','nolla_prng.mjs','main.mjs']) fixture.files[file]=hash(fs.readFileSync(sourceRoot+file,'utf8'));
+for(const mode of Object.keys(tables.materialsFrom)) {
+ for(const seed of [0,12,600,418190922,4294967295])for(const ng of [0,3,28])fixture.predictions.push({mode,seed,ng,sha256:hash(getFungalShifts(seed,ng,mode))});
+ for(const seed of [12,418190922]) {
+  const state=init(seed,[],mode);
+  const ids=[...new Set(state.world_state.all_shifts.flatMap(shifts=>shifts.flatMap(branches=>Object.values(branches).flatMap(s=>[...s.fromMaterials,s.toMaterial]))))].filter(id=>id!=='air').sort();
+  fixture.catalogs.push({mode,seed,ids});
+ }
+ for(const [seed,goals,full]of [[12,[{base:'something',target:'something_else'}],false],[970230895,[{base:'blood',target:'magic_liquid_hp_generation'}],true]]) {
+  const state=init(seed,goals,mode), previousLog=console.log;console.log=()=>{};
+  try {
+   let calls=0;
+   while(!state.finished && (full || state.jobs.length || (state.next_base_ng===0 && state.next_shift_nr===tables.maxShifts[mode]))) {
+    if(++calls>300000)throw new Error('Reference search exceeded fixture-generation guard; review before proceeding');
+    run_queue_step(state);
+   }
+  } finally {console.log=previousLog;}
+  fixture.searches.push({mode,seed,goals,full,tested:state.total_jobs,best:state.world_state.best_length,solutions:state.solutions.length,sha256:hash(state.solutions)});
+ }
+}
 fixture.ui={goalFunction:hash(functionSource('pray_to_gods','clear_tablet')),goals:[],predictions:[],recipes:[]};
 const goalCases=[[],[{base:'air',target:'air',stain:'air'}],[{base:'air',target:'oil',stain:'air'}],[{base:'air',target:'air',stain:'blood'}],[{base:'water',target:'air',stain:'air'}],[{base:'water',target:'oil',stain:'air'}],[{base:'water',target:'oil',stain:'blood'}],[{base:'water',target:'oil',stain:'air'},{base:'water',target:'blood',stain:'air'}],[{base:'water',target:'oil',stain:'blood'},{base:'oil',target:'sand',stain:'air'}],[{base:'water',target:'oil',stain:'blood'},{base:'oil',target:'blood',stain:'air'}],[{base:'air',target:'air',stain:'air'},{base:'water',target:'water',stain:'air'}]];
 for(const goals of goalCases){
