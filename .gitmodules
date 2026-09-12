@@ -1,0 +1,4 @@
+[submodule "noita-fungal"]
+	path = src/vendor/noita-fungal
+	url = https://github.com/liquidcake1/noita-fungal.git
+	branch = master
