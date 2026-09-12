@@ -10,10 +10,16 @@ export class UIHelper {
   static getMaterialImageUrl(id, dataRepo) {
     if (!id) return "";
     if (!this.imageUrlCache.has(id)) {
-      const url = dataRepo.isTag(id)
-        ? `${CONFIG.urls.imageBase}/images/icons/tag.svg`
-        : `${CONFIG.urls.imageBase}/images/materials/Material_${id}.png`;
-      this.imageUrlCache.set(id, url);
+      if (dataRepo.isTag(id)) {
+        const url = `${CONFIG.urls.imageBase}/images/icons/tag.svg`;
+        this.imageUrlCache.set(id, url);
+      } else {
+        // Check if material has a custom imageId (e.g., for placeholder materials)
+        const material = dataRepo.getMaterial(id);
+        const imageId = material?.imageId || id;
+        const url = `${CONFIG.urls.imageBase}/images/materials/Material_${imageId}.png`;
+        this.imageUrlCache.set(id, url);
+      }
     }
     return this.imageUrlCache.get(id);
   }

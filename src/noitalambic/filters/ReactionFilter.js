@@ -2,12 +2,57 @@
 // REACTION FILTER - Filters reactions based on selected criteria
 // ============================================================================
 
+import { AdvancedFilters } from "./AdvancedFilters.js";
+
 export class ReactionFilter {
   constructor(dataRepo) {
     this.dataRepo = dataRepo;
   }
 
   getFilteredReactions(selectedReagents = [], selectedProduct = "", minSpeed = 0) {
+    let indices = this._computeBaseIndices(selectedReagents, selectedProduct);
+
+    // Filter by minimum reaction speed
+    if (minSpeed > 0) {
+      indices = new Set(
+        [...indices].filter((index) => {
+          const reaction = this.dataRepo.getReaction(index);
+          return reaction.reactionRate >= minSpeed;
+        }),
+      );
+    }
+
+    return Array.from(indices)
+      .map((index) => this.dataRepo.getReaction(index))
+      .sort((a, b) => b.reactionRate - a.reactionRate);
+  }
+
+  // Advanced, multi-set-aware variant of getFilteredReactions.
+  // Unlike getFilteredReactions, it returns {index, reaction} pairs (the original index in
+  // dataRepo.reactions is preserved) so that results from several reaction sets can later be
+  // merged/deduplicated by a resolver without ambiguity, and it accepts a richer criteria object
+  // supporting a speed range plus the advanced filters from AdvancedFilters.matches().
+  getFilteredReactionsAdvanced(criteria = {}) {
+    const { reagents = [], product = "", minSpeed = 0, maxSpeed = 0, advancedFilters = {} } = criteria;
+
+    let indices = this._computeBaseIndices(reagents, product);
+
+    indices = new Set(
+      [...indices].filter((index) => {
+        const reaction = this.dataRepo.getReaction(index);
+        if (minSpeed > 0 && reaction.reactionRate < minSpeed) return false;
+        if (maxSpeed > 0 && reaction.reactionRate > maxSpeed) return false;
+        return AdvancedFilters.matches(reaction, this.dataRepo, advancedFilters);
+      }),
+    );
+
+    return Array.from(indices)
+      .map((index) => ({ index, reaction: this.dataRepo.getReaction(index) }))
+      .sort((a, b) => b.reaction.reactionRate - a.reaction.reactionRate);
+  }
+
+  // Shared reagent/product matching logic used by both filtering methods above.
+  _computeBaseIndices(selectedReagents, selectedProduct) {
     let indices = new Set(Array.from({ length: this.dataRepo.reactions.length }, (_, i) => i));
 
     if (selectedProduct) {
@@ -40,19 +85,7 @@ export class ReactionFilter {
       );
     }
 
-    // Filter by minimum reaction speed
-    if (minSpeed > 0) {
-      indices = new Set(
-        [...indices].filter((index) => {
-          const reaction = this.dataRepo.getReaction(index);
-          return reaction.reactionRate >= minSpeed;
-        }),
-      );
-    }
-
-    return Array.from(indices)
-      .map((index) => this.dataRepo.getReaction(index))
-      .sort((a, b) => b.reactionRate - a.reactionRate);
+    return indices;
   }
 
   _canAssignWithoutConflict(possibleAssignments) {

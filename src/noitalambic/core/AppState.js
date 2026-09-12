@@ -57,11 +57,20 @@ export class AppState {
   toggleTagVisibility(tagId) {
     const materialIds = this.dataRepo.resolveTag(tagId);
     const allVisible = materialIds.every((id) => this.visibleTagMaterials.has(id));
+    if (allVisible) {
+      this.hideTagMaterials(tagId);
+    } else {
+      this.showTagMaterials(tagId);
+    }
+  }
 
-    materialIds.forEach((id) => {
-      allVisible ? this.visibleTagMaterials.delete(id) : this.visibleTagMaterials.add(id);
-    });
+  showTagMaterials(tagId) {
+    this.dataRepo.resolveTag(tagId).forEach((id) => this.visibleTagMaterials.add(id));
+    this.eventBus.emit("stateChanged", this);
+  }
 
+  hideTagMaterials(tagId) {
+    this.dataRepo.resolveTag(tagId).forEach((id) => this.visibleTagMaterials.delete(id));
     this.eventBus.emit("stateChanged", this);
   }
 
