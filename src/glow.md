@@ -6,12 +6,11 @@ title: Glow (β)
 
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
   <h1 id="acidTitle" class="bartender-heading-decrypted" style="margin: 0;">Glow (β)</h1>
-  <div id="auth-status-container"></div>
 </div>
 <h2>Materials with glow properties that emit light in the darkness.</h2>
 
 ```js
-const all_materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
+const materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
 ```
 
 ```js
@@ -19,51 +18,7 @@ import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();
 import { materialTypeColors, getSymbolConfig } from "./components/materialTypeStyles.js";
 import { wuoteLogo } from "./components/wuoteLogo.js";
-import { authManager, renderAuthStatus } from "./components/auth.js";
 import { html } from "htl";
-const authStatusCleanup = renderAuthStatus();
-```
-
-```js
-const authState = await authManager.checkAuth();
-```
-
-```js
-// Filter materials based on auth status - show all for followers, limited for non-followers
-const materials =
-  authState.authenticated && authState.isFollower
-    ? all_materials
-    : all_materials.filter((d) => {
-        // For non-followers, show common glowing materials
-        const allowedIds = [
-          "lava",
-          "acid",
-          "radioactive_liquid",
-          "magic_liquid_teleportation",
-          "magic_liquid_polymorph",
-          "plasma_fading",
-        ];
-        return allowedIds.includes(d.id) && d.gfx_glow !== null;
-      });
-
-console.log("All materials count:", all_materials.length);
-console.log("Filtered materials count:", materials.length);
-console.log("Auth status:", authState.authenticated, "Is follower:", authState.isFollower);
-```
-
-```js
-import { createContentNotice } from "./components/contentNotice.js";
-const contentNotice = createContentNotice(authState, {
-  materials: materials.length,
-  totalMaterials: all_materials.length,
-});
-
-if (contentNotice) {
-  const container = document.getElementById("content-notice-container");
-  if (container) {
-    container.append(contentNotice);
-  }
-}
 ```
 
 ```js
@@ -254,8 +209,6 @@ function glowPlot(materials, width) {
   });
 }
 ```
-
-<div id="content-notice-container"></div>
 
 <div class="grid grid-cols-4 grid-rowspan-1" style="grid-auto-rows: auto;">
     <div class="card grid-colspan-2 grid-rowspan-1" style="padding: 0;">

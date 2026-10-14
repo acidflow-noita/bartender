@@ -6,46 +6,12 @@ title: Hardness (β)
 
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
   <h1 id="acidTitle" class="bartender-heading-decrypted" style="margin: 0;">Hardness (β)</h1>
-  <div id="auth-status-container"></div>
 </div>
 <h2>Hardness determines resistance to damage, secondarily to <a href="durability">durability</a>.</h2>
 
 ```js
-const all_materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
-const all_spells = await FileAttachment("./data/FULL_SPELLS_FINAL.json").json();
-
-// Import auth manager first
-import { authManager } from "./components/auth.js";
-
-// Check auth state - this will be fast if already cached
-const authState = await authManager.checkAuth();
-
-const materials =
-  authState.authenticated && authState.isFollower
-    ? all_materials
-    : all_materials.filter((d) => ["rock_static", "wood_static", "coal", "gold"].includes(d.id));
-
-const spells =
-  authState.authenticated && authState.isFollower
-    ? all_spells
-    : all_spells.filter((d) => ["SPARK_BOLT", "MAGIC_ARROW"].includes(d.id));
-```
-
-```js
-import { createContentNotice } from "./components/contentNotice.js";
-const contentNotice = createContentNotice(authState, {
-  materials: materials.length,
-  spells: spells.length,
-  totalMaterials: all_materials.length,
-  totalSpells: all_spells.length,
-});
-
-if (contentNotice) {
-  const container = document.getElementById("content-notice-container");
-  if (container) {
-    container.append(contentNotice);
-  }
-}
+const materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
+const spells = await FileAttachment("./data/FULL_SPELLS_FINAL.json").json();
 ```
 
 ```js
@@ -53,9 +19,7 @@ import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();
 import { materialTypeColors, getSymbolConfig } from "./components/materialTypeStyles.js";
 import { wuoteLogo } from "./components/wuoteLogo.js";
-import { renderAuthStatus } from "./components/auth.js";
 import { html } from "htl";
-const authStatusCleanup = renderAuthStatus();
 ```
 
 ```js
@@ -258,8 +222,6 @@ function hardnessPlot(materials, width) {
   });
 }
 ```
-
-<div id="content-notice-container"></div>
 
 <div class="grid grid-cols-4 grid-rowspan-1" style="grid-auto-rows: auto;">
     <div class="card grid-colspan-2 grid-rowspan-1" style="padding: 0;">

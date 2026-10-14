@@ -1,349 +1,107 @@
 ---
 title: Spells' Digging Ability
-draft: true
 ---
 
-<link href="custom.css" rel="stylesheet"></link>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js@11.1.0/public/assets/styles/choices.min.css">
+<link href="custom.css" rel="stylesheet">
+<link href="digging/digging.css" rel="stylesheet">
 
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-  <h1 id="acidTitle" class="bartender-heading-decrypted" style="margin: 0;">Spells' Digging Ability</h1>
-  <div id="auth-status-container"></div>
-</div>
-<h2>Select a spell and a material to see how effectively the spell can dig through it.</h2>
+<h1 id="acidTitle" class="bartender-heading-decrypted">Spells' Digging Ability</h1>
 
 ```js
-const all_spells = await FileAttachment("./data/FULL_SPELLS_FINAL.json").json();
-const all_materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
-```
-
-```js
-const authState = await authManager.checkAuth();
-```
-
-```js
-// Filter materials and spells based on auth status - show all for followers, limited for non-followers
-const spells =
-  authState.authenticated && authState.isFollower
-    ? all_spells
-    : all_spells.filter((d) => ["SPARK_BOLT", "DIGGING_BOLT"].includes(d.id));
-
-const materials =
-  authState.authenticated && authState.isFollower
-    ? all_materials
-    : all_materials.filter((d) => ["dirt", "rock"].includes(d.id));
-```
-
-```js
-import { createContentNotice } from "./components/contentNotice.js";
-const contentNotice = createContentNotice(authState, {
-  spells: spells.length,
-  materials: materials.length,
-  totalSpells: all_spells.length,
-  totalMaterials: all_materials.length,
-});
-```
-
-```js
-import { initializeTitleAnimation } from "./components/titleAnimation.js";
+import {initializeTitleAnimation} from "./components/titleAnimation.js";
+import {isDiggingSpell, evaluateDigging} from "./digging/model.js";
+import {createDiggingSelect} from "./digging/select.js";
+import {renderDiggingResult, renderDiggingPlot} from "./digging/view.js";
+import {DIGGING_DEFAULTS, readDiggingParams, diggingUrl} from "./digging/url.js";
+import {createShareButton} from "./components/shareButton.js";
 initializeTitleAnimation();
-import { authManager, renderAuthStatus } from "./components/auth.js";
-import { html } from "htl";
-const authStatusCleanup = renderAuthStatus();
 ```
 
 ```js
-const mina = {
-  img_src: "https://noita-bartender-images.acidflow.stream/images/mina/mina.png",
-  img_outline_src: "https://noita-bartender-images.acidflow.stream/images/mina/mina_outline.png",
+const allSpells = await FileAttachment("./data/FULL_SPELLS_FINAL.json").json();
+const materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
+const spells = allSpells.filter(isDiggingSpell);
+```
+
+```js
+const initialSelection = readDiggingParams(window.location.href, spells, materials);
+const spellPicker = createDiggingSelect(spells, {label: "Spell", kind: "spells", value: initialSelection.spell});
+const materialPicker = createDiggingSelect(materials, {label: "Material", kind: "materials", value: initialSelection.material});
+const fitControl = Inputs.toggle({label: "Fit whole radius", value: initialSelection.fit});
+const restoreAddress = () => {
+  const selection = readDiggingParams(window.location.href, spells, materials);
+  spellPicker.setValue(selection.spell);
+  materialPicker.setValue(selection.material);
+  fitControl.value = selection.fit;
+  fitControl.dispatchEvent(new Event("input", {bubbles: true}));
 };
-```
-
-```js
-const groundIgnoringDiggingSpells = spells.filter(
-  (d) => "groundPenetrationCoeff" in d && d.groundPenetrationCoeff !== 0 && d.groundPenetrationCoeff !== null
-);
-const spellsWithDiggingTag = spells.filter((d) => d.tags.includes("digging"));
-```
-
-```js
-const resetSearchButton = Inputs.button(
-  html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" />Reset`,
-  {
-    label: "",
-    reduce: () => {
-      searchMaterials.query = "";
-      searchMaterials.dispatchEvent(new Event("input"));
-      searchSpells.query = "";
-      searchSpells.dispatchEvent(new Event("input"));
-      return null;
-    },
-  }
-);
-```
-
-```js
-const getImagePath = (filename) => {
-  const baseUrl = "https://noita-bartender-images.acidflow.stream/images/materials";
-  return `${baseUrl}/${filename ? filename : "no_image_available.png"}`;
-};
-```
-
-```js
-// --- Spell Setup ---
-spells.forEach((spell) => {
-  spell.combinedSpellName = {
-    name: spell.name,
-    id: spell.id,
-    fullName: `${spell.name} (${spell.id})`,
-    url: `https://noita.wiki.gg/wiki/${encodeURIComponent(spell.wikipage)}`,
-  };
+window.addEventListener("popstate", restoreAddress);
+invalidation.then(() => {
+  window.removeEventListener("popstate", restoreAddress);
+  spellPicker.dispose();
+  materialPicker.dispose();
 });
 ```
 
 ```js
-// const searchSpells = Inputs.search(spells, {
-const searchSpells = Inputs.search(spellsWithDiggingTag, {
-  placeholder: "Search spells",
-  query: "",
-  autocomplete: true,
-});
+const selectedSpell = Generators.input(spellPicker.element);
+const selectedMaterial = Generators.input(materialPicker.element);
+const fitRadius = Generators.input(fitControl);
 ```
 
 ```js
-const searchSpellsValue = Generators.input(searchSpells);
+// Keep calculations in a dependent cell: Generators.input returns an iterator,
+// and Observable resolves its selected value between cells.
+const result = evaluateDigging(selectedSpell, selectedMaterial);
 ```
 
 ```js
-const filteredSpells = searchSpellsValue.filter(
-  (d) => d.tags && (d.tags.includes("digging") || d.tags.includes("acid"))
-);
-```
-
-```js
-// --- Material Setup ---
-materials.forEach((material) => {
-  material.combinedMaterialName = {
-    name: material.name,
-    id: material.id,
-    type: material.type,
-    fullName: `${material.name} (${material.id})`,
-    url: `https://noita.wiki.gg/wiki/${encodeURIComponent(material.wikipage)}`,
-  };
-});
-```
-
-```js
-const searchMaterials = Inputs.search(materials, {
-  placeholder: "Search materials",
-  query: "",
-  autocomplete: true,
-});
-```
-
-```js
-const searchMaterialsValue = Generators.input(searchMaterials);
-```
-
-```js
-// --- Digging Calculation ---
-const calculateDigRadius = (spell, material) => {
-  if (!spell || !material) return 0;
-
-  // Black holes ignore durability and hardness
-  if (spell.id === "BLACK_HOLE" || spell.id === "BLACK_HOLE_BIGGER" || spell.id === "GIGA_BLACK_HOLE") {
-    return spell.radius;
-  }
-
-  const materialDurability = material.durability ?? 999999;
-  const spellMaxDura = spell.maxDuraToDestroy ?? 0;
-
-  // Boolean check: can the spell dig through this material's durability?
-  if (spellMaxDura < materialDurability) return 0;
-
-  const materialHardness = material.hardness ?? 0;
-  const rayEnergy = spell.rayEnergy ?? 0;
-  const spellRadius = spell.radius ?? 0;
-
-  // If ray energy per pixel can't overcome hardness, no digging
-  if (rayEnergy <= materialHardness) return 0;
-
-  // Effective energy after overcoming per-pixel hardness
-  const effectiveEnergy = rayEnergy - materialHardness;
-
-  // Scale the radius based on remaining energy vs original energy
-  const practicalRadius = spellRadius * (effectiveEnergy / rayEnergy);
-
-  return Math.max(0, practicalRadius);
-};
-```
-
-```js
-// Independent spell table (not filtered by material selection)
-const spellsTable = Inputs.table(searchSpellsValue, {
-  width: { combinedSpellName: 250 },
-  layout: "fixed",
-  sort: "rayEnergy",
-  reverse: true,
-  select: "first",
-  multiple: false,
-  rows: 22,
-  columns: ["combinedSpellName", "image_local", "radius", "maxDuraToDestroy", "rayEnergy"],
-  header: {
-    combinedSpellName: "Spell",
-    image_local: "Image",
-    radius: "Radius",
-    maxDuraToDestroy: "Max Dura To Destroy",
-    rayEnergy: "Ray Energy",
-  },
-  format: {
-    combinedSpellName: (d) =>
-      html`<a
-        href="${d.url}"
-        target="_blank"
-        >${d.name}<br />(${d.id})</a
-      >`,
-    image_local: (d) =>
-      html`<img
-        src="https://noita-bartender-images.acidflow.stream/images/spells/${d}"
-        style="image-rendering: pixelated;"
-        width="64"
-        height="auto"
-      />`,
+const resetButton = Inputs.button("Reset", {
+  reduce: () => {
+    spellPicker.setValue(DIGGING_DEFAULTS.spell);
+    materialPicker.setValue(DIGGING_DEFAULTS.material);
+    fitControl.value = DIGGING_DEFAULTS.fit;
+    fitControl.dispatchEvent(new Event("input", {bubbles: true}));
   },
 });
+const shareControl = createShareButton(() => diggingUrl(window.location.href, {
+  spell: spellPicker.element.value.id,
+  material: materialPicker.element.value.id,
+  fit: fitControl.value,
+}));
 ```
 
 ```js
-const selectedSpell = Generators.input(spellsTable);
-```
-
-```js
-// Filter materials based on selected spell
-const materialsToShow = selectedSpell
-  ? searchMaterialsValue.filter((material) => calculateDigRadius(selectedSpell, material) > 0)
-  : searchMaterialsValue;
-```
-
-```js
-const materialsTable = Inputs.table(materialsToShow, {
-  width: { combinedMaterialName: 250 },
-  layout: "fixed",
-  sort: "name",
-  select: "first",
-  multiple: false,
-  columns: ["combinedMaterialName", "image_local", "hardness", "durability"],
-  header: {
-    combinedMaterialName: "Material",
-    image_local: "Image",
-    hardness: "Hardness",
-    durability: "Durability",
-  },
-  format: {
-    combinedMaterialName: (d) =>
-      html`<a
-        href="${d.url}"
-        target="_blank"
-        >${d.name}<br />(<code>${d.id}</code>)</a
-      >`,
-    image_local: (d) =>
-      html`<img
-        src="${getImagePath(d)}"
-        width="32"
-        height="auto"
-        style="image-rendering: pixelated;"
-      />`,
-  },
+const shareUrl = diggingUrl(window.location.href, {
+  spell: selectedSpell.id, material: selectedMaterial.id, fit: fitRadius,
 });
+if (shareUrl !== window.location.href) window.history.replaceState(window.history.state, "", shareUrl);
+shareControl.clear();
 ```
 
-```js
-const selectedMaterial = Generators.input(materialsTable);
-```
-
-```js
-const digRadius = calculateDigRadius(selectedSpell, selectedMaterial);
-```
-
-```js
-const plotResult = (() => {
-  if (!selectedSpell || !selectedMaterial) {
-    return html`<div class="card-placeholder">Select both a spell and a material to see the visualization.</div>`;
-  }
-
-  const materialImageUrl = getImagePath(selectedMaterial.image_local);
-
-  // Make the plot BIG
-  const plotWidth = 252 * 5;
-  const plotHeight = 252 * 3;
-  const minaWidth = 48;
-  const minaHeight = 108;
-
-  return Plot.plot({
-    width: plotWidth,
-    height: plotHeight,
-    style: {
-      background: `url(${materialImageUrl})`,
-      backgroundRepeat: "repeat",
-      imageRendering: "pixelated",
-    },
-    x: {
-      axis: null,
-      domain: [-plotWidth / 2, plotWidth / 2],
-    },
-    y: {
-      axis: null,
-      domain: [-plotHeight / 2, plotHeight / 2],
-    },
-    marks: [
-      Plot.text([{ x: 0, y: 0, label: `Dig Radius: ${digRadius.toFixed(0)}` }], {
-        x: "x",
-        y: "y",
-        text: "label",
-        dy: -Math.min(digRadius + 20, plotHeight / 2 - 10),
-        fill: "white",
-        stroke: "black",
-        strokeWidth: 2,
-        fontSize: 12,
-      }),
-      Plot.image([{ x: plotWidth / 2, y: plotHeight / 2 }], {
-        width: minaWidth,
-        height: minaHeight,
-
-        // Corner pos for mina
-        // dy: -minaHeight / 2,
-        // dx: -minaWidth / 2,
-        // frameAnchor: "bottom-right",
-
-        frameAnchor: "middle",
-        imageRendering: "pixelated",
-        src: mina.img_outline_src,
-      }),
-      Plot.dot([{ x: 0, y: 0 }], {
-        x: "x",
-        y: "y",
-        r: digRadius * 6,
-        stroke: "red",
-        strokeWidth: 2,
-        fill: "rgba(255, 0, 0, 0.2)",
-      }),
-    ],
-  });
-})();
-```
-
-${contentNotice}
-
-<div class="grid grid-cols-4 gap-4">
-  <div class="card grid-colspan-2">${searchSpells}</div>
-  <div class="card grid-colspan-1">${searchMaterials}</div>
-  <div class="card grid-colspan-1">${resetSearchButton}</div>
+<div class="digging-controls">
+  ${spellPicker.element}
+  ${materialPicker.element}
 </div>
 
-<div class="grid grid-cols-4 gap-4">
-  <div class="card grid-colspan-2" style="padding: 0">${spellsTable}</div>
-  <div class="card grid-colspan-2" style="padding: 0">${materialsTable}</div>
-</div>
-
-<div class="grid grid-cols-4 gap-4">
-  <div class="card grid-colspan-4">${plotResult}</div>
+<div class="digging-comparison">
+  <section class="digging-preview" aria-label="Terrain and digging radius">
+    <div class="digging-toolbar">
+      ${fitControl}<div class="digging-actions">${resetButton}${shareControl.button}</div>
+    </div>
+    <div class="digging-share-feedback">${shareControl.feedback}</div>
+    ${resize((width) => renderDiggingPlot(selectedSpell, selectedMaterial, result, width, fitRadius))}
+  </section>
+  <aside class="digging-info">
+    ${renderDiggingResult(selectedSpell, selectedMaterial, result)}
+    <details class="digging-method">
+      <summary>About this estimate</summary>
+      <p>For uniform terrain within the spell's durability limit, the estimated radius is the smaller of its maximum radius and <code>floor(ray energy / hardness)</code>. Zero-hardness terrain uses the maximum radius.</p>
+      <p>Acid uses corrosion reactions, not explosion durability limits. It dissolves Brickwork and other corrodible materials, but Dense Rock resists it. Corrosion spreads with the liquid and has no fixed circular radius. <a href="https://noita.wiki.gg/wiki/Acid_Ball" target="_blank" rel="noopener noreferrer">Acid Ball reference</a>.</p>
+      <p>Projectile penetration is separate from impact explosions. Glowing Lance and Holy Lance have no penetration durability cap; their explosion limits do not prevent them from chipping harder terrain. Depth depends on impact speed, mass and terrain hardness and is not quantified here. <a href="https://note.com/hanrei_7/n/n5d242fdb38bd" target="_blank" rel="noopener noreferrer">Projectile penetration observations</a>.</p>
+      <p>Cell-eating spells use their cell-eating radius and material restrictions. Movement, reactions, modifiers, physics objects, and scripted effects may need a different model. All materials remain selectable.</p>
+      <p>Distances are in game pixels. <a href="https://noita.wiki.gg/wiki/Digging" target="_blank" rel="noopener noreferrer">Digging reference</a>.</p>
+    </details>
+  </aside>
 </div>

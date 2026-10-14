@@ -2,6 +2,8 @@
 
 Explore Noita materials and mixology
 
+All materials, spells, and tools are available to everyone. No account is required.
+
 Built with [Observable Framework](https://observablehq.com/framework/).
 
 ### How to
@@ -10,7 +12,7 @@ Install
 
 ```bash
 git submodule update --init --recursive
-npm install
+npm ci
 ```
 
 Launch local dev copy
@@ -18,6 +20,29 @@ Launch local dev copy
 ```bash
 npm run clean && npm run build && npm run dev
 ```
+
+For everyday development, `npm run dev` is enough; it watches source changes.
+Run `npm run build` when you want to check the production output.
+
+### Windows: npm points to a missing installation
+
+If npm fails with `Cannot find module '...hermes/node/node_modules/npm/bin/npm-cli.js'`,
+PowerShell is finding an incomplete Hermes npm installation. With NVM for Windows,
+put its active Node installation first in the current terminal's PATH:
+
+```powershell
+$env:Path = "$env:NVM_SYMLINK;$env:Path"
+Get-Command node,npm
+npm --version
+npm ci
+npm run dev
+```
+
+`NVM_SYMLINK` must point to the active NVM installation (for example,
+`C:\nvm4w\nodejs`). For a persistent fix, place that directory before
+`%LOCALAPPDATA%\hermes\node` in your Windows user PATH, then restart the terminal
+and its parent editor. Missing `observable` or `rimraf` commands mean the project
+dependencies need installing with `npm ci`.
 
 ### Fungal source updates
 

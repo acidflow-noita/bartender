@@ -27,6 +27,7 @@ draft: false
 
 ```js
 import { initializeTitleAnimation } from "./components/titleAnimation.js";
+import { createChoicesTemplates as createCatalogChoicesTemplates } from "./components/choicesTemplates.js";
 initializeTitleAnimation();
 ```
 
@@ -645,41 +646,9 @@ const updateUI = () => {
 
       if (reagentSelectorElement.classList.contains("choices__input")) return;
 
-      const createChoicesTemplates = (strToEl) => ({
-        choice: ({ classNames }, data) => {
-          if (!data)
-            return strToEl(
-              `<div class="${classNames.item} ${classNames.itemChoice} ${classNames.itemSelectable}">Invalid Data</div>`
-            );
-
-          const imageUrl = getMaterialImageUrl(data.value || "");
-          const nameForDisplay = data.name || (data.label ? data.label.split(" (")[0] : data.value || "Unknown");
-          const typeForDisplay = (data.type || "").toLowerCase();
-          const safeValue = data.value || "";
-          const safeId = data.id || "";
-
-          return strToEl(`<div class="${classNames.item} ${classNames.itemChoice} ${classNames.itemSelectable}" data-choice data-choice-selectable data-id="${safeId}" data-value="${safeValue}" role="option">
-            <img src="${imageUrl}" style="height: 24px; display: inline-block; vertical-align: middle; margin-right: 8px;" alt="${nameForDisplay}" />
-            <span class="material-name-text">${nameForDisplay}</span>
-            (<span class="material-type-${typeForDisplay}">${safeValue}</span>)
-          </div>`);
-        },
-        item: ({ classNames }, data) => {
-          if (!data) return strToEl(`<div class="${classNames.item}">Invalid Data</div>`);
-
-          const imageUrl = getMaterialImageUrl(data.value || "");
-          const nameForDisplay = data.name || (data.label ? data.label.split(" (")[0] : data.value || "Unknown");
-          const typeForDisplay = (data.type || "").toLowerCase();
-          const safeValue = data.value || "";
-          const safeId = data.id || "";
-
-          return strToEl(`<div class="${classNames.item}" data-item data-id="${safeId}" data-value="${safeValue}" aria-selected="true" role="option" data-deletable>
-            <img src="${imageUrl}" style="height: 24px; display: inline-block; vertical-align: middle; margin: 8px;" alt="${nameForDisplay}" />
-            <span class="material-name-text">${nameForDisplay}</span>
-            (<span class="material-type-${typeForDisplay}"><code>${safeValue}</code></span>)
-            <button type="button" class="${classNames.button}" aria-label="Remove item: ${nameForDisplay}" data-button>Remove item</button>
-          </div>`);
-        },
+      const createChoicesTemplates = createCatalogChoicesTemplates(Choices, {
+        getItem: (id) => materialsMap.get(id),
+        getImageUrl: getMaterialImageUrl,
       });
 
       // Initialize reagent choices

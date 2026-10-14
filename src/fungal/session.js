@@ -143,13 +143,4 @@ export function syncAddress({location, history}, {schedule = setTimeout, cancel 
   };
 }
 
-export async function copyLinkText(value, {clipboard, fallback}) {
-  try {
-    if (!clipboard?.writeText) throw new Error("Clipboard unavailable");
-    await clipboard.writeText(value);
-    return true;
-  } catch {
-    try { return !!(await fallback(value)); }
-    catch { return false; }
-  }
-}
+export {copyLinkText} from "../components/clipboard.js";

@@ -16,7 +16,7 @@
   ],
   "env": {
     "test": {
-      "name": "auth-test-bartender",
+      "name": "bartender-test",
       "routes": []
     }
   }

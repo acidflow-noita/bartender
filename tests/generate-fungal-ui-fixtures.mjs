@@ -10,9 +10,9 @@ import {getFungalShifts} from '../src/vendor/noita-fungal/fungal.mjs';
 import * as tables from '../src/vendor/noita-fungal/fungal_materials.mjs';
 const root=fileURLToPath(new URL('../', import.meta.url));
 const sourceRoot=root+'src/vendor/noita-fungal/';
-const source=fs.readFileSync(sourceRoot+'index.html','utf8');
+const source=fs.readFileSync(sourceRoot+'index.html','utf8').replaceAll('\r\n','\n');
 const functionSource=(name,next)=>source.slice(source.indexOf(`function ${name}(`),source.indexOf(`\n\t\t\tfunction ${next}(`)).replaceAll('\n\t\t\t','\n');
-const hash=value=>createHash('sha256').update(typeof value==='string'?value:JSON.stringify(value)).digest('hex');
+const hash=value=>createHash('sha256').update(typeof value==='string'?value.replaceAll('\r\n','\n'):JSON.stringify(value)).digest('hex');
 // Data collector only: executes original table-producing functions in Node,
 // recording values. No browser, rendering, DOM package or page testing.
 function record(tag='text',value='') {

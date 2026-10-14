@@ -25,10 +25,10 @@ export default {
         { name: "Glow (β)", path: "/glow" },
       ],
     },
-    // {
-    //   name: "Spells",
-    //   pages: [{ name: "Spells' Digging Ability", path: "/digging" }],
-    // },
+    {
+      name: "Spells (Experimental)",
+      pages: [{ name: "Spells' Digging Ability", path: "/digging" }],
+    },
     // {
     //   name: "Work in progress",
     //   pages: [

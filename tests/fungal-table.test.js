@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import {runInNewContext} from "node:vm";
 
-const source = readFileSync(new URL("../src/fungal/table.js", import.meta.url), "utf8");
+const source = readFileSync(new URL("../src/fungal/table.js", import.meta.url), "utf8").replaceAll("\r\n", "\n");
 const compile = (Inputs = {}) => runInNewContext(source.replace(/^import .*;\n/gm, "").replace(/^export /gm, "") + "\n({consecutiveGroups, lockTableOrder, spanTableGroups, staticTable});", {Inputs});
 const classes = () => ({values: [], add(...names) {this.values.push(...names);}});
 const cell = () => ({hidden: false, rowSpan: 1, classList: classes()});

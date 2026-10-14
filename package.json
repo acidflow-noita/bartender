@@ -5,7 +5,6 @@
     "clean": "rimraf src/.observablehq/cache",
     "build": "observable build",
     "dev": "observable preview --port 3000",
-    "dev:auth": "cd auth-worker && npm run dev",
     "deploy": "observable deploy",
     "observable": "observable",
     "test": "node --test tests/*.test.js",

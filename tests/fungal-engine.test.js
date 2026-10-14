@@ -8,7 +8,7 @@ import {sourceState, advanceSearch, compileGoals, predictionRows, recipeSteps, r
 import * as shiftTests from "./fungal-shift-fixtures.js";
 
 const fixture = JSON.parse(readFileSync(new URL("./fungal-upstream-fixtures.json", import.meta.url)));
-const hash = (value) => createHash("sha256").update(typeof value === "string" ? value : JSON.stringify(value)).digest("hex");
+const hash = (value) => createHash("sha256").update(typeof value === "string" ? value.replaceAll("\r\n", "\n") : JSON.stringify(value)).digest("hex");
 for (const [name, run] of Object.entries(shiftTests)) test(`source regression: ${name}`, run);
 
 for (const name of ["fungal.mjs", "fungal_materials.mjs", "nolla_prng.mjs", "main.mjs"]) {

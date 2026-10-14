@@ -6,7 +6,6 @@ title: Durability (β)
 
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
   <h1 id="acidTitle" class="bartender-heading-decrypted" style="margin: 0;">Durability (β)</h1>
-  <div id="auth-status-container"></div>
 </div>
 <h2>Durability determines material's resistance to damage.</h2>
 
@@ -15,36 +14,11 @@ import { initializeTitleAnimation } from "./components/titleAnimation.js";
 initializeTitleAnimation();
 import { materialTypeColors, getSymbolConfig } from "./components/materialTypeStyles.js";
 import { wuoteLogo } from "./components/wuoteLogo.js";
-import { authManager, renderAuthStatus } from "./components/auth.js";
 import { html } from "htl";
-const authStatusCleanup = renderAuthStatus();
 ```
 
 ```js
-const authState = await authManager.checkAuth();
-```
-
-```js
-const all_materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
-const materials =
-  authState.authenticated && authState.isFollower
-    ? all_materials
-    : all_materials.filter((d) => ["snow", "rock_static", "sand_static", "wood_static"].includes(d.id));
-```
-
-```js
-import { createContentNotice } from "./components/contentNotice.js";
-const contentNotice = createContentNotice(authState, {
-  materials: materials.length,
-  totalMaterials: all_materials.length,
-});
-
-if (contentNotice) {
-  const container = document.getElementById("content-notice-container");
-  if (container) {
-    container.append(contentNotice);
-  }
-}
+const materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
 ```
 
 ```js
@@ -212,8 +186,6 @@ function durabilityPlot(materials, width) {
   });
 }
 ```
-
-<div id="content-notice-container"></div>
 
 <div class="grid grid-cols-4">
   <div class="card grid-colspan-2 grid-rowspan-1" style="padding: 0;">

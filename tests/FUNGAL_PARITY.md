@@ -1,5 +1,8 @@
 # Fungal source and UI verification
 
+Source hashes use LF line endings so Windows checkouts produce the same
+expectations as other platforms.
+
 The current reference is `liquidcake1/noita-fungal` revision
 `233955ea2bb48fe6fb3bd58dd9936da023d84b2d`, pinned at
 `src/vendor/noita-fungal`. Runtime and worker imports use a generated `.js`

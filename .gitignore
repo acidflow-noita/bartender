@@ -3,7 +3,7 @@
 node_modules/
 yarn-error.log
 .kiro/
-auth-worker/.dev.vars
+/auth-worker/
 /task/
 
 # Generated .js bridge for Observable preview (source is the Git submodule).
