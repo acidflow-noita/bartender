@@ -1,3 +1,7 @@
+import {evaluateConversions, evaluateLifecycle, hasTerrainConversion} from "./effects.js";
+import {evaluateExplosionFootprint} from "./explosion.js";
+import {traceDiggingPath} from "./motion.js";
+
 const nonnegative = (value) => Number.isFinite(value) && value >= 0;
 const positive = (value) => Number.isFinite(value) && value > 0;
 const result = (status, reason, radius = null, method = null) => ({status, reason, radius, method});
@@ -8,33 +12,65 @@ const acidSpells = new Set(["ACIDSHOT", "MATERIAL_ACID", "CLOUD_ACID", "CIRCLE_A
 export function isDiggingSpell(spell) {
   return acidSpells.has(spell.id) || spell.tags?.includes("digging") || positive(spell.cellEaterRadius) ||
     positive(spell.groundPenetrationCoeff) || positive(spell.laserBeamRadius) ||
-    (positive(spell.radius) && positive(spell.rayEnergy));
+    hasTerrainConversion(spell) || !!spell.diggingLifecycle ||
+    (spell.explosionEnabled !== false && positive(spell.radius) && positive(spell.rayEnergy));
 }
 
 export function getBaseRadius(spell) {
-  if (positive(spell?.cellEaterRadius)) return spell.cellEaterRadius;
-  return positive(spell?.radius) ? spell.radius : null;
+  const radii = [spell?.cellEaterRadius, spell?.explosionEnabled !== false ? spell?.radius : null,
+    spell?.diggingLifecycle?.blackHole?.maximumRadius,
+    ...(spell?.conversionEffects ?? []).filter((effect) => hasTerrainConversion({conversionEffects: [effect]}))
+      .map((effect) => effect.radius),
+    ...(spell?.diggingLifecycle?.secondaryProjectiles ?? []).map((entry) => getBaseRadius(entry.profile))].filter(positive);
+  return radii.length ? Math.max(...radii) : null;
 }
 
-export function evaluateDigging(spell, material) {
+export function evaluateDigging(spell, material, {preview = true} = {}) {
   if (!spell || !material) return result("empty", "Select a spell and a material to compare them.");
-  const effects = [];
+  if (spell.type === "Projectile modifier") {
+    return result("conditional", "This modifier needs a base projectile. Its digging depends on that projectile and the spell combination; it has no standalone cast footprint.");
+  }
+  const effects = evaluateConversions(spell, material);
+  const lifecycle = evaluateLifecycle(spell, material, (child, target) => evaluateDigging(child, target, {preview: false}));
   if (acidSpells.has(spell.id)) effects.push(evaluateAcid(spell, material));
   if (positive(spell.cellEaterRadius)) effects.push(evaluateCellEating(spell, material));
   if (positive(spell.groundPenetrationCoeff)) effects.push(evaluatePenetration(spell, material));
   if (positive(spell.laserBeamRadius)) effects.push(evaluateLaser(spell, material));
-  if (positive(spell.radius) && spell.rayEnergy !== 0) effects.push(evaluateExplosion(spell, material));
+  if (spell.explosionEnabled !== false && positive(spell.radius) && spell.rayEnergy !== 0) effects.push(evaluateExplosion(spell, material, preview));
+  if (lifecycle) effects.push(lifecycle);
   if (!effects.length) {
-    return result("unsupported", "This spell's digging effects are not modeled yet. Modifiers, moving singularities and scripted effects need separate calculations.");
+    return result("unsupported", "No verified terrain-removal effect is available for this spell.");
   }
   // Each effect has its own rules. A failed explosion cannot rule out
   // penetration or corrosion, and an unknown effect must not become zero.
-  const successful = effects.filter((effect) => effect.status === "digs" || effect.status === "path");
+  const successful = effects.filter((effect) => ["digs", "path", "converts"].includes(effect.status));
   const primary = successful[0] ?? effects.find((effect) => effect.status === "partial")
-    ?? effects.find((effect) => effect.status === "unsupported") ?? effects[0];
-  const circularEffect = successful.filter((effect) => positive(effect.radius))
+    ?? effects.find((effect) => effect.status === "conditional") ?? effects.find((effect) => effect.status === "unsupported") ?? effects[0];
+  const circularEffect = successful.filter((effect) => positive(effect.radius) && !effect.reachOnly)
     .sort((a, b) => b.radius - a.radius)[0] ?? null;
-  return {...primary, effects, circularEffect};
+  const outcome = {...primary, effects, circularEffect};
+  const sourceEffect = primary.footprint ? primary : !primary.reachOnly ? circularEffect : null;
+  if (sourceEffect?.footprint) {
+    outcome.footprint = sourceEffect.footprint;
+    // A representative secondary projectile was evaluated without raster
+    // rows. Build those only for the selected preview, using its own settings.
+    if (preview && outcome.footprint.kind === "explosion" && !outcome.footprint.rows) {
+      outcome.footprint = evaluateExplosionFootprint({...sourceEffect.explosion,
+        hardness: material.hardness, durability: material.durability});
+    }
+  }
+  if (preview && ["cell", "path"].includes(primary.method) && ["digs", "path"].includes(primary.status)
+      && material.id !== "air" && !material.tags?.includes("[box2d]") && material.is_just_particle_fx !== true) {
+    const footprint = traceDiggingPath(spell, material, {kind: primary.method,
+      contact: (hardness, vx, vy) => penetrationContactVector(spell, {...material, hardness}, vx, vy)});
+    if (footprint) {
+      outcome.footprint = footprint;
+      outcome.reason = primary.method === "cell"
+        ? "Cell eating ignores hardness and durability. The preview follows the effect along a nominal cast; its width is twice the cell-eating radius."
+        : "Penetration damages cells along the projectile's path. The preview follows a nominal cast with contact slowdown; first-cell damage below is calculated separately at the launch-speed range.";
+    }
+  }
+  return outcome;
 }
 
 function evaluateAcid(spell, material) {
@@ -93,13 +129,22 @@ function terrainLimitation(material, method) {
 // coefficient * mass supplied at 0xc0757a. This models one fresh terrain cell
 // at the stated speed, not the projectile's flight or the full tunnel.
 export function penetrationContact(spell, material, speed) {
+  const contact = penetrationContactVector(spell, material, speed, 0);
+  if (!contact) return null;
+  return {speed, damage: contact.damage, remaining: contact.remaining,
+    impacts: material.hardness === 0 && contact.removed ? 1 : contact.damage > 0 ? Math.ceil(material.hardness / contact.damage) : null,
+    speedAfter: contact.vxAfter};
+}
+
+export function penetrationContactVector(spell, material, vx, vy) {
   if (!positive(spell.mass) || !positive(spell.groundPenetrationCoeff) ||
-      !nonnegative(speed) || !Number.isInteger(material.hardness) || material.hardness < 0) return null;
+      !Number.isFinite(vx) || !Number.isFinite(vy) || !Number.isInteger(material.hardness) || material.hardness < 0) return null;
   const f32 = Math.fround;
-  const velocity = f32(speed);
-  const speedSquared = f32(velocity * velocity);
+  vx = f32(vx);
+  vy = f32(vy);
+  const speedSquared = f32(f32(vx * vx) + f32(vy * vy));
   if (speedSquared <= 100) {
-    return {speed, damage: 0, remaining: material.hardness, impacts: null, speedAfter: velocity};
+    return {damage: 0, remaining: material.hardness, removed: false, vxAfter: vx, vyAfter: vy, energy: 0};
   }
   const coefficient = f32(f32(spell.groundPenetrationCoeff) * f32(spell.mass));
   const energy = f32(f32(coefficient * 0.5) * speedSquared);
@@ -108,9 +153,8 @@ export function penetrationContact(spell, material, speed) {
   if (!positive(energy) || energy >= 2147483647 || material.hardness > 2147483647) return null;
   const damage = Math.min(material.hardness, Math.round(energy));
   const factor = f32(1 - f32(Math.min(f32(material.hardness), energy) / energy));
-  return {speed, damage, remaining: material.hardness - damage,
-    impacts: material.hardness === 0 ? 1 : damage > 0 ? Math.ceil(material.hardness / damage) : null,
-    speedAfter: f32(velocity * factor)};
+  return {damage, remaining: material.hardness - damage, removed: material.hardness - damage < 1,
+    vxAfter: f32(vx * factor), vyAfter: f32(vy * factor), energy};
 }
 
 function evaluatePenetration(spell, material) {
@@ -137,7 +181,7 @@ function evaluatePenetration(spell, material) {
     if (contacts.every((contact) => contact.damage === 0 && contact.impacts === null)) {
       return {...result("blocked", "Penetration removes no cell hit points at this speed. Other spell effects are checked separately.", 0, "path"), penetration};
     }
-    return {...result("path", "At default launch speeds, penetration damages the first terrain cell. Repeated identical impacts can finish a damaged cell; flight, acceleration and subsequent cells are not simulated.", null, "path"), penetration};
+    return {...result("path", "At the launch-speed range, penetration damages the first terrain cell. Repeated identical impacts can finish a damaged cell. Impact speed changes during flight.", null, "path"), penetration};
   }
   return result("blocked", `Material durability ${material.durability} exceeds the penetration limit of ${limit}.`, 0, "path");
 }
@@ -164,7 +208,7 @@ function evaluateLaser(spell, material) {
       contacts: Math.max(1, Math.ceil(material.hardness / spell.laserCellDamage))}};
 }
 
-function evaluateExplosion(spell, material) {
+function evaluateExplosion(spell, material, preview) {
   if (spell.explosionHoleEnabled === false || spell.explosionDontDamageToCells === true) {
     return result("blocked", "This explosion does not remove terrain.", 0, "explosion");
   }
@@ -180,15 +224,15 @@ function evaluateExplosion(spell, material) {
     return result("blocked", `Material durability ${material.durability} exceeds the spell's limit of ${spell.maxDuraToDestroy}.`, 0, "explosion");
   }
 
-  // Noita 0x656b10 consumes remaining cell HP from each ray's energy budget.
-  // 0x657960 uses 360 directional cutoffs and can randomize large explosions.
-  // This circle is a fresh, uniform-terrain estimate, not that exact outline.
-  const energyRadius = material.hardness === 0 ? spell.radius : Math.floor(spell.rayEnergy / material.hardness);
-  const radius = Math.min(spell.radius, energyRadius);
-  if (radius === 0) return result("partial", "This impact damages terrain but does not remove a fresh cell. Repeated hits or already damaged terrain can give a different result.", 0, "explosion");
-  return result("digs", radius < spell.radius
-    ? "Hardness limits the estimated radius before the explosion reaches its maximum size."
-    : "The energy budget reaches the spell's maximum radius in this material.", radius, "explosion");
+  const explosion = {radius: spell.radius, rayEnergy: spell.rayEnergy, maxDurability: spell.maxDuraToDestroy};
+  const footprint = evaluateExplosionFootprint({...explosion, hardness: material.hardness,
+    durability: material.durability}, {includeRows: preview});
+  if (!footprint) return result("unsupported", "The explosion or material settings are outside the supported numeric range.", null, "explosion");
+  const details = {explosion, footprint, radiusRange: [footprint.radiusMin, footprint.radiusMax]};
+  if (footprint.radiusMax === 0) return {...result("partial", "This impact damages terrain but does not remove a fresh cell. Repeated hits or already damaged terrain can give a different result.", 0, "explosion"), ...details};
+  return {...result("digs", footprint.radiusMax < spell.radius
+    ? "Hardness limits the explosion before its maximum radius. The outline follows 360 rays through fresh, uniform terrain."
+    : "The explosion can reach its maximum radius in this material. The outline includes differences between ray directions and random variation.", footprint.radiusMax, "explosion"), ...details};
 }
 
 export const FIXED_SCALE = 6;
@@ -196,7 +240,7 @@ export const FIXED_SCALE = 6;
 export function getDiggingViewport(radius, width, fit = false) {
   width = positive(width) ? width : 640;
   radius = nonnegative(radius) ? radius : 0;
-  const sceneHeight = width;
+  const sceneHeight = Math.max(360, Math.min(720, width * 0.6));
   const height = sceneHeight;
   const availableRadius = Math.max(1, Math.min(width / 2 - 24, sceneHeight / 2 - 24));
   const scale = fit && radius > 0 ? Math.min(FIXED_SCALE, availableRadius / radius) : FIXED_SCALE;

@@ -1,4 +1,4 @@
-export const DIGGING_DEFAULTS = Object.freeze({spell: "DIGGER", material: "soil", fit: false});
+export const DIGGING_DEFAULTS = Object.freeze({spell: null, material: null, fit: false});
 
 export function readDiggingParams(href, spells, materials) {
   const params = new URL(href).searchParams;
@@ -15,7 +15,7 @@ export function diggingUrl(href, {spell, material, fit}) {
   const url = new URL(href);
   for (const key of Object.keys(DIGGING_DEFAULTS)) url.searchParams.delete(key);
   for (const [key, value] of Object.entries({spell, material})) {
-    if (value && value !== DIGGING_DEFAULTS[key]) url.searchParams.set(key, value);
+    if (value) url.searchParams.set(key, value);
   }
   if (fit) url.searchParams.set("fit", "1");
   return url.href;

@@ -1,0 +1,138 @@
+{
+  "buildHash": "9dbd52ced019a643169a2db02f46c77f8766c6e5",
+  "spells": {
+    "AIR_BULLET": {
+      "kind": "physics-impulse",
+      "sourcePaths": ["data/scripts/gun/gun_actions.lua", "data/entities/projectiles/deck/light_bullet_air.xml"],
+      "physicsImpulseCoeff": 100000,
+      "context": "Burst of Air pushes physics objects on impact. Whether that opens space depends on the objects and layout; its fire-support effect does not directly replace terrain."
+    },
+    "BLACK_HOLE_BIG": {
+      "kind": "growing-black-hole",
+      "sourcePaths": ["data/entities/projectiles/deck/black_hole_big.xml", "data/scripts/projectiles/black_hole_big.lua"],
+      "lifetimeFrames": 500,
+      "lifetimeRandomness": 7,
+      "blackHole": {"initialRadius": 1, "radiusIncrement": 1, "updateEveryFrames": 3, "maximumRadius": 64, "damageProbability": 0.25},
+      "looseGround": {"sourceChildEntityIndex": 0, "maxDistance": 80, "probability": 0.2, "chunkProbability": 0.03},
+      "context": "The black-hole field grows over time. Its terrain rules are separate from cell eating; the moving field and loose-ground child do not define one guaranteed circular hole."
+    },
+    "WHITE_HOLE_BIG": {
+      "kind": "growing-black-hole",
+      "sourcePaths": ["data/entities/projectiles/deck/white_hole_big.xml", "data/scripts/projectiles/white_hole_big.lua"],
+      "lifetimeFrames": 500,
+      "lifetimeRandomness": 7,
+      "blackHole": {"initialRadius": 1, "radiusIncrement": 1, "updateEveryFrames": 3, "maximumRadius": 64, "damageProbability": 0.25},
+      "looseGround": {"sourceChildEntityIndex": 0, "maxDistance": 80, "probability": 0.2, "chunkProbability": 0.03},
+      "context": "The repelling black-hole field grows over time. Its terrain rules are separate from cell eating; the moving field and loose-ground child do not define one guaranteed circular hole."
+    },
+    "BLACK_HOLE_GIGA": {
+      "kind": "fixed-black-hole",
+      "sourcePaths": ["data/entities/projectiles/deck/black_hole_giga.xml"],
+      "lifetimeFrames": 1000,
+      "lifetimeRandomness": 7,
+      "blackHole": {"radius": 160, "maximumRadius": 160, "damageProbability": 0.55},
+      "looseGround": {"sourceChildEntityIndex": 0, "maxDistance": 260, "probability": 0.5, "chunkProbability": 0.09},
+      "context": "The 160-pixel black-hole field removes cells along sampled rays. Its 60-pixel cell-eating trail and the child's 260-pixel loose-ground search are separate effects, not one combined crater."
+    },
+    "WHITE_HOLE_GIGA": {
+      "kind": "fixed-black-hole",
+      "sourcePaths": ["data/entities/projectiles/deck/white_hole_giga.xml"],
+      "lifetimeFrames": 1000,
+      "lifetimeRandomness": 7,
+      "blackHole": {"radius": 160, "maximumRadius": 160, "damageProbability": 0.55},
+      "looseGround": {"sourceChildEntityIndex": 0, "maxDistance": 260, "probability": 0.5, "chunkProbability": 0.09},
+      "context": "The 160-pixel repelling black-hole field removes cells along sampled rays. Its 60-pixel cell-eating trail and the child's 260-pixel loose-ground search are separate effects, not one combined crater."
+    },
+    "FIREWORK": {
+      "kind": "random-projectile",
+      "sourcePaths": ["data/scripts/gun/gun_actions.lua", "data/entities/projectiles/deck/fireworks/firework_pink.xml", "data/entities/projectiles/deck/fireworks/firework_green.xml", "data/entities/projectiles/deck/fireworks/firework_blue.xml", "data/entities/projectiles/deck/fireworks/firework_orange.xml"],
+      "countPerCast": 1,
+      "selection": "one-of",
+      "context": "One of four projectile variants is chosen per cast. The impact profiles describe individual explosions at their impact positions.",
+      "secondaryProjectiles": [
+        {"projectilePath": "data/entities/projectiles/deck/fireworks/firework_pink.xml", "name": "Pink firework", "trigger": "cast"},
+        {"projectilePath": "data/entities/projectiles/deck/fireworks/firework_green.xml", "name": "Green firework", "trigger": "cast"},
+        {"projectilePath": "data/entities/projectiles/deck/fireworks/firework_blue.xml", "name": "Blue firework", "trigger": "cast"},
+        {"projectilePath": "data/entities/projectiles/deck/fireworks/firework_orange.xml", "name": "Orange firework", "trigger": "cast"}
+      ]
+    },
+    "PURPLE_EXPLOSION_FIELD": {
+      "kind": "repeated-projectiles",
+      "sourcePaths": ["data/entities/projectiles/deck/purple_explosion_field.xml", "data/scripts/projectiles/purple_explosion_field.lua", "data/entities/projectiles/deck/purple_explosion.xml"],
+      "lifetimeFrames": 600,
+      "context": "The field places repeated explosions around itself. Nearby targets can move their positions; the area covered is not a single explosion circle.",
+      "secondaryProjectiles": [
+        {"projectilePath": "data/entities/projectiles/deck/purple_explosion.xml", "name": "Field explosion", "trigger": "interval", "updateEveryFrames": 11, "countMin": 1, "countMax": 1, "spawnOffsetX": [-70, 70], "spawnOffsetY": [-70, 70], "targeting": {"tag": "homing_target", "searchRadius": 70, "chanceWhenTargetsExist": 0.2}}
+      ]
+    },
+    "METEOR_RAIN": {
+      "kind": "repeated-projectiles",
+      "sourcePaths": ["data/scripts/gun/gun_actions.lua", "data/entities/projectiles/deck/meteor_rain.xml", "data/entities/misc/effect_meteor_rain.xml", "data/scripts/projectiles/meteor_rain.lua", "data/entities/projectiles/deck/meteor_rain_meteor.xml", "data/scripts/projectiles/meteor_collide.lua"],
+      "projectileLifetimeFrames": 100,
+      "entityLifetimeFrames": 600,
+      "extraEmitterLifetimeFrames": 600,
+      "extraEmitterPath": "data/entities/misc/effect_meteor_rain.xml",
+      "context": "Meteors spawn around each active emitter and fly toward it. Counts below are per emitter update; flight, terrain contact and any attached emitter determine the combined coverage.",
+      "secondaryProjectiles": [
+        {"projectilePath": "data/entities/projectiles/deck/meteor_rain_meteor.xml", "name": "Rain meteor", "trigger": "interval", "updateEveryFrames": 30, "countMin": 1, "countMax": 3, "spawnCircleRadius": 300, "launchSpeed": 900, "terrainCollisionAfterFrames": 20}
+      ]
+    },
+    "WORM_RAIN": {
+      "kind": "spawned-creature",
+      "sourcePaths": ["data/entities/projectiles/deck/worm_rain.xml", "data/scripts/projectiles/worm_rain.lua", "data/entities/misc/worm_big_worm_rain.xml"],
+      "lifetimeFrames": 400,
+      "context": "Each spawned worm consumes terrain at its own position. Its path and survival determine the tunnel; the worm radius is not the area cleared by the whole spell.",
+      "secondaryProjectiles": [
+        {"projectilePath": "data/entities/misc/worm_big_worm_rain.xml", "name": "Summoned worm", "trigger": "interval", "updateEveryFrames": 40, "countMin": 1, "countMax": 1, "spawnOffsetX": [-200, 200], "spawnOffsetY": [-300, -160], "condition": "The spawned worm must reach the selected terrain."}
+      ]
+    },
+    "EXPLODING_DEER": {
+      "kind": "creature-explosions",
+      "sourcePaths": ["data/entities/projectiles/deck/exploding_deer.xml"],
+      "context": "The deer explodes when it dies. A prey collision can start a 30-frame destruction timer; where it dies depends on the creature and environment.",
+      "secondaryProjectiles": [
+        {"projectilePath": "data/entities/projectiles/deck/exploding_deer.xml", "name": "Deer death explosion", "sourceComponent": "ExplosionComponent", "componentIndex": 0, "trigger": "entity-death", "condition": "The deer must die near the selected terrain."}
+      ]
+    },
+    "PEBBLE": {
+      "kind": "creature-explosions",
+      "sourcePaths": ["data/entities/projectiles/deck/pebble_player.xml", "data/scripts/animals/pebble_player_spawn.lua", "data/entities/projectiles/deck/pebble_player_physics.xml"],
+      "context": "The projectile becomes a physics creature when removed. Death or its 400-frame timer can produce the listed explosion at the creature's later position.",
+      "secondaryProjectiles": [
+        {"projectilePath": "data/entities/projectiles/deck/pebble_player_physics.xml", "name": "Pebble death explosion", "sourceComponent": "ExplosionComponent", "componentIndex": 0, "trigger": "entity-death", "condition": "The spawned creature must die near the selected terrain."},
+        {"projectilePath": "data/entities/projectiles/deck/pebble_player_physics.xml", "name": "Pebble timer explosion", "sourceComponent": "ExplosionComponent", "componentIndex": 1, "trigger": "timer", "afterFrames": 400, "condition": "The spawned creature must survive until its timer runs near the selected terrain."}
+      ]
+    },
+    "MEGALASER": {
+      "kind": "delayed-projectiles",
+      "sourcePaths": ["data/scripts/gun/gun_actions.lua", "data/entities/projectiles/deck/megalaser.xml", "data/entities/projectiles/deck/megalaser_beam.xml", "data/scripts/projectiles/megalaser_init.lua", "data/scripts/projectiles/megalaser_launch.lua"],
+      "context": "The carrier activates up to five nearby beams after 30 frames. Each beam has its own impact explosions and movement; their total footprint is not one circle.",
+      "secondaryProjectiles": [
+        {"projectilePath": "data/entities/projectiles/deck/megalaser_beam.xml", "name": "Concentrated-light beam impact", "trigger": "delayed-activation", "afterFrames": 30, "countMin": 0, "countMax": 5, "lateralOffsets": [-2, -1, 0, 1, 2], "condition": "The controller must retain and activate the beam entities."}
+      ]
+    },
+    "ALL_SPELLS": {
+      "kind": "staged-event",
+      "sourcePaths": ["data/scripts/gun/gun_actions.lua", "data/entities/projectiles/deck/all_spells_loader.xml", "data/scripts/projectiles/all_spells_stage.lua", "data/scripts/projectiles/all_spells_effect.lua", "data/entities/projectiles/remove_ground.xml", "data/entities/animals/worm_big.xml"],
+      "stageEveryFrames": 300,
+      "effectEveryFrames": 30,
+      "loaderLifetimeFrames": 7020,
+      "followsPlayerAtStageUpdates": true,
+      "context": "End of Everything runs stages around players. Its later explosions, flowing materials and creatures depend on time, position and the world; no single cast radius describes them.",
+      "conditionalStages": [
+        {"stage": 2, "description": "Lava emission above the loader.", "entityPath": "data/entities/projectiles/circle_lava_small.xml"},
+        {"stage": 3, "description": "Spawns physics propane tanks around the loader; breakage depends on the environment.", "entityPath": "data/entities/props/physics_propane_tank.xml"},
+        {"stage": 5, "description": "Acid emission above the loader; corrosion depends on flow and material reactions.", "entityPath": "data/entities/projectiles/circle_acid_small.xml"},
+        {"stage": 6, "description": "Attaches meteor-rain emitters to players; individual meteor profiles are available on Meteorisade.", "entityPath": "data/entities/projectiles/deck/meteor_rain.xml"},
+        {"stage": 9, "description": "Spawns independently acting wands; their later shots depend on the world.", "entityPath": "data/entities/animals/boss_pit/wand.xml"}
+      ],
+      "secondaryProjectiles": [
+        {"projectilePath": "data/entities/projectiles/remove_ground.xml", "name": "Initial terrain clearing", "trigger": "stage-start", "stage": 1},
+        {"projectilePath": "data/entities/projectiles/wraith_glowing_laser.xml", "name": "Stage 4 light projectile", "trigger": "stage-interval", "stage": 4, "updateEveryFrames": 30, "countMin": 16, "countMax": 16, "spawnRadiusMin": 48, "spawnRadiusMax": 160, "launchSpeed": 400},
+        {"projectilePath": "data/entities/projectiles/deck/rocket_tier_2.xml", "name": "Stage 8 rocket", "trigger": "stage-interval", "stage": 8, "updateEveryFrames": 30, "countMin": 16, "countMax": 16, "spawnRadiusMin": 48, "spawnRadiusMax": 160, "launchSpeed": 100},
+        {"projectilePath": "data/entities/animals/worm_big.xml", "name": "Stage 11 worm", "trigger": "stage-interval", "stage": 11, "updateEveryFrames": 30, "countMin": 1, "countMax": 1, "spawnRadiusMin": 48, "spawnRadiusMax": 160, "condition": "The spawned worm must reach the selected terrain."},
+        {"projectilePath": "data/entities/projectiles/deck/nuke.xml", "name": "Stage 13 nuke", "trigger": "stage-interval", "stage": 13, "updateEveryFrames": 30, "countMin": 4, "countMax": 4, "spawnRadiusMin": 48, "spawnRadiusMax": 160, "launchSpeed": 500}
+      ]
+    }
+  }
+}

@@ -512,7 +512,8 @@ function check_ray_energy()
 
         if velocity_comp then
             output = output .. "VelocityComponent:\n"
-            for _, property in ipairs({ "mass", "air_friction", "gravity_y" }) do
+            for _, property in ipairs({ "mass", "air_friction", "gravity_x", "gravity_y", "terminal_velocity",
+                "apply_terminal_velocity", "updates_velocity", "limit_to_max_velocity", "liquid_drag" }) do
                 local value = ComponentGetValue2(velocity_comp, property)
                 if value ~= nil then
                     output = output .. "  " .. property .. ": " .. tostring(value) .. "\n"
@@ -522,6 +523,16 @@ function check_ray_energy()
 
         if proj_comp then
             output = output .. "ProjectileComponent:\n"
+            for _, property in ipairs({ "lifetime", "lifetime_randomness", "speed_min", "speed_max", "friction",
+                "on_death_explode", "on_lifetime_out_explode",
+                "collide_with_world", "on_collision_die", "on_collision_remove_projectile", "penetrate_world",
+                "penetrate_world_velocity_coeff", "bounces_left", "bounce_energy", "die_on_low_velocity",
+                "die_on_low_velocity_limit", "die_on_liquid_collision", "do_moveto_update", "physics_impulse_coeff" }) do
+                local value = ComponentGetValue2(proj_comp, property)
+                if value ~= nil then
+                    output = output .. "  " .. property .. ": " .. tostring(value) .. "\n"
+                end
+            end
             output = output ..
                 "  ground_penetration_coeff: " ..
                 tostring(ComponentGetValue2(proj_comp, "ground_penetration_coeff")) .. "\n"

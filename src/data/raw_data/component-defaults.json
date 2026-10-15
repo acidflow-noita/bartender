@@ -3,9 +3,35 @@
     "path": "tools_modding/component_documentation.txt",
     "sha256": "08c94c2dea03774c7cb6f54691a77bb204a15838527463efc37e8eebe7e3ee2b",
     "buildHash": "9dbd52ced019a643169a2db02f46c77f8766c6e5",
-    "lines": [412, 424]
+    "sections": {
+      "CellEaterComponent": [412, 424],
+      "MagicConvertMaterialComponent": [1565, 1589],
+      "BlackHoleComponent": [327, 334],
+      "LightningComponent": [1458, 1465],
+      "ProjectileComponent": [2202, 2259],
+      "VelocityComponent": [2542, 2557]
+    }
+  },
+  "nativeSources": {
+    "ConfigExplosion": {
+      "path": "task/digging-native/explosion-constructor.c",
+      "binarySha256": "a0d9f9ca513e27a598c61dd9a19211c7a11d1477c9a2b93d909757d91d17d914",
+      "constructorAddress": "0x004b2780",
+      "evidenceId": "ev_e2617e5f8260377b60800a8d3776630fa9c1e78615679d3e595d86d77ba17e1a",
+      "fieldOffsets": {"explosion_radius": "0x08", "ray_energy": "0xf0", "max_durability_to_destroy": "0xf4"}
+    },
+    "LightningComponent.config_explosion": {
+      "path": "task/digging-native/lightning-constructor.c",
+      "constructorAddress": "0x00a2d1f0",
+      "evidenceId": "ev_7e41ee2c69c4c4de9367e83e6532479c1503cec673ceaafab045abc0620a5ef7"
+    }
   },
   "defaults": {
+    "ConfigExplosion": {
+      "explosion_radius": 20,
+      "ray_energy": 20000,
+      "max_durability_to_destroy": 10
+    },
     "CellEaterComponent": {
       "radius": 10,
       "eat_probability": 100,
@@ -14,6 +40,65 @@
       "limited_materials": false,
       "ignored_material_tag": "",
       "ignored_material": 0
+    },
+    "MagicConvertMaterialComponent": {
+      "radius": 256,
+      "min_radius": 0,
+      "is_circle": false,
+      "steps_per_frame": 10,
+      "from_material_tag": "",
+      "from_any_material": false,
+      "clean_stains": false,
+      "extinguish_fire": false,
+      "fan_the_flames": 0,
+      "temperature_reaction_temp": 0,
+      "ignite_materials": 0,
+      "loop": false,
+      "kill_when_finished": true,
+      "convert_entities": false,
+      "convert_same_material": true,
+      "from_material_array": "",
+      "to_material_array": "",
+      "from_material": 0,
+      "to_material": 0
+    },
+    "BlackHoleComponent": {
+      "radius": 16,
+      "damage_probability": 0.25
+    },
+    "ProjectileComponent": {
+      "lifetime": -1,
+      "lifetime_randomness": 0,
+      "on_death_explode": false,
+      "on_lifetime_out_explode": false,
+      "speed_min": 60,
+      "speed_max": 60,
+      "friction": 0,
+      "collide_with_world": true,
+      "on_collision_die": true,
+      "on_collision_remove_projectile": false,
+      "penetrate_world": false,
+      "penetrate_world_velocity_coeff": 0.6,
+      "bounces_left": 0,
+      "bounce_energy": 0.5,
+      "die_on_low_velocity": false,
+      "die_on_low_velocity_limit": 50,
+      "die_on_liquid_collision": false,
+      "do_moveto_update": true
+    },
+    "LightningComponent": {
+      "explosion_type": 1
+    },
+    "VelocityComponent": {
+      "gravity_x": 0,
+      "gravity_y": 400,
+      "mass": 0.05,
+      "air_friction": 0.55,
+      "terminal_velocity": 1000,
+      "apply_terminal_velocity": true,
+      "updates_velocity": true,
+      "limit_to_max_velocity": true,
+      "liquid_drag": 1
     }
   }
 }

@@ -16,17 +16,23 @@ const material = (id) => {
   return value;
 };
 
-test("real digging defaults exist and include both small spells and nukes", () => {
+test("the digging catalog includes both small spells and nukes", () => {
   for (const id of ["DIGGER", "NUKE", "NUKE_GIGA", "BLACK_HOLE", "LUMINOUS_DRILL"]) {
     assert.ok(isDiggingSpell(spell(id)));
   }
   assert.equal(evaluateDigging(spell("DIGGER"), material("soil")).radius, 6);
 });
 
-test("hardness consumes ray energy per pixel, with equality allowing one pixel", () => {
-  assert.equal(evaluateDigging(spell("DIGGER"), material("rock_static")).radius, 1);
+test("hardness limits directional explosion rays, with equality removing a fresh cell", () => {
+  const small = evaluateDigging(spell("DIGGER"), material("rock_static"));
+  assert.ok(small.footprint.removedPixelsMin > 0);
+  assert.ok(Math.abs(small.radiusRange[0] - 1) < 0.001);
+  assert.ok(Math.abs(small.radiusRange[1] - Math.SQRT2) < 0.001);
   assert.equal(evaluateDigging(spell("DIGGER"), material("rock_hard")).radius, 0);
-  assert.equal(evaluateDigging(spell("NUKE"), material("rock_static")).radius, 67);
+  const nuke = evaluateDigging(spell("NUKE"), material("rock_static"));
+  assert.ok(nuke.radiusRange[0] > 66 && nuke.radiusRange[0] < 67);
+  assert.ok(nuke.radiusRange[1] > 94 && nuke.radiusRange[1] < 96);
+  assert.equal(nuke.footprint.rays.length, 360);
   assert.equal(evaluateDigging(spell("NUKE"), material("soil")).radius, 250);
 });
 
@@ -34,7 +40,9 @@ test("durability can block a nuke; the exact durability limit remains diggable",
   const blocked = evaluateDigging(spell("NUKE"), material("templebrick_static"));
   assert.equal(blocked.status, "blocked");
   assert.match(blocked.reason, /durability 14/);
-  assert.equal(evaluateDigging(spell("NUKE_GIGA"), material("templebrick_static")).radius, 9);
+  const giga = evaluateDigging(spell("NUKE_GIGA"), material("templebrick_static"));
+  assert.ok(giga.radiusRange[0] > 8 && giga.radiusRange[0] < 9);
+  assert.ok(giga.radiusRange[1] > 13 && giga.radiusRange[1] < 15);
 });
 
 test("Acid Ball corrodes brickwork and steel terrain independently of explosion limits", () => {
@@ -123,7 +131,7 @@ test("standalone acid emitters use corrosion, but modifiers and unknown data are
     assert.equal(evaluateDigging(spell(id), material("templebrick_static")).status, "digs");
     assert.equal(evaluateDigging(spell(id), material("rock_hard")).status, "blocked");
   }
-  assert.equal(evaluateDigging(spell("ACID_TRAIL"), material("soil")).status, "unsupported");
+  assert.equal(evaluateDigging(spell("ACID_TRAIL"), material("soil")).status, "conditional");
   const missingTags = evaluateDigging(spell("ACIDSHOT"), {...material("soil"), tags: undefined});
   assert.equal(missingTags.effects.find((effect) => effect.method === "acid").status, "unsupported");
   assert.equal(missingTags.circularEffect.radius, 9, "missing corrosion data does not erase a known initial explosion");
@@ -146,7 +154,7 @@ test("cell-eating uses the component radius for actual black-hole IDs", () => {
     const result = evaluateDigging(spell(id), material("templebrick_static"));
     assert.equal(result.radius, radius);
     assert.equal(result.method, "cell");
-    assert.equal(getBaseRadius(spell(id)), radius);
+    assert.equal(getBaseRadius(spell(id)), id === "BLACK_HOLE_GIGA" ? 160 : radius);
   }
   assert.equal(evaluateDigging(spell("BLACK_HOLE"), material("gem_box2d_yellow_sun")).status, "blocked");
 });
@@ -159,7 +167,9 @@ test("limited cell-eating respects its material list and missing restrictions", 
 });
 
 test("documented cell-eater settings control named exclusions, objects, stains and probability", () => {
-  assert.equal(evaluateDigging(spell("BLACK_HOLE_GIGA"), material("gem_box2d_yellow_sun")).status, "blocked");
+  const omegaSun = evaluateDigging(spell("BLACK_HOLE_GIGA"), material("gem_box2d_yellow_sun"));
+  assert.equal(omegaSun.status, "conditional", "its separate field requires object context");
+  assert.equal(omegaSun.effects.find((effect) => effect.method === "cell").status, "blocked");
   assert.equal(evaluateDigging(spell("BLACK_HOLE"), material("steel")).status, "digs",
     "the component explicitly consumes dynamic physics bodies");
   for (const settings of [{cellEaterOnlyStain: true}, {cellEaterEatProbability: 0}]) {
@@ -169,23 +179,31 @@ test("documented cell-eater settings control named exclusions, objects, stains a
   }
 });
 
-test("known explosion geometry does not fill in missing energy and durability values", () => {
+test("Lightning uses verified ConfigExplosion defaults without filling unknown inputs", () => {
   const outcome = evaluateDigging(spell("LIGHTNING"), material("soil"));
   assert.equal(outcome.method, "explosion");
-  assert.equal(outcome.status, "unsupported");
-  assert.equal(outcome.radius, null);
+  assert.equal(outcome.status, "digs");
+  assert.equal(outcome.explosion.rayEnergy, 20000);
+  assert.equal(outcome.explosion.maxDurability, 10);
+  assert.ok(outcome.radius > 13 && outcome.radius < 15);
   assert.equal(getBaseRadius(spell("LIGHTNING")), 35);
-  assert.equal(outcome.circularEffect, null);
+  for (const setting of [{rayEnergy: null}, {maxDuraToDestroy: null}]) {
+    assert.equal(evaluateDigging({...spell("LIGHTNING"), ...setting}, material("soil")).status, "unsupported");
+  }
 });
 
 test("noncircular effects and unknown data are not reported as zero digging", () => {
   assert.equal(evaluateDigging(spell("LUMINOUS_DRILL"), material("rock_hard")).status, "path");
   assert.equal(evaluateDigging(spell("LUMINOUS_DRILL"), {...material("rock_hard"), durability: 15}).status, "blocked");
-  for (const id of ["ACID_TRAIL", "MATTER_EATER", "BLACK_HOLE_BIG"]) {
+  for (const id of ["ACID_TRAIL", "MATTER_EATER"]) {
     const result = evaluateDigging(spell(id), material("soil"));
-    assert.equal(result.status, "unsupported");
+    assert.equal(result.status, "conditional");
     assert.equal(result.radius, null);
   }
+  const growing = evaluateDigging(spell("BLACK_HOLE_BIG"), material("soil"));
+  assert.equal(growing.status, "digs");
+  assert.equal(growing.radius, 64);
+  assert.equal(growing.reachOnly, true);
   assert.equal(evaluateDigging(null, material("soil")).status, "empty");
   assert.equal(evaluateDigging(spell("NUKE"), null).status, "empty");
 });
@@ -221,7 +239,7 @@ test("penetration caps, missing caps and a separate digging explosion remain dis
   const result = evaluateDigging(explosive, brick);
   assert.equal(result.status, "digs");
   assert.equal(result.method, "explosion");
-  assert.equal(result.radius, 3);
+  assert.ok(result.radius > 3 && result.radius < 4.3);
   assert.equal(evaluateDigging({...lance, groundPenetrationMaxDura: -1}, brick).status, "path");
 });
 
@@ -298,12 +316,12 @@ test("fit mode contains the entire radius at narrow and wide viewport sizes", ()
   }
 });
 
-test("terrain stays square and Mina stays in the bottom right at the same scale as the circle", () => {
-  for (const width of [240, 320, 420]) {
+test("the preview uses a taller responsive canvas and keeps Mina at the effect scale", () => {
+  for (const width of [240, 320, 420, 1200, 1800]) {
     for (const radius of [null, 0, 1, 6, 60, 250, 400]) {
       for (const fit of [false, true]) {
         const view = getDiggingViewport(radius, width, fit);
-        assert.equal(view.sceneHeight, width);
+        assert.equal(view.sceneHeight, Math.max(360, Math.min(720, width * 0.6)));
         assert.equal(view.mina.width, 8 * view.scale);
         assert.equal(view.mina.height, 18 * view.scale);
         assert.ok(view.mina.x >= 0 && view.mina.x + view.mina.width <= width);
@@ -318,15 +336,54 @@ test("terrain stays square and Mina stays in the bottom right at the same scale 
 test("every catalog combination produces a finite bounded radius or an explicit nonestimate", () => {
   for (const s of spells.filter(isDiggingSpell)) {
     for (const m of materials) {
-      const result = evaluateDigging(s, m);
+      const result = evaluateDigging(s, m, {preview: false});
       if (result.radius === null) {
-        assert.ok(["path", "unsupported"].includes(result.status) ||
+        assert.ok(["path", "unsupported", "conditional"].includes(result.status) ||
           (result.status === "digs" && (result.method === "laser" ||
             (result.method === "acid" && m.tags.includes("[corrodible]")))), `${s.id}/${m.id}`);
       } else {
         assert.ok(Number.isFinite(result.radius) && result.radius >= 0, `${s.id}/${m.id}`);
-        if (result.radius > 0) assert.ok(result.radius <= getBaseRadius(s), `${s.id}/${m.id}`);
+        // Auxiliary fire effects have conditional reach even when they do
+        // not qualify as a terrain-conversion capability in getBaseRadius.
+        const sourceBound = Math.max(getBaseRadius(s) ?? 0,
+          ...(s.conversionEffects ?? []).map((effect) => effect.radius ?? 0));
+        if (result.radius > 0) assert.ok(result.radius <= sourceBound, `${s.id}/${m.id}`);
       }
     }
+  }
+});
+
+test("Luminous Drill draws removed cells as a one-pixel path that depends on hardness", () => {
+  const soil = evaluateDigging(spell("LUMINOUS_DRILL"), material("soil"));
+  const brick = evaluateDigging(spell("LUMINOUS_DRILL"), material("templebrick_static"));
+  assert.equal(soil.footprint.kind, "path");
+  assert.equal(soil.footprint.width, 1);
+  assert.equal(soil.footprint.lengthMin, 34);
+  assert.equal(soil.footprint.lengthMax, 34);
+  assert.equal(soil.footprint.outlineOnly, false);
+  assert.equal(brick.footprint.width, 1);
+  assert.equal(brick.footprint.lengthMax, 2);
+  assert.doesNotMatch(soil.reason, /subsequent cells are not simulated/);
+});
+
+test("Black Hole sweeps its diameter along accelerated travel while bombs retain impact footprints", () => {
+  const hole = evaluateDigging(spell("BLACK_HOLE"), material("soil"));
+  assert.equal(hole.footprint.kind, "path");
+  assert.equal(hole.footprint.width, 24);
+  assert.ok(hole.footprint.lengthMin > 115 && hole.footprint.lengthMin < 116);
+  assert.ok(hole.footprint.lengthMax > 129 && hole.footprint.lengthMax < 130);
+  assert.ok(hole.footprint.maxPoints.length > hole.footprint.points.length);
+  assert.equal(hole.footprint.outlineOnly, false);
+  for (const id of ["BOMB", "NUKE", "FIREWORK"]) {
+    const impact = evaluateDigging(spell(id), material("soil"));
+    assert.equal(impact.footprint.kind, "explosion", id);
+    assert.ok(impact.footprint.rows.length > 0, id);
+  }
+});
+
+test("all selectable standalone spells have a known outcome for ordinary terrain", () => {
+  for (const entry of spells.filter(isDiggingSpell)) {
+    const outcome = evaluateDigging(entry, material("soil"), {preview: false});
+    assert.notEqual(outcome.status, "unsupported", `${entry.id}: ${outcome.reason}`);
   }
 });

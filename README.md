@@ -56,23 +56,39 @@ npm run build
 ```
 
 The exporter keeps the cast entity's full path, preserves fractional physical
-values, and separates explosion, beam, penetration, and cell-eating settings.
-Missing or conflicting component values remain unknown. Documented cell-eater
-defaults and their source identity are recorded in
-`src/data/raw_data/component-defaults.json`; the older runtime component dump
-has no recorded build identity. `--game-data /path/to/extracted/data` can supply
-an explicitly selected XML tree; review changes before replacing the catalog.
+values, and separates explosion, beam, penetration, cell-eating, conversion,
+motion, and secondary-projectile settings. Source identities, component defaults,
+and verified script lifecycles are recorded in `src/data/raw_data/component-defaults.json`,
+`digging-lifecycles.json`, and `digging-source-hashes.json`. Missing or conflicting
+values remain unknown. The older runtime component dump has no recorded build
+identity. `--game-data /path/to/extracted/data` selects another XML tree; source
+hashes prevent reusing verified script behavior with changed sources.
 
-The digging page compares separate spell effects. Its explosion circles are
-uniform-terrain estimates, not exact simulations of rays, motion, repeated hits,
-or corrosion. Beam width and maximum length are settings, not digging depth.
-The fixed scale clips large radii to an arc; **Fit whole radius** scales both the
-circle and Minä together.
+The digging page starts with empty selections and includes both selected IDs
+in shared links. Its full-width preview compares each spell's effects at a fixed
+scale; **Fit whole effect** scales both the footprint and Minä together.
+Explosions use 360 directional rays and raster bounds for fresh, uniform terrain,
+including stop jitter and large-explosion variation. These are nominal centered
+explosions, not exact live-world predictions; JavaScript transcendental functions
+followed by float32 rounding have not been validated against the game's runtime.
+For example, Nuke in Rock has about 66.25–95.01 px of radial reach in this model,
+instead of the former 67 px circle.
+
+Luminous Drill has a 1 px penetration trace. Traveling cell eaters such as Black
+Hole sweep their diameter along a nominal rightward cast. Motion includes gravity,
+signed air friction, terminal speed, lifetime, and penetration slowdown, using
+60 updates per second. Launch-speed/lifetime endpoints and both force/movement
+update orders are evaluated because their relative scheduling is not established.
+The path is a reference scenario, not a bound over every world layout. Probabilistic
+removal or uncertain collisions display reach without cutting out guaranteed
+terrain. Bombs retain impact footprints. Conversion, corrosion, growing fields,
+and secondary effects retain their own rules rather than combining their radii.
+Beam width and maximum length remain settings, not measured digging depth.
 
 The penetration contact rule was checked in the Jan 25, 2025 executable
 (SHA-256 `a0d9f9ca513e27a598c61dd9a19211c7a11d1477c9a2b93d909757d91d17d914`)
 at `0xc08a30`, with its coefficient/mass binding at `0xc0757a`. The page shows
-the default launch-speed range and first-cell damage, using float32 arithmetic;
+the unmodified launch-speed range and first-cell damage, using float32 arithmetic;
 repeated-hit counts assume identical contacts with the same cell. Actual flight,
 acceleration, direction, modifiers and existing damage can change the result.
 The beam contact helper is `0xb95ab0`; explosion ray budgeting is `0x656b10`,

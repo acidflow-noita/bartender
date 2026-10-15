@@ -16,6 +16,8 @@ export function createDiggingSelect(items, {label, kind, value}) {
   const element = html`<div class="card digging-field"><label id=${labelId} for=${id}>${label}</label>${select}</div>`;
   const choices = new Choices(select, {
     labelId,
+    placeholder: true,
+    placeholderValue: `Select a ${label.toLowerCase()}`,
     choices: [...items].sort((a, b) => (a.name || a.id).localeCompare(b.name || b.id)
       || Number(a.tags?.includes("[box2d]") || false) - Number(b.tags?.includes("[box2d]") || false)
       || a.id.localeCompare(b.id)).map((item) => ({
@@ -31,12 +33,19 @@ export function createDiggingSelect(items, {label, kind, value}) {
     searchFields: ["label", "value"],
     searchResultLimit: 100,
     searchPlaceholderValue: `Search ${label.toLowerCase()} names or IDs`,
-    callbackOnCreateTemplates: createChoicesTemplates(Choices, {
-      getItem: (id) => displayItem(catalog.get(id)),
-      getImageUrl: (id) => itemImage(catalog.get(id) || {}, kind),
-    }),
+    callbackOnCreateTemplates() {
+      const templates = createChoicesTemplates(Choices, {
+        getItem: (id) => displayItem(catalog.get(id)),
+        getImageUrl: (id) => itemImage(catalog.get(id) || {}, kind),
+      }).call(this);
+      return {...templates, item: (...args) => args[1].placeholder
+        ? Choices.defaults.templates.item.apply(this, args) : templates.item(...args)};
+    },
   });
-  Object.defineProperty(element, "value", {get: () => catalog.get(select.value) ?? null});
+  // A native single select may auto-select its first option even while
+  // Choices displays its placeholder. Read the actual Choices selection.
+  if (!catalog.has(value)) select.value = "";
+  Object.defineProperty(element, "value", {get: () => catalog.get(choices.getValue(true)) ?? null});
   const notify = () => element.dispatchEvent(new Event("input", {bubbles: true}));
   select.addEventListener("change", notify);
   // Typing in Choices' search box must not act like a changed selection.
@@ -46,8 +55,9 @@ export function createDiggingSelect(items, {label, kind, value}) {
   return {
     element,
     setValue(id) {
-      if (!catalog.has(id)) return;
-      choices.setChoiceByValue(id);
+      if (id == null || id === "") choices.removeActiveItems();
+      else if (catalog.has(id)) choices.setChoiceByValue(id);
+      else return;
       notify();
     },
     dispose() {

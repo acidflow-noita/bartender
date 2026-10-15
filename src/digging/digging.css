@@ -1,8 +1,7 @@
 .digging-controls,
 .digging-comparison {
-  display: grid;
-  gap: 1rem;
-  max-width: 960px;
+  width: 100%;
+  max-width: none;
 }
 
 .digging-controls {
@@ -17,7 +16,7 @@
 }
 
 .digging-assumptions {
-  max-width: 960px;
+  max-width: none;
   color: var(--theme-foreground-muted);
   font-size: 0.85rem;
   line-height: 1.5;
@@ -25,12 +24,12 @@
 }
 
 .digging-comparison {
-  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
   align-items: start;
+  grid-auto-rows: auto;
 }
 
 .digging-toolbar {
-  max-width: 960px;
+  max-width: none;
 }
 
 .digging-status {
@@ -57,12 +56,14 @@
 }
 
 .digging-status-unsupported,
-.digging-status-partial {
+.digging-status-partial,
+.digging-status-conditional {
   color: var(--theme-foreground-muted);
 }
 
 .digging-result > p,
 .digging-other-effect,
+.digging-secondary-effects,
 .digging-method p {
   max-width: none;
   margin: 0.5rem 0;
@@ -71,7 +72,7 @@
 
 .digging-stats {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 0.7rem;
   margin: 1rem 0;
 }
@@ -96,7 +97,7 @@
   position: relative;
 }
 
-.digging-svg {
+.digging-scene .digging-svg {
   display: block;
   width: 100%;
   height: auto;
@@ -126,11 +127,5 @@
 .digging-method summary {
   cursor: pointer;
   font-size: 0.85rem;
-}
-
-@media (max-width: 720px) {
-  .digging-comparison {
-    grid-template-columns: minmax(0, 420px);
-  }
 }
 

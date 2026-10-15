@@ -26,8 +26,8 @@ export default {
       ],
     },
     {
-      name: "Spells (Experimental)",
-      pages: [{ name: "Spells' Digging Ability", path: "/digging" }],
+      name: "Spells",
+      pages: [{ name: "Spells' Digging Ability (β)", path: "/digging" }],
     },
     // {
     //   name: "Work in progress",
