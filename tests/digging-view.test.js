@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import {runInNewContext} from "node:vm";
 import {parseFragment} from "parse5";
+import {createMarkdownIt, parseMarkdown} from "../node_modules/@observablehq/framework/dist/markdown.js";
 import {evaluateDigging, getBaseRadius, getDiggingViewport} from "../src/digging/model.js";
 import {getPathGeometry, getExplosionGeometry} from "../src/digging/geometry.js";
 import {evaluateExplosionFootprint} from "../src/digging/explosion.js";
@@ -26,61 +27,85 @@ const {renderDiggingPlot: render, renderDiggingResult, renderDiggingComparison} 
   html: markup, svg: markup, getBaseRadius, getDiggingViewport, getPathGeometry, getExplosionGeometry, getComparisonLayout,
 });
 
-test("every compared spell appears in one shared plot with one terrain block, Mina and scale", () => {
+test("each selected spell has its own plot and reference sprite at the same zoom", () => {
   const entries = [6, 250].map((radius, index) => ({
     spell: {id: ["DIGGER", "NUKE"][index], name: ["Digging Bolt", "Nuke"][index], radius},
     result: {status: "digs", method: "explosion", radius}, color: ["#45b7d1", "#ff6b6b"][index],
   }));
   const output = String(renderDiggingComparison(entries, {name: "Soil"}, 1100, true));
   const elements = [...nodes(parseFragment(output))];
-  assert.equal(elements.filter((node) => node.tagName === "svg").length, 1);
-  for (const className of ["digging-terrain", "digging-mina", "digging-scale", "digging-plot-border"]) {
-    assert.equal(elements.filter((node) => attrs(node).class === className).length, 1, className);
+  assert.equal(elements.filter((node) => node.tagName === "svg").length, entries.length);
+  for (const className of ["digging-terrain", "digging-mina", "digging-scale"]) {
+    assert.equal(elements.filter((node) => attrs(node).class === className).length, entries.length, className);
   }
-  const areas = elements.filter((node) => attrs(node).class === "digging-spell-area");
-  assert.equal(areas.length, 2);
-  const radii = [];
-  for (const [index, area] of areas.entries()) {
-    const children = [...nodes(area)];
-    assert.equal(attrs(area)["data-spell-id"], entries[index].spell.id);
-    assert.equal(attrs(area)["aria-label"], `${entries[index].spell.name}: Digs`);
+  const panels = elements.filter((node) => attrs(node).class === "card digging-spell-panel");
+  assert.equal(panels.length, 2);
+  const radii = [], minaWidths = [];
+  for (const [index, panel] of panels.entries()) {
+    const children = [...nodes(panel)];
+    assert.equal(children.filter((node) => node.tagName === "svg").length, 1);
+    assert.equal(attrs(panel)["data-spell-id"], entries[index].spell.id);
+    assert.equal(attrs(panel)["aria-label"], entries[index].spell.name);
     const outline = children.find((node) => node.tagName === "circle" && attrs(node).stroke);
     assert.equal(attrs(outline).stroke, entries[index].color);
     assert.equal(attrs(elements.filter((node) => attrs(node).class === "digging-area-color")[index]).fill, entries[index].color);
     radii.push(Number(attrs(outline).r));
+    minaWidths.push(Number(attrs(children.find((node) => attrs(node).class === "digging-mina")).width));
   }
+  assert.equal(minaWidths[0], minaWidths[1]);
   assert.ok(Math.abs(radii[1] / radii[0] - 250 / 6) < 1e-8, "Fit must preserve relative spell sizes");
-  assert.equal(elements.filter((node) => attrs(node).class === "digging-spell-label").length, 2);
+  assert.match(output, /grid-template-columns: repeat\(2,/);
   const narrow = [...nodes(parseFragment(String(renderDiggingComparison(entries, {name: "Soil"}, 420, true))))];
-  assert.equal(narrow.filter((node) => node.tagName === "svg").length, 1, "narrow screens retain the same shared plot");
+  assert.equal(narrow.filter((node) => node.tagName === "svg").length, 2);
 });
 
-test("shared terrain removes each eligible spell's area and never overlaps neighboring casts", () => {
+test("separate plots use their full height and the same scale at every selection count", () => {
   const spells = JSON.parse(readFileSync(new URL("../src/data/FULL_SPELLS_FINAL.json", import.meta.url)));
   const soil = JSON.parse(readFileSync(new URL("../src/data/FULL_MATERIALS_FINAL.json", import.meta.url))).find((material) => material.id === "soil");
-  const entries = evaluateComparison(["BLACK_HOLE", "LUMINOUS_DRILL", "NUKE", "BLACK_HOLE_GIGA"]
+  const entries = evaluateComparison(["BLACK_HOLE", "LUMINOUS_DRILL", "NUKE", "BLACK_HOLE_GIGA", "DIGGER"]
     .map((id) => spells.find((spell) => spell.id === id)), soil);
-  for (const width of [240, 600, 1200]) for (const fit of [false, true]) {
-    const view = getComparisonLayout(entries, width, fit);
-    assert.ok(view.height >= 200 && view.height <= 280);
-    assert.equal(view.mina.y + view.mina.height / 2, view.height / 2);
-    for (const [index, lane] of view.lanes.entries()) {
-      assert.equal(lane.removes, true);
-      assert.ok(lane.clip.x >= view.mina.x + view.mina.width);
-      if (index) assert.ok(view.lanes[index - 1].clip.y + view.lanes[index - 1].clip.height <= lane.clip.y);
-      if (fit) {
-        assert.equal(lane.clipped, false);
-        assert.ok(lane.bounds.left >= lane.clip.x - 1e-8 && lane.bounds.right <= lane.clip.x + lane.clip.width + 1e-8);
-        assert.ok(lane.bounds.top >= lane.clip.y - 1e-8 && lane.bounds.bottom <= lane.clip.y + lane.clip.height + 1e-8);
+  for (const count of [1, 2, 3, 5]) for (const width of [240, 600, 1200]) for (const fit of [false, true]) {
+    const layout = getComparisonLayout(entries.slice(0, count), width, fit);
+    assert.equal(layout.plots.length, count);
+    if (count === 1 || count % 2) assert.equal(layout.plots.at(-1).width, width - 34, "single and last odd plots fill the whole row");
+    for (const {result, width: plotWidth} of layout.plots) {
+      const view = getPathGeometry(result.footprint, plotWidth, fit, layout.scale)
+        ?? getExplosionGeometry(result.footprint, plotWidth, fit, layout.scale);
+      assert.ok(view.height >= 200 && view.height <= 280);
+      assert.equal(view.scale, layout.scale);
+      assert.equal(view.mina.y + view.mina.height / 2, view.height / 2);
+      assert.equal(view.mina.height, 18 * layout.scale);
+      if (fit) assert.equal(view.clipped, false);
+      else {
+        assert.equal(view.scale, 6);
+        assert.equal(view.mina.height, 108, "adding spells cannot shrink Mina at fixed scale");
       }
     }
   }
   const elements = [...nodes(parseFragment(String(renderDiggingComparison(entries, soil, 1000, true))))];
-  const mask = elements.find((node) => node.tagName === "mask" && attrs(node).id.endsWith("-terrain-mask"));
-  const cutouts = [...nodes(mask)].filter((node) => /^(digging-path-cutout|digging-area-cutout)$/.test(attrs(node).class ?? ""));
-  assert.equal(cutouts.length, entries.length);
-  const patterned = cutouts.filter((node) => attrs(node).stroke?.includes("-removal-"));
-  assert.equal(patterned.length, 1, "partial cell eating retains its speckled cutout");
+  const panels = elements.filter((node) => attrs(node).class === "card digging-spell-panel");
+  assert.equal(panels.length, 5);
+  assert.equal(attrs(panels.at(-1)).style, "grid-column: 1 / -1");
+  for (const panel of panels) {
+    const mask = [...nodes(panel)].find((node) => node.tagName === "mask" && attrs(node).id.endsWith("-terrain-mask"));
+    assert.ok([...nodes(mask)].some((node) => node.tagName === "circle" || attrs(node).class === "digging-path-cutout"));
+  }
+});
+
+test("the compiled page mounts plots and effect controls in full-width blocks, not capped paragraphs", () => {
+  const page = parseMarkdown(readFileSync(new URL("../src/digging.md", import.meta.url), "utf8"),
+    {md: createMarkdownIt(), path: "/digging"});
+  const elements = [...nodes(parseFragment(page.body))];
+  for (const [expression, className] of [["renderDiggingComparison(", "digging-comparison-host"], ["optionsControl.element", "digging-options-host"]]) {
+    const cell = page.code.find((cell) => cell.mode === "inline" && cell.node.input.includes(expression));
+    assert.ok(cell, expression);
+    const marker = elements.find((node) => node.nodeName === "#comment" && node.data === `:${cell.id}:`);
+    assert.equal(marker.parentNode.tagName, "div");
+    assert.equal(attrs(marker.parentNode).class, className);
+    for (let parent = marker.parentNode; parent; parent = parent.parentNode) {
+      assert.notEqual(parent.tagName, "p", "paragraphs inherit the framework's 640px max-width");
+    }
+  }
 });
 
 test("shared zoom fits both moving and explosive spells without changing their relative scale", () => {

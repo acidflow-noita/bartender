@@ -100,7 +100,9 @@ shareControl.clear();
   ${materialPicker.element}
 </div>
 
-${optionsControl.element}
+<div class="digging-options-host">
+  ${optionsControl.element}
+</div>
 
 <p class="digging-assumptions">${spellAssumptions}</p>
 
@@ -111,12 +113,14 @@ ${optionsControl.element}
 </div>
 ${shareControl.feedback}
 
-${resize((width) => renderDiggingComparison(comparisons, selectedMaterial, width, fitRadius))}
+<div class="digging-comparison-host">
+  ${resize((width) => renderDiggingComparison(comparisons, selectedMaterial, width, fitRadius))}
+</div>
 
 <div class="card digging-info">
     <details class="digging-method">
       <summary>About this estimate</summary>
-      <p>Each colored area shows a separate cast in the same plot, with the chosen perks and Berserkium setting. All spells share one scale, including when fitted. Numbered labels match the spell details below; speckling illustrates partial removal.</p>
+      <p>Each spell has its own plot with the chosen perks and Berserkium setting. Every plot uses the same scale, including when fitted, so spell sizes and Minä stay comparable. Speckling illustrates partial removal.</p>
       <p>Moving spells show one example path. The length range accounts for their speed and lifetime variation. Penetrating spells slow down while digging; their first-cell damage uses the launch-speed range.</p>
       <p>Explosion circles estimate size from ray energy and material hardness, capped by the spell's explosion radius. A material's durability can stop the explosion from digging. These circles do not predict the exact crater boundary.</p>
       <p>Acid spreads with the liquid and has no fixed final size. Conversion outlines show where material can change. Separate effects and physics objects are described in the results below.</p>

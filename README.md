@@ -65,12 +65,14 @@ identity. `--game-data /path/to/extracted/data` selects another XML tree; source
 hashes prevent reusing verified script behavior with changed sources.
 
 The digging page starts with empty selections. Select several spells to compare
-their individual casts against one material in a single shared plot. Colored,
-numbered digging areas occupy separate rows of one continuous terrain block,
-with one scale and one Minä. **Fit whole effect** fits all areas together;
-the plot remains 200–280px tall, with Minä at mid-height near the left edge,
-facing right. Large areas are clipped to their row at fixed zoom so they cannot
-cover another spell's result. Spell details remain below the shared plot.
+their individual casts against one material in separate, labeled color plots.
+The comparison fills the available page width, with two columns on wide screens.
+A single plot or the last plot in an odd selection spans the full row. All plots
+use the same scale, including **Fit whole effect**, calculated from their actual
+available dimensions. Each plot remains 200–280px tall with its own Minä and
+scale marker. Minä faces right at mid-height near the left edge. Explicit block
+containers keep the plots and effect controls outside Markdown paragraphs and
+their default 640px width cap.
 Glass Cannon and Glass Cannon 2× are mutually exclusive checkboxes; Berserkium
 is independent. These settings apply to every selected spell.
 
