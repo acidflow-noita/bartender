@@ -6,6 +6,7 @@ import {parseFragment} from "parse5";
 import {evaluateDigging, getBaseRadius, getDiggingViewport} from "../src/digging/model.js";
 import {getPathGeometry, getExplosionGeometry} from "../src/digging/geometry.js";
 import {evaluateExplosionFootprint} from "../src/digging/explosion.js";
+import {evaluateComparison, getComparisonScale} from "../src/digging/comparison.js";
 
 // Serialize the view's templates for HTML parsing in Node; no browser or DOM.
 class Markup {
@@ -21,8 +22,53 @@ const markup = (strings, ...values) => new Markup(strings.reduce((result, part, 
   result + part + renderValue(values[i]), ""));
 const source = readFileSync(new URL("../src/digging/view.js", import.meta.url), "utf8")
   .replace(/^import .*;\r?\n/gm, "").replace(/^export /gm, "");
-const {renderDiggingPlot: render, renderDiggingResult} = runInNewContext(`${source}\n({renderDiggingPlot, renderDiggingResult});`, {
-  html: markup, svg: markup, getBaseRadius, getDiggingViewport, getPathGeometry, getExplosionGeometry,
+const {renderDiggingPlot: render, renderDiggingResult, renderDiggingComparison} = runInNewContext(`${source}\n({renderDiggingPlot, renderDiggingResult, renderDiggingComparison});`, {
+  html: markup, svg: markup, getBaseRadius, getDiggingViewport, getPathGeometry, getExplosionGeometry, getComparisonScale,
+});
+
+test("comparison spells occupy separate colored panels at one common zoom", () => {
+  const entries = [6, 250].map((radius, index) => ({
+    spell: {id: ["DIGGER", "NUKE"][index], name: ["Digging Bolt", "Nuke"][index], radius},
+    result: {status: "digs", method: "explosion", radius}, color: ["#45b7d1", "#ff6b6b"][index],
+  }));
+  const output = String(renderDiggingComparison(entries, {name: "Soil"}, 1100, true));
+  const elements = [...nodes(parseFragment(output))];
+  const panels = elements.filter((node) => attrs(node)["data-spell-id"]);
+  assert.equal(panels.length, 2);
+  assert.match(output, /grid-template-columns: repeat\(2,/);
+  const radii = [], minaWidths = [];
+  for (const [index, panel] of panels.entries()) {
+    const children = [...nodes(panel)];
+    assert.equal(children.filter((node) => node.tagName === "svg").length, 1);
+    assert.equal(attrs(panel)["aria-label"], entries[index].spell.name);
+    const outline = children.find((node) => node.tagName === "circle" && attrs(node).stroke);
+    assert.equal(attrs(outline).stroke, entries[index].color);
+    assert.equal(attrs(children.find((node) => attrs(node).class === "digging-area-color")).fill, entries[index].color);
+    radii.push(Number(attrs(outline).r));
+    minaWidths.push(Number(attrs(children.find((node) => attrs(node).class === "digging-mina")).width));
+  }
+  assert.equal(minaWidths[0], minaWidths[1]);
+  assert.ok(Math.abs(radii[1] / radii[0] - 250 / 6) < 1e-8, "Fit must preserve relative spell sizes");
+  assert.match(String(renderDiggingComparison(entries, {name: "Soil"}, 420, true)), /grid-template-columns: repeat\(1,/);
+});
+
+test("shared zoom fits both moving and explosive spells without changing their relative scale", () => {
+  const spells = JSON.parse(readFileSync(new URL("../src/data/FULL_SPELLS_FINAL.json", import.meta.url)));
+  const soil = JSON.parse(readFileSync(new URL("../src/data/FULL_MATERIALS_FINAL.json", import.meta.url))).find((material) => material.id === "soil");
+  const entries = evaluateComparison(["BLACK_HOLE", "LUMINOUS_DRILL", "NUKE_GIGA"].map((id) => spells.find((spell) => spell.id === id)), soil);
+  for (const width of [220, 600]) {
+    const scale = getComparisonScale(entries, width, true);
+    for (const {result} of entries) {
+      const view = getPathGeometry(result.footprint, width, true, scale) ?? getExplosionGeometry(result.footprint, width, true, scale);
+      assert.equal(view.scale, scale);
+      assert.equal(view.mina.width, 8 * scale);
+      assert.equal(view.clipped, false);
+      if (view.bounds) {
+        assert.ok(view.bounds.left >= 0 && view.bounds.right <= width);
+        assert.ok(view.bounds.top >= 0 && view.bounds.bottom <= view.sceneHeight);
+      }
+    }
+  }
 });
 const attrs = (node) => Object.fromEntries((node.attrs ?? []).map(({name, value}) => [name, value]));
 function* nodes(node) {

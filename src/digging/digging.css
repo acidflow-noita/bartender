@@ -32,6 +32,43 @@
   max-width: none;
 }
 
+.digging-options {
+  margin-bottom: 1rem;
+}
+
+.digging-spell-panel {
+  min-width: 0;
+}
+
+.digging-spell-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+}
+
+.digging-spell-heading img {
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+
+.digging-spell-panel > .digging-comparison-summary {
+  max-width: none;
+  margin: 0 0 0.75rem;
+  color: var(--theme-foreground-muted);
+  font-size: 0.85rem;
+}
+
+.digging-spell-details {
+  margin-top: 0.75rem;
+}
+
+.digging-spell-details summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
 .digging-status {
   position: absolute;
   top: 12px;

@@ -8,7 +8,8 @@ import {Runtime} from "@observablehq/runtime";
 import {parseJavaScript} from "../node_modules/@observablehq/framework/dist/javascript/parse.js";
 import {transpileJavaScript} from "../node_modules/@observablehq/framework/dist/javascript/transpile.js";
 import {input} from "../node_modules/@observablehq/framework/dist/client/stdlib/generators/input.js";
-import {isDiggingSpell, evaluateDigging} from "../src/digging/model.js";
+import {isDiggingSpell} from "../src/digging/model.js";
+import {evaluateComparison} from "../src/digging/comparison.js";
 import {DIGGING_DEFAULTS, readDiggingParams, diggingUrl} from "../src/digging/url.js";
 
 const read = (path) => readFileSync(new URL(path, import.meta.url), "utf8");
@@ -19,6 +20,10 @@ class Control extends EventTarget {
   constructor(value) { super(); this.value = value; }
   change(value) { this.value = value; this.dispatchEvent(new Event("input")); }
 }
+
+const optionsSource = read("../src/digging/options.js").replace(/^import .*;\r?\n/gm, "").replace(/^export /gm, "");
+const createOptions = runInNewContext(optionsSource + "\ncreateDiggingOptions", {html: () => new EventTarget(), Event});
+const plain = (value) => JSON.parse(JSON.stringify(value));
 
 function loadPage(t, href = "https://example.test/digging") {
   const created = [];
@@ -38,12 +43,16 @@ function loadPage(t, href = "https://example.test/digging") {
       return {button: {querySelector: () => button}, feedback: {}, clear() {}};
     },
     createResetButton: () => (Inputs, onReset) => Inputs.button("Reset", {reduce: onReset}),
-    isDiggingSpell: () => isDiggingSpell, evaluateDigging: () => evaluateDigging,
+    isDiggingSpell: () => isDiggingSpell, evaluateComparison: () => evaluateComparison,
+    createDiggingOptions: () => createOptions,
     FileAttachment: () => (path) => ({json: async () => path.includes("FULL_SPELLS") ? spells : materials}),
     Inputs: () => ({toggle: ({value}) => new Control(value), button: (_, {reduce}) => ({click: reduce})}),
-    createDiggingSelect: () => (items, {value}) => {
-      const element = new Control(items.find((item) => item.id === value) ?? null);
-      const picker = {element, items, setValue(id) {element.change(items.find((item) => item.id === id) ?? null);}, dispose() {}};
+    createDiggingSelect: () => (items, {value, multiple}) => {
+      const byId = new Map(items.map((item) => [item.id, item]));
+      const resolve = (ids) => multiple ? [...new Set(Array.isArray(ids) ? ids : ids ? [ids] : [])].map((id) => byId.get(id)).filter(Boolean)
+        : byId.get(ids) ?? null;
+      const element = new Control(resolve(value));
+      const picker = {element, items, multiple, setValue(ids) {element.change(resolve(ids));}, dispose() {}};
       created.push(picker);
       return picker;
     },
@@ -63,136 +72,99 @@ function loadPage(t, href = "https://example.test/digging") {
   return {main, created, window, copied};
 }
 
-test("digging page resolves selected values before calculating and preserves both single selections", async (t) => {
+test("comparison page starts empty, shares every selection, and resets all controls", async (t) => {
   const {main, created, window, copied} = loadPage(t);
-  assert.equal((await main.value("result")).status, "empty", "the page must not choose a spell or material implicitly");
-  assert.equal(await main.value("selectedSpell"), null);
+  assert.deepEqual(await main.value("comparisons"), []);
+  assert.deepEqual(await main.value("selectedSpells"), []);
   assert.equal(await main.value("selectedMaterial"), null);
   assert.equal(await main.value("spellAssumptions"), "");
   assert.equal(await main.value("shareUrl"), "https://example.test/digging");
-  const shareButton = (await main.value("shareControl")).button.querySelector("button");
-  assert.equal(shareButton.disabled, true);
-  shareButton.click();
-  assert.deepEqual(copied, [], "an incomplete pair cannot be shared");
-  const spellPicker = await main.value("spellPicker");
-  const materialPicker = await main.value("materialPicker");
-  assert.equal(materialPicker.items.length, materials.length, "all materials remain selectable");
-  spellPicker.setValue("DIGGER");
-  assert.equal((await main.value("result")).status, "empty");
-  assert.equal(await main.value("spellAssumptions"), "");
-  assert.equal(await main.value("shareUrl"), "https://example.test/digging?spell=DIGGER");
-  assert.equal(shareButton.disabled, true);
-  materialPicker.setValue("soil");
-  assert.equal((await main.value("result")).radius, 6);
-  assert.equal(await main.value("spellAssumptions"), "Digging Bolt without modifiers, perks, or wand bonuses.");
-  const diggingBoltUrl = "https://example.test/digging?spell=DIGGER&material=soil";
-  assert.equal(await main.value("shareUrl"), diggingBoltUrl);
-  assert.equal(window.location.href, diggingBoltUrl);
-  assert.equal(shareButton.disabled, false);
-  shareButton.click();
-  assert.deepEqual(copied, [diggingBoltUrl], "the former default pair must include both IDs in its shared link");
-  spellPicker.setValue("NUKE");
-  assert.equal((await main.value("result")).radius, 250);
-  materialPicker.setValue("rock_static");
-  assert.equal((await main.value("result")).radius, 67);
-  assert.equal((await main.value("selectedSpell")).id, "NUKE");
-  spellPicker.setValue("DIGGER");
-  assert.equal((await main.value("result")).radius, 1);
-  assert.equal((await main.value("selectedMaterial")).id, "rock_static");
-  materialPicker.setValue("templebrick_static");
-  assert.equal((await main.value("result")).status, "blocked");
-  spellPicker.setValue("BLACK_HOLE");
-  assert.equal((await main.value("result")).radius, 12);
-
-  const fitControl = await main.value("fitControl");
-  fitControl.change(true);
-  assert.equal(await main.value("fitRadius"), true);
-  assert.equal((await main.value("result")).radius, 12);
-  const expectedUrl = "https://example.test/digging?spell=BLACK_HOLE&material=templebrick_static&fit=1";
-  assert.equal(await main.value("shareUrl"), expectedUrl);
-  assert.equal(window.location.href, expectedUrl, "the address bar follows selections and zoom");
-  shareButton.click();
-  assert.deepEqual(copied, [diggingBoltUrl, expectedUrl], "Share copies the current selection");
-  (await main.value("resetButton")).click();
-  assert.equal((await main.value("result")).status, "empty");
-  assert.equal(await main.value("selectedSpell"), null);
-  assert.equal(await main.value("selectedMaterial"), null);
-  assert.equal(await main.value("fitRadius"), false);
-  assert.equal(await main.value("shareUrl"), "https://example.test/digging");
-  assert.equal(window.location.href, "https://example.test/digging", "Reset removes all digging parameters");
-  assert.equal(shareButton.disabled, true);
-  assert.equal(created.length, 2, "selections and zoom must not recreate the dropdowns");
-});
-
-test("a shared digging link restores the result and fit before the first render", async (t) => {
-  const {main, created, window, copied} = loadPage(t,
-    "https://example.test/digging?spell=NUKE&material=rock_static&fit=1");
-  assert.equal((await main.value("result")).radius, 67);
-  assert.equal((await main.value("selectedSpell")).id, "NUKE");
-  assert.equal((await main.value("selectedMaterial")).id, "rock_static");
-  assert.equal(await main.value("fitRadius"), true);
-  assert.equal(await main.value("shareUrl"), window.location.href);
-
-  window.location.href = "https://example.test/digging?spell=ACIDSHOT&material=templebrick_static";
-  window.dispatchEvent(new Event("popstate"));
-  const result = await main.value("result");
-  assert.equal(result.status, "digs");
-  assert.equal(result.method, "acid");
-  assert.equal(result.radius, null);
-  assert.equal(await main.value("fitRadius"), false);
-  assert.equal(await main.value("shareUrl"), window.location.href);
-  (await main.value("shareControl")).button.querySelector("button").click();
-  assert.equal(copied[0], window.location.href);
-  assert.equal(created.length, 2, "restoring navigation reuses the controls");
-});
-
-test("invalid shared choices stay empty without losing a valid selection", async (t) => {
-  const {main, window} = loadPage(t, "https://example.test/digging?spell=missing&material=rock_hard&fit=no");
-  assert.equal(await main.value("selectedSpell"), null);
-  assert.equal((await main.value("selectedMaterial")).id, "rock_hard");
-  assert.equal((await main.value("result")).status, "empty");
-  assert.equal(await main.value("fitRadius"), false);
-  assert.equal(await main.value("shareUrl"), "https://example.test/digging?material=rock_hard");
-  assert.equal(window.location.href, "https://example.test/digging?material=rock_hard");
-  assert.equal((await main.value("shareControl")).button.querySelector("button").disabled, true);
-});
-
-test("navigation to a partial or empty link clears prior selections and disables Share", async (t) => {
-  const {main, window, copied, created} = loadPage(t, "https://example.test/digging?spell=DIGGER&material=soil");
-  assert.equal(await main.value("shareUrl"), window.location.href);
-  const shareButton = (await main.value("shareControl")).button.querySelector("button");
-  assert.equal(shareButton.disabled, false);
-  for (const [query, spell, material] of [["?spell=DIGGER", "DIGGER", null], ["?material=soil", null, "soil"], ["", null, null]]) {
-    window.location.href = `https://example.test/digging${query}`;
-    window.dispatchEvent(new Event("popstate"));
-    assert.equal((await main.value("selectedSpell"))?.id ?? null, spell);
-    assert.equal((await main.value("selectedMaterial"))?.id ?? null, material);
-    assert.equal((await main.value("result")).status, "empty");
-    assert.equal(await main.value("shareUrl"), `https://example.test/digging${query}`);
-    assert.equal(shareButton.disabled, true);
-    shareButton.click();
-  }
-  assert.deepEqual(copied, []);
-  assert.equal(created.length, 2, "clearing selections reuses the existing dropdowns");
-});
-
-test("the reported Glowing Lance URL resolves to penetration, not an explosion-only failure", async (t) => {
-  const href = "http://127.0.0.1:3000/digging?spell=LANCE&material=templebrick_noedge_static";
-  const {main, window} = loadPage(t, href);
-  const result = await main.value("result");
-  assert.equal(result.status, "path");
-  assert.equal(result.method, "path");
-  assert.equal(result.radius, null);
+  const share = (await main.value("shareControl")).button.querySelector("button");
+  assert.equal(share.disabled, true);
+  const picker = await main.value("spellPicker");
+  const target = await main.value("materialPicker");
+  assert.equal(picker.multiple, true);
+  assert.equal(target.items.length, materials.length);
+  picker.setValue(["DIGGER", "NUKE"]);
+  assert.deepEqual(await main.value("comparisons"), []);
+  assert.equal(await main.value("shareUrl"), "https://example.test/digging?spell=DIGGER&spell=NUKE");
+  assert.equal(share.disabled, true);
+  target.setValue("soil");
+  let entries = await main.value("comparisons");
+  assert.deepEqual(entries.map(({spell}) => spell.id), ["DIGGER", "NUKE"]);
+  assert.deepEqual(entries.map(({result}) => result.radius), [6, 250]);
+  assert.notEqual(entries[0].color, entries[1].color);
+  assert.match(await main.value("spellAssumptions"), /without perks or Berserkium/);
+  assert.equal(await main.value("shareUrl"), "https://example.test/digging?spell=DIGGER&spell=NUKE&material=soil");
+  assert.equal(share.disabled, false);
+  const controls = await main.value("optionsControl");
+  controls.glassCannon.change(true);
+  assert.deepEqual(plain(await main.value("modifiers")), {glassCannon: 1, berserkium: false});
+  entries = await main.value("comparisons");
+  assert.ok(entries.every(({result}, i) => result.radius > [6, 250][i]));
+  controls.glassCannon2.change(true);
+  assert.equal(controls.glassCannon.value, false);
+  controls.berserkium.change(true);
+  (await main.value("fitControl")).change(true);
+  const href = "https://example.test/digging?spell=DIGGER&spell=NUKE&material=soil&fit=1&glassCannon=2&berserkium=1";
   assert.equal(await main.value("shareUrl"), href);
   assert.equal(window.location.href, href);
+  share.click();
+  assert.deepEqual(copied, [href]);
+  (await main.value("resetButton")).click();
+  assert.deepEqual(await main.value("comparisons"), []);
+  assert.deepEqual(await main.value("selectedSpells"), []);
+  assert.equal(await main.value("selectedMaterial"), null);
+  assert.deepEqual(plain(await main.value("modifiers")), {glassCannon: 0, berserkium: false});
+  assert.equal(await main.value("fitRadius"), false);
+  assert.equal(await main.value("shareUrl"), "https://example.test/digging");
+  assert.equal(share.disabled, true);
+  assert.equal(created.length, 2, "changes must reuse both Choices instances");
 });
 
-test("shared lance selection computes its launch-speed range without additional controls", async (t) => {
-  const href = "https://example.test/digging?spell=LANCE&material=templebrick_noedge_static";
-  const {main, created} = loadPage(t, href);
-  const result = await main.value("result");
-  assert.deepEqual(result.penetration.contacts.map((contact) => contact.speed), [300, 400]);
-  assert.deepEqual(result.penetration.contacts.map((contact) => contact.impacts), [6, 4]);
-  assert.equal(await main.value("shareUrl"), href);
+test("old links and navigation restore exact comparison order, material, perks and zoom", async (t) => {
+  const {main, created, window} = loadPage(t, "https://example.test/digging?spell=NUKE&material=rock_static&fit=1");
+  assert.deepEqual((await main.value("selectedSpells")).map((spell) => spell.id), ["NUKE"]);
+  assert.equal((await main.value("comparisons"))[0].result.radius, 67);
+  assert.equal(await main.value("fitRadius"), true);
+  assert.equal(await main.value("shareUrl"), window.location.href);
+  window.location.href = "https://example.test/digging?spell=NUKE&spell=DIGGER&material=soil&glassCannon=1&berserkium=1";
+  window.dispatchEvent(new Event("popstate"));
+  assert.deepEqual((await main.value("comparisons")).map(({spell}) => spell.id), ["NUKE", "DIGGER"]);
+  assert.deepEqual(plain(await main.value("modifiers")), {glassCannon: 1, berserkium: true});
+  assert.equal(await main.value("fitRadius"), false);
+  assert.equal(await main.value("shareUrl"), window.location.href);
   assert.equal(created.length, 2);
+});
+
+test("removing one selected spell preserves the others, and incomplete comparisons cannot be shared", async (t) => {
+  const {main, copied} = loadPage(t, "https://example.test/digging?spell=NUKE&spell=DIGGER&material=soil&berserkium=1");
+  assert.equal((await main.value("comparisons")).length, 2);
+  const picker = await main.value("spellPicker");
+  picker.setValue(["DIGGER"]);
+  assert.deepEqual((await main.value("comparisons")).map(({spell}) => spell.id), ["DIGGER"]);
+  assert.equal(await main.value("shareUrl"), "https://example.test/digging?spell=DIGGER&material=soil&berserkium=1");
+  picker.setValue([]);
+  assert.deepEqual(await main.value("comparisons"), []);
+  assert.equal(await main.value("shareUrl"), "https://example.test/digging?material=soil&berserkium=1");
+  const share = (await main.value("shareControl")).button.querySelector("button");
+  assert.equal(share.disabled, true);
+  share.click();
+  assert.deepEqual(copied, []);
+});
+
+test("invalid shared choices are removed independently without replacing valid selections", async (t) => {
+  const {main} = loadPage(t, "https://example.test/digging?spell=missing&spell=DIGGER&spell=DIGGER&material=rock_hard&glassCannon=99&berserkium=no");
+  assert.deepEqual((await main.value("selectedSpells")).map((spell) => spell.id), ["DIGGER"]);
+  assert.equal((await main.value("comparisons"))[0].result.status, "partial");
+  assert.equal(await main.value("shareUrl"), "https://example.test/digging?spell=DIGGER&material=rock_hard");
+});
+
+test("Lance comparisons retain the launch-speed range and separate material effects", async (t) => {
+  const {main} = loadPage(t, "https://example.test/digging?spell=LANCE&spell=LUMINOUS_DRILL&material=templebrick_noedge_static");
+  const [lance, lumi] = await main.value("comparisons");
+  assert.equal(lance.result.method, "path");
+  assert.deepEqual(lance.result.penetration.contacts.map((contact) => contact.speed), [300, 400]);
+  assert.deepEqual(lance.result.penetration.contacts.map((contact) => contact.impacts), [6, 4]);
+  assert.equal(lumi.result.footprint.width, 1);
 });

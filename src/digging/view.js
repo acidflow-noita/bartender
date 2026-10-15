@@ -1,6 +1,7 @@
 import {html, svg} from "htl";
 import {getBaseRadius, getDiggingViewport} from "./model.js";
 import {getPathGeometry, getExplosionGeometry} from "./geometry.js";
+import {getComparisonScale} from "./comparison.js";
 
 const imageBase = "https://noita-bartender-images.acidflow.stream/images";
 const statusTitles = {digs: "Digs", blocked: "Doesn't dig", path: "Digs", partial: "No immediate hole", unsupported: "Not yet modeled", converts: "Converts material", conditional: "Conditional effect"};
@@ -135,7 +136,7 @@ function renderEffectResult(spell, material, result) {
   </section>`;
 }
 
-export function renderDiggingPlot(spell, material, result, width, fit) {
+export function renderDiggingPlot(spell, material, result, width, fit, {color, sharedScale} = {}) {
   if (!spell || !material) {
     return html`<div class="digging-empty">${result.reason}</div>`;
   }
@@ -143,12 +144,12 @@ export function renderDiggingPlot(spell, material, result, width, fit) {
   const radius = circular.radius;
   const reachOnly = result.reachOnly || circular.reachOnly || result.method === "conversion";
   const square = result.method === "conversion" && result.conversion?.shape === "square";
-  const path = getPathGeometry(result.footprint, width, fit);
-  const explosion = getExplosionGeometry(result.footprint, width, fit);
+  const path = getPathGeometry(result.footprint, width, fit, sharedScale);
+  const explosion = getExplosionGeometry(result.footprint, width, fit, sharedScale);
   const footprint = path ? result.footprint : null;
   const displayStatus = path && (footprint.previewLength ?? footprint.lengthMax) === 0 && result.status === "path" && !result.circularEffect
     ? "partial" : result.status;
-  const view = path ?? explosion ?? getDiggingViewport(radius, width, fit);
+  const view = path ?? explosion ?? getDiggingViewport(radius, width, fit, sharedScale);
   const {height, sceneHeight, scale, screenRadius, centerX, centerY, clipped, scaleUnits, mina} = view;
   const scaleX = mina.x - 16;
   const scaleTop = sceneHeight / 2 - scaleUnits * scale / 2;
@@ -221,18 +222,19 @@ export function renderDiggingPlot(spell, material, result, width, fit) {
         </mask>` : null}
       </defs>
       <g clip-path="url(#${id}-clip)">
+        ${color ? svg`<rect class="digging-area-color" width="${view.width}" height="${sceneHeight}" fill="${color}" fill-opacity="0.12" />` : null}
         <g class="digging-terrain" mask="url(#${id}-terrain-mask)">
           <rect width="${view.width}" height="${sceneHeight}" fill="url(#${id}-material)" />
           ${scale >= 3 ? svg`<rect width="${view.width}" height="${sceneHeight}" fill="url(#${id}-pixels)" />` : null}
         </g>
         ${path ? svg`<g mask="url(#${id}-path-outline)">
-          <path class="digging-path-outline" d="${path.path}" fill="none" stroke="#fff"
+          <path class="digging-path-outline" d="${path.path}" fill="none" stroke="${color ?? "#fff"}"
             stroke-width="${path.pathWidth + 5}" stroke-linecap="round" stroke-linejoin="round" />
-          ${path.impact ? svg`<circle class="digging-impact-outline" cx="${path.impact.x}" cy="${path.impact.y}" r="${path.impact.radius}" fill="none" stroke="#fff" stroke-width="5" />` : null}
+          ${path.impact ? svg`<circle class="digging-impact-outline" cx="${path.impact.x}" cy="${path.impact.y}" r="${path.impact.radius}" fill="none" stroke="${color ?? "#fff"}" stroke-width="5" />` : null}
         </g>` : square && screenRadius > 0 ? svg`<rect class="digging-conversion-outline" x="${centerX - screenRadius}" y="${centerY - screenRadius}"
-          width="${screenRadius * 2}" height="${screenRadius * 2}" fill="none" stroke="#fff" stroke-width="2.5" />`
+          width="${screenRadius * 2}" height="${screenRadius * 2}" fill="none" stroke="${color ?? "#fff"}" stroke-width="2.5" />`
           : screenRadius > 0 ? svg`<circle cx="${centerX}" cy="${centerY}" r="${screenRadius}"
-          fill="none" stroke="#fff" stroke-width="2.5" />` : null}
+          fill="none" stroke="${color ?? "#fff"}" stroke-width="2.5" />` : null}
         <image class="digging-mina" href="${imageBase}/mina/mina.png" x="${mina.x}"
           y="${mina.y}" width="${mina.width}" height="${mina.height}" transform="translate(${2 * mina.x + mina.width} 0) scale(-1 1)" />
         <g class="digging-scale" fill="#fff" font-size="12" font-family="system-ui, sans-serif">
@@ -247,4 +249,30 @@ export function renderDiggingPlot(spell, material, result, width, fit) {
     </div>
     <figcaption>${caption}</figcaption>
   </figure>`;
+}
+
+export function renderDiggingComparison(entries, material, width, fit) {
+  if (!material || !entries.length) return html`<div class="card digging-empty">Select spells and a material to compare them.</div>`;
+  width = Number.isFinite(width) && width > 0 ? width : 640;
+  const columns = entries.length > 1 && width >= 720 ? 2 : 1;
+  const plotWidth = Math.max(120, (width - (columns - 1) * 16) / columns - 34);
+  const sharedScale = getComparisonScale(entries, plotWidth, fit);
+  const summary = (result) => {
+    const footprint = result.footprint;
+    if (footprint?.kind === "path") return `Path: ${formatNumber(footprint.lengthMin)}${footprint.lengthMin === footprint.lengthMax ? "" : `–${formatNumber(footprint.lengthMax)}`} px · Width: ${formatNumber(footprint.width)} px${result.circularEffect?.method === "explosion" ? ` · Explosion radius: ${formatNumber(result.circularEffect.radius)} px` : ""}`;
+    const radius = result.circularEffect?.radius ?? result.radius;
+    if (Number.isFinite(radius)) return `${result.reachOnly ? "Effect reach" : "Radius estimate"}: ${formatNumber(radius)} px`;
+    return statusTitles[result.status] ?? result.reason;
+  };
+  return html`<div class="grid grid-cols-2 digging-comparison" style="grid-template-columns: repeat(${columns}, minmax(0, 1fr))">
+    ${entries.map(({spell, result, color}) => html`<section class="card digging-spell-panel" data-spell-id="${spell.id}" aria-label="${spell.name}">
+      <h2 class="digging-spell-heading" style="color: ${color}"><img src="${itemImage(spell, "spells")}" width="24" height="24" alt="">${spell.name}</h2>
+      <p class="digging-comparison-summary">${summary(result)}</p>
+      ${renderDiggingPlot(spell, material, result, plotWidth, fit, {color, sharedScale})}
+      <details class="digging-spell-details"><summary>Spell details</summary>
+        ${(spell.diggingModifierNotes ?? []).map((note) => html`<p class="digging-other-effect">${note}</p>`)}
+        ${renderDiggingResult(spell, material, result)}
+      </details>
+    </section>`)}
+  </div>`;
 }

@@ -64,14 +64,30 @@ values remain unknown. The older runtime component dump has no recorded build
 identity. `--game-data /path/to/extracted/data` selects another XML tree; source
 hashes prevent reusing verified script behavior with changed sources.
 
-The digging page starts with empty selections and includes both selected IDs
-in shared links. Its full-width preview is 200–280px tall, with Minä at mid-height
-near the left edge, facing right. **Fit whole effect** scales the preview and
-Minä together.
+The digging page starts with empty selections. Select several spells to compare
+their individual casts against one material in separate, labeled color panels.
+Panels use a common scale, including **Fit whole effect**; each preview is
+200–280px tall, with Minä at mid-height near the left edge, facing right.
+Glass Cannon and Glass Cannon 2× are mutually exclusive checkboxes; Berserkium
+is independent. These settings apply to every selected spell.
 
-Explosions use a circular size estimate: the smaller of the configured radius
-and whole fresh-cell hardness payments covered by ray energy. Durability can
-block removal. The former 360-ray contour reconstruction was removed from the
+Shared URLs preserve selection order with repeated `spell` parameters and include
+`material`, `fit`, `glassCannon` (1 or 2), and `berserkium` when set. Existing
+single-spell links still work. Reset clears the comparison and all toggles.
+
+Modifier rules and native evidence IDs are recorded in
+`src/data/raw_data/digging-modifiers.json`. The comparison assumes Glass Cannon
+was acquired before Berserkium. Explosion radius uses float32 factors, while
+ray energy uses the native integer factor; one Glass Cannon plus Berserkium
+therefore scales radius by 7.5 and ray energy by 5. Two Glass Cannons fill the
+two effect slots. Separate lightning, delayed beams, and secondary-emitter
+exceptions retain their source settings where described in Spell details.
+
+Explosions use a circular size estimate: the smaller of the configured radius,
+whole fresh-cell hardness payments covered by ray energy, and the native axial
+ray's 2048px trace limit. The configured radius is preserved for boosted spells;
+the estimate omits directional unit-step differences. Durability can block
+removal. The former 360-ray contour reconstruction was removed from the
 preview because it had not been validated against in-game crater shapes; it must
 not be treated as an exact prediction. Native evidence remains in the ignored
 analysis artifacts for further investigation.

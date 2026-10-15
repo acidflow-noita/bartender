@@ -111,6 +111,18 @@ test("lightning explosion settings do not borrow unrelated projectile defaults",
   assert.equal(item.maxDuraToDestroy, 10);
 });
 
+test("explosion scaling opt-outs survive export and stale flags are cleared", () => {
+  const seed = {id: "NO_SCALE", name: "No scale", explosionNotScaledByGamefx: false};
+  const actions = new Map([[seed.id, ["test.xml"]]]);
+  const optedOut = enrichSpellWithXMLData(seed, new Map(), actions, () => ({
+    ProjectileComponent: [{on_death_explode: true,
+      config_explosion: {explosion_radius: 20, ray_energy: 100000, not_scaled_by_gamefx: true}}],
+  }));
+  assert.equal(optedOut.explosionNotScaledByGamefx, true);
+  const cleared = enrichSpellWithXMLData(optedOut, new Map(), new Map(), () => ({}));
+  assert.equal(Object.hasOwn(cleared, "explosionNotScaledByGamefx"), false);
+});
+
 test("conflicting repeated components cannot fall back to the dump's first component", () => {
   const path = "test.xml";
   const dump = new Map([[path, {LaserEmitterComponent: {beam_radius: 1.5, max_length: 160, damage_to_cells: 12000}}]]);

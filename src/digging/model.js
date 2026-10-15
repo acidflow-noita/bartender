@@ -17,7 +17,7 @@ export function isDiggingSpell(spell) {
 }
 
 export function getBaseRadius(spell) {
-  const radii = [spell?.cellEaterRadius, spell?.explosionEnabled !== false ? spell?.radius : null,
+  const radii = [spell?.cellEaterRadius, spell?.explosionEnabled !== false && spell?.rayEnergy !== 0 ? spell?.radius : null,
     spell?.diggingLifecycle?.blackHole?.maximumRadius,
     ...(spell?.conversionEffects ?? []).filter((effect) => hasTerrainConversion({conversionEffects: [effect]}))
       .map((effect) => effect.radius),
@@ -231,13 +231,14 @@ function evaluateExplosion(spell, material) {
 
 export const FIXED_SCALE = 6;
 
-export function getDiggingViewport(radius, width, fit = false) {
+export function getDiggingViewport(radius, width, fit = false, sharedScale) {
   width = positive(width) ? width : 640;
   radius = nonnegative(radius) ? radius : 0;
   const sceneHeight = Math.max(200, Math.min(280, width * 0.3));
   const height = sceneHeight;
   const availableRadius = Math.max(1, Math.min(width / 2 - 24, sceneHeight / 2 - 24));
-  const scale = fit && radius > 0 ? Math.min(FIXED_SCALE, availableRadius / radius) : FIXED_SCALE;
+  const scale = positive(sharedScale) ? Math.min(FIXED_SCALE, sharedScale)
+    : fit && radius > 0 ? Math.min(FIXED_SCALE, availableRadius / radius) : FIXED_SCALE;
   const screenRadius = radius * scale;
   const clipped = !fit && screenRadius > availableRadius;
   // Anchor the right edge inside the view so a huge radius still has a visible

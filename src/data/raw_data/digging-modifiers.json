@@ -1,0 +1,43 @@
+{
+  "buildHash": "9dbd52ced019a643169a2db02f46c77f8766c6e5",
+  "binarySha256": "a0d9f9ca513e27a598c61dd9a19211c7a11d1477c9a2b93d909757d91d17d914",
+  "comparisonOrder": "Glass Cannon stacks, then Berserkium",
+  "orderingLimitation": "Message_Shot dispatch follows entity/component and child visitation order. These options do not encode the effect acquisition history.",
+  "rules": {
+    "sharedBoostSlots": 2,
+    "glassCannonFactor": 5,
+    "berserkiumFactorsByOccupiedSlots": [2, 1.5],
+    "radiusArithmetic": "float32 multiplication per admitted effect",
+    "rayEnergyArithmetic": "signed int32 multiplication by trunc(effect factor)",
+    "scope": "Enabled ProjectileComponent.config_explosion, positive radius, hole_enabled, and not_scaled_by_gamefx=false",
+    "unchangedDiggingFields": ["maxDuraToDestroy", "mass", "speedMin", "speedMax", "groundPenetrationCoeff", "groundPenetrationMaxDura", "cellEaterRadius", "blackHoleRadius", "laserBeamRadius", "laserMaxLength", "laserCellDamage", "laserMaxDuraToDestroy", "conversionEffects"],
+    "cases": [
+      {"glassCannon": 0, "berserkium": false, "radiusFactor": 1, "rayEnergyFactor": 1},
+      {"glassCannon": 1, "berserkium": false, "radiusFactor": 5, "rayEnergyFactor": 5},
+      {"glassCannon": 2, "berserkium": false, "radiusFactor": 25, "rayEnergyFactor": 25},
+      {"glassCannon": 0, "berserkium": true, "radiusFactor": 2, "rayEnergyFactor": 2},
+      {"glassCannon": 1, "berserkium": true, "radiusFactor": 7.5, "rayEnergyFactor": 5},
+      {"glassCannon": 2, "berserkium": true, "radiusFactor": 25, "rayEnergyFactor": 25}
+    ]
+  },
+  "evidence": [
+    {"operation": "shot-effect handler", "address": "0xb06870", "id": "ev_772c25ec8a42d8f7b0a6fb2a66f180f7e3172a7f6867210a21cdb17edeb94c17"},
+    {"operation": "Glass Cannon factor bytes", "address": "0x11525b4", "id": "ev_a154be7f3529970174217588a26824cd50ae1f65ac1c67876a194bbfce90229c"},
+    {"operation": "Berserk factors bytes", "address": "0xfe0d68", "id": "ev_812d7abc0d97aac993ba15b8430b4406c6e074ff453c6d45dba63b92389fe48a"},
+    {"operation": "enabled projectile getter", "address": "0x90c3d0", "id": "ev_fc0f84a8cb60109b937faa198d20a1dcf900390891aed6cdc7a772aebfe6a37e"},
+    {"operation": "ComponentGetIsEnabled field binding", "address": "0x79fc00", "id": "ev_0c9dd216690fe61f7ab1d87b051311ecbbb34ab108271eb3c8ab16f296f4c599"},
+    {"operation": "GameShootProjectile native path", "address": "0xc0d290", "id": "ev_e1879d289aebfd0f57e01165b14bfc706f0141595700830e8e0297fcabb2f3a0"},
+    {"operation": "entity/child message dispatch", "address": "0xd275f0", "id": "ev_01f8a1022cf52219e8914fbdf7ac2b86aeac072207c3546562448b175f3f3224"}
+  ],
+  "sourcePaths": ["data/scripts/perks/perk_list.lua:673-725", "data/scripts/perks/perk.lua:223-234", "data/entities/misc/effect_berserk.xml", "data/scripts/lib/utilities.lua:441-490", "data/scripts/projectiles/megalaser_launch.lua"],
+  "secondaryScope": {
+    "FIREWORK": "normal direct cast; each alternative is modified once",
+    "PURPLE_EXPLOSION_FIELD": "fresh GameShootProjectile message to the original caster; assume effects still active at emission",
+    "MEGALASER": "disabled beam components are skipped by the shot-effect getter; activation does not resend the message",
+    "METEOR_RAIN": "additional emitter ownership is unresolved; shared secondary profile remains at source values with a note",
+    "EXPLODING_DEER": "separate ExplosionComponent is outside the ProjectileComponent handler",
+    "PEBBLE": "plain EntityLoad, separate ExplosionComponents",
+    "WORM_RAIN": "plain EntityLoad; cell-eating radius unaffected",
+    "ALL_SPELLS": "loader is the shooter rather than the player; source child settings retained"
+  }
+}

@@ -3,12 +3,12 @@ import {FIXED_SCALE, getDiggingViewport} from "./model.js";
 const validPoints = (points) => Array.isArray(points) && points.length > 0
   && points.every((point) => Array.isArray(point) && point.length === 2 && point.every(Number.isFinite));
 
-export function getExplosionGeometry(footprint, width, fit = false) {
+export function getExplosionGeometry(footprint, width, fit = false, sharedScale) {
   if (footprint?.kind !== "explosion" || !Number.isFinite(footprint.radius) || footprint.radius < 0) return null;
-  return getDiggingViewport(footprint.radius, width, fit);
+  return getDiggingViewport(footprint.radius, width, fit, sharedScale);
 }
 
-export function getPathGeometry(footprint, width, fit = false) {
+export function getPathGeometry(footprint, width, fit = false, sharedScale) {
   if (footprint?.kind !== "path" || !validPoints(footprint.points)
     || !Number.isFinite(footprint.width) || footprint.width <= 0) return null;
   const view = getDiggingViewport(0, width, false);
@@ -32,7 +32,8 @@ export function getPathGeometry(footprint, width, fit = false) {
   const leftExtent = -Math.min(0, minX);
   const availableWidth = Math.max(1, view.width - padding - minaX - gap);
   const availableHalfHeight = Math.max(1, view.sceneHeight / 2 - padding);
-  const scale = fit ? Math.min(FIXED_SCALE, availableWidth / (8 + leftExtent + maxX),
+  const scale = Number.isFinite(sharedScale) && sharedScale > 0 ? Math.min(FIXED_SCALE, sharedScale)
+    : fit ? Math.min(FIXED_SCALE, availableWidth / (8 + leftExtent + maxX),
     availableHalfHeight / Math.max(Math.abs(minY), Math.abs(maxY))) : FIXED_SCALE;
   // Keep Minä and the cast origin on the same horizontal line. Reserve room
   // for the sprite instead of centering the tunnel independently of it.

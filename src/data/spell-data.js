@@ -154,7 +154,7 @@ export function enrichSpellWithXMLData(spell, dump, actions, readEntity) {
     resolved[explosionComponent]?.explosion_radius != null;
   const enriched = {...spell, name_and_id: `${spell.name} (${spell.id})`};
   for (const field of ["projectilePaths", "explosionComponent", "laserBeamRadius", "laserMaxLength", "laserCellDamage",
-    "laserMaxDuraToDestroy", "explosionHoleEnabled", "explosionDontDamageToCells", "cellEaterEatDynamicPhysicsBodies",
+    "laserMaxDuraToDestroy", "explosionHoleEnabled", "explosionDontDamageToCells", "explosionNotScaledByGamefx", "cellEaterEatDynamicPhysicsBodies",
     "cellEaterIgnoredMaterial", "cellEaterEatProbability", "cellEaterOnlyStain", "conversionEffects", "diggingLifecycle", "projectileMotion", "explosionEnabled"]) delete enriched[field];
   // These values describe the same cast entity. Missing/ambiguous mappings do
   // not inherit a different projectile's stats or become zero digging.
@@ -230,6 +230,7 @@ export function enrichSpellWithXMLData(spell, dump, actions, readEntity) {
   }
   for (const [field, component, property, dumpProperty] of [
     ["explosionHoleEnabled", explosionComponent, "config_explosion.hole_enabled", "hole_enabled"],
+    ["explosionNotScaledByGamefx", explosionComponent, "config_explosion.not_scaled_by_gamefx", "not_scaled_by_gamefx"],
     ["explosionDontDamageToCells", "ProjectileComponent", "explosion_dont_damage_to_cells"],
     ["cellEaterEatDynamicPhysicsBodies", "CellEaterComponent", "eat_dynamic_physics_bodies"],
     ["cellEaterOnlyStain", "CellEaterComponent", "only_stain"],

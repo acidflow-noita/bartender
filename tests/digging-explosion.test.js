@@ -30,7 +30,14 @@ test("durability equality, zero hardness and disabled energy remain distinct", (
   assert.equal(evaluate({...input, radius: 0}).radius, 0);
 });
 
+test("boosted explosion radii remain valid while the axial estimate respects the native trace limit", () => {
+  const boosted = evaluate({...input, radius: 10000, rayEnergy: 242500000});
+  assert.equal(boosted.sourceRadius, 10000);
+  assert.equal(boosted.radius, 2048);
+  assert.equal(boosted.estimated, true);
+});
+
 test("missing and unsafe explosion inputs do not produce a size estimate", () => {
-  for (const scenario of [{...input, radius: 4097}, {...input, radius: Infinity}, {...input, hardness: -1},
+  for (const scenario of [{...input, radius: 46341}, {...input, radius: Infinity}, {...input, hardness: -1},
     {...input, rayEnergy: 0.5}, {...input, maxDurability: null}]) assert.equal(evaluate(scenario), null);
 });

@@ -6,41 +6,34 @@ const spells = ["DIGGER", "NUKE", "ACIDSHOT"].map((id) => ({id}));
 const materials = ["soil", "rock_hard", "templebrick_static"].map((id) => ({id}));
 const read = (href) => readDiggingParams(href, spells, materials);
 
-test("digging links round-trip the selections and zoom while retaining unrelated URL data", () => {
+test("comparison links round-trip spell order and every modifier combination", () => {
   const base = "https://example.test/digging?from=test#comparison";
-  for (const spell of spells) for (const material of materials) for (const fit of [false, true]) {
-    const selection = {spell: spell.id, material: material.id, fit};
-    const href = diggingUrl(base, selection);
-    assert.deepEqual(read(href), selection);
-    assert.equal(new URL(href).searchParams.get("spell"), spell.id);
-    assert.equal(new URL(href).searchParams.get("material"), material.id);
-    assert.equal(new URL(href).searchParams.get("from"), "test");
-    assert.equal(new URL(href).hash, "#comparison");
+  for (const selected of [[], ["DIGGER"], ["NUKE", "DIGGER", "ACIDSHOT"]]) {
+    for (const glassCannon of [0, 1, 2]) for (const berserkium of [false, true]) for (const fit of [false, true]) {
+      const selection = {spells: selected, material: "soil", fit, glassCannon, berserkium};
+      const href = diggingUrl(base, selection);
+      assert.deepEqual(read(href), selection);
+      assert.deepEqual(new URL(href).searchParams.getAll("spell"), selected);
+      assert.equal(new URL(href).searchParams.get("from"), "test");
+      assert.equal(new URL(href).hash, "#comparison");
+    }
   }
-  assert.equal(diggingUrl(`${base.split("#")[0]}&spell=NUKE&material=rock_hard&fit=1#comparison`, DIGGING_DEFAULTS), base);
 });
 
-test("missing, invalid and unsupported IDs stay empty independently; fit accepts only explicit true values", () => {
+test("old single-spell links load as one-item comparisons with no implicit defaults", () => {
+  assert.deepEqual(read("https://example.test/digging?spell=DIGGER&material=soil"),
+    {...DIGGING_DEFAULTS, spells: ["DIGGER"], material: "soil"});
   assert.deepEqual(read("https://example.test/digging"), DIGGING_DEFAULTS);
-  assert.deepEqual(read("https://example.test/digging?spell=ACIDSHOT&material=missing&fit=true"),
-    {spell: "ACIDSHOT", material: null, fit: true});
-  for (const spell of ["", "unknown", "__proto__", "<script>", "nuke", "ACID_TRAIL"]) {
-    const url = new URL("https://example.test/digging?material=rock_hard&fit=false");
-    url.searchParams.set("spell", spell);
-    assert.deepEqual(read(url.href), {spell: null, material: "rock_hard", fit: false});
-  }
-  for (const fit of ["0", "false", "", "yes", "2"]) {
-    assert.equal(read(`https://example.test/digging?fit=${fit}`).fit, false);
-  }
+  assert.deepEqual(read("https://example.test/digging?spell=unknown&spell=NUKE&spell=NUKE&spell=DIGGER&material=missing&glassCannon=3&berserkium=yes"),
+    {...DIGGING_DEFAULTS, spells: ["NUKE", "DIGGER"]});
+  assert.deepEqual(read("https://example.test/digging?material=rock_hard&fit=true&glassCannon=2&berserkium=true"),
+    {...DIGGING_DEFAULTS, material: "rock_hard", fit: true, glassCannon: 2, berserkium: true});
 });
 
-test("partial selections preserve their explicit IDs and clearing removes old selections", () => {
-  const base = "https://example.test/digging?spell=NUKE&material=rock_hard&fit=1&from=test#comparison";
-  const spellOnly = diggingUrl(base, {spell: "DIGGER", material: null, fit: false});
-  assert.deepEqual(read(spellOnly), {spell: "DIGGER", material: null, fit: false});
-  assert.equal(spellOnly, "https://example.test/digging?from=test&spell=DIGGER#comparison");
-  const materialOnly = diggingUrl(base, {spell: null, material: "soil", fit: false});
-  assert.deepEqual(read(materialOnly), {spell: null, material: "soil", fit: false});
-  assert.equal(materialOnly, "https://example.test/digging?from=test&material=soil#comparison");
+test("clearing and Reset remove prior spells, perks and status parameters only", () => {
+  const base = "https://example.test/digging?spell=NUKE&spell=DIGGER&material=rock_hard&fit=1&glassCannon=2&berserkium=1&from=test#comparison";
   assert.equal(diggingUrl(base, DIGGING_DEFAULTS), "https://example.test/digging?from=test#comparison");
+  assert.equal(diggingUrl(base, {...DIGGING_DEFAULTS, spells: ["DIGGER"]}), "https://example.test/digging?from=test&spell=DIGGER#comparison");
+  assert.equal(diggingUrl(base, {...DIGGING_DEFAULTS, material: "soil"}), "https://example.test/digging?from=test&material=soil#comparison");
+  assert.deepEqual(read(diggingUrl(base, {...DIGGING_DEFAULTS, spells: ["NUKE", "NUKE"]})).spells, ["NUKE"]);
 });
