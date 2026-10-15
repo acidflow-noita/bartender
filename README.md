@@ -65,15 +65,25 @@ identity. `--game-data /path/to/extracted/data` selects another XML tree; source
 hashes prevent reusing verified script behavior with changed sources.
 
 The digging page starts with empty selections. Select several spells to compare
-their individual casts against one material in separate, labeled color panels.
-Panels use a common scale, including **Fit whole effect**; each preview is
-200–280px tall, with Minä at mid-height near the left edge, facing right.
+their individual casts against one material in a single shared plot. Colored,
+numbered digging areas occupy separate rows of one continuous terrain block,
+with one scale and one Minä. **Fit whole effect** fits all areas together;
+the plot remains 200–280px tall, with Minä at mid-height near the left edge,
+facing right. Large areas are clipped to their row at fixed zoom so they cannot
+cover another spell's result. Spell details remain below the shared plot.
 Glass Cannon and Glass Cannon 2× are mutually exclusive checkboxes; Berserkium
 is independent. These settings apply to every selected spell.
 
 Shared URLs preserve selection order with repeated `spell` parameters and include
 `material`, `fit`, `glassCannon` (1 or 2), and `berserkium` when set. Existing
 single-spell links still work. Reset clears the comparison and all toggles.
+The spell picker allows at most five spells. Its limit is calculated from the
+longest selectable spell IDs, longest material ID, page address and every toggle,
+and drops below five if necessary to keep links under 500 characters. The current
+live-site worst case is 297 characters. Restored selections obey the same limit.
+Links use full, plain IDs and standard query separators, without commas,
+percent-encoding or shorteners. Unrelated query parameters and fragments are
+removed; the URL writer also rejects anything longer than 499 characters.
 
 Modifier rules and native evidence IDs are recorded in
 `src/data/raw_data/digging-modifiers.json`. The comparison assumes Glass Cannon

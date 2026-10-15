@@ -6,7 +6,7 @@ import {parseFragment} from "parse5";
 import {evaluateDigging, getBaseRadius, getDiggingViewport} from "../src/digging/model.js";
 import {getPathGeometry, getExplosionGeometry} from "../src/digging/geometry.js";
 import {evaluateExplosionFootprint} from "../src/digging/explosion.js";
-import {evaluateComparison, getComparisonScale} from "../src/digging/comparison.js";
+import {evaluateComparison, getComparisonScale, getComparisonLayout} from "../src/digging/comparison.js";
 
 // Serialize the view's templates for HTML parsing in Node; no browser or DOM.
 class Markup {
@@ -23,33 +23,64 @@ const markup = (strings, ...values) => new Markup(strings.reduce((result, part, 
 const source = readFileSync(new URL("../src/digging/view.js", import.meta.url), "utf8")
   .replace(/^import .*;\r?\n/gm, "").replace(/^export /gm, "");
 const {renderDiggingPlot: render, renderDiggingResult, renderDiggingComparison} = runInNewContext(`${source}\n({renderDiggingPlot, renderDiggingResult, renderDiggingComparison});`, {
-  html: markup, svg: markup, getBaseRadius, getDiggingViewport, getPathGeometry, getExplosionGeometry, getComparisonScale,
+  html: markup, svg: markup, getBaseRadius, getDiggingViewport, getPathGeometry, getExplosionGeometry, getComparisonLayout,
 });
 
-test("comparison spells occupy separate colored panels at one common zoom", () => {
+test("every compared spell appears in one shared plot with one terrain block, Mina and scale", () => {
   const entries = [6, 250].map((radius, index) => ({
     spell: {id: ["DIGGER", "NUKE"][index], name: ["Digging Bolt", "Nuke"][index], radius},
     result: {status: "digs", method: "explosion", radius}, color: ["#45b7d1", "#ff6b6b"][index],
   }));
   const output = String(renderDiggingComparison(entries, {name: "Soil"}, 1100, true));
   const elements = [...nodes(parseFragment(output))];
-  const panels = elements.filter((node) => attrs(node)["data-spell-id"]);
-  assert.equal(panels.length, 2);
-  assert.match(output, /grid-template-columns: repeat\(2,/);
-  const radii = [], minaWidths = [];
-  for (const [index, panel] of panels.entries()) {
-    const children = [...nodes(panel)];
-    assert.equal(children.filter((node) => node.tagName === "svg").length, 1);
-    assert.equal(attrs(panel)["aria-label"], entries[index].spell.name);
+  assert.equal(elements.filter((node) => node.tagName === "svg").length, 1);
+  for (const className of ["digging-terrain", "digging-mina", "digging-scale", "digging-plot-border"]) {
+    assert.equal(elements.filter((node) => attrs(node).class === className).length, 1, className);
+  }
+  const areas = elements.filter((node) => attrs(node).class === "digging-spell-area");
+  assert.equal(areas.length, 2);
+  const radii = [];
+  for (const [index, area] of areas.entries()) {
+    const children = [...nodes(area)];
+    assert.equal(attrs(area)["data-spell-id"], entries[index].spell.id);
+    assert.equal(attrs(area)["aria-label"], `${entries[index].spell.name}: Digs`);
     const outline = children.find((node) => node.tagName === "circle" && attrs(node).stroke);
     assert.equal(attrs(outline).stroke, entries[index].color);
-    assert.equal(attrs(children.find((node) => attrs(node).class === "digging-area-color")).fill, entries[index].color);
+    assert.equal(attrs(elements.filter((node) => attrs(node).class === "digging-area-color")[index]).fill, entries[index].color);
     radii.push(Number(attrs(outline).r));
-    minaWidths.push(Number(attrs(children.find((node) => attrs(node).class === "digging-mina")).width));
   }
-  assert.equal(minaWidths[0], minaWidths[1]);
   assert.ok(Math.abs(radii[1] / radii[0] - 250 / 6) < 1e-8, "Fit must preserve relative spell sizes");
-  assert.match(String(renderDiggingComparison(entries, {name: "Soil"}, 420, true)), /grid-template-columns: repeat\(1,/);
+  assert.equal(elements.filter((node) => attrs(node).class === "digging-spell-label").length, 2);
+  const narrow = [...nodes(parseFragment(String(renderDiggingComparison(entries, {name: "Soil"}, 420, true))))];
+  assert.equal(narrow.filter((node) => node.tagName === "svg").length, 1, "narrow screens retain the same shared plot");
+});
+
+test("shared terrain removes each eligible spell's area and never overlaps neighboring casts", () => {
+  const spells = JSON.parse(readFileSync(new URL("../src/data/FULL_SPELLS_FINAL.json", import.meta.url)));
+  const soil = JSON.parse(readFileSync(new URL("../src/data/FULL_MATERIALS_FINAL.json", import.meta.url))).find((material) => material.id === "soil");
+  const entries = evaluateComparison(["BLACK_HOLE", "LUMINOUS_DRILL", "NUKE", "BLACK_HOLE_GIGA"]
+    .map((id) => spells.find((spell) => spell.id === id)), soil);
+  for (const width of [240, 600, 1200]) for (const fit of [false, true]) {
+    const view = getComparisonLayout(entries, width, fit);
+    assert.ok(view.height >= 200 && view.height <= 280);
+    assert.equal(view.mina.y + view.mina.height / 2, view.height / 2);
+    for (const [index, lane] of view.lanes.entries()) {
+      assert.equal(lane.removes, true);
+      assert.ok(lane.clip.x >= view.mina.x + view.mina.width);
+      if (index) assert.ok(view.lanes[index - 1].clip.y + view.lanes[index - 1].clip.height <= lane.clip.y);
+      if (fit) {
+        assert.equal(lane.clipped, false);
+        assert.ok(lane.bounds.left >= lane.clip.x - 1e-8 && lane.bounds.right <= lane.clip.x + lane.clip.width + 1e-8);
+        assert.ok(lane.bounds.top >= lane.clip.y - 1e-8 && lane.bounds.bottom <= lane.clip.y + lane.clip.height + 1e-8);
+      }
+    }
+  }
+  const elements = [...nodes(parseFragment(String(renderDiggingComparison(entries, soil, 1000, true))))];
+  const mask = elements.find((node) => node.tagName === "mask" && attrs(node).id.endsWith("-terrain-mask"));
+  const cutouts = [...nodes(mask)].filter((node) => /^(digging-path-cutout|digging-area-cutout)$/.test(attrs(node).class ?? ""));
+  assert.equal(cutouts.length, entries.length);
+  const patterned = cutouts.filter((node) => attrs(node).stroke?.includes("-removal-"));
+  assert.equal(patterned.length, 1, "partial cell eating retains its speckled cutout");
 });
 
 test("shared zoom fits both moving and explosive spells without changing their relative scale", () => {

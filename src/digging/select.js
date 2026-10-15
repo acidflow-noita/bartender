@@ -5,15 +5,18 @@ import {createChoicesTemplates} from "../components/choicesTemplates.js";
 
 let nextId = 0;
 
-export function createDiggingSelect(items, {label, kind, value, multiple = false}) {
+export function createDiggingSelect(items, {label, kind, value, multiple = false, maxItems = Infinity}) {
   const id = `digging-select-${++nextId}`;
   const labelId = `${id}-label`;
   const catalog = new Map(items.map((item) => [item.id, item]));
   const displayItem = (item) => kind === "materials" && item?.tags?.includes("[box2d]")
     ? {...item, name: `${item.name || item.id} (object)`} : item;
-  const selected = new Set(Array.isArray(value) ? value : value ? [value] : []);
+  const limit = multiple && Number.isInteger(maxItems) && maxItems >= 0 ? maxItems : Infinity;
+  const normalize = (value) => [...new Set((Array.isArray(value) ? value : value ? [value] : [])
+    .filter((id) => catalog.has(id)))].slice(0, limit);
+  const selected = new Set(normalize(value));
   const select = html`<select id=${id} aria-label=${label} multiple=${multiple}></select>`;
-  const element = html`<div class="card digging-field"><label id=${labelId} for=${id}>${label}</label>${select}</div>`;
+  const element = html`<div class="card digging-field"><label id=${labelId} for=${id}>${label}${Number.isFinite(limit) ? ` (max ${limit})` : ""}</label>${select}</div>`;
   const choices = new Choices(select, {
     labelId,
     placeholder: true,
@@ -26,6 +29,8 @@ export function createDiggingSelect(items, {label, kind, value, multiple = false
     allowHTML: false,
     shouldSort: false,
     removeItemButton: multiple,
+    maxItemCount: Number.isFinite(limit) && limit > 0 ? limit : -1,
+    maxItemText: (count) => `Select up to ${count} spells.`,
     renderSelectedChoices: "always",
     closeDropdownOnSelect: !multiple,
     itemSelectText: "",
@@ -42,6 +47,7 @@ export function createDiggingSelect(items, {label, kind, value, multiple = false
         ? Choices.defaults.templates.item.apply(this, args) : templates.item(...args)};
     },
   });
+  if (limit === 0) choices.disable();
   // Restore chip/comparison order from the URL rather than dropdown sorting.
   if (multiple && selected.size) choices.setChoiceByValue([...selected].filter((id) => catalog.has(id)));
   // A native single select may auto-select its first option even while
@@ -62,7 +68,7 @@ export function createDiggingSelect(items, {label, kind, value, multiple = false
   return {
     element,
     setValue(id) {
-      const ids = [...new Set((Array.isArray(id) ? id : id ? [id] : []).filter((key) => catalog.has(key)))];
+      const ids = normalize(id);
       updating = true;
       try {
         choices.removeActiveItems();

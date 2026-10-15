@@ -22,6 +22,7 @@ class Choices {
     }
   }
   removeActiveItems() { this.selected = []; this.select.dispatchEvent(new Event("change")); }
+  disable() { this.disabled = true; }
   destroy() { this.destroyed = true; }
 }
 const source = readFileSync(new URL("../src/digging/select.js", import.meta.url), "utf8")
@@ -71,4 +72,22 @@ test("the material field remains a single selection with an empty initial state"
   assert.equal(picker.element.value.id, "NUKE");
   picker.setValue(null);
   assert.equal(picker.element.value, null);
+});
+
+test("Choices and programmatic restoration enforce the calculated selection cap", () => {
+  const catalog = Array.from({length: 6}, (_, index) => ({id: `SPELL_${index}`, name: `Spell ${index}`}));
+  const all = catalog.map((spell) => spell.id);
+  for (const maxItems of [5, 4, 2, 0]) {
+    const picker = create(catalog, {label: "Spells", kind: "spells", multiple: true, maxItems, value: all});
+    const choices = Choices.instances.at(-1);
+    if (maxItems) {
+      assert.equal(choices.options.maxItemCount, maxItems);
+      assert.equal(choices.options.maxItemText(maxItems), `Select up to ${maxItems} spells.`);
+    } else assert.equal(choices.disabled, true);
+    assert.deepEqual(ids(picker), all.slice(0, maxItems));
+    picker.setValue([...all].reverse());
+    assert.deepEqual(ids(picker), [...all].reverse().slice(0, maxItems));
+    picker.setValue([]);
+    assert.deepEqual(ids(picker), []);
+  }
 });

@@ -10,7 +10,7 @@ import {transpileJavaScript} from "../node_modules/@observablehq/framework/dist/
 import {input} from "../node_modules/@observablehq/framework/dist/client/stdlib/generators/input.js";
 import {isDiggingSpell} from "../src/digging/model.js";
 import {evaluateComparison} from "../src/digging/comparison.js";
-import {DIGGING_DEFAULTS, readDiggingParams, diggingUrl} from "../src/digging/url.js";
+import {DIGGING_DEFAULTS, readDiggingParams, diggingUrl, getDiggingSpellLimit} from "../src/digging/url.js";
 
 const read = (path) => readFileSync(new URL(path, import.meta.url), "utf8");
 const spells = JSON.parse(read("../src/data/FULL_SPELLS_FINAL.json"));
@@ -38,6 +38,7 @@ function loadPage(t, href = "https://example.test/digging") {
     Generators: () => ({input}), Event: () => Event,
     DIGGING_DEFAULTS: () => DIGGING_DEFAULTS,
     readDiggingParams: () => readDiggingParams, diggingUrl: () => diggingUrl,
+    getDiggingSpellLimit: () => getDiggingSpellLimit,
     createShareButton: () => (getUrl) => {
       const button = {disabled: false, click() {if (!this.disabled) copied.push(getUrl());}};
       return {button: {querySelector: () => button}, feedback: {}, clear() {}};
@@ -47,12 +48,12 @@ function loadPage(t, href = "https://example.test/digging") {
     createDiggingOptions: () => createOptions,
     FileAttachment: () => (path) => ({json: async () => path.includes("FULL_SPELLS") ? spells : materials}),
     Inputs: () => ({toggle: ({value}) => new Control(value), button: (_, {reduce}) => ({click: reduce})}),
-    createDiggingSelect: () => (items, {value, multiple}) => {
+    createDiggingSelect: () => (items, {value, multiple, maxItems = Infinity}) => {
       const byId = new Map(items.map((item) => [item.id, item]));
-      const resolve = (ids) => multiple ? [...new Set(Array.isArray(ids) ? ids : ids ? [ids] : [])].map((id) => byId.get(id)).filter(Boolean)
+      const resolve = (ids) => multiple ? [...new Set(Array.isArray(ids) ? ids : ids ? [ids] : [])].map((id) => byId.get(id)).filter(Boolean).slice(0, maxItems)
         : byId.get(ids) ?? null;
       const element = new Control(resolve(value));
-      const picker = {element, items, multiple, setValue(ids) {element.change(resolve(ids));}, dispose() {}};
+      const picker = {element, items, multiple, maxItems, setValue(ids) {element.change(resolve(ids));}, dispose() {}};
       created.push(picker);
       return picker;
     },
@@ -84,6 +85,7 @@ test("comparison page starts empty, shares every selection, and resets all contr
   const picker = await main.value("spellPicker");
   const target = await main.value("materialPicker");
   assert.equal(picker.multiple, true);
+  assert.equal(picker.maxItems, 5);
   assert.equal(target.items.length, materials.length);
   picker.setValue(["DIGGER", "NUKE"]);
   assert.deepEqual(await main.value("comparisons"), []);
@@ -120,6 +122,22 @@ test("comparison page starts empty, shares every selection, and resets all contr
   assert.equal(await main.value("shareUrl"), "https://example.test/digging");
   assert.equal(share.disabled, true);
   assert.equal(created.length, 2, "changes must reuse both Choices instances");
+});
+
+test("the page limits oversized links at the input and copies only readable comparison state", async (t) => {
+  const ids = ["NUKE", "DIGGER", "BLACK_HOLE", "LUMINOUS_DRILL", "LANCE", "BOMB"];
+  const href = "https://example.test/digging?" + ids.map((id) => `spell=${id}`).join("&")
+    + "&material=soil&tracking=words,with%20spaces#notes,extra";
+  const {main, copied, window} = loadPage(t, href);
+  assert.deepEqual((await main.value("selectedSpells")).map((spell) => spell.id), ids.slice(0, 5));
+  const picker = await main.value("spellPicker");
+  assert.equal(picker.maxItems, 5);
+  const shareUrl = await main.value("shareUrl");
+  assert.ok(shareUrl.length < 500);
+  assert.doesNotMatch(shareUrl, /[, %#[\]]|tracking/);
+  assert.equal(window.location.href, shareUrl);
+  (await main.value("shareControl")).button.querySelector("button").click();
+  assert.deepEqual(copied, [shareUrl]);
 });
 
 test("old links and navigation restore exact comparison order, material, perks and zoom", async (t) => {

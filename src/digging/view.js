@@ -1,7 +1,7 @@
 import {html, svg} from "htl";
 import {getBaseRadius, getDiggingViewport} from "./model.js";
 import {getPathGeometry, getExplosionGeometry} from "./geometry.js";
-import {getComparisonScale} from "./comparison.js";
+import {getComparisonLayout} from "./comparison.js";
 
 const imageBase = "https://noita-bartender-images.acidflow.stream/images";
 const statusTitles = {digs: "Digs", blocked: "Doesn't dig", path: "Digs", partial: "No immediate hole", unsupported: "Not yet modeled", converts: "Converts material", conditional: "Conditional effect"};
@@ -10,6 +10,15 @@ let nextPlotId = 0;
 export const formatNumber = (value) => Number.isFinite(value)
   ? value.toLocaleString("en-US", {maximumFractionDigits: 2}) : "—";
 const explosionRadiusLabel = (footprint) => `${formatNumber(footprint.radiusMin)}${footprint.radiusMin === footprint.radiusMax ? "" : `–${formatNumber(footprint.radiusMax)}`} px`;
+
+function removalPatternCells(probability) {
+  return Array.from({length: 64}, (_, index) => {
+    const x = index % 8, y = Math.floor(index / 8);
+    let rank = 0;
+    for (let bit = 0; bit < 3; bit++) rank += ((((x >> bit) ^ (y >> bit)) & 1) * 2 + ((y >> bit) & 1)) * 4 ** (2 - bit);
+    return rank < Math.round(probability * 64) ? [x, y] : null;
+  }).filter(Boolean);
+}
 
 export function materialImage(material) {
   return `${imageBase}/materials/${encodeURIComponent(material.image_local || "no_image_available.png")}`;
@@ -165,12 +174,7 @@ export function renderDiggingPlot(spell, material, result, width, fit, {color, s
     && !reachOnly && ["digs", "path"].includes(result.status);
   // A fixed dither illustrates partial cell eating without pretending to
   // reproduce the game's random seed or clearing the entire probabilistic path.
-  const removedPatternCells = partialRemoval ? Array.from({length: 64}, (_, index) => {
-    const x = index % 8, y = Math.floor(index / 8);
-    let rank = 0;
-    for (let bit = 0; bit < 3; bit++) rank += ((((x >> bit) ^ (y >> bit)) & 1) * 2 + ((y >> bit) & 1)) * 4 ** (2 - bit);
-    return rank < Math.round(footprint.removalProbability * 64) ? [x, y] : null;
-  }).filter(Boolean) : [];
+  const removedPatternCells = partialRemoval ? removalPatternCells(footprint.removalProbability) : [];
   const geometryCaption = clipped ? "Cropped. Use Fit whole effect to see it all."
     : fit ? "Minä is shown at the same scale." : "1 game pixel = 6 screen pixels.";
   const caption = path
@@ -254,9 +258,16 @@ export function renderDiggingPlot(spell, material, result, width, fit, {color, s
 export function renderDiggingComparison(entries, material, width, fit) {
   if (!material || !entries.length) return html`<div class="card digging-empty">Select spells and a material to compare them.</div>`;
   width = Number.isFinite(width) && width > 0 ? width : 640;
-  const columns = entries.length > 1 && width >= 720 ? 2 : 1;
-  const plotWidth = Math.max(120, (width - (columns - 1) * 16) / columns - 34);
-  const sharedScale = getComparisonScale(entries, plotWidth, fit);
+  const view = getComparisonLayout(entries, Math.max(120, width - 34), fit);
+  const {height, scale, mina, scaleUnits, lanes} = view;
+  const id = `digging-comparison-${++nextPlotId}`;
+  const tileSize = 14 * scale;
+  const scaleX = mina.x - 16;
+  const scaleTop = height / 2 - scaleUnits * scale / 2;
+  const scaleBottom = height / 2 + scaleUnits * scale / 2;
+  const status = ({result}) => result.footprint?.kind === "path" &&
+    (result.footprint.previewLength ?? result.footprint.lengthMax) === 0 && result.status === "path" && !result.circularEffect
+    ? "partial" : result.status;
   const summary = (result) => {
     const footprint = result.footprint;
     if (footprint?.kind === "path") return `Path: ${formatNumber(footprint.lengthMin)}${footprint.lengthMin === footprint.lengthMax ? "" : `–${formatNumber(footprint.lengthMax)}`} px · Width: ${formatNumber(footprint.width)} px${result.circularEffect?.method === "explosion" ? ` · Explosion radius: ${formatNumber(result.circularEffect.radius)} px` : ""}`;
@@ -264,15 +275,91 @@ export function renderDiggingComparison(entries, material, width, fit) {
     if (Number.isFinite(radius)) return `${result.reachOnly ? "Effect reach" : "Radius estimate"}: ${formatNumber(radius)} px`;
     return statusTitles[result.status] ?? result.reason;
   };
-  return html`<div class="grid grid-cols-2 digging-comparison" style="grid-template-columns: repeat(${columns}, minmax(0, 1fr))">
-    ${entries.map(({spell, result, color}) => html`<section class="card digging-spell-panel" data-spell-id="${spell.id}" aria-label="${spell.name}">
-      <h2 class="digging-spell-heading" style="color: ${color}"><img src="${itemImage(spell, "spells")}" width="24" height="24" alt="">${spell.name}</h2>
-      <p class="digging-comparison-summary">${summary(result)}</p>
-      ${renderDiggingPlot(spell, material, result, plotWidth, fit, {color, sharedScale})}
-      <details class="digging-spell-details"><summary>Spell details</summary>
+  const paint = (lane, mode) => {
+    const outline = mode === "outline";
+    const fill = outline ? "none" : "#000";
+    const stroke = outline ? lane.color : mode === "cutout" && lane.partialRemoval ? `url(#${id}-removal-${lane.index})` : "#000";
+    if (lane.kind === "path") return svg`<g>
+      <path class="digging-path-${mode}" d="${lane.path}" fill="none" stroke="${stroke}"
+        stroke-width="${lane.pathWidth + (outline ? 4 : 0)}" stroke-linecap="round" stroke-linejoin="round" />
+      ${lane.impact && (mode !== "cutout" || !lane.result.footprint.outlineOnly && !lane.reachOnly)
+        ? svg`<circle class="digging-impact-${mode}" cx="${lane.impact.x}" cy="${lane.impact.y}" r="${lane.impact.radius}" fill="${fill}" stroke="${outline ? lane.color : "none"}" stroke-width="4" />` : null}
+    </g>`;
+    if (lane.screenRadius <= 0) return null;
+    return lane.kind === "square"
+      ? svg`<rect class="digging-area-${mode}" x="${lane.centerX - lane.screenRadius}" y="${lane.centerY - lane.screenRadius}"
+        width="${lane.screenRadius * 2}" height="${lane.screenRadius * 2}" fill="${fill}" stroke="${outline ? lane.color : "none"}" stroke-width="2.5" />`
+      : svg`<circle class="digging-area-${mode}" cx="${lane.centerX}" cy="${lane.centerY}" r="${lane.screenRadius}"
+        fill="${fill}" stroke="${outline ? lane.color : "none"}" stroke-width="2.5" />`;
+  };
+  const label = (lane) => {
+    if (!view.fullLabels) return String(lane.index + 1);
+    const name = `${lane.index + 1}. ${lane.spell.name}`;
+    const limit = Math.max(8, Math.floor((view.width - lane.labelX - 12) / 6.5));
+    return name.length > limit ? `${name.slice(0, limit - 1)}…` : name;
+  };
+  return html`<div class="card digging-comparison">
+    <figure class="digging-figure">
+      <div class="digging-scene">
+      ${svg`<svg class="digging-svg" viewBox="0 0 ${view.width} ${height}" width="${view.width}" height="${height}"
+        role="img" aria-labelledby="${id}-title ${id}-desc">
+        <title id="${id}-title">Spell digging comparison in ${material.name}</title>
+        <desc id="${id}-desc">${entries.map(({spell}) => spell.name).join(", ")} share one terrain view and one scale. Colored, numbered areas show separate casts. Minä faces right at mid-height near the left edge.</desc>
+        <defs>
+          <pattern id="${id}-material" width="${tileSize}" height="${tileSize}" patternUnits="userSpaceOnUse" viewBox="84 168 84 84">
+            <rect width="252" height="252" fill="#34484b" />
+            <image href="${materialImage(material)}" width="252" height="252" preserveAspectRatio="none" />
+          </pattern>
+          <pattern id="${id}-pixels" width="${scale}" height="${scale}" patternUnits="userSpaceOnUse">
+            <path d="M ${scale} 0 H 0 V ${scale}" fill="none" stroke="#fff" stroke-opacity="0.1" stroke-width="0.5" />
+          </pattern>
+          <clipPath id="${id}-scene"><rect width="${view.width}" height="${height}" /></clipPath>
+          ${lanes.map((lane) => svg`<clipPath id="${id}-lane-${lane.index}"><rect x="${lane.clip.x}" y="${lane.clip.y}" width="${lane.clip.width}" height="${lane.clip.height}" /></clipPath>`)}
+          ${lanes.filter((lane) => lane.partialRemoval).map((lane) => svg`<pattern id="${id}-removal-${lane.index}" width="${8 * scale}" height="${8 * scale}" patternUnits="userSpaceOnUse">
+            <rect width="${8 * scale}" height="${8 * scale}" fill="#fff" />
+            ${removalPatternCells(lane.result.footprint.removalProbability).map(([x, y]) => svg`<rect x="${x * scale}" y="${y * scale}" width="${scale}" height="${scale}" fill="#000" />`)}
+          </pattern>`)}
+          <mask id="${id}-terrain-mask" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="${view.width}" height="${height}" style="mask-type: luminance">
+            <rect width="${view.width}" height="${height}" fill="#fff" />
+            ${lanes.filter((lane) => lane.removes).map((lane) => svg`<g clip-path="url(#${id}-lane-${lane.index})">${paint(lane, "cutout")}</g>`)}
+          </mask>
+          ${lanes.filter((lane) => lane.kind === "path").map((lane) => svg`<mask id="${id}-outline-${lane.index}" maskUnits="userSpaceOnUse" x="0" y="0" width="${view.width}" height="${height}" style="mask-type: luminance">
+            <rect width="${view.width}" height="${height}" fill="#fff" />${paint(lane, "inner")}
+          </mask>`)}
+        </defs>
+        <g clip-path="url(#${id}-scene)">
+          ${lanes.map((lane) => svg`<rect class="digging-area-color" x="${lane.clip.x}" y="${lane.clip.y}" width="${lane.clip.width}" height="${lane.clip.height}" fill="${lane.color}" fill-opacity="0.12" />`)}
+          <g class="digging-terrain" mask="url(#${id}-terrain-mask)">
+            <rect width="${view.width}" height="${height}" fill="url(#${id}-material)" />
+            ${scale >= 3 ? svg`<rect width="${view.width}" height="${height}" fill="url(#${id}-pixels)" />` : null}
+          </g>
+          ${lanes.map((lane) => svg`<g class="digging-spell-area" data-spell-id="${lane.spell.id}" aria-label="${lane.spell.name}: ${statusTitles[status(lane)]}" clip-path="url(#${id}-lane-${lane.index})">
+            <g mask="${lane.kind === "path" ? `url(#${id}-outline-${lane.index})` : null}">${paint(lane, "outline")}</g>
+          </g>`)}
+          ${lanes.map((lane) => svg`<g class="digging-spell-label" fill="${lane.color}">
+            <title>${lane.spell.name}: ${statusTitles[status(lane)]}</title>
+            <text x="${lane.labelX}" y="${lane.labelY}" text-anchor="${view.fullLabels ? "start" : "end"}">${label(lane)}</text>
+          </g>`)}
+          <image class="digging-mina" href="${imageBase}/mina/mina.png" x="${mina.x}" y="${mina.y}" width="${mina.width}" height="${mina.height}"
+            transform="translate(${2 * mina.x + mina.width} 0) scale(-1 1)" />
+          <g class="digging-scale" fill="#fff" font-size="12" font-family="system-ui, sans-serif">
+            <path d="M ${scaleX - 4} ${scaleTop} h 8 M ${scaleX} ${scaleTop} V ${scaleBottom} M ${scaleX - 4} ${scaleBottom} h 8" stroke="#fff" stroke-width="2" fill="none" />
+            <text x="8" y="${Math.min(scaleTop, mina.y) - 10}">${formatNumber(scaleUnits)} game px</text>
+          </g>
+          <rect class="digging-plot-border" x="0.5" y="0.5" width="${view.width - 1}" height="${height - 1}" fill="none" stroke="#91a8ad" />
+        </g>
+      </svg>`}
+      </div>
+      <figcaption>One cast per spell, all at the same scale.${view.clipped ? " Large effects are cropped; use Fit whole effect to see them in full." : ""}${lanes.some((lane) => lane.partialRemoval) ? " Speckling illustrates partial removal." : ""}</figcaption>
+    </figure>
+    <div class="grid ${entries.length > 1 ? "grid-cols-2" : ""} digging-comparison-results">
+    ${entries.map(({spell, result, color}, index) => html`<details class="digging-spell-details" data-spell-id="${spell.id}">
+      <summary><span class="digging-spell-heading" style="color: ${color}"><img src="${itemImage(spell, "spells")}" width="24" height="24" alt="">${index + 1}. ${spell.name}</span>
+        <span class="digging-comparison-summary">${statusTitles[status({result})]} · ${summary(result)}</span>
+      </summary>
         ${(spell.diggingModifierNotes ?? []).map((note) => html`<p class="digging-other-effect">${note}</p>`)}
         ${renderDiggingResult(spell, material, result)}
-      </details>
-    </section>`)}
+    </details>`)}
+    </div>
   </div>`;
 }

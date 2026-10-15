@@ -56,3 +56,82 @@ export function getPathGeometry(footprint, width, fit = false, sharedScale) {
     impact: impactRadius ? {x: impactX, y: impactY, radius: impactRadius * scale} : null,
     bounds};
 }
+
+// One scene, one scale and one reference sprite. Each spell gets a band of
+// the same terrain so its cutout cannot cover another spell's result.
+export function getComparisonLayout(entries, width, fit = false) {
+  const view = getDiggingViewport(0, width);
+  const left = Math.min(100, view.width * 0.42);
+  const availableWidth = Math.max(1, view.width - left - 12);
+  const rowHeight = (view.height - 24) / Math.max(1, entries.length);
+  const fullLabels = rowHeight >= 48;
+  const labelHeight = fullLabels ? 20 : 0;
+  const gap = Math.min(4, rowHeight / 4);
+  const availableHeight = Math.max(Number.EPSILON, rowHeight - labelHeight - 2 * gap);
+  const shapes = entries.map((entry) => {
+    const {result} = entry;
+    const footprint = result.footprint;
+    const circular = result.circularEffect ?? result;
+    const reachOnly = !!(result.reachOnly || circular.reachOnly || result.method === "conversion");
+    if (footprint?.kind === "path" && validPoints(footprint.points) && footprint.width > 0) {
+      const points = validPoints(footprint.previewPoints) ? footprint.previewPoints : footprint.points;
+      const half = footprint.width / 2;
+      let minX = Math.min(...points.map(([x]) => x)) - half;
+      let maxX = Math.max(...points.map(([x]) => x)) + half;
+      let minY = Math.min(...points.map(([, y]) => y)) - half;
+      let maxY = Math.max(...points.map(([, y]) => y)) + half;
+      const impactRadius = Number.isFinite(footprint.impactRadius) && footprint.impactRadius > 0 ? footprint.impactRadius : 0;
+      const endpoint = points.at(-1);
+      if (impactRadius) {
+        minX = Math.min(minX, endpoint[0] - impactRadius);
+        maxX = Math.max(maxX, endpoint[0] + impactRadius);
+        minY = Math.min(minY, endpoint[1] - impactRadius);
+        maxY = Math.max(maxY, endpoint[1] + impactRadius);
+      }
+      // Keep a rightward cast's origin on the row's centerline while leaving
+      // equal space above/below for gravity and any endpoint explosion.
+      const verticalExtent = Math.max(Math.abs(minY), Math.abs(maxY));
+      minY = -verticalExtent;
+      maxY = verticalExtent;
+      const partialRemoval = footprint.probabilistic && footprint.removalProbability > 0 && !footprint.partial;
+      return {...entry, kind: "path", points, minX, maxX, minY, maxY, impactRadius, reachOnly,
+        partialRemoval, removes: !reachOnly && ["digs", "path"].includes(result.status)
+          && (!footprint.outlineOnly && !footprint.probabilistic || partialRemoval)};
+    }
+    const radius = Number.isFinite(circular.radius) && circular.radius > 0 ? circular.radius : 0;
+    return {...entry, kind: result.method === "conversion" && result.conversion?.shape === "square" ? "square" : "circle",
+      radius, minX: -radius, maxX: radius, minY: -radius, maxY: radius, reachOnly,
+      removes: !reachOnly && radius > 0 && circular.status === "digs"
+        && !(circular.method === "cell" && entry.spell.cellEaterEatProbability < 100)};
+  });
+  const scale = fit ? Math.min(FIXED_SCALE, ...shapes.map((shape) => Math.min(
+    availableWidth / Math.max(1, shape.maxX - shape.minX),
+    availableHeight / Math.max(1, shape.maxY - shape.minY)))) : FIXED_SCALE;
+  const lanes = shapes.map((shape, index) => {
+    const top = 12 + index * rowHeight - labelHeight / 2;
+    const clip = {x: left, y: top + labelHeight + gap, width: availableWidth, height: availableHeight};
+    const centerY = clip.y + clip.height / 2;
+    const shapeWidth = (shape.maxX - shape.minX) * scale;
+    const shapeHeight = (shape.maxY - shape.minY) * scale;
+    const clipped = shapeWidth > availableWidth + 1e-8 || shapeHeight > availableHeight + 1e-8;
+    const x = shape.kind !== "path" && clipped
+      ? left + availableWidth * 0.65 - shape.radius * scale : left - shape.minX * scale;
+    const y = centerY - (shape.minY + shape.maxY) * scale / 2;
+    const projected = shape.points?.map(([px, py]) => [x + px * scale, y + py * scale]);
+    if (projected?.length === 1) projected.push(projected[0]);
+    const path = projected?.map(([px, py], i) => `${i ? "L" : "M"} ${px} ${py}`).join(" ");
+    const endpoint = projected?.at(-1);
+    return {...shape, index, clip, clipped, centerX: x, centerY: y,
+      screenRadius: (shape.radius ?? 0) * scale, path, pathWidth: (shape.result.footprint?.width ?? 0) * scale,
+      impact: shape.impactRadius ? {x: endpoint[0], y: endpoint[1], radius: shape.impactRadius * scale} : null,
+      labelX: fullLabels ? left : left - 8,
+      labelY: fullLabels ? top + 14 : centerY + 4,
+      bounds: {left: x + shape.minX * scale, right: x + shape.maxX * scale,
+        top: y + shape.minY * scale, bottom: y + shape.maxY * scale}};
+  });
+  const targetUnits = Math.min(100, view.height / 2) / scale;
+  const magnitude = 10 ** Math.floor(Math.log10(targetUnits));
+  const scaleUnits = [1, 2, 5, 10].filter((n) => n * magnitude <= targetUnits).at(-1) * magnitude;
+  return {...view, scale, scaleUnits, fullLabels, lanes, clipped: lanes.some((lane) => lane.clipped),
+    mina: {...view.mina, width: 8 * scale, height: 18 * scale, y: (view.height - 18 * scale) / 2}};
+}

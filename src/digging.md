@@ -15,7 +15,7 @@ import {evaluateComparison} from "./digging/comparison.js";
 import {createDiggingSelect} from "./digging/select.js";
 import {createDiggingOptions} from "./digging/options.js";
 import {renderDiggingComparison} from "./digging/view.js";
-import {DIGGING_DEFAULTS, readDiggingParams, diggingUrl} from "./digging/url.js";
+import {DIGGING_DEFAULTS, readDiggingParams, diggingUrl, getDiggingSpellLimit} from "./digging/url.js";
 import {createShareButton} from "./components/shareButton.js";
 import {createResetButton} from "./components/resetButton.js";
 initializeTitleAnimation();
@@ -29,7 +29,8 @@ const spells = allSpells.filter(isDiggingSpell);
 
 ```js
 const initialSelection = readDiggingParams(window.location.href, spells, materials);
-const spellPicker = createDiggingSelect(spells, {label: "Spells", kind: "spells", value: initialSelection.spells, multiple: true});
+const spellLimit = getDiggingSpellLimit(window.location.href, spells, materials);
+const spellPicker = createDiggingSelect(spells, {label: "Spells", kind: "spells", value: initialSelection.spells, multiple: true, maxItems: spellLimit});
 const materialPicker = createDiggingSelect(materials, {label: "Material", kind: "materials", value: initialSelection.material});
 const optionsControl = createDiggingOptions(Inputs, initialSelection);
 const fitControl = Inputs.toggle({label: "Fit whole effect", value: initialSelection.fit});
@@ -115,7 +116,7 @@ ${resize((width) => renderDiggingComparison(comparisons, selectedMaterial, width
 <div class="card digging-info">
     <details class="digging-method">
       <summary>About this estimate</summary>
-      <p>Each panel shows a separate cast in the selected material, with the chosen perks and Berserkium setting. All panels use the same scale, including when fitted. The spell's color marks its digging area; speckling illustrates partial removal.</p>
+      <p>Each colored area shows a separate cast in the same plot, with the chosen perks and Berserkium setting. All spells share one scale, including when fitted. Numbered labels match the spell details below; speckling illustrates partial removal.</p>
       <p>Moving spells show one example path. The length range accounts for their speed and lifetime variation. Penetrating spells slow down while digging; their first-cell damage uses the launch-speed range.</p>
       <p>Explosion circles estimate size from ray energy and material hardness, capped by the spell's explosion radius. A material's durability can stop the explosion from digging. These circles do not predict the exact crater boundary.</p>
       <p>Acid spreads with the liquid and has no fixed final size. Conversion outlines show where material can change. Separate effects and physics objects are described in the results below.</p>
