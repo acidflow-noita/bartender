@@ -94,10 +94,10 @@ test("digging page resolves selected values before calculating and preserves bot
   spellPicker.setValue("NUKE");
   assert.equal((await main.value("result")).radius, 250);
   materialPicker.setValue("rock_static");
-  assert.ok(Math.abs((await main.value("result")).radius - 95.01) < 0.01);
+  assert.equal((await main.value("result")).radius, 67);
   assert.equal((await main.value("selectedSpell")).id, "NUKE");
   spellPicker.setValue("DIGGER");
-  assert.ok(Math.abs((await main.value("result")).radius - Math.SQRT2) < 0.001);
+  assert.equal((await main.value("result")).radius, 1);
   assert.equal((await main.value("selectedMaterial")).id, "rock_static");
   materialPicker.setValue("templebrick_static");
   assert.equal((await main.value("result")).status, "blocked");
@@ -127,7 +127,7 @@ test("digging page resolves selected values before calculating and preserves bot
 test("a shared digging link restores the result and fit before the first render", async (t) => {
   const {main, created, window, copied} = loadPage(t,
     "https://example.test/digging?spell=NUKE&material=rock_static&fit=1");
-  assert.ok(Math.abs((await main.value("result")).radius - 95.01) < 0.01);
+  assert.equal((await main.value("result")).radius, 67);
   assert.equal((await main.value("selectedSpell")).id, "NUKE");
   assert.equal((await main.value("selectedMaterial")).id, "rock_static");
   assert.equal(await main.value("fitRadius"), true);

@@ -36,7 +36,7 @@ export function evaluateDigging(spell, material, {preview = true} = {}) {
   if (positive(spell.cellEaterRadius)) effects.push(evaluateCellEating(spell, material));
   if (positive(spell.groundPenetrationCoeff)) effects.push(evaluatePenetration(spell, material));
   if (positive(spell.laserBeamRadius)) effects.push(evaluateLaser(spell, material));
-  if (spell.explosionEnabled !== false && positive(spell.radius) && spell.rayEnergy !== 0) effects.push(evaluateExplosion(spell, material, preview));
+  if (spell.explosionEnabled !== false && positive(spell.radius) && spell.rayEnergy !== 0) effects.push(evaluateExplosion(spell, material));
   if (lifecycle) effects.push(lifecycle);
   if (!effects.length) {
     return result("unsupported", "No verified terrain-removal effect is available for this spell.");
@@ -52,12 +52,6 @@ export function evaluateDigging(spell, material, {preview = true} = {}) {
   const sourceEffect = primary.footprint ? primary : !primary.reachOnly ? circularEffect : null;
   if (sourceEffect?.footprint) {
     outcome.footprint = sourceEffect.footprint;
-    // A representative secondary projectile was evaluated without raster
-    // rows. Build those only for the selected preview, using its own settings.
-    if (preview && outcome.footprint.kind === "explosion" && !outcome.footprint.rows) {
-      outcome.footprint = evaluateExplosionFootprint({...sourceEffect.explosion,
-        hardness: material.hardness, durability: material.durability});
-    }
   }
   if (preview && ["cell", "path"].includes(primary.method) && ["digs", "path"].includes(primary.status)
       && material.id !== "air" && !material.tags?.includes("[box2d]") && material.is_just_particle_fx !== true) {
@@ -66,8 +60,8 @@ export function evaluateDigging(spell, material, {preview = true} = {}) {
     if (footprint) {
       outcome.footprint = footprint;
       outcome.reason = primary.method === "cell"
-        ? "Cell eating ignores hardness and durability. The preview follows the effect along a nominal cast; its width is twice the cell-eating radius."
-        : "Penetration damages cells along the projectile's path. The preview follows a nominal cast with contact slowdown; first-cell damage below is calculated separately at the launch-speed range.";
+        ? "The spell removes material along its path, ignoring hardness and durability."
+        : "The spell loses speed as it cuts through material. First-cell damage below uses its launch-speed range.";
     }
   }
   return outcome;
@@ -208,7 +202,7 @@ function evaluateLaser(spell, material) {
       contacts: Math.max(1, Math.ceil(material.hardness / spell.laserCellDamage))}};
 }
 
-function evaluateExplosion(spell, material, preview) {
+function evaluateExplosion(spell, material) {
   if (spell.explosionHoleEnabled === false || spell.explosionDontDamageToCells === true) {
     return result("blocked", "This explosion does not remove terrain.", 0, "explosion");
   }
@@ -226,13 +220,13 @@ function evaluateExplosion(spell, material, preview) {
 
   const explosion = {radius: spell.radius, rayEnergy: spell.rayEnergy, maxDurability: spell.maxDuraToDestroy};
   const footprint = evaluateExplosionFootprint({...explosion, hardness: material.hardness,
-    durability: material.durability}, {includeRows: preview});
+    durability: material.durability});
   if (!footprint) return result("unsupported", "The explosion or material settings are outside the supported numeric range.", null, "explosion");
-  const details = {explosion, footprint, radiusRange: [footprint.radiusMin, footprint.radiusMax]};
-  if (footprint.radiusMax === 0) return {...result("partial", "This impact damages terrain but does not remove a fresh cell. Repeated hits or already damaged terrain can give a different result.", 0, "explosion"), ...details};
-  return {...result("digs", footprint.radiusMax < spell.radius
-    ? "Hardness limits the explosion before its maximum radius. The outline follows 360 rays through fresh, uniform terrain."
-    : "The explosion can reach its maximum radius in this material. The outline includes differences between ray directions and random variation.", footprint.radiusMax, "explosion"), ...details};
+  const details = {explosion, footprint};
+  if (footprint.radius === 0) return {...result("partial", "This impact damages terrain but does not remove a fresh cell. Repeated hits or already damaged terrain can give a different result.", 0, "explosion"), ...details};
+  return {...result("digs", footprint.radius < spell.radius
+    ? "This material's hardness reduces the estimated explosion size."
+    : "The explosion has enough energy to reach its maximum radius in this material.", footprint.radius, "explosion"), ...details};
 }
 
 export const FIXED_SCALE = 6;
@@ -240,7 +234,7 @@ export const FIXED_SCALE = 6;
 export function getDiggingViewport(radius, width, fit = false) {
   width = positive(width) ? width : 640;
   radius = nonnegative(radius) ? radius : 0;
-  const sceneHeight = Math.max(360, Math.min(720, width * 0.6));
+  const sceneHeight = Math.max(200, Math.min(280, width * 0.3));
   const height = sceneHeight;
   const availableRadius = Math.max(1, Math.min(width / 2 - 24, sceneHeight / 2 - 24));
   const scale = fit && radius > 0 ? Math.min(FIXED_SCALE, availableRadius / radius) : FIXED_SCALE;
@@ -256,8 +250,8 @@ export function getDiggingViewport(radius, width, fit = false) {
   const mina = {
     width: 8 * scale,
     height: 18 * scale,
-    x: Math.max(8, width - 32 - 8 * scale),
-    y: Math.max(8, sceneHeight - 12 - 18 * scale),
+    x: 36,
+    y: (sceneHeight - 18 * scale) / 2,
   };
   return {width, height, sceneHeight, scale, screenRadius, centerX, centerY, clipped, scaleUnits, mina};
 }

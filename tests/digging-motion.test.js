@@ -45,7 +45,9 @@ test("Black Hole uses its accelerated flight, lifetime endpoints and both update
     assert.equal(variant.endReason, "lifetime");
   }
   assert.ok(footprint.lengthMin > 115 && footprint.lengthMax < 130);
-  assert.match(footprint.caption, /rightward cast into uniform, stationary material/);
+  assert.match(footprint.caption, /one cast/);
+  assert.ok(footprint.previewLength > footprint.lengthMin && footprint.previewLength < footprint.lengthMax);
+  assert.equal(footprint.previewPoints.length, 121, "base lifetime of 120 frames gives one visible cast");
 });
 
 test("Luminous Drill produces a one-pixel tunnel, limited by consecutive native contacts", () => {
@@ -126,7 +128,7 @@ test("the low-velocity death check uses post-contact velocity", () => {
   assert.ok(footprint.diagnostics.variants.every((variant) => variant.frames === 1 && variant.endReason === "low-velocity"));
 });
 
-test("probabilistic cell eating and unresolved bounces remain outlines", () => {
+test("partial cell eating stays identified and proven penetration survives an unresolved bounce", () => {
   const disc = traceDiggingPath(spell("DISC_BULLET_BIG"), material("soil"), {kind: "cell"});
   assert.equal(disc.probabilistic, true);
   assert.equal(disc.conditional, true);
@@ -134,7 +136,8 @@ test("probabilistic cell eating and unresolved bounces remain outlines", () => {
   const lance = spell("LANCE_HOLY"), target = material("soil");
   const bounce = traceDiggingPath(lance, target, {kind: "path", contact: nativeContact(lance, target)});
   assert.equal(bounce.conditional, true);
-  assert.equal(bounce.outlineOnly, true);
+  assert.equal(bounce.outlineOnly, false, "the cells removed before the bounce must remain cut out");
+  assert.ok(bounce.previewLength > 0);
   assert.ok(bounce.diagnostics.variants.every((variant) => variant.endReason === "collision-context"));
 });
 

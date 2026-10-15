@@ -166,7 +166,7 @@ function runVariant(spell, material, kind, contact, launchSpeed, lifetimeFrames,
 
 /**
  * A nominal rightward cast from the center of an air cell into otherwise
- * uniform, stationary material, with no modifiers, wind or scripted forces.
+ * uniform, stationary material, with no modifiers or external forces.
  * contact(hp, vx, vy) supplies native penetration damage and remaining velocity.
  * Width is a 1-pixel terrain trace or a cell eater's diameter. The length is
  * removed-cell centerline length + 1 for penetration, or travel + diameter for
@@ -210,21 +210,28 @@ export function traceDiggingPath(spell, material, {kind, contact} = {}) {
   variants.sort((a, b) => a.diagnostic.length - b.diagnostic.length);
   const shortest = variants[0], longest = variants.at(-1);
   if (kind === "path" && variants.every((variant) => variant.diagnostic.contacts === 0)) return null;
+  // A single representative cast avoids overlapping shortest/longest ends.
+  const previewSpeed = (spell.speedMin + spell.speedMax) / 2;
+  const previewLifetime = Math.max(1, motion.lifetimeFrames);
+  const preview = variants.find((variant) => variant.diagnostic.launchSpeed === previewSpeed
+    && variant.diagnostic.lifetimeFrames === previewLifetime && variant.diagnostic.phaseOrder === "forces-before-move")
+    ?? runVariant(spell, material, kind, contact, previewSpeed, previewLifetime, "forces-before-move");
+  if (!preview) return null;
   const probabilistic = kind === "cell" && spell.cellEaterEatProbability !== 100;
   const conditional = (kind === "cell" && motion.collideWithWorld)
     || variants.some((variant) => variant.conditional || variant.samplingGaps);
-  const partial = kind === "path" && shortest.diagnostic.removedCells === 0;
-  const caption = "Nominal rightward cast into uniform, stationary material at 60 updates per second. "
-    + "The range includes launch-speed and lifetime endpoints and both force/movement update orders. "
-    + (kind === "cell" ? "Length includes the cell-eating diameter. " : "Length covers removed terrain cells. ")
-    + (conditional ? "Collisions, bounces or gaps between cell-eating updates make this an outline of possible reach. " : "")
-    + (partial ? "The shorter scenario removes no complete terrain cell; its outline marks the contact. " : "")
-    + "Wind, moving terrain and scripted forces can change the path.";
+  const partial = kind === "path" && preview.diagnostic.removedCells === 0;
+  const caption = partial ? "This cast damages the material without opening a hole."
+    : kind === "path" && preview.conditional ? "Dug path up to the first bounce or collision."
+    : kind === "cell" && conditional ? "Example path; collisions can shorten it."
+    : "Example dug path for one cast. Speed and lifetime can change its length.";
   const samePoints = JSON.stringify(shortest.points) === JSON.stringify(longest.points);
   return {kind: "path", points: shortest.points, ...(samePoints ? {} : {maxPoints: longest.points}),
+    previewPoints: preview.points, previewLength: preview.diagnostic.length,
+    removalProbability: kind === "cell" ? spell.cellEaterEatProbability / 100 : 1,
     width: kind === "cell" ? spell.cellEaterRadius * 2 : 1,
     lengthMin: shortest.diagnostic.length, lengthMax: longest.diagnostic.length,
-    probabilistic, conditional, partial, outlineOnly: probabilistic || conditional || partial, caption,
+    probabilistic, conditional, partial, outlineOnly: probabilistic || kind === "cell" && conditional || partial, caption,
     diagnostics: {reference: "rightward-uniform-stationary", framesPerSecond: 60,
       lengthBasis: kind === "cell" ? "travel-plus-diameter" : "removed-centerline-plus-one-pixel",
       phaseOrderUnverified: true, variants: variants.map((variant) => variant.diagnostic)}};

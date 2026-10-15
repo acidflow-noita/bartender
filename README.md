@@ -65,23 +65,28 @@ identity. `--game-data /path/to/extracted/data` selects another XML tree; source
 hashes prevent reusing verified script behavior with changed sources.
 
 The digging page starts with empty selections and includes both selected IDs
-in shared links. Its full-width preview compares each spell's effects at a fixed
-scale; **Fit whole effect** scales both the footprint and Minä together.
-Explosions use 360 directional rays and raster bounds for fresh, uniform terrain,
-including stop jitter and large-explosion variation. These are nominal centered
-explosions, not exact live-world predictions; JavaScript transcendental functions
-followed by float32 rounding have not been validated against the game's runtime.
-For example, Nuke in Rock has about 66.25–95.01 px of radial reach in this model,
-instead of the former 67 px circle.
+in shared links. Its full-width preview is 200–280px tall, with Minä at mid-height
+near the left edge, facing right. **Fit whole effect** scales the preview and
+Minä together.
 
-Luminous Drill has a 1 px penetration trace. Traveling cell eaters such as Black
-Hole sweep their diameter along a nominal rightward cast. Motion includes gravity,
-signed air friction, terminal speed, lifetime, and penetration slowdown, using
-60 updates per second. Launch-speed/lifetime endpoints and both force/movement
-update orders are evaluated because their relative scheduling is not established.
-The path is a reference scenario, not a bound over every world layout. Probabilistic
-removal or uncertain collisions display reach without cutting out guaranteed
-terrain. Bombs retain impact footprints. Conversion, corrosion, growing fields,
+Explosions use a circular size estimate: the smaller of the configured radius
+and whole fresh-cell hardness payments covered by ray energy. Durability can
+block removal. The former 360-ray contour reconstruction was removed from the
+preview because it had not been validated against in-game crater shapes; it must
+not be treated as an exact prediction. Native evidence remains in the ignored
+analysis artifacts for further investigation.
+
+Luminous Drill has a 1px penetration trace. Traveling cell eaters sweep their
+diameter along an example rightward cast. Motion includes gravity, signed air
+friction, terminal speed, lifetime and penetration slowdown at 60 updates per
+second. The preview uses midpoint launch speed and base lifetime; the numerical
+range still evaluates speed/lifetime endpoints and both force/movement orders.
+Their relative scheduling has not been established. A second trail is not drawn.
+Confirmed penetration cells remain cut out even if the simulation stops before
+an unresolved bounce. Probabilistic cell eating uses a fixed dither to illustrate
+partial removal, not the game's RNG or a guaranteed final pattern.
+
+Bombs retain circular impact estimates. Conversion, corrosion, growing fields,
 and secondary effects retain their own rules rather than combining their radii.
 Beam width and maximum length remain settings, not measured digging depth.
 

@@ -23,16 +23,14 @@ test("the digging catalog includes both small spells and nukes", () => {
   assert.equal(evaluateDigging(spell("DIGGER"), material("soil")).radius, 6);
 });
 
-test("hardness limits directional explosion rays, with equality removing a fresh cell", () => {
+test("circular explosion estimates respect energy, hardness and the configured radius", () => {
   const small = evaluateDigging(spell("DIGGER"), material("rock_static"));
-  assert.ok(small.footprint.removedPixelsMin > 0);
-  assert.ok(Math.abs(small.radiusRange[0] - 1) < 0.001);
-  assert.ok(Math.abs(small.radiusRange[1] - Math.SQRT2) < 0.001);
+  assert.equal(small.radius, 1);
+  assert.equal(small.footprint.estimated, true);
   assert.equal(evaluateDigging(spell("DIGGER"), material("rock_hard")).radius, 0);
   const nuke = evaluateDigging(spell("NUKE"), material("rock_static"));
-  assert.ok(nuke.radiusRange[0] > 66 && nuke.radiusRange[0] < 67);
-  assert.ok(nuke.radiusRange[1] > 94 && nuke.radiusRange[1] < 96);
-  assert.equal(nuke.footprint.rays.length, 360);
+  assert.equal(nuke.radius, 67);
+  assert.equal(nuke.footprint.radius, 67);
   assert.equal(evaluateDigging(spell("NUKE"), material("soil")).radius, 250);
 });
 
@@ -41,8 +39,7 @@ test("durability can block a nuke; the exact durability limit remains diggable",
   assert.equal(blocked.status, "blocked");
   assert.match(blocked.reason, /durability 14/);
   const giga = evaluateDigging(spell("NUKE_GIGA"), material("templebrick_static"));
-  assert.ok(giga.radiusRange[0] > 8 && giga.radiusRange[0] < 9);
-  assert.ok(giga.radiusRange[1] > 13 && giga.radiusRange[1] < 15);
+  assert.equal(giga.radius, 9);
 });
 
 test("Acid Ball corrodes brickwork and steel terrain independently of explosion limits", () => {
@@ -185,7 +182,7 @@ test("Lightning uses verified ConfigExplosion defaults without filling unknown i
   assert.equal(outcome.status, "digs");
   assert.equal(outcome.explosion.rayEnergy, 20000);
   assert.equal(outcome.explosion.maxDurability, 10);
-  assert.ok(outcome.radius > 13 && outcome.radius < 15);
+  assert.equal(outcome.radius, 10);
   assert.equal(getBaseRadius(spell("LIGHTNING")), 35);
   for (const setting of [{rayEnergy: null}, {maxDuraToDestroy: null}]) {
     assert.equal(evaluateDigging({...spell("LIGHTNING"), ...setting}, material("soil")).status, "unsupported");
@@ -239,7 +236,7 @@ test("penetration caps, missing caps and a separate digging explosion remain dis
   const result = evaluateDigging(explosive, brick);
   assert.equal(result.status, "digs");
   assert.equal(result.method, "explosion");
-  assert.ok(result.radius > 3 && result.radius < 4.3);
+  assert.equal(result.radius, 3);
   assert.equal(evaluateDigging({...lance, groundPenetrationMaxDura: -1}, brick).status, "path");
 });
 
@@ -316,18 +313,18 @@ test("fit mode contains the entire radius at narrow and wide viewport sizes", ()
   }
 });
 
-test("the preview uses a taller responsive canvas and keeps Mina at the effect scale", () => {
+test("the compact preview keeps Mina near the left edge at mid-height and at the effect scale", () => {
   for (const width of [240, 320, 420, 1200, 1800]) {
     for (const radius of [null, 0, 1, 6, 60, 250, 400]) {
       for (const fit of [false, true]) {
         const view = getDiggingViewport(radius, width, fit);
-        assert.equal(view.sceneHeight, Math.max(360, Math.min(720, width * 0.6)));
+        assert.equal(view.sceneHeight, Math.max(200, Math.min(280, width * 0.3)));
         assert.equal(view.mina.width, 8 * view.scale);
         assert.equal(view.mina.height, 18 * view.scale);
         assert.ok(view.mina.x >= 0 && view.mina.x + view.mina.width <= width);
         assert.ok(view.mina.y >= 0 && view.mina.y + view.mina.height <= view.sceneHeight);
-        assert.ok(Math.abs(view.mina.x + view.mina.width - (width - 32)) < 1e-9);
-        assert.ok(Math.abs(view.mina.y + view.mina.height - (view.sceneHeight - 12)) < 1e-9);
+        assert.equal(view.mina.x, 36);
+        assert.ok(Math.abs(view.mina.y + view.mina.height / 2 - view.sceneHeight / 2) < 1e-9);
       }
     }
   }
@@ -377,7 +374,8 @@ test("Black Hole sweeps its diameter along accelerated travel while bombs retain
   for (const id of ["BOMB", "NUKE", "FIREWORK"]) {
     const impact = evaluateDigging(spell(id), material("soil"));
     assert.equal(impact.footprint.kind, "explosion", id);
-    assert.ok(impact.footprint.rows.length > 0, id);
+    assert.ok(impact.footprint.radius > 0, id);
+    assert.equal(impact.footprint.estimated, true, id);
   }
 });
 

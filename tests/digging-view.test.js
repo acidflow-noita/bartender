@@ -43,6 +43,7 @@ test("digging SVG keeps the hosted Mina image and terrain clip at valid dimensio
     for (const key of ["x", "y", "width", "height"]) {
       assert.equal(Number(sprite[key]), view.mina[key], `Minä ${key} must be a valid SVG number`);
     }
+    assert.equal(sprite.transform, `translate(${2 * view.mina.x + view.mina.width} 0) scale(-1 1)`);
     assert.equal(mina.parentNode.tagName, "g", "the sprite must be a scene element");
     const clip = elements.find((node) => node.tagName === "clipPath");
     const clipRect = clip.childNodes.find((node) => node.tagName === "rect");
@@ -200,8 +201,9 @@ test("a thin digging path cuts its true width and outlines its swept boundary in
   assert.ok(!elements.some((node) => node.tagName === "circle"), "the spell's unrelated radius must not turn its path into a circle");
 });
 
-test("traveling cell eaters sweep a curved path, with only the optional longer extent dashed", () => {
+test("traveling cell eaters cut out one representative path without a second end", () => {
   const result = pathResult({points: [[0, 0], [30, 4], [60, 16]], maxPoints: [[0, 0], [30, 4], [60, 16], [90, 36]],
+    previewPoints: [[0, 0], [40, 8], [75, 25]],
     width: 24, lengthMin: 62, lengthMax: 98});
   const geometry = getPathGeometry(result.footprint, 1000, false);
   const output = String(render({name: "Black Hole"}, {name: "Brickwork"}, result, 1000, false));
@@ -210,16 +212,48 @@ test("traveling cell eaters sweep a curved path, with only the optional longer e
   const extension = elements.find((node) => attrs(node).class === "digging-path-extent");
   assert.equal(attrs(hole).d, geometry.path);
   assert.equal(attrs(hole)["stroke-width"], "144");
-  assert.equal(attrs(extension).d, geometry.maxPath);
-  assert.equal(attrs(extension).stroke, "#fff");
-  assert.ok(attrs(extension)["stroke-dasharray"]);
+  assert.equal(extension, undefined);
+  assert.equal(geometry.maxPath, undefined);
   const terrainMask = elements.find((node) => node.tagName === "mask" && attrs(node).id.endsWith("-terrain-mask"));
   assert.equal(terrainMask.childNodes.filter((node) => node.tagName === "path").length, 1,
-    "the possible longer path is not presented as already excavated");
-  assert.match(output, /dashed outline shows the longer possible path/);
+    "one representative cast produces one cutout");
+  assert.doesNotMatch(output, /dashed outline|longer possible path|wind/i);
   const details = String(renderDiggingResult({name: "Black Hole"}, {name: "Brickwork"}, result));
   assert.match(details, /62–98 px/);
   assert.match(details, /Path width/);
+});
+
+test("known partial cell eating removes speckles instead of leaving an untouched outline", () => {
+  const result = pathResult({width: 24, probabilistic: true, outlineOnly: true, removalProbability: 0.8});
+  const output = String(render({name: "Omega Black Hole"}, {name: "Soil"}, result, 800, true));
+  const elements = [...nodes(parseFragment(output))];
+  const hole = elements.find((node) => attrs(node).class === "digging-path-cutout");
+  const pattern = elements.find((node) => node.tagName === "pattern" && attrs(node).id.endsWith("-removal"));
+  assert.equal(attrs(hole).stroke, `url(#${attrs(pattern).id})`);
+  const removedCells = pattern.childNodes.filter((node) => node.tagName === "rect" && attrs(node).fill === "#000");
+  assert.ok(removedCells.length > 0 && removedCells.length < 64, "some material remains inside a partial cutout");
+  assert.match(output, /Speckling illustrates partial cell removal/);
+});
+
+test("actual traveling spell profiles produce cutouts with a right-facing Mina beside the cast", () => {
+  const spells = JSON.parse(readFileSync(new URL("../src/data/FULL_SPELLS_FINAL.json", import.meta.url)));
+  const soil = JSON.parse(readFileSync(new URL("../src/data/FULL_MATERIALS_FINAL.json", import.meta.url)))
+    .find((material) => material.id === "soil");
+  for (const id of ["BLACK_HOLE", "WHITE_HOLE", "BLACK_HOLE_DEATH_TRIGGER", "BLACK_HOLE_GIGA", "WHITE_HOLE_GIGA", "LUMINOUS_DRILL", "LANCE_HOLY"]) {
+    const spell = spells.find((spell) => spell.id === id);
+    const result = evaluateDigging(spell, soil);
+    const output = String(render(spell, soil, result, 1000, true));
+    const elements = [...nodes(parseFragment(output))];
+    const cutout = elements.find((node) => attrs(node).class === "digging-path-cutout");
+    assert.ok(cutout, `${id} must visibly remove material`);
+    assert.ok(Number(attrs(cutout)["stroke-width"]) > 0);
+    assert.equal(elements.filter((node) => attrs(node).class === "digging-path-outline").length, 1);
+    const sprite = attrs(elements.find((node) => attrs(node).class === "digging-mina"));
+    assert.match(sprite.transform, /scale\(-1 1\)$/);
+    assert.equal(Number(sprite.x), 36);
+    assert.ok(Math.abs(Number(sprite.y) + Number(sprite.height) / 2 - 140) < 1e-8);
+    assert.doesNotMatch(output, /digging-path-extent/);
+  }
 });
 
 test("probabilistic paths and reach-only effects retain terrain inside their outlines", () => {
@@ -241,7 +275,7 @@ test("a separately modeled impact circle is drawn only at the path endpoint", ()
   assert.equal(Number(attrs(impact).r), 30);
 });
 
-test("Fit includes the whole swept path, possible extension and endpoint blast at responsive sizes", () => {
+test("Fit contains the visible path and endpoint blast while keeping the cast level with Mina", () => {
   const footprint = pathResult({points: [[0, 0], [400, 80], [800, 200]], maxPoints: [[0, 0], [700, 200], [1400, 650]],
     width: 24, impactRadius: 120}).footprint;
   for (const width of [240, 420, 1000, 1600]) {
@@ -256,7 +290,8 @@ test("Fit includes the whole swept path, possible extension and endpoint blast a
     assert.ok(fit.bounds.top >= 23.999 && fit.bounds.bottom <= fit.sceneHeight - 23.999);
     assert.equal(fit.mina.width, 8 * fit.scale);
     assert.equal(fit.mina.height, 18 * fit.scale);
-    assert.ok(Math.abs(fit.mina.y + fit.mina.height - (fit.sceneHeight - 12)) < 1e-9);
+    assert.ok(Math.abs(fit.mina.y + fit.mina.height / 2 - fit.sceneHeight / 2) < 1e-9);
+    assert.ok(fit.bounds.left >= fit.mina.x + fit.mina.width + 15.999);
   }
 });
 
@@ -270,9 +305,9 @@ test("material conversion outlines its square reach without depicting an empty h
   const outline = elements.find((node) => attrs(node).class === "digging-conversion-outline");
   assert.equal(attrs(outline).fill, "none");
   assert.equal(attrs(outline).stroke, "#fff");
-  assert.equal(Number(attrs(outline).width), 240, "radius is the square's half-width");
+  assert.equal(Number(attrs(outline).width), 40 * getDiggingViewport(20, 800, true).scale, "radius is the square's half-width");
   assert.match(output, /Converts material/);
-  assert.match(output, /square conversion area/);
+  assert.match(output, /Square conversion area/);
   const details = String(renderDiggingResult({}, {}, result));
   assert.match(details, /Converts to/);
   assert.match(details, /soil/);
@@ -296,24 +331,22 @@ test("conditional child effects keep reach visible and explain their trigger", (
   assert.match(details, /1–2 spawned/);
 });
 
-test("native explosion bounds use a continuous outer contour and transparent raster cutout", () => {
-  const footprint = evaluateExplosionFootprint({radius: 250, rayEnergy: 6700000, hardness: 100000, durability: 10, maxDurability: 12});
-  const result = {status: "digs", method: "explosion", radius: footprint.radiusMax, footprint};
-  const output = String(render({name: "Nuke", radius: 250}, {name: "Rock"}, result, 1000, true));
-  const elements = [...nodes(parseFragment(output))];
-  const cutout = elements.find((node) => attrs(node).class === "digging-explosion-cutout");
-  const outline = elements.find((node) => attrs(node).class === "digging-explosion-outline");
-  const possible = elements.find((node) => attrs(node).class === "digging-explosion-extent");
-  assert.equal(attrs(cutout).fill, "#000");
-  assert.equal(attrs(cutout).d, attrs(outline).d);
-  assert.equal(attrs(outline).fill, "none");
-  assert.equal(attrs(outline).stroke, "#fff");
-  assert.ok(attrs(possible)["stroke-dasharray"]);
-  assert.ok(!elements.some((node) => node.tagName === "circle"), "360-ray bounds must not fall back to one invented circle");
-  assert.match(output, /centered explosion in fresh uniform terrain/);
-  const details = String(renderDiggingResult({radius: 250}, {}, result));
-  assert.match(details, /Hole radius range/);
-  assert.match(details, /66\.25–95\.01 px/);
+test("Nuke and Giga Nuke use one labeled circular estimate with a transparent cutout", () => {
+  for (const [radius, rayEnergy, hardness] of [[250, 6700000, 100000], [400, 9700000, 1000000], [400, 9700000, 2000]]) {
+    const footprint = evaluateExplosionFootprint({radius, rayEnergy, hardness, durability: 10, maxDurability: 14});
+    const result = {status: "digs", method: "explosion", radius: footprint.radius, footprint};
+    const output = String(render({name: "Nuke", radius}, {name: "Rock"}, result, 1000, true));
+    const elements = [...nodes(parseFragment(output))];
+    const circles = elements.filter((node) => node.tagName === "circle");
+    assert.equal(circles.length, 2, "one circular mask and one matching outline");
+    assert.equal(attrs(circles[0]).fill, "#000");
+    assert.equal(attrs(circles[1]).fill, "none");
+    assert.equal(attrs(circles[0]).r, attrs(circles[1]).r);
+    assert.doesNotMatch(output, /digging-explosion-extent|digging-explosion-outline|stroke-dasharray/);
+    assert.match(output, /Circular estimate/);
+    const details = String(renderDiggingResult({radius}, {}, result));
+    assert.match(details, /Estimated hole radius/);
+  }
 });
 
 test("the explicit model radius range is shown when preview rows are omitted", () => {

@@ -31,7 +31,7 @@ export function renderDiggingResult(spell, material, result) {
       <div><dt>Path width</dt><dd>${formatNumber(footprint.width)} px</dd></div>
     </dl>` : null}
     ${explosion && result.method !== "explosion" ? html`<dl class="digging-stats">
-      <div><dt>Hole radius range</dt><dd>${explosionRadiusLabel(explosion)}</dd></div>
+      <div><dt>Explosion radius estimate</dt><dd>${formatNumber(explosion.radius)} px</dd></div>
     </dl>` : null}
     ${(result.effects ?? []).filter((effect) => effect.method !== result.method).map((effect) => html`<p class="digging-other-effect">
       <strong>${methodTitles[effect.method]}:</strong> ${effect.radius > 0
@@ -120,8 +120,7 @@ function renderEffectResult(spell, material, result) {
       </dl>
     </section>`;
   }
-  const radiusRange = result.radiusRange ?? (result.footprint?.kind === "explosion"
-    ? [result.footprint.radiusMin, result.footprint.radiusMax] : null);
+  const radiusRange = result.radiusRange;
   return html`<section class="digging-result" aria-live="polite">
     <p>${result.reason}</p>
     <dl class="digging-stats">
@@ -147,31 +146,39 @@ export function renderDiggingPlot(spell, material, result, width, fit) {
   const path = getPathGeometry(result.footprint, width, fit);
   const explosion = getExplosionGeometry(result.footprint, width, fit);
   const footprint = path ? result.footprint : null;
-  const displayStatus = path && footprint.lengthMax === 0 && result.status === "path" && !result.circularEffect
+  const displayStatus = path && (footprint.previewLength ?? footprint.lengthMax) === 0 && result.status === "path" && !result.circularEffect
     ? "partial" : result.status;
   const view = path ?? explosion ?? getDiggingViewport(radius, width, fit);
   const {height, sceneHeight, scale, screenRadius, centerX, centerY, clipped, scaleUnits, mina} = view;
-  const scaleX = mina.x + mina.width + 12;
-  const scaleBottom = mina.y + mina.height;
-  const scaleTop = scaleBottom - scaleUnits * scale;
+  const scaleX = mina.x - 16;
+  const scaleTop = sceneHeight / 2 - scaleUnits * scale / 2;
+  const scaleBottom = sceneHeight / 2 + scaleUnits * scale / 2;
   const id = `digging-${++nextPlotId}`;
   // Wiki swatches include transparent piles; take an interior patch for a
   // continuous square of terrain. The dropdown keeps the complete swatch.
   const tileSize = 14 * scale;
   const partialCellEating = circular.method === "cell" && Number.isFinite(spell.cellEaterEatProbability)
     && spell.cellEaterEatProbability < 100;
-  const removesPath = path && !footprint.probabilistic && !footprint.outlineOnly && !reachOnly && ["digs", "path"].includes(result.status);
-  const geometryCaption = clipped ? `The effect continues beyond this view. Fit whole effect shows the complete ${square ? "square" : "circle"}.`
-    : fit ? `Full ${square ? "square" : "circle"}. Minä uses the same zoom.` : "Fixed scale: 1 game pixel = 6 screen pixels.";
+  const partialRemoval = path && footprint.probabilistic && footprint.removalProbability > 0 && !footprint.partial;
+  const removesPath = path && (!footprint.outlineOnly && !footprint.probabilistic || partialRemoval)
+    && !reachOnly && ["digs", "path"].includes(result.status);
+  // A fixed dither illustrates partial cell eating without pretending to
+  // reproduce the game's random seed or clearing the entire probabilistic path.
+  const removedPatternCells = partialRemoval ? Array.from({length: 64}, (_, index) => {
+    const x = index % 8, y = Math.floor(index / 8);
+    let rank = 0;
+    for (let bit = 0; bit < 3; bit++) rank += ((((x >> bit) ^ (y >> bit)) & 1) * 2 + ((y >> bit) & 1)) * 4 ** (2 - bit);
+    return rank < Math.round(footprint.removalProbability * 64) ? [x, y] : null;
+  }).filter(Boolean) : [];
+  const geometryCaption = clipped ? "Cropped. Use Fit whole effect to see it all."
+    : fit ? "Minä is shown at the same scale." : "1 game pixel = 6 screen pixels.";
   const caption = path
-    ? `${footprint.caption || "Modeled digging path."}${footprint.probabilistic ? " The outline shows reach; removal is probabilistic." : ""}${path.maxPath ? " The dashed outline shows the longer possible path." : ""} ${clipped ? "The path continues beyond this view. Fit whole effect shows its full extent." : fit ? "Full path. Minä uses the same zoom." : "Fixed scale: 1 game pixel = 6 screen pixels."}`
-    : explosion ? explosion.guaranteedPath || explosion.possiblePath
-      ? `One centered explosion in fresh uniform terrain. ${reachOnly ? "Outlines show effect reach." : "The solid outline marks the inner bound of this model."}${explosion.possiblePath ? " The dashed outline marks the possible outer bound." : ""} ${clipped ? "The outline continues beyond this view. Fit whole effect shows its full extent." : fit ? "Full footprint. Minä uses the same zoom." : "Fixed scale: 1 game pixel = 6 screen pixels."}`
-      : result.reason || "No fresh terrain is removed by this impact."
-    : result.method === "conversion" ? `Outlined ${square ? "square" : "circular"} conversion area. Material changes to ${result.conversion?.toMaterial || "another material"}; the outline shows scan reach. ${geometryCaption}`
-    : reachOnly ? `The outline shows effect reach, not a completely excavated hole. ${result.reason || ""} ${geometryCaption}`
+    ? `${footprint.caption || "Example dug path for one cast."}${partialRemoval ? " Speckling illustrates partial cell removal." : ""} ${geometryCaption}`
+    : explosion && result.footprint.radius > 0 ? `Circular estimate of the explosion's size in ${material.name}. ${geometryCaption}`
+    : result.method === "conversion" ? `${square ? "Square" : "Circular"} conversion area: ${material.name} becomes ${result.conversion?.toMaterial || "another material"}. ${geometryCaption}`
+    : reachOnly ? `The outline shows how far the effect reaches. ${geometryCaption}`
     : partialCellEating
-    ? `Cell-eating footprint. Removal is probabilistic, so this is not a completely excavated hole. ${geometryCaption}`
+    ? `Removal is probabilistic. The outline shows the affected area. ${geometryCaption}`
     : radius > 0 && circular.method !== result.method
     ? `The circle shows the ${formatNumber(radius)} px ${circular.method === "cell" ? "cell-eating footprint" : "estimated explosion radius"} only. ${result.method === "acid" ? "Acid can continue corroding beyond it." : "Penetration depth is not quantified."} ${geometryCaption}`
     : result.radius === null && result.method === "acid" && result.status === "digs"
@@ -186,8 +193,8 @@ export function renderDiggingPlot(spell, material, result, width, fit) {
     <div class="digging-scene">
     ${svg`<svg class="digging-svg" viewBox="0 0 ${view.width} ${height}" width="${view.width}" height="${height}"
       role="img" aria-labelledby="${id}-title ${id}-desc">
-      <title id="${id}-title">${spell.name} in ${material.name}${path ? `: ${formatNumber(footprint.width)} game pixels of path width` : explosion ? `: ${explosionRadiusLabel(result.footprint)} modeled explosion radius range` : radius === null ? "" : `: ${formatNumber(radius)} game pixels of ${square ? "square half-width" : reachOnly ? "effect reach" : `${circular.method === "explosion" ? "estimated explosion" : "digging"} radius`}`}</title>
-      <desc id="${id}-desc">A block of ${material.name}. ${path ? removesPath ? "The modeled swept path is cut out of the terrain." : "The outline shows the path's reach without promising complete excavation." : reachOnly ? "The outline shows reach and leaves the terrain visible." : explosion ? "The model's inner raster bound is cut out of the terrain." : radius > 0 && !partialCellEating ? "The estimated digging area is cut out of the terrain." : radius === 0 ? "No terrain is removed." : "No fixed circular hole is drawn for this effect."} Minä is in the bottom-right corner with a vertical scale bar to the right. ${caption}</desc>
+      <title id="${id}-title">${spell.name} in ${material.name}${path ? `: ${formatNumber(footprint.width)} game pixels of path width` : explosion ? `: ${formatNumber(result.footprint.radius)} game pixels of estimated explosion radius` : radius === null ? "" : `: ${formatNumber(radius)} game pixels of ${square ? "square half-width" : reachOnly ? "effect reach" : "digging radius"}`}</title>
+      <desc id="${id}-desc">A block of ${material.name}. ${path ? removesPath ? partialRemoval ? "The speckled cutout illustrates partial terrain removal." : "The dug path is cut out of the terrain." : "The outline shows the path's reach." : reachOnly ? "The outline shows reach and leaves the terrain visible." : radius > 0 && !partialCellEating ? "The estimated digging area is cut out of the terrain." : radius === 0 ? "No terrain is removed." : "No fixed circular hole is drawn for this effect."} Minä faces right at mid-height near the left edge, with the scale bar to her left. ${caption}</desc>
       <defs>
         <pattern id="${id}-material" width="${tileSize}" height="${tileSize}" patternUnits="userSpaceOnUse" viewBox="84 168 84 84">
           <rect width="252" height="252" fill="#34484b" />
@@ -196,22 +203,20 @@ export function renderDiggingPlot(spell, material, result, width, fit) {
         <pattern id="${id}-pixels" width="${scale}" height="${scale}" patternUnits="userSpaceOnUse">
           <path d="M ${scale} 0 H 0 V ${scale}" fill="none" stroke="#ffffff" stroke-opacity="0.1" stroke-width="0.5" />
         </pattern>
+        ${partialRemoval ? svg`<pattern id="${id}-removal" width="${8 * scale}" height="${8 * scale}" patternUnits="userSpaceOnUse">
+          <rect width="${8 * scale}" height="${8 * scale}" fill="#fff" />
+          ${removedPatternCells.map(([x, y]) => svg`<rect x="${x * scale}" y="${y * scale}" width="${scale}" height="${scale}" fill="#000" />`)}
+        </pattern>` : null}
         <clipPath id="${id}-clip"><rect width="${view.width}" height="${sceneHeight}" /></clipPath>
-        <mask id="${id}-terrain-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="${view.width}" height="${sceneHeight}" mask-type="luminance">
+        <mask id="${id}-terrain-mask" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="${view.width}" height="${sceneHeight}" style="mask-type: luminance">
           <rect width="${view.width}" height="${sceneHeight}" fill="#fff" />
-          ${path ? svg`${removesPath ? svg`<path class="digging-path-cutout" d="${path.path}" fill="none" stroke="#000" stroke-width="${path.pathWidth}" stroke-linecap="round" stroke-linejoin="round" />` : null}
+          ${path ? svg`${removesPath ? svg`<path class="digging-path-cutout" d="${path.path}" fill="none" stroke="${partialRemoval ? `url(#${id}-removal)` : "#000"}" stroke-width="${path.pathWidth}" stroke-linecap="round" stroke-linejoin="round" />` : null}
             ${path.impact && !footprint.outlineOnly && !reachOnly ? svg`<circle class="digging-impact-cutout" cx="${path.impact.x}" cy="${path.impact.y}" r="${path.impact.radius}" fill="#000" />` : null}`
-            : explosion ? explosion.guaranteedPath && !reachOnly ? svg`<path class="digging-explosion-cutout" d="${explosion.guaranteedPath}" fill="#000" fill-rule="evenodd" />` : null
             : screenRadius > 0 && !partialCellEating && !reachOnly ? svg`<circle cx="${centerX}" cy="${centerY}" r="${screenRadius}" fill="#000" />` : null}
         </mask>
         ${path ? svg`<mask id="${id}-path-outline" maskUnits="userSpaceOnUse" x="0" y="0" width="${view.width}" height="${sceneHeight}" mask-type="luminance">
           <rect width="${view.width}" height="${sceneHeight}" fill="#fff" />
           <path d="${path.path}" fill="none" stroke="#000" stroke-width="${path.pathWidth}" stroke-linecap="round" stroke-linejoin="round" />
-          ${path.impact ? svg`<circle cx="${path.impact.x}" cy="${path.impact.y}" r="${path.impact.radius}" fill="#000" />` : null}
-        </mask>` : null}
-        ${path?.maxPath ? svg`<mask id="${id}-max-outline" maskUnits="userSpaceOnUse" x="0" y="0" width="${view.width}" height="${sceneHeight}" mask-type="luminance">
-          <rect width="${view.width}" height="${sceneHeight}" fill="#fff" />
-          <path d="${path.maxPath}" fill="none" stroke="#000" stroke-width="${path.pathWidth}" stroke-linecap="round" stroke-linejoin="round" />
           ${path.impact ? svg`<circle cx="${path.impact.x}" cy="${path.impact.y}" r="${path.impact.radius}" fill="#000" />` : null}
         </mask>` : null}
       </defs>
@@ -220,24 +225,20 @@ export function renderDiggingPlot(spell, material, result, width, fit) {
           <rect width="${view.width}" height="${sceneHeight}" fill="url(#${id}-material)" />
           ${scale >= 3 ? svg`<rect width="${view.width}" height="${sceneHeight}" fill="url(#${id}-pixels)" />` : null}
         </g>
-        ${path?.maxPath ? svg`<path class="digging-path-extent" d="${path.maxPath}" fill="none" stroke="#fff"
-          stroke-width="${path.pathWidth + 5}" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 6" mask="url(#${id}-max-outline)" />` : null}
         ${path ? svg`<g mask="url(#${id}-path-outline)">
           <path class="digging-path-outline" d="${path.path}" fill="none" stroke="#fff"
             stroke-width="${path.pathWidth + 5}" stroke-linecap="round" stroke-linejoin="round" />
           ${path.impact ? svg`<circle class="digging-impact-outline" cx="${path.impact.x}" cy="${path.impact.y}" r="${path.impact.radius}" fill="none" stroke="#fff" stroke-width="5" />` : null}
-        </g>` : explosion ? svg`${explosion.possiblePath ? svg`<path class="digging-explosion-extent" d="${explosion.possiblePath}" fill="none" stroke="#fff" stroke-width="2.5" stroke-dasharray="8 6" />` : null}
-          ${explosion.guaranteedPath ? svg`<path class="digging-explosion-outline" d="${explosion.guaranteedPath}" fill="none" stroke="#fff" stroke-width="2.5" />` : null}`
-          : square && screenRadius > 0 ? svg`<rect class="digging-conversion-outline" x="${centerX - screenRadius}" y="${centerY - screenRadius}"
+        </g>` : square && screenRadius > 0 ? svg`<rect class="digging-conversion-outline" x="${centerX - screenRadius}" y="${centerY - screenRadius}"
           width="${screenRadius * 2}" height="${screenRadius * 2}" fill="none" stroke="#fff" stroke-width="2.5" />`
           : screenRadius > 0 ? svg`<circle cx="${centerX}" cy="${centerY}" r="${screenRadius}"
           fill="none" stroke="#fff" stroke-width="2.5" />` : null}
         <image class="digging-mina" href="${imageBase}/mina/mina.png" x="${mina.x}"
-          y="${mina.y}" width="${mina.width}" height="${mina.height}" />
+          y="${mina.y}" width="${mina.width}" height="${mina.height}" transform="translate(${2 * mina.x + mina.width} 0) scale(-1 1)" />
         <g class="digging-scale" fill="#fff" font-size="12" font-family="system-ui, sans-serif">
           <path d="M ${scaleX - 4} ${scaleTop} h 8 M ${scaleX} ${scaleTop} V ${scaleBottom} M ${scaleX - 4} ${scaleBottom} h 8"
             stroke="#fff" stroke-width="2" fill="none" />
-          <text x="${scaleX + 4}" y="${Math.min(scaleTop, mina.y) - 8}" text-anchor="end">${formatNumber(scaleUnits)} game px</text>
+          <text x="8" y="${Math.min(scaleTop, mina.y) - 10}" text-anchor="start">${formatNumber(scaleUnits)} game px</text>
         </g>
         <rect x="0.5" y="0.5" width="${view.width - 1}" height="${sceneHeight - 1}" fill="none" stroke="#91a8ad" />
       </g>
