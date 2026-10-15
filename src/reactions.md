@@ -28,6 +28,8 @@ draft: false
 ```js
 import { initializeTitleAnimation } from "./components/titleAnimation.js";
 import { createChoicesTemplates as createCatalogChoicesTemplates } from "./components/choicesTemplates.js";
+import { createResetButton } from "./components/resetButton.js";
+import { createShareButton } from "./components/shareButton.js";
 initializeTitleAnimation();
 ```
 
@@ -337,84 +339,28 @@ const getMaterialImageUrl = (id) => {
   if (!id) return "";
   return `https://noita-bartender-images.acidflow.stream/images/materials/Material_${id}.png`;
 };
-
-const createNotification = (text, notifID = "share-notification", parentID = "observablehq-main") => {
-  const parentElement = document.getElementById(parentID);
-  if (!parentElement || document.getElementById(notifID)) return;
-
-  const notification = document.createElement("p");
-  notification.id = notifID;
-  notification.textContent = text;
-  notification.classList.add("notification");
-  parentElement.appendChild(notification);
-
-  setTimeout(() => (notification.style.opacity = 1), 100);
-  setTimeout(() => {
-    notification.style.opacity = 0;
-    setTimeout(() => parentElement.removeChild(notification), 500);
-  }, 2500);
-};
-
-// Add notification styles
-const notificationStyle = document.createElement("style");
-notificationStyle.textContent = `
-  .notification {
-    position: fixed; z-index: 9999; inset: 5% 0 0 50%; translate: -50% 0;
-    width: max-content; height: max-content;
-    background-color: oklch(39.3% 0.095 152.535); border-radius: 1rem; padding: 1rem;
-    font-weight: bold; font-size: large; color: oklch(92.5% 0.084 155.995);
-    font-family: -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
-    transition: opacity 500ms; opacity: 0; animation: slideInDown 500ms ease-out; user-select: none;
-  }
-  @keyframes slideInDown {
-    0% { transform: translateY(-100%); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-  }
-`;
-document.head.appendChild(notificationStyle);
 ```
 
 ```js
 // Share button
-const shareButton = Inputs.button(
-  htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/copy.svg" />Share`,
-  {
-    value: null,
-    reduce: () => {
-      const url = new URL(window.location.href);
-      url.search = "";
-
-      if (window.appState.selectedReagents.length > 0) {
-        url.searchParams.set("reagents", window.appState.selectedReagents.join(","));
-      }
-      if (window.appState.selectedProduct) {
-        url.searchParams.set("product", window.appState.selectedProduct);
-      }
-      if (!window.appState.excludeSpecialMaterials) {
-        url.searchParams.set("excludeSpecial", "false");
-      }
-      if (!window.appState.onlyPracticalReactions) {
-        url.searchParams.set("onlyPractical", "false");
-      }
-
-      const shareUrl = url.toString();
-      navigator.clipboard
-        .writeText(shareUrl)
-        .then(() => createNotification("URL copied to clipboard"))
-        .catch(() => {
-          const textArea = document.createElement("textarea");
-          textArea.value = shareUrl;
-          document.body.appendChild(textArea);
-          textArea.select();
-          document.execCommand("copy");
-          document.body.removeChild(textArea);
-          createNotification("URL copied to clipboard");
-        });
-
-      return shareUrl;
-    },
+const shareControl = createShareButton(() => {
+  const url = new URL(window.location.href);
+  url.search = "";
+  if (window.appState.selectedReagents.length > 0) {
+    url.searchParams.set("reagents", window.appState.selectedReagents.join(","));
   }
-);
+  if (window.appState.selectedProduct) {
+    url.searchParams.set("product", window.appState.selectedProduct);
+  }
+  if (!window.appState.excludeSpecialMaterials) {
+    url.searchParams.set("excludeSpecial", "false");
+  }
+  if (!window.appState.onlyPracticalReactions) {
+    url.searchParams.set("onlyPractical", "false");
+  }
+  return url.toString();
+}, Inputs);
+const shareButton = shareControl.button;
 
 // Filter toggles
 const excludeSpecialToggle = Inputs.toggle({
@@ -430,39 +376,35 @@ const onlyPracticalToggle = Inputs.toggle({
 
 ```js
 // Reset button
-const resetButton = Inputs.button(
-  htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" />Reset`,
-  {
-    reduce: () => {
-      window.appState.isResetting = true;
+const resetButton = createResetButton(Inputs, () => {
+  window.appState.isResetting = true;
 
-      const url = new URL(window.location.href);
-      url.search = "";
-      window.history.replaceState({}, "", url.toString());
+  const url = new URL(window.location.href);
+  url.search = "";
+  window.history.replaceState({}, "", url.toString());
 
-      window.appState.selectedReagents = [];
-      window.appState.selectedProduct = "";
-      window.appState.excludeSpecialMaterials = true;
-      window.appState.onlyPracticalReactions = true;
+  window.appState.selectedReagents = [];
+  window.appState.selectedProduct = "";
+  window.appState.excludeSpecialMaterials = true;
+  window.appState.onlyPracticalReactions = true;
 
-      if (window.appState.reagentChoices?.initialised) {
-        window.appState.reagentChoices.removeActiveItems();
-      }
-      if (window.appState.productChoices?.initialised) {
-        window.appState.productChoices.removeActiveItems();
-      }
-
-      // Reset toggle states
-      excludeSpecialToggle.value = true;
-      onlyPracticalToggle.value = true;
-
-      updateChoicesOptions();
-      updateUI();
-      window.appState.isResetting = false;
-      return null;
-    },
+  if (window.appState.reagentChoices?.initialised) {
+    window.appState.reagentChoices.removeActiveItems();
   }
-);
+  if (window.appState.productChoices?.initialised) {
+    window.appState.productChoices.removeActiveItems();
+  }
+
+  // Reset toggle states
+  excludeSpecialToggle.value = true;
+  onlyPracticalToggle.value = true;
+
+  updateChoicesOptions();
+  updateUI();
+  shareControl.clear();
+  window.appState.isResetting = false;
+  return null;
+});
 ```
 
 ```js
@@ -794,6 +736,7 @@ const updateUI = () => {
   <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${excludeSpecialToggle}</div>
   <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${onlyPracticalToggle}</div>
 </div>
+${shareControl.feedback}
 <div class="grid grid-cols-1 grid-rowspan-1" style="grid-auto-rows: auto">
   <div class="card grid-colspan-1 grid-rowspan-1" style="padding: 0" id="tableContainer"></div>
 </div>

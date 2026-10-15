@@ -504,9 +504,21 @@ function check_ray_energy()
         local touch_comp = EntityGetFirstComponent(entity, "MagicConvertMaterialComponent")
         local phys_comp = EntityGetFirstComponent(entity, "PhysicsBodyComponent")
         local laser_comp = EntityGetFirstComponent(entity, "LaserEmitterComponent")
+        local velocity_comp = EntityGetFirstComponent(entity, "VelocityComponent")
+        local lightning_comp = EntityGetFirstComponent(entity, "LightningComponent")
 
         -- Prepare output string
         local output = "=== " .. spellFile .. " ===\n"
+
+        if velocity_comp then
+            output = output .. "VelocityComponent:\n"
+            for _, property in ipairs({ "mass", "air_friction", "gravity_y" }) do
+                local value = ComponentGetValue2(velocity_comp, property)
+                if value ~= nil then
+                    output = output .. "  " .. property .. ": " .. tostring(value) .. "\n"
+                end
+            end
+        end
 
         if proj_comp then
             output = output .. "ProjectileComponent:\n"
@@ -529,6 +541,12 @@ function check_ray_energy()
             if ray_energy ~= nil then
                 output = output .. "  ray_energy: " .. tostring(ray_energy) .. "\n"
             end
+            for _, property in ipairs({ "explosion_radius", "hole_enabled" }) do
+                local value = ComponentObjectGetValue2(proj_comp, "config_explosion", property)
+                if value ~= nil then
+                    output = output .. "  " .. property .. ": " .. tostring(value) .. "\n"
+                end
+            end
 
             local spawn_entity = ComponentGetValue2(proj_comp, "spawn_entity")
             local spawn_entity_is_projectile = ComponentGetValue2(proj_comp, "spawn_entity_is_projectile")
@@ -542,11 +560,23 @@ function check_ray_energy()
             end
         end
 
+        if lightning_comp then
+            output = output .. "LightningComponent:\n"
+            for _, property in ipairs({ "explosion_radius", "hole_enabled", "ray_energy", "max_durability_to_destroy" }) do
+                local value = ComponentObjectGetValue2(lightning_comp, "config_explosion", property)
+                if value ~= nil then
+                    local key = property == "max_durability_to_destroy" and "explosion_max_durability_to_destroy" or property
+                    output = output .. "  " .. key .. ": " .. tostring(value) .. "\n"
+                end
+            end
+        end
+
         if celleat_comp then
             output = output .. "CellEaterComponent:\n"
             local radius = ComponentGetValue2(celleat_comp, "radius")
             local limited_materials = ComponentGetValue2(celleat_comp, "limited_materials")
             local ignored_material_tag = ComponentGetValue2(celleat_comp, "ignored_material_tag")
+            local ignored_material = ComponentGetValue2(celleat_comp, "ignored_material")
             local materials = ComponentGetValue2(celleat_comp, "materials")
 
             if radius ~= nil then
@@ -562,7 +592,17 @@ function check_ray_energy()
                 output = output .. "  ignored_material_tag: " .. tostring(ignored_material_tag) .. "\n"
             end
             if materials ~= nil then
-                output = output .. "  materials: " .. tostring(#materials) .. "\n"
+                local names = {}
+                for _, material in ipairs(materials) do
+                    table.insert(names, CellFactory_GetName(material))
+                end
+                output = output .. "  materials: " .. table.concat(names, ",") .. "\n"
+            end
+            for _, property in ipairs({ "eat_probability", "eat_dynamic_physics_bodies", "only_stain" }) do
+                local value = ComponentGetValue2(celleat_comp, property)
+                if value ~= nil then
+                    output = output .. "  " .. property .. ": " .. tostring(value) .. "\n"
+                end
             end
         end
 
@@ -573,6 +613,7 @@ function check_ray_energy()
             local max_cell_durability_to_destroy = ComponentObjectGetValue2(laser_comp, "laser",
                 "max_cell_durability_to_destroy")
             local damage_to_cells = ComponentObjectGetValue2(laser_comp, "laser", "damage_to_cells")
+            local max_length = ComponentObjectGetValue2(laser_comp, "laser", "max_length")
 
             if beam_radius ~= nil then
                 output = output .. "  beam_radius: " .. tostring(beam_radius) .. "\n"
@@ -583,6 +624,9 @@ function check_ray_energy()
             end
             if damage_to_cells ~= nil then
                 output = output .. "  damage_to_cells: " .. tostring(damage_to_cells) .. "\n"
+            end
+            if max_length ~= nil then
+                output = output .. "  max_length: " .. tostring(max_length) .. "\n"
             end
         end
 

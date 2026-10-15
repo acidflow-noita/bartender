@@ -16,10 +16,12 @@
   min-width: 0;
 }
 
-.digging-field > label {
-  display: block;
-  margin-bottom: 0.3rem;
+.digging-assumptions {
+  max-width: 960px;
+  color: var(--theme-foreground-muted);
   font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0 0 0.75rem;
 }
 
 .digging-comparison {
@@ -28,36 +30,7 @@
 }
 
 .digging-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  min-height: 32px;
-  margin-bottom: 0.4rem;
-}
-
-.digging-toolbar form {
-  width: auto;
-  max-width: 100%;
-}
-
-.digging-actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.digging-share-feedback {
-  color: var(--theme-foreground-muted);
-  font-size: 0.8rem;
-}
-
-.digging-share-feedback > :not([hidden]) {
-  margin-bottom: 0.4rem;
-}
-
-.digging-info {
-  padding: 0.5rem 0 0;
+  max-width: 960px;
 }
 
 .digging-status {
@@ -83,11 +56,13 @@
   color: #ffa080;
 }
 
-.digging-status-unsupported {
+.digging-status-unsupported,
+.digging-status-partial {
   color: var(--theme-foreground-muted);
 }
 
 .digging-result > p,
+.digging-other-effect,
 .digging-method p {
   max-width: none;
   margin: 0.5rem 0;

@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
-import {evaluateDigging, getBaseRadius, getDiggingViewport, isDiggingSpell, FIXED_SCALE} from "../src/digging/model.js";
+import {evaluateDigging, penetrationContact, getBaseRadius, getDiggingViewport, isDiggingSpell, FIXED_SCALE} from "../src/digging/model.js";
 
 const spells = JSON.parse(readFileSync(new URL("../src/data/FULL_SPELLS_FINAL.json", import.meta.url)));
 const materials = JSON.parse(readFileSync(new URL("../src/data/FULL_MATERIALS_FINAL.json", import.meta.url)));
@@ -47,19 +47,74 @@ test("Acid Ball corrodes brickwork and steel terrain independently of explosion 
   }
 });
 
-test("Dense Rock variants resist acid, while an initial explosion can still break glass", () => {
-  for (const id of ["rock_hard", "rock_hard_border", "rock_box2d_nohit_hard"]) {
+test("Dense Rock resists acid, while an initial explosion can still break glass", () => {
+  for (const [id, status] of [["rock_hard", "partial"], ["rock_hard_border", "blocked"]]) {
     const result = evaluateDigging(spell("ACIDSHOT"), material(id));
-    assert.equal(result.status, "blocked", id);
+    assert.equal(result.status, status, id);
     assert.equal(result.radius, 0);
-    assert.match(result.reason, /resists acid/);
+    assert.match(result.effects.find((effect) => effect.method === "acid").reason, /resists acid/);
     assert.doesNotMatch(result.reason, /Physics objects|does not cover/);
   }
   const glass = evaluateDigging(spell("ACIDSHOT"), material("glass"));
   assert.equal(glass.status, "digs");
   assert.equal(glass.method, "explosion");
   assert.equal(glass.radius, 9);
-  assert.match(glass.reason, /initial explosion/);
+  assert.match(glass.effects.find((effect) => effect.method === "acid").reason, /resists acid/);
+  assert.equal(glass.circularEffect.method, "explosion");
+});
+
+test("acid resistance does not turn an unmodeled direct effect into zero digging", () => {
+  for (const id of ["rock_box2d_nohit_hard", "alcohol", "smoke", "steam"]) {
+    const outcome = evaluateDigging(spell("ACIDSHOT"), material(id));
+    assert.equal(outcome.status, "unsupported", id);
+    assert.equal(outcome.radius, null);
+    assert.equal(outcome.effects.find((effect) => effect.method === "acid").status, "blocked");
+  }
+});
+
+test("penetration and corrosion retain their separate initial explosion estimates", () => {
+  const lance = evaluateDigging(spell("LANCE_HOLY"), material("soil"));
+  assert.equal(lance.status, "path");
+  assert.equal(lance.radius, null, "explosion radius is not penetration depth");
+  assert.equal(lance.circularEffect.method, "explosion");
+  assert.equal(lance.circularEffect.radius, 30);
+  const acid = evaluateDigging(spell("ACIDSHOT"), material("soil"));
+  assert.equal(acid.method, "acid");
+  assert.equal(acid.radius, null, "corrosion has no fixed radius");
+  assert.equal(acid.circularEffect.radius, 9);
+});
+
+test("disabled explosions cannot erase terrain or hide a working secondary effect", () => {
+  for (const flags of [{explosionHoleEnabled: false}, {explosionDontDamageToCells: true}]) {
+    assert.equal(evaluateDigging({...spell("NUKE"), ...flags}, material("soil")).status, "blocked");
+    const lance = evaluateDigging({...spell("LANCE"), ...flags}, material("soil"));
+    assert.equal(lance.status, "path");
+    assert.equal(lance.circularEffect, null);
+  }
+});
+
+test("beam contact damage remains distinct from explosion radius and unknown depth", () => {
+  const beam = {id: "BEAM", laserBeamRadius: 1.5, laserMaxLength: 160, laserCellDamage: 12000, laserMaxDuraToDestroy: 11};
+  assert.ok(isDiggingSpell(beam));
+  assert.equal(getBaseRadius(beam), null);
+  const soil = evaluateDigging(beam, material("soil"));
+  assert.equal(soil.method, "laser");
+  assert.equal(soil.status, "digs");
+  assert.equal(soil.radius, null);
+  assert.equal(soil.circularEffect, null);
+  assert.deepEqual(soil.laser, {damage: 2000, contacts: 1});
+  assert.deepEqual(evaluateDigging(beam, material("rock_hard")).laser, {damage: 12000, contacts: 17});
+  assert.equal(evaluateDigging(beam, material("templebrick_static")).status, "blocked");
+  assert.equal(evaluateDigging({...beam, laserCellDamage: null}, material("soil")).status, "unsupported");
+  assert.equal(evaluateDigging({...beam, laserCellDamage: 0}, material("soil")).status, "blocked");
+});
+
+test("partial explosion damage is not confused with a durability block", () => {
+  const partial = evaluateDigging(spell("DIGGER"), material("rock_hard"));
+  assert.equal(partial.status, "partial");
+  assert.equal(partial.radius, 0);
+  assert.match(partial.reason, /damages terrain/);
+  assert.equal(evaluateDigging(spell("DIGGER"), material("templebrick_static")).status, "blocked");
 });
 
 test("standalone acid emitters use corrosion, but modifiers and unknown data are not guessed", () => {
@@ -69,7 +124,9 @@ test("standalone acid emitters use corrosion, but modifiers and unknown data are
     assert.equal(evaluateDigging(spell(id), material("rock_hard")).status, "blocked");
   }
   assert.equal(evaluateDigging(spell("ACID_TRAIL"), material("soil")).status, "unsupported");
-  assert.equal(evaluateDigging(spell("ACIDSHOT"), {...material("soil"), tags: undefined}).status, "unsupported");
+  const missingTags = evaluateDigging(spell("ACIDSHOT"), {...material("soil"), tags: undefined});
+  assert.equal(missingTags.effects.find((effect) => effect.method === "acid").status, "unsupported");
+  assert.equal(missingTags.circularEffect.radius, 9, "missing corrosion data does not erase a known initial explosion");
   assert.equal(evaluateDigging(spell("ACIDSHOT"), material("steel")).status, "unsupported");
 });
 
@@ -99,6 +156,26 @@ test("limited cell-eating respects its material list and missing restrictions", 
   assert.equal(evaluateDigging(limited, material("soil")).radius, 12);
   assert.equal(evaluateDigging(limited, material("rock_static")).status, "blocked");
   assert.equal(evaluateDigging({...limited, cellEaterMaterials: null}, material("soil")).status, "unsupported");
+});
+
+test("documented cell-eater settings control named exclusions, objects, stains and probability", () => {
+  assert.equal(evaluateDigging(spell("BLACK_HOLE_GIGA"), material("gem_box2d_yellow_sun")).status, "blocked");
+  assert.equal(evaluateDigging(spell("BLACK_HOLE"), material("steel")).status, "digs",
+    "the component explicitly consumes dynamic physics bodies");
+  for (const settings of [{cellEaterOnlyStain: true}, {cellEaterEatProbability: 0}]) {
+    const outcome = evaluateDigging({...spell("BLACK_HOLE"), ...settings}, material("soil"));
+    assert.equal(outcome.status, "blocked");
+    assert.equal(outcome.circularEffect, null);
+  }
+});
+
+test("known explosion geometry does not fill in missing energy and durability values", () => {
+  const outcome = evaluateDigging(spell("LIGHTNING"), material("soil"));
+  assert.equal(outcome.method, "explosion");
+  assert.equal(outcome.status, "unsupported");
+  assert.equal(outcome.radius, null);
+  assert.equal(getBaseRadius(spell("LIGHTNING")), 35);
+  assert.equal(outcome.circularEffect, null);
 });
 
 test("noncircular effects and unknown data are not reported as zero digging", () => {
@@ -137,7 +214,7 @@ test("penetration caps, missing caps and a separate digging explosion remain dis
   const lance = spell("LANCE");
   assert.equal(evaluateDigging({...lance, groundPenetrationMaxDura: 14}, brick).status, "path");
   assert.equal(evaluateDigging({...lance, groundPenetrationMaxDura: 13}, brick).status, "blocked");
-  for (const limit of [null, undefined, -1, NaN]) {
+  for (const limit of [null, undefined, NaN]) {
     assert.equal(evaluateDigging({...lance, groundPenetrationMaxDura: limit}, brick).status, "unsupported");
   }
   const explosive = {...lance, groundPenetrationMaxDura: 10, radius: 20, rayEnergy: 3000000, maxDuraToDestroy: 14};
@@ -145,6 +222,43 @@ test("penetration caps, missing caps and a separate digging explosion remain dis
   assert.equal(result.status, "digs");
   assert.equal(result.method, "explosion");
   assert.equal(result.radius, 3);
+  assert.equal(evaluateDigging({...lance, groundPenetrationMaxDura: -1}, brick).status, "path");
+});
+
+test("penetration matches the recovered first-cell damage and repeated-contact rule", () => {
+  const brick = material("templebrick_noedge_static");
+  const lance = spell("LANCE");
+  assert.deepEqual(penetrationContact(lance, brick, 300),
+    {speed: 300, damage: 175500, remaining: 824500, impacts: 6, speedAfter: 0});
+  assert.deepEqual(penetrationContact(lance, brick, 400),
+    {speed: 400, damage: 312000, remaining: 688000, impacts: 4, speedAfter: 0});
+  const contacts = evaluateDigging(lance, brick).penetration.contacts;
+  assert.deepEqual(contacts.map((contact) => contact.speed), [300, 400]);
+  assert.deepEqual(contacts.map((contact) => contact.impacts), [6, 4]);
+});
+
+test("native penetration cutoff, rounding, zero hardness and slowdown stay distinct", () => {
+  const projectile = {mass: 1, groundPenetrationCoeff: 0.0075};
+  assert.equal(penetrationContact(projectile, {hardness: 2}, 10).damage, 0);
+  assert.equal(penetrationContact(projectile, {hardness: 2}, 10.0000001).speedAfter, 10);
+  assert.deepEqual(penetrationContact(projectile, {hardness: 2}, 20),
+    {speed: 20, damage: 2, remaining: 0, impacts: 1, speedAfter: 0});
+  const weak = penetrationContact({...projectile, groundPenetrationCoeff: 0.002499}, {hardness: 2}, 20);
+  assert.equal(weak.damage, 0);
+  assert.equal(weak.speedAfter, 0, "a rounded zero HP change can still stop the projectile");
+  assert.deepEqual(penetrationContact(projectile, {hardness: 0}, 20),
+    {speed: 20, damage: 0, remaining: 0, impacts: 1, speedAfter: 20});
+  assert.equal(penetrationContact({mass: 1, groundPenetrationCoeff: 1}, {hardness: 100}, 20).speedAfter, 10);
+});
+
+test("unavailable penetration inputs do not become a successful digging claim", () => {
+  const lance = spell("LANCE");
+  const brick = material("templebrick_noedge_static");
+  assert.equal(evaluateDigging({...lance, mass: 0}, brick).status, "blocked");
+  for (const values of [{mass: null}, {mass: NaN}, {mass: -1}, {speedMin: null}, {speedMax: Infinity}, {speedMin: 1e20, speedMax: 1e20}]) {
+    assert.equal(evaluateDigging({...lance, ...values}, brick).status, "unsupported");
+  }
+  assert.equal(evaluateDigging(lance, {...brick, hardness: null}).status, "unsupported");
 });
 
 test("zero hardness is valid; missing stats and physics objects are not guessed", () => {
@@ -207,7 +321,8 @@ test("every catalog combination produces a finite bounded radius or an explicit 
       const result = evaluateDigging(s, m);
       if (result.radius === null) {
         assert.ok(["path", "unsupported"].includes(result.status) ||
-          (result.status === "digs" && result.method === "acid" && m.tags.includes("[corrodible]")), `${s.id}/${m.id}`);
+          (result.status === "digs" && (result.method === "laser" ||
+            (result.method === "acid" && m.tags.includes("[corrodible]")))), `${s.id}/${m.id}`);
       } else {
         assert.ok(Number.isFinite(result.radius) && result.radius >= 0, `${s.id}/${m.id}`);
         if (result.radius > 0) assert.ok(result.radius <= getBaseRadius(s), `${s.id}/${m.id}`);

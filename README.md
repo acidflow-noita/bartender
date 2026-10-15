@@ -44,6 +44,43 @@ npm run dev
 and its parent editor. Missing `observable` or `rimraf` commands mean the project
 dependencies need installing with `npm ci`.
 
+### Digging data
+
+Rebuild the spell catalog offline from the checked-in projectile XML, action
+definitions, component dump, and image metadata:
+
+```bash
+node src/data/FULL_SPELLS_FINAL.json.js
+npm test
+npm run build
+```
+
+The exporter keeps the cast entity's full path, preserves fractional physical
+values, and separates explosion, beam, penetration, and cell-eating settings.
+Missing or conflicting component values remain unknown. Documented cell-eater
+defaults and their source identity are recorded in
+`src/data/raw_data/component-defaults.json`; the older runtime component dump
+has no recorded build identity. `--game-data /path/to/extracted/data` can supply
+an explicitly selected XML tree; review changes before replacing the catalog.
+
+The digging page compares separate spell effects. Its explosion circles are
+uniform-terrain estimates, not exact simulations of rays, motion, repeated hits,
+or corrosion. Beam width and maximum length are settings, not digging depth.
+The fixed scale clips large radii to an arc; **Fit whole radius** scales both the
+circle and Minä together.
+
+The penetration contact rule was checked in the Jan 25, 2025 executable
+(SHA-256 `a0d9f9ca513e27a598c61dd9a19211c7a11d1477c9a2b93d909757d91d17d914`)
+at `0xc08a30`, with its coefficient/mass binding at `0xc0757a`. The page shows
+the default launch-speed range and first-cell damage, using float32 arithmetic;
+repeated-hit counts assume identical contacts with the same cell. Actual flight,
+acceleration, direction, modifiers and existing damage can change the result.
+The beam contact helper is `0xb95ab0`; explosion ray budgeting is `0x656b10`,
+called for 360 directions by `0x657960`. These checks establish the local rules,
+not a complete simulation of a cast. Local analysis artifacts are retained in
+the ignored `task/digging-native/` directory for reuse without sharing a live
+Ghidra project.
+
 ### Fungal source updates
 
 The fungal logic comes from the pinned Git submodule at

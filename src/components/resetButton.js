@@ -1,11 +1,8 @@
-export const resetButton = Inputs.button(
-  htl.html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" />Reset`,
-  {
-    label: "",
-    reduce: () => {
-      searchMaterials.query = "";
-      searchMaterials.dispatchEvent(new Event("input"));
-      return null;
-    },
-  }
-);
+import {html} from "htl";
+
+export function createResetButton(Inputs, onReset) {
+  return Inputs.button(
+    html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" alt="" />Reset`,
+    {label: "", reduce: onReset},
+  );
+}

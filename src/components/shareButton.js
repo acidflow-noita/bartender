@@ -1,8 +1,10 @@
-import * as Inputs from "npm:@observablehq/inputs";
 import {html} from "htl";
 import {copyLinkText} from "./clipboard.js";
+import {UIHelper} from "../noitalambic/ui/UIHelper.js";
+import {injectNotificationStyles} from "../noitalambic/utils/styles.js";
 
-export function createShareButton(getUrl) {
+export function createShareButton(getUrl, Inputs) {
+  injectNotificationStyles();
   const status = html`<span role="status"></span>`;
   const copyInput = Inputs.text({label: "Share URL", value: "", readonly: true, width: "100%"});
   const fallback = html`<div hidden>${copyInput}</div>`;
@@ -22,9 +24,10 @@ export function createShareButton(getUrl) {
           return document.execCommand?.("copy") === true;
         },
       });
-      status.textContent = copied ? "Link copied." : "Copy the selected link below.";
-      feedback.hidden = false;
+      status.textContent = copied ? "" : "Copy the selected link below.";
+      feedback.hidden = copied;
       fallback.hidden = copied;
+      if (copied) UIHelper.showNotification("URL copied to clipboard");
     }},
   );
   return {

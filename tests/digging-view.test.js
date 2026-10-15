@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import {runInNewContext} from "node:vm";
 import {parseFragment} from "parse5";
-import {getBaseRadius, getDiggingViewport} from "../src/digging/model.js";
+import {evaluateDigging, getBaseRadius, getDiggingViewport} from "../src/digging/model.js";
 
 // Serialize the view's templates for HTML parsing in Node; no browser or DOM.
 class Markup {
@@ -13,9 +13,10 @@ class Markup {
 const escape = (value) => String(value).replace(/[&<>"']/g, (c) => ({
   "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
 })[c]);
+const renderValue = (value) => value == null ? "" : Array.isArray(value)
+  ? value.map(renderValue).join("") : value instanceof Markup ? value.toString() : escape(value);
 const markup = (strings, ...values) => new Markup(strings.reduce((result, part, i) =>
-  result + part + (i === values.length || values[i] == null ? ""
-    : values[i] instanceof Markup ? values[i] : escape(values[i])), ""));
+  result + part + renderValue(values[i]), ""));
 const source = readFileSync(new URL("../src/digging/view.js", import.meta.url), "utf8")
   .replace(/^import .*;\r?\n/gm, "").replace(/^export /gm, "");
 const {renderDiggingPlot: render, renderDiggingResult} = runInNewContext(`${source}\n({renderDiggingPlot, renderDiggingResult});`, {
@@ -99,4 +100,62 @@ test("projectile penetration shows Digs without claiming its impact radius is th
   assert.match(details, /Not quantified/);
   assert.match(details, /No cap/);
   assert.doesNotMatch(details, /Maximum radius|Spell durability limit|1 px/);
+});
+
+test("mixed effects draw and label only the independently calculated explosion", () => {
+  const explosion = {status: "digs", method: "explosion", radius: 30, reason: "Initial explosion."};
+  const penetration = {status: "path", method: "path", radius: null, reason: "Penetration is not quantified."};
+  const result = {...penetration, effects: [penetration, explosion], circularEffect: explosion};
+  const spell = {name: "Holy Lance", radius: 30, rayEnergy: 100000, groundPenetrationMaxDura: 0};
+  const material = {name: "Soil"};
+  const plot = String(render(spell, material, result, 420, false));
+  assert.match(plot, /30 px estimated explosion radius only/);
+  assert.match(plot, /Penetration depth is not quantified/);
+  const circles = [...nodes(parseFragment(plot))].filter((node) => node.tagName === "circle");
+  assert.equal(circles.length, 2, "one mask and one white outline");
+  assert.ok(circles.every((node) => Number(attrs(node).r) === 180));
+  const details = String(renderDiggingResult(spell, material, result));
+  assert.match(details, /Projectile penetration/);
+  assert.match(details, /30 px estimated radius/);
+  assert.doesNotMatch(details, /&lt;p/);
+});
+
+test("beam settings never become a circular hole or a claimed digging depth", () => {
+  const spell = {name: "Plasma Beam", laserBeamRadius: 1.5, laserMaxLength: 160, laserCellDamage: 12000, laserMaxDuraToDestroy: 11};
+  const material = {name: "Soil", durability: 10};
+  const result = {status: "unsupported", method: "laser", radius: null, reason: "Depth has not been calculated."};
+  assert.doesNotMatch(String(render(spell, material, result, 420, false)), /<circle/);
+  const details = String(renderDiggingResult(spell, material, result));
+  assert.match(details, /Configured beam radius/);
+  assert.match(details, /1.5 px/);
+  assert.match(details, /Maximum beam length/);
+  assert.doesNotMatch(details, /Estimated dig radius/);
+});
+
+test("probabilistic cell eating outlines its footprint without promising a completely empty hole", () => {
+  const result = {status: "digs", method: "cell", radius: 60};
+  const plot = String(render({name: "Omega Black Hole", cellEaterEatProbability: 80}, {name: "Soil"}, result, 420, true));
+  const circles = [...nodes(parseFragment(plot))].filter((node) => node.tagName === "circle");
+  assert.equal(circles.length, 1);
+  assert.equal(attrs(circles[0]).fill, "none");
+  assert.match(plot, /Removal is probabilistic/);
+});
+
+test("default launch-speed comparison labels the range and avoids claiming a tunnel depth", () => {
+  const spell = {name: "Glowing Lance", mass: 0.65, groundPenetrationCoeff: 6, groundPenetrationMaxDura: 0, speedMin: 300, speedMax: 400};
+  const material = {name: "Brickwork", type: "Solid", hardness: 1000000, durability: 14};
+  const details = String(renderDiggingResult(spell, material, evaluateDigging(spell, material)));
+  assert.match(details, /Launch-speed range/);
+  assert.match(details, /300–400 px\/s/);
+  assert.match(details, /175,500–312,000 HP/);
+  assert.match(details, /4–6/);
+  assert.match(details, /Not quantified/);
+});
+
+test("partial damage leaves the square intact without claiming a permanent inability to dig", () => {
+  const result = {status: "partial", method: "explosion", radius: 0};
+  const plot = String(render({name: "Digging Bolt"}, {name: "Dense Rock"}, result, 420, false));
+  assert.match(plot, /No immediate hole/);
+  assert.match(plot, /Repeated impacts can change the result/);
+  assert.doesNotMatch(plot, /<circle|No digging in this material/);
 });

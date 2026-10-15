@@ -1,0 +1,19 @@
+{
+  "source": {
+    "path": "tools_modding/component_documentation.txt",
+    "sha256": "08c94c2dea03774c7cb6f54691a77bb204a15838527463efc37e8eebe7e3ee2b",
+    "buildHash": "9dbd52ced019a643169a2db02f46c77f8766c6e5",
+    "lines": [412, 424]
+  },
+  "defaults": {
+    "CellEaterComponent": {
+      "radius": 10,
+      "eat_probability": 100,
+      "only_stain": false,
+      "eat_dynamic_physics_bodies": true,
+      "limited_materials": false,
+      "ignored_material_tag": "",
+      "ignored_material": 0
+    }
+  }
+}

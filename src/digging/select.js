@@ -7,13 +7,15 @@ let nextId = 0;
 
 export function createDiggingSelect(items, {label, kind, value}) {
   const id = `digging-select-${++nextId}`;
+  const labelId = `${id}-label`;
   const catalog = new Map(items.map((item) => [item.id, item]));
   const displayItem = (item) => kind === "materials" && item?.tags?.includes("[box2d]")
     ? {...item, name: `${item.name || item.id} (object)`} : item;
   // A single select keeps search in the dropdown, out of the selected field.
   const select = html`<select id=${id} aria-label=${label}></select>`;
-  const element = html`<div class="digging-field"><label for=${id}>${label}</label>${select}</div>`;
+  const element = html`<div class="card digging-field"><label id=${labelId} for=${id}>${label}</label>${select}</div>`;
   const choices = new Choices(select, {
+    labelId,
     choices: [...items].sort((a, b) => (a.name || a.id).localeCompare(b.name || b.id)
       || Number(a.tags?.includes("[box2d]") || false) - Number(b.tags?.includes("[box2d]") || false)
       || a.id.localeCompare(b.id)).map((item) => ({

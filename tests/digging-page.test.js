@@ -34,6 +34,7 @@ function loadPage(t, href = "https://example.test/digging") {
     DIGGING_DEFAULTS: () => DIGGING_DEFAULTS,
     readDiggingParams: () => readDiggingParams, diggingUrl: () => diggingUrl,
     createShareButton: () => (getUrl) => ({button: {click: () => copied.push(getUrl())}, feedback: {}, clear() {}}),
+    createResetButton: () => (Inputs, onReset) => Inputs.button("Reset", {reduce: onReset}),
     isDiggingSpell: () => isDiggingSpell, evaluateDigging: () => evaluateDigging,
     FileAttachment: () => (path) => ({json: async () => path.includes("FULL_SPELLS") ? spells : materials}),
     Inputs: () => ({toggle: ({value}) => new Control(value), button: (_, {reduce}) => ({click: reduce})}),
@@ -121,7 +122,7 @@ test("invalid shared choices fall back to working defaults without losing a vali
   const {main, window} = loadPage(t, "https://example.test/digging?spell=missing&material=rock_hard&fit=no");
   assert.equal((await main.value("selectedSpell")).id, "DIGGER");
   assert.equal((await main.value("selectedMaterial")).id, "rock_hard");
-  assert.equal((await main.value("result")).status, "blocked");
+  assert.equal((await main.value("result")).status, "partial");
   assert.equal(await main.value("fitRadius"), false);
   assert.equal(await main.value("shareUrl"), "https://example.test/digging?material=rock_hard");
   assert.equal(window.location.href, "https://example.test/digging?material=rock_hard");
@@ -136,4 +137,14 @@ test("the reported Glowing Lance URL resolves to penetration, not an explosion-o
   assert.equal(result.radius, null);
   assert.equal(await main.value("shareUrl"), href);
   assert.equal(window.location.href, href);
+});
+
+test("shared lance selection computes its launch-speed range without additional controls", async (t) => {
+  const href = "https://example.test/digging?spell=LANCE&material=templebrick_noedge_static";
+  const {main, created} = loadPage(t, href);
+  const result = await main.value("result");
+  assert.deepEqual(result.penetration.contacts.map((contact) => contact.speed), [300, 400]);
+  assert.deepEqual(result.penetration.contacts.map((contact) => contact.impacts), [6, 4]);
+  assert.equal(await main.value("shareUrl"), href);
+  assert.equal(created.length, 2);
 });
