@@ -1,3 +1,5 @@
+import {classifyDiggingMaterial, cellEatingProbability} from "./materials.js";
+
 const f32 = Math.fround;
 const DT = f32(1 / 60);
 const ORIGIN = 1024.5;
@@ -217,21 +219,32 @@ export function traceDiggingPath(spell, material, {kind, contact} = {}) {
     && variant.diagnostic.lifetimeFrames === previewLifetime && variant.diagnostic.phaseOrder === "forces-before-move")
     ?? runVariant(spell, material, kind, contact, previewSpeed, previewLifetime, "forces-before-move");
   if (!preview) return null;
-  const probabilistic = kind === "cell" && spell.cellEaterEatProbability !== 100;
+  const probability = kind === "cell" ? cellEatingProbability(spell.cellEaterEatProbability) : 1;
+  if (probability === null) return null;
+  const probabilistic = probability < 1;
+  const materialKind = classifyDiggingMaterial(material);
+  const displaces = kind === "cell" && !spell.cellEaterLimitedMaterials && materialKind === "liquid";
+  const mobileMaterial = ["liquid", "static-liquid", "gas", "fire"].includes(materialKind);
   const conditional = (kind === "cell" && motion.collideWithWorld)
     || variants.some((variant) => variant.conditional || variant.samplingGaps);
   const partial = kind === "path" && preview.diagnostic.removedCells === 0;
-  const caption = partial ? "This cast damages the material without opening a hole."
+  const caption = displaces ? "Example displacement reach for one cast. Liquid particles can return; no permanent empty tunnel is predicted."
+    : kind === "cell" && mobileMaterial ? "Example reach for one cast. Selected cells can be removed, but material flow is not simulated."
+    : partial ? "This cast damages the material without opening a hole."
     : kind === "path" && preview.conditional ? "Dug path up to the first bounce or collision."
     : kind === "cell" && conditional ? "Example path; collisions can shorten it."
-    : "Example dug path for one cast. Speed and lifetime can change its length.";
+    : kind === "cell" ? "Example effect reach for one cast. Randomized visits and repeated exposure determine which cells are removed."
+    : "Example dug path for one cast in stationary material. Speed and lifetime can change its length.";
   const samePoints = JSON.stringify(shortest.points) === JSON.stringify(longest.points);
   return {kind: "path", points: shortest.points, ...(samePoints ? {} : {maxPoints: longest.points}),
     previewPoints: preview.points, previewLength: preview.diagnostic.length,
-    removalProbability: kind === "cell" ? spell.cellEaterEatProbability / 100 : 1,
+    removalProbability: displaces || mobileMaterial ? 0 : probability,
+    ...(kind === "cell" ? {nominalProbabilityPerVisit: probability, probabilitySetting: spell.cellEaterEatProbability,
+      probabilityModulus: 101, probabilityScope: "one visited cell; repeated exposure and RNG sequence not simulated",
+      sampledReach: true, materialOutcome: displaces ? "displacement" : "cell-removal"} : {}),
     width: kind === "cell" ? spell.cellEaterRadius * 2 : 1,
     lengthMin: shortest.diagnostic.length, lengthMax: longest.diagnostic.length,
-    probabilistic, conditional, partial, outlineOnly: probabilistic || kind === "cell" && conditional || partial, caption,
+    probabilistic, conditional, partial, outlineOnly: mobileMaterial || kind === "cell" && conditional || partial, caption,
     diagnostics: {reference: "rightward-uniform-stationary", framesPerSecond: 60,
       lengthBasis: kind === "cell" ? "travel-plus-diameter" : "removed-centerline-plus-one-pixel",
       phaseOrderUnverified: true, variants: variants.map((variant) => variant.diagnostic)}};

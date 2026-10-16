@@ -143,6 +143,26 @@ test("growing black holes remove scanned terrain independently of HP while their
   }
 });
 
+test("growing and fixed fields preserve liquid as material particles rather than a permanent crater", () => {
+  for (const id of ["BLACK_HOLE_BIG", "WHITE_HOLE_BIG", "BLACK_HOLE_GIGA", "WHITE_HOLE_GIGA"]) {
+    for (const materialId of ["water", "acid", "water_static"]) {
+      const effect = evaluateLifecycle(spell(id), material(materialId), child);
+      assert.equal(effect.status, "displaces", `${id}/${materialId}`);
+      assert.equal(effect.reachOnly, true);
+      assert.equal(effect.indirect.materialOutcome, "displacement");
+      assert.match(effect.reason, /release callback/);
+    }
+    assert.equal(evaluateLifecycle(spell(id), material("smoke"), child).status, "removes");
+  }
+});
+
+test("conversion eligibility uses engine classes without requiring a wiki category", () => {
+  const terrain = {...material("rock_static"), type: "no type"};
+  assert.equal(evaluateConversions(spell("TOUCH_GOLD"), terrain)[0].status, "converts");
+  const rigid = {...terrain, cell_type: "solid", tags: []};
+  assert.equal(evaluateConversions(spell("TOUCH_GOLD"), rigid)[0].status, "conditional");
+});
+
 test("Omega holes expose a fixed 160 reach without combining the 60 trail or 260 loose-ground search", () => {
   for (const id of ["BLACK_HOLE_GIGA", "WHITE_HOLE_GIGA"]) {
     const item = spell(id);

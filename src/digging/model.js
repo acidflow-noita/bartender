@@ -1,6 +1,7 @@
 import {evaluateConversions, evaluateLifecycle, hasTerrainConversion} from "./effects.js";
 import {evaluateExplosionFootprint} from "./explosion.js";
 import {traceDiggingPath} from "./motion.js";
+import {classifyDiggingMaterial, cellEatingProbability} from "./materials.js";
 
 const nonnegative = (value) => Number.isFinite(value) && value >= 0;
 const positive = (value) => Number.isFinite(value) && value > 0;
@@ -27,6 +28,9 @@ export function getBaseRadius(spell) {
 
 export function evaluateDigging(spell, material, {preview = true} = {}) {
   if (!spell || !material) return result("empty", "Select a spell and a material to compare them.");
+  if (classifyDiggingMaterial(material) === "air") {
+    return result("blocked", "Air is empty grid space; there is no material cell to dig, damage or displace.", 0);
+  }
   if (spell.type === "Projectile modifier") {
     return result("conditional", "This modifier needs a base projectile. Its digging depends on that projectile and the spell combination; it has no standalone cast footprint.");
   }
@@ -43,7 +47,7 @@ export function evaluateDigging(spell, material, {preview = true} = {}) {
   }
   // Each effect has its own rules. A failed explosion cannot rule out
   // penetration or corrosion, and an unknown effect must not become zero.
-  const successful = effects.filter((effect) => ["digs", "path", "converts"].includes(effect.status));
+  const successful = effects.filter((effect) => ["digs", "path", "converts", "displaces", "removes"].includes(effect.status));
   const primary = successful[0] ?? effects.find((effect) => effect.status === "partial")
     ?? effects.find((effect) => effect.status === "conditional") ?? effects.find((effect) => effect.status === "unsupported") ?? effects[0];
   const circularEffect = successful.filter((effect) => positive(effect.radius) && !effect.reachOnly)
@@ -53,15 +57,16 @@ export function evaluateDigging(spell, material, {preview = true} = {}) {
   if (sourceEffect?.footprint) {
     outcome.footprint = sourceEffect.footprint;
   }
-  if (preview && ["cell", "path"].includes(primary.method) && ["digs", "path"].includes(primary.status)
-      && material.id !== "air" && !material.tags?.includes("[box2d]") && material.is_just_particle_fx !== true) {
+  if (preview && ["cell", "path"].includes(primary.method) && ["digs", "path", "partial", "displaces", "removes"].includes(primary.status)
+      && !["air", "rigid", "particle", "unknown", "static-liquid"].includes(classifyDiggingMaterial(material))) {
     const footprint = traceDiggingPath(spell, material, {kind: primary.method,
       contact: (hardness, vx, vy) => penetrationContactVector(spell, {...material, hardness}, vx, vy)});
     if (footprint) {
       outcome.footprint = footprint;
-      outcome.reason = primary.method === "cell"
-        ? "The spell removes material along its path, ignoring hardness and durability."
-        : "The spell loses speed as it cuts through material. First-cell damage below uses its launch-speed range.";
+      if (primary.method === "path" && !footprint.partial) {
+        outcome.status = "path";
+        outcome.reason = "The reference cast removes stationary terrain cells and loses speed at each contact. Moving material and external forces can change the result.";
+      }
     }
   }
   return outcome;
@@ -81,22 +86,27 @@ function evaluateAcid(spell, material) {
 }
 
 function evaluateCellEating(spell, material) {
-  if (spell.cellEaterOnlyStain === true) {
-    return result("blocked", "This effect removes stains, not terrain cells.", 0, "cell");
-  }
-  if (spell.cellEaterEatProbability === 0) {
+  const kind = classifyDiggingMaterial(material);
+  const probability = cellEatingProbability(spell.cellEaterEatProbability);
+  const cellEating = {probabilitySetting: spell.cellEaterEatProbability, probabilityModulus: 101,
+    nominalProbabilityPerVisit: probability, sampling: "integer cell offsets strictly inside the component radius"};
+  const finish = (status, reason, radius = spell.cellEaterRadius, reachOnly = false) =>
+    ({...result(status, reason, radius, "cell"), cellEating, ...(reachOnly ? {reachOnly: true} : {})});
+  if (kind === "air") return finish("blocked", "Air has no cell for the effect to consume.", 0);
+  if (probability === null) return finish("unsupported", "The cell-eating probability is unavailable.", null);
+  if (probability === 0) {
     return result("blocked", "This cell-eating effect has a zero removal probability.", 0, "cell");
   }
-  if (spell.cellEaterIgnoredMaterial === material.id) {
+  // CellEaterSystem also excludes the engine's spark material unconditionally.
+  if (material.id === "spark" || spell.cellEaterIgnoredMaterial === material.id) {
     return result("blocked", "This spell explicitly excludes this material from its cell-eating effect.", 0, "cell");
   }
   if (spell.cellEaterIgnoredMaterialTag &&
       material.tags?.includes(spell.cellEaterIgnoredMaterialTag)) {
     return result("blocked", `This spell ignores materials tagged ${spell.cellEaterIgnoredMaterialTag}.`, 0, "cell");
   }
-
-  if (material.tags?.includes("[box2d]") && spell.cellEaterEatDynamicPhysicsBodies !== true) {
-    return result("unsupported", "The cell-eating settings do not establish whether this object is consumed.", null, "cell");
+  if (spell.cellEaterIgnoredMaterialTag && !Array.isArray(material.tags)) {
+    return finish("unsupported", "The material's tags are needed to check the spell's exclusion.", null);
   }
 
   if (spell.cellEaterLimitedMaterials) {
@@ -106,15 +116,48 @@ function evaluateCellEating(spell, material) {
     }
     if (!allowed.includes(material.id)) return result("blocked", "This material is not in the spell's allowed material list.", 0, "cell");
   }
-  return result("digs", "The cell-eating effect ignores hardness and durability. This radius describes the effect at one position, not its full moving tunnel.", spell.cellEaterRadius, "cell");
+  if (["particle", "unknown"].includes(kind)) {
+    return finish("conditional", "This material needs context establishing an occupied grid cell; particle appearance alone does not establish terrain removal.", spell.cellEaterRadius, true);
+  }
+  if (kind === "rigid") {
+    return finish("conditional", "Rigid-cell removal depends on the object's cells and state. The radius is effect reach, not a prediction that an entire physics object disappears.", spell.cellEaterRadius, true);
+  }
+  // The unlimited branch detaches a live, non-static, non-sand LiquidCell
+  // before either only_stain or eat_dynamic_physics_bodies is examined.
+  if (!spell.cellEaterLimitedMaterials && kind === "liquid") {
+    return finish("displaces", "The effect moves liquid cells into particles instead of destroying the liquid. They can return to the grid; the path shows displacement reach, not a permanent empty tunnel.", spell.cellEaterRadius, true);
+  }
+  if (!spell.cellEaterLimitedMaterials && spell.cellEaterOnlyStain === true) {
+    return finish("blocked", "This effect changes stains without deleting these cells.", 0);
+  }
+  if (!spell.cellEaterLimitedMaterials && material.solid_static_type === 0) {
+    if (spell.cellEaterEatDynamicPhysicsBodies === false) {
+      return finish("blocked", "This component's dynamic-cell setting excludes removal of these cells.", 0);
+    }
+    if (spell.cellEaterEatDynamicPhysicsBodies !== true) {
+      return finish("unsupported", "The component's dynamic-cell removal setting is unavailable.", null);
+    }
+  }
+  if (kind === "static-liquid") {
+    return finish("conditional", "Static liquid cells can be removed while fixed; loosened liquid can instead become displaced particles. The material alone does not establish the current cell state.", spell.cellEaterRadius, true);
+  }
+  if (["gas", "fire", "liquid"].includes(kind)) {
+    return finish("removes", "The effect deletes selected grid cells. Flow, surrounding material and reactions determine what fills the space afterward; no lasting crater is predicted.", spell.cellEaterRadius, true);
+  }
+  return finish("digs", "The effect deletes selected terrain cells without a hardness or durability check. Each visit is randomized; the path illustrates reach, not a guaranteed fully cleared tunnel.");
 }
 
 function terrainLimitation(material, method) {
-  if (material.tags?.includes("[box2d]")) {
-    return result("unsupported", "Object breakage depends on the object as well as its material; it is not modeled here.", null, method);
+  const kind = classifyDiggingMaterial(material);
+  if (kind === "unknown") return result("unsupported", "The engine material class is unavailable.", null, method);
+  if (kind === "rigid") {
+    return {...result("conditional", "Rigid-cell and physics-object breakage depends on the object and its state; material settings alone do not establish a crater.", null, method), reachOnly: true};
   }
-  if (!["Solid", "Powder"].includes(material.type)) {
-    return result("unsupported", "This effect is modeled for solid terrain and powders. Its effect on this material type has not been calculated.", null, method);
+  if (kind !== "terrain") {
+    if (method === "path" && ["liquid", "static-liquid", "gas", "fire"].includes(kind)) {
+      return result("blocked", "The penetration callback passes through this engine cell class without applying terrain damage.", 0, method);
+    }
+    return {...result("conditional", "This engine material class needs fluid, particle or world context; the stationary terrain calculation does not establish an empty crater.", null, method), reachOnly: true};
   }
   return null;
 }
@@ -175,13 +218,20 @@ function evaluatePenetration(spell, material) {
     if (contacts.every((contact) => contact.damage === 0 && contact.impacts === null)) {
       return {...result("blocked", "Penetration removes no cell hit points at this speed. Other spell effects are checked separately.", 0, "path"), penetration};
     }
-    return {...result("path", "At the launch-speed range, penetration damages the first terrain cell. Repeated identical impacts can finish a damaged cell. Impact speed changes during flight.", null, "path"), penetration};
+    const partial = contacts.every((contact) => contact.remaining > 0);
+    return {...result(partial ? "partial" : "path", partial
+      ? "A first contact at these launch speeds damages the cell but does not remove it. Contact counts assume separate identical impacts, not a guaranteed tunnel from one cast."
+      : "At least one launch-speed endpoint removes the first stationary cell. Later contacts lose speed; moving material and collision state can change the path.", null, "path"), penetration};
   }
   return result("blocked", `Material durability ${material.durability} exceeds the penetration limit of ${limit}.`, 0, "path");
 }
 
 function evaluateLaser(spell, material) {
-  const unavailable = terrainLimitation(material, "laser");
+  const kind = classifyDiggingMaterial(material);
+  if (["gas", "fire"].includes(kind)) {
+    return result("blocked", "The beam's terrain-damage callback passes through gas and fire cells without damaging them.", 0, "laser");
+  }
+  const unavailable = ["liquid", "static-liquid"].includes(kind) ? null : terrainLimitation(material, "laser");
   if (unavailable) return unavailable;
   if (!nonnegative(spell.laserMaxDuraToDestroy) || !nonnegative(material.durability)) {
     return result("unsupported", "The beam's durability limit or the material's durability is unavailable.", null, "laser");
@@ -197,9 +247,30 @@ function evaluateLaser(spell, material) {
   // Noita 0xb95ab0 subtracts damage_to_cells from the contacted cell's HP
   // after the durability check. The beam stops at that contact; its width
   // and maximum length do not describe a circular excavation.
-  return {...result("digs", "The beam damages cells along its path. The contact count assumes it keeps hitting the same cell; beam movement and the full tunnel are not simulated.", null, "laser"),
-    laser: {damage: Math.min(material.hardness, spell.laserCellDamage),
-      contacts: Math.max(1, Math.ceil(material.hardness / spell.laserCellDamage))}};
+  const partial = spell.laserCellDamage < material.hardness;
+  const fluid = ["liquid", "static-liquid"].includes(kind);
+  const target = material.warmth_melts_to_material_name ?? material.warmth_melts_to_material;
+  const hasThermalTarget = typeof target === "string" && target !== "" && target !== "air" || positive(target);
+  const laser = {damage: Math.min(material.hardness, spell.laserCellDamage),
+    contacts: Math.max(1, Math.ceil(material.hardness / spell.laserCellDamage))};
+  // After exhausting HP, the native laser callback requests heat 10000.
+  // A successful heat replacement returns null and bypasses cell deletion.
+  if (!partial && hasThermalTarget) {
+    const chance = material.warmth_melts_chance_rev;
+    const guaranteed = Number.isInteger(chance) && chance >= 0 && chance < 10000;
+    laser.thermal = {temperature: 10000, toMaterial: typeof target === "string" ? target : null,
+      toMaterialId: Number.isInteger(target) ? target : null, chanceReverse: chance ?? null};
+    const targetName = typeof target === "string" ? target : `material ID ${target}`;
+    return {...result(guaranteed ? "converts" : "conditional", guaranteed
+      ? `After exhausting this cell's hit points, the beam's heat converts it to ${targetName}. It does not leave an empty cell.`
+      : "After exhausting cell hit points, the beam can trigger a heat conversion. Its thermal settings do not establish guaranteed conversion or an empty cell.", null, "laser"), reachOnly: true, laser};
+  }
+  return {...result(partial ? "partial" : fluid ? "removes" : "digs", partial
+    ? "One beam contact damages the cell but leaves it in place. More contacts are required; the beam's duration and movement do not guarantee that they hit the same cell."
+    : fluid ? "A beam contact can remove a liquid cell. Thermal reactions and liquid flow are not a prediction of a permanent empty crater."
+    : "One beam contact can remove the cell. The beam stops at that contact; its full moving tunnel is not simulated.", null, "laser"),
+    ...(fluid ? {reachOnly: true} : {}),
+    laser};
 }
 
 function evaluateExplosion(spell, material) {

@@ -102,7 +102,9 @@
 
 .digging-status-unsupported,
 .digging-status-partial,
-.digging-status-conditional {
+.digging-status-conditional,
+.digging-status-displaces,
+.digging-status-removes {
   color: var(--theme-foreground-muted);
 }
 

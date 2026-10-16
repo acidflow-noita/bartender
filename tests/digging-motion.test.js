@@ -25,6 +25,8 @@ test("Black Hole uses its accelerated flight, lifetime endpoints and both update
   const footprint = traceDiggingPath(source, material("soil"), {kind: "cell"});
   assert.equal(footprint.width, 24);
   assert.equal(footprint.outlineOnly, false);
+  assert.equal(footprint.probabilistic, true);
+  assert.equal(footprint.removalProbability, 100 / 101);
   assert.deepEqual(footprint.points[0], [0, 0]);
   assert.ok(footprint.maxPoints.at(-1)[0] > footprint.points.at(-1)[0]);
   assert.ok(footprint.points.every(([, y]) => y === 0));
@@ -139,6 +141,21 @@ test("partial cell eating stays identified and proven penetration survives an un
   assert.equal(bounce.outlineOnly, false, "the cells removed before the bounce must remain cut out");
   assert.ok(bounce.previewLength > 0);
   assert.ok(bounce.diagnostics.variants.every((variant) => variant.endReason === "collision-context"));
+});
+
+test("liquid displacement and gas removal reach never become a permanent swept cutout", () => {
+  for (const id of ["water", "acid", "smoke", "fire"]) {
+    const footprint = traceDiggingPath(spell("BLACK_HOLE"), material(id), {kind: "cell"});
+    assert.equal(footprint.outlineOnly, true, id);
+    assert.equal(footprint.removalProbability, 0, id);
+    assert.equal(footprint.nominalProbabilityPerVisit, 100 / 101, id);
+    assert.equal(footprint.sampledReach, true, id);
+    assert.equal(footprint.width, 24, "configured reach is still available");
+  }
+  assert.equal(traceDiggingPath(spell("BLACK_HOLE"), material("water"), {kind: "cell"}).materialOutcome, "displacement");
+  const omega = traceDiggingPath(spell("BLACK_HOLE_GIGA"), material("soil"), {kind: "cell"});
+  assert.equal(omega.removalProbability, 80 / 101);
+  assert.equal(omega.probabilityScope, "one visited cell; repeated exposure and RNG sequence not simulated");
 });
 
 test("unavailable, infinite or unsafe durations and invalid contacts do not invent a path", () => {

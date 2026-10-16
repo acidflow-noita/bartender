@@ -1,0 +1,269 @@
+{
+  "schemaVersion": 1,
+  "buildHash": "9dbd52ced019a643169a2db02f46c77f8766c6e5",
+  "binarySha256": "a0d9f9ca513e27a598c61dd9a19211c7a11d1477c9a2b93d909757d91d17d914",
+  "materialData": {
+    "path": "src/data/materials.json",
+    "sha256": "edbf8cdd07e43383cb9b497da92fda63ef40bf97553b55252fd88c0801da10d6"
+  },
+  "authority": "shipped-artifact",
+  "evidenceType": "static analysis; gameplay execution was not observed",
+  "implementation": [
+    "src/digging/materials.js",
+    "src/digging/model.js",
+    "src/digging/effects.js",
+    "src/digging/motion.js"
+  ],
+  "rules": {
+    "engineClasses": "Use cell_type, liquid_sand, liquid_static and is_just_particle_fx. Terrain and powders are LiquidCell with liquid_sand=true; cell_type=solid identifies object cells. Wiki display categories do not establish engine behavior.",
+    "air": "Empty grid space contains no material cell to dig, damage or displace.",
+    "cellEater": {
+      "address": "0xa639e0",
+      "probabilityGate": "((LCG_state >> 16) & 32767) % 101 < eat_probability",
+      "probabilityScope": "Nominal setting/101 per visited cell. Repeated visits and finite-RNG modulo bias are not simulated.",
+      "sampling": "Integer offsets strictly inside the component radius. A swept envelope is illustrative reach, not a guaranteed cleared tunnel.",
+      "exclusions": "spark, configured ignored material/tag, and limited-material list.",
+      "liquid": "The unlimited branch preserves non-static, non-sand liquid cells in particles before the only_stain and dynamic-cell gates.",
+      "liquidLifecycle": [
+        "0x717670",
+        "0x7168c0",
+        "0x716600",
+        "0x71a590",
+        "0x71fde0",
+        "0x71fba0"
+      ],
+      "liquidReturn": "Particle cleanup queues the original pointer. World placement attempts reinsertion, searching upward up to 128 pixels. Failed placement retries; expiry or queue overflow can discard cells. Return is not tied to the projectile lifetime.",
+      "gasAndFire": "Deletion follows the dynamic-cell gate. Gas/fire must not be described as preserved liquid.",
+      "objects": "Object geometry/state and sampled contacts are not established by a material choice; show conditional reach."
+    },
+    "blackHoleComponent": {
+      "releaseCallback": "0xa44640",
+      "liquid": "Sampled liquid becomes orbiting material particles. The release callback recreates cells, separately from the CellEaterComponent path.",
+      "terrain": "Radial scans remove encountered cells. The maximum field radius is not a fully excavated disk."
+    },
+    "penetration": {
+      "contact": "0xc08a30",
+      "materialGate": "The terrain callback handles sand/static-terrain cells; fluid passage does not establish fluid removal.",
+      "partialDamage": "A damaged cell is not a removed cell. Success requires removal at a launch-speed endpoint or in the modeled reference cast."
+    },
+    "beam": {
+      "contact": "0xb95ab0",
+      "gasAndFire": "The damage callback passes through gas/fire.",
+      "partialDamage": "Damage below fresh-cell HP is partial; repeated-contact counts assume the same cell is hit again.",
+      "heatConversion": {
+        "address": "0x71aa60",
+        "temperature": 10000,
+        "targetOffset": "0x144",
+        "reverseChanceOffset": "0x14e",
+        "rule": "For a positive target, RNG % (signed16(reverse_chance)+1) < 10000 invokes replacement and returns null, bypassing deletion. Reverse chance 0..9999 guarantees this branch.",
+        "example": "water becomes steam"
+      },
+      "fluid": "Removal or replacement does not predict an empty crater after flow and reactions."
+    }
+  },
+  "limitations": [
+    "Reference cast in uniform stationary material; not a full world simulation.",
+    "No gameplay execution was observed.",
+    "Physics objects, material flow, reactions and later occupancy remain conditional.",
+    "Static non-sand liquid can change state; material settings alone do not establish whether a cell is fixed or loose.",
+    "Full pseudocode/assembly remains in the local ignored task directory. Addresses, hashes and evidence IDs identify the examined build for reuse; decompilation is not original source."
+  ],
+  "evidence": [
+    {
+      "path": "task/digging-cell-native/attach-cell-particle.c",
+      "address": "0x7168c0",
+      "id": "ev_4151b1b112b6386bd67141eeeb4c02061607305ce237bd0cbb51bdbeccb922d9",
+      "sha256": "08c4ac64200128c81b6d8f55098ab604ddfd796b428d77171bddce4f1cf505f4",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/black-hole-particle-release.c",
+      "address": "0xa44640",
+      "id": "ev_79035e6c0fa6c76e10bf0a56573f991eccef9ea78be9dcf96e95a7ed17eed0c6",
+      "sha256": "d09685ee5a854c5f49e0c7af1caa9e0c9f62357893da53a6a4e11f0d78fec8ae",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/black-hole-release-owner.c",
+      "address": "0xa44560",
+      "id": "ev_9981f4f95f01a23fb50f1baadc3a2eb5babd19d4faf1ba48e42dd13d72170875",
+      "sha256": "40dffdd3ec1d8ac75071c018a68be148391ecd75a1aeb7afe6f05e4ab46b1fde",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/cell-eater-core.c",
+      "address": "0xa639e0",
+      "id": "ev_9262f27a627eef3d5589c4faae2a510cf52bfa84f987eb86007c90a4df549494",
+      "sha256": "91a62eb1baa9c72f010c7303a0d4f03755cec65f67a3524b78110937072c2325",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/cell-is-gas.c",
+      "address": "0x6f9900",
+      "id": "ev_9c33e9aebb252507f352a7ea23da7ed4f6dbcc76c5a6fd625833079ace4b68b7",
+      "sha256": "3f1aab55858585aa6359cc112c4b01ccc894f85772b96eb024273b0094436814",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/cell-is-liquid.c",
+      "address": "0x5b01b0",
+      "id": "ev_372df06de471351a76832d699cd9b3bf07868073b2ec65e57c99b14c8694abbf",
+      "sha256": "112816122f249c8f9a6db3c92b00c7f31551f668ad24968ad1f6c966684e3a7e",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/detach-liquid.c",
+      "address": "0x717670",
+      "id": "ev_507f0db24531f668dbc598a647f75138ea5b76903a6c52e498d490e3b74c6b17",
+      "sha256": "82adcf45be7033f271424e9ef1168bf0eb2b592eb257ad049a39667263d75445",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/fire-class.c",
+      "address": "0x6f9860",
+      "id": "ev_4fa566bfeb9551aec31addc46e9d0dd04eb6b9c320ea586061b36a7b5384a014",
+      "sha256": "96fd3b1565ed550bdc26c2f55ae982b0175b088444955a5f79002c7ad16d7054",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/gas-class.c",
+      "address": "0x6f98d0",
+      "id": "ev_f98ba84df29003e3362cf02ddefeaa3a2634b931a4cf65c804b5c1e4538e6bed",
+      "sha256": "3fb34c0edd4a8f6be288aca2fca5b64d6a5438039459fd21cb4893316c6df99e",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/liquid-class.c",
+      "address": "0x5b01a0",
+      "id": "ev_e826a1f42ad4af68b33f18d5144c1c6438dbe3dfc892813e0c9590c580491340",
+      "sha256": "9a86dbdb97c9c8441a07f147977fb5945f388574730a7050d83ddd8c11a8a6ee",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/liquid-collision-class.c",
+      "address": "0x70b0b0",
+      "id": "ev_434c6b2c8771d8621f5f4c4b622b6df84dca508e5556b5d980d0c0d312f396c1",
+      "sha256": "3d6f34336c1b0ba97b383764eb4c527af945ffc973fe5557ce6b3db455c67150",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/liquid-constructor.c",
+      "address": "0x70ae10",
+      "id": "ev_ce4e6151cacf08a4e2dcb211d1b8035e0424059202e3d28d5f67b6b43787a3f3",
+      "sha256": "44278284ede9adab0ab25db44842141676d4382447b6c476287cd2a0ccc1ba4b",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/liquid-sand-predicate.c",
+      "address": "0x70b110",
+      "id": "ev_0288c554d832f4ce84978531b9eaef47bd2a4b4bb978a737abdc58347d00b180",
+      "sha256": "4de53d5417338a1d3ca748b31a4611d6005332e342744f318272046a293614d2",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/liquid-static-predicate.c",
+      "address": "0x70b120",
+      "id": "ev_9a1934a9c89bfaf2ab1185baf28d8e309918d00f11b0b90b817c095961b406a8",
+      "sha256": "2efb65b358562029b03ad9bf68925a062b4802b8b5a95d41144bedcf0cfb9db3",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/particle-cell-queue.c",
+      "address": "0x71fde0",
+      "id": "ev_5d6a588351c05df5fc0baf0e210a3f128710c958fd4986571dbc2ecc6c8992fa",
+      "sha256": "21b9669e73a3a9160308099f0883add6237172224f5c157b48da37d7c89f92a1",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/particle-cell-reinsert.c",
+      "address": "0x71fba0",
+      "id": "ev_fe2a8e28d594f37e6b7f627e21b2261bcbfd6c51f3c2b241296a647f02d7e989",
+      "sha256": "c230d95641ca8ec4ea96885622ad4012866037c898d38851a53d640675884183",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/particle-cell-transfer.c",
+      "address": "0x71a590",
+      "id": "ev_7e79d88766bbbf40a103e77ed3529ce590c09ea4e1980a9d0f37853492eafa8a",
+      "sha256": "af583950fe7eac5a294aa36e8bbb2c3dd3de3c3275e1fc1f057c8721f4e563f7",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/particle-cleanup.c",
+      "address": "0x716600",
+      "id": "ev_0be9b873626bd439b8290f9133d85a499736bde727c812f966366196c515f20c",
+      "sha256": "f674be6faab719f54119e81f8b74fb3dcea2f9df20edd1721d34f90cc10cf352",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/particle-material-settings.c",
+      "address": "0x715c60",
+      "id": "ev_71a68f38077b2ff7636947a0e71c39a7fb651057c86a106f3fb638868021ad63",
+      "sha256": "f7d3aca9cefc11cd4b60141af35cc4d045eadd8a06c55e9cfd6b380a101efaae",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/particle-movement.c",
+      "address": "0x712390",
+      "id": "ev_2e0596aa6330278cc0355c1dab40dcb5cc50b35969b462272e8bce11e32952c1",
+      "sha256": "d8d2ae9272ca30819c1fc959d510c785d7a2cabc7510022c74f5cb2bc1ad9c7f",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/particle-update.c",
+      "address": "0x713e20",
+      "id": "ev_c4f08bc6adaa03b8c773f01c075f8a1772a19e55ebed54ddeb2d73e9a47ac2ed",
+      "sha256": "91dc1728afaf7efaac4bfe236a3b001d7eddf03d7387d555b310b9b0673b1038",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/solid-class.c",
+      "address": "0x4adab0",
+      "id": "ev_928c9fd79df9ee2c03feebd83581f29b95466fcdc4097a436d7999b7b4f03b7a",
+      "sha256": "a7095d564ed808b2c94c011c947783cba1cf72589caebcf7c494b1e8b4efcd3b",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/spawn-cell-particle.c",
+      "address": "0x716af0",
+      "id": "ev_62960fadf7bc3b95d456ec33f4d5cbb24d2a7d9e83ae64bd0c73d87101bbc38e",
+      "sha256": "d500f05b47de69c2d21c4b57a2b3560ba40390c27d385a3a8ab5d98d8cbca890",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/spawn-material-particle.c",
+      "address": "0x716ce0",
+      "id": "ev_17e610250418e10b345820e42b3948a3111d8b552e081dc56dacc336e16983dd",
+      "sha256": "980ab80f38b6a832ae482e23cfbc56dd4f70a81488f5314a22c0a99fcb40dc5c",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-native/black-hole-cell.c",
+      "address": "0xa44130",
+      "id": "ev_6f3a4946f9ff1983505f8cc3647150ff9900c61603292408e17705cc64ce0b8d",
+      "sha256": "33fecf0f6a1037b756a12c608ea8742d0901b76cfda74ed9aa41cd75b8fd6b10",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-native/laser-cell.c",
+      "address": "0xb95ab0",
+      "id": "ev_a5376a353ddc03d716f03b9516dc5dc14c9383cab8d8cb11f80e94fa50ee5ab9",
+      "sha256": "7bcdbd3183d6ada3576941bd90906a6e1cae5a3c4f6e57c3fd9d5b8132879245",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-native/penetration-contact.c",
+      "address": "0xc08a30",
+      "id": "ev_403b9310d5f82503dc9b8e8575937a53bdf3f249b6f378ca5b322951560e43f7",
+      "sha256": "58b0c3e523d0aa253cba4412d10e118417c1838800f484e43be5f8d13636aacc",
+      "method": "Ghidra 12.1.4 pseudocode via REA"
+    },
+    {
+      "path": "task/digging-cell-native/heat-conversion.asm",
+      "address": "0x71aa60",
+      "endExclusive": "0x71ab46",
+      "sha256": "d6ab2c91046c97da56118b04cf224b8ef7322a778581c3598201cf921392837f",
+      "method": "GNU objdump disassembly of the same executable"
+    }
+  ]
+}

@@ -8,6 +8,7 @@ import {evaluateDigging, getBaseRadius, getDiggingViewport} from "../src/digging
 import {getPathGeometry, getExplosionGeometry} from "../src/digging/geometry.js";
 import {evaluateExplosionFootprint} from "../src/digging/explosion.js";
 import {evaluateComparison, getComparisonScale, getComparisonLayout} from "../src/digging/comparison.js";
+import {classifyDiggingMaterial, cellEatingProbability} from "../src/digging/materials.js";
 
 // Serialize the view's templates for HTML parsing in Node; no browser or DOM.
 class Markup {
@@ -25,6 +26,7 @@ const source = readFileSync(new URL("../src/digging/view.js", import.meta.url), 
   .replace(/^import .*;\r?\n/gm, "").replace(/^export /gm, "");
 const {renderDiggingPlot: render, renderDiggingResult, renderDiggingComparison} = runInNewContext(`${source}\n({renderDiggingPlot, renderDiggingResult, renderDiggingComparison});`, {
   html: markup, svg: markup, getBaseRadius, getDiggingViewport, getPathGeometry, getExplosionGeometry, getComparisonLayout,
+  classifyDiggingMaterial, cellEatingProbability,
 });
 
 test("each selected spell has its own plot and reference sprite at the same zoom", () => {
@@ -248,7 +250,7 @@ test("probabilistic cell eating outlines its footprint without promising a compl
 
 test("default launch-speed comparison labels the range and avoids claiming a tunnel depth", () => {
   const spell = {name: "Glowing Lance", mass: 0.65, groundPenetrationCoeff: 6, groundPenetrationMaxDura: 0, speedMin: 300, speedMax: 400};
-  const material = {name: "Brickwork", type: "Solid", hardness: 1000000, durability: 14};
+  const material = {name: "Brickwork", type: "Solid", cell_type: "liquid", liquid_sand: true, hardness: 1000000, durability: 14};
   const details = String(renderDiggingResult(spell, material, evaluateDigging(spell, material)));
   assert.match(details, /Launch-speed range/);
   assert.match(details, /300–400 px\/s/);
@@ -355,6 +357,71 @@ test("actual traveling spell profiles produce cutouts with a right-facing Mina b
     assert.equal(Number(sprite.x), 36);
     assert.ok(Math.abs(Number(sprite.y) + Number(sprite.height) / 2 - 140) < 1e-8);
     assert.doesNotMatch(output, /digging-path-extent/);
+  }
+});
+
+test("Black Hole liquid displacement keeps material visible for moving and fixed fields", () => {
+  const spells = JSON.parse(readFileSync(new URL("../src/data/FULL_SPELLS_FINAL.json", import.meta.url)));
+  const materials = JSON.parse(readFileSync(new URL("../src/data/FULL_MATERIALS_FINAL.json", import.meta.url)));
+  for (const id of ["BLACK_HOLE", "WHITE_HOLE", "BLACK_HOLE_GIGA", "BLACK_HOLE_BIG"]) {
+    for (const materialId of ["acid", "water"]) {
+      const spell = spells.find((spell) => spell.id === id), material = materials.find((material) => material.id === materialId);
+      const result = evaluateDigging(spell, material);
+      assert.equal(result.status, "displaces", `${id}/${materialId}`);
+      const output = String(render(spell, material, result, 800, true));
+      const elements = [...nodes(parseFragment(output))];
+      const mask = elements.find((node) => node.tagName === "mask" && attrs(node).id.endsWith("-terrain-mask"));
+      assert.equal([...nodes(mask)].some((node) => ["circle", "path"].includes(node.tagName)), false);
+      assert.ok(elements.some((node) => attrs(node).class === "digging-terrain"));
+      assert.ok(elements.some((node) => attrs(node).class === "digging-mina"));
+      assert.match(output, />Displaces liquid<\/span>/);
+      assert.doesNotMatch(output, /digging-path-cutout|digging-impact-cutout|>Digs<\/span>/);
+      const details = String(renderDiggingResult(spell, material, result));
+      assert.doesNotMatch(details, /Hole radius|Estimated hole radius/);
+    }
+  }
+});
+
+test("actual terrain cell eating illustrates stochastic removal even at probability setting 100", () => {
+  const spells = JSON.parse(readFileSync(new URL("../src/data/FULL_SPELLS_FINAL.json", import.meta.url)));
+  const material = JSON.parse(readFileSync(new URL("../src/data/FULL_MATERIALS_FINAL.json", import.meta.url))).find((material) => material.id === "soil");
+  const spell = spells.find((spell) => spell.id === "BLACK_HOLE");
+  const result = evaluateDigging(spell, material);
+  assert.equal(result.footprint.removalProbability, 100 / 101);
+  const elements = [...nodes(parseFragment(String(render(spell, material, result, 800, true))))];
+  const pattern = elements.find((node) => node.tagName === "pattern" && attrs(node).id.endsWith("-removal"));
+  const removed = [...nodes(pattern)].filter((node) => node.tagName === "rect" && attrs(node).fill === "#000");
+  assert.ok(removed.length > 0 && removed.length < 64);
+});
+
+test("air is empty, objects remain conditional, and gas removal does not become a terrain crater", () => {
+  const spell = JSON.parse(readFileSync(new URL("../src/data/FULL_SPELLS_FINAL.json", import.meta.url))).find((spell) => spell.id === "BLACK_HOLE");
+  const materials = JSON.parse(readFileSync(new URL("../src/data/FULL_MATERIALS_FINAL.json", import.meta.url)));
+  for (const [id, status, label] of [["air", "blocked", "Doesn&#39;t dig"], ["steel", "conditional", "Conditional effect"], ["steam", "removes", "Removes cells"]]) {
+    const material = materials.find((material) => material.id === id), result = evaluateDigging(spell, material);
+    assert.equal(result.status, status);
+    const output = String(render(spell, material, result, 800, true, {color: "#fff"}));
+    const elements = [...nodes(parseFragment(output))];
+    const mask = elements.find((node) => node.tagName === "mask" && attrs(node).id.endsWith("-terrain-mask"));
+    assert.equal([...nodes(mask)].some((node) => ["circle", "path"].includes(node.tagName)), false);
+    assert.ok(output.includes(`>${label}</span>`));
+    if (id === "air") {
+      assert.equal(elements.some((node) => ["digging-terrain", "digging-area-color"].includes(attrs(node).class)), false);
+      assert.match(output, /Air is empty space/);
+    }
+  }
+});
+
+test("beam damage and heat conversion do not claim an empty hole", () => {
+  const spell = JSON.parse(readFileSync(new URL("../src/data/FULL_SPELLS_FINAL.json", import.meta.url))).find((spell) => spell.id === "LASER_EMITTER");
+  const materials = JSON.parse(readFileSync(new URL("../src/data/FULL_MATERIALS_FINAL.json", import.meta.url)));
+  for (const [id, status, label] of [["rock_static", "partial", "No immediate hole"], ["water", "converts", "Converts material"]]) {
+    const material = materials.find((material) => material.id === id), result = evaluateDigging(spell, material);
+    assert.equal(result.status, status);
+    const output = String(render(spell, material, result, 800, true));
+    assert.ok(output.includes(`>${label}</span>`));
+    assert.doesNotMatch(output, /<circle|digging-path-cutout|The outline shows/);
+    if (id === "water") assert.match(String(renderDiggingResult(spell, material, result)), /Heat conversion<\/dt><dd>steam/);
   }
 });
 

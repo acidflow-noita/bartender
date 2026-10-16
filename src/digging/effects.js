@@ -1,7 +1,8 @@
+import {classifyDiggingMaterial} from "./materials.js";
+
 const nonnegative = (value) => Number.isFinite(value) && value >= 0;
 const positive = (value) => Number.isFinite(value) && value > 0;
 const result = (status, reason, radius = null, method = "conversion") => ({status, reason, radius, method});
-const terrainTypes = new Set(["Solid", "Powder", "Liquid", "Gas", "Fire"]);
 const materialName = (value) => value === 0 || value === "" ? "air" : typeof value === "string" ? value : null;
 
 export function hasTerrainConversion(spell) {
@@ -49,6 +50,7 @@ function conversionMatch(effect, material) {
 }
 
 function evaluateConversion(effect, material) {
+  const materialKind = classifyDiggingMaterial(material);
   const target = effect.convertEntities === true ? "terrain-and-entities" : "terrain";
   const conversion = {...effect, target, shape: effect.isCircle ? "circle" : "square",
     configuredRadius: effect.radius, maximumProcessedRing: positive(effect.radius) ? effect.radius - 1 : null};
@@ -78,13 +80,13 @@ function evaluateConversion(effect, material) {
   const match = conversionMatch(effect, material);
   if (match.unknown) return finish("unsupported", match.unknown);
   if (!match.matches) {
-    if (positive(effect.fanTheFlames) && (material.burnable === true || material.on_fire === true || material.type === "Fire")) {
+    if (positive(effect.fanTheFlames) && (material.burnable === true || material.on_fire === true || materialKind === "fire")) {
       return finish("conditional", "This effect advances existing fire. Any material removal depends on burning and reactions, not direct terrain conversion.", effect.radius);
     }
     if (positive(effect.igniteMaterials) && material.burnable === true) {
       return finish("conditional", "This effect can ignite burnable material. Burning and reactions determine whether terrain is removed.", effect.radius);
     }
-    if (effect.extinguishFire === true && (material.on_fire === true || material.type === "Fire")) {
+    if (effect.extinguishFire === true && (material.on_fire === true || materialKind === "fire")) {
       return finish("conditional", "This component extinguishes existing fire; it does not define an empty terrain crater.", effect.radius);
     }
     if (effect.cleanStains === true) return finish("blocked", "This component clears stains but does not replace the selected terrain material.", 0);
@@ -96,12 +98,12 @@ function evaluateConversion(effect, material) {
   if (material.id === match.toMaterial) {
     return finish("blocked", "The replacement is the same material, so this conversion does not remove terrain.", 0);
   }
-  if (material.tags?.includes("[box2d]")) {
+  if (materialKind === "rigid") {
     return finish("conditional", effect.convertEntities
       ? "Entity conversion requires a nearby, non-immune entity with a damage model. Selecting its material alone does not establish an empty hole."
       : "Converting a physics object requires object and entity context; a terrain conversion radius alone does not establish object removal.", effect.radius);
   }
-  if (!terrainTypes.has(material.type) || material.is_just_particle_fx === true) {
+  if (["particle", "unknown"].includes(materialKind)) {
     return finish("conditional", "The material filter matches, but this material's eligibility as a convertible terrain cell needs additional engine context.", effect.radius);
   }
   if (effect.disabledWhen) {
@@ -168,13 +170,19 @@ export function evaluateLifecycle(spell, material, evaluateChild) {
     indirect.blackHole = {...field, terrainScan: "first occupied cell along each sampled ray",
       damageProbabilityScope: "physics objects and entities"};
     if (material.id === "air") return finish("blocked", "Air has no terrain cell for the black-hole scan to remove.", 0);
-    if (material.tags?.includes("[box2d]")) {
+    const materialKind = classifyDiggingMaterial(material);
+    if (materialKind === "rigid") {
       return finish("conditional", "Physics-object damage depends on the object and repeated field interactions. The boundary shows field reach, not guaranteed object removal.", radius);
     }
-    if (!terrainTypes.has(material.type) || material.is_just_particle_fx === true) {
+    if (["particle", "unknown"].includes(materialKind)) {
       return finish("conditional", "This material needs context establishing an occupied terrain cell. The boundary shows the black-hole field's maximum reach.", radius);
     }
-    return finish("digs", `The ${growing ? "growing " : ""}field removes occupied terrain cells reached by radial scans, without a hardness or durability check. The boundary shows its ${growing ? "maximum " : ""}reach of ${radius} game pixels, not a fully excavated circle.`, radius);
+    if (["liquid", "static-liquid"].includes(materialKind)) {
+      indirect.materialOutcome = "displacement";
+      return finish("displaces", "The field turns sampled liquid cells into orbiting material particles. Its release callback recreates liquid cells; field reach is not a permanent empty crater.", radius);
+    }
+    indirect.materialOutcome = "cell-removal";
+    return finish(["gas", "fire"].includes(materialKind) ? "removes" : "digs", `The ${growing ? "growing " : ""}field removes occupied cells reached by radial scans, without a hardness or durability check. The boundary shows its ${growing ? "maximum " : ""}reach of ${radius} game pixels, not a fully excavated circle or a prediction of later material flow.`, radius);
   }
   if (lifecycle.kind === "random-projectile") {
     const children = indirect.children;

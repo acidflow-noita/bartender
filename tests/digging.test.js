@@ -52,7 +52,7 @@ test("Acid Ball corrodes brickwork and steel terrain independently of explosion 
   }
 });
 
-test("Dense Rock resists acid, while an initial explosion can still break glass", () => {
+test("Dense Rock resists acid, while rigid glass requires object context", () => {
   for (const [id, status] of [["rock_hard", "partial"], ["rock_hard_border", "blocked"]]) {
     const result = evaluateDigging(spell("ACIDSHOT"), material(id));
     assert.equal(result.status, status, id);
@@ -61,17 +61,17 @@ test("Dense Rock resists acid, while an initial explosion can still break glass"
     assert.doesNotMatch(result.reason, /Physics objects|does not cover/);
   }
   const glass = evaluateDigging(spell("ACIDSHOT"), material("glass"));
-  assert.equal(glass.status, "digs");
+  assert.equal(glass.status, "conditional");
   assert.equal(glass.method, "explosion");
-  assert.equal(glass.radius, 9);
+  assert.equal(glass.radius, null);
   assert.match(glass.effects.find((effect) => effect.method === "acid").reason, /resists acid/);
-  assert.equal(glass.circularEffect.method, "explosion");
+  assert.equal(glass.circularEffect, null);
 });
 
 test("acid resistance does not turn an unmodeled direct effect into zero digging", () => {
   for (const id of ["rock_box2d_nohit_hard", "alcohol", "smoke", "steam"]) {
     const outcome = evaluateDigging(spell("ACIDSHOT"), material(id));
-    assert.equal(outcome.status, "unsupported", id);
+    assert.equal(outcome.status, "conditional", id);
     assert.equal(outcome.radius, null);
     assert.equal(outcome.effects.find((effect) => effect.method === "acid").status, "blocked");
   }
@@ -109,6 +109,7 @@ test("beam contact damage remains distinct from explosion radius and unknown dep
   assert.equal(soil.circularEffect, null);
   assert.deepEqual(soil.laser, {damage: 2000, contacts: 1});
   assert.deepEqual(evaluateDigging(beam, material("rock_hard")).laser, {damage: 12000, contacts: 17});
+  assert.equal(evaluateDigging(beam, material("rock_hard")).status, "partial");
   assert.equal(evaluateDigging(beam, material("templebrick_static")).status, "blocked");
   assert.equal(evaluateDigging({...beam, laserCellDamage: null}, material("soil")).status, "unsupported");
   assert.equal(evaluateDigging({...beam, laserCellDamage: 0}, material("soil")).status, "blocked");
@@ -132,7 +133,7 @@ test("standalone acid emitters use corrosion, but modifiers and unknown data are
   const missingTags = evaluateDigging(spell("ACIDSHOT"), {...material("soil"), tags: undefined});
   assert.equal(missingTags.effects.find((effect) => effect.method === "acid").status, "unsupported");
   assert.equal(missingTags.circularEffect.radius, 9, "missing corrosion data does not erase a known initial explosion");
-  assert.equal(evaluateDigging(spell("ACIDSHOT"), material("steel")).status, "unsupported");
+  assert.equal(evaluateDigging(spell("ACIDSHOT"), material("steel")).status, "conditional");
 });
 
 test("acid corrosion agrees with the game's expanded reaction data for every material", () => {
@@ -167,13 +168,86 @@ test("documented cell-eater settings control named exclusions, objects, stains a
   const omegaSun = evaluateDigging(spell("BLACK_HOLE_GIGA"), material("gem_box2d_yellow_sun"));
   assert.equal(omegaSun.status, "conditional", "its separate field requires object context");
   assert.equal(omegaSun.effects.find((effect) => effect.method === "cell").status, "blocked");
-  assert.equal(evaluateDigging(spell("BLACK_HOLE"), material("steel")).status, "digs",
-    "the component explicitly consumes dynamic physics bodies");
+  assert.equal(evaluateDigging(spell("BLACK_HOLE"), material("steel")).status, "conditional",
+    "enabling dynamic-cell removal does not describe the entire physics object");
   for (const settings of [{cellEaterOnlyStain: true}, {cellEaterEatProbability: 0}]) {
     const outcome = evaluateDigging({...spell("BLACK_HOLE"), ...settings}, material("soil"));
     assert.equal(outcome.status, "blocked");
     assert.equal(outcome.circularEffect, null);
   }
+});
+
+test("Black Hole displaces live liquid cells but removes gas and fire cells", () => {
+  for (const id of ["water", "acid"]) {
+    const outcome = evaluateDigging(spell("BLACK_HOLE"), material(id));
+    assert.equal(outcome.status, "displaces", id);
+    assert.equal(outcome.reachOnly, true);
+    assert.equal(outcome.circularEffect, null);
+    assert.equal(outcome.footprint.outlineOnly, true);
+    assert.equal(outcome.footprint.removalProbability, 0);
+    assert.match(outcome.reason, /return to the grid/);
+    assert.doesNotMatch(outcome.reason, /until.*(expires|death)/);
+  }
+  for (const id of ["smoke", "fire"]) {
+    const outcome = evaluateDigging(spell("BLACK_HOLE"), material(id));
+    assert.equal(outcome.status, "removes", id);
+    assert.equal(outcome.reachOnly, true);
+    assert.equal(outcome.footprint.outlineOnly, true);
+    assert.equal(outcome.footprint.removalProbability, 0);
+  }
+  assert.equal(evaluateDigging(spell("BLACK_HOLE"), material("water_static")).status, "conditional");
+  assert.equal(evaluateDigging(spell("BLACK_HOLE"), material("spark")).status, "blocked");
+});
+
+test("cell-eating branches follow engine fields and retain the native probability gate", () => {
+  const hole = spell("BLACK_HOLE");
+  const soil = {...material("soil"), type: "Liquid"};
+  const outcome = evaluateDigging(hole, soil);
+  assert.equal(outcome.status, "digs", "wiki presentation type must not override liquid_sand");
+  assert.equal(outcome.footprint.removalProbability, 100 / 101);
+  assert.equal(outcome.footprint.probabilistic, true);
+  assert.equal(outcome.footprint.sampledReach, true);
+  assert.equal(outcome.footprint.outlineOnly, false, "verified random removal may be illustrated without a full-clear promise");
+  const noDynamic = {...hole, cellEaterEatDynamicPhysicsBodies: false};
+  assert.equal(evaluateDigging(noDynamic, soil).status, "blocked");
+  assert.equal(evaluateDigging(noDynamic, material("rock_static")).status, "digs");
+  assert.equal(evaluateDigging(noDynamic, material("acid")).status, "displaces",
+    "liquid detachment runs before the dynamic-cell deletion gate");
+  assert.equal(evaluateDigging({...hole, cellEaterOnlyStain: true}, material("acid")).status, "displaces",
+    "liquid detachment also precedes the stain-only branch");
+  const limited = {...hole, cellEaterLimitedMaterials: true, cellEaterMaterials: ["acid"]};
+  assert.equal(evaluateDigging(limited, material("acid")).status, "removes",
+    "the limited-material branch deletes matching cells without the live-cell detachment helper");
+  assert.equal(evaluateDigging(hole, {...soil, cell_type: "solid", tags: []}).status, "conditional",
+    "rigid cells need context even without the wiki's box2d tag");
+});
+
+test("air never becomes a successful digging result for any selectable spell", () => {
+  for (const entry of spells.filter(isDiggingSpell)) {
+    const outcome = evaluateDigging(entry, material("air"));
+    assert.equal(outcome.status, "blocked", entry.id);
+    assert.equal(outcome.radius, 0, entry.id);
+    assert.equal(outcome.footprint, undefined, entry.id);
+  }
+});
+
+test("beam contacts distinguish partial HP damage, thermal conversion and gas pass-through", () => {
+  const beam = {laserBeamRadius: 1, laserCellDamage: 12000, laserMaxDuraToDestroy: 20};
+  for (const id of ["smoke", "fire"]) {
+    assert.equal(evaluateDigging(beam, material(id)).status, "blocked", id);
+  }
+  const water = evaluateDigging(beam, material("water"));
+  assert.equal(water.status, "converts");
+  assert.equal(water.laser.thermal.toMaterial, "steam");
+  assert.equal(water.laser.thermal.temperature, 10000);
+  assert.equal(water.reachOnly, true);
+  assert.equal(evaluateDigging({...beam, laserCellDamage: 50}, material("water")).status, "partial");
+  assert.equal(evaluateDigging(beam, {...material("water"), warmth_melts_chance_rev: 9999}).status, "converts");
+  assert.equal(evaluateDigging(beam, {...material("water"), warmth_melts_chance_rev: 10000}).status, "conditional",
+    "the RNG modulo includes the reverse-chance endpoint");
+  assert.equal(evaluateDigging(beam, material("acid")).status, "removes");
+  assert.equal(evaluateDigging(beam, {...material("rock_hard"), type: "Gas"}).status, "partial",
+    "the engine cell class, not a presentation label, controls beam contacts");
 });
 
 test("Lightning uses verified ConfigExplosion defaults without filling unknown inputs", () => {
@@ -205,29 +279,30 @@ test("noncircular effects and unknown data are not reported as zero digging", ()
   assert.equal(evaluateDigging(spell("NUKE"), null).status, "empty");
 });
 
-test("lances penetrate brickwork and hard terrain even when their impact explosions cannot", () => {
+test("lances retain penetration damage when the explosion is blocked, without promising one-cast removal", () => {
   for (const id of ["LANCE", "LANCE_HOLY"]) {
     const lance = spell(id);
     assert.ok(lance.radius > 0, "the regression requires both effects on the same projectile");
     assert.equal(lance.groundPenetrationMaxDura, 0);
     for (const target of ["templebrick_noedge_static", "templebrick_static", "steel_static", "rock_hard", "rock_hard_border"]) {
       const result = evaluateDigging(lance, material(target));
-      assert.equal(result.status, "path", `${id}/${target}`);
+      const removesAtEndpoint = result.penetration.contacts.some((contact) => contact.remaining === 0);
+      assert.equal(result.status, removesAtEndpoint ? "path" : "partial", `${id}/${target}`);
       assert.equal(result.method, "path");
       assert.equal(result.radius, null, "the explosion radius must not become an invented penetration depth");
     }
   }
   const renamed = {...spell("LANCE"), id: "ANY_PENETRATING_PROJECTILE"};
-  assert.equal(evaluateDigging(renamed, material("templebrick_noedge_static")).status, "path",
+  assert.equal(evaluateDigging(renamed, material("templebrick_noedge_static")).status, "partial",
     "this is a component rule, not an exception for one spell ID");
-  assert.equal(evaluateDigging(spell("LANCE"), material("rock_box2d_nohit_hard")).status, "unsupported",
+  assert.equal(evaluateDigging(spell("LANCE"), material("rock_box2d_nohit_hard")).status, "conditional",
     "an uncapped terrain effect does not establish physics-object destruction");
 });
 
 test("penetration caps, missing caps and a separate digging explosion remain distinct", () => {
   const brick = material("templebrick_noedge_static");
   const lance = spell("LANCE");
-  assert.equal(evaluateDigging({...lance, groundPenetrationMaxDura: 14}, brick).status, "path");
+  assert.equal(evaluateDigging({...lance, groundPenetrationMaxDura: 14}, brick).status, "partial");
   assert.equal(evaluateDigging({...lance, groundPenetrationMaxDura: 13}, brick).status, "blocked");
   for (const limit of [null, undefined, NaN]) {
     assert.equal(evaluateDigging({...lance, groundPenetrationMaxDura: limit}, brick).status, "unsupported");
@@ -237,7 +312,7 @@ test("penetration caps, missing caps and a separate digging explosion remain dis
   assert.equal(result.status, "digs");
   assert.equal(result.method, "explosion");
   assert.equal(result.radius, 3);
-  assert.equal(evaluateDigging({...lance, groundPenetrationMaxDura: -1}, brick).status, "path");
+  assert.equal(evaluateDigging({...lance, groundPenetrationMaxDura: -1}, brick).status, "partial");
 });
 
 test("penetration matches the recovered first-cell damage and repeated-contact rule", () => {
@@ -281,8 +356,8 @@ test("zero hardness is valid; missing stats and physics objects are not guessed"
   for (const hardness of [null, undefined, NaN, -1, Infinity]) {
     assert.equal(evaluateDigging(spell("NUKE"), {...material("soil"), hardness}).status, "unsupported");
   }
-  assert.equal(evaluateDigging(spell("NUKE"), material("steel")).status, "unsupported");
-  assert.equal(evaluateDigging(spell("NUKE"), material("water")).status, "unsupported");
+  assert.equal(evaluateDigging(spell("NUKE"), material("steel")).status, "conditional");
+  assert.equal(evaluateDigging(spell("NUKE"), material("water")).status, "conditional");
 });
 
 test("fixed scale preserves size comparisons and keeps a huge circle's edge visible", () => {
@@ -335,7 +410,8 @@ test("every catalog combination produces a finite bounded radius or an explicit 
     for (const m of materials) {
       const result = evaluateDigging(s, m, {preview: false});
       if (result.radius === null) {
-        assert.ok(["path", "unsupported", "conditional"].includes(result.status) ||
+        assert.ok(["path", "partial", "unsupported", "conditional"].includes(result.status) ||
+          (["removes", "converts"].includes(result.status) && result.method === "laser") ||
           (result.status === "digs" && (result.method === "laser" ||
             (result.method === "acid" && m.tags.includes("[corrodible]")))), `${s.id}/${m.id}`);
       } else {

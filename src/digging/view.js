@@ -2,9 +2,10 @@ import {html, svg} from "htl";
 import {getBaseRadius, getDiggingViewport} from "./model.js";
 import {getPathGeometry, getExplosionGeometry} from "./geometry.js";
 import {getComparisonLayout} from "./comparison.js";
+import {classifyDiggingMaterial, cellEatingProbability} from "./materials.js";
 
 const imageBase = "https://noita-bartender-images.acidflow.stream/images";
-const statusTitles = {digs: "Digs", blocked: "Doesn't dig", path: "Digs", partial: "No immediate hole", unsupported: "Not yet modeled", converts: "Converts material", conditional: "Conditional effect"};
+const statusTitles = {digs: "Digs", blocked: "Doesn't dig", path: "Digs", partial: "No immediate hole", unsupported: "Not yet modeled", converts: "Converts material", conditional: "Conditional effect", displaces: "Displaces liquid", removes: "Removes cells"};
 const methodTitles = {acid: "Acid corrosion", cell: "Cell eating", path: "Projectile penetration", laser: "Beam", explosion: "Explosion", conversion: "Material conversion", indirect: "Secondary effect"};
 let nextPlotId = 0;
 export const formatNumber = (value) => Number.isFinite(value)
@@ -103,7 +104,7 @@ function renderEffectResult(spell, material, result) {
       <p>${result.reason}</p>
       <dl class="digging-stats">
         ${stat("Digging method", "Projectile penetration")}
-        ${result.footprint ? null : stat("Depth per cast", result.status === "path" ? "Not quantified" : result.radius, " px")}
+        ${result.footprint ? null : stat("Depth per cast", result.radius === null ? "Not quantified" : result.radius, " px")}
         ${penetration ? html`${stat("Launch-speed range", range("speed", " px/s"))}
           ${stat("Damage to first cell", range("damage", " HP"))}
           ${stat("Identical impacts per cell", range("impacts"))}` : null}
@@ -125,6 +126,7 @@ function renderEffectResult(spell, material, result) {
         ${stat("Cell damage setting", spell.laserCellDamage)}
         ${result.laser ? html`${stat("Damage to first cell", result.laser.damage, " HP")}
           ${stat("Contacts per fresh cell", result.laser.contacts)}` : null}
+        ${result.laser?.thermal?.toMaterial ? stat("Heat conversion", result.laser.thermal.toMaterial) : null}
         ${stat("Beam durability limit", spell.laserMaxDuraToDestroy)}
         ${stat("Material durability", material.durability)}
       </dl>
@@ -134,7 +136,7 @@ function renderEffectResult(spell, material, result) {
   return html`<section class="digging-result" aria-live="polite">
     <p>${result.reason}</p>
     <dl class="digging-stats">
-      ${stat(radiusRange ? "Hole radius range" : result.method === "cell" ? "Cell-eating radius" : "Estimated hole radius", radiusRange
+      ${stat(result.reachOnly ? "Effect radius" : radiusRange ? "Hole radius range" : result.method === "cell" ? "Cell-eating radius" : "Estimated hole radius", radiusRange
         ? explosionRadiusLabel({radiusMin: radiusRange[0], radiusMax: radiusRange[1]}) : result.radius, " px")}
       ${stat("Maximum radius", getBaseRadius(spell), " px")}
       ${stat("Ray energy", result.method === "explosion" ? result.explosion?.rayEnergy ?? spell.rayEnergy : null)}
@@ -150,6 +152,7 @@ export function renderDiggingPlot(spell, material, result, width, fit, {color, s
     return html`<div class="digging-empty">${result.reason}</div>`;
   }
   const circular = result.circularEffect ?? result;
+  const emptySpace = classifyDiggingMaterial(material) === "air";
   const radius = circular.radius;
   const reachOnly = result.reachOnly || circular.reachOnly || result.method === "conversion";
   const square = result.method === "conversion" && result.conversion?.shape === "square";
@@ -167,8 +170,8 @@ export function renderDiggingPlot(spell, material, result, width, fit, {color, s
   // Wiki swatches include transparent piles; take an interior patch for a
   // continuous square of terrain. The dropdown keeps the complete swatch.
   const tileSize = 14 * scale;
-  const partialCellEating = circular.method === "cell" && Number.isFinite(spell.cellEaterEatProbability)
-    && spell.cellEaterEatProbability < 100;
+  const cellProbability = circular.cellEating?.nominalProbabilityPerVisit ?? cellEatingProbability(spell.cellEaterEatProbability);
+  const partialCellEating = circular.method === "cell" && cellProbability !== null && cellProbability < 1;
   const partialRemoval = path && footprint.probabilistic && footprint.removalProbability > 0 && !footprint.partial;
   const removesPath = path && (!footprint.outlineOnly && !footprint.probabilistic || partialRemoval)
     && !reachOnly && ["digs", "path"].includes(result.status);
@@ -181,7 +184,9 @@ export function renderDiggingPlot(spell, material, result, width, fit, {color, s
     ? `${footprint.caption || "Example dug path for one cast."}${partialRemoval ? " Speckling illustrates partial cell removal." : ""} ${geometryCaption}`
     : explosion && result.footprint.radius > 0 ? `Circular estimate of the explosion's size in ${material.name}. ${geometryCaption}`
     : result.method === "conversion" ? `${square ? "Square" : "Circular"} conversion area: ${material.name} becomes ${result.conversion?.toMaterial || "another material"}. ${geometryCaption}`
-    : reachOnly ? `The outline shows how far the effect reaches. ${geometryCaption}`
+    : result.status === "displaces" ? `Liquid is moved and can return. The outline shows effect reach. ${geometryCaption}`
+    : result.status === "removes" ? `Cells can be removed; flow and reactions can fill the space again. ${geometryCaption}`
+    : reachOnly ? radius > 0 ? `The outline shows how far the effect reaches. ${geometryCaption}` : result.reason
     : partialCellEating
     ? `Removal is probabilistic. The outline shows the affected area. ${geometryCaption}`
     : radius > 0 && circular.method !== result.method
@@ -190,8 +195,9 @@ export function renderDiggingPlot(spell, material, result, width, fit, {color, s
     ? "Acid corrodes this material over time. There is no fixed circular radius."
     : result.method === "laser" && result.status === "digs" ? "The beam digs along its path. No circular hole or tunnel depth is implied by its width."
     : result.status === "path" ? "Digs along the projectile's path. Depth per cast is not quantified."
-    : result.radius === null ? "No circular estimate for this effect. Minä remains visible for scale."
     : result.status === "partial" ? "Terrain is damaged without an immediate hole. Repeated impacts can change the result."
+    : result.radius === null ? "No circular estimate for this effect. Minä remains visible for scale."
+    : emptySpace ? "Air is empty space; there is no material to dig."
     : result.radius === 0 ? "No digging in this material."
     : circular.method === "explosion" ? `Estimated hole per impact in undamaged, uniform terrain. ${geometryCaption}` : geometryCaption;
   return html`<figure class="digging-figure">
@@ -199,7 +205,7 @@ export function renderDiggingPlot(spell, material, result, width, fit, {color, s
     ${svg`<svg class="digging-svg" viewBox="0 0 ${view.width} ${height}" width="${view.width}" height="${height}"
       role="img" aria-labelledby="${id}-title ${id}-desc">
       <title id="${id}-title">${spell.name} in ${material.name}${path ? `: ${formatNumber(footprint.width)} game pixels of path width` : explosion ? `: ${formatNumber(result.footprint.radius)} game pixels of estimated explosion radius` : radius === null ? "" : `: ${formatNumber(radius)} game pixels of ${square ? "square half-width" : reachOnly ? "effect reach" : "digging radius"}`}</title>
-      <desc id="${id}-desc">A block of ${material.name}. ${path ? removesPath ? partialRemoval ? "The speckled cutout illustrates partial terrain removal." : "The dug path is cut out of the terrain." : "The outline shows the path's reach." : reachOnly ? "The outline shows reach and leaves the terrain visible." : radius > 0 && !partialCellEating ? "The estimated digging area is cut out of the terrain." : radius === 0 ? "No terrain is removed." : "No fixed circular hole is drawn for this effect."} Minä faces right at mid-height near the left edge, with the scale bar to her left. ${caption}</desc>
+      <desc id="${id}-desc">${emptySpace ? "Empty space." : `A block of ${material.name}.`} ${path ? removesPath ? partialRemoval ? "The speckled cutout illustrates partial terrain removal." : "The dug path is cut out of the terrain." : "The outline shows the path's reach." : reachOnly && radius > 0 ? "The outline shows reach and leaves the terrain visible." : radius > 0 && !partialCellEating ? "The estimated digging area is cut out of the terrain." : radius === 0 ? "No terrain is removed." : "No fixed circular hole is drawn for this effect."} Minä faces right at mid-height near the left edge, with the scale bar to her left. ${caption}</desc>
       <defs>
         <pattern id="${id}-material" width="${tileSize}" height="${tileSize}" patternUnits="userSpaceOnUse" viewBox="84 168 84 84">
           <rect width="252" height="252" fill="#34484b" />
@@ -226,11 +232,11 @@ export function renderDiggingPlot(spell, material, result, width, fit, {color, s
         </mask>` : null}
       </defs>
       <g clip-path="url(#${id}-clip)">
-        ${color ? svg`<rect class="digging-area-color" width="${view.width}" height="${sceneHeight}" fill="${color}" fill-opacity="0.12" />` : null}
-        <g class="digging-terrain" mask="url(#${id}-terrain-mask)">
+        ${color && !emptySpace ? svg`<rect class="digging-area-color" width="${view.width}" height="${sceneHeight}" fill="${color}" fill-opacity="0.12" />` : null}
+        ${emptySpace ? null : svg`<g class="digging-terrain" mask="url(#${id}-terrain-mask)">
           <rect width="${view.width}" height="${sceneHeight}" fill="url(#${id}-material)" />
           ${scale >= 3 ? svg`<rect width="${view.width}" height="${sceneHeight}" fill="url(#${id}-pixels)" />` : null}
-        </g>
+        </g>`}
         ${path ? svg`<g mask="url(#${id}-path-outline)">
           <path class="digging-path-outline" d="${path.path}" fill="none" stroke="${color ?? "#fff"}"
             stroke-width="${path.pathWidth + 5}" stroke-linecap="round" stroke-linejoin="round" />
