@@ -2,6 +2,8 @@
 // APP STATE - Manages global application state
 // ============================================================================
 
+import {readReactionReagents, reactionUrl} from "../../components/reactionUrl.js";
+
 export class AppState {
   constructor(eventBus, dataRepo) {
     this.eventBus = eventBus;
@@ -13,23 +15,41 @@ export class AppState {
     this.productChoices = null;
     this.isResetting = false;
     this.minReactionSpeed = 0;
+    this.excludeUnusedMaterials = true;
     this.reactionSource = "base";
     this._initializeFromURL();
   }
 
   _initializeFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
-    this.selectedReagents = urlParams.get("reagents")?.split(",").filter(Boolean) || [];
+    this.selectedReagents = readReactionReagents(window.location.href);
     this.selectedProduct = urlParams.get("product") || "";
     const speedParam = urlParams.get("minSpeed");
     this.minReactionSpeed = speedParam ? parseInt(speedParam) : 0;
     const sourceParam = urlParams.get("source");
-    this.reactionSource = sourceParam || "base";
+    this.reactionSource = "base";
+    this.excludeUnusedMaterials = urlParams.get("excludeUnused") !== "false";
 
     // Apply reaction source
     if (sourceParam && this.dataRepo.setReactionSource(sourceParam)) {
+      this.reactionSource = sourceParam;
       console.log(`Loaded reaction source: ${sourceParam}`);
     }
+    this.dataRepo.setExcludeUnusedMaterials(this.excludeUnusedMaterials);
+    this._clearUnavailableSelections();
+  }
+
+  _clearUnavailableSelections() {
+    this.selectedReagents = this.selectedReagents.filter((id) => this.dataRepo.isMaterialAvailable(id));
+    if (!this.dataRepo.isMaterialAvailable(this.selectedProduct)) this.selectedProduct = "";
+  }
+
+  setExcludeUnusedMaterials(enabled) {
+    this.excludeUnusedMaterials = !!enabled;
+    this.dataRepo.setExcludeUnusedMaterials(this.excludeUnusedMaterials);
+    this._clearUnavailableSelections();
+    this.visibleTagMaterials.clear();
+    this.eventBus.emit("stateChanged", this);
   }
 
   update(changes) {
@@ -97,6 +117,8 @@ export class AppState {
     this.selectedReagents = [];
     this.selectedProduct = "";
     this.minReactionSpeed = 0;
+    this.excludeUnusedMaterials = true;
+    this.dataRepo.setExcludeUnusedMaterials(true);
     // Don't reset reaction source on reset
 
     if (this.reagentChoices?.initialised) this.reagentChoices.removeActiveItems();
@@ -116,23 +138,6 @@ export class AppState {
 
   updateURL() {
     if (this.isResetting) return;
-
-    const url = new URL(window.location.href);
-    url.search = "";
-
-    if (this.selectedReagents.length > 0) {
-      url.searchParams.set("reagents", this.selectedReagents.join(","));
-    }
-    if (this.selectedProduct) {
-      url.searchParams.set("product", this.selectedProduct);
-    }
-    if (this.minReactionSpeed > 0) {
-      url.searchParams.set("minSpeed", this.minReactionSpeed.toString());
-    }
-    if (this.reactionSource !== "base") {
-      url.searchParams.set("source", this.reactionSource);
-    }
-
-    window.history.replaceState({}, "", url.toString());
+    window.history.replaceState({}, "", reactionUrl(window.location.href, this));
   }
 }

@@ -1,0 +1,30 @@
+The unused filter targets original material definitions in the recorded Noita
+release, including rare drops, NG+, official Nightmare and cosmetic uses.
+Shifted aliases keep old names but do not establish the old definition's use.
+
+Evidence:
+  src/data/material-availability/source-review.json
+  src/data/material-availability/native-evidence.json
+  src/data/material-availability/validation-review.json
+  src/data/material-availability/closure-review.json
+
+Source search results are candidates. Before approving an exclusion, review
+registry/flask eligibility, world/entity creation, Lua/dynamic loads,
+reactions/transformations, and native creation. Record all prerequisites.
+The independent closure review must bind the source/native file digests.
+
+After evidence review:
+  node scripts/certify-unused-materials.mjs
+  node scripts/audit-material-availability.mjs --game-data /path/to/noita/data
+  npm test
+  npm run build
+
+Certification materializes the independent review; it does not infer nonuse.
+The audit checks the executable, source/image/Nightmare corpus fingerprints,
+XML/native-default flask reconstruction, dependencies and contrary sources.
+Build/dev/test hooks validate the checked-in report and compact UI index;
+normal development does not require an installed game or a running server.
+
+The optional scripts/noita-material-probe records live registry/API results.
+It has not been executed in Noita during this audit. Static evidence and
+automated application tests do not constitute observed gameplay execution.

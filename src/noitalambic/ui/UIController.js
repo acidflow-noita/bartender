@@ -4,6 +4,7 @@
 
 import { CONFIG } from "../config/config.js";
 import { UIHelper } from "./UIHelper.js";
+import {reactionUrl} from "../../components/reactionUrl.js";
 
 export class UIController {
   constructor(state, reactionFilter, graphRenderer, dataRepo) {
@@ -17,20 +18,7 @@ export class UIController {
     return Inputs.button(htl.html`<img src="${CONFIG.urls.imageBase}/images/icons/copy.svg" />Share`, {
       value: null,
       reduce: () => {
-        const url = new URL(window.location.href);
-        url.search = "";
-
-        if (this.state.selectedReagents.length > 0) {
-          url.searchParams.set("reagents", this.state.selectedReagents.join(","));
-        }
-        if (this.state.selectedProduct) {
-          url.searchParams.set("product", this.state.selectedProduct);
-        }
-        if (this.state.minReactionSpeed > 0) {
-          url.searchParams.set("minSpeed", this.state.minReactionSpeed.toString());
-        }
-
-        const shareUrl = url.toString();
+        const shareUrl = reactionUrl(window.location.href, this.state);
         navigator.clipboard
           .writeText(shareUrl)
           .then(() => UIHelper.showNotification("URL copied to clipboard"))
@@ -68,6 +56,24 @@ export class UIController {
         },
       },
     );
+  }
+
+  createUnusedMaterialsToggle(Inputs) {
+    const toggle = Inputs.toggle({label: "Exclude verified unused materials (base game)", value: this.state.excludeUnusedMaterials});
+    toggle.addEventListener("input", () => this.state.setExcludeUnusedMaterials(toggle.value));
+    this.unusedMaterialsToggle = toggle;
+    this.updateUnusedMaterialsToggle();
+    return toggle;
+  }
+
+  updateUnusedMaterialsToggle() {
+    const toggle = this.unusedMaterialsToggle;
+    if (!toggle) return;
+    toggle.value = this.state.excludeUnusedMaterials;
+    toggle.querySelector("input").disabled = this.state.reactionSource !== "base";
+    toggle.title = this.state.reactionSource !== "base"
+      ? "Material availability has only been audited for the base game."
+      : "Only audited unused materials are excluded. Rare and unresolved materials remain available.";
   }
 
   createExportButton(Inputs, htl) {
@@ -237,6 +243,7 @@ export class UIController {
   }
 
   updateUI() {
+    this.updateUnusedMaterialsToggle();
     const filteredReactions = this.reactionFilter.getFilteredReactions(
       this.state.selectedReagents,
       this.state.selectedProduct,

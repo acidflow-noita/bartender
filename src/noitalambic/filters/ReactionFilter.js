@@ -52,6 +52,7 @@ export class ReactionFilter {
 
     return Array.from(indices)
       .map((index) => this.dataRepo.getReaction(index))
+      .filter((reaction) => this.dataRepo.isReactionAvailable(reaction))
       .sort((a, b) => b.reactionRate - a.reactionRate);
   }
 
@@ -91,6 +92,7 @@ export class ReactionFilter {
     const availableIds = new Set();
     indices.forEach((index) => {
       const reaction = this.dataRepo.getReaction(index);
+      if (!this.dataRepo.isReactionAvailable(reaction)) return;
       [reaction.reagent1, reaction.reagent2, reaction.reagent3]
         .filter(Boolean)
         .flatMap((id) => this.dataRepo.resolveTag(id))
@@ -115,6 +117,7 @@ export class ReactionFilter {
     const availableIds = new Set();
     indices.forEach((index) => {
       const reaction = this.dataRepo.getReaction(index);
+      if (!this.dataRepo.isReactionAvailable(reaction)) return;
       [reaction.product1, reaction.product2, reaction.product3]
         .filter(Boolean)
         .flatMap((id) => this.dataRepo.resolveTag(id))
@@ -127,6 +130,7 @@ export class ReactionFilter {
   _createChoices(materialIds) {
     return materialIds
       .filter((id) => !this.dataRepo.isTag(id))
+      .filter((id) => this.dataRepo.isMaterialAvailable(id))
       .map((id) => {
         const material = this.dataRepo.getMaterial(id);
         return material

@@ -1,0 +1,60 @@
+{
+  "purpose": "Primary shipped-source evidence for random-material flask eligibility and chest access.",
+  "sources": [
+    {
+      "path": "noita_bin/tools_modding/lua_api_documentation.txt",
+      "sha256": "3d21c1f7ee137c57320592461a9c68d4123cc2a018d5b9ecad80076e239e137d",
+      "excerpts": [
+        {
+          "start": 109,
+          "end": 113,
+          "text": "CellFactory_GetAllLiquids( include_statics:bool = true, include_particle_fx_materials:bool = false ) -> {string}\nCellFactory_GetAllSands( include_statics:bool = true, include_particle_fx_materials:bool = false ) -> {string}\nCellFactory_GetAllGases( include_statics:bool = true, include_particle_fx_materials:bool = false ) -> {string}\nCellFactory_GetAllFires( include_statics:bool = true, include_particle_fx_materials:bool = false ) -> {string}\nCellFactory_GetAllSolids( include_statics:bool = true, include_particle_fx_materials:bool = false ) -> {string}"
+        }
+      ]
+    },
+    {
+      "path": "data/scripts/items/potion_random_material.lua",
+      "sha256": "fd01ccc91042c47c485ebf8f9aeede3b4a636fb995cd0cc1a7dad9992c5d2734",
+      "excerpts": [
+        {
+          "start": 1,
+          "end": 20,
+          "text": " dofile_once(\"data/scripts/lib/utilities.lua\")\n\nfunction init( entity_id )\n\tlocal x,y = EntityGetTransform( entity_id )\n\tSetRandomSeed( x, y )\n\t-- so that all the potions will be the same in every position with the same seed\n\t-- local potion = random_from_array( potions )\n\tlocal materials = nil\n\n\tif( Random( 0, 100 ) <= 50 ) then\n\t\tmaterials = CellFactory_GetAllLiquids( false )\n\telse\n\t\tmaterials = CellFactory_GetAllSands( false )\n\tend\n\n\tlocal potion_material = random_from_array( materials )\n\n\t-- AddMaterialInventoryMaterial( entity_id, potion.material, 1000 )\n\tAddMaterialInventoryMaterial( entity_id, potion_material, 1000 )\nend"
+        }
+      ]
+    },
+    {
+      "path": "data/entities/items/pickup/potion_random_material.xml",
+      "sha256": "bc1d0c493adf21d164a3289a24cb2a542f8124fbc345b99fc6c8701df57acb86",
+      "excerpts": [
+        {
+          "start": 1,
+          "end": 14,
+          "text": "<Entity tags=\"hittable,teleportable_NOT,item_physics\" >\n\n   <Base file=\"data/entities/items/pickup/potion.xml\" >\n    <LuaComponent \n\t\texecute_on_added=\"1\"\n\t\tremove_after_executed=\"1\"\n\t\tcall_init_function=\"1\"\n\t\tscript_source_file=\"data/scripts/items/potion_random_material.lua\" \n    ></LuaComponent>\n\n   </Base>\n\n</Entity>\n"
+        }
+      ]
+    },
+    {
+      "path": "data/scripts/items/chest_random_super.lua",
+      "sha256": "e972aa89228c4817f4caac24fcdf9e6be0d863a0f348f001e5dd9bee8a9baa31",
+      "excerpts": [
+        {
+          "start": 30,
+          "end": 47,
+          "text": "\t\tcount = count - 1\n\t\tlocal rnd = Random(1,100)\n\n\t\tif( rnd <= 10 ) then\n\t\t\t-------------------------------------------------------------------\n\t\t\t-- Potion\n\t\t\t-------------------------------------------------------------------\n\t\t\trnd = Random(0,100)\n\t\t\tif (rnd <= 30) then\n\t\t\t\ttable.insert( entities, { \"data/entities/items/pickup/potion.xml\" } )\n\t\t\t\ttable.insert( entities, { \"data/entities/items/pickup/potion.xml\" } )\n\t\t\t\ttable.insert( entities, { \"data/entities/items/pickup/potion_secret.xml\" } )\n\t\t\telse\n\t\t\t\ttable.insert( entities, { \"data/entities/items/pickup/potion_secret.xml\" } )\n\t\t\t\ttable.insert( entities, { \"data/entities/items/pickup/potion_secret.xml\" } )\n\t\t\t\ttable.insert( entities, { \"data/entities/items/pickup/potion_random_material.xml\" } )\n\t\t\tend\n\t\telseif( rnd <= 15 ) then"
+        }
+      ]
+    },
+    {
+      "path": "data/scripts/items/chest_random.lua",
+      "sha256": "2e1e4d0c981270bbe57e73b35301731481aed11ea0e888fdd2c51b9cd9e97fcf",
+      "excerpts": [
+        {
+          "start": 142,
+          "end": 159,
+          "text": "\t\telseif( rnd <= 50 ) then\n\t\t\t-------------------------------------------------------------------\n\t\t\t-- Potion\n\t\t\t-------------------------------------------------------------------\n\t\t\trnd = Random(0,100)\n\t\t\tif (rnd <= 94) then\n\t\t\t\ttable.insert( entities, { \"data/entities/items/pickup/potion.xml\" } )\n\t\t\telseif (rnd <= 98) then\n\t\t\t\ttable.insert( entities, { \"data/entities/items/pickup/powder_stash.xml\" } )\n\t\t\telseif (rnd <= 100) then\n\t\t\t\trnd = Random(0,100)\n\t\t\t\tif( rnd <= 98 ) then\n\t\t\t\t\ttable.insert( entities, { \"data/entities/items/pickup/potion_secret.xml\" } )\n\t\t\t\telseif( rnd <= 100 ) then\n\t\t\t\t\ttable.insert( entities, { \"data/entities/items/pickup/potion_random_material.xml\" } )\n\t\t\t\tend\n\t\t\tend\n\t\telseif( rnd <= 54 ) then"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5230 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Independent challenge of the availability scanner's positive evidence. This is a source audit, not a runtime capture or certification of every material.",
+  "reviewedOn": "2026-10-16",
+  "scope": "The original 404 obtainable classifications, registry coverage, XML producer semantics, transformation/reaction closure and image decoding/roles. The separate source review owns the original 14 exclusions and 48 unknowns.",
+  "sources": {
+    "materialsXmlSha256": "122df34514edaf312e1a15a619b3d6a44d49ce605c929d5950c9051a57429d04",
+    "runtimeMaterialsSha256": "edbf8cdd07e43383cb9b497da92fda63ef40bf97553b55252fd88c0801da10d6",
+    "componentDocumentationSha256": "08c94c2dea03774c7cb6f54691a77bb204a15838527463efc37e8eebe7e3ee2b",
+    "luaApiDocumentationSha256": "3d21c1f7ee137c57320592461a9c68d4123cc2a018d5b9ecad80076e239e137d",
+    "originalAvailabilityReportSha256": "100b33bbf2f0f80f3101ab05e85292fbc4b329ae51f71bc839c1dbdd97cf2caa"
+  },
+  "registry": {
+    "runtimeRecords": 466,
+    "sourceDefinitions": 468,
+    "sourceUniqueIds": 466,
+    "duplicateDefinitions": [
+      "rock_box2d",
+      "meat_pumpkin"
+    ],
+    "missingFromRuntime": [],
+    "runtimeWithoutSourceDefinition": [],
+    "existingApiDumps": [
+      {
+        "path": "src/data/lua_scripts/enhanced_liquids.json",
+        "sha256": "2a5d554ba886ee9fb902f81cc348142664100ddd974e4a60b27d7ba243adfead",
+        "count": 103,
+        "numericIdMismatches": []
+      },
+      {
+        "path": "src/data/lua_scripts/enhanced_sands.json",
+        "sha256": "9f7aa4da236c4de03adb4107dba281be88e5707425b02d3a41abc4a8c8c85a15",
+        "count": 186,
+        "numericIdMismatches": []
+      },
+      {
+        "path": "src/data/lua_scripts/enhanced_gases.json",
+        "sha256": "b16849266e6edbb14bf92b13f95bd1e40d48269c3dc217999e895b2a94300611",
+        "count": 26,
+        "numericIdMismatches": []
+      },
+      {
+        "path": "src/data/lua_scripts/enhanced_fires.json",
+        "sha256": "ca3da44ae4ee2c78c019671f3ac854b5b5eb1b0e9a945ef10a699f90ccc5a01a",
+        "count": 18,
+        "numericIdMismatches": []
+      },
+      {
+        "path": "src/data/lua_scripts/enhanced_solids.json",
+        "sha256": "8fc861beb6e2606a03c4eba02e66bfbab3b377a7396e65f852253d8cf44a3d4e",
+        "count": 132,
+        "numericIdMismatches": []
+      }
+    ],
+    "finding": "466 unique XML IDs exactly match the 466 report records. Historical API dumps cover all 465 non-air IDs and agree with runtime JSON array indices. Their originating build/executable is not recorded, so they corroborate registry shape but cannot independently certify the target build.",
+    "requiredGuard": "Persist engine numeric IDs explicitly; validate runtime fields against the selected build and do not assume a future JSON sort preserves index-to-ID mapping. Preserve duplicate XML definition order and establish the engine's overwrite semantics."
+  },
+  "findings": [
+    {
+      "id": "detector-is-not-producer",
+      "severity": "incorrect-evidence",
+      "affectedMaterialIds": [
+        "templebrick_noedge_static"
+      ],
+      "observation": "The report's recorded producer is a MaterialAreaCheckerComponent. It checks existing material and produces none.",
+      "evidence": [
+        {
+          "path": "data/entities/buildings/temple_areacheck_horizontal.xml",
+          "lines": [
+            3,
+            8,
+            9
+          ],
+          "finding": "The matched material attribute belongs to the checker."
+        },
+        {
+          "path": "noita_bin/tools_modding/component_documentation.txt",
+          "lines": [
+            1604,
+            1607,
+            1613,
+            1614
+          ],
+          "finding": "The component checks presence/fullness and sends a message."
+        }
+      ],
+      "replacementWitness": [
+        {
+          "path": "data/scripts/biomes/temple_altar_right.lua",
+          "lines": [
+            157
+          ],
+          "finding": "Loads the workshop exit."
+        },
+        {
+          "path": "data/scripts/buildings/workshop_exit.lua",
+          "lines": [
+            4,
+            11
+          ],
+          "finding": "Exit collision loads workshop_collapse.xml."
+        },
+        {
+          "path": "data/entities/misc/workshop_collapse.xml",
+          "lines": [
+            18,
+            19,
+            21,
+            22,
+            23,
+            24
+          ],
+          "finding": "Enabled converter changes existing glowstone_altar into templebrick_noedge_static."
+        }
+      ],
+      "recommendation": "Exclude detector components from producer extraction. Keep this material using the independently identified conversion route, conditional on an obtainable input."
+    },
+    {
+      "id": "physics-shape-audio-is-not-pixel-body",
+      "severity": "incorrect-evidence",
+      "affectedMaterialIds": [
+        "rock_box2d_nohit_heavy"
+      ],
+      "observation": "The report uses PhysicsShapeComponent.material as a body-material producer, but the official documentation defines this field as collision audio selection.",
+      "evidence": [
+        {
+          "path": "data/entities/animals/boss_sky/boss_sky.xml",
+          "lines": [
+            16,
+            22,
+            27,
+            41,
+            42,
+            43
+          ],
+          "finding": "The circular collision shape has the misleading material field. A separate DamageModel ragdoll material exists, with DISINTEGRATED forced."
+        },
+        {
+          "path": "noita_bin/tools_modding/component_documentation.txt",
+          "lines": [
+            2057,
+            2074
+          ],
+          "finding": "PhysicsShape material is for collision audio."
+        },
+        {
+          "path": "noita_bin/tools_modding/component_documentation.txt",
+          "lines": [
+            1961,
+            1971,
+            1973
+          ],
+          "finding": "PhysicsImageShape material does create an image-based body."
+        }
+      ],
+      "recommendation": "Do not accept PhysicsShapeComponent.material as a cell-production witness. Record the separate ragdoll route as conditional until DISINTEGRATED behavior is established; do not claim the material is unused just because this proof fails."
+    },
+    {
+      "id": "producer-activation-ignored",
+      "severity": "missing-conditions",
+      "affectedMaterialIds": [
+        "root_growth",
+        "rainbow_gas"
+      ],
+      "observation": "The report accepts disabled/non-emitting components without their activation paths. Root growth has an explicit activation witness; rainbow gas relies on native effect behavior.",
+      "evidence": [
+        {
+          "path": "data/entities/props/root_grower.xml",
+          "lines": [
+            34,
+            35,
+            36,
+            37,
+            52,
+            98,
+            100,
+            101
+          ],
+          "finding": "The grow emitter starts disabled and is wired to nearby-player/damage events."
+        },
+        {
+          "path": "data/scripts/props/root_grower_start.lua",
+          "lines": [
+            23,
+            26,
+            27,
+            30,
+            31
+          ],
+          "finding": "Both event callbacks enable the grow-tagged components."
+        },
+        {
+          "path": "data/entities/misc/effect_rainbow_farts.xml",
+          "lines": [
+            7,
+            8,
+            15,
+            30,
+            34
+          ],
+          "finding": "RAINBOW_FARTS effect, real-particle emitter, initially is_emitting=0."
+        }
+      ],
+      "recommendation": "Require enabled/emitting/positive-count conditions or a source-specific activation witness. Preserve root_growth using its callback chain. Do not apply a blanket override for all disabled components."
+    },
+    {
+      "id": "cosmetic-use-versus-interactive-material",
+      "severity": "semantic-distinction",
+      "affectedMaterialIds": [
+        "spark",
+        "spark_electric",
+        "spark_green",
+        "spark_blue",
+        "spark_teal"
+      ],
+      "observation": "Several reported material producers emit cosmetic particles only. That proves the content is used, but does not prove cells usable in reactions are produced by that route.",
+      "evidence": [
+        {
+          "path": "data/entities/projectiles/bomb.xml",
+          "lines": [
+            77,
+            78,
+            90,
+            91,
+            94,
+            95
+          ],
+          "finding": "The cited spark emitter emits cosmetic particles, with grid creation disabled."
+        },
+        {
+          "path": "data/entities/particles/image_emitters/spell_refresh_effect.xml",
+          "lines": [
+            4,
+            8,
+            9,
+            20,
+            25
+          ],
+          "finding": "The cited spark_teal route is cosmetic."
+        },
+        {
+          "path": "noita_bin/tools_modding/component_documentation.txt",
+          "lines": [
+            1714,
+            1715,
+            1716,
+            1717
+          ],
+          "finding": "Docs distinguish grid cells, physical particles, and cosmetic particles with no other physical interactions."
+        }
+      ],
+      "recommendation": "Keep cosmetic use separate from physical availability. A 'used content' status can protect cosmetic materials; do not use a cosmetic witness as an obtainable reagent seed in reaction closure."
+    },
+    {
+      "id": "defaults-and-producer-fields-omitted",
+      "severity": "incomplete-search",
+      "affectedMaterialIds": [
+        "wood_loose"
+      ],
+      "observation": "The regex misses documented defaults and several explicit producer attributes. wood_loose has ordinary world-generation routes omitted by the scanner.",
+      "evidence": [
+        {
+          "path": "noita_bin/tools_modding/component_documentation.txt",
+          "lines": [
+            2104,
+            2107,
+            2111
+          ],
+          "finding": "PixelSprite material defaults to wood_loose and makes sprite material cells/bodies."
+        },
+        {
+          "path": "data/entities/props/base_coalmine_structure.xml",
+          "lines": [
+            4,
+            5,
+            6,
+            9
+          ],
+          "finding": "Enabled PixelSprite omits material, so the documented default applies."
+        },
+        {
+          "path": "data/entities/props/coalmine_structure_01.xml",
+          "lines": [
+            5
+          ],
+          "finding": "Inherits the default-producing structure."
+        },
+        {
+          "path": "data/scripts/biomes/coalmine.lua",
+          "lines": [
+            921,
+            928
+          ],
+          "finding": "World generation names that structure."
+        },
+        {
+          "path": "data/biome/hills.xml",
+          "lines": [
+            321,
+            322,
+            323,
+            326,
+            328,
+            329
+          ],
+          "finding": "Enabled, non-visual vegetation explicitly creates wood_loose with positive probability."
+        }
+      ],
+      "recommendation": "Resolve XML inheritance/defaults and use component-specific fields. Missing fields include blood_spray_material, tree_material, chunk_material, shell_casing_material, on_death_emit_particle_type, create_cell_material and spark_material."
+    },
+    {
+      "id": "unconditional-property-transitions",
+      "severity": "unsound-closure-rule",
+      "observation": "Any named transformation property of an obtainable source is accepted regardless of whether the triggering mechanism can run. Numeric material references are dropped entirely.",
+      "evidence": [
+        {
+          "path": "src/data/materials.json",
+          "lines": [],
+          "finding": "air has default on_fire_flame_material=fire and on_fire_smoke_material=smoke despite burnable=false and generates_smoke=0. ice_static.warmth_melts_to_material is numeric370; the old scanner ignores it."
+        },
+        {
+          "path": "data/materials.xml",
+          "lines": [
+            4207,
+            4209,
+            4210,
+            4215,
+            12810,
+            12811,
+            14514
+          ],
+          "finding": "Sleep conversion, break conversion, heat conversion and collision reversion are separately configured mechanisms."
+        },
+        {
+          "path": "noita_bin/tools_modding/component_documentation.txt",
+          "lines": [
+            1576
+          ],
+          "finding": "MagicConvert temperature mode explicitly invokes CellData cold/warm transforms."
+        }
+      ],
+      "recommendation": "Resolve numeric IDs against a validated registry. Gate each edge by its actual event mechanism, not just the target field. Do not infer that solid_on_collision_convert gates the separate collision splash material; native semantics must distinguish them. Retain unproved edges as candidates."
+    },
+    {
+      "id": "requirement-reactions-misread",
+      "severity": "incorrect-rule-semantics",
+      "observation": "The scanner puts ReqReaction entries in the same closure as contact reactions. Local comments explicitly describe lack of a required neighbor, not contact with that neighbor.",
+      "evidence": [
+        {
+          "path": "data/materials.xml",
+          "lines": [
+            15791,
+            15792,
+            15793,
+            15794,
+            15795,
+            15798,
+            15799,
+            15800,
+            15801
+          ],
+          "finding": "Plants become soil when the required air is missing; the ceiling plant has a directional condition."
+        }
+      ],
+      "currentImpact": "All five shipped ReqReaction outputs are soil/air, both independently available; this bug does not establish any new unavailable material in the original report.",
+      "recommendation": "Preserve reaction kind and interpret absence/direction separately. Do not require the absent neighbor as an available input. Track req_lifetime and other geometric conditions in evidence rather than dropping them."
+    },
+    {
+      "id": "images-need-role-and-remapping",
+      "severity": "incomplete-proof-model",
+      "observation": "All 42 original image-backed records have an actual material-layer call-site. The algorithm nevertheless only distinguishes visuals by filenames and ignores caller-supplied remappings and spawn colors.",
+      "evidence": [
+        {
+          "path": "noita_bin/tools_modding/lua_api_documentation.txt",
+          "lines": [
+            75,
+            131
+          ],
+          "finding": "LoadPixelScene distinguishes materials/colors/background arguments and accepts color_to_material_table; RegisterSpawnFunction associates colors with callbacks."
+        },
+        {
+          "path": "data/scripts/biomes/coalmine.lua",
+          "lines": [
+            802,
+            803,
+            806,
+            811,
+            815
+          ],
+          "finding": "The same material image is instantiated with different material-color mappings."
+        },
+        {
+          "path": "data/biome/_pixel_scenes.xml",
+          "lines": [
+            131
+          ],
+          "finding": "PixelScene declares separate material_filename/colors_filename/background_filename roles."
+        }
+      ],
+      "recommendation": "Record reference roles from actual XML attributes and Lua calls. Only material layers can support a Wang-color witness. Carry remappings and exclude spawn-marker colors in their biome context. Retain all42 role-backed witnesses, subject to their stated placement conditions."
+    },
+    {
+      "id": "source-reachability-is-an-overapproximation",
+      "severity": "incomplete-proof-model",
+      "observation": "Literal-path reachability from a whole Lua file includes dormant function bodies, zero-probability entries and overwritten Base attributes. It misses constructed paths, defaults and reaction-spawned entities.",
+      "evidence": [
+        {
+          "path": "data/entities/animals/thundermage_big.xml",
+          "lines": [
+            205,
+            233,
+            238,
+            242
+          ],
+          "finding": "The fire_blue attribute is an override of the fourth inherited emitter; evaluating the fragment without its base loses actual emission flags."
+        },
+        {
+          "path": "data/materials.xml",
+          "lines": [
+            16839,
+            16840,
+            16842
+          ],
+          "finding": "A material reaction loads an entity, but materials.xml is omitted from the file-reference graph."
+        },
+        {
+          "path": "data/entities/misc/loose_chunks_huge.xml",
+          "lines": [
+            6
+          ],
+          "finding": "The engine expands $[0-4] image paths, not literal filenames."
+        }
+      ],
+      "recommendation": "Use source reachability as candidate discovery. Store at least one reviewed creation/activation witness for positive claims, resolve Base overrides, and include dynamic engine conventions explicitly. Never use this overapproximation as proof that all unvisited content is unused."
+    }
+  ],
+  "producerRules": [
+    {
+      "component": "PhysicsImageShapeComponent",
+      "fields": [
+        "material"
+      ],
+      "kind": "physical-body",
+      "guards": [
+        "Component enabled in a reachable instantiated entity.",
+        "Valid image_file or resolved use_sprite, with a compatible physics body.",
+        "Apply Base overrides before choosing material."
+      ],
+      "evidence": [
+        {
+          "path": "noita_bin/tools_modding/component_documentation.txt",
+          "lines": [
+            1971,
+            1973
+          ],
+          "finding": "Image body creation."
+        }
+      ]
+    },
+    {
+      "component": "PixelSpriteComponent",
+      "fields": [
+        "material"
+      ],
+      "defaultMaterial": "wood_loose",
+      "kind": "grid-or-body",
+      "guards": [
+        "Enabled component and nonempty image.",
+        "create_box2d_bodies chooses bodies versus grid cells."
+      ],
+      "evidence": [
+        {
+          "path": "noita_bin/tools_modding/component_documentation.txt",
+          "lines": [
+            2104,
+            2107,
+            2111
+          ],
+          "finding": "Pixel sprite source material and output mode."
+        }
+      ]
+    },
+    {
+      "component": "ParticleEmitterComponent",
+      "fields": [
+        "emitted_material_name"
+      ],
+      "kind": "emitter",
+      "guards": [
+        "Enabled, is_emitting, positive count/emission chance, and surviving delay/lifetime, or explicit activation proof.",
+        "use_material_inventory changes the source; do not accept emitted_material_name as that emitter's source when inventory is selected.",
+        "create_real_particles => grid; emit_real_particles => physical particles; emit_cosmetic_particles alone => cosmetic use only."
+      ],
+      "evidence": [
+        {
+          "path": "noita_bin/tools_modding/component_documentation.txt",
+          "lines": [
+            1715,
+            1716,
+            1717,
+            1749,
+            1751,
+            1752
+          ],
+          "finding": "Modes, chance, activation and inventory override."
+        }
+      ]
+    },
+    {
+      "component": "DamageModelComponent",
+      "fields": [
+        "blood_material",
+        "blood_spray_material",
+        "ragdoll_material"
+      ],
+      "kind": "damage-or-death",
+      "guards": [
+        "Damage/death possible on a reachable host.",
+        "blood_multiplier>0 for blood, unless a separate native rule establishes another emission.",
+        "create_ragdoll is true for ragdolls, with a valid filename/sprite and applicable ragdoll effect.",
+        "Forced effects such as DISINTEGRATED require a reviewed/native witness; do not assume a persistent body."
+      ],
+      "evidence": [
+        {
+          "path": "noita_bin/tools_modding/component_documentation.txt",
+          "lines": [
+            743,
+            744,
+            747,
+            748,
+            749,
+            750,
+            755
+          ],
+          "finding": "Death and damage output fields/guards."
+        }
+      ]
+    },
+    {
+      "component": "GameEffectComponent",
+      "fields": [
+        "ragdoll_material"
+      ],
+      "kind": "conditional-ragdoll-override",
+      "guards": [
+        "Effect actually applied to a host which can die/ragdoll while active.",
+        "Treat as conditional behavior, not direct entity spawn."
+      ],
+      "evidence": [
+        {
+          "path": "data/entities/misc/effect_frozen.xml",
+          "lines": [
+            5,
+            6,
+            7,
+            9,
+            10
+          ],
+          "finding": "Frozen status changes ragdoll material."
+        }
+      ]
+    },
+    {
+      "component": "MagicConvertMaterialComponent",
+      "fields": [
+        "to_material",
+        "to_material_array"
+      ],
+      "kind": "conversion",
+      "guards": [
+        "Enabled with positive work/area.",
+        "Pair from_material_array and to_material_array positionally; require the corresponding input route.",
+        "For scalar targets require available from_material/from_material_tag, from_any_material, or a verified convert_entities route.",
+        "Do not conflate temperature mode with scalar output; use cold/warm transitions."
+      ],
+      "evidence": [
+        {
+          "path": "noita_bin/tools_modding/component_documentation.txt",
+          "lines": [
+            1570,
+            1571,
+            1572,
+            1576,
+            1580,
+            1584,
+            1585,
+            1588,
+            1589
+          ],
+          "finding": "Input restrictions, conversion modes and arrays."
+        }
+      ]
+    },
+    {
+      "component": "MaterialInventoryComponent/count_per_material_type/Material",
+      "fields": [
+        "material"
+      ],
+      "kind": "inventory",
+      "guards": [
+        "count>0 under the correct parent component.",
+        "Record inventory existence separately from spill/leak capability when establishing physical-cell access."
+      ],
+      "evidence": [
+        {
+          "path": "data/entities/base_prop_crystal.xml",
+          "lines": [
+            22,
+            24,
+            25,
+            32,
+            33
+          ],
+          "finding": "Initialized inventory plus spill/leak configuration."
+        },
+        {
+          "path": "noita_bin/tools_modding/component_documentation.txt",
+          "lines": [
+            1622,
+            1624,
+            1641
+          ],
+          "finding": "Inventory and output modes."
+        }
+      ]
+    },
+    {
+      "component": "MaterialSeaSpawnerComponent",
+      "fields": [
+        "material"
+      ],
+      "kind": "grid-spawn",
+      "guards": [
+        "Enabled with nonempty size and positive speed."
+      ],
+      "evidence": [
+        {
+          "path": "noita_bin/tools_modding/component_documentation.txt",
+          "lines": [
+            1649,
+            1657,
+            1658
+          ],
+          "finding": "Created material and covered area."
+        }
+      ]
+    },
+    {
+      "component": "LooseGroundComponent",
+      "fields": [
+        "chunk_material"
+      ],
+      "kind": "conditional-physical-chunk",
+      "guards": [
+        "Enabled; positive chunk_probability; chunk_count not exhausted; suitable nearby terrain.",
+        "The separate probability field controls loosening rays and should not replace the chunk probability test."
+      ],
+      "evidence": [
+        {
+          "path": "noita_bin/tools_modding/component_documentation.txt",
+          "lines": [
+            1502,
+            1503,
+            1508,
+            1510,
+            1513
+          ],
+          "finding": "Chunk creation controls."
+        }
+      ]
+    },
+    {
+      "component": "ProjectileComponent",
+      "fields": [
+        "shell_casing_material",
+        "on_death_emit_particle_type"
+      ],
+      "kind": "conditional-projectile-output",
+      "guards": [
+        "create_shell_casing true for casings.",
+        "on_death_emit_particle true and count>0, plus an attainable death, for death particles."
+      ],
+      "evidence": [
+        {
+          "path": "noita_bin/tools_modding/component_documentation.txt",
+          "lines": [
+            2220,
+            2221,
+            2242,
+            2243,
+            2247
+          ],
+          "finding": "Explicit enable flags."
+        }
+      ]
+    },
+    {
+      "component": "ArcComponent",
+      "fields": [
+        "material"
+      ],
+      "kind": "arc-material-use",
+      "guards": [
+        "Reachable arc type/target and positive lifetime.",
+        "Keep physical-cell behavior conditional until arc implementation is validated."
+      ],
+      "evidence": [
+        {
+          "path": "noita_bin/tools_modding/component_documentation.txt",
+          "lines": [
+            251,
+            253,
+            254,
+            256
+          ],
+          "finding": "Arc lifetime, material and target."
+        }
+      ]
+    },
+    {
+      "component": "MaterialComponent",
+      "fields": [
+        "material_name"
+      ],
+      "kind": "biome-terrain",
+      "guards": [
+        "Reachable biome, enabled component, viable noise/placement range.",
+        "Retain placement parameters in evidence rather than assuming every listed component runs."
+      ],
+      "evidence": [
+        {
+          "path": "data/biome/hills.xml",
+          "lines": [
+            231,
+            232,
+            233,
+            238,
+            239,
+            240
+          ],
+          "finding": "Enabled sand terrain component and noise limits."
+        }
+      ]
+    },
+    {
+      "component": "VegetationComponent",
+      "fields": [
+        "tree_material"
+      ],
+      "kind": "biome-vegetation",
+      "guards": [
+        "Reachable biome, enabled, is_visual=false, positive tree_probability, valid tree image.",
+        "load_this_xml_instead diverts output; follow that entity rather than assuming tree_material produces cells."
+      ],
+      "evidence": [
+        {
+          "path": "data/biome/hills.xml",
+          "lines": [
+            321,
+            322,
+            323,
+            326,
+            328,
+            329
+          ],
+          "finding": "Non-visual wood vegetation creation."
+        }
+      ]
+    },
+    {
+      "component": "config_explosion/ExplosionConfig",
+      "fields": [
+        "create_cell_material",
+        "spark_material"
+      ],
+      "kind": "explosion-output-candidate",
+      "guards": [
+        "Resolve owning component and explosion trigger/enable flags.",
+        "Create-cell probability and spark controls must permit output.",
+        "Native-specific config conditions need validation; a nested material name alone is not a production proof."
+      ],
+      "evidence": [
+        {
+          "path": "data/entities/projectiles/bomb.xml",
+          "lines": [
+            18,
+            26,
+            28,
+            38
+          ],
+          "finding": "Explosion branches have independent switches."
+        }
+      ]
+    }
+  ],
+  "forbiddenProducerContexts": [
+    "MaterialAreaCheckerComponent.material/material2",
+    "PhysicsShapeComponent.material",
+    "AnimalAIComponent.food_material",
+    "DamageModelComponent.materials_that_damage/materials_that_create_messages",
+    "ItemAlchemyComponent.material_*",
+    "CellEaterComponent.ignored_material/materials",
+    "ProjectileComponent.go_through_this_material",
+    "PotionComponent.custom_color_material",
+    "VegetationComponent.material_on_top_of",
+    "VariableStorageComponent.value_string without tracing its consumer",
+    "Entity.tags or component _tags",
+    "arbitrary Lua material= assignment without its table/consumer"
+  ],
+  "transformationRulesToValidate": [
+    {
+      "fields": [
+        "on_fire_convert_to_material",
+        "on_fire_flame_material",
+        "on_fire_smoke_material"
+      ],
+      "guard": "Source must be able to enter the appropriate burning branch; smoke/flame generation counts must permit the output. Default field values on air/water are not production proof."
+    },
+    {
+      "fields": [
+        "cold_freezes_to_material_name",
+        "cold_freezes_to_material_id",
+        "warmth_melts_to_material"
+      ],
+      "guard": "Resolve names/numeric IDs; provide an available cold/warm effect and enforce probability/don't-reverse rules. Numeric references are real edges, not absent values."
+    },
+    {
+      "fields": [
+        "solid_break_to_type"
+      ],
+      "guard": "Record an attainable break or configured sleep-conversion event for an appropriate physical material; distinguish those events rather than treating the target as unconditional."
+    },
+    {
+      "fields": [
+        "solid_on_collision_material"
+      ],
+      "guard": "Collision splash is distinct from solid_on_collision_convert. Require appropriate physical-body/collision behavior and validate native splash threshold/power."
+    },
+    {
+      "fields": [
+        "convert_to_box2d_material"
+      ],
+      "guard": "Provide an effect that invokes the native terrain-to-body conversion for this source. A target field alone does not identify an attainable trigger."
+    }
+  ],
+  "imageValidation": {
+    "independentDecoder": "pngjs 7.0.0",
+    "nonemptyPngCompared": 2115,
+    "mismatches": [],
+    "failures": [],
+    "transparentRgbOnlyDifferences": 86,
+    "transparentRgbExplanation": "pngjs zeroes RGB for a fully-transparent truecolor tRNS key; the custom decoder preserves hidden RGB. All dimensions, alpha and nontransparent RGBA agree. No runtime material has a zero-alpha Wang key, so this does not change material matches.",
+    "placeholders": [
+      "data/biome_impl/spliced/boss_arena/1.png",
+      "data/biome_impl/spliced/boss_arena/5.png"
+    ],
+    "plz": "Five signed-negative-dimension fragments contain only RGBA 00000000. No positive material proof depends on them. FastLZ has not been compared with an independent decoder in this review.",
+    "originalImageBackedRecordCount": 42,
+    "originalImageRoleReview": [
+      {
+        "id": "bluefungi_static",
+        "image": "data/wang_tiles/fungicave.png",
+        "references": [
+          {
+            "path": "data/biome/fungicave.xml",
+            "line": 14,
+            "role": "wang-template"
+          },
+          {
+            "path": "data/biome/tower/solid_wall_tower_5.xml",
+            "line": 11,
+            "role": "wang-template"
+          }
+        ]
+      },
+      {
+        "id": "meteorite_static",
+        "image": "data/biome_impl/coalmine/laboratory.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/coalmine.lua",
+            "line": 679,
+            "role": "biome-table.material_file"
+          },
+          {
+            "path": "data/scripts/biomes/tower.lua",
+            "line": 328,
+            "role": "biome-table.material_file"
+          }
+        ]
+      },
+      {
+        "id": "templerock_static",
+        "image": "data/biome_impl/coalmine/shrine01.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/coalmine.lua",
+            "line": 658,
+            "role": "biome-table.material_file"
+          },
+          {
+            "path": "data/scripts/biomes/tower.lua",
+            "line": 307,
+            "role": "biome-table.material_file"
+          }
+        ]
+      },
+      {
+        "id": "steel_static",
+        "image": "data/biome_impl/bunker.png",
+        "references": [
+          {
+            "path": "data/biome/_pixel_scenes.xml",
+            "line": 131,
+            "role": "PixelScene.material_filename"
+          }
+        ]
+      },
+      {
+        "id": "glass_static",
+        "image": "data/biome_impl/acidtank.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/snowcave.lua",
+            "line": 708,
+            "role": "biome-table.material_file"
+          },
+          {
+            "path": "data/scripts/biomes/snowcave_petri.lua",
+            "line": 498,
+            "role": "biome-table.material_file"
+          }
+        ]
+      },
+      {
+        "id": "wood_static",
+        "image": "data/biome_impl/bunker.png",
+        "references": [
+          {
+            "path": "data/biome/_pixel_scenes.xml",
+            "line": 131,
+            "role": "PixelScene.material_filename"
+          }
+        ]
+      },
+      {
+        "id": "root",
+        "image": "data/wang_tiles/fungicave.png",
+        "references": [
+          {
+            "path": "data/biome/fungicave.xml",
+            "line": 14,
+            "role": "wang-template"
+          },
+          {
+            "path": "data/biome/tower/solid_wall_tower_5.xml",
+            "line": 11,
+            "role": "wang-template"
+          }
+        ]
+      },
+      {
+        "id": "glass_liquidcave",
+        "image": "data/biome_impl/liquidcave/container_01.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/liquidcave.lua",
+            "line": 377,
+            "role": "biome-table.material_file"
+          }
+        ]
+      },
+      {
+        "id": "neon_tube_purple",
+        "image": "data/biome_impl/snowcastle/bar.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/sandcave.lua",
+            "line": 481,
+            "role": "biome-table.material_file"
+          },
+          {
+            "path": "data/scripts/biomes/snowcastle.lua",
+            "line": 928,
+            "role": "biome-table.material_file"
+          }
+        ]
+      },
+      {
+        "id": "snow_b2",
+        "image": "data/biome_impl/snowperson.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/snowcave.lua",
+            "line": 1141,
+            "role": "LoadPixelScene.materials_filename"
+          }
+        ]
+      },
+      {
+        "id": "neon_tube_cyan",
+        "image": "data/biome_impl/snowcastle/bar.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/sandcave.lua",
+            "line": 481,
+            "role": "biome-table.material_file"
+          },
+          {
+            "path": "data/scripts/biomes/snowcastle.lua",
+            "line": 928,
+            "role": "biome-table.material_file"
+          }
+        ]
+      },
+      {
+        "id": "meat_done",
+        "image": "data/biome_impl/snowcastle/kitchen.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/snowcastle.lua",
+            "line": 970,
+            "role": "biome-table.material_file"
+          }
+        ]
+      },
+      {
+        "id": "spark_white_bright",
+        "image": "data/biome_impl/mountain/right_bottom.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/mountain/mountain_right.lua",
+            "line": 9,
+            "role": "LoadPixelScene.materials_filename"
+          },
+          {
+            "path": "data/scripts/biomes/mountain/mountain_right_2.lua",
+            "line": 9,
+            "role": "LoadPixelScene.materials_filename"
+          },
+          {
+            "path": "data/scripts/biomes/mountain/mountain_right_entrance.lua",
+            "line": 10,
+            "role": "LoadPixelScene.materials_filename"
+          }
+        ]
+      },
+      {
+        "id": "bone_static",
+        "image": "data/biome_impl/spliced/skull/0.plz",
+        "references": [
+          {
+            "path": "data/biome_impl/spliced/skull.xml",
+            "line": 3,
+            "role": "PixelScene.material_filename"
+          }
+        ]
+      },
+      {
+        "id": "templebrick_box2d_edgetiles",
+        "image": "data/biome_impl/overworld/scale.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/scale.lua",
+            "line": 32,
+            "role": "LoadPixelScene.materials_filename"
+          }
+        ]
+      },
+      {
+        "id": "wood_wall",
+        "image": "data/biome_impl/coalmine/coalpit01.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/coalmine.lua",
+            "line": 611,
+            "role": "biome-table.material_file"
+          },
+          {
+            "path": "data/scripts/biomes/coalmine_alt.lua",
+            "line": 639,
+            "role": "biome-table.material_file"
+          },
+          {
+            "path": "data/scripts/biomes/tower.lua",
+            "line": 260,
+            "role": "biome-table.material_file"
+          }
+        ]
+      },
+      {
+        "id": "rock_static_intro",
+        "image": "data/biome_impl/coalmine/shrine02.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/coalmine.lua",
+            "line": 665,
+            "role": "biome-table.material_file"
+          },
+          {
+            "path": "data/scripts/biomes/tower.lua",
+            "line": 314,
+            "role": "biome-table.material_file"
+          }
+        ]
+      },
+      {
+        "id": "rock_static_trip_secret",
+        "image": "data/biome_impl/funroom.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/funroom.lua",
+            "line": 27,
+            "role": "LoadPixelScene.materials_filename"
+          }
+        ]
+      },
+      {
+        "id": "rock_static_trip_secret2",
+        "image": "data/biome_impl/funroom.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/funroom.lua",
+            "line": 27,
+            "role": "LoadPixelScene.materials_filename"
+          }
+        ]
+      },
+      {
+        "id": "wood_static_vertical",
+        "image": "data/biome_impl/coalmine/oiltank_1.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/coalmine.lua",
+            "line": 802,
+            "role": "biome-table.material_file"
+          },
+          {
+            "path": "data/scripts/biomes/coalmine.lua",
+            "line": 811,
+            "role": "biome-table.material_file"
+          },
+          {
+            "path": "data/scripts/biomes/tower.lua",
+            "line": 437,
+            "role": "biome-table.material_file"
+          },
+          {
+            "path": "data/scripts/biomes/tower.lua",
+            "line": 446,
+            "role": "biome-table.material_file"
+          }
+        ]
+      },
+      {
+        "id": "wood_static_wet",
+        "image": "data/biome_impl/coalmine/laboratory.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/coalmine.lua",
+            "line": 679,
+            "role": "biome-table.material_file"
+          },
+          {
+            "path": "data/scripts/biomes/tower.lua",
+            "line": 328,
+            "role": "biome-table.material_file"
+          }
+        ]
+      },
+      {
+        "id": "rock_static_intro_breakable",
+        "image": "data/biome_impl/coalmine/shrine02.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/coalmine.lua",
+            "line": 665,
+            "role": "biome-table.material_file"
+          },
+          {
+            "path": "data/scripts/biomes/tower.lua",
+            "line": 314,
+            "role": "biome-table.material_file"
+          }
+        ]
+      },
+      {
+        "id": "steel_static_strong",
+        "image": "data/biome_impl/acidtank.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/snowcave.lua",
+            "line": 708,
+            "role": "biome-table.material_file"
+          },
+          {
+            "path": "data/scripts/biomes/snowcave_petri.lua",
+            "line": 498,
+            "role": "biome-table.material_file"
+          }
+        ]
+      },
+      {
+        "id": "steelpipe_static",
+        "image": "data/biome_impl/vault/acidtank.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/vault.lua",
+            "line": 589,
+            "role": "biome-table.material_file"
+          }
+        ]
+      },
+      {
+        "id": "steelfrost_static",
+        "image": "data/wang_tiles/vault_frozen.png",
+        "references": [
+          {
+            "path": "data/biome/vault_frozen.xml",
+            "line": 13,
+            "role": "wang-template"
+          }
+        ]
+      },
+      {
+        "id": "steelmoss_static",
+        "image": "data/biome_impl/coalmine/physics_swing_puzzle.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/coalmine.lua",
+            "line": 766,
+            "role": "biome-table.material_file"
+          }
+        ]
+      },
+      {
+        "id": "glowstone_potion",
+        "image": "data/biome_impl/coalmine/receptacle_oil.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/coalmine.lua",
+            "line": 773,
+            "role": "biome-table.material_file"
+          }
+        ]
+      },
+      {
+        "id": "glowstone_altar",
+        "image": "data/biome_impl/altar.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/coalmine.lua",
+            "line": 1162,
+            "role": "LoadPixelScene.materials_filename"
+          },
+          {
+            "path": "data/scripts/biomes/snowcave.lua",
+            "line": 1195,
+            "role": "LoadPixelScene.materials_filename"
+          },
+          {
+            "path": "data/scripts/biomes/snowcave_petri.lua",
+            "line": 767,
+            "role": "LoadPixelScene.materials_filename"
+          }
+        ]
+      },
+      {
+        "id": "glowstone",
+        "image": "data/biome_impl/coalmine/wandtrap_h_02.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/coalmine.lua",
+            "line": 735,
+            "role": "biome-table.material_file"
+          },
+          {
+            "path": "data/scripts/biomes/tower.lua",
+            "line": 384,
+            "role": "biome-table.material_file"
+          }
+        ]
+      },
+      {
+        "id": "templebrick_static_ruined",
+        "image": "data/biome_impl/liquidcave/container_01.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/liquidcave.lua",
+            "line": 377,
+            "role": "biome-table.material_file"
+          }
+        ]
+      },
+      {
+        "id": "templebrick_diamond_static",
+        "image": "data/biome_impl/greed_treasure.png",
+        "references": [
+          {
+            "path": "data/biome/_pixel_scenes.xml",
+            "line": 110,
+            "role": "PixelScene.material_filename"
+          }
+        ]
+      },
+      {
+        "id": "wizardstone",
+        "image": "data/wang_tiles/wizardcave.png",
+        "references": [
+          {
+            "path": "data/biome/wizardcave.xml",
+            "line": 13,
+            "role": "wang-template"
+          }
+        ]
+      },
+      {
+        "id": "wood_tree",
+        "image": "data/biome_impl/spliced/tree/0.plz",
+        "references": [
+          {
+            "path": "data/biome_impl/spliced/tree.xml",
+            "line": 3,
+            "role": "PixelScene.material_filename"
+          }
+        ]
+      },
+      {
+        "id": "rock_static_noedge",
+        "image": "data/biome_impl/mountain/hall.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/mountain/mountain_hall.lua",
+            "line": 109,
+            "role": "LoadPixelScene.materials_filename"
+          },
+          {
+            "path": "data/scripts/biomes/mountain/mountain_hall.lua",
+            "line": 111,
+            "role": "LoadPixelScene.materials_filename"
+          }
+        ]
+      },
+      {
+        "id": "templerock_soft",
+        "image": "data/biome_impl/pyramid/entrance.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/pyramid_entrance.lua",
+            "line": 30,
+            "role": "LoadPixelScene.materials_filename"
+          }
+        ]
+      },
+      {
+        "id": "templebrick_static_soft",
+        "image": "data/biome_impl/snowcastle/sauna.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/snowcastle.lua",
+            "line": 963,
+            "role": "biome-table.material_file"
+          }
+        ]
+      },
+      {
+        "id": "templebrick_static_broken",
+        "image": "data/wang_tiles/crypt.png",
+        "references": [
+          {
+            "path": "data/biome/crypt.xml",
+            "line": 12,
+            "role": "wang-template"
+          },
+          {
+            "path": "data/biome/tower/solid_wall_tower_8.xml",
+            "line": 12,
+            "role": "wang-template"
+          }
+        ]
+      },
+      {
+        "id": "templebrick_thick_static",
+        "image": "data/wang_tiles/crypt.png",
+        "references": [
+          {
+            "path": "data/biome/crypt.xml",
+            "line": 12,
+            "role": "wang-template"
+          },
+          {
+            "path": "data/biome/tower/solid_wall_tower_8.xml",
+            "line": 12,
+            "role": "wang-template"
+          }
+        ]
+      },
+      {
+        "id": "templebrick_thick_static_noedge",
+        "image": "data/biome_impl/spliced/boss_arena/13.plz",
+        "references": [
+          {
+            "path": "data/biome_impl/spliced/boss_arena.xml",
+            "line": 29,
+            "role": "PixelScene.material_filename"
+          }
+        ]
+      },
+      {
+        "id": "templeslab_static",
+        "image": "data/biome_impl/snowcastle/side_cavern_left.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/snowcastle_cavern.lua",
+            "line": 143,
+            "role": "LoadPixelScene.materials_filename"
+          }
+        ]
+      },
+      {
+        "id": "steel_rusted_no_holes",
+        "image": "data/biome_impl/coalmine/wandtrap_h_02.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/coalmine.lua",
+            "line": 735,
+            "role": "biome-table.material_file"
+          },
+          {
+            "path": "data/scripts/biomes/tower.lua",
+            "line": 384,
+            "role": "biome-table.material_file"
+          }
+        ]
+      },
+      {
+        "id": "steel_grey_static",
+        "image": "data/biome_impl/roboroom.png",
+        "references": [
+          {
+            "path": "data/scripts/biomes/roboroom.lua",
+            "line": 27,
+            "role": "LoadPixelScene.materials_filename"
+          }
+        ]
+      }
+    ],
+    "notes": [
+      "Legitimate image role is necessary but not a complete runtime placement proof.",
+      "Spawn colors and color-to-material remapping must be evaluated in the caller's biome context.",
+      "The PNG comparison is independent decoding, not observed gameplay or a proof of map generation."
+    ],
+    "wangLookupGate": {
+      "evidenceId": "ev_81a244be628bcbb2555803bba9c56940430ad03e91b9b6806653fde676ac85b3",
+      "evidenceProvenance": "Native worker evidence supplied by the parent agent; this source reviewer did not open a native session.",
+      "functionAddress": "0x8704c0",
+      "rejectedBeforeRgbLookup": [
+        "rawColor == 0",
+        "RGB == 0",
+        "alpha == 0",
+        "rawColor == 0xffffffff"
+      ],
+      "lookupKey": "RGB (alpha stripped only after the gates)",
+      "helperScope": "imageMaterialColors returns candidate RGB keys. mode=wang applies these gates; default conservative mode retains the union of known loading paths.",
+      "unresolvedContext": [
+        "Alpha 0xfe invokes marker handling before the material lookup; its effects still need caller context.",
+        "Registered spawn callbacks and caller-provided material remappings must be evaluated separately."
+      ],
+      "tests": "tests/material-source-analysis.test.js covers transparent RGB, black with nonzero alpha, opaque white, partially transparent white and an alpha-0xfe candidate."
+    },
+    "fixedBitmapLookupGate": {
+      "functionAddress": "0x87d0e0",
+      "evidenceProvenance": "Native worker finding supplied by the parent agent; exact evidence reference retained by the native worker.",
+      "topology": 1,
+      "rejectedRgb": "RGB == 0",
+      "alphaAndOpaqueWhiteGate": false,
+      "helperMode": "fixed-bitmap",
+      "limitation": "Only applies to this fixed-bitmap sampler; not a universal image-loading rule."
+    },
+    "candidateHelper": {
+      "defaultMode": "conservative",
+      "meaning": "Union of known Wang and fixed-bitmap candidate colors. Caller must resolve the actual image-loading role, marker handling and remapping before treating a color as a material assignment.",
+      "modes": [
+        "wang",
+        "fixed-bitmap",
+        "conservative"
+      ]
+    }
+  },
+  "independentRegressionFixtures": [
+    "A reachable MaterialAreaChecker material must not seed availability; an enabled converter with an available input must seed its paired output.",
+    "PhysicsShape collision-audio material must not seed physical material availability; a PhysicsImageShape image body may.",
+    "Cosmetic-only emitters protect content-use status but must not seed a physical reagent closure.",
+    "A disabled root_growth emitter remains dormant until its actual callback proof enables the grow tag; arbitrary disabled emitters remain unresolved.",
+    "PixelSprite with omitted material resolves to documented wood_loose after Base inheritance, unless a child overrides the material.",
+    "A material-colored pixel in a colors/background image is not terrain; the same bytes in a material role are a candidate, with color remapping applied. Explicit Wang mode rejects black RGB, alpha-zero and raw opaque-white; fixed-bitmap topology1 uses RGB without alpha/white gates. Default conservative mode keeps the union of possible colors. Alpha-0xfe still requires marker context.",
+    "Each ReqReaction fixture requires absence/direction semantics, while an ordinary Reaction requires contact.",
+    "The named numeric warm target370 resolves using the captured numeric registry, not a newly sorted array.",
+    "Source manifest, build identity or new unhandled producer fields invalidate a reviewed exclusion; changing only fixtures to mirror regenerated output is insufficient."
+  ],
+  "runtimeProbeNeeds": [
+    "If native evidence is incomplete: capture exact CellFactory_GetAll* results, numeric-ID/name round trips and tags on the supported executable before any world transformations, recording executable/material hashes and active mods.",
+    "Resolve forced DISINTEGRATED ragdoll behavior and native RAINBOW_FARTS activation by focused native evidence or a declared runtime probe, rather than inferring it from config names.",
+    "If a classification still depends on undocumented body conversion or image substitution semantics, test that specific mechanism; failure to observe a material across seeds cannot prove it unused."
+  ],
+  "limits": [
+    "No Noita runtime, browser, REA or Ghidra session was opened by this reviewer.",
+    "No claim is made that all 404 materials have individually certified gameplay witnesses.",
+    "No proposed exclusion is justified solely by absence of a literal material name.",
+    "Independent source role and decoder checks do not replace the separate review of the exclusions/native producer mechanisms."
+  ],
+  "reviewedUses": {
+    "templebrick_noedge_static": {
+      "status": "source-supported",
+      "occurrenceKind": "grid",
+      "reason": "An enabled Holy Mountain collapse converter changes glowstone_altar into this material; the original MaterialAreaChecker evidence was not a producer.",
+      "inputs": [
+        "glowstone_altar"
+      ],
+      "evidence": [
+        {
+          "path": "data/scripts/biomes/temple_altar_right.lua",
+          "lines": [
+            157
+          ],
+          "finding": "Loads workshop_exit.xml."
+        },
+        {
+          "path": "data/scripts/buildings/workshop_exit.lua",
+          "lines": [
+            4,
+            11
+          ],
+          "finding": "The collision event loads workshop_collapse.xml."
+        },
+        {
+          "path": "data/entities/misc/workshop_collapse.xml",
+          "lines": [
+            18,
+            19,
+            21,
+            22,
+            23,
+            24
+          ],
+          "finding": "Enabled converter, from glowstone_altar to templebrick_noedge_static, radius128 and steps_per_frame1."
+        }
+      ],
+      "guardsResolved": [
+        "component-enabled",
+        "positive-conversion-work",
+        "scalar-input-output-pair",
+        "event-load-path"
+      ],
+      "remainingConditions": [
+        "Requires the player to trigger this Holy Mountain exit and existing glowstone_altar in range.",
+        "Source evidence, not a runtime observation."
+      ]
+    },
+    "root_growth": {
+      "status": "source-supported",
+      "occurrenceKind": "grid",
+      "reason": "The initially disabled root emitter is explicitly enabled by the player-nearby or damage callbacks.",
+      "evidence": [
+        {
+          "path": "data/scripts/biomes/snowcastle.lua",
+          "lines": [
+            42,
+            1477,
+            1478
+          ],
+          "finding": "Registers spawn_root_grower and loads root_grower.xml."
+        },
+        {
+          "path": "data/entities/props/root_grower.xml",
+          "lines": [
+            34,
+            35,
+            36,
+            37,
+            48,
+            49,
+            52,
+            55
+          ],
+          "finding": "The grow-tagged grid emitter starts disabled, creates root_growth, count6."
+        },
+        {
+          "path": "data/entities/props/root_grower.xml",
+          "lines": [
+            62,
+            65,
+            66,
+            98,
+            100,
+            101
+          ],
+          "finding": "Player collision and damage events invoke root_grower_start.lua."
+        },
+        {
+          "path": "data/scripts/props/root_grower_start.lua",
+          "lines": [
+            23,
+            26,
+            27,
+            30,
+            31
+          ],
+          "finding": "Both callbacks enable all grow-tagged components."
+        }
+      ],
+      "guardsResolved": [
+        "explicit-disabled-to-enabled-activation",
+        "positive-emission-count",
+        "real-grid-particle-mode",
+        "is-emitting"
+      ],
+      "remainingConditions": [
+        "Requires a root_grower instance placed by gameplay and player proximity or damage.",
+        "Source evidence, not a runtime observation."
+      ]
+    }
+  },
+  "flaskEligibilityReconstruction": {
+    "status": "complete-source-and-native-field-comparison",
+    "scope": "Only the four registry fields used by the native random-flask enumeration; does not certify natural occurrence or every other runtime field.",
+    "runtimeCapturePerformed": false,
+    "sourceBinding": {
+      "gameMaterialsRawSha256": "122df34514edaf312e1a15a619b3d6a44d49ce605c929d5950c9051a57429d04",
+      "gameMaterialsNormalizedSha256": "768fc676009e48ad181af8befebad9cf091e2aca66f9ab86b8cd05d420b010ac",
+      "localXmlMatchesAfterCrLfNormalization": true,
+      "runtimeMaterialsSha256": "edbf8cdd07e43383cb9b497da92fda63ef40bf97553b55252fd88c0801da10d6",
+      "executableSha256": "a0d9f9ca513e27a598c61dd9a19211c7a11d1477c9a2b93d909757d91d17d914"
+    },
+    "nativeBaseline": {
+      "defaults": {
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      "constructorAddress": "0x4ac7e0",
+      "constructorEvidence": "ev_4b75c0f25d3f61048f73c3edcab43e696659e7631875c23863fff657f0d6a769",
+      "fieldOffsets": {
+        "cell_type": "0x38",
+        "liquid_sand": "0x160",
+        "liquid_static": "within zero-initialized dword at0x160",
+        "is_just_particle_fx": "within zero-initialized word at0x288"
+      },
+      "inheritance": {
+        "copyAddress": "0x7092c0",
+        "copyEvidence": "ev_0e52b2557d3a2db5f9a423dce432e634033f57cbd85ce31304b868c7f925b9f3",
+        "overlayAddresses": [
+          "0x91e310",
+          "0x6fa4e0",
+          "0xddd860"
+        ],
+        "overlayEvidence": "ev_2cecf31a83124d651e7bcccd6a296dd00ca0270178537348a567333270ad6af4",
+        "finding": "CellDataChild copies its parent; field loader overlays only present XML attributes, retaining inherited/default values for absent fields."
+      }
+    },
+    "comparison": {
+      "sourceDefinitions": 468,
+      "uniqueMaterialIds": 466,
+      "comparedFieldCount": 1864,
+      "mismatches": [],
+      "fieldCoverage": {
+        "cell_type": {
+          "explicitOrInheritedXml": 461,
+          "nativeDefaultResolved": 5,
+          "defaultValue": "liquid",
+          "nativeDefaultMaterialIds": [
+            "air",
+            "fungal_shift_particle_fx",
+            "plastic_grey",
+            "plastic_grey_molten",
+            "vomit"
+          ]
+        },
+        "liquid_sand": {
+          "explicitOrInheritedXml": 331,
+          "nativeDefaultResolved": 135,
+          "defaultValue": false
+        },
+        "liquid_static": {
+          "explicitOrInheritedXml": 109,
+          "nativeDefaultResolved": 357,
+          "defaultValue": false
+        },
+        "is_just_particle_fx": {
+          "explicitOrInheritedXml": 1,
+          "nativeDefaultResolved": 465,
+          "defaultValue": false
+        }
+      },
+      "duplicateDefinitions": [
+        {
+          "id": "rock_box2d",
+          "definitions": [
+            {
+              "kind": "CellDataChild",
+              "parent": "aluminium",
+              "path": "data/materials.xml",
+              "line": 13247,
+              "column": 3,
+              "componentPath": "/Materials[1]/CellDataChild[200]"
+            },
+            {
+              "kind": "CellData",
+              "path": "data/materials.xml",
+              "line": 13468,
+              "column": 2,
+              "componentPath": "/Materials[1]/CellData[204]"
+            }
+          ]
+        },
+        {
+          "id": "meat_pumpkin",
+          "definitions": [
+            {
+              "kind": "CellDataChild",
+              "parent": "meat_fruit",
+              "path": "data/materials.xml",
+              "line": 14206,
+              "column": 3,
+              "componentPath": "/Materials[1]/CellDataChild[237]"
+            },
+            {
+              "kind": "CellDataChild",
+              "parent": "meat_fruit",
+              "path": "data/materials.xml",
+              "line": 14355,
+              "column": 3,
+              "componentPath": "/Materials[1]/CellDataChild[242]"
+            }
+          ]
+        }
+      ],
+      "duplicateOutcome": "Every duplicate alternative resolves to the same four eligibility fields; no duplicate precedence assumption affects these pools."
+    },
+    "reconstructedMaterialsSha256": "1b2be37d64f90e42e3e81d9babb82ddbab8aa18a9f9685e701aaee7ab0776585",
+    "flaskPool": {
+      "liquids": [
+        "acid",
+        "alcohol",
+        "aluminium_molten",
+        "aluminium_oxide_molten",
+        "aluminium_robot_molten",
+        "beer",
+        "blood",
+        "blood_cold",
+        "blood_fading",
+        "blood_fading_slow",
+        "blood_fungi",
+        "blood_worm",
+        "brass_molten",
+        "cement",
+        "cloud_blood",
+        "cloud_radioactive",
+        "cloud_slime",
+        "copper_molten",
+        "creepy_liquid",
+        "cursed_liquid",
+        "glass_broken_molten",
+        "glass_molten",
+        "gold_molten",
+        "juhannussima",
+        "just_death",
+        "lava",
+        "liquid_fire",
+        "liquid_fire_weak",
+        "magic_liquid",
+        "magic_liquid_berserk",
+        "magic_liquid_charm",
+        "magic_liquid_faster_levitation",
+        "magic_liquid_faster_levitation_and_movement",
+        "magic_liquid_hp_regeneration",
+        "magic_liquid_hp_regeneration_unstable",
+        "magic_liquid_invisibility",
+        "magic_liquid_mana_regeneration",
+        "magic_liquid_movement_faster",
+        "magic_liquid_polymorph",
+        "magic_liquid_protection_all",
+        "magic_liquid_random_polymorph",
+        "magic_liquid_teleportation",
+        "magic_liquid_unstable_polymorph",
+        "magic_liquid_unstable_teleportation",
+        "magic_liquid_weakness",
+        "magic_liquid_worm_attractor",
+        "material_confusion",
+        "material_darkness",
+        "material_rainbow",
+        "metal_molten",
+        "metal_nohit_molten",
+        "metal_prop_molten",
+        "metal_rust_molten",
+        "metal_sand_molten",
+        "midas",
+        "midas_precursor",
+        "milk",
+        "mimic_liquid",
+        "molut",
+        "oil",
+        "pea_soup",
+        "peat",
+        "plasma_fading",
+        "plasma_fading_bright",
+        "plastic_grey_molten",
+        "plastic_molten",
+        "plastic_prop_molten",
+        "plastic_red_molten",
+        "poison",
+        "porridge",
+        "pus",
+        "radioactive_liquid",
+        "radioactive_liquid_fading",
+        "radioactive_liquid_yellow",
+        "rocket_particles",
+        "silver_molten",
+        "sima",
+        "slime",
+        "slime_green",
+        "slime_yellow",
+        "slush",
+        "steel_molten",
+        "steel_rust_molten",
+        "steel_static_molten",
+        "steelmoss_slanted_molten",
+        "steelmoss_static_molten",
+        "steelsmoke_static_molten",
+        "swamp",
+        "urine",
+        "void_liquid",
+        "vomit",
+        "water",
+        "water_fading",
+        "water_ice",
+        "water_salt",
+        "water_swamp",
+        "water_temp",
+        "wax_molten"
+      ],
+      "sands": [
+        "bone",
+        "brass",
+        "burning_powder",
+        "bush_seed",
+        "ceiling_plant_material",
+        "coal",
+        "concrete_sand",
+        "copper",
+        "diamond",
+        "endslime_blood",
+        "explosion_dirt",
+        "fungi",
+        "fungi_creeping",
+        "fungi_creeping_secret",
+        "fungi_green",
+        "fungi_yellow",
+        "fungisoil",
+        "fungus_powder",
+        "fungus_powder_bad",
+        "glass_broken",
+        "glowshroom",
+        "glue",
+        "gold",
+        "gold_radioactive",
+        "grass",
+        "grass_dark",
+        "grass_darker",
+        "grass_dry",
+        "grass_holy",
+        "grass_ice",
+        "gunpowder",
+        "gunpowder_explosive",
+        "gunpowder_tnt",
+        "gunpowder_unstable",
+        "gunpowder_unstable_big",
+        "gunpowder_unstable_boss_limbs",
+        "honey",
+        "ice",
+        "lavasand",
+        "mammi",
+        "meat_slime_sand",
+        "metal_sand",
+        "monster_powder_test",
+        "moss",
+        "moss_rust",
+        "mud",
+        "mushroom",
+        "mushroom_giant_blue",
+        "mushroom_giant_red",
+        "mushroom_seed",
+        "orb_powder",
+        "plant_material",
+        "plant_material_dark",
+        "plant_material_red",
+        "plant_seed",
+        "plasma_fading_green",
+        "plasma_fading_pink",
+        "plastic_grey",
+        "plastic_red",
+        "poo",
+        "purifying_powder",
+        "rat_powder",
+        "rotten_meat",
+        "rotten_meat_radioactive",
+        "salt",
+        "sand",
+        "sand_blue",
+        "sand_herb",
+        "sand_petrify",
+        "sand_surface",
+        "sandstone",
+        "sandstone_surface",
+        "shock_powder",
+        "silver",
+        "snow",
+        "snow_sticky",
+        "sodium",
+        "sodium_unstable",
+        "soil",
+        "soil_dark",
+        "soil_dead",
+        "soil_lush",
+        "soil_lush_dark",
+        "spore",
+        "steel_sand",
+        "sulphur",
+        "wax"
+      ],
+      "liquidCount": 98,
+      "sandCount": 87,
+      "sha256": "45a20ce867834fff68b8d499998fdf58cf9307e0c5bd84fd7bebe9a8a22a8754",
+      "air": "Excluded by the native registry enumerator; constructor default liquid type does not make special numeric slot0 a flask candidate."
+    },
+    "reproducibleImplementation": "scripts/material-source-analysis.mjs#reconstructMaterialEligibility",
+    "independentTest": "tests/material-source-analysis.test.js independently parses checked-in materials.xml with verified native defaults and compares all1864 reconstructed values to the runtime dump.",
+    "materialFlags": [
+      {
+        "id": "acid",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "acid_gas",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "acid_gas_static",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "air",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "alcohol",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "alcohol_gas",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "aluminium",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "aluminium_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "aluminium_oxide",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "aluminium_oxide_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "aluminium_robot",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "aluminium_robot_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "beer",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "blood",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "blood_cold",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "blood_cold_vapour",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "blood_fading",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "blood_fading_slow",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "blood_fungi",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "blood_thick",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "blood_worm",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "bloodgold_box2d",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "bluefungi_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "bone",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "bone_box2d",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "bone_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "brass",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "brass_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "brick",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "burning_powder",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "bush_seed",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "cactus",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ceiling_plant_material",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "cement",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "cheese_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "cloth_box2d",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "cloud",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "cloud_blood",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "cloud_lighter",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "cloud_radioactive",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "cloud_slime",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "coal",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "coal_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "cocoon_box2d",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "concrete_collapsed",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "concrete_sand",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "concrete_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "copper",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "copper_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "corruption_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "creepy_liquid",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "creepy_liquid_emitter",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "crystal",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "crystal_magic",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "crystal_purple",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "crystal_solid",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "cursed_liquid",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "diamond",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "endslime",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "endslime_blood",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "endslime_static",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "explosion_dirt",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "fire",
+        "cell_type": "fire",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "fire_blue",
+        "cell_type": "fire",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "flame",
+        "cell_type": "fire",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "fungal_gas",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "fungal_shift_particle_fx",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": true
+      },
+      {
+        "id": "fungi",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "fungi_creeping",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "fungi_creeping_secret",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "fungi_green",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "fungi_yellow",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "fungisoil",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "fungus_loose",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "fungus_loose_green",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "fungus_loose_trippy",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "fungus_powder",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "fungus_powder_bad",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "fuse",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "fuse_bright",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "fuse_holy",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "fuse_tnt",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gem_box2d",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gem_box2d_darksun",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gem_box2d_green",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gem_box2d_opal",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gem_box2d_orange",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gem_box2d_pink",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gem_box2d_red",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gem_box2d_red_float",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gem_box2d_turquoise",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gem_box2d_white",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gem_box2d_yellow_sun",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gem_box2d_yellow_sun_gravity",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "glass",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "glass_box2d",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "glass_brittle",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "glass_broken",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "glass_broken_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "glass_liquidcave",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "glass_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "glass_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "glowshroom",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "glowstone",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "glowstone_altar",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "glowstone_altar_hdr",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "glowstone_potion",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "glue",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gold",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gold_b2",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gold_box2d",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gold_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gold_radioactive",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gold_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gold_static_dark",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gold_static_radioactive",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "grass",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "grass_dark",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "grass_darker",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "grass_dry",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "grass_holy",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "grass_ice",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "grass_loose",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gunpowder",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gunpowder_explosive",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gunpowder_tnt",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gunpowder_unstable",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gunpowder_unstable_big",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "gunpowder_unstable_boss_limbs",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "honey",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ice",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ice_acid_glass",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ice_acid_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ice_b2",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ice_blood_glass",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ice_blood_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ice_ceiling",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ice_cold_glass",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ice_cold_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ice_glass",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ice_glass_b2",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ice_melting_perf_killer",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ice_meteor_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ice_poison_glass",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ice_poison_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ice_radioactive_glass",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ice_radioactive_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ice_slime_glass",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ice_slime_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "ice_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "item_box2d",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "item_box2d_glass",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "item_box2d_meat",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "juhannussima",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "just_death",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "lava",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "lavarock_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "lavasand",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "liquid_fire",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "liquid_fire_weak",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_crystal",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_crystal_green",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_gas_fungus",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_gas_hp_regeneration",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_gas_midas",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_gas_polymorph",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_gas_teleport",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_gas_weakness",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_gas_worm_blood",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_liquid",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_liquid_berserk",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_liquid_charm",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_liquid_faster_levitation",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_liquid_faster_levitation_and_movement",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_liquid_hp_regeneration",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_liquid_hp_regeneration_unstable",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_liquid_invisibility",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_liquid_mana_regeneration",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_liquid_movement_faster",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_liquid_polymorph",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_liquid_protection_all",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_liquid_random_polymorph",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_liquid_teleportation",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_liquid_unstable_polymorph",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_liquid_unstable_teleportation",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_liquid_weakness",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "magic_liquid_worm_attractor",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "mammi",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "material_confusion",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "material_darkness",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "material_rainbow",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_burned",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_confusion",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_cursed",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_cursed_dry",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_done",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_fast",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_frog",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_fruit",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_helpless",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_hot",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_polymorph",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_polymorph_protection",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_pumpkin",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_slime",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_slime_cursed",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_slime_green",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_slime_orange",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_slime_sand",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_teleport",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_trippy",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_warm",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meat_worm",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "metal",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "metal_chain_nohit",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "metal_hard",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "metal_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "metal_nohit",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "metal_nohit_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "metal_prop",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "metal_prop_loose",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "metal_prop_low_restitution",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "metal_prop_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "metal_rust",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "metal_rust_barrel",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "metal_rust_barrel_rust",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "metal_rust_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "metal_rust_rust",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "metal_sand",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "metal_sand_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "metal_wire_nohit",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meteorite",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meteorite_crackable",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meteorite_green",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meteorite_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "meteorite_test",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "midas",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "midas_precursor",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "milk",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "mimic_liquid",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "molut",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "monster_powder_test",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "moss",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "moss_rust",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "mud",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "mushroom",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "mushroom_giant_blue",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "mushroom_giant_red",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "mushroom_seed",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "neon_tube_blood_red",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "neon_tube_cyan",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "neon_tube_purple",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "nest_box2d",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "nest_firebug_box2d",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "nest_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "oil",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "orb_powder",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "pea_soup",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "peat",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "physics_throw_material_part2",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "plant_material",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "plant_material_dark",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "plant_material_red",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "plant_seed",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "plasma_fading",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "plasma_fading_bright",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "plasma_fading_green",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "plasma_fading_pink",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "plastic",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "plastic_grey",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "plastic_grey_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "plastic_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "plastic_prop",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "plastic_prop_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "plastic_red",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "plastic_red_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "poison",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "poison_gas",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "poo",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "poo_gas",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "poop_box2d_hard",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "porridge",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "potion_glass_box2d",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "purifying_powder",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "pus",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "radioactive_gas",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "radioactive_gas_static",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "radioactive_liquid",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "radioactive_liquid_fading",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "radioactive_liquid_yellow",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rainbow_gas",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rat_powder",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_box2d",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_box2d_hard",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_box2d_nohit",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_box2d_nohit_hard",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_box2d_nohit_heavy",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_eroding",
+        "cell_type": "solid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_hard",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_hard_border",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_loose",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_magic_bottom",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_magic_gate",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_static_box2d",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_static_cursed",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_static_cursed_green",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_static_fungal",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_static_glow",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_static_grey",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_static_intro",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_static_intro_breakable",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_static_noedge",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_static_poison",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_static_purple",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_static_radioactive",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_static_trip_secret",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_static_trip_secret2",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_static_wet",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rock_vault",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rocket_particles",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "root",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "root_growth",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rotten_meat",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rotten_meat_radioactive",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "rust_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "salt",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "sand",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "sand_blue",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "sand_herb",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "sand_herb_vapour",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "sand_petrify",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "sand_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "sand_static_bright",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "sand_static_rainforest",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "sand_static_rainforest_dark",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "sand_static_red",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "sand_surface",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "sandstone",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "sandstone_surface",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "shock_powder",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "silver",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "silver_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "sima",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "skullrock",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "slime",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "slime_green",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "slime_static",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "slime_yellow",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "slush",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "smoke",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "smoke_explosion",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "smoke_magic",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "smoke_static",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "snow",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "snow_b2",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "snow_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "snow_sticky",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "snowrock_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "sodium",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "sodium_unstable",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "soil",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "soil_dark",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "soil_dead",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "soil_lush",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "soil_lush_dark",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "spark",
+        "cell_type": "fire",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "spark_blue",
+        "cell_type": "fire",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "spark_blue_dark",
+        "cell_type": "fire",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "spark_electric",
+        "cell_type": "fire",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "spark_green",
+        "cell_type": "fire",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "spark_green_bright",
+        "cell_type": "fire",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "spark_player",
+        "cell_type": "fire",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "spark_purple",
+        "cell_type": "fire",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "spark_purple_bright",
+        "cell_type": "fire",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "spark_red",
+        "cell_type": "fire",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "spark_red_bright",
+        "cell_type": "fire",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "spark_teal",
+        "cell_type": "fire",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "spark_white",
+        "cell_type": "fire",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "spark_white_bright",
+        "cell_type": "fire",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "spark_yellow",
+        "cell_type": "fire",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "spore",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "spore_pod_stalk",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "static_magic_material",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steam",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steam_trailer",
+        "cell_type": "gas",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steel",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steel_grey_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steel_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steel_rust",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steel_rust_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steel_rusted_no_holes",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steel_sand",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steel_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steel_static_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steel_static_strong",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steel_static_unmeltable",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steelfrost_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steelmoss_slanted",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steelmoss_slanted_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steelmoss_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steelmoss_static_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steelpipe_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steelsmoke_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "steelsmoke_static_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "sulphur",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "sulphur_box2d",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "swamp",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "templebrick_box2d",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "templebrick_box2d_edgetiles",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "templebrick_diamond_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "templebrick_golden_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "templebrick_moss_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "templebrick_noedge_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "templebrick_red",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "templebrick_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "templebrick_static_broken",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "templebrick_static_ruined",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "templebrick_static_soft",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "templebrick_thick_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "templebrick_thick_static_noedge",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "templebrickdark_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "templerock_soft",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "templerock_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "templeslab_crumbling_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "templeslab_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "the_end",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "tnt",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "tnt_static",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "trailer_text",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "tube_physics",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "tubematerial",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "urine",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "vine",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "void_liquid",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "vomit",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "water",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "water_fading",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "water_ice",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "water_salt",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "water_static",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "water_swamp",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "water_temp",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "waterrock",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "wax",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "wax_b2",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "wax_molten",
+        "cell_type": "liquid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "wizardstone",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "wood",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "wood_burns_forever",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "wood_loose",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "wood_player",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "wood_player_b2",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "wood_player_b2_vertical",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "wood_prop",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "wood_prop_durable",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "wood_prop_noplayerhit",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "wood_static",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "wood_static_gas",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "wood_static_vertical",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "wood_static_wet",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "wood_trailer",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "wood_tree",
+        "cell_type": "liquid",
+        "liquid_sand": true,
+        "liquid_static": true,
+        "is_just_particle_fx": false
+      },
+      {
+        "id": "wood_wall",
+        "cell_type": "solid",
+        "liquid_sand": false,
+        "liquid_static": false,
+        "is_just_particle_fx": false
+      }
+    ]
+  },
+  "tagProbeReview": {
+    "status": "documented-call-shape-with-bracket-identity-corroboration",
+    "evidence": [
+      {
+        "path": "noita_bin/tools_modding/lua_api_documentation.txt",
+        "lines": [
+          114,
+          115
+        ],
+        "finding": "GetTags takes numeric material ID and returns a table of strings; HasTag takes a string tag."
+      },
+      {
+        "path": "data/scripts/magic/fungal_shift.lua",
+        "lines": [
+          170
+        ],
+        "finding": "Shipped code calls CellFactory_HasTag with the literal bracketed tag [NO_FUNGAL_SHIFT]."
+      },
+      {
+        "path": "src/data/materials.json",
+        "finding": "Existing material dump stores bracketed tag strings."
+      }
+    ],
+    "probeAssessment": "Calling CellFactory_GetTags(id), sorting its returned table and serializing the strings matches the documented interface. No existing independent GetTags runtime capture was found.",
+    "exactBracketOutput": "Bracketed tag identity is supported by shipped HasTag usage, but GetTags wrapper output has not been independently checked by this reviewer. Keep exact comparison; do not silently strip brackets to make a capture pass."
+  }
+}

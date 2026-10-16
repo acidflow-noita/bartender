@@ -30,6 +30,8 @@ import { initializeTitleAnimation } from "./components/titleAnimation.js";
 import { createChoicesTemplates as createCatalogChoicesTemplates } from "./components/choicesTemplates.js";
 import { createResetButton } from "./components/resetButton.js";
 import { createShareButton } from "./components/shareButton.js";
+import {getUnusedMaterialIds, reactionUsesUnusedMaterial} from "./components/materialAvailability.js";
+import {readReactionReagents, reactionUrl} from "./components/reactionUrl.js";
 initializeTitleAnimation();
 ```
 
@@ -37,6 +39,8 @@ initializeTitleAnimation();
 // Load data
 const materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
 const reactions = await FileAttachment("./data/jsons/reactions.json").json();
+const materialAvailability = await FileAttachment("./data/unused-materials.json").json();
+const unusedMaterials = getUnusedMaterialIds(materialAvailability);
 ```
 
 ```js
@@ -75,25 +79,36 @@ window.appState = {
   isResetting: false,
   excludeSpecialMaterials: true,
   onlyPracticalReactions: true,
+  excludeUnusedMaterials: true,
 };
 
 // Parse URL parameters
 const urlParams = new URLSearchParams(window.location.search);
-window.appState.selectedReagents = urlParams.get("reagents")?.split(",").filter(Boolean) || [];
+window.appState.selectedReagents = readReactionReagents(window.location.href);
 window.appState.selectedProduct = urlParams.get("product") || "";
 window.appState.excludeSpecialMaterials = urlParams.get("excludeSpecial") !== "false";
 window.appState.onlyPracticalReactions = urlParams.get("onlyPractical") !== "false";
+window.appState.excludeUnusedMaterials = urlParams.get("excludeUnused") !== "false";
 ```
 
 ```js
 // Special materials to exclude
 const specialMaterials = new Set(["mimic_liquid", "midas_precursor", "midas"]);
+const isReactionAvailable = (reaction) => !window.appState.excludeUnusedMaterials || !reactionUsesUnusedMaterial(reaction, unusedMaterials);
+const clearUnusedSelections = () => {
+  if (!window.appState.excludeUnusedMaterials) return;
+  window.appState.selectedReagents = window.appState.selectedReagents.filter((id) => !unusedMaterials.has(id));
+  if (unusedMaterials.has(window.appState.selectedProduct)) window.appState.selectedProduct = "";
+};
 
 // Optimized functions using indexes
 const getAvailableReagents = (selectedReagents = [], selectedProduct = "") => {
   if (!selectedProduct && selectedReagents.length === 0) {
     // Return all materials that appear as inputs in reactions
     let availableIds = Array.from(reactionInputsIndex.keys());
+    if (window.appState.excludeUnusedMaterials) {
+      availableIds = availableIds.filter((id) => !unusedMaterials.has(id) && reactionInputsIndex.get(id).some((index) => isReactionAvailable(reactions[index])));
+    }
 
     // Filter out special materials if needed
     if (window.appState.excludeSpecialMaterials) {
@@ -134,10 +149,11 @@ const getAvailableReagents = (selectedReagents = [], selectedProduct = "") => {
   }
 
   // Apply filters to reactions
-  if (window.appState.excludeSpecialMaterials || window.appState.onlyPracticalReactions) {
+  if (window.appState.excludeSpecialMaterials || window.appState.onlyPracticalReactions || window.appState.excludeUnusedMaterials) {
     relevantReactionIndices = new Set(
       [...relevantReactionIndices].filter((index) => {
         const reaction = reactions[index];
+        if (!isReactionAvailable(reaction)) return false;
 
         // Filter out low-speed reactions
         if (window.appState.onlyPracticalReactions && reaction.reaction_rate <= 5) {
@@ -194,6 +210,9 @@ const getAvailableProducts = (selectedReagents = []) => {
   if (selectedReagents.length === 0) {
     // Return all products from all reactions
     let availableIds = Array.from(reactionOutputsIndex.keys());
+    if (window.appState.excludeUnusedMaterials) {
+      availableIds = availableIds.filter((id) => !unusedMaterials.has(id) && reactionOutputsIndex.get(id).some((index) => isReactionAvailable(reactions[index])));
+    }
 
     // Filter out special materials if needed
     if (window.appState.excludeSpecialMaterials) {
@@ -222,10 +241,11 @@ const getAvailableProducts = (selectedReagents = []) => {
   });
 
   // Apply filters to reactions
-  if (window.appState.excludeSpecialMaterials || window.appState.onlyPracticalReactions) {
+  if (window.appState.excludeSpecialMaterials || window.appState.onlyPracticalReactions || window.appState.excludeUnusedMaterials) {
     relevantReactionIndices = new Set(
       [...relevantReactionIndices].filter((index) => {
         const reaction = reactions[index];
+        if (!isReactionAvailable(reaction)) return false;
 
         // Filter out low-speed reactions
         if (window.appState.onlyPracticalReactions && reaction.reaction_rate <= 5) {
@@ -295,10 +315,11 @@ const getFilteredReactions = (selectedReagents = [], selectedProduct = "") => {
   }
 
   // Apply filters to reactions
-  if (window.appState.excludeSpecialMaterials || window.appState.onlyPracticalReactions) {
+  if (window.appState.excludeSpecialMaterials || window.appState.onlyPracticalReactions || window.appState.excludeUnusedMaterials) {
     relevantReactionIndices = new Set(
       [...relevantReactionIndices].filter((index) => {
         const reaction = reactions[index];
+        if (!isReactionAvailable(reaction)) return false;
 
         // Filter out low-speed reactions
         if (window.appState.onlyPracticalReactions && reaction.reaction_rate <= 5) {
@@ -343,23 +364,7 @@ const getMaterialImageUrl = (id) => {
 
 ```js
 // Share button
-const shareControl = createShareButton(() => {
-  const url = new URL(window.location.href);
-  url.search = "";
-  if (window.appState.selectedReagents.length > 0) {
-    url.searchParams.set("reagents", window.appState.selectedReagents.join(","));
-  }
-  if (window.appState.selectedProduct) {
-    url.searchParams.set("product", window.appState.selectedProduct);
-  }
-  if (!window.appState.excludeSpecialMaterials) {
-    url.searchParams.set("excludeSpecial", "false");
-  }
-  if (!window.appState.onlyPracticalReactions) {
-    url.searchParams.set("onlyPractical", "false");
-  }
-  return url.toString();
-}, Inputs);
+const shareControl = createShareButton(() => reactionUrl(window.location.href, window.appState), Inputs);
 const shareButton = shareControl.button;
 
 // Filter toggles
@@ -371,6 +376,10 @@ const excludeSpecialToggle = Inputs.toggle({
 const onlyPracticalToggle = Inputs.toggle({
   label: "Show only practical reactions (reaction speed higher than 5)",
   value: window.appState.onlyPracticalReactions,
+});
+const excludeUnusedToggle = Inputs.toggle({
+  label: "Exclude verified unused materials",
+  value: window.appState.excludeUnusedMaterials,
 });
 ```
 
@@ -387,6 +396,7 @@ const resetButton = createResetButton(Inputs, () => {
   window.appState.selectedProduct = "";
   window.appState.excludeSpecialMaterials = true;
   window.appState.onlyPracticalReactions = true;
+  window.appState.excludeUnusedMaterials = true;
 
   if (window.appState.reagentChoices?.initialised) {
     window.appState.reagentChoices.removeActiveItems();
@@ -398,6 +408,7 @@ const resetButton = createResetButton(Inputs, () => {
   // Reset toggle states
   excludeSpecialToggle.value = true;
   onlyPracticalToggle.value = true;
+  excludeUnusedToggle.value = true;
 
   updateChoicesOptions();
   updateUI();
@@ -533,21 +544,7 @@ const updateUI = () => {
   }
 
   if (!window.appState.isResetting) {
-    const url = new URL(window.location.href);
-    url.search = "";
-    if (window.appState.selectedReagents.length > 0) {
-      url.searchParams.set("reagents", window.appState.selectedReagents.join(","));
-    }
-    if (window.appState.selectedProduct) {
-      url.searchParams.set("product", window.appState.selectedProduct);
-    }
-    if (!window.appState.excludeSpecialMaterials) {
-      url.searchParams.set("excludeSpecial", "false");
-    }
-    if (!window.appState.onlyPracticalReactions) {
-      url.searchParams.set("onlyPractical", "false");
-    }
-    window.history.replaceState({}, "", url.toString());
+    window.history.replaceState({}, "", reactionUrl(window.location.href, window.appState));
   }
 };
 ```
@@ -587,6 +584,7 @@ const updateUI = () => {
       ]);
 
       if (reagentSelectorElement.classList.contains("choices__input")) return;
+      clearUnusedSelections();
 
       const createChoicesTemplates = createCatalogChoicesTemplates(Choices, {
         getItem: (id) => materialsMap.get(id),
@@ -690,16 +688,23 @@ const updateUI = () => {
         debouncedUpdate();
       });
 
+      excludeUnusedToggle.addEventListener("input", () => {
+        window.appState.excludeUnusedMaterials = excludeUnusedToggle.value;
+        clearUnusedSelections();
+        debouncedUpdate();
+      });
+
       // Initial state setup and UI update
       // Set toggle values from URL parameters
       excludeSpecialToggle.value = window.appState.excludeSpecialMaterials;
       onlyPracticalToggle.value = window.appState.onlyPracticalReactions;
+      excludeUnusedToggle.value = window.appState.excludeUnusedMaterials;
 
       if (
         window.appState.selectedReagents.length > 0 ||
         window.appState.selectedProduct ||
         window.appState.excludeSpecialMaterials ||
-        window.appState.onlyPracticalReactions
+        window.appState.onlyPracticalReactions || window.appState.excludeUnusedMaterials
       ) {
         requestAnimationFrame(() => {
           updateChoicesOptions();
@@ -728,7 +733,7 @@ const updateUI = () => {
   <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">
     <select id="productChoicesSelector" multiple></select>
   </div>
-  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box; font-size: 0.9rem;"><h2 id="reactionsCount" style="margin: 0; font-size: 0.9rem;">Reactions found: <code class="bigger-number-better">5589</code></h2></div>
+  <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box; font-size: 0.9rem;"><h2 id="reactionsCount" style="margin: 0; font-size: 0.9rem;">Reactions found: <code class="bigger-number-better">—</code></h2></div>
 </div>
 <div class="grid grid-cols-4 gap-1" style="width: 100%; box-sizing: border-box;">
   <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${resetButton}</div>
@@ -737,6 +742,9 @@ const updateUI = () => {
   <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box;">${onlyPracticalToggle}</div>
 </div>
 ${shareControl.feedback}
+<div class="grid grid-cols-1">
+  <div class="card">${excludeUnusedToggle}</div>
+</div>
 <div class="grid grid-cols-1 grid-rowspan-1" style="grid-auto-rows: auto">
   <div class="card grid-colspan-1 grid-rowspan-1" style="padding: 0" id="tableContainer"></div>
 </div>

@@ -1,0 +1,1 @@
+<Mod name="Bartender material registry probe" description="Logs material registry and flask API lists once. Does not create materials or change gameplay settings." request_no_api_restrictions="0" />

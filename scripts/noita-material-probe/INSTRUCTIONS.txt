@@ -1,0 +1,18 @@
+This probe has not been run in Noita by the audit tool.
+
+1. Use the audited, unmodified Noita build. Disable other mods.
+2. Copy this directory to Noita/mods/bartender_material_probe.
+3. Enable only "Bartender material registry probe", then start a disposable new run.
+4. Preserve Noita's log containing BARTENDER_MATERIAL_PROBE_V1 lines.
+5. Disable the probe after the capture. It needs no persistent save changes.
+
+The probe enumerates the material registry and the exact random-flask API
+calls. It does not spawn anything, modify material definitions, seed RNG,
+or establish whether a material occurs naturally in gameplay.
+
+Import and validate with:
+node scripts/verify-material-probe.mjs --log /path/to/log --binary /path/to/noita.exe
+
+The binary must be the executable used for this capture. Its hash is checked
+against the audit. This is an operator-provided association: the log alone
+does not prove which executable produced it.

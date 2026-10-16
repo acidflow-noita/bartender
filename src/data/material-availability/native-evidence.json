@@ -1,0 +1,1037 @@
+{
+  "schemaVersion": 1,
+  "scope": "Native verification of material registration, random-flask enumeration, terrain color lookup and creation mechanisms in the pinned unmodified Noita executable. Static analysis; no game execution.",
+  "executable": {
+    "path": "noita_bin/noita.exe",
+    "sha256": "a0d9f9ca513e27a598c61dd9a19211c7a11d1477c9a2b93d909757d91d17d914",
+    "architecture": "x86",
+    "buildLabel": "Jan 25 2025"
+  },
+  "analysis": {
+    "provider": "Ghidra",
+    "version": "12.1.4",
+    "profileDigest": "483a3c23d7b0c6333d61d7e050154873e5f8d7ea53a284362e069d8e793666a4",
+    "authority": "shipped-artifact",
+    "runtimeObserved": false
+  },
+  "materialDefaults": {
+    "function": "0x4ac7e0",
+    "recordBytes": 656,
+    "fields": {
+      "cell_type": {
+        "offset": "0x38",
+        "value": "liquid",
+        "nativeValue": 1
+      },
+      "liquid_sand": {
+        "offset": "0x160",
+        "value": false
+      },
+      "liquid_static": {
+        "offset": "0x162",
+        "value": false
+      },
+      "is_just_particle_fx": {
+        "offset": "0x289",
+        "value": false
+      },
+      "solid_static_type": {
+        "offset": "0x1a4",
+        "value": 0
+      }
+    },
+    "inheritance": {
+      "loader": "0x707c20",
+      "copy": "0x7092c0",
+      "overlay": "0x91e310 -> 0x6fa4e0",
+      "finding": "CellData constructs defaults before XML overlay. CellDataChild copies the resolved parent, including these flags, before overlaying attributes. Attribute absence preserves the previous value."
+    }
+  },
+  "flaskEnumeration": {
+    "helper": "0x78d8d0",
+    "functions": {
+      "CellFactory_GetAllLiquids": "0x7ac7c0",
+      "CellFactory_GetAllSands": "0x7acb20",
+      "CellFactory_GetAllGases": "0x7ace80",
+      "CellFactory_GetAllFires": "0x7ad1e0",
+      "CellFactory_GetAllSolids": "0x7ad540"
+    },
+    "defaults": {
+      "include_statics": true,
+      "include_particle_fx_materials": false
+    },
+    "iteration": {
+      "firstId": 1,
+      "exclusiveEnd": "CellFactory material-count field at +0x24",
+      "airIdIncluded": false
+    },
+    "predicates": {
+      "liquid": "cell_type == 1 && !liquid_sand && (include_statics || !liquid_static) && (include_particle_fx_materials || !is_just_particle_fx)",
+      "sand": "cell_type == 1 && liquid_sand && (include_statics || !liquid_static) && (include_particle_fx_materials || !is_just_particle_fx)",
+      "gas": "cell_type == 2 && (include_statics || !liquid_static) && (include_particle_fx_materials || !is_just_particle_fx)",
+      "fire": "cell_type == 4 && (include_statics || !liquid_static) && (include_particle_fx_materials || !is_just_particle_fx)",
+      "solid": "cell_type == 3 && (include_statics || solid_static_type == 0) && (include_particle_fx_materials || !is_just_particle_fx)"
+    },
+    "creationBoundary": "Enumeration itself creates no material. The shipped random-flask Lua script chooses only the liquid/sand lists with include_statics=false. Runtime fungal conversions can change record properties; the audited pool describes the initial registry."
+  },
+  "terrainColorLookup": {
+    "rgbMask": "0x00ffffff",
+    "factoryLookup": {
+      "function": "0x704f00",
+      "match": "first matching runtime material ID in ascending order; ID0's special color checked first",
+      "notFound": -1
+    },
+    "bitmapLookup": {
+      "function": "0x4ad000",
+      "match": "first matching color-vector index; input and entries are RGB-masked",
+      "notFound": 0
+    },
+    "wangDecode": {
+      "function": "0x8704c0",
+      "callback": "0x867c10 -> 0x704f00",
+      "callbackInstalledBy": [
+        "0x867c90",
+        "0x867de0",
+        "0x879bf0"
+      ],
+      "requiresNonzeroAlpha": true,
+      "requiresNonzeroRgb": true,
+      "opaqueWhiteIsDensity": true,
+      "specialAlphaMarker": "0xfe"
+    },
+    "fixedBitmap": {
+      "function": "0x87d0e0, topology == 1",
+      "lookup": "0x4ad000",
+      "requiresNonzeroAlpha": false,
+      "requiresNonzeroRgb": true,
+      "finding": "Fixed-bitmap biome sampling checks RGB and resolves the color without testing alpha; it must not inherit the Wang transparent-pixel exclusion."
+    },
+    "materialOverrides": {
+      "function": "0x7b1990",
+      "finding": "LoadPixelScene color_to_material_table keys are explicitly masked to RGB; values are looked up as material names."
+    },
+    "limitation": "Image-role reachability must be established from game sources. A visual color match does not establish material placement. The duplicate-color outcome depends on actual runtime registration order."
+  },
+  "registryTags": {
+    "function": "0x705e10",
+    "synthetic": {
+      "[*]": "all non-air records",
+      "[any_liquid]": "cell_type == 1 && !liquid_sand",
+      "[any_powder]": "cell_type == 1 && liquid_sand"
+    },
+    "finding": "These tag-map memberships do not exclude statics or particle-only materials; they are distinct from the filtered flask enumerations."
+  },
+  "nativeMaterialUses": {
+    "fungal_shift_particle_fx": {
+      "kind": "used-cosmetic-material",
+      "status": "source-supported",
+      "originalDefinitionUsed": true,
+      "functions": [
+        "0x706fd0",
+        "0x7057a0",
+        "0x5b20f0",
+        "0x724580",
+        "0x723bd0",
+        "0x724480",
+        "0x7171d0",
+        "0x716ce0"
+      ],
+      "finding": "Material finalization writes each owner's material ID into ParticleEffect.m_material_id(+4); fungal_shift_particle_fx owns ID223. Fungal conversion copies this effect including ID223 into converted definitions. World-cell rendering queues the copied effect pointer from CellData+0x28c; the queue drains into cosmetic emission using m_material_id. Thus converted cells can emit cosmetic particles of fungal_shift_particle_fx even though the definition is not used for normal terrain cells.",
+      "materialId": 223,
+      "source": "data/materials.xml:14832",
+      "sourceFinding": "The comment that only its particle effect is used describes this actual cosmetic use; it is not a basis for an unused-content exclusion.",
+      "evidenceIds": [
+        "ev_05e2acadf631d4c5da3091b69dd6608216d2c93b96fe418ca3fd73343db37978",
+        "ev_b42ea04128e221b7d484e2a469ae1339520be6df1c15b94e4142f0e253a02448",
+        "ev_4ca752476bde167b20983d909be0131050462c98e5073de059a673c8b1a0dd1e",
+        "ev_58d51e3ef2dd5deaa1642d43ad6ea7325806be7b1ffccc174b30f9f62f3c37ff",
+        "ev_e4957893e815da272d2b8430ec45b73d2f6a9090212971bb9bda7bfdb8b22066",
+        "ev_f2cbb05d2f5713bae7f8d8e3e48e37e47a2a780a2f7cf512ee4a2212407b9018",
+        "ev_41fdb641f837cada96ca0072971732e0ad55a52a3082ae491e526c6ae567cad6"
+      ]
+    },
+    "concrete_collapsed": {
+      "kind": "creation-default",
+      "functions": [
+        "0xba5ba0",
+        "0xba6330"
+      ],
+      "finding": "LooseGroundSystem passes chunk_material to its collapse helper. Zero selects concrete_collapsed, and selected terrain pixels are replaced by a physics body of that material. Needs a reachable component with chunk_probability > 0 and default chunk_material to prove gameplay availability."
+    },
+    "wood_loose": {
+      "kind": "creation-default",
+      "functions": [
+        "0x841ed0",
+        "0x843640"
+      ],
+      "finding": "PixelSprite constructor sets wood_loose through PixelSprite::SetMaterial; the setter stores its resolved ID at +0xf4. Needs reachable PixelSprite creation that preserves the default to establish this specific material."
+    },
+    "aluminium": {
+      "kind": "noncreating-default",
+      "finding": "Native references set IKLimb/IKLimbWalker ray_skip_material; shipped component docs say this material is excluded from ray casting. This reference does not create aluminium."
+    },
+    "radioactive_gas_static": {
+      "kind": "damage-immunity-reference",
+      "functions": [
+        "0xb041e0",
+        "0xab8870"
+      ],
+      "finding": "The effect path assigns material damage zero and rebuilds DamageModel material-damage vectors/strings; it does not create cells. Other sources may create the material."
+    },
+    "gold_static_radioactive": {
+      "kind": "damage-immunity-reference",
+      "functions": [
+        "0xb041e0",
+        "0xab8870"
+      ],
+      "finding": "The effect path assigns material damage zero and rebuilds DamageModel material-damage vectors/strings; it does not create cells."
+    },
+    "glass": {
+      "kind": "substring-false-positive",
+      "finding": "Earlier byte-search hits were substrings of ice_radioactive_glass and explosions/magic_glass_cannon, not exact glass material literals."
+    },
+    "rainbow_gas": {
+      "kind": "native-activated-emitter",
+      "status": "source-supported",
+      "originalDefinitionUsed": true,
+      "functions": [
+        "0x6907d0",
+        "0xb015d0",
+        "0xbc9b20"
+      ],
+      "finding": "RAINBOW_FARTS maps to effect enum0x5c at0x690f9e–0x690fae. Game-effect update0xb015d0 handles case0x5c, locates ParticleEmitterComponent tagged fart and periodically writes its is_emitting flag at+0x108. This activates the initially disabled rainbow_gas emitter in the shipped effect entity.",
+      "source": "data/entities/misc/effect_rainbow_farts.xml",
+      "sourceFinding": "GameEffectComponent uses RAINBOW_FARTS; ParticleEmitterComponent tagged fart declares emitted_material_name=rainbow_gas and is_emitting=0. The native updater supplies the activation route.",
+      "evidenceIds": [
+        "ev_ffa522ca90e1ece1f41a6cff82baa366831ce4972278d9f7c787d9fb1298c728",
+        "ev_669ebca9eef693fddaa7fdac266ab7f67037c1b8f7e447ac2ecd6c9ef820554a",
+        "ev_ece5cab78c4076a1df4a4a0dd36a9dfe97781106638f40ea15c337cd7f1f5f57"
+      ],
+      "limitation": "Activation timing is statically inspected; no runtime spawning was performed.",
+      "fieldBinding": "0xa77cc0 maps ParticleEmitterComponent.is_emitting to +0x108."
+    },
+    "spark_player": {
+      "kind": "conditional-native-entity-source",
+      "status": "unknown",
+      "functions": [
+        "0x6ac310",
+        "0x6b77d0",
+        "0x6b7e80",
+        "0x6b6200",
+        "0x636dc0",
+        "0x44df60"
+      ],
+      "sources": [
+        "data/entities/particles/image_emitters/player_disappear_effect_left.xml",
+        "data/entities/particles/image_emitters/player_disappear_effect_right.xml"
+      ],
+      "finding": "The native player-disappearance helper loads the facing-specific effect entity; these entities emit spark_player. One caller is gated by a debug-related global initialized to zero; another requires co-op world mode and another registered player. The exact normal controller/player-lifecycle reach of that second branch remains unverified.",
+      "debugFlag": {
+        "address": "0x12077b9",
+        "initialization": "0x61102f writes0 to overlapping DWORD0x12077b8",
+        "exactReferences": 21,
+        "referenceKinds": "all21 recovered exact references read the byte; no exact byte-address write or pointer registration found"
+      },
+      "concreteGap": "Controller switching can mark an entity for later deletion (0x44df60) while registered-player handles are maintained separately. The audit has not established that transient player-count/co-op states can never reach the disappearance branch during normal hardware/respawn timing.",
+      "exclusionDecision": "Keep visible; neither positive normal-gameplay use nor unused status is certified.",
+      "evidenceIds": [
+        "ev_480e4f79eb395b964a25237621a723efa7297e1bcfea5643dc29dbd3b12bf33a",
+        "ev_be271dc42244a54482916413bd27a995185aa62fd4b26eaeeb19c89d13c5c62e",
+        "ev_4db4aba93a145a5fe7ac69f7245ef3abf0677c8f49edfff03b8c9f2066d3f97b",
+        "ev_5b210bea5cbe9f6889a460c309883a3ee312433f35f2b18a834db07199d74875",
+        "ev_589154637eb016912b127c0196edc5f5d810337f245188857981ca477da38f96",
+        "ev_068bb77dc31c467cc9f5851a4e978dbc93ec82ae2137ee7b403ef8238ac0ee2f"
+      ]
+    }
+  },
+  "creationFamilies": {
+    "freshGridCells": {
+      "factory": "0x7048c0",
+      "constructors": {
+        "liquid": "0x70ae10",
+        "gas": "0x70a4a0",
+        "fire": "0x709ef0"
+      },
+      "resolvedConstructorCallers": "Each constructor has only 0x7048c0 as a resolved direct caller.",
+      "factoryCallers": [
+        "0x704a30",
+        "0x71b140",
+        "0x73b040",
+        "0x73e950",
+        "0x880860"
+      ],
+      "finding": "The factory consumes a supplied material definition. The numeric adapter validates and indexes a supplied ID; these helpers perform no arbitrary-registry random selection."
+    },
+    "worldGeneration": {
+      "functions": [
+        "0x73b040",
+        "0x87d0e0",
+        "0x86d2a0",
+        "0x880860"
+      ],
+      "finding": "Reviewed cores use configured biome-band material pointers, RGB-to-ID image maps, or existing material IDs in cached chunk data. Noise chooses among configured bands, not arbitrary registry IDs."
+    },
+    "materialParticles": {
+      "function": "0x716af0",
+      "resolvedCallerCount": 9,
+      "callerFamilies": [
+        {
+          "function": "0x657960",
+          "origin": "Explosion configuration/name lookups and existing cell properties; field-level provenance is partially recovered."
+        },
+        {
+          "function": "0x7b3120",
+          "origin": "GameCreateParticle material_name argument resolved by CellFactory::GetType."
+        },
+        {
+          "function": "0xa44640",
+          "origin": "Existing particle material ID at +0x66, released by BlackHoleComponent."
+        },
+        {
+          "function": "0xab9a90",
+          "origin": "DamageModel material name fields, resolved by name lookup."
+        },
+        {
+          "function": "0xbb6e70",
+          "origin": "MaterialInventory array index; only entries with positive stored amounts emit."
+        },
+        {
+          "function": "0xbc75e0",
+          "origin": "ParticleEmitter material resolver/configuration; real and cosmetic creation branches are distinct."
+        },
+        {
+          "function": "0xbfdd10",
+          "origin": "Potion spray's existing MaterialInventory entries with positive amounts."
+        },
+        {
+          "function": "0xc0d290",
+          "origin": "Projectile material name fields (+0x2c8, +0x370) resolved by name lookup."
+        },
+        {
+          "function": "0xc0e9f0",
+          "origin": "GameEmitRainParticles wrapper0x7c6b90 resolves caller's material_name; random choices affect position and velocity, not material ID."
+        }
+      ]
+    },
+    "cosmeticParticles": {
+      "function": "0x716ce0",
+      "resolvedCallerCount": 28,
+      "finding": "All28 resolved direct caller functions were inspected. They reduce to source material fields, fixed named materials, previously existing cell/inventory/stain IDs or ParticleEffect owner IDs. Cosmetic use counts as use; the copied fungal ParticleEffect is an affirmative counterexample to declaring its owner unused.",
+      "callerFamilies": [
+        {
+          "function": "0x657960",
+          "origin": "Explosion create_cell_material/spark_material, fixed explosion_dirt/rock_static, destroyed CellData.solid_on_collision_material and existing cell/sprite IDs.",
+          "evidenceId": "ev_4a3f9f4609e3a65d07ceea325a4079afc0bb819e32a4f1879b2230c0061a01fe"
+        },
+        {
+          "function": "0x6f82f0",
+          "origin": "Existing solid CellData.solid_on_collision_material cached ID(+0x1cc).",
+          "evidenceId": "ev_bc69c4062588cf2df08e2336e5a6fa5f44c62b4e23eec6d7f423f973cd6a6fa7"
+        },
+        {
+          "function": "0x70d300",
+          "origin": "Existing grid-cell material ID returned by cell virtual method+8.",
+          "evidenceId": "ev_73abc274e7eee82c90d6b74f4677a59a38043e746a2003259f0a2b2d72bc874b"
+        },
+        {
+          "function": "0x716ee0",
+          "origin": "Fixed name spark.",
+          "evidenceId": "ev_80fff8d2f723dc5e1575632c40d7c9efd0a12c9e68b2c118e894ac115182ae21"
+        },
+        {
+          "function": "0x7171d0",
+          "origin": "ParticleEffect.m_material_id(+4), bound to definition's owner ID during material finalization. A copied effect retains this ID; fungal_shift_particle_fx is the verified cross-definition use.",
+          "evidenceId": "ev_41fdb641f837cada96ca0072971732e0ad55a52a3082ae491e526c6ae567cad6"
+        },
+        {
+          "function": "0x71ab50",
+          "origin": "Caller-supplied circular cell-conversion output and cosmetic IDs; helper itself performs no registry selection.",
+          "evidenceId": "ev_d7418e27b924602e4a933c9312a342ae4cb0f5b512ebeed3f420ec48938bfa8f"
+        },
+        {
+          "function": "0x71f3c0",
+          "origin": "Fixed name spark.",
+          "evidenceId": "ev_ba1686bfbd4fab7655bddb87d0923398ed1d6adb903837af9255ecedbed5421c"
+        },
+        {
+          "function": "0x744b70",
+          "origin": "Existing cell's material ID and color.",
+          "evidenceId": "ev_72548286c7b4f1699454869170129b696fe0125d6ec86a98fc82e7166c66b7fa"
+        },
+        {
+          "function": "0x7b2a50",
+          "origin": "GameCreateCosmeticParticle caller-supplied material_name resolved by GetType.",
+          "evidenceId": "ev_6465db09ef3801c786e5b54a7650a77287086d99e1ebdaa286a9229b1bca7485"
+        },
+        {
+          "function": "0xa0a070",
+          "origin": "Fixed name spark_green.",
+          "evidenceId": "ev_c816d9971ae038dbdc60a216edf97eb03eab54af1426a2f201e50f364ae109bf"
+        },
+        {
+          "function": "0xa232e0",
+          "origin": "AnimalAI component food/eating conversion and particle-effect material caches (+0x2cc/+0x2d0).",
+          "evidenceId": "ev_da79e04b40d19ee3ef7d7911c6def8a7f6129a8065d64f0d7b7fccb5e38f3750"
+        },
+        {
+          "function": "0xa23c90",
+          "origin": "Fixed name urine.",
+          "evidenceId": "ev_bf5de5233b1754d89f39a25d7b725da62fa45a154ed10553974d244f3f5379dc"
+        },
+        {
+          "function": "0xa23fc0",
+          "origin": "Fixed name poo (raw string at0x102eb64).",
+          "evidenceId": "ev_8fe5bf6bc228cee150d98c893de6070c9fd7927bb4194a315aed2fc3878c9cf4"
+        },
+        {
+          "function": "0xa44130",
+          "origin": "Existing grid-cell material and color while processing BlackHole attraction.",
+          "evidenceId": "ev_6f3a4946f9ff1983505f8cc3647150ff9900c61603292408e17705cc64ce0b8d"
+        },
+        {
+          "function": "0xa53610",
+          "origin": "BossDragon mMaterialIdPrev(+0x120) and current sampled ground material; previous ID is updated from existing CellData+0x30.",
+          "evidenceId": "ev_18b98d0331bc9c2642d4be661f308289c1f72ef710cbf1cd4c0bd88f47565562"
+        },
+        {
+          "function": "0xa639e0",
+          "origin": "CellEater existing material/cell particles and fixed spark visual effect.",
+          "evidenceId": "ev_9262f27a627eef3d5589c4faae2a510cf52bfa84f987eb86007c90a4df549494"
+        },
+        {
+          "function": "0xa815d0",
+          "origin": "Existing target cell's virtual GetMaterialId(+8).",
+          "evidenceId": "ev_f2af5e2526cb0af78253e07cd30b62ebf43150e00b3740ef34f7211c98de03a1"
+        },
+        {
+          "function": "0xab5410",
+          "origin": "Resolved DamageModel/GameEffect ragdoll_material, forwarded unchanged through image breakup callback.",
+          "evidenceId": "ev_78d20cbc5084d8bf173e18622ac73124b7ad7597880146741f7dcbf1593d97f1"
+        },
+        {
+          "function": "0xadefd0",
+          "origin": "Shield effect's fixed spark lookup.",
+          "evidenceId": "ev_52e0569f14d18b59f8dba096e722782dc3979627e4f871a6f069a0432ce331d4"
+        },
+        {
+          "function": "0xb946a0",
+          "origin": "ConfigLaser.beam_particle_type(+0x1c), fallback spark_green_bright, plus fixed spark and smoke.",
+          "evidenceId": "ev_2448a9c1cf7c9bab0972bc7b6d6ac95defa36b55d1aa385f001140160f5e42c6"
+        },
+        {
+          "function": "0xb95b50",
+          "origin": "Captured pointer to the material chosen by0xb946a0 from beam_particle_type/fallback; no independent selection.",
+          "evidenceId": "ev_76affc3a3f0ffc64e183677f9757fa45dd9b9c971da3e7dd3e25e935818ce0db"
+        },
+        {
+          "function": "0xba6a00",
+          "origin": "Existing material ID in the collapsed-image/cell map.",
+          "evidenceId": "ev_0f1f66cf0762485dea86b71821fceaae7f5da2d6cc02210dd7215d3a96d43ae3"
+        },
+        {
+          "function": "0xbc75e0",
+          "origin": "ParticleEmitter's source-defined material configuration/cache; inventory mode uses existing stored material. Cosmetic and real branches share this bounded origin.",
+          "evidenceId": "ev_187080280a5f58c7827826967fabac1d1d98a42614bdbd5ad33bbc9adfbc72a1"
+        },
+        {
+          "function": "0xbf2040",
+          "origin": "Existing material sampled from the player's contacted/dug cell before emitting its debris.",
+          "evidenceId": "ev_13f734ae592cb986f617c78ed68b28297c31009a48513522cca235f43c74694d"
+        },
+        {
+          "function": "0xc22080",
+          "origin": "Existing material IDs in sprite-stain pixels; fixed water path.",
+          "evidenceId": "ev_fc59f52e9297ddbf5d3831f7779dbf7a129f7cf00af99931f4637abfeaf997b2"
+        },
+        {
+          "function": "0xc2dfc0",
+          "origin": "Telekinesis visual material name lookups; random choices select held bodies/cells and velocity, not an arbitrary registry ID.",
+          "evidenceId": "ev_e1d682f0c974e0c3e0cca173e4ebd9c54048e45e896d8c4d22a1d06bf176ed11"
+        },
+        {
+          "function": "0xc3a3d0",
+          "origin": "Verlet per-point stored material IDs. Collision helper0xc37d30 fills them from existing collided CellData+0x30; worker0xc3a610 emits and clears them.",
+          "evidenceId": "ev_3377d4ef8ca3a1c1fb13af25b2274cf75133482bb9efb6c081225aa2d2aadb4f"
+        },
+        {
+          "function": "0xc44480",
+          "origin": "Worm mMaterialIdPrev(+0xc8) and current sampled ground material; previous ID is updated from sampled CellData.",
+          "evidenceId": "ev_86f8e38f3ef6e3c3fabc1c5df736bd307374324868d13e59998ca21b734a8da4"
+        }
+      ]
+    },
+    "solidBodies": {
+      "functions": [
+        "0x71b6c0",
+        "0x71bd10",
+        "0x841bc0",
+        "0xba6330",
+        "0x91ea30"
+      ],
+      "finding": "Bulk body placement consumes an existing supplied per-pixel material-ID map; PhysicsAddBodyImage resolves image RGB; PixelSprite activation0xbedab0 resolves component.material(+0x68), with default wood_loose. LooseGround uses source chunk_material or fixed concrete_collapsed. Body builder0x91ea30 reads optional material density/friction/restitution/gravity only; null uses physics constants rather than choosing a material. Body-to-grid conversion0x720960 preserves existing cell definitions unless supplied an explicit conversion ID.",
+      "status": "closed-to-source-config-images-fixed-defaults-or-existing-materials",
+      "decompilerLimitation": "0x91ea30 pseudocode loses its tail after a mistaken no-return assumption. The complete relevant assembly is retained as physics-body-create.asm and was used for the property/default finding."
+    },
+    "explosions": {
+      "function": "0x657960",
+      "fields": {
+        "create_cell_material": {
+          "offset": "0x90",
+          "default": "fire"
+        },
+        "spark_material": {
+          "offset": "0xb0",
+          "default": "spark"
+        },
+        "solid_on_collision_material": {
+          "owner": "destroyed CellData",
+          "offset": "0x1b4",
+          "cachedIdOffset": "0x1cc"
+        }
+      },
+      "fixedNames": [
+        "explosion_dirt",
+        "rock_static"
+      ],
+      "finding": "Initial creation IDs are name lookups of create_cell_material/spark_material. Real sparks use spark_material when material_sparks_real is enabled. Destroyed-cell replacement can use its configured solid_on_collision_material; fallback dirt is the fixed explosion_dirt definition. Debris can copy the existing cell or PixelSprite material. No registry-wide choice or material-name suffix generation occurs in the reviewed explosion routine.",
+      "fieldBindings": "0x4c10f0 and CellData loader0x6fa4e0",
+      "status": "closed-to-source-fields-fixed-names-or-existing-materials"
+    },
+    "ragdollParticles": {
+      "functions": [
+        "0xabb7d0",
+        "0xabd6f0",
+        "0x65eb40",
+        "0xab5410"
+      ],
+      "origin": "DamageModelComponent.ragdoll_material (+0x144, default meat), or active GameEffectComponent.ragdoll_material (+0x74, default0) override. KillMe resolves the name, captures its ID, and forwards it unchanged to the image-particle callback.",
+      "gameEffect": {
+        "constructor": "0x6914d0",
+        "fieldBinding": "0x699310",
+        "configuredValueLoad": "0x693780",
+        "defaultId": 0,
+        "reviewedHandlers": [
+          "0xb015d0",
+          "0xb041e0"
+        ],
+        "finding": "These reviewed game-effect update/attachment handlers do not assign a new material to the GameEffect +0x74 ragdoll override."
+      },
+      "status": "closed-to-source-fields-and-fixed-defaults"
+    },
+    "phaseChanges": {
+      "cacheResolver": "0x707990",
+      "runtimeConversion": "0x71aa60",
+      "fields": {
+        "warmTarget": "0x144",
+        "coldTarget": "0x148",
+        "disableReverse": "0x150"
+      },
+      "finding": "Loading cold_freezes_to_material_name writes its resolved ID to +0x148. Unless disableReverse is set, it also writes the source material ID to the frozen target's warmTarget(+0x144). The resolver subsequently resolves or clears each record's own warm target in registry order. Runtime heat/freezing conversion reads these resolved fields; this path does not consult an additional reverse-transition table.",
+      "sourceJoin": "Use final resolved runtime warmth_melts_to_material and cold_freezes_to_material_id, not just XML attribute text, so generated reverse edges are included.",
+      "status": "closed-to-resolved-material-fields"
+    }
+  },
+  "certificationBoundary": {
+    "noNewExclusionsCertifiedByThisFile": true,
+    "confirmed": "Listed53 source candidates have no surviving concrete initial-seed route in the reviewed native production families after the explicit source-domain joins. This file remains a native mechanism review; the final per-material exclusion certificate must also bind the matching source/validation evidence and executable/data digests.",
+    "remaining": [
+      "spark_player: native disappearance entities are proven, but normal controller/respawn reach of the co-op branch remains unverified; keep it visible."
+    ],
+    "notAProof": "Absence of a literal material name and the existence of generic debug/mod spawning APIs are neither sufficient unused proofs nor gameplay creation routes."
+  },
+  "evidence": {
+    "0x4ac7e0": {
+      "id": "ev_4b75c0f25d3f61048f73c3edcab43e696659e7631875c23863fff657f0d6a769",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x7092c0": {
+      "id": "ev_0e52b2557d3a2db5f9a423dce432e634033f57cbd85ce31304b868c7f925b9f3",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x707c20": {
+      "id": "ev_2cecf31a83124d651e7bcccd6a296dd00ca0270178537348a567333270ad6af4",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x91e310": {
+      "id": "ev_1fb14e90a166062ee32d661a6a57c30fa5af40fcbcb30332b75fe6dcb328c016",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x7ac7c0": {
+      "id": "ev_30604f0ea12dd692cf025c25370148372eccd290f5143c638b3bc325d5574447",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x7acb20": {
+      "id": "ev_bb48e7d4b80e90904d0447e8a8e7a8d3c25162658e71fb355af50658d8662f6a",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x704f00": {
+      "id": "ev_0f1c9a08cb8cbc44c0ff5c92ea234c05064d73515ca3a785fe0957541290e1d7",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x8704c0": {
+      "id": "ev_81a244be628bcbb2555803bba9c56940430ad03e91b9b6806653fde676ac85b3",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x867de0": {
+      "id": "ev_21783cee8bafe7477041654fac1230183762b984a2106c41c00213711e4223cd",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x879bf0": {
+      "id": "ev_e914a3dec2a4cfe3bafe9403d7fa0aa676c1abfda24849629c09b97632d00eae",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x4ad000": {
+      "id": "ev_62b27895b33ea0cb15d34c98c2a7d4045637b7aa99e35a2470b0a33ad49e7135",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x87d0e0": {
+      "id": "ev_76fb49a3bafcad08a5de69fb55238e24b1a4c71e186941962e7dacc82feedfba",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x86d2a0": {
+      "id": "ev_d297e24c2050e88de3819e78cbc600ad31810884b213b81eddf669370b7cab12",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x705e10": {
+      "id": "ev_b3011c5d59420749b9decc39e488eb1f0837b713b3d8fe6d782f1cd4057f3d3d",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x7057a0": {
+      "id": "ev_b42ea04128e221b7d484e2a469ae1339520be6df1c15b94e4142f0e253a02448",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x7b3120": {
+      "id": "ev_1ea69719e9fb39ac1c068efb3cbdbbb467bd554b662e711ee21ecbdedbed44d5",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x7c6b90": {
+      "id": "ev_91b059a52c716c4dd9a63fd45ce6c3a8ee9021f3dd94ad257fd504cc69de1557",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x7048c0": {
+      "id": "ev_8834adb96faa7ddf52d40c1cc63b827cb8a642187e3ef88b38ff8b3ca926d555",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x704a30": {
+      "id": "ev_67b16716cd3b751eb214ee7a8615f8d573999a7bb771d24b108980fa99b226d6",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x71b140": {
+      "id": "ev_62112b709f3f7aaafd3fc417a60137732ebae45912ab2bfa1ce05a8c0d94add1",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x73b040": {
+      "id": "ev_25ac02706b62461fe945dd9ba74831f087130bfe6e045e972ace8823ec367d15",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x73e950": {
+      "id": "ev_5a1ead6e67074f7fa4a8bef8fb1a0e75d8cb9a9e2ccd746db36e96457c283b2f",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x880860": {
+      "id": "ev_50e8ac249afba8ed2005d757a5c2d30167ab770705a32731b65c8581357aaaab",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x716af0": {
+      "id": "ev_62960fadf7bc3b95d456ec33f4d5cbb24d2a7d9e83ae64bd0c73d87101bbc38e",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xba6330": {
+      "id": "ev_09e31f5ceae95c127517d2750b240d7854c18aeb77efa0dfce404fcdce17c0c2",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xba5ba0": {
+      "id": "ev_8b2db6555b3d642d276f578e1ec9703f52100c6e1acd792496a0b0982d50ee0f",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x841ed0": {
+      "id": "ev_1ac7e256ff49b87ff852017e09c788bc8e5c0ab679a55b85954406ddd914d9b9",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x843640": {
+      "id": "ev_801ec400476e475fbb5a7a7338eb98622764b126f0e9c8a68ce53db90525d311",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x78d8d0": {
+      "id": "ev_5f3989aded5bf5b681b34e3d34c5726243733fadc9a0321bb384347cfe506ef3",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x6fa4e0": {
+      "id": "ev_2754178b029ec4c48d3c5cdd89ac23f683ab191fd56048f610c89589ffb2f125",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x706fd0": {
+      "id": "ev_05e2acadf631d4c5da3091b69dd6608216d2c93b96fe418ca3fd73343db37978",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x5b20f0": {
+      "id": "ev_4ca752476bde167b20983d909be0131050462c98e5073de059a673c8b1a0dd1e",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x724580": {
+      "id": "ev_58d51e3ef2dd5deaa1642d43ad6ea7325806be7b1ffccc174b30f9f62f3c37ff",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x723bd0": {
+      "id": "ev_e4957893e815da272d2b8430ec45b73d2f6a9090212971bb9bda7bfdb8b22066",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x724480": {
+      "id": "ev_f2cbb05d2f5713bae7f8d8e3e48e37e47a2a780a2f7cf512ee4a2212407b9018",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x7171d0": {
+      "id": "ev_41fdb641f837cada96ca0072971732e0ad55a52a3082ae491e526c6ae567cad6",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xb015d0": {
+      "id": "ev_ffa522ca90e1ece1f41a6cff82baa366831ce4972278d9f7c787d9fb1298c728",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xc37d30": {
+      "id": "ev_55b8bf3623500074411ac9719a8a0ec0c99792ad3dcc060f6431629c62258cb4",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xc3a610": {
+      "id": "ev_73db99ddb2c696816f686c764f7b9f1fec475365beafd6fc266df3f84128a857",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x4c10f0": {
+      "id": "ev_be263b4a79beab7e4a57ef0a6556a2a7f61d18688dc7c2c566af1228be2546ee",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x6914d0": {
+      "id": "ev_1b1ceb98821ca4e8ad22614978a34b72a0b1312bc6cc8b0875db82f509ad2ef3",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x699310": {
+      "id": "ev_f974aa2bf1a28fdf6f085a05c0546ffed291b1606f75042c4bb7aabc7d3e36c6",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x693780": {
+      "id": "ev_a7b9317bb420aebd44f063bc445ce8ccc5e10b5aa76a19a747f28dc7849ee126",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x707990": {
+      "id": "ev_f2aec6de790f96c1365f80d4857463302438061691491120149dd03676c49240",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x71aa60": {
+      "id": "ev_71bc8a76b5b55de585b417e819c4f1553861090da1f692c6d712553aaacc47f0",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xa1c990": {
+      "id": "ev_2a6d938ace35fb83cc5ec8eb041d6655afcc80f25cd2b020623f172963ac2578",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xa77cc0": {
+      "id": "ev_669ebca9eef693fddaa7fdac266ab7f67037c1b8f7e447ac2ecd6c9ef820554a",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xbc9b20": {
+      "id": "ev_ece5cab78c4076a1df4a4a0dd36a9dfe97781106638f40ea15c337cd7f1f5f57",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xabb7d0": {
+      "id": "ev_8e9e433b2f8c333b87c05f6393cdf246d646581e508f2ef8e11d7c36c9cca14a",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xabd6f0": {
+      "id": "ev_7b4804351b9c60b34ffc438c1194dfd00875af0e743b064bee662de43451353e",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x65eb40": {
+      "id": "ev_e9e5ffed2efadd2c59205bc3eba58b0410e88d0b7103cc7c0d637978fcf98b0a",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xbedab0": {
+      "id": "ev_4f0072534f1fba25bcc955347a39d5989b5fa470107968ed0672a613ad4a906b",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x91ea30": {
+      "id": "ev_c3c0a42183656a8f75270c176a25585c37a0d92a524d74dc6479a8856e0ef437",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x71b6c0": {
+      "id": "ev_2bf82ac7ec75ddcc068fd95079401637cd316649259ff5d2f3e354884e8d2251",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x720960": {
+      "id": "ev_676b9d35cf203e412eca3db2a08ad730fc3c77e458504211e9a3736905b49a19",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xc44480": {
+      "id": "ev_86f8e38f3ef6e3c3fabc1c5df736bd307374324868d13e59998ca21b734a8da4",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xa53610": {
+      "id": "ev_18b98d0331bc9c2642d4be661f308289c1f72ef710cbf1cd4c0bd88f47565562",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xb946a0": {
+      "id": "ev_2448a9c1cf7c9bab0972bc7b6d6ac95defa36b55d1aa385f001140160f5e42c6",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xb95b50": {
+      "id": "ev_76affc3a3f0ffc64e183677f9757fa45dd9b9c971da3e7dd3e25e935818ce0db",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xab5410": {
+      "id": "ev_78d20cbc5084d8bf173e18622ac73124b7ad7597880146741f7dcbf1593d97f1",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x716ee0": {
+      "id": "ev_80fff8d2f723dc5e1575632c40d7c9efd0a12c9e68b2c118e894ac115182ae21",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x71f3c0": {
+      "id": "ev_ba1686bfbd4fab7655bddb87d0923398ed1d6adb903837af9255ecedbed5421c",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x744b70": {
+      "id": "ev_72548286c7b4f1699454869170129b696fe0125d6ec86a98fc82e7166c66b7fa",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xa815d0": {
+      "id": "ev_f2af5e2526cb0af78253e07cd30b62ebf43150e00b3740ef34f7211c98de03a1",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xc22080": {
+      "id": "ev_fc59f52e9297ddbf5d3831f7779dbf7a129f7cf00af99931f4637abfeaf997b2",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xbf2040": {
+      "id": "ev_13f734ae592cb986f617c78ed68b28297c31009a48513522cca235f43c74694d",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xc2dfc0": {
+      "id": "ev_e1d682f0c974e0c3e0cca173e4ebd9c54048e45e896d8c4d22a1d06bf176ed11",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xb041e0": {
+      "id": "ev_e46e2b3edce22132ed3f1f2e4ccbf0afab3c2b91f6912d99226ede7e1a00c195",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xb00360": {
+      "id": "ev_49e9051b58170923488b03633501755b5bde8d5261670b5f99077657febbf624",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x6afaa0": {
+      "id": "ev_e7c90b0f185265783bed56cfe5bade0a78709c3acdbebaa035c1cc61cb84abec",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x6ad300": {
+      "id": "ev_c511c6666b8b37e18112ceecf63333a18fe2bdeae4c1bec959bd796ec252686d",
+      "operation": "procedure_pseudo_code"
+    },
+    "0xb05b40": {
+      "id": "ev_88d3673cc8bc5a66beca60d3cb8fe6cec393ba8aa6b3b01a2bcb3c075b9d6ab4",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x8408e0": {
+      "id": "ev_fe9f1873044b6d84c1303d9c01ed39ee85c8b41d3de7fbde1129cc6f3dd348a5",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x6ac310": {
+      "id": "ev_480e4f79eb395b964a25237621a723efa7297e1bcfea5643dc29dbd3b12bf33a",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x6b77d0": {
+      "id": "ev_be271dc42244a54482916413bd27a995185aa62fd4b26eaeeb19c89d13c5c62e",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x6b7e80": {
+      "id": "ev_4db4aba93a145a5fe7ac69f7245ef3abf0677c8f49edfff03b8c9f2066d3f97b",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x6b6200": {
+      "id": "ev_5b210bea5cbe9f6889a460c309883a3ee312433f35f2b18a834db07199d74875",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x636dc0": {
+      "id": "ev_589154637eb016912b127c0196edc5f5d810337f245188857981ca477da38f96",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x44df60": {
+      "id": "ev_068bb77dc31c467cc9f5851a4e978dbc93ec82ae2137ee7b403ef8238ac0ee2f",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x7a75c0": {
+      "id": "ev_38addea76f7dfbd9be81d44509be6ac263b1e791cc5e961f62f1daed49c0688f",
+      "operation": "procedure_pseudo_code"
+    },
+    "0x6b7620": {
+      "id": "ev_e9382561d213ef6d39ca376e005b2746362175f591381fb389c9f9a01fd3b6c9",
+      "operation": "procedure_pseudo_code"
+    }
+  },
+  "variantNameReview": {
+    "scope": "Material registration/name lookup, the reviewed worldgen/physics/conversion/explosion producers and whole-file suffix-literal counterexample search.",
+    "reviewedSuffixes": [
+      "_vertical",
+      "_molten",
+      "_box2d",
+      "_part2",
+      "_trailer",
+      "_player"
+    ],
+    "finding": "No independent material-name variant generator was identified in these native creation paths. Physics shape creation retains source material definitions rather than deriving a vertical-name variant from orientation. convert_to_box2d_material and solid_break_to_type are explicit source fields at +0x1ec/+0x1d0. Reaction tag/suffix transformations are supplied by materials.xml and must be expanded against their bound input names.",
+    "literalSearch": "_molten, _part2 and _trailer have no binary text hit. _vertical only occurs in do_only_vertical_stripe. _box2d appears in configuration/type labels and convert_to_box2d_material. Literal absence is supporting evidence only."
+  },
+  "boundedImmediateScan": {
+    "candidateCount": 55,
+    "callCount": 378,
+    "hits": 0,
+    "artifact": "task/material-availability-native/placement-immediate-scan.json",
+    "limitation": "Only decoded indirect slot0x20 calls with literal or nearest register-immediate IDs in the x86 placement argument position; not a complete dataflow proof."
+  },
+  "normalCreationClosure": {
+    "status": "closed-for-listed-source-candidates",
+    "candidateIds": [
+      "nest_static",
+      "water_static",
+      "endslime_static",
+      "slime_static",
+      "ice_meteor_static",
+      "waterrock",
+      "smoke_static",
+      "radioactive_gas_static",
+      "vine",
+      "ice_ceiling",
+      "brick",
+      "tnt",
+      "tnt_static",
+      "trailer_text",
+      "meteorite",
+      "meteorite_test",
+      "meteorite_green",
+      "aluminium",
+      "crystal_magic",
+      "aluminium_oxide",
+      "physics_throw_material_part2",
+      "ice_melting_perf_killer",
+      "blood_thick",
+      "neon_tube_blood_red",
+      "metal",
+      "meteorite_crackable",
+      "wood_prop_durable",
+      "grass_loose",
+      "wood_trailer",
+      "templebrick_box2d",
+      "fuse_bright",
+      "wood_player_b2_vertical",
+      "meat_polymorph",
+      "meat_trippy",
+      "meat_slime_orange",
+      "steam_trailer",
+      "corruption_static",
+      "wood_static_gas",
+      "gold_static_dark",
+      "creepy_liquid_emitter",
+      "wood_burns_forever",
+      "steel_static_unmeltable",
+      "steelsmoke_static",
+      "steelmoss_slanted",
+      "templebrick_moss_static",
+      "templebrick_red",
+      "rock_magic_gate",
+      "rock_eroding",
+      "rock_magic_bottom",
+      "gem_box2d_pink",
+      "gem_box2d_red",
+      "gem_box2d_green",
+      "gem_box2d_orange"
+    ],
+    "scope": "Original material definitions in the pinned unmodified game, including cosmetic use and official Nightmare content; developer/mod inputs and hypothetical arbitrary API calls are not normal-gameplay seed routes.",
+    "basis": "All concrete ID-origin questions found in the reviewed normal producer families reduce to source-resolved fields/defaults, source-selected images, explicit native named materials, runtime-resolved phase/reaction targets or a copy of an already existing material. The separate source review closes those input domains for these53 candidates.",
+    "families": [
+      {
+        "family": "Random-material flasks",
+        "proof": "Native type/static/particle predicates and ID0 exclusion, joined to shipped chest/potion scripts."
+      },
+      {
+        "family": "Terrain, scenes and vegetation",
+        "proof": "Configured biome-band definitions and RGB image maps; source review includes native exact-path roots, remaps, fixed-bitmap alpha behavior, spliced images and native effect filenames."
+      },
+      {
+        "family": "Physical grid/particles",
+        "proof": "Recovered central constructors/factory callers and9 actual-material-particle caller functions; output IDs derive from source fields, fixed names, existing inventories/cells, or resolved transitions."
+      },
+      {
+        "family": "Cosmetic effects",
+        "proof": "All28 resolved cosmetic-creator caller functions inspected; named/configured IDs, existing cells/stains/inventories, and ParticleEffect owner IDs. Borrowed fungal effect remains explicitly used."
+      },
+      {
+        "family": "Physics bodies and ragdolls",
+        "proof": "Image/PixelSprite material maps, fixed/default wood_loose/concrete_collapsed, DamageModel/GameEffect ragdoll material fields; body core supplies physics properties only."
+      },
+      {
+        "family": "Name variants and transformations",
+        "proof": "Explicit convert_to_box2d_material/solid_break_to_type fields and source-bound reaction suffixes; no independent rotation-based material-name generator found in reviewed body/conversion code."
+      },
+      {
+        "family": "Native directory loading",
+        "proof": "Animal polymorph registry filters _physics names; entity/gfx preloading does not instantiate world material; native effect_ and spliced prefix domains cross-joined by source reviewer."
+      }
+    ],
+    "explicitExceptions": {
+      "fungal_shift_particle_fx": "Verified cosmetic use after borrowed ParticleEffect copy; excluded from unused candidates.",
+      "rainbow_gas": "Verified native activation of shipped fart-tagged emitter; used.",
+      "spark_player": "Native player-disappearance entities exist, but their debug/co-op reach is still being reviewed; excluded from this closure until resolved."
+    },
+    "limitations": [
+      "This is an evidence-bounded source/native mechanism review, not a formal proof over all possible executable paths.",
+      "The378 syntactic virtual-slot calls are a separate supporting immediate-ID check, not a complete native virtual-call graph.",
+      "No current gameplay session or material API runtime dump was executed."
+    ]
+  },
+  "nativeAssetReferences": {
+    "inventory": "task/material-availability-native/native-data-paths.json",
+    "exactPaths": 380,
+    "prefixesAndPatterns": 38,
+    "embeddedOtherStrings": 40,
+    "sourceCrossJoin": "src/data/material-availability/closure-review.json:nativeAssetCrossJoin and nativePrefixJoins",
+    "finding": "All exact references were offered to source review as candidate roots rather than automatically treated as world spawns. Only spark_player's native disappearance entities introduced a remaining conditional candidate producer.",
+    "polymorph": {
+      "function": "0xb00360",
+      "blacklistSubstrings": [
+        "pebble",
+        "_test_walk",
+        "_physics",
+        "eel",
+        "boss_dragon",
+        "miner_santa",
+        "wand_ghost",
+        "ghost",
+        "darkghost",
+        "monk",
+        "ethereal_being",
+        "nibbana"
+      ],
+      "finding": "The normal pool removes blacklist-substring entries. A separate named rare pool is constructed for listed monsters; _physics variants are not moved into that rare pool. The concrete boss_limbs_physics aluminium candidates are excluded."
+    },
+    "preloading": {
+      "functions": [
+        "0x6afaa0",
+        "0x6ad300"
+      ],
+      "finding": "Entity/gfx directory sweeps are template/image preloading. The XML branch calls template retrieval, not entity/world-material construction."
+    },
+    "effectPrefix": {
+      "function": "0xb05b40",
+      "prefix": "data/entities/misc/effect_",
+      "finding": "Built from game-effect enum names; source review conservatively inspected every shipped effect_*.xml and dependencies."
+    },
+    "splicedPrefix": {
+      "function": "0x8408e0",
+      "prefix": "data/biome_impl/spliced/",
+      "finding": "Source review checked every shipped spliced image, including transparent RGB values, for candidates."
+    }
+  },
+  "evidenceArtifacts": {
+    "bundle": "task/material-availability-native/evidence.json",
+    "snapshot": "task/material-availability-native/analysis.snapshot.json",
+    "disassemblyAndPseudocode": "task/material-availability-native/",
+    "nativeDataPaths": "task/material-availability-native/native-data-paths.json"
+  }
+}

@@ -1,0 +1,3544 @@
+{
+  "schemaVersion": 1,
+  "scope": "Independent cross-join of retained native artifacts with the bound source audit for55 source-closed candidate material definitions. No REA session or target execution was used by this reviewer.",
+  "executable": {
+    "path": "noita_bin/noita.exe",
+    "sha256": "a0d9f9ca513e27a598c61dd9a19211c7a11d1477c9a2b93d909757d91d17d914",
+    "architecture": "x86",
+    "buildLabel": "Jan 25 2025"
+  },
+  "inputSnapshots": {
+    "sourceReview": {
+      "path": "src/data/material-availability/source-review.json",
+      "sha256": "ea72a1594f55c7ff3bfd49910c4b61391073d49745cb08c4a6be907885ffa119"
+    },
+    "nativeEvidence": {
+      "path": "src/data/material-availability/native-evidence.json",
+      "sha256": "e5e0ecd706a371086d67b0c235f3eb9081dc21bb4d2ae59a58885d6a25306f9f",
+      "note": "Final native ledger:81 retained evidence IDs;53-ID normalCreationClosure with spark_player activation still conditional.",
+      "evidenceRecordCount": 81
+    }
+  },
+  "standards": {
+    "originalDefinitionsOnly": true,
+    "cosmeticUseCountsAsUse": true,
+    "existingCellsDoNotEstablishFirstOccurrence": true,
+    "decompilationIsNotOriginalSource": true,
+    "unresolvedVirtualOrCosmeticDataflowIsNotCertified": true
+  },
+  "summary": {
+    "reviewedIds": 55,
+    "verifiedUnusedIds": [
+      "nest_static",
+      "water_static",
+      "endslime_static",
+      "slime_static",
+      "ice_meteor_static",
+      "waterrock",
+      "smoke_static",
+      "radioactive_gas_static",
+      "vine",
+      "ice_ceiling",
+      "brick",
+      "tnt",
+      "tnt_static",
+      "trailer_text",
+      "meteorite",
+      "meteorite_test",
+      "meteorite_green",
+      "aluminium",
+      "crystal_magic",
+      "aluminium_oxide",
+      "physics_throw_material_part2",
+      "ice_melting_perf_killer",
+      "blood_thick",
+      "neon_tube_blood_red",
+      "metal",
+      "meteorite_crackable",
+      "wood_prop_durable",
+      "grass_loose",
+      "wood_trailer",
+      "templebrick_box2d",
+      "fuse_bright",
+      "wood_player_b2_vertical",
+      "meat_polymorph",
+      "meat_trippy",
+      "meat_slime_orange",
+      "steam_trailer",
+      "corruption_static",
+      "wood_static_gas",
+      "gold_static_dark",
+      "creepy_liquid_emitter",
+      "wood_burns_forever",
+      "steel_static_unmeltable",
+      "steelsmoke_static",
+      "steelmoss_slanted",
+      "templebrick_moss_static",
+      "templebrick_red",
+      "rock_magic_gate",
+      "rock_eroding",
+      "rock_magic_bottom",
+      "gem_box2d_pink",
+      "gem_box2d_red",
+      "gem_box2d_green",
+      "gem_box2d_orange"
+    ],
+    "newSupportedUses": [
+      "fungal_shift_particle_fx"
+    ],
+    "protectedPendingNormalReachability": [
+      "spark_player"
+    ],
+    "verifiedUnusedCount": 53,
+    "remainingConcreteNativeQuestions": 1
+  },
+  "satisfiedJoins": [
+    {
+      "id": "initial-flask-membership",
+      "status": "satisfied",
+      "scope": "all55 original source-closed definitions",
+      "native": "0x78d8d0 enumerates IDs1..count-1 and tests resolved type/static/particle flags; wrappers select liquid/sand with statics disabled.",
+      "source": "sourceClosure domains random-material-flasks and independently reconstructed material flags exclude all55. Conversion changing a slot does not establish availability of its original definition.",
+      "evidence": [
+        "native-evidence.json#flaskEnumeration"
+      ]
+    },
+    {
+      "id": "configured-world-generation",
+      "status": "satisfied-for-reviewed-families",
+      "scope": "configured biome bands, fixed bitmap, Wang images and named scene overrides",
+      "native": "0x73b040/0x87d0e0 use configured material pointers/IDs;0x880860 uses Wang results;0x704f00 and0x4ad000 compare RGB. No arbitrary-registry choice occurs in these reviewed cores.",
+      "source": "Bound source corpus closes actual biome material fields, all image RGB candidates and every RandomColor/name override. Alpha is loader-specific; unselected image assets are not rejected merely by alpha or directory name.",
+      "evidence": [
+        "0x73b040.c",
+        "0x87d0e0.c",
+        "0x880860.c",
+        "0x704f00.c",
+        "0x8704c0.c",
+        "0x7b1990.c"
+      ]
+    },
+    {
+      "id": "stored-cell-and-inventory-copies",
+      "status": "satisfied-as-noninitial-source",
+      "scope": "chunk cache, inventories/potions, carried Black Hole cells, sampled terrain debris, Worm/BossDragon/Verlet debris",
+      "native": "0x73e950 restores stored cell IDs; particles and inventories forward positive existing entries.0xa815d0 reads an existing cell vfunc+8;0xa44130 reads existing CellData+0x30. Worm+0xc8 and BossDragon+0x120 retain sampled ground IDs.0xc37d30 writes Verlet material points from collided existing CellData;0xc3a3d0 emits those queued IDs.",
+      "source": "An existing candidate cell/material is a prerequisite, so these routes cannot explain its first appearance. This closes the copied-ID mechanism rather than assuming copying APIs are unreachable.",
+      "evidence": [
+        "0x73e950.c",
+        "particle-source-0xa815d0.c",
+        "particle-source-0xa44130.c",
+        "particle-source-0xc44480.c",
+        "particle-source-0xa53610.c",
+        "0xc37d30.c",
+        "0xc3a610.c",
+        "particle-source-0xc3a3d0.c"
+      ]
+    },
+    {
+      "id": "explicit-physics-defaults-and-supplied-maps",
+      "status": "satisfied-for-shown-defaults-and-map-consumers",
+      "scope": "PixelSprite default, LooseGround default, supplied material-ID image/body maps",
+      "native": "PixelSprite constructor0x841ed0 names wood_loose;0x843640 stores resolved ID at+0xf4.0xba6330 resolves concrete_collapsed only when chunk_material=0.0x71b6c0/0x71bd10 consume supplied maps/IDs; adjacent0x91ea30 assembly reads body properties from its supplied definition.",
+      "source": "wood_loose/concrete_collapsed already have affirmative source routes and are outside55. No other candidate is an introduced default in these shown functions; source producers/images for55 are closed. Generic body construction itself is not a new candidate selector.",
+      "evidence": [
+        "0x841ed0.c",
+        "0x843640.c",
+        "0xba6330.c",
+        "0x71b6c0.c",
+        "0x71bd10.c",
+        "physics-body-create.asm"
+      ]
+    },
+    {
+      "id": "named-component-and-lua-particles",
+      "status": "satisfied-for-shown-named-fields",
+      "scope": "GameCreateParticle, rain, ParticleEmitter, ProjectileComponent, DamageModel, explosion create_cell_material and spark_material",
+      "native": "The shown paths resolve caller/configuration material names.0x4c10f0 maps explosion+0x90 to create_cell_material and+0xb0 to spark_material;0xa77cc0 maps ParticleEmitter+0x48 to emitted_material_name. Field-selection closure is distinct from proving every virtual-placement caller.",
+      "source": "Lua finite domains and every named source field/override exclude55, except unselected assets whose native loading question is tracked separately. Fixed explosion_dirt/rock_static/spark/smoke defaults are outside55.",
+      "evidence": [
+        "0x4c10f0.c",
+        "0xa77cc0.c",
+        "native-evidence.json#creationFamilies.materialParticles"
+      ]
+    },
+    {
+      "id": "material-attached-cosmetic-configurations",
+      "status": "satisfied-with-one-positive-counterexample",
+      "scope": "ParticleEffect.m_material_id data and fungal conversion configuration copying",
+      "native": "0x5b20f0 copies ParticleEffect+4.0x7057a0 installs the fungal template configuration without replacing that ID.0x724480 drains queued configurations through0x7171d0, which passes+4 to0x716ce0.",
+      "source": "The template has m_material_id223. Among the other54, material-attached effect references point only to their own endslime_static,ice_meteor_static,corruption_static records and need an initial seed. Therefore fungal_shift_particle_fx must be retained as a real cosmetic material use.",
+      "evidence": [
+        "0x7057a0.c",
+        "0x5b20f0.c",
+        "0x724480.c",
+        "particle-source-0x7171d0.c",
+        "particle-effect-id-binding.asm",
+        "0x706fd0.c",
+        "0x724580.c",
+        "0x723bd0.c"
+      ]
+    },
+    {
+      "id": "laser-finite-material-domain",
+      "status": "satisfied",
+      "scope": "laser spark/smoke/spark_green_bright defaults and source beam_particle_type values",
+      "native": "Metadata0xa1c990 binds ConfigLaser+0x1c to beam_particle_type.0xb946a0 resolves fixed spark/smoke/spark_green_bright names and chooses beam_particle_type with spark_green_bright fallback. Its capturefield4 points to the selected ID;0xd21ce0→0xd8a1c0→0xb95b50 forwards that selected value.",
+      "source": "Every source beam_particle_type value is an explicit name outside54; no numeric candidate IDs occur in these bindings.",
+      "beamNames": [
+        "plasma_fading",
+        "spark",
+        "spark_green",
+        "spark_purple_bright",
+        "spark_red",
+        "spark_red_bright"
+      ],
+      "evidence": [
+        "particle-source-0xb946a0.c",
+        "particle-source-0xb95b50.c",
+        "0xa1c990.c",
+        "0xd21ce0.c",
+        "0xd8a1c0.c"
+      ]
+    },
+    {
+      "id": "ragdoll-cosmetic-dispatch",
+      "status": "satisfied",
+      "scope": "0xab5410 callback and supplied ragdoll material",
+      "native": "0xabb7d0 resolves DamageModel.ragdoll_material (+0x144, default meat), optionally overridden by active GameEffect+0x74;0xabd6f0→0x65eb40→0xab5410 forwards that resolved ID. GameEffect constructor0x6914d0 sets+0x74=0, getter0x699310 binds ragdoll_material to that offset, serialization0x693780 reads the configured field. Inspected effect update0xb015d0 and attachment0xb041e0 do not write the override or introduce the meat-variant candidates.",
+      "source": "Every source ragdoll_material assignment and numeric field was checked; no remaining54 candidate is supplied. The shown native constructor/copy/configuration/handler paths add no independent candidate selector.",
+      "evidence": [
+        "0xabb7d0.c",
+        "0xabd6f0.c",
+        "0x65eb40.c",
+        "particle-source-0xab5410.c",
+        "0x6914d0.c",
+        "0x699310.c",
+        "0x693780.c",
+        "0xb015d0.c",
+        "0xb041e0.c"
+      ]
+    },
+    {
+      "id": "native-known-prefix-domains",
+      "status": "satisfied-for-recorded-prefixes",
+      "scope": "template-preload directories, effect enum filenames, spliced terrain chunk images",
+      "finding": "The three potentially relevant native prefix groups are bounded by noncreating preload semantics, all effect_ source contents, and complete spliced image RGB absence, respectively.",
+      "evidence": [
+        "0x6afaa0.c",
+        "0x6ad300.c",
+        "0xb05b40.c",
+        "0x8408e0.c"
+      ]
+    },
+    {
+      "id": "mapped-normal-native-id-origins",
+      "status": "satisfied-for-pinned-scope",
+      "scope": "Original material definitions in the pinned unmodified game, including cosmetic use and official Nightmare content; developer/mod inputs and hypothetical arbitrary API calls are not normal-gameplay seed routes.",
+      "finding": "The recovered normal producer families and their concrete outstanding inputs have been joined to source fields/images/defaults, fixed native names, resolved phase/reaction fields or existing-material copies.0x71b2d0 is an ID-to-definition adapter, not another selector. No concrete candidate-producing input remains for the53 listed IDs.",
+      "nativeEvidenceSection": "native-evidence.json#normalCreationClosure",
+      "limitations": [
+        "This is an evidence-bounded source/native mechanism review, not a formal proof over all possible executable paths.",
+        "The378 syntactic virtual-slot calls are a separate supporting immediate-ID check, not a complete native virtual-call graph.",
+        "No current gameplay session or material API runtime dump was executed."
+      ]
+    },
+    {
+      "id": "resolved-material-definition-inbound-closure",
+      "status": "satisfied",
+      "scope": "Known resolved material-name targets, cold target IDs and ParticleEffect owner IDs across all466 definitions",
+      "finding": "No material outside the53 closed candidates supplies a material-definition transition into this set. The only named edge is ice_meteor_static→meteorite_crackable, plus self-owned effects. The separate source reaction dependencies are aluminium→aluminium_oxide and wood_static_gas→steam_trailer.",
+      "inboundReferences": [
+        {
+          "source": "endslime_static",
+          "path": "particle_effect.m_material_id",
+          "target": "endslime_static"
+        },
+        {
+          "source": "ice_meteor_static",
+          "path": "convert_to_box2d_material",
+          "target": "meteorite_crackable"
+        },
+        {
+          "source": "ice_meteor_static",
+          "path": "particle_effect.m_material_id",
+          "target": "ice_meteor_static"
+        },
+        {
+          "source": "corruption_static",
+          "path": "particle_effect.m_material_id",
+          "target": "corruption_static"
+        }
+      ],
+      "externalSeedReferences": [],
+      "source": "src/data/materials.json",
+      "sha256": "edbf8cdd07e43383cb9b497da92fda63ef40bf97553b55252fd88c0801da10d6"
+    }
+  ],
+  "pendingNativeJoins": [
+    {
+      "id": "spark-player-coop-reachability",
+      "status": "native-worker-review-in-progress",
+      "functions": [
+        "0x6ac310",
+        "0x6b77d0",
+        "0x6b7e80"
+      ],
+      "material": "spark_player",
+      "question": "Are the flag-gated co-op/controller callers reachable in the supported unmodified normal-game mode, or exclusively dormant/developer co-op?",
+      "finding": "Both emitter filenames are literal roots and0x6ac310 actually loads them; recovered callers refer to co-op start and joystick connection spawning. This proves more than a string hit but has not yet established the normal-game activation condition."
+    }
+  ],
+  "beamParticleBindings": [
+    {
+      "path": "data/entities/buildings/lasergate_down.xml",
+      "line": 46,
+      "value": "plasma_fading",
+      "sha256": "cecc7d99ee58a6ffc98387af59256727570ce5540ab033452bc6ec1efbe02634"
+    },
+    {
+      "path": "data/entities/buildings/lasergate_left.xml",
+      "line": 46,
+      "value": "plasma_fading",
+      "sha256": "1cd76c29ddfc61b5c288bcf5f5a619a4c99246a9c7a136579a1a68a48560aa58"
+    },
+    {
+      "path": "data/entities/buildings/lasergate_right.xml",
+      "line": 46,
+      "value": "plasma_fading",
+      "sha256": "35b48fd750dac69913c11a74b63637e7c44c62dd851ae02060b27b873e26e6f1"
+    },
+    {
+      "path": "data/entities/misc/orbit_lasers_laser.xml",
+      "line": 90,
+      "value": "plasma_fading",
+      "sha256": "317827b7880e62e7aea9e61f156da623220d38309b12f8bf158a26ec74f01889"
+    },
+    {
+      "path": "data/entities/animals/boss_ghost/boss_ghost.xml",
+      "line": 254,
+      "value": "spark_purple_bright",
+      "sha256": "aa15b3581b43d81de717ba316bc56e631b5aa8b116d74caeb5849b45d42d68eb"
+    },
+    {
+      "path": "data/entities/animals/boss_ghost/boss_ghost.xml",
+      "line": 272,
+      "value": "spark_purple_bright",
+      "sha256": "aa15b3581b43d81de717ba316bc56e631b5aa8b116d74caeb5849b45d42d68eb"
+    },
+    {
+      "path": "data/entities/animals/boss_ghost/boss_ghost.xml",
+      "line": 290,
+      "value": "spark_purple_bright",
+      "sha256": "aa15b3581b43d81de717ba316bc56e631b5aa8b116d74caeb5849b45d42d68eb"
+    },
+    {
+      "path": "data/entities/animals/boss_ghost/boss_ghost.xml",
+      "line": 308,
+      "value": "spark_purple_bright",
+      "sha256": "aa15b3581b43d81de717ba316bc56e631b5aa8b116d74caeb5849b45d42d68eb"
+    },
+    {
+      "path": "data/entities/animals/boss_robot/boss_robot.xml",
+      "line": 354,
+      "value": "spark_red",
+      "sha256": "5dd0adde4bd6dd0b06f90f69bda622196c6caa4c50ef270c4e249fb86ba6f8b1"
+    },
+    {
+      "path": "data/entities/animals/boss_robot/boss_robot.xml",
+      "line": 372,
+      "value": "spark_red",
+      "sha256": "5dd0adde4bd6dd0b06f90f69bda622196c6caa4c50ef270c4e249fb86ba6f8b1"
+    },
+    {
+      "path": "data/entities/animals/boss_robot/boss_robot.xml",
+      "line": 390,
+      "value": "spark_red",
+      "sha256": "5dd0adde4bd6dd0b06f90f69bda622196c6caa4c50ef270c4e249fb86ba6f8b1"
+    },
+    {
+      "path": "data/entities/items/pickup/evil_eye.xml",
+      "line": 64,
+      "value": "spark_red_bright",
+      "sha256": "e85b6880fe8108d71eab6ff951676e38c5cca2119198425bac431203ec9c3608"
+    },
+    {
+      "path": "data/entities/misc/perks/laser_aim.xml",
+      "line": 18,
+      "value": "spark",
+      "sha256": "7b578b9f5aef9e9fde73770ce66af4f7c4467377ed10bf8327848a89beaeeecf"
+    },
+    {
+      "path": "data/entities/misc/perks/personal_laser.xml",
+      "line": 30,
+      "value": "spark_green",
+      "sha256": "97d817d7dad18104e943fc869d48135d2aa967bd54c67098719c99a4c8ae783c"
+    },
+    {
+      "path": "data/entities/projectiles/deck/orb_laseremitter.xml",
+      "line": 103,
+      "value": "plasma_fading",
+      "sha256": "ff543ee12b8fcbe44ee27d5c4c52d40f0c8bd7179c6de572c475794bbd9e7353"
+    },
+    {
+      "path": "data/entities/projectiles/deck/orb_laseremitter_cutter.xml",
+      "line": 103,
+      "value": "spark_green",
+      "sha256": "e6c215345fcd695341337611af4679c2bdca4b1556fb165046c88917b7da7050"
+    },
+    {
+      "path": "data/entities/projectiles/deck/orb_laseremitter_four.xml",
+      "line": 103,
+      "value": "plasma_fading",
+      "sha256": "4d9477f00ff15112ffc9bc12fb95d699fbbe6bd69d017bd031acee139073650f"
+    },
+    {
+      "path": "data/entities/projectiles/deck/orb_laseremitter_four.xml",
+      "line": 121,
+      "value": "plasma_fading",
+      "sha256": "4d9477f00ff15112ffc9bc12fb95d699fbbe6bd69d017bd031acee139073650f"
+    },
+    {
+      "path": "data/entities/projectiles/deck/orb_laseremitter_four.xml",
+      "line": 139,
+      "value": "plasma_fading",
+      "sha256": "4d9477f00ff15112ffc9bc12fb95d699fbbe6bd69d017bd031acee139073650f"
+    },
+    {
+      "path": "data/entities/projectiles/deck/orb_laseremitter_four.xml",
+      "line": 157,
+      "value": "plasma_fading",
+      "sha256": "4d9477f00ff15112ffc9bc12fb95d699fbbe6bd69d017bd031acee139073650f"
+    },
+    {
+      "path": "data/entities/projectiles/deck/orb_laseremitter_weak.xml",
+      "line": 103,
+      "value": "plasma_fading",
+      "sha256": "9ba7ccb75e2447f1004a18be54826074193995cde0785953069631922011ba5e"
+    },
+    {
+      "path": "data/entities/projectiles/deck/orb_laseremitter_weak_opposite.xml",
+      "line": 104,
+      "value": "plasma_fading",
+      "sha256": "8a28dd09c4f28a9b842d4bea96a870afde4b8f6150f1c2ae21e321a9c0ea3e35"
+    }
+  ],
+  "concreteContradictions": {
+    "fungal_shift_particle_fx": {
+      "status": "used",
+      "occurrenceKind": "cosmetic-particle",
+      "excludeAsUnused": false,
+      "reason": "A reachable fungal-conversion effect copies template material ID223 into the active material effect; the effect queue emits cosmetic particles with that ID.",
+      "evidence": [
+        "0x7057a0.c",
+        "0x5b20f0.c",
+        "0x724480.c",
+        "particle-source-0x7171d0.c",
+        "particle-effect-id-binding.asm"
+      ],
+      "warning": "The source comment saying only its particle effect is used is not a sufficient unused proof. This independent review found and traced the downstream copied-ID counterexample.",
+      "nativeCompleteWitness": {
+        "kind": "used-cosmetic-material",
+        "status": "source-supported",
+        "originalDefinitionUsed": true,
+        "functions": [
+          "0x706fd0",
+          "0x7057a0",
+          "0x5b20f0",
+          "0x724580",
+          "0x723bd0",
+          "0x724480",
+          "0x7171d0",
+          "0x716ce0"
+        ],
+        "finding": "Material finalization writes each owner's material ID into ParticleEffect.m_material_id(+4); fungal_shift_particle_fx owns ID223. Fungal conversion copies this effect including ID223 into converted definitions. World-cell rendering queues the copied effect pointer from CellData+0x28c; the queue drains into cosmetic emission using m_material_id. Thus converted cells can emit cosmetic particles of fungal_shift_particle_fx even though the definition is not used for normal terrain cells.",
+        "materialId": 223,
+        "source": "data/materials.xml:14832",
+        "sourceFinding": "The comment that only its particle effect is used describes this actual cosmetic use; it is not a basis for an unused-content exclusion.",
+        "evidenceIds": [
+          "ev_05e2acadf631d4c5da3091b69dd6608216d2c93b96fe418ca3fd73343db37978",
+          "ev_b42ea04128e221b7d484e2a469ae1339520be6df1c15b94e4142f0e253a02448",
+          "ev_4ca752476bde167b20983d909be0131050462c98e5073de059a673c8b1a0dd1e",
+          "ev_58d51e3ef2dd5deaa1642d43ad6ea7325806be7b1ffccc174b30f9f62f3c37ff",
+          "ev_e4957893e815da272d2b8430ec45b73d2f6a9090212971bb9bda7bfdb8b22066",
+          "ev_f2cbb05d2f5713bae7f8d8e3e48e37e47a2a780a2f7cf512ee4a2212407b9018",
+          "ev_41fdb641f837cada96ca0072971732e0ad55a52a3082ae491e526c6ae567cad6"
+        ]
+      }
+    }
+  },
+  "materials": {
+    "nest_static": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "RGB matches are textures, sprite art and generated icons, not selected material placement images. Its developer inventory asset is not selected by a normal source or reviewed native entry. Configured nest_box2d/nest_firebug_box2d bodies are different definitions.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.nest_static",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "water_static": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "Freeze/poison converters and the fungal from group consume this ID. Fungal replacement copies another definition into its slot before the visual calls; a later flask or particle using that transformed alias does not instantiate the original water_static. No original-definition seed remains in the joined domains.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.water_static",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "endslime_static": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "Its particle effect points back to its own material ID. That effect requires an initial source cell; no other definition borrows it and no reviewed source/native input supplies the first instance.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.endslime_static",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [
+        {
+          "source": "endslime_static",
+          "path": "particle_effect.m_material_id",
+          "target": "endslime_static"
+        }
+      ],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "slime_static": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "No initial creation route remains in the reviewed source domains. Definitions and consumer/visual references do not seed this material, and the joined native configuration, defaults, images, transitions and existing-material-copy mechanisms add no independent occurrence of its original definition in the pinned scope.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.slime_static",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "ice_meteor_static": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "Its body-conversion output is meteorite_crackable and its particle effect uses its own ID. Neither supplies an initial ice_meteor_static. The reviewed source and native material inputs provide no initial seed.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.ice_meteor_static",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [
+        {
+          "source": "ice_meteor_static",
+          "path": "particle_effect.m_material_id",
+          "target": "ice_meteor_static"
+        }
+      ],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "waterrock": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "No initial creation route remains in the reviewed source domains. Definitions and consumer/visual references do not seed this material, and the joined native configuration, defaults, images, transitions and existing-material-copy mechanisms add no independent occurrence of its original definition in the pinned scope.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.waterrock",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "smoke_static": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The smokecave images contain this material RGB, and their scripts load them as material layers. Their biome colors are selected by none of the base, NG+ or Nightmare maps or reviewed dynamic/native selectors. No other initial source remains.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.smoke_static",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "radioactive_gas_static": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "Source damage lists and the fungal from group are consumers. The native reference configures damage immunity, not cell creation. Post-shift aliases use replaced CellData. No independent original radioactive_gas_static source remains.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.radioactive_gas_static",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": {
+        "kind": "damage-immunity-reference",
+        "functions": [
+          "0xb041e0",
+          "0xab8870"
+        ],
+        "finding": "The effect path assigns material damage zero and rebuilds DamageModel material-damage vectors/strings; it does not create cells."
+      },
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "vine": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The apparent source uses of vine are entity tags and audio-event paths. Visible vine entities use sprites and Verlet physics; their collision particles copy already existing terrain IDs. No source field or native default selects the material vine, and its reactions require an existing seed.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.vine",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "ice_ceiling": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "No initial creation route remains in the reviewed source domains. Definitions and consumer/visual references do not seed this material, and the joined native configuration, defaults, images, transitions and existing-material-copy mechanisms add no independent occurrence of its original definition in the pinned scope.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.ice_ceiling",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "brick": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The explicit inventory producer is item_material_inventory_out.xml. The reviewed source and native initial asset selectors do not load that entity into normal gameplay; template preloading and material definitions do not create an inventory. No other initial source remains.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.brick",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "tnt": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The gameplay TNT projectile explicitly uses fuse_tnt. Occurrences of the tnt RGB are visual textures/icons/art rather than selected material maps; the developer inventory lacks a normal entry. The joined mechanisms do not create the original tnt definition.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.tnt",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "tnt_static": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "No initial creation route remains in the reviewed source domains. Definitions and consumer/visual references do not seed this material, and the joined native configuration, defaults, images, transitions and existing-material-copy mechanisms add no independent occurrence of its original definition in the pinned scope.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.tnt_static",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "trailer_text": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The extra source occurrence is a sprite image filename, not a material-producing field. Resolved engine data identifies this definition as static liquid. The reviewed source and native producer domains supply no initial occurrence.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.trailer_text",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "meteorite": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The developer inventory is the only additional explicit producer, and it has no normal source or reviewed native initial entry. Other occurrences are definitions, inheritance or consuming/outgoing behavior. Joined source/native inputs provide no initial occurrence of this exact definition.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.meteorite",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "meteorite_test": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "No initial creation route remains in the reviewed source domains. Definitions and consumer/visual references do not seed this material, and the joined native configuration, defaults, images, transitions and existing-material-copy mechanisms add no independent occurrence of its original definition in the pinned scope.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.meteorite_test",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "meteorite_green": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The developer inventory is the only additional explicit producer, and it has no normal source or reviewed native initial entry. Other occurrences are definitions, inheritance or consuming/outgoing behavior. Joined source/native inputs provide no initial occurrence of this exact definition.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.meteorite_green",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "aluminium": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "Aluminium-producing chandelier, suspension-bridge, test-physics and old boss-physics assets have no normal source entry. Native directory preloading creates templates only, and the polymorph registry explicitly rejects the _physics boss filenames. Native aluminium references configure ray-casting exclusions, not material creation. The joined reviewed mechanisms supply no initial aluminium in the pinned scope.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.aluminium",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": {
+        "kind": "noncreating-default",
+        "finding": "Native references set IKLimb/IKLimbWalker ray_skip_material; shipped component docs say this material is excluded from ray casting. This reference does not create aluminium."
+      },
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "crystal_magic": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "No initial creation route remains in the reviewed source domains. Definitions and consumer/visual references do not seed this material, and the joined native configuration, defaults, images, transitions and existing-material-copy mechanisms add no independent occurrence of its original definition in the pinned scope.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.crystal_magic",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "aluminium_oxide": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "Aluminium can react with a [water] material to produce aluminium_oxide through the [rust_oxide]→[rust_oxide]_oxide rule (materials.xml16058–16059). This is a real oxidation route, but it requires aluminium; the joined review establishes no initial source of the original aluminium definition. No independent oxide source remains in the reviewed domains.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.aluminium_oxide",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [
+        "aluminium"
+      ],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "physics_throw_material_part2": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The reviewed physics throw, body and cell-conversion mechanisms use configured IDs, existing material maps and explicit conversion fields. None supplies this definition, and no independent variant-name generator was found in those paths.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.physics_throw_material_part2",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "ice_melting_perf_killer": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The developer inventory is the only additional explicit producer, and it has no normal source or reviewed native initial entry. Other occurrences are definitions, inheritance or consuming/outgoing behavior. Joined source/native inputs provide no initial occurrence of this exact definition.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.ice_melting_perf_killer",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "blood_thick": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The air reaction requires blood_thick as an existing input. Definitions and generated icons do not seed it, and the joined source/native producer domains supply no initial occurrence.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.blood_thick",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "fungal_shift_particle_fx": {
+      "status": "used",
+      "occurrenceKind": "cosmetic-particle",
+      "excludeAsUnused": false,
+      "reason": "A reachable fungal-conversion effect copies template material ID223 into the active material effect; the effect queue emits cosmetic particles with that ID.",
+      "evidence": [
+        "0x7057a0.c",
+        "0x5b20f0.c",
+        "0x724480.c",
+        "particle-source-0x7171d0.c",
+        "particle-effect-id-binding.asm"
+      ],
+      "warning": "The source comment saying only its particle effect is used is not a sufficient unused proof. This independent review found and traced the downstream copied-ID counterexample.",
+      "nativeCompleteWitness": {
+        "kind": "used-cosmetic-material",
+        "status": "source-supported",
+        "originalDefinitionUsed": true,
+        "functions": [
+          "0x706fd0",
+          "0x7057a0",
+          "0x5b20f0",
+          "0x724580",
+          "0x723bd0",
+          "0x724480",
+          "0x7171d0",
+          "0x716ce0"
+        ],
+        "finding": "Material finalization writes each owner's material ID into ParticleEffect.m_material_id(+4); fungal_shift_particle_fx owns ID223. Fungal conversion copies this effect including ID223 into converted definitions. World-cell rendering queues the copied effect pointer from CellData+0x28c; the queue drains into cosmetic emission using m_material_id. Thus converted cells can emit cosmetic particles of fungal_shift_particle_fx even though the definition is not used for normal terrain cells.",
+        "materialId": 223,
+        "source": "data/materials.xml:14832",
+        "sourceFinding": "The comment that only its particle effect is used describes this actual cosmetic use; it is not a basis for an unused-content exclusion.",
+        "evidenceIds": [
+          "ev_05e2acadf631d4c5da3091b69dd6608216d2c93b96fe418ca3fd73343db37978",
+          "ev_b42ea04128e221b7d484e2a469ae1339520be6df1c15b94e4142f0e253a02448",
+          "ev_4ca752476bde167b20983d909be0131050462c98e5073de059a673c8b1a0dd1e",
+          "ev_58d51e3ef2dd5deaa1642d43ad6ea7325806be7b1ffccc174b30f9f62f3c37ff",
+          "ev_e4957893e815da272d2b8430ec45b73d2f6a9090212971bb9bda7bfdb8b22066",
+          "ev_f2cbb05d2f5713bae7f8d8e3e48e37e47a2a780a2f7cf512ee4a2212407b9018",
+          "ev_41fdb641f837cada96ca0072971732e0ad55a52a3082ae491e526c6ae567cad6"
+        ]
+      },
+      "verificationStatus": "verified-cosmetic-use",
+      "remainingConcreteRoutes": []
+    },
+    "neon_tube_blood_red": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "No initial creation route remains in the reviewed source domains. Definitions and consumer/visual references do not seed this material, and the joined native configuration, defaults, images, transitions and existing-material-copy mechanisms add no independent occurrence of its original definition in the pinned scope.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.neon_tube_blood_red",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "spark_player": {
+      "status": "native-asset-reference-normal-reachability-pending",
+      "excludeAsUnused": false,
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains"
+      ],
+      "remainingJoinIds": [
+        "spark-player-coop-reachability"
+      ],
+      "conditionalDependencies": [],
+      "nativeNameUse": null,
+      "sourceEvidence": "source-review.json#allCandidateSourceClosure.materials.spark_player",
+      "nativeRootFinding": "Both emitter assets are native literals, and0x6ac310 loads them. Recovered callers0x6b77d0/0x6b7e80 belong to flag-gated co-op/controller paths. Literal occurrence is not yet proof of normal-game activation.",
+      "verificationStatus": "conditional-native-root-activation",
+      "remainingConcreteRoutes": [
+        "spark-player-coop-reachability"
+      ],
+      "sourceFinding": "The left/right player-disappearance entities explicitly emit spark_player and are loaded by native controller code. Their activation depends on the co-op/world-mode/controller lifecycle, whose normal-game reach remains unresolved. Keep this material visible; neither unused nor normal-game use is certified."
+    },
+    "metal": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "Lua metal strings form runestone_metal.xml filenames. They are not material-name arguments or material-producing field values. No reviewed native material default or independent source selects the material metal.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.metal",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "meteorite_crackable": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The resolved incoming conversion is ice_meteor_static.convert_to_box2d_material. The original ice_meteor_static definition has no initial seed, so this conditional body conversion does not independently create meteorite_crackable.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.meteorite_crackable",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [
+        "ice_meteor_static"
+      ],
+      "incomingDefinitionReferences": [
+        {
+          "source": "ice_meteor_static",
+          "path": "convert_to_box2d_material",
+          "target": "meteorite_crackable"
+        }
+      ],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "wood_prop_durable": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "physics_campfire.xml is an explicit producer, but its asset has no normal source or reviewed native initial loading route. Native prop-directory preloading does not instantiate its physics body. No independent producer remains in the reviewed domains.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.wood_prop_durable",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "grass_loose": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "No source producer or material-image input selects grass_loose. Native vegetation and body paths use configured material IDs, while the PixelSprite fallback is wood_loose, a different ID. The joined reviewed paths supply no initial grass_loose.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.grass_loose",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "wood_trailer": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "No initial creation route remains in the reviewed source domains. Definitions and consumer/visual references do not seed this material, and the joined native configuration, defaults, images, transitions and existing-material-copy mechanisms add no independent occurrence of its original definition in the pinned scope.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.wood_trailer",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "templebrick_box2d": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "physics_statue.xml creates this material if loaded, but neither source nor reviewed native initial selectors load it. Normal statue.xml is a separate sprite/SimplePhysics entity and does not inherit physics_statue.xml.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.templebrick_box2d",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "fuse_bright": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "No initial creation route remains in the reviewed source domains. Definitions and consumer/visual references do not seed this material, and the joined native configuration, defaults, images, transitions and existing-material-copy mechanisms add no independent occurrence of its original definition in the pinned scope.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.fuse_bright",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "wood_player_b2_vertical": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "Its resolved transition leads out to wood_player; no resolved input field supplies this ID. Reviewed body/rotation/conversion paths use explicit material inputs rather than independently constructing this vertical variant name.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.wood_player_b2_vertical",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "meat_polymorph": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "No source ragdoll or other producer selects this ID. The native DamageModel fallback is meat, and GameEffect.ragdoll_material defaults to0; the reviewed override handlers do not introduce this variant. No independent source remains.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.meat_polymorph",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "meat_trippy": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "No source ragdoll or other producer selects this ID. The native DamageModel fallback is meat, and GameEffect.ragdoll_material defaults to0; the reviewed override handlers do not introduce this variant. No independent source remains.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.meat_trippy",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "meat_slime_orange": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The material definition specifies outgoing blood behavior, not its own creation. No source ragdoll field or reviewed native ragdoll/default/override path selects this exact variant.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.meat_slime_orange",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "steam_trailer": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "Its producing fire reaction requires wood_static_gas. That prerequisite has no initial source in the joined review, and no independent steam_trailer producer remains.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.steam_trailer",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [
+        "wood_static_gas"
+      ],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "corruption_static": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The producing reaction requires an existing corruption_static cell, and its particle effect also retains its own ID. These are self-dependent routes. Source fields, selected images, native initial selectors and the other reviewed creation families supply no first occurrence in the pinned scope.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.corruption_static",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [
+        {
+          "source": "corruption_static",
+          "path": "particle_effect.m_material_id",
+          "target": "corruption_static"
+        }
+      ],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "wood_static_gas": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The fire reaction consumes wood_static_gas to produce steam_trailer; it does not seed wood_static_gas. No initial producer is supplied by the joined source and native domains.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.wood_static_gas",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "gold_static_dark": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The sole converter is loaded by trailer_2.lua, which explicitly enables developer trailer mode before creating it. That is outside the supported normal-gameplay scope. The joined normal source/native domains provide no independent producer.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.gold_static_dark",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "creepy_liquid_emitter": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The only material-image candidate is templetest.png. Neither source loaders and filename expansions nor the reviewed native initial asset selectors select it. The fire reaction consumes an existing emitter to make creepy_liquid; it cannot seed the emitter.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.creepy_liquid_emitter",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "wood_burns_forever": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "No initial creation route remains in the reviewed source domains. Definitions and consumer/visual references do not seed this material, and the joined native configuration, defaults, images, transitions and existing-material-copy mechanisms add no independent occurrence of its original definition in the pinned scope.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.wood_burns_forever",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "steel_static_unmeltable": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "No selected source image or material-producing field supplies this ID, and the reviewed native defaults and conversion inputs add no initial source. The result applies to this exact definition, not other steel materials.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.steel_static_unmeltable",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "steelsmoke_static": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The matching cube_chamber_visual.png is explicitly passed as the color layer, not the material image. Its steam reaction needs an existing steelsmoke_static cell. The available molten variant and resolved phase/reaction routes do not seed the static definition.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.steelsmoke_static",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "steelmoss_slanted": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "No selected source producer supplies this static definition. The available molten variant is a different material; its reviewed cooling routes produce metal_sand rather than steelmoss_slanted. Resolved phase fields and native phase handling add no reverse seed.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.steelmoss_slanted",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "templebrick_moss_static": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The moss reaction requires an existing templebrick_moss_static cell. Its additional RGB match is in buried_eye_visual.png, which the actual scene does not load: visual_file is empty. No joined initial source remains; transparent alpha alone was not used to reject the image.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.templebrick_moss_static",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "templebrick_red": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "No initial creation route remains in the reviewed source domains. Definitions and consumer/visual references do not seed this material, and the joined native configuration, defaults, images, transitions and existing-material-copy mechanisms add no independent occurrence of its original definition in the pinned scope.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.templebrick_red",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "rock_magic_gate": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "Current and temporary definitions do not create material instances. No selected source image, configured material output or joined native default supplies this original definition.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.rock_magic_gate",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "rock_eroding": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "Opaque and transparent RGB matches occur only in trailer/logo.png. No source or reviewed native material-image loader selects that asset. The air reaction removes an existing rock_eroding cell rather than producing an initial one.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.rock_eroding",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "rock_magic_bottom": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The named reaction consumes an existing rock_magic_bottom cell. The reviewed source inputs, image maps and native configured/default selectors provide no independent initial seed.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.rock_magic_bottom",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "gem_box2d_pink": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The definition is present, but no selected material-producing field or image supplies it. The old spawn_gems helper constructs missing physics_smallgem files rather than selecting this material. Joined native body/default selectors add no initial source.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.gem_box2d_pink",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "gem_box2d_red": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The definition is present, but no selected material-producing field or image supplies it. The old spawn_gems helper constructs missing physics_smallgem files rather than selecting this material. Joined native body/default selectors add no initial source.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.gem_box2d_red",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "gem_box2d_green": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The definition is present, but no selected material-producing field or image supplies it. The old spawn_gems helper constructs missing physics_smallgem files rather than selecting this material. Joined native body/default selectors add no initial source.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.gem_box2d_green",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    },
+    "gem_box2d_orange": {
+      "status": "unused",
+      "verificationStatus": "reviewed-source-and-native-closure",
+      "excludeAsUnused": true,
+      "classificationBasis": "original material definition",
+      "scope": "Pinned Jan25 2025 executable and bound data corpus; unmodified normal gameplay including officialNightmare, NG+, seasonal content and cosmetic uses. Excludes developer/mod input.",
+      "sourceFinding": "The definition is present, but no selected material-producing field or image supplies it. The old spawn_gems helper constructs missing physics_smallgem files rather than selecting this material. Joined native body/default selectors add no initial source.",
+      "sourceJoinRefs": [
+        "source-review.json#allCandidateSourceClosure.materials.gem_box2d_orange",
+        "source-review.json#sourceClosure.domains",
+        "source-review.json#corpusBindings"
+      ],
+      "nativeJoinRefs": [
+        "native-evidence.json#normalCreationClosure",
+        "native-evidence.json#creationFamilies"
+      ],
+      "satisfiedJoinIds": [
+        "initial-flask-membership",
+        "configured-world-generation",
+        "stored-cell-and-inventory-copies",
+        "explicit-physics-defaults-and-supplied-maps",
+        "named-component-and-lua-particles",
+        "material-attached-cosmetic-configurations",
+        "laser-finite-material-domain",
+        "ragdoll-cosmetic-dispatch",
+        "native-known-prefix-domains",
+        "mapped-normal-native-id-origins",
+        "resolved-material-definition-inbound-closure"
+      ],
+      "remainingConcreteRoutes": [],
+      "conditionalDependencies": [],
+      "incomingDefinitionReferences": [],
+      "nativeNameUse": null,
+      "reason": "The reviewed source producers and selected assets supply no initial occurrence, and the joined normal native creation mechanisms add no independent input for this original definition. Conditional copies/transitions require an already present material in the closed candidate set.",
+      "runtimeObserved": false
+    }
+  },
+  "evidence": {
+    "0x7048c0.c": {
+      "path": "task/material-availability-native/0x7048c0.c",
+      "sha256": "7c8555a7bfe7c1bf11a31e67fec1c7fb68e2c1b1b57fc65eae6de36b89e2ad60",
+      "evidenceId": "ev_8834adb96faa7ddf52d40c1cc63b827cb8a642187e3ef88b38ff8b3ca926d555"
+    },
+    "0x704a30.c": {
+      "path": "task/material-availability-native/0x704a30.c",
+      "sha256": "c6e2b56e4e9c14013692d9fb7442818b053410c6c2ebfdb703c9ff8c3d8bc014",
+      "evidenceId": "ev_67b16716cd3b751eb214ee7a8615f8d573999a7bb771d24b108980fa99b226d6"
+    },
+    "0x71a860.c": {
+      "path": "task/material-availability-native/0x71a860.c",
+      "sha256": "c6709eefd1b9e80586f82e72d4f76b648ee1aa03b3d77b15135ba52517adff36",
+      "evidenceId": "ev_08604688130d0e1d248d8200501959a29877fbeed4593dde0c650608df757fb1"
+    },
+    "0x71b140.c": {
+      "path": "task/material-availability-native/0x71b140.c",
+      "sha256": "311dbe8d9c4d025389a8c79696bcb1c88534f6dbabe77c23a5fd2e5fbf35c600",
+      "evidenceId": "ev_62112b709f3f7aaafd3fc417a60137732ebae45912ab2bfa1ce05a8c0d94add1"
+    },
+    "0x71b2d0.c": {
+      "path": "task/material-availability-native/0x71b2d0.c",
+      "sha256": "34b8a1885d4426987e5e4031c35476f8eb7a2952d47c4a65e0b17bb8ad7f8453",
+      "evidenceId": "ev_68971030c31bc6c0d31c50dbfacf1e3e6228921c948b2a5ec47fb55e9a464718"
+    },
+    "0x73b040.c": {
+      "path": "task/material-availability-native/0x73b040.c",
+      "sha256": "a21409928437fbc48899e53546b9c3f09329975ad2929e49720f13511ea63427",
+      "evidenceId": "ev_25ac02706b62461fe945dd9ba74831f087130bfe6e045e972ace8823ec367d15"
+    },
+    "0x73e950.c": {
+      "path": "task/material-availability-native/0x73e950.c",
+      "sha256": "6a0c099d87efccfa3af3437b1c1978083e2e923c46fd81077ff50a9131e41969",
+      "evidenceId": "ev_5a1ead6e67074f7fa4a8bef8fb1a0e75d8cb9a9e2ccd746db36e96457c283b2f"
+    },
+    "0x880860.c": {
+      "path": "task/material-availability-native/0x880860.c",
+      "sha256": "91d4a593bdb42d19a70d038bde4657ad0783975156a6709208ab94c69f953930",
+      "evidenceId": "ev_50e8ac249afba8ed2005d757a5c2d30167ab770705a32731b65c8581357aaaab"
+    },
+    "0x704f00.c": {
+      "path": "task/material-availability-native/0x704f00.c",
+      "sha256": "ce36e9e819f3f04645e119b20adecae85df9a107c4344162e7a0a06e10bd088b",
+      "evidenceId": "ev_0f1c9a08cb8cbc44c0ff5c92ea234c05064d73515ca3a785fe0957541290e1d7"
+    },
+    "0x87d0e0.c": {
+      "path": "task/material-availability-native/0x87d0e0.c",
+      "sha256": "5eb51d7d43c97cc4ad4a7db9009055c9bb747e0a4f314a1353786863b3eb421b",
+      "evidenceId": "ev_76fb49a3bafcad08a5de69fb55238e24b1a4c71e186941962e7dacc82feedfba"
+    },
+    "0x8704c0.c": {
+      "path": "task/material-availability-native/0x8704c0.c",
+      "sha256": "4b3c8cbdd4ed571258e84f917227ed5921bb1dc7ec424bde8a1321d82f848c0c",
+      "evidenceId": "ev_81a244be628bcbb2555803bba9c56940430ad03e91b9b6806653fde676ac85b3"
+    },
+    "0x7b1990.c": {
+      "path": "task/material-availability-native/0x7b1990.c",
+      "sha256": "62ed8d31dd1d15ca94ce62a534ff29fd5e5cfd640e44682059d7b040bb8f9ba0",
+      "evidenceId": "ev_bbfc260805531bb8ab319f82f825b005e115c628fd65ba7faae18ebfe8b80aa0"
+    },
+    "0x71b6c0.c": {
+      "path": "task/material-availability-native/0x71b6c0.c",
+      "sha256": "43a2d86bd37a1555ef71b84a0dcda742f069b3d35ece1656903ea97b00d50682",
+      "evidenceId": "ev_2bf82ac7ec75ddcc068fd95079401637cd316649259ff5d2f3e354884e8d2251"
+    },
+    "0x71bd10.c": {
+      "path": "task/material-availability-native/0x71bd10.c",
+      "sha256": "e1aeda58d96e61974b47f5ec57ae1f573afc5722bc1bdfe95bc39c4aefd167e2",
+      "evidenceId": "ev_9f1117ec9011476d3984ec7fa76f613ca0a1ef232dae04088c6d3fc8e5a0e4ad"
+    },
+    "0x841bc0.c": {
+      "path": "task/material-availability-native/0x841bc0.c",
+      "sha256": "6a03f0f5c0598a4970e87b92b59af98c5eb5e1a16764a9fd198d20d5d954f9c2",
+      "evidenceId": "ev_3dfe03944730ad9f970f63373c50d9e58ef65d0958c815d2a8970e47334b2345"
+    },
+    "0x841ed0.c": {
+      "path": "task/material-availability-native/0x841ed0.c",
+      "sha256": "016ae0ef652cb4130bfb2844d84ba2e8dd4b03cc652c5f997c617bfacddf7895",
+      "evidenceId": "ev_1ac7e256ff49b87ff852017e09c788bc8e5c0ab679a55b85954406ddd914d9b9"
+    },
+    "0x843640.c": {
+      "path": "task/material-availability-native/0x843640.c",
+      "sha256": "93459f8eba5958a27d588a5788d4d8557cbd8550c7db3f56105a786f422c0b84",
+      "evidenceId": "ev_801ec400476e475fbb5a7a7338eb98622764b126f0e9c8a68ce53db90525d311"
+    },
+    "0xba6330.c": {
+      "path": "task/material-availability-native/0xba6330.c",
+      "sha256": "de2ccb9fe1b51a2bcd9359e23c974ba50037b57ed445fe5aab6e0f7f7cc242e4",
+      "evidenceId": "ev_09e31f5ceae95c127517d2750b240d7854c18aeb77efa0dfce404fcdce17c0c2"
+    },
+    "0xbedab0.c": {
+      "path": "task/material-availability-native/0xbedab0.c",
+      "sha256": "d37cc27ca3b230cb322a93ecb7a6c0d66e16eafa43884bb2c7b5c01cbc6e4c17",
+      "evidenceId": "ev_4f0072534f1fba25bcc955347a39d5989b5fa470107968ed0672a613ad4a906b"
+    },
+    "0x4c10f0.c": {
+      "path": "task/material-availability-native/0x4c10f0.c",
+      "sha256": "f2f9699c3a1fd7cada189e84f7184800b01c78b80e4e6547fae48f2c20f86099",
+      "evidenceId": "ev_be263b4a79beab7e4a57ef0a6556a2a7f61d18688dc7c2c566af1228be2546ee"
+    },
+    "0xa77cc0.c": {
+      "path": "task/material-availability-native/0xa77cc0.c",
+      "sha256": "42c86a1aac0989e9748b154acde41829e97172eb019be384b927510e00f30f49",
+      "evidenceId": "ev_669ebca9eef693fddaa7fdac266ab7f67037c1b8f7e447ac2ecd6c9ef820554a"
+    },
+    "0x7057a0.c": {
+      "path": "task/material-availability-native/0x7057a0.c",
+      "sha256": "f282a3870cdf3fef6b109340af35ca498a76eaff14edc6ed8c324c9bf6cc6892",
+      "evidenceId": "ev_b42ea04128e221b7d484e2a469ae1339520be6df1c15b94e4142f0e253a02448"
+    },
+    "0x5b20f0.c": {
+      "path": "task/material-availability-native/0x5b20f0.c",
+      "sha256": "6b1986ae8291cbebb22dbb58c2f0fe7c378b243141537174ec62d76138f15b21",
+      "evidenceId": "ev_4ca752476bde167b20983d909be0131050462c98e5073de059a673c8b1a0dd1e"
+    },
+    "0x724480.c": {
+      "path": "task/material-availability-native/0x724480.c",
+      "sha256": "2dce97c0ab20abfc1b9fca232e67bb5a14dbdf811c0aecde6a67b6ee5926f60a",
+      "evidenceId": "ev_f2cbb05d2f5713bae7f8d8e3e48e37e47a2a780a2f7cf512ee4a2212407b9018"
+    },
+    "particle-source-0x7171d0.c": {
+      "path": "task/material-availability-native/particle-source-0x7171d0.c",
+      "sha256": "150b86c65b16406f4a9a396c97a09f8e08a59a93ea929eca2dd18266deed193b",
+      "evidenceId": "ev_41fdb641f837cada96ca0072971732e0ad55a52a3082ae491e526c6ae567cad6"
+    },
+    "particle-source-0xa815d0.c": {
+      "path": "task/material-availability-native/particle-source-0xa815d0.c",
+      "sha256": "7d3408261f8ca941d85169c2de165a59a90a0f7bf177560c5befe5e719607570",
+      "evidenceId": "ev_f2af5e2526cb0af78253e07cd30b62ebf43150e00b3740ef34f7211c98de03a1"
+    },
+    "particle-source-0xa44130.c": {
+      "path": "task/material-availability-native/particle-source-0xa44130.c",
+      "sha256": "d4a26d18d146bd05a62fea5b45a406c58493591a3e2f9621f3958acbe8416581",
+      "evidenceId": "ev_6f3a4946f9ff1983505f8cc3647150ff9900c61603292408e17705cc64ce0b8d"
+    },
+    "particle-source-0xc44480.c": {
+      "path": "task/material-availability-native/particle-source-0xc44480.c",
+      "sha256": "b9e49d68c8f44c62b7168ab95a1b47786f7946824f89c87ea0ad050a7f402033",
+      "evidenceId": "ev_86f8e38f3ef6e3c3fabc1c5df736bd307374324868d13e59998ca21b734a8da4"
+    },
+    "particle-source-0xa53610.c": {
+      "path": "task/material-availability-native/particle-source-0xa53610.c",
+      "sha256": "16a91e933a2db1333d289cee3d7fd4d365e53d9232aafb70b152720fb16746c3",
+      "evidenceId": "ev_18b98d0331bc9c2642d4be661f308289c1f72ef710cbf1cd4c0bd88f47565562"
+    },
+    "0xc37d30.c": {
+      "path": "task/material-availability-native/0xc37d30.c",
+      "sha256": "839df4cac9366ecde14b4a9c9b84beeee4671e1bdf550406baa6a4577423aa9f",
+      "evidenceId": "ev_55b8bf3623500074411ac9719a8a0ec0c99792ad3dcc060f6431629c62258cb4"
+    },
+    "0xc3a610.c": {
+      "path": "task/material-availability-native/0xc3a610.c",
+      "sha256": "4e8c42a0f415273d70d139cd9c70715da96f0d2453f59885f9aaedb7c9cf0cab",
+      "evidenceId": "ev_73db99ddb2c696816f686c764f7b9f1fec475365beafd6fc266df3f84128a857"
+    },
+    "particle-source-0xc3a3d0.c": {
+      "path": "task/material-availability-native/particle-source-0xc3a3d0.c",
+      "sha256": "219e8520591ff9a04e1566ca8d72691032adebf75ea7069c82d4c515fa2d50ba",
+      "evidenceId": "ev_3377d4ef8ca3a1c1fb13af25b2274cf75133482bb9efb6c081225aa2d2aadb4f"
+    },
+    "particle-source-0xb946a0.c": {
+      "path": "task/material-availability-native/particle-source-0xb946a0.c",
+      "sha256": "4ba742c567b341e7777dd47e7a922e2595c87a866426a0011fd26ba3e5a14169",
+      "evidenceId": "ev_2448a9c1cf7c9bab0972bc7b6d6ac95defa36b55d1aa385f001140160f5e42c6"
+    },
+    "particle-source-0xb95b50.c": {
+      "path": "task/material-availability-native/particle-source-0xb95b50.c",
+      "sha256": "68ce5991a8680003d6fa04fa00b572645d95f1918b65974524e542eee95aa5e6",
+      "evidenceId": "ev_76affc3a3f0ffc64e183677f9757fa45dd9b9c971da3e7dd3e25e935818ce0db"
+    },
+    "particle-source-0xab5410.c": {
+      "path": "task/material-availability-native/particle-source-0xab5410.c",
+      "sha256": "bbeb9a2aadf4385eacc296fc3a75bb1388e1a971a988c6a394c232541668d73a",
+      "evidenceId": "ev_78d20cbc5084d8bf173e18622ac73124b7ad7597880146741f7dcbf1593d97f1"
+    },
+    "physics-body-create.asm": {
+      "path": "task/material-availability-native/physics-body-create.asm",
+      "sha256": "6a4d25786922973843762d11e097bab0a231e94ea022756b9fbc7f4b8e24514f",
+      "evidenceId": null
+    },
+    "particle-effect-id-binding.asm": {
+      "path": "task/material-availability-native/particle-effect-id-binding.asm",
+      "sha256": "c92b5ee4a2799f2f9ac50f9c6efaeb1496ab20c9c5e78b67ec0b04b78be457ec",
+      "evidenceId": null
+    },
+    "0xa1c990.c": {
+      "path": "task/material-availability-native/0xa1c990.c",
+      "sha256": "4b8b3c2ee395c3866680ab2458b0aba8fe2d2343a30a8d087a9c9253cead2294",
+      "evidenceId": "ev_2a6d938ace35fb83cc5ec8eb041d6655afcc80f25cd2b020623f172963ac2578"
+    },
+    "0xd21ce0.c": {
+      "path": "task/material-availability-native/0xd21ce0.c",
+      "sha256": "978d4ada59df6a940c0ac644ccdb91109f644a78c16115ec23e03bf61f33ec93",
+      "evidenceId": "ev_32d46035345474817be2175ba2cb955384d21b1322b8891cb62d999a1a9dcdf2"
+    },
+    "0xd8a1c0.c": {
+      "path": "task/material-availability-native/0xd8a1c0.c",
+      "sha256": "4a812326be99c5fec973e50e2843ca048e90391de1779498ae1ef184bb4a7061",
+      "evidenceId": "ev_d1486ac87fcb611ff79ba91dc075596086aaf685e86a74ccc0517e0cef5efbbc"
+    },
+    "0xabb7d0.c": {
+      "path": "task/material-availability-native/0xabb7d0.c",
+      "sha256": "23dadf021442cb0b7a195846dd75d4c4334c64563e45e479525b5255d3faa123",
+      "evidenceId": "ev_8e9e433b2f8c333b87c05f6393cdf246d646581e508f2ef8e11d7c36c9cca14a"
+    },
+    "0xabd6f0.c": {
+      "path": "task/material-availability-native/0xabd6f0.c",
+      "sha256": "6b6ba6ad4cf100a0cf224bc017343e5e17d9b99a97458e4029658f34745de6c1",
+      "evidenceId": "ev_7b4804351b9c60b34ffc438c1194dfd00875af0e743b064bee662de43451353e"
+    },
+    "0x65eb40.c": {
+      "path": "task/material-availability-native/0x65eb40.c",
+      "sha256": "7df0b40a4636d6430843093d6aad4717576da829a796370504820a40eb223c86",
+      "evidenceId": "ev_e9e5ffed2efadd2c59205bc3eba58b0410e88d0b7103cc7c0d637978fcf98b0a"
+    },
+    "0x706fd0.c": {
+      "path": "task/material-availability-native/0x706fd0.c",
+      "sha256": "89548eca59d3aac26b1f701e8c40ecb84bec8e7d40ed7cb50b93541879e1e5d3",
+      "evidenceId": "ev_05e2acadf631d4c5da3091b69dd6608216d2c93b96fe418ca3fd73343db37978"
+    },
+    "0x724580.c": {
+      "path": "task/material-availability-native/0x724580.c",
+      "sha256": "5ddc3f94ae22c527cf24c05a990b266ce4196962e957d821c6c9fb368fe02f0d",
+      "evidenceId": "ev_58d51e3ef2dd5deaa1642d43ad6ea7325806be7b1ffccc174b30f9f62f3c37ff"
+    },
+    "0x723bd0.c": {
+      "path": "task/material-availability-native/0x723bd0.c",
+      "sha256": "5673f2bc5ab304811f656d9a78a6b308a15393268a1e264d3861c5edb9a8afee",
+      "evidenceId": "ev_e4957893e815da272d2b8430ec45b73d2f6a9090212971bb9bda7bfdb8b22066"
+    },
+    "0xb015d0.c": {
+      "path": "task/material-availability-native/0xb015d0.c",
+      "sha256": "a3f66e3a08a8cc59a7831d7589642353bcb12f7e353191bbc90e1388532fbf43",
+      "evidenceId": "ev_ffa522ca90e1ece1f41a6cff82baa366831ce4972278d9f7c787d9fb1298c728"
+    },
+    "0xb041e0.c": {
+      "path": "task/material-availability-native/0xb041e0.c",
+      "sha256": "1ddfde6d4f63be85844af0fc7690bad5cdf7953f21c9cf327b32a65ff211cf34",
+      "evidenceId": "ev_e46e2b3edce22132ed3f1f2e4ccbf0afab3c2b91f6912d99226ede7e1a00c195"
+    },
+    "gameEffectRagdollDefault": {
+      "path": "noita_bin/tools_modding/component_documentation.txt",
+      "sha256": "08c94c2dea03774c7cb6f54691a77bb204a15838527463efc37e8eebe7e3ee2b",
+      "line": 1023,
+      "finding": "GameEffectComponent.ragdoll_material default0; does not by itself prove every native write."
+    },
+    "0x6914d0.c": {
+      "path": "task/material-availability-native/0x6914d0.c",
+      "sha256": "0c9e184a615de1d1120e1111ddbd6e02a1bd2596746b78ff0ef0696b6910a439",
+      "evidenceId": "ev_1b1ceb98821ca4e8ad22614978a34b72a0b1312bc6cc8b0875db82f509ad2ef3"
+    },
+    "0x699310.c": {
+      "path": "task/material-availability-native/0x699310.c",
+      "sha256": "a6ebdfa052a3a4ca6e091fa67fda5e2ad6c3bfafe6d94d1a0e0dccd25001db57",
+      "evidenceId": "ev_f974aa2bf1a28fdf6f085a05c0546ffed291b1606f75042c4bb7aabc7d3e36c6"
+    },
+    "0x693780.c": {
+      "path": "task/material-availability-native/0x693780.c",
+      "sha256": "8ddcc87f3dc6bb01467e3cf3700fbc128f7c19afb4ddda38f7f2076a6112a920",
+      "evidenceId": "ev_a7b9317bb420aebd44f063bc445ce8ccc5e10b5aa76a19a747f28dc7849ee126"
+    },
+    "0xb00360.c": {
+      "path": "task/material-availability-native/0xb00360.c",
+      "sha256": "bab35706b65d8ae76efc598da50ebfa69131699cc1aa8e534345c2e7a67c8876",
+      "evidenceId": "ev_49e9051b58170923488b03633501755b5bde8d5261670b5f99077657febbf624"
+    },
+    "0x6afaa0.c": {
+      "path": "task/material-availability-native/0x6afaa0.c",
+      "sha256": "d3de891a307dac65ca25bdebfa1981f6784edc7f4d2878cb7fc0f6adebe2c440",
+      "evidenceId": "ev_e7c90b0f185265783bed56cfe5bade0a78709c3acdbebaa035c1cc61cb84abec"
+    },
+    "0x6ad300.c": {
+      "path": "task/material-availability-native/0x6ad300.c",
+      "sha256": "0edfbd73f22dc04d462631c3b66f80ddfada7e11f6891887bc73a3f2f46b3b91",
+      "evidenceId": "ev_c511c6666b8b37e18112ceecf63333a18fe2bdeae4c1bec959bd796ec252686d"
+    },
+    "0xb05b40.c": {
+      "path": "task/material-availability-native/0xb05b40.c",
+      "sha256": "34f38e2d78b1ac769a89b52f5a850b2d09aea982aa6f802a4192545e9d45a342",
+      "evidenceId": "ev_88d3673cc8bc5a66beca60d3cb8fe6cec393ba8aa6b3b01a2bcb3c075b9d6ab4"
+    },
+    "0x8408e0.c": {
+      "path": "task/material-availability-native/0x8408e0.c",
+      "sha256": "31ae00da2f553d42cdeaaf3c80d25c742ce15d9edde8937910c8b89db618ca49",
+      "evidenceId": "ev_fe9f1873044b6d84c1303d9c01ed39ee85c8b41d3de7fbde1129cc6f3dd348a5"
+    }
+  },
+  "nativeAssetCrossJoin": {
+    "scope": "Overapproximation of all native literal data/* source paths plus their literal Lua/XML dependencies. Literal native references are not automatically normal-game roots; this search finds candidate joins to trace. Material definitions and biome registries are stopped to avoid interpreting definition inclusion as creation.",
+    "nativeInventoryPath": "task/material-availability-native/native-data-paths.json",
+    "nativeInventorySha256": "6635e5e552918de408c51da0b2e13af56c3eb1e70f28137e99ccfa78053d7414",
+    "literalPathEntries": 380,
+    "existingTextRoots": 174,
+    "reachableLiteralDependencyPaths": 4904,
+    "stoppedDefinitionRegistries": [
+      "data/materials.xml",
+      "data/temp/materials.xml",
+      "data/biome/_biomes_all.xml"
+    ],
+    "candidateProducerReferences": [
+      {
+        "id": "spark_player",
+        "path": "data/entities/particles/image_emitters/player_disappear_effect_right.xml",
+        "line": 4,
+        "text": "emitted_material_name=\"spark_player\"",
+        "nativeLiteralRoot": "data/entities/particles/image_emitters/player_disappear_effect_right.xml",
+        "pathChain": [
+          "data/entities/particles/image_emitters/player_disappear_effect_right.xml"
+        ]
+      }
+    ],
+    "otherCandidateReferences": [
+      {
+        "id": "water_static",
+        "path": "data/entities/misc/material_converter_freeze.xml",
+        "line": 3,
+        "text": "from_material_array=\"water,water_ice,water_salt,water_fading,water_static,fire,lava,water_swamp,radioactive_liquid,acid,blood_cold,blood,poison,slime,radioactive_liquid_fading\"",
+        "nativeLiteralRoot": "data/scripts/perks/perk_reflect.lua",
+        "pathChain": [
+          "data/scripts/perks/perk_reflect.lua",
+          "data/scripts/perks/perk_list.lua",
+          "data/entities/misc/perks/freeze_field.xml",
+          "data/entities/misc/material_converter_freeze.xml"
+        ]
+      },
+      {
+        "id": "water_static",
+        "path": "data/entities/misc/water_to_poison.xml",
+        "line": 26,
+        "text": "from_material=\"water_static\"",
+        "nativeLiteralRoot": "data/scripts/gun/gun.lua",
+        "pathChain": [
+          "data/scripts/gun/gun.lua",
+          "data/scripts/gun/gun_actions.lua",
+          "data/entities/misc/water_to_poison.xml"
+        ]
+      },
+      {
+        "id": "water_static",
+        "path": "data/entities/particles/freeze_charge.xml",
+        "line": 101,
+        "text": "from_material_array = \"water_ice,water_salt,water_static,water_swamp,lava,radioactive_liquid,acid,blood_cold,blood,poison,slime\"",
+        "nativeLiteralRoot": "data/scripts/gun/gun.lua",
+        "pathChain": [
+          "data/scripts/gun/gun.lua",
+          "data/scripts/gun/gun_actions.lua",
+          "data/entities/particles/freeze_charge.xml"
+        ]
+      },
+      {
+        "id": "water_static",
+        "path": "data/scripts/magic/fungal_shift.lua",
+        "line": 5,
+        "text": "{ probability = 1.0, materials = { \"water\", \"water_static\", \"water_salt\", \"water_ice\" }, name_material = \"water\" },",
+        "nativeLiteralRoot": "data/scripts/status_effects/status_reflect.lua",
+        "pathChain": [
+          "data/scripts/status_effects/status_reflect.lua",
+          "data/scripts/status_effects/status_list.lua",
+          "data/entities/misc/effect_trip_03.xml",
+          "data/scripts/status_effects/effect_trip_03.lua",
+          "data/scripts/magic/fungal_shift.lua"
+        ]
+      },
+      {
+        "id": "water_static",
+        "path": "data/entities/misc/perks/freeze_field.xml",
+        "line": 72,
+        "text": "from_material=\"water_static\"",
+        "nativeLiteralRoot": "data/scripts/perks/perk_reflect.lua",
+        "pathChain": [
+          "data/scripts/perks/perk_reflect.lua",
+          "data/scripts/perks/perk_list.lua",
+          "data/entities/misc/perks/freeze_field.xml"
+        ]
+      },
+      {
+        "id": "water_static",
+        "path": "data/entities/projectiles/deck/freeze_field.xml",
+        "line": 83,
+        "text": "from_material_array=\"water,water_ice,water_salt,water_fading,water_static,fire,lava,water_swamp,radioactive_liquid,acid,blood_cold,blood,poison,slime\"",
+        "nativeLiteralRoot": "data/scripts/gun/gun.lua",
+        "pathChain": [
+          "data/scripts/gun/gun.lua",
+          "data/scripts/gun/gun_actions.lua",
+          "data/entities/projectiles/deck/freeze_field.xml"
+        ]
+      },
+      {
+        "id": "water_static",
+        "path": "data/entities/projectiles/deck/freezing_gaze_beam.xml",
+        "line": 92,
+        "text": "from_material_array=\"water,water_ice,water_salt,water_fading,water_static,fire,lava,water_swamp,radioactive_liquid,acid,blood_cold,blood,poison,slime\"",
+        "nativeLiteralRoot": "data/scripts/gun/gun.lua",
+        "pathChain": [
+          "data/scripts/gun/gun.lua",
+          "data/scripts/gun/gun_actions.lua",
+          "data/entities/projectiles/deck/freezing_gaze_beam.xml"
+        ]
+      },
+      {
+        "id": "radioactive_gas_static",
+        "path": "data/entities/base_humanoid.xml",
+        "line": 180,
+        "text": "materials_that_damage=\"acid,lava,poison,blood_cold,blood_cold_vapour,radioactive_gas,radioactive_gas_static,rock_static_radioactive,rock_static_poison,ice_radioactive_static,ice_radioactive_glass,ice_acid_static,ice_acid_glass,rock_static_cursed,poo_gas\"",
+        "nativeLiteralRoot": "data/entities/animals/scavenger_smg.xml",
+        "pathChain": [
+          "data/entities/animals/scavenger_smg.xml",
+          "data/entities/base_enemy_flying.xml",
+          "data/entities/base_humanoid.xml"
+        ]
+      },
+      {
+        "id": "radioactive_gas_static",
+        "path": "data/entities/player_base.xml",
+        "line": 148,
+        "text": "materials_that_damage=\"acid,lava,blood_cold_vapour,blood_cold,poison,radioactive_gas,radioactive_gas_static,rock_static_radioactive,rock_static_poison,ice_radioactive_static,ice_radioactive_glass,ice_acid_static,ice_acid_glass,rock_static_cursed,magic_gas_hp_regeneration,gold_radioactive,gold_static_radioactive,rock_static_cursed_green,cursed_liquid,poo_gas\"",
+        "nativeLiteralRoot": "data/entities/player_rng_items.xml",
+        "pathChain": [
+          "data/entities/player_rng_items.xml",
+          "data/entities/player_base.xml"
+        ]
+      },
+      {
+        "id": "radioactive_gas_static",
+        "path": "data/entities/animals/alchemist.xml",
+        "line": 33,
+        "text": "materials_that_damage=\"acid,poison,blood_cold,blood_cold_vapour,radioactive_gas,radioactive_gas_static,rock_static_radioactive\"",
+        "nativeLiteralRoot": "data/entities/animals/alchemist.xml",
+        "pathChain": [
+          "data/entities/animals/alchemist.xml"
+        ]
+      },
+      {
+        "id": "radioactive_gas_static",
+        "path": "data/entities/animals/scavenger_poison.xml",
+        "line": 32,
+        "text": "materials_that_damage=\"acid,lava,blood_cold,blood_cold_vapour,radioactive_gas,radioactive_gas_static,rock_static_radioactive\"",
+        "nativeLiteralRoot": "data/entities/animals/scavenger_poison.xml",
+        "pathChain": [
+          "data/entities/animals/scavenger_poison.xml"
+        ]
+      },
+      {
+        "id": "radioactive_gas_static",
+        "path": "data/scripts/magic/fungal_shift.lua",
+        "line": 13,
+        "text": "{ probability = 0.4, materials = { \"acid_gas\", \"acid_gas_static\", \"poison_gas\", \"fungal_gas\", \"radioactive_gas\", \"radioactive_gas_static\" }, name_material = \"acid_gas\" },",
+        "nativeLiteralRoot": "data/scripts/status_effects/status_reflect.lua",
+        "pathChain": [
+          "data/scripts/status_effects/status_reflect.lua",
+          "data/scripts/status_effects/status_list.lua",
+          "data/entities/misc/effect_trip_03.xml",
+          "data/scripts/status_effects/effect_trip_03.lua",
+          "data/scripts/magic/fungal_shift.lua"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/entities/animals/miner.xml",
+        "line": 22,
+        "text": "attack_ranged_entity_file=\"data/entities/projectiles/tnt.xml\"",
+        "nativeLiteralRoot": "data/entities/animals/miner.xml",
+        "pathChain": [
+          "data/entities/animals/miner.xml"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/entities/misc/hitfx_explode_explosion.xml",
+        "line": 54,
+        "text": "audio_event_name=\"explosions/tnt\" >",
+        "nativeLiteralRoot": "data/scripts/gun/gun.lua",
+        "pathChain": [
+          "data/scripts/gun/gun.lua",
+          "data/scripts/gun/gun_actions.lua",
+          "data/entities/misc/hitfx_explode_slime.xml",
+          "data/entities/misc/hitfx_explode_explosion.xml"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/entities/projectiles/clusterbomb.xml",
+        "line": 61,
+        "text": "audio_event_name=\"explosions/tnt\" >",
+        "nativeLiteralRoot": "data/entities/animals/scavenger_clusterbomb.xml",
+        "pathChain": [
+          "data/entities/animals/scavenger_clusterbomb.xml",
+          "data/entities/projectiles/clusterbomb.xml"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/entities/projectiles/cocktail.xml",
+        "line": 98,
+        "text": "audio_event_name=\"explosions/tnt\"",
+        "nativeLiteralRoot": "data/entities/animals/miner_fire.xml",
+        "pathChain": [
+          "data/entities/animals/miner_fire.xml",
+          "data/entities/projectiles/cocktail.xml"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/entities/projectiles/rocket_tank.xml",
+        "line": 73,
+        "text": "audio_event_name=\"explosions/tnt\" >",
+        "nativeLiteralRoot": "data/scripts/gun/gun.lua",
+        "pathChain": [
+          "data/scripts/gun/gun.lua",
+          "data/scripts/gun/gun_actions.lua",
+          "data/entities/projectiles/deck/rocket_player.xml",
+          "data/entities/projectiles/rocket_tank.xml"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/entities/projectiles/tnt.xml",
+        "line": 6,
+        "text": "image_file=\"data/projectiles_gfx/tnt.png\"",
+        "nativeLiteralRoot": "data/entities/animals/miner.xml",
+        "pathChain": [
+          "data/entities/animals/miner.xml",
+          "data/entities/projectiles/tnt.xml"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/entities/projectiles/tnt.xml",
+        "line": 15,
+        "text": "audio_event_name=\"explosions/tnt\"",
+        "nativeLiteralRoot": "data/entities/animals/miner.xml",
+        "pathChain": [
+          "data/entities/animals/miner.xml",
+          "data/entities/projectiles/tnt.xml"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/entities/projectiles/tnt.xml",
+        "line": 102,
+        "text": "event_root=\"projectiles/tnt\">",
+        "nativeLiteralRoot": "data/entities/animals/miner.xml",
+        "pathChain": [
+          "data/entities/animals/miner.xml",
+          "data/entities/projectiles/tnt.xml"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/entities/projectiles/tnt.xml",
+        "line": 116,
+        "text": "value_string=\"data/entities/projectiles/tnt.xml\"",
+        "nativeLiteralRoot": "data/entities/animals/miner.xml",
+        "pathChain": [
+          "data/entities/animals/miner.xml",
+          "data/entities/projectiles/tnt.xml"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/entities/props/physics_box_explosive.xml",
+        "line": 11,
+        "text": "image_file=\"data/props_gfx/tnt.png\"",
+        "nativeLiteralRoot": "data/scripts/streaming_integration/event_list.lua",
+        "pathChain": [
+          "data/scripts/streaming_integration/event_list.lua",
+          "data/scripts/streaming_integration/entities/chest_random.xml",
+          "data/scripts/items/chest_random.lua",
+          "data/entities/items/pickup/safe_haven.xml",
+          "data/scripts/items/safe_haven_spawn.lua",
+          "data/entities/props/physics_box_explosive.xml"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/scripts/gun/gun_actions.lua",
+        "line": 2013,
+        "text": "related_projectiles\t= {\"data/entities/projectiles/deck/tnt.xml\"},",
+        "nativeLiteralRoot": "data/scripts/gun/gun.lua",
+        "pathChain": [
+          "data/scripts/gun/gun.lua",
+          "data/scripts/gun/gun_actions.lua"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/scripts/gun/gun_actions.lua",
+        "line": 2020,
+        "text": "custom_xml_file = \"data/entities/misc/custom_cards/tnt.xml\",",
+        "nativeLiteralRoot": "data/scripts/gun/gun.lua",
+        "pathChain": [
+          "data/scripts/gun/gun.lua",
+          "data/scripts/gun/gun_actions.lua"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/scripts/gun/gun_actions.lua",
+        "line": 2022,
+        "text": "add_projectile(\"data/entities/projectiles/deck/tnt.xml\")",
+        "nativeLiteralRoot": "data/scripts/gun/gun.lua",
+        "pathChain": [
+          "data/scripts/gun/gun.lua",
+          "data/scripts/gun/gun_actions.lua"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/entities/misc/custom_cards/tnt.xml",
+        "line": 30,
+        "text": "entity_file=\"data/entities/projectiles/tnt.xml\"",
+        "nativeLiteralRoot": "data/scripts/gun/gun.lua",
+        "pathChain": [
+          "data/scripts/gun/gun.lua",
+          "data/scripts/gun/gun_actions.lua",
+          "data/entities/misc/custom_cards/tnt.xml"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/entities/projectiles/deck/bounce_explosion.xml",
+        "line": 54,
+        "text": "audio_event_name=\"explosions/tnt\" > >",
+        "nativeLiteralRoot": "data/scripts/gun/gun.lua",
+        "pathChain": [
+          "data/scripts/gun/gun.lua",
+          "data/scripts/gun/gun_actions.lua",
+          "data/entities/misc/bounce_explosion.xml",
+          "data/scripts/projectiles/bounce_explosion.lua",
+          "data/entities/projectiles/deck/bounce_explosion.xml"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/entities/projectiles/deck/bounce_small_explosion.xml",
+        "line": 53,
+        "text": "audio_event_name=\"explosions/tnt\" > >",
+        "nativeLiteralRoot": "data/scripts/gun/gun.lua",
+        "pathChain": [
+          "data/scripts/gun/gun.lua",
+          "data/scripts/gun/gun_actions.lua",
+          "data/entities/misc/bounce_small_explosion.xml",
+          "data/scripts/projectiles/bounce_small_explosion.lua",
+          "data/entities/projectiles/deck/bounce_small_explosion.xml"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/entities/projectiles/deck/explosion.xml",
+        "line": 54,
+        "text": "audio_event_name=\"explosions/tnt\" >",
+        "nativeLiteralRoot": "data/scripts/gun/gun.lua",
+        "pathChain": [
+          "data/scripts/gun/gun.lua",
+          "data/scripts/gun/gun_actions.lua",
+          "data/entities/projectiles/deck/explosion.xml"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/entities/projectiles/deck/explosion_light.xml",
+        "line": 55,
+        "text": "audio_event_name=\"explosions/tnt\" >",
+        "nativeLiteralRoot": "data/scripts/gun/gun.lua",
+        "pathChain": [
+          "data/scripts/gun/gun.lua",
+          "data/scripts/gun/gun_actions.lua",
+          "data/entities/projectiles/deck/explosion_light.xml"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/entities/projectiles/deck/pebble_player_physics.xml",
+        "line": 179,
+        "text": "audio_event_name=\"explosions/tnt\" >",
+        "nativeLiteralRoot": "data/scripts/gun/gun.lua",
+        "pathChain": [
+          "data/scripts/gun/gun.lua",
+          "data/scripts/gun/gun_actions.lua",
+          "data/entities/projectiles/deck/pebble_player.xml",
+          "data/scripts/animals/pebble_player_spawn.lua",
+          "data/entities/projectiles/deck/pebble_player_physics.xml"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/entities/projectiles/deck/tnt.xml",
+        "line": 6,
+        "text": "image_file=\"data/projectiles_gfx/tnt.png\"",
+        "nativeLiteralRoot": "data/scripts/gun/gun.lua",
+        "pathChain": [
+          "data/scripts/gun/gun.lua",
+          "data/scripts/gun/gun_actions.lua",
+          "data/entities/projectiles/deck/tnt.xml"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/entities/projectiles/deck/tnt.xml",
+        "line": 24,
+        "text": "audio_event_name=\"explosions/tnt\"",
+        "nativeLiteralRoot": "data/scripts/gun/gun.lua",
+        "pathChain": [
+          "data/scripts/gun/gun.lua",
+          "data/scripts/gun/gun_actions.lua",
+          "data/entities/projectiles/deck/tnt.xml"
+        ]
+      },
+      {
+        "id": "tnt",
+        "path": "data/entities/projectiles/deck/tnt.xml",
+        "line": 122,
+        "text": "value_string=\"data/entities/projectiles/deck/tnt.xml\"",
+        "nativeLiteralRoot": "data/scripts/gun/gun.lua",
+        "pathChain": [
+          "data/scripts/gun/gun.lua",
+          "data/scripts/gun/gun_actions.lua",
+          "data/entities/projectiles/deck/tnt.xml"
+        ]
+      },
+      {
+        "id": "metal",
+        "path": "data/scripts/items/chest_random.lua",
+        "line": 191,
+        "text": "local r_opts = { \"laser\", \"fireball\", \"lava\", \"slow\", \"null\", \"disc\", \"metal\" }",
+        "nativeLiteralRoot": "data/scripts/streaming_integration/event_list.lua",
+        "pathChain": [
+          "data/scripts/streaming_integration/event_list.lua",
+          "data/scripts/streaming_integration/entities/chest_random.xml",
+          "data/scripts/items/chest_random.lua"
+        ]
+      }
+    ],
+    "imageRootMatches": [],
+    "entryClosureFinding": "The native exact-root overapproximation finds only spark_player. Relevant broad directory prefixes preload templates rather than create entities; native effect-prefix source and spliced-image domains are closed; the polymorph animal registry rejects the candidate aluminium _physics files. Therefore the concrete native initial-asset question remaining from this corpus is the co-op activation of spark_player.",
+    "nativePrefixInventory": [
+      {
+        "fileOffset": "0xbe6cb0",
+        "address": "0xfe78b0",
+        "value": "data/scripts",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xbe716c",
+        "address": "0xfe7d6c",
+        "value": "data/biome_impl/spliced/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xbe72b4",
+        "address": "0xfe7eb4",
+        "value": "data/generated/sprite_uv_maps/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xbe778c",
+        "address": "0xfe838c",
+        "value": "data/fonts/generated/",
+        "wholeStringPath": true,
+        "exists": false
+      },
+      {
+        "fileOffset": "0xbe795c",
+        "address": "0xfe855c",
+        "value": "data/translations/",
+        "wholeStringPath": true,
+        "exists": false
+      },
+      {
+        "fileOffset": "0xbe9550",
+        "address": "0xfea150",
+        "value": "data/audio",
+        "wholeStringPath": true,
+        "exists": false
+      },
+      {
+        "fileOffset": "0xbe9578",
+        "address": "0xfea178",
+        "value": "data/video",
+        "wholeStringPath": true,
+        "exists": false
+      },
+      {
+        "fileOffset": "0xbe9584",
+        "address": "0xfea184",
+        "value": "data/fonts",
+        "wholeStringPath": true,
+        "exists": false
+      },
+      {
+        "fileOffset": "0xbe9590",
+        "address": "0xfea190",
+        "value": "data/translations",
+        "wholeStringPath": true,
+        "exists": false
+      },
+      {
+        "fileOffset": "0xbe95a4",
+        "address": "0xfea1a4",
+        "value": "data/schemas",
+        "wholeStringPath": true,
+        "exists": false
+      },
+      {
+        "fileOffset": "0xbebfc4",
+        "address": "0xfecbc4",
+        "value": "data/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xbf249c",
+        "address": "0xff309c",
+        "value": "data/audio/Desktop/Master Bank.bank",
+        "wholeStringPath": true,
+        "exists": false
+      },
+      {
+        "fileOffset": "0xbf24c0",
+        "address": "0xff30c0",
+        "value": "data/audio/Desktop/Master Bank.strings.bank",
+        "wholeStringPath": true,
+        "exists": false
+      },
+      {
+        "fileOffset": "0xc02418",
+        "address": "0x1003018",
+        "value": "data/schemas/",
+        "wholeStringPath": true,
+        "exists": false
+      },
+      {
+        "fileOffset": "0xc05038",
+        "address": "0x1005c38",
+        "value": "data/procedural_gfx/collapse_big/$[0-14].png",
+        "wholeStringPath": true,
+        "exists": false
+      },
+      {
+        "fileOffset": "0xc081dc",
+        "address": "0x1008ddc",
+        "value": "data/generated/material_icons/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xc082e8",
+        "address": "0x1008ee8",
+        "value": "data/debug/icon_",
+        "wholeStringPath": true,
+        "exists": false
+      },
+      {
+        "fileOffset": "0xc084a8",
+        "address": "0x10090a8",
+        "value": "data/entities/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xc088a4",
+        "address": "0x10094a4",
+        "value": "data/ragdolls/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xc09f0c",
+        "address": "0x100ab0c",
+        "value": "data/particles/smoke_0",
+        "wholeStringPath": true,
+        "exists": false
+      },
+      {
+        "fileOffset": "0xc0d870",
+        "address": "0x100e470",
+        "value": "data/entities/animals/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xc0da68",
+        "address": "0x100e668",
+        "value": "data/entities/items/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xc0da80",
+        "address": "0x100e680",
+        "value": "data/entities/projectiles/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xc0da9c",
+        "address": "0x100e69c",
+        "value": "data/entities/buildings/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xc0dab8",
+        "address": "0x100e6b8",
+        "value": "data/entities/props/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xc0dad0",
+        "address": "0x100e6d0",
+        "value": "data/enemies_gfx/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xc0dae4",
+        "address": "0x100e6e4",
+        "value": "data/items_gfx/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xc0daf4",
+        "address": "0x100e6f4",
+        "value": "data/projectiles_gfx/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xc0db0c",
+        "address": "0x100e70c",
+        "value": "data/vegetation/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xc0db20",
+        "address": "0x100e720",
+        "value": "data/particles/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xc0db30",
+        "address": "0x100e730",
+        "value": "data/particles/bloodsplatters/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xc0db50",
+        "address": "0x100e750",
+        "value": "data/particles/muzzle_flashes/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xc0db70",
+        "address": "0x100e770",
+        "value": "data/ui_gfx/game_over_menu/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xc1132c",
+        "address": "0x1011f2c",
+        "value": "data/ui_gfx/animal_icons/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xc11ff4",
+        "address": "0x1012bf4",
+        "value": "data/weather_gfx/limit_y/",
+        "wholeStringPath": true,
+        "exists": true
+      },
+      {
+        "fileOffset": "0xc36388",
+        "address": "0x1036f88",
+        "value": "data/entities/misc/effect_",
+        "wholeStringPath": true,
+        "exists": false
+      },
+      {
+        "fileOffset": "0xc36458",
+        "address": "0x1037058",
+        "value": "data/entities/misc/effect_exploding_corpse.xml,",
+        "wholeStringPath": true,
+        "exists": false
+      },
+      {
+        "fileOffset": "0xc39924",
+        "address": "0x103a524",
+        "value": "data/ui_gfx/inventory/icon_",
+        "wholeStringPath": true,
+        "exists": false
+      }
+    ]
+  },
+  "polymorphRegistryJoin": {
+    "status": "named-aluminium-producer-excluded",
+    "function": "0xb00360",
+    "evidenceId": "ev_49e9051b58170923488b03633501755b5bde8d5261670b5f99077657febbf624",
+    "sourceFinding": "Both boss_limbs_physics variants lack polymorphable_NOT, so source tags alone were insufficient.",
+    "nativeFinding": "Native random-polymorph registry rejects the substring _physics; both aluminium producer filenames match that explicit filter. Directory recursion details cannot reintroduce a filename already rejected by this filter.",
+    "affectedMaterialIds": [
+      "aluminium",
+      "aluminium_oxide"
+    ]
+  },
+  "nativePrefixJoins": {
+    "preload": {
+      "status": "noncreating-template-load",
+      "functions": [
+        "0x6afaa0",
+        "0x6ad300",
+        "0x5763f0"
+      ],
+      "finding": "The entities/items/projectiles/buildings/props and gfx/vegetation/particles directory prefixes feed template preloading. The XML branch obtains EntityFactory templates; it does not invoke EntityCreate or world placement. Template presence is not entity creation."
+    },
+    "effects": {
+      "status": "source-domain-closed",
+      "function": "0xb05b40",
+      "finding": "The prefix forms effect_<lowercased GAME_EFFECT enum>.xml, with explicit overrides. Conservatively scanning every existing misc/effect_*.xml and literal dependencies finds no remaining candidate material producer.",
+      "rootCount": 131,
+      "dependencyPathCount": 373,
+      "candidateProducerReferences": []
+    },
+    "splicedImages": {
+      "status": "rgb-corpus-closed",
+      "function": "0x8408e0",
+      "finding": "Regardless of the filename suffix construction, every inspected PNG/PLZ under data/biome_impl/spliced/ has no RGB match for any original62 candidate, including alpha-zero pixels.",
+      "imageCount": 173,
+      "candidateRgbMatches": [],
+      "corpusBinding": "source-review.json#corpusBindings.dataImages"
+    }
+  },
+  "independentAssessment": {
+    "conclusion": "Supports the53 listed original-definition unused classifications within the pinned scope.",
+    "basis": "The material-specific source closures, bounded native input domains, initial-asset selection checks and transition dependencies now agree. No concrete contradictory normal-game route remains for these53 IDs. The two encountered exceptions are kept separate: fungal_shift_particle_fx is used cosmetically; spark_player remains conditional.",
+    "notClaimed": [
+      "Formal proof over every executable instruction or every possible execution.",
+      "Runtime gameplay observation or a current material API dump.",
+      "Applicability to different game/source builds or developer/mod-created seeds."
+    ],
+    "supportingOnly": "The378-slot immediate-ID scan is a supporting counterexample search; certification does not treat it as a complete virtual-call graph."
+  }
+}

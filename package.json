@@ -8,11 +8,12 @@
     "deploy": "observable deploy",
     "observable": "observable",
     "test": "node --test tests/*.test.js",
-    "prebuild": "node scripts/prepare-fungal.mjs",
-    "predev": "node scripts/prepare-fungal.mjs",
-    "pretest": "node scripts/prepare-fungal.mjs",
-    "predeploy": "node scripts/prepare-fungal.mjs",
-    "preobservable": "node scripts/prepare-fungal.mjs",
+    "prebuild": "node scripts/prepare-fungal.mjs && node scripts/validate-material-availability.mjs",
+    "predev": "node scripts/prepare-fungal.mjs && node scripts/validate-material-availability.mjs",
+    "pretest": "node scripts/prepare-fungal.mjs && node scripts/validate-material-availability.mjs",
+    "predeploy": "node scripts/prepare-fungal.mjs && node scripts/validate-material-availability.mjs",
+    "preobservable": "node scripts/prepare-fungal.mjs && node scripts/validate-material-availability.mjs",
+    "materials:check": "node scripts/validate-material-availability.mjs",
     "fungal:prepare": "node scripts/prepare-fungal.mjs"
   },
   "dependencies": {

@@ -2,14 +2,33 @@
 // DATA REPOSITORY - Manages materials, reactions, and tags
 // ============================================================================
 
+import {getUnusedMaterialIds, reactionUsesUnusedMaterial} from "../../components/materialAvailability.js";
+
 export class DataRepository {
-  constructor(materials, reactionSources, materialAssociations) {
+  constructor(materials, reactionSources, materialAssociations, materialAvailability) {
     this.materialsMap = new Map(materials.map((m) => [m.id, m]));
     this.reactionSources = reactionSources;
     this.currentSource = "base";
     this.reactions = reactionSources["base"].reactions;
     this.tagToMaterialsMap = this._buildTagMap(materialAssociations);
+    this.unusedMaterialIds = getUnusedMaterialIds(materialAvailability);
+    this.excludeUnusedMaterials = true;
     this._rebuildIndexes();
+  }
+
+  setExcludeUnusedMaterials(enabled) {
+    this.excludeUnusedMaterials = !!enabled;
+    this._rebuildIndexes();
+  }
+
+  isMaterialAvailable(id) {
+    return !(this.currentSource === "base" && this.excludeUnusedMaterials && this.unusedMaterialIds.has(id));
+  }
+
+  isReactionAvailable(reaction) {
+    return this.currentSource !== "base" || !this.excludeUnusedMaterials ||
+      !reactionUsesUnusedMaterial(reaction, this.unusedMaterialIds,
+        (id) => this.resolveTag(id, {includeUnused: true}));
   }
 
   setReactionSource(sourceId) {
@@ -49,6 +68,7 @@ export class DataRepository {
   _buildIndex(getFields) {
     const index = new Map();
     this.reactions.forEach((reaction, reactionIndex) => {
+      if (!this.isReactionAvailable(reaction)) return;
       getFields(reaction)
         .filter(Boolean)
         .forEach((field) => {
@@ -65,10 +85,9 @@ export class DataRepository {
     return identifier?.startsWith("[") && identifier?.endsWith("]");
   }
 
-  resolveTag(identifier) {
-    if (!this.isTag(identifier)) return [identifier];
-    const tag = identifier.slice(1, -1);
-    return this.tagToMaterialsMap.get(tag) || [];
+  resolveTag(identifier, {includeUnused = false} = {}) {
+    const ids = this.isTag(identifier) ? this.tagToMaterialsMap.get(identifier.slice(1, -1)) || [] : [identifier];
+    return includeUnused ? ids : ids.filter((id) => this.isMaterialAvailable(id));
   }
 
   getMaterial(id) {

@@ -38,6 +38,7 @@ initializeTitleAnimation();
 const materials = await FileAttachment("./data/FULL_MATERIALS_FINAL.json").json();
 const baseReactions = await FileAttachment("./data/reactions_from_materials.json").json();
 const materialAssociations = await FileAttachment("./data/jsons/material_associations.json").json();
+const materialAvailability = await FileAttachment("./data/unused-materials.json").json();
 
 // Load extension reactions
 const reactionSources = {
@@ -88,7 +89,7 @@ injectNotificationStyles();
 
 // Initialize core components
 const eventBus = new EventBus();
-const dataRepo = new DataRepository(materials, reactionSources, materialAssociations);
+const dataRepo = new DataRepository(materials, reactionSources, materialAssociations, materialAvailability);
 const appState = new AppState(eventBus, dataRepo);
 const reactionFilter = new ReactionFilter(dataRepo);
 const graphDataBuilder = new GraphDataBuilder(dataRepo);
@@ -104,6 +105,7 @@ const resetButton = uiController.createResetButton(Inputs, htl);
 const speedSlider = uiController.createSpeedSlider();
 const exportButton = uiController.createExportButton(Inputs, htl);
 const sourceSelector = uiController.createSourceSelector();
+const excludeUnusedToggle = uiController.createUnusedMaterialsToggle(Inputs);
 
 // Listen for source changes
 eventBus.on("reactionSourceChanged", () => {
@@ -127,7 +129,7 @@ if (document.readyState === "loading") {
     <select id="productChoicesSelector" multiple></select>
   </div>
   <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box; font-size: 0.9rem;">
-    <h2 id="reactionsCount" style="margin: 0; font-size: 0.9rem;">Reactions found: <code class="bigger-number-better">317</code></h2>
+    <h2 id="reactionsCount" style="margin: 0; font-size: 0.9rem;">Reactions found: <code class="bigger-number-better">—</code></h2>
   </div>
 </div>
 <div class="grid grid-cols-3 gap-1" style="width: 100%; box-sizing: border-box; margin-bottom: 1rem;">
@@ -137,6 +139,8 @@ if (document.readyState === "loading") {
   <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box; padding: 15px;">${speedSlider}</div>
   <div class="card grid-colspan-1" style="width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box; padding: 15px;">${sourceSelector}</div>
 </div>
+<div class="grid grid-cols-1">
+  <div class="card">${excludeUnusedToggle}</div>
 </div>
 <div class="grid grid-cols-1 grid-rowspan-1" style="grid-auto-rows: auto">
   <div class="card" id="graphContainer"></div>
