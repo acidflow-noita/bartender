@@ -11,7 +11,7 @@
     "reviewInputs": [
       {
         "path": "scripts/audit-material-availability.mjs",
-        "sha256": "922e6ebe0979da5f3eccceffce57a14ca7569d03e5b22bf5f3fd40d79e47b394"
+        "sha256": "c5ff2ee7d850dda705a6efc0d505ba345522b28daa4dafa9d5a54d951f004df7"
       },
       {
         "path": "scripts/certify-unused-materials.mjs",
@@ -19,7 +19,7 @@
       },
       {
         "path": "src/components/materialAvailability.js",
-        "sha256": "722d95df2af55b558ac5145e6c1f74cbbc998e24368d1ff53a68cfecc36f9292"
+        "sha256": "7890a81e306f6872ff8e49a5b177b06c8055e80b333c77433a5f72fc474bcd1d"
       },
       {
         "path": "scripts/material-source-analysis.mjs",
@@ -28,6 +28,10 @@
       {
         "path": "src/data/material-availability/source-evidence.json",
         "sha256": "964eb25fa472fca89066b775631303792dd93c34ba2eb100ecdfd02f8904aaeb"
+      },
+      {
+        "path": "src/data/material-availability/filter-overrides.json",
+        "sha256": "efd98361c1646b71eddbcaa0f94c4cf00668da27484b22b164a59772d62e1dac"
       },
       {
         "path": "src/data/material-availability/reviewed-unused.json",
@@ -76,7 +80,7 @@
     "limitations": [
       "Static source reachability is conditional; files and pixels may have additional runtime conditions.",
       "Native and dynamic creation are reviewed through the mechanism families recorded in native-evidence.json; this is not a formal proof over every executable path.",
-      "spark_player remains visible because normal controller/co-op activation of its native emitter path is unresolved.",
+      "Explicit filter decisions are recorded separately from verified unused classifications; their remaining uncertainty is preserved.",
       "Air is built-in empty space and is excluded by the native enumeration's starting index of 1.",
       "Unused status requires review of every creation-route category; an absent literal name alone never adds a filter entry."
     ]
@@ -334,6 +338,16 @@
     "wood_static_gas",
     "wood_trailer"
   ],
+  "exclusionOverrides": {
+    "spark_player": {
+      "decision": "exclude",
+      "basis": "maintainer-decision",
+      "classification": "presumed-unused",
+      "executableSha256": "a0d9f9ca513e27a598c61dd9a19211c7a11d1477c9a2b93d909757d91d17d914",
+      "materialsSha256": "768fc676009e48ad181af8befebad9cf091e2aca66f9ab86b8cd05d420b010ac",
+      "reason": "Treat Player Spark as unused in normal gameplay. Its known native disappearance-effect source is behind co-op/controller state; normal activation remains unverified."
+    }
+  },
   "sourceOnlyCandidates": [],
   "materials": {
     "air": {

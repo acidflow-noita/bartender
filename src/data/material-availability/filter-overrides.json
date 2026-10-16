@@ -1,0 +1,10 @@
+{
+  "spark_player": {
+    "decision": "exclude",
+    "basis": "maintainer-decision",
+    "classification": "presumed-unused",
+    "executableSha256": "a0d9f9ca513e27a598c61dd9a19211c7a11d1477c9a2b93d909757d91d17d914",
+    "materialsSha256": "768fc676009e48ad181af8befebad9cf091e2aca66f9ab86b8cd05d420b010ac",
+    "reason": "Treat Player Spark as unused in normal gameplay. Its known native disappearance-effect source is behind co-op/controller state; normal activation remains unverified."
+  }
+}

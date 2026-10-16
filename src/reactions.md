@@ -378,7 +378,7 @@ const onlyPracticalToggle = Inputs.toggle({
   value: window.appState.onlyPracticalReactions,
 });
 const excludeUnusedToggle = Inputs.toggle({
-  label: "Exclude verified unused materials",
+  label: "Exclude unused materials",
   value: window.appState.excludeUnusedMaterials,
 });
 ```

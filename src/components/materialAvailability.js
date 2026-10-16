@@ -13,9 +13,9 @@ export function hasVerifiedUnusedEvidence(record, build) {
     });
 }
 
-// Source-search candidates are never active exclusions. Every creation-route
-// review must be present; old/incomplete reports fail open and keep materials.
-export function getUnusedMaterialIds(audit) {
+// Evidence-backed exclusions require every creation-route review. Explicit
+// maintainer decisions remain separate from those verified classifications.
+export function getUnusedMaterialIds(audit, {includeOverrides = true} = {}) {
   if (audit?.schemaVersion !== 2 || audit.scope?.ruleset !== "unmodded"
       || !/^[a-f0-9]{64}$/.test(audit.source?.executableSha256 ?? "")) return new Set();
   const protectedIds = new Set(["air", ...(audit.randomFlaskPool?.liquids ?? []), ...(audit.randomFlaskPool?.sands ?? [])]);
@@ -32,19 +32,29 @@ export function getUnusedMaterialIds(audit) {
       }
     }
   } while (changed);
+  if (includeOverrides) for (const [id, override] of Object.entries(audit.exclusionOverrides ?? {})) {
+    if (!protectedIds.has(id) && audit.materials?.[id]?.status === "unknown"
+        && override.decision === "exclude" && override.basis === "maintainer-decision"
+        && override.classification === "presumed-unused"
+        && override.executableSha256 === audit.source.executableSha256
+        && override.materialsSha256 === audit.source.gameMaterialsSha256
+        && typeof override.reason === "string" && override.reason.trim()) excluded.add(id);
+  }
   return excluded;
 }
 
 // Reaction pages need the verified filter set, not the full investigation.
 // The complete report and evidence remain versioned separately.
 export function materialExclusionIndex(report) {
+  const ids = [...new Set([...report.unusedIds, ...Object.keys(report.exclusionOverrides ?? {})])];
   return {schemaVersion: report.schemaVersion, scope: report.scope,
     source: {executableSha256: report.source.executableSha256,
       gameMaterialsSha256: report.source.gameMaterialsSha256,
       materialRegistrySha256: report.source.materialRegistrySha256},
     randomFlaskPool: {liquids: report.randomFlaskPool.liquids, sands: report.randomFlaskPool.sands},
     unusedIds: report.unusedIds,
-    materials: Object.fromEntries(report.unusedIds.map((id) => [id, {
+    exclusionOverrides: report.exclusionOverrides ?? {},
+    materials: Object.fromEntries(ids.map((id) => [id, {
       status: report.materials[id].status, verification: report.materials[id].verification,
     }])),
   };

@@ -13,6 +13,10 @@ registry/flask eligibility, world/entity creation, Lua/dynamic loads,
 reactions/transformations, and native creation. Record all prerequisites.
 The independent closure review must bind the source/native file digests.
 
+Explicit maintainer exclusions are recorded in filter-overrides.json and
+bound to the audited build. They do not change an unresolved finding into
+a verified one. Re-run the audit after changing a filter decision.
+
 After evidence review:
   node scripts/certify-unused-materials.mjs
   node scripts/audit-material-availability.mjs --game-data /path/to/noita/data

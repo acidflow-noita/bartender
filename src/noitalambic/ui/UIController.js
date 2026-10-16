@@ -59,7 +59,7 @@ export class UIController {
   }
 
   createUnusedMaterialsToggle(Inputs) {
-    const toggle = Inputs.toggle({label: "Exclude verified unused materials (base game)", value: this.state.excludeUnusedMaterials});
+    const toggle = Inputs.toggle({label: "Exclude unused materials (base game)", value: this.state.excludeUnusedMaterials});
     toggle.addEventListener("input", () => this.state.setExcludeUnusedMaterials(toggle.value));
     this.unusedMaterialsToggle = toggle;
     this.updateUnusedMaterialsToggle();
@@ -73,7 +73,7 @@ export class UIController {
     toggle.querySelector("input").disabled = this.state.reactionSource !== "base";
     toggle.title = this.state.reactionSource !== "base"
       ? "Material availability has only been audited for the base game."
-      : "Only audited unused materials are excluded. Rare and unresolved materials remain available.";
+      : "Hides materials classified as unused in normal gameplay.";
   }
 
   createExportButton(Inputs, htl) {

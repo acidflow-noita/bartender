@@ -403,6 +403,15 @@ export function auditMaterialAvailability({gameDataDirectory, executablePath}) {
     }
   }
   const reviewed = JSON.parse(readFileSync(resolve(repo, "src/data/material-availability/reviewed-unused.json"), "utf8"));
+  const exclusionOverrides = JSON.parse(readFileSync(resolve(repo, "src/data/material-availability/filter-overrides.json"), "utf8"));
+  for (const [id, override] of Object.entries(exclusionOverrides)) {
+    if (!records[id] || records[id].status !== "unknown" || poolIds.has(id) || id === "air"
+        || override.decision !== "exclude" || override.basis !== "maintainer-decision"
+        || override.classification !== "presumed-unused" || typeof override.reason !== "string" || !override.reason.trim()
+        || override.executableSha256 !== sha256(binary) || override.materialsSha256 !== sha256(definitions)) {
+      throw new Error(`Invalid or outdated explicit exclusion: ${id}`);
+    }
+  }
   const verifiedIds = new Set(Object.entries(reviewed.materials)
     .filter(([, review]) => review.verification?.status === "verified").map(([id]) => id));
   const closure = JSON.parse(readFileSync(resolve(repo, "src/data/material-availability/closure-review.json")));
@@ -467,6 +476,7 @@ export function auditMaterialAvailability({gameDataDirectory, executablePath}) {
     materialRegistrySha256: sha256(JSON.stringify(materials)),
     reviewInputs: ["scripts/audit-material-availability.mjs", "scripts/certify-unused-materials.mjs", "src/components/materialAvailability.js",
       "scripts/material-source-analysis.mjs", "src/data/material-availability/source-evidence.json",
+      "src/data/material-availability/filter-overrides.json",
       "src/data/material-availability/reviewed-unused.json", "src/data/material-availability/source-review.json",
       "src/data/material-availability/native-evidence.json", "src/data/material-availability/validation-review.json",
       "src/data/material-availability/closure-review.json"]
@@ -479,13 +489,14 @@ export function auditMaterialAvailability({gameDataDirectory, executablePath}) {
     imageErrors, nonImagePlaceholders, gameplayRoots: roots, reachableFileCount: reachable.size,
     limitations: ["Static source reachability is conditional; files and pixels may have additional runtime conditions.",
       "Native and dynamic creation are reviewed through the mechanism families recorded in native-evidence.json; this is not a formal proof over every executable path.",
-      "spark_player remains visible because normal controller/co-op activation of its native emitter path is unresolved.",
+      "Explicit filter decisions are recorded separately from verified unused classifications; their remaining uncertainty is preserved.",
       "Air is built-in empty space and is excluded by the native enumeration's starting index of 1.",
       "Unused status requires review of every creation-route category; an absent literal name alone never adds a filter entry."],
   }, randomFlaskPool: {...pool, source: "data/scripts/items/potion_random_material.lua", chestSources: [
     "data/scripts/items/chest_random_super.lua:45", "data/scripts/items/chest_random.lua:156"], airMembership: "excluded-id-zero",
     verification: "Native code plus independently resolved XML eligibility; no live-game capture was required or performed."},
-    unusedIds: unusedIds.sort(), sourceOnlyCandidates: candidates.filter((id) => !unusedIds.includes(id)).sort(), materials: records};
+    unusedIds: unusedIds.sort(), exclusionOverrides,
+    sourceOnlyCandidates: candidates.filter((id) => !unusedIds.includes(id)).sort(), materials: records};
 }
 
 if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {

@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import {runInNewContext} from "node:vm";
-import {getUnusedMaterialIds, reactionUsesUnusedMaterial, UNUSED_CREATION_ROUTES} from "../src/components/materialAvailability.js";
+import {getUnusedMaterialIds, reactionUsesUnusedMaterial, materialExclusionIndex, UNUSED_CREATION_ROUTES} from "../src/components/materialAvailability.js";
 import {reactionUrl, readReactionReagents} from "../src/components/reactionUrl.js";
 import {DataRepository} from "../src/noitalambic/core/DataRepository.js";
 import {ReactionFilter} from "../src/noitalambic/filters/ReactionFilter.js";
@@ -63,7 +63,7 @@ test("source candidates and incomplete or mismatched evidence cannot hide a mate
     const copy = structuredClone(fixtureAudit); mutate(copy);
     assert.deepEqual([...getUnusedMaterialIds(copy)], []);
   }
-  const realUnused = getUnusedMaterialIds(audit);
+  const realUnused = getUnusedMaterialIds(audit, {includeOverrides: false});
   for (const [id, record] of Object.entries(audit.materials)) {
     if (record.status === "unknown" || record.randomFlaskPool) assert.ok(!realUnused.has(id), id);
   }
@@ -99,6 +99,41 @@ test("flask and empty-space protection overrides exclusions and invalid supplier
   assert.equal(getUnusedMaterialIds(dependentAudit).size, 2);
   dependentAudit.materials.corruption_static.verification.status = "incomplete";
   assert.deepEqual([...getUnusedMaterialIds(dependentAudit)], []);
+});
+
+test("Player Spark is explicitly filtered while its unresolved audit finding remains intact", () => {
+  assert.equal(audit.materials.spark_player.status, "unknown");
+  assert.equal(audit.exclusionOverrides.spark_player.classification, "presumed-unused");
+  assert.ok(!getUnusedMaterialIds(audit, {includeOverrides: false}).has("spark_player"));
+  assert.ok(getUnusedMaterialIds(audit).has("spark_player"));
+  const compact = JSON.parse(JSON.stringify(materialExclusionIndex(audit)));
+  assert.deepEqual([...getUnusedMaterialIds(compact)], [...getUnusedMaterialIds(audit)]);
+
+  const reactions = [{reagent1: "spark_player", reagent2: "water", product1: "steam"},
+    {reagent1: "spark", reagent2: "water", product1: "steam"}];
+  const repo = new DataRepository(realMaterials, {base: {reactions}, apotheosis: {reactions}},
+    [{tag: "sparks", id: "spark_player"}, {tag: "sparks", id: "spark"}], compact);
+  const filter = new ReactionFilter(repo);
+  assert.deepEqual(filter.getFilteredReactions(), [reactions[1]]);
+  assert.equal(filter.getAvailableReagents().some((item) => item.value === "spark_player"), false);
+  assert.deepEqual(repo.resolveTag("[sparks]"), ["spark"]);
+  assert.equal(reactionUsesUnusedMaterial({input_cell1: "spark_player"}, getUnusedMaterialIds(audit)), true);
+  repo.setExcludeUnusedMaterials(false);
+  assert.equal(filter.getFilteredReactions().length, 2);
+  assert.ok(filter.getAvailableReagents().some((item) => item.value === "spark_player"));
+  repo.setExcludeUnusedMaterials(true);
+  repo.setReactionSource("apotheosis");
+  assert.equal(filter.getFilteredReactions().length, 2);
+
+  for (const mutate of [
+    (copy) => { delete copy.exclusionOverrides.spark_player; },
+    (copy) => { copy.exclusionOverrides.spark_player.executableSha256 = "f".repeat(64); },
+    (copy) => { copy.materials.spark_player.status = "source-supported"; },
+    (copy) => { copy.randomFlaskPool.sands.push("spark_player"); },
+  ]) {
+    const copy = structuredClone(audit); mutate(copy);
+    assert.ok(!getUnusedMaterialIds(copy).has("spark_player"));
+  }
 });
 
 test("vanilla-unused classifications never hide material routes in mod reaction sources", () => {

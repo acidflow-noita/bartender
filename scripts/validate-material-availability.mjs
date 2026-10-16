@@ -29,12 +29,24 @@ export function validateMaterialAvailability(report, {materialsText, definitions
     } catch { errors.push(`Audit input is unavailable: ${input.path}.`); }
   }
   const excluded = getUnusedMaterialIds(report);
+  const verified = getUnusedMaterialIds(report, {includeOverrides: false});
   const declared = report.unusedIds ?? [];
-  if (declared.length !== new Set(declared).size || declared.length !== excluded.size
-      || declared.some((id) => !excluded.has(id))) errors.push("An exclusion lacks a complete creation-route review.");
+  if (declared.length !== new Set(declared).size || declared.length !== verified.size
+      || declared.some((id) => !verified.has(id))) errors.push("An exclusion lacks a complete creation-route review.");
+  if (Object.keys(report.exclusionOverrides ?? {}).length) {
+    const path = "src/data/material-availability/filter-overrides.json";
+    try {
+      if (JSON.stringify(JSON.parse(sourceTexts.get(path))) !== JSON.stringify(report.exclusionOverrides)) {
+        errors.push("Explicit exclusions differ from the recorded filter decisions.");
+      }
+    } catch { errors.push("Explicit exclusions lack a bound decision record."); }
+    for (const id of Object.keys(report.exclusionOverrides)) {
+      if (!excluded.has(id)) errors.push(`Invalid or outdated explicit exclusion: ${id}.`);
+    }
+  }
   for (const [id, material] of Object.entries(report.materials ?? {})) {
-    if (material.status === "unused" && !excluded.has(id)) errors.push(`Unverified unused claim: ${id}.`);
-    if (!excluded.has(id)) continue;
+    if (material.status === "unused" && !verified.has(id)) errors.push(`Unverified unused claim: ${id}.`);
+    if (!verified.has(id)) continue;
     for (const route of Object.values(material.verification.routes)) {
       for (const reference of route.evidence) {
         if (!reference || typeof reference !== "object" || typeof reference.path !== "string"
@@ -54,7 +66,8 @@ export function validateMaterialAvailability(report, {materialsText, definitions
     if (excluded.has(id)) errors.push(`A flask-pool material is excluded: ${id}.`);
     if (!ids.includes(id)) errors.push(`Flask pool names an unknown material: ${id}.`);
   }
-  return {valid: errors.length === 0, errors, excludedCount: excluded.size};
+  return {valid: errors.length === 0, errors, excludedCount: excluded.size,
+    verifiedCount: verified.size, overrideCount: excluded.size - verified.size};
 }
 
 if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
@@ -68,5 +81,5 @@ if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.m
   if (JSON.stringify(JSON.parse(read("src/data/unused-materials.json"))) !== JSON.stringify(materialExclusionIndex(report))) {
     throw new Error("The reaction filter index does not match the reviewed audit; regenerate it.");
   }
-  console.log(`Material audit validated: ${result.excludedCount} verified exclusions.`);
+  console.log(`Material filter validated: ${result.excludedCount} exclusions (${result.verifiedCount} verified, ${result.overrideCount} explicit).`);
 }

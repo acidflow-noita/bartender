@@ -44,7 +44,7 @@ test("flask classification follows engine fields rather than wiki display type o
 });
 
 test("only complete build-bound reviews can turn source candidates into exclusions", () => {
-  const excluded = getUnusedMaterialIds(report);
+  const excluded = getUnusedMaterialIds(report, {includeOverrides: false});
   assert.deepEqual([...excluded].sort(), [...report.unusedIds].sort());
   for (const [id, material] of Object.entries(report.materials)) {
     if (material.verification?.status === "incomplete") assert.ok(!excluded.has(id), id);
