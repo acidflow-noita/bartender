@@ -13,6 +13,7 @@ export function fitGraphToViewport(container, {credit, controls, heading, minimu
   const observe = node => {if (node && observer && !observed.has(node)) {observed.add(node);observer.observe(node);}};
   const refresh = () => {
     if (disposed || !container.isConnected) return;
+    if (document.fullscreenElement?.contains(container)) {container.dataset.viewportOverflow = 'false';onOverflow(false);return;}
     let after = 0;
     for (let node = container.nextElementSibling; node; node = node.nextElementSibling) {after += outerHeight(node);observe(node);}
     const available = Math.floor((view.visualViewport?.height ?? view.innerHeight)
@@ -38,8 +39,8 @@ export function fitGraphToViewport(container, {credit, controls, heading, minimu
 
 export function allowGraphGesture(event, container) {
   const document = container.ownerDocument, view = document.defaultView;
-  const pageScrolls = container.dataset.viewportOverflow === 'true'
-    || document.documentElement.scrollHeight > (view.visualViewport?.height ?? view.innerHeight) + 1;
+  const pageScrolls = !document.fullscreenElement?.contains(container) && (container.dataset.viewportOverflow === 'true'
+    || document.documentElement.scrollHeight > (view.visualViewport?.height ?? view.innerHeight) + 1);
   if (event.type === 'wheel' && pageScrolls && !event.ctrlKey && !event.metaKey) return false;
   return (!event.ctrlKey || event.type === 'wheel') && !event.button;
 }

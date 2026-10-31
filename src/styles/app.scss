@@ -145,5 +145,21 @@
     .property-navigation { display: flex; flex-wrap: nowrap; font-size: var(--font-size-sm); --nav-link-padding-x: var(--spacer-2); }
   }
   .result-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; }
-  #graphContainer { min-height: 0; height: 320px; overflow: hidden; }
+  #graphContainer { min-height: 0; height: 420px; overflow: hidden; }
+  .graph-layout { display: flex; flex-direction: column; gap: var(--spacer-4); }
+  .graph-card { min-inline-size: 0; }
+  .graph-layout:fullscreen { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); align-items: stretch; gap: var(--spacer-4); padding: var(--spacer-4); background: var(--bg-body); overflow: hidden; }
+  .graph-layout:fullscreen[data-settings-open] { grid-template-columns: minmax(17rem, 22rem) minmax(0, 1fr); }
+  .graph-layout:fullscreen:not([data-settings-open]) .graph-settings { display: none; }
+  .graph-layout:fullscreen .graph-settings { position: static; block-size: 100%; min-block-size: 0; overflow: auto; }
+  .graph-layout:fullscreen .graph-card { display: flex; flex-direction: column; block-size: 100%; min-block-size: 0; overflow: auto; }
+  .graph-layout:fullscreen #graphContainer { flex: 1 1 auto; block-size: auto !important; min-block-size: 320px; }
+  @include breakpoints.media-breakpoint-down(lg) {
+    .graph-layout:fullscreen[data-settings-open] { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, auto) minmax(0, 1fr); }
+    .graph-layout:fullscreen .graph-settings { block-size: auto; max-block-size: 45dvh; }
+  }
+  @include breakpoints.media-breakpoint-up(lg) {
+    .graph-layout { display: grid; grid-template-columns: minmax(17rem, 22rem) minmax(0, 1fr); align-items: start; }
+    .graph-settings { position: sticky; inset-block-start: var(--spacer-4); }
+  }
 }

@@ -16,6 +16,7 @@ import {UIController} from '../noitalambic/ui/UIController.js';
 import {ChoicesInitializer} from '../noitalambic/ui/ChoicesInitializer.js';
 import {fitGraphToViewport} from '../noitalambic/graph/viewport.js';
 import {formatNumber} from '../ui/format.js';
+import {iconLabel} from '../ui/icons.js';
 
 export async function mount(host) {
   const [materials, base, associations, availability, apotheosis, secret, all] = await loadDatasets([
@@ -36,19 +37,42 @@ export async function mount(host) {
   const unused = ui.createUnusedMaterialsToggle(Controls), download = ui.createExportButton(Controls, {html});
   const heading = pageHeading('Reactions Graph', {compact: true});
   const wheelHint = html`<small class="fg-3" hidden>Hold Ctrl or ⌘ while scrolling to zoom</small>`;
+  const fullscreen = html`<button type="button" class="btn-outline theme-secondary" hidden>${iconLabel('fullscreen', 'Full screen')}</button>`;
+  const settingsToggle = html`<button type="button" class="btn-outline theme-secondary" aria-controls="graphSettings" aria-expanded="false" hidden>${iconLabel('sliders', 'Show settings')}</button>`;
   const credit = html`<p class="graph-credit fg-3 mt-3 mb-0">Reactions Graph by <a class="brand-link" href="https://www.twitch.tv/kedesiklem"><img src="https://noita-bartender-images.acidflow.stream/images/logo/KED.svg" alt="Kedesiklem" width="60" height="24"></a></p>`;
   host.replaceChildren(html`<div class="graph-page">${heading}
-    <section class="card mb-4" aria-label="Graph settings"><div class="card-body">
-      <div class="row g-4"><div class="col-12 lg:col-7 form-field"><label class="form-label" for="choicesSelector">Ingredients</label><select id="choicesSelector" multiple></select></div>
-        <div class="col-12 lg:col-5 form-field"><label class="form-label" for="productChoicesSelector">Product</label><select id="productChoicesSelector" multiple></select></div></div>
-      <div class="row g-4"><div class="col-12 lg:col-6">${speed}</div><div class="col-12 lg:col-6">${source}</div></div>
-      <div class="result-toolbar">${unused}<div class="d-flex flex-wrap gap-3">${reset}${share.button}${download}</div></div>${share.feedback}
-    </div></section>
-    <section class="card"><div class="card-header flex-row flex-wrap align-items-center justify-content-between gap-3"><h2 id="reactionsCount" class="mb-0">Reactions</h2>${wheelHint}</div><div id="graphContainer"></div></section>
+    <div class="graph-layout">
+      <section id="graphSettings" class="card graph-settings" aria-label="Graph settings"><div class="card-body">
+        <div class="row g-4"><div class="col-12 md:col-6 lg:col-12 form-field"><label class="form-label" for="choicesSelector">Ingredients</label><select id="choicesSelector" multiple></select></div>
+          <div class="col-12 md:col-6 lg:col-12 form-field"><label class="form-label" for="productChoicesSelector">Product</label><select id="productChoicesSelector" multiple></select></div></div>
+        <div class="row g-4"><div class="col-12 md:col-6 lg:col-12">${speed}</div><div class="col-12 md:col-6 lg:col-12">${source}</div></div>
+        <div class="result-toolbar">${unused}<div class="d-flex flex-wrap gap-3">${reset}${share.button}${download}</div></div>${share.feedback}
+      </div></section>
+      <section class="card graph-card"><div class="card-header flex-row flex-wrap align-items-center justify-content-between gap-3"><div class="d-flex flex-wrap align-items-center gap-3">${settingsToggle}<h2 id="reactionsCount" class="mb-0">Reactions</h2></div><div class="d-flex flex-wrap align-items-center gap-3">${wheelHint}${fullscreen}</div></div><div id="graphContainer"></div></section>
+    </div>
     ${credit}
   </div>`);
-  const fitting = fitGraphToViewport(host.querySelector('#graphContainer'), {credit, heading,
+  const fitting = fitGraphToViewport(host.querySelector('#graphContainer'), {credit, heading, minimum: 420,
     controls: host.querySelector('[aria-label="Graph settings"]'), onOverflow: overflow => {wheelHint.hidden = !overflow;}});
+  const layout = host.querySelector('.graph-layout');
+  // Full screen keeps only the graph card; the settings panel can be toggled beside it.
+  const setSettingsOpen = open => {
+    layout.toggleAttribute('data-settings-open', open);
+    settingsToggle.setAttribute('aria-expanded', String(open));
+    settingsToggle.replaceChildren(iconLabel('sliders', open ? 'Hide settings' : 'Show settings'));
+  };
+  settingsToggle.addEventListener('click', () => setSettingsOpen(!layout.hasAttribute('data-settings-open')));
+  const syncFullscreen = () => {
+    const active = document.fullscreenElement === layout;
+    settingsToggle.hidden = !active;
+    fullscreen.replaceChildren(active ? iconLabel('fullscreen-exit', 'Exit full screen') : iconLabel('fullscreen', 'Full screen'));
+    fullscreen.setAttribute('aria-pressed', String(active));
+    fitting.refresh();
+  };
+  fullscreen.hidden = !document.fullscreenEnabled;
+  fullscreen.addEventListener('click', () => document.fullscreenElement === layout
+    ? document.exitFullscreen() : layout.requestFullscreen().catch(() => {}));
+  document.addEventListener('fullscreenchange', syncFullscreen);
   bus.on('stateChanged', share.clear);
   bus.on('reactionSourceChanged', () => {share.clear(); ui.updateChoicesOptions(); ui.updateUI();});
   await choices.initialize(Choices);
@@ -61,5 +85,6 @@ export async function mount(host) {
     ui.updateChoicesOptions(); ui.updateUI();
   };
   window.addEventListener('popstate', restore);
-  return () => {share.dispose(); window.removeEventListener('popstate', restore); fitting.dispose(); renderer.currentCleanup?.(); state.reagentChoices?.destroy(); state.productChoices?.destroy();};
+  return () => {share.dispose(); window.removeEventListener('popstate', restore); document.removeEventListener('fullscreenchange', syncFullscreen);
+    if (document.fullscreenElement === layout) document.exitFullscreen().catch(() => {}); fitting.dispose(); renderer.currentCleanup?.(); state.reagentChoices?.destroy(); state.productChoices?.destroy();};
 }
