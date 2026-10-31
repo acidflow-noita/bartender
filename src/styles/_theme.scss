@@ -1,0 +1,130 @@
+@use "sass:map";
+
+// Exact Tailwind Slate surfaces and interaction states; Emerald denotes success.
+// Material and plot colors remain separate reference data.
+// https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css
+$palette: (
+  --slate-50: oklch(98.4% 0.003 247.858),
+  --slate-100: oklch(96.8% 0.007 247.896),
+  --slate-200: oklch(92.9% 0.013 255.508),
+  --slate-300: oklch(86.9% 0.022 252.894),
+  --slate-400: oklch(70.4% 0.04 256.788),
+  --slate-500: oklch(55.4% 0.046 257.417),
+  --slate-600: oklch(44.6% 0.043 257.281),
+  --slate-700: oklch(37.2% 0.044 257.287),
+  --slate-800: oklch(27.9% 0.041 260.031),
+  --slate-900: oklch(20.8% 0.042 265.755),
+  --slate-950: oklch(12.9% 0.042 264.695),
+  --emerald-50: oklch(97.9% 0.021 166.113),
+  --emerald-100: oklch(95% 0.052 163.051),
+  --emerald-200: oklch(90.5% 0.093 164.15),
+  --emerald-300: oklch(84.5% 0.143 164.978),
+  --emerald-400: oklch(76.5% 0.177 163.223),
+  --emerald-500: oklch(69.6% 0.17 162.48),
+  --emerald-600: oklch(59.6% 0.145 163.225),
+  --emerald-700: oklch(50.8% 0.118 165.612),
+  --emerald-800: oklch(43.2% 0.095 166.913),
+  --emerald-900: oklch(37.8% 0.077 168.94),
+  --emerald-950: oklch(26.2% 0.051 172.552),
+);
+
+// Slate controls and text; the accent is reserved for interaction states.
+$ui: (
+  "base": light-dark(var(--slate-800), var(--slate-900)),
+  "bg": light-dark(var(--slate-800), var(--slate-900)),
+  "bg-subtle": light-dark(var(--slate-100), var(--slate-900)),
+  "bg-muted": light-dark(var(--slate-200), var(--slate-800)),
+  "fg": light-dark(var(--slate-800), var(--slate-300)),
+  "fg-emphasis": light-dark(var(--slate-950), var(--slate-100)),
+  "border": light-dark(var(--slate-400), var(--slate-700)),
+  "focus-ring": light-dark(var(--slate-600), var(--slate-300)),
+  "contrast": var(--slate-100),
+);
+$primary: map.merge($ui, (
+  "base": light-dark(var(--slate-800), var(--slate-200)),
+  "bg": var(--slate-800),
+  "border": light-dark(var(--slate-600), var(--slate-300)),
+));
+$success: (
+  "base": var(--emerald-700),
+  "bg": var(--emerald-900),
+  "bg-subtle": light-dark(var(--emerald-50), var(--emerald-950)),
+  "bg-muted": light-dark(var(--emerald-100), var(--emerald-900)),
+  "fg": light-dark(var(--emerald-800), var(--emerald-200)),
+  "fg-emphasis": light-dark(var(--emerald-900), var(--emerald-100)),
+  "border": light-dark(var(--emerald-300), var(--emerald-800)),
+  "focus-ring": var(--emerald-700),
+  "contrast": var(--emerald-50),
+);
+
+@use "bootstrap" with (
+  $root-tokens: map.merge($palette, (
+    --border-color: light-dark(var(--slate-300), var(--slate-800)),
+    --border-color-translucent: light-dark(var(--slate-300), var(--slate-800)),
+    --link-color: light-dark(var(--slate-800), var(--slate-300)),
+    --link-hover-color: light-dark(var(--slate-950), var(--slate-100)),
+    --heading-color: light-dark(var(--slate-900), var(--slate-200)),
+    --control-checked-bg: var(--slate-700),
+    --control-checked-border-color: var(--slate-300),
+    --control-active-bg: var(--slate-600),
+    --control-active-border-color: var(--slate-200),
+  )),
+  $theme-bgs: (
+    "body": light-dark(var(--slate-50), var(--slate-950)),
+    "1": light-dark(var(--slate-100), var(--slate-900)),
+    "2": light-dark(var(--slate-200), var(--slate-900)),
+    "3": light-dark(var(--slate-200), var(--slate-800)),
+    "4": light-dark(var(--slate-300), var(--slate-800)),
+  ),
+  $theme-fgs: (
+    "body": light-dark(var(--slate-950), var(--slate-300)),
+    "1": light-dark(var(--slate-900), var(--slate-200)),
+    "2": light-dark(var(--slate-800), var(--slate-300)),
+    "3": light-dark(var(--slate-600), var(--slate-400)),
+    "4": light-dark(var(--slate-600), var(--slate-400)),
+  ),
+  $theme-borders: (
+    "body": light-dark(var(--slate-300), var(--slate-800)),
+    "subtle": light-dark(var(--slate-200), var(--slate-900)),
+    "muted": light-dark(var(--slate-300), var(--slate-800)),
+    "emphasized": light-dark(var(--slate-400), var(--slate-700)),
+  ),
+  $theme-colors: (
+    "primary": $primary,
+    "accent": $primary,
+    "secondary": $ui,
+    "inverse": $ui,
+    "success": $success,
+    "info": $ui,
+    "warning": $ui,
+    "danger": $ui,
+  ),
+  $card-tokens: (
+    --card-bg: var(--bg-1),
+    --card-cap-bg: var(--bg-1),
+    --card-border-color: light-dark(var(--slate-300), var(--slate-800)),
+  ),
+  $navbar-tokens: (
+    --navbar-bg: var(--bg-1),
+    --navbar-active-color: light-dark(var(--slate-950), var(--slate-100)),
+  ),
+  $navbar-nav-tokens: (
+    --nav-link-active-bg: var(--bg-3),
+    --nav-link-hover-bg: var(--bg-3),
+    --nav-link-justify: center,
+    --nav-link-padding-x: .75rem,
+    --nav-link-padding-y: .5rem,
+  ),
+  $tooltip-tokens: (--tooltip-bg: var(--bg-2), --tooltip-color: var(--fg-body)),
+  $toast-tokens: (
+    --toast-bg: var(--theme-bg-subtle, var(--bg-body)),
+    --toast-color: var(--theme-fg, var(--fg-body)),
+  ),
+  $button-variants: (
+    "outline": (
+      "base": ("bg": "transparent", "color": "fg", "border-color": "border"),
+      "hover": ("bg": "bg-muted", "color": "fg-emphasis", "border-color": "fg"),
+      "active": ("bg": "bg-muted", "color": "fg-emphasis", "border-color": "fg"),
+    ),
+  ),
+);

@@ -1,20 +1,24 @@
+import {iconLabel} from '../ui/icons.js';
 import {html} from "htl";
 import {copyLinkText} from "./clipboard.js";
 import {UIHelper} from "../noitalambic/ui/UIHelper.js";
-import {injectNotificationStyles} from "../noitalambic/utils/styles.js";
 
 export function createShareButton(getUrl, Inputs) {
-  injectNotificationStyles();
+  let disposed = false, sequence = 0;
   const status = html`<span role="status"></span>`;
   const copyInput = Inputs.text({label: "Share URL", value: "", readonly: true, width: "100%"});
   const fallback = html`<div hidden>${copyInput}</div>`;
   const feedback = html`<div hidden>${status}${fallback}</div>`;
   const button = Inputs.button(
-    html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/copy.svg" alt="" />Share`,
+    iconLabel("copy", "Share"),
     {reduce: async () => {
+      if (disposed) return;
+      const request = ++sequence;
+      const active = () => !disposed && request === sequence;
       const copied = await copyLinkText(getUrl(), {
         clipboard: navigator.clipboard,
         fallback: (text) => {
+          if (!active()) return false;
           copyInput.value = text;
           feedback.hidden = false;
           fallback.hidden = false;
@@ -24,14 +28,19 @@ export function createShareButton(getUrl, Inputs) {
           return document.execCommand?.("copy") === true;
         },
       });
+      if (!active()) return;
       status.textContent = copied ? "" : "Copy the selected link below.";
       feedback.hidden = copied;
       fallback.hidden = copied;
-      if (copied) UIHelper.showNotification("URL copied to clipboard");
+      if (copied) {
+        if (document.activeElement === copyInput.querySelector('input')) button.querySelector('button').focus({preventScroll: true});
+        await UIHelper.showNotification("URL copied to clipboard", {success: true});
+      }
     }},
   );
   return {
     button, feedback,
-    clear() { feedback.hidden = true; fallback.hidden = true; status.textContent = ""; },
+    clear() { sequence++; feedback.hidden = true; fallback.hidden = true; status.textContent = ""; },
+    dispose() { disposed = true; sequence++; feedback.hidden = true; },
   };
 }

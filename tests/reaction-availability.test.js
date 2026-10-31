@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
-import {runInNewContext} from "node:vm";
+import {createReactionFinder} from "../src/reactions/model.js";
 import {getUnusedMaterialIds, reactionUsesUnusedMaterial, materialExclusionIndex, UNUSED_CREATION_ROUTES} from "../src/components/materialAvailability.js";
 import {reactionUrl, readReactionReagents} from "../src/components/reactionUrl.js";
 import {DataRepository} from "../src/noitalambic/core/DataRepository.js";
@@ -204,13 +204,7 @@ function tableFunctions() {
   };
   const state = {selectedReagents: [], selectedProduct: "", excludeSpecialMaterials: false,
     onlyPracticalReactions: false, excludeUnusedMaterials: true};
-  const code = [...read("../src/reactions.md").matchAll(/```js\r?\n([\s\S]*?)\r?\n```/g)]
-    .map((match) => match[1]).find((code) => code.includes("const specialMaterials ="));
-  assert.ok(code);
-  const funcs = runInNewContext(code + "\n({getFilteredReactions, getAvailableReagents, getAvailableProducts, clearUnusedSelections})", {
-    window: {appState: state}, reactions, reactionInputsIndex: index("input_cell"), reactionOutputsIndex: index("output_cell"),
-    materialsMap: new Map(realMaterials.map((material) => [material.id, material])), unusedMaterials: unused, reactionUsesUnusedMaterial,
-  });
+  const funcs = createReactionFinder(realMaterials, reactions, unused, state);
   return {state, reactions, ...funcs};
 }
 

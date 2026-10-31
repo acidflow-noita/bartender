@@ -1,4 +1,10 @@
-import * as fs from "fs";
+import * as fs from "node:fs";
+import {resolve} from "node:path";
+import {fileURLToPath} from "node:url";
+import {fetchCargo} from "../../scripts/data/wiki.mjs";
+import {queries} from "../../scripts/refresh-data.mjs";
+import {writeJsonAtomic} from "../../scripts/data/io.mjs";
+const read = path => fs.readFileSync(new URL(path, import.meta.url), "utf8");
 
 function normalizeFilename(filename) {
   if (!filename) return "";
@@ -9,17 +15,12 @@ function normalizeFilename(filename) {
     .replace(/\.(png|jpg|jpeg|gif)$/, ""); // Remove extension
 }
 
-function processRawResponses() {
-  const rawContent = fs.readFileSync("./src/data/images_downloader/MATERIALS_RAW_IMAGES_URLS_RESPONSES.txt", "utf8");
+export function processRawResponses(rawContent = read("./images_downloader/MATERIALS_RAW_IMAGES_URLS_RESPONSES.txt")) {
   const responses = rawContent
     .split("--- End of Response ---")
     .filter((response) => response.trim())
     .map((response) => {
-      try {
-        return JSON.parse(response.trim());
-      } catch (e) {
-        return null;
-      }
+      return JSON.parse(response.trim());
     })
     .filter((response) => response !== null);
 
@@ -36,11 +37,10 @@ function processRawResponses() {
     }
   });
 
-  fs.writeFileSync("DIRECT_URLS.json", JSON.stringify(urlMap, null, 2));
   return urlMap;
 }
 
-function processImageField(material, urlMap, type) {
+export function processImageField(material, urlMap, type) {
   const normalizedName = normalizeFilename(material[type]);
   const matchedImage = urlMap[normalizedName];
 
@@ -92,26 +92,10 @@ function extractHealthPoints(xmlContent) {
   return healthPoints;
 }
 
-async function fetchWikiData() {
-  console.log("Fetching wiki data...");
-  const response = await fetch(
-    "https://noita.wiki.gg/api.php?action=cargoquery&tables=Materials&fields=Materials.name,Materials.id,Materials.type,Materials.image,Materials.icon,Materials.pouchIcon,Materials._pageName=wikipage&group_by=Materials.id&order_by=Materials.name&limit=500&offset=0&format=json"
-  );
-
-  if (!response.ok) throw new Error(`Wiki fetch failed: ${response.status}`);
-  const data = await response.json();
-
-  return data.cargoquery.map((item) => item.title);
-}
-
-async function processMaterials(urlMap) {
-  const technicalMaterials = JSON.parse(fs.readFileSync("./src/data/materials.json", "utf8"));
-  const materialsXml = fs.readFileSync("./src/data/materials.xml", "utf8");
+export function buildMaterialData({wikiMaterials, urlMap = processRawResponses(),
+  technicalMaterials = JSON.parse(read("./materials.json")), materialsXml = read("./materials.xml")} = {}) {
+  if (!Array.isArray(wikiMaterials)) throw new Error("Provide a cached wiki materials snapshot");
   const healthPoints = extractHealthPoints(materialsXml);
-
-  // Fetch wiki data
-  const wikiMaterials = await fetchWikiData();
-  console.log(`Loaded ${wikiMaterials.length} materials from wiki`);
 
   const processedMaterials = technicalMaterials.map((material) => {
     // Start with the existing material data
@@ -188,18 +172,17 @@ async function processMaterials(urlMap) {
     return processedMaterial;
   });
 
-  fs.writeFileSync("./src/data/FULL_MATERIALS_FINAL.json", JSON.stringify(processedMaterials, null, 2));
+  return processedMaterials;
 }
 
-// Main execution
-async function main() {
-  try {
-    const urlMap = processRawResponses();
-    await processMaterials(urlMap);
-    console.log("Processing complete! Check FULL_MATERIALS_FINAL.json for results.");
-  } catch (error) {
-    console.error("Error during processing:", error);
-  }
+// Explicit refresh only. Normal dev/build never fetches the wiki.
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const args = process.argv.slice(2);
+  if (args.length && (args.length !== 2 || args[0] !== "--wiki-snapshot")) throw new Error("Usage: node src/data/FULL_MATERIALS_FINAL.json.js [--wiki-snapshot materials-wiki.json]");
+  const wikiMaterials = args[1] ? JSON.parse(fs.readFileSync(resolve(args[1]), "utf8")) : await fetchCargo(queries.materials);
+  const urlMap = processRawResponses();
+  const materials = buildMaterialData({wikiMaterials, urlMap});
+  writeJsonAtomic(new URL("./DIRECT_URLS.json", import.meta.url), urlMap);
+  writeJsonAtomic(new URL("./FULL_MATERIALS_FINAL.json", import.meta.url), materials);
+  console.log(`Processed ${materials.length} materials.`);
 }
-
-main();

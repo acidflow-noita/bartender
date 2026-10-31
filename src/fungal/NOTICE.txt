@@ -7,10 +7,9 @@ The original solver and other original contributions are dedicated to the public
 domain under CC0: https://creativecommons.org/publicdomain/zero/1.0/
 The source HTML/CSS UI is not included in this integration.
 The application uses main.mjs, fungal.mjs, fungal_materials.mjs, and nolla_prng.mjs
-from the submodule through an automatically generated .js compatibility bridge.
-Observable preview cannot serve .mjs module paths. Only relative import extensions
-are renamed; calculations are unchanged. No hand-maintained solver copy is used.
-engine.js adapts the source table calculations for native Observable tables;
+directly from the pinned submodule, without rewriting the source modules.
+Calculations are unchanged. No hand-maintained solver copy is used.
+engine.js adapts the source table calculations for Bartender's views;
 goals.js retains the source constraint validation, with plain-language UI errors.
 The worker runs upstream search without changed ranges, candidate pruning,
 probability weights, result ordering, or automatic job limits. This revision

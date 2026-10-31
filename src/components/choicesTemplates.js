@@ -1,4 +1,15 @@
 import {html} from "htl";
+import {icon, decorateRemoveButton} from '../ui/icons.js';
+import {materialTypeClass} from './materialTypeStyles.js';
+
+export function materialDisplayName(item) {
+  const name = item?.name || item?.id || '';
+  return item?.tags?.includes('[box2d]') ? `${name} (object)` : name;
+}
+
+export function choiceLabel(name, id, type, {code = false} = {}) {
+  return html`<span class="choices-label"><span class="material-name-text">${name}</span> <span class="choices-id">(<span class=${materialTypeClass(type)}>${code ? html`<code>${id}</code>` : id}</span>)</span></span>`;
+}
 
 // Shared by Reactions Finder and digging: preserve Choices' own option
 // attributes and buttons, then add the same image, name, and material ID.
@@ -9,14 +20,12 @@ export function createChoicesTemplates(Choices, {getItem, getImageUrl}) {
       const data = args[1];
       const item = getItem(data.value);
       const name = item?.name || data.label?.split(" (")[0] || data.value;
-      const type = String(item?.type || data.type || "").toLowerCase().replace(/[^a-z]/g, "");
-      const remove = node.querySelector("button[data-button]");
+      const remove = decorateRemoveButton(node.querySelector("button[data-button]"));
       node.title = `${name} (${data.value})`;
       node.replaceChildren(html.fragment`
-        <img src="${getImageUrl(data.value)}" width="24" height="24" alt="" loading="lazy"
-          style="display:inline-block;vertical-align:middle;margin-right:8px;object-fit:contain;image-rendering:pixelated;">
-        <span class="material-name-text">${name}</span>
-        (<span class="material-type-${type}">${kind === "item" ? html`<code>${data.value}</code>` : data.value}</span>)
+        ${String(data.value).startsWith('[') ? icon('tag') : html`<img src="${getImageUrl(data.value)}" width="24" height="24" alt="" loading="lazy"
+          style="object-fit:contain;image-rendering:pixelated;">`}
+        ${choiceLabel(name, data.value, item?.type || data.type, {code: kind === 'item'})}
       `);
       if (remove) node.append(remove);
       return node;

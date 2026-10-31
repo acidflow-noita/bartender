@@ -1,0 +1,7 @@
+# Only content-hashed build assets and datasets are immutable.
+# HTML and unversioned files retain Cloudflare's default ETag revalidation.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/data/*
+  Cache-Control: public, max-age=31536000, immutable

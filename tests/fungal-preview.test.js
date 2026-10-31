@@ -1,68 +1,99 @@
 // HTTP transport checks only: no browser, screenshots, or DOM execution.
 import test from "node:test";
 import assert from "node:assert/strict";
-import {readFileSync, statSync, mkdtempSync} from "node:fs";
+import {readFileSync, mkdtempSync, rmSync} from "node:fs";
 import {tmpdir} from "node:os";
 import {join, resolve} from "node:path";
-import {preview} from "../node_modules/@observablehq/framework/dist/preview.js";
-import {parseProgram} from "../node_modules/@observablehq/framework/dist/javascript/parse.js";
-import {prepareFungal, modules, banner} from "../scripts/prepare-fungal.mjs";
+import {createServer} from "vite";
+import {init, parse} from "es-module-lexer";
+const modules = ["main", "fungal", "fungal_materials", "nolla_prng"];
 
-const sourceRoot = new URL("../src/vendor/noita-fungal/", import.meta.url);
-const outputRoot = new URL("../src/fungal/_upstream/", import.meta.url);
+async function createPreview(t, options = {}) {
+  const cacheDir = mkdtempSync(join(tmpdir(), 'bartender-vite-test-'));
+  let app;
+  t.after(async () => {
+    try { await app?.close(); } finally { rmSync(cacheDir, {recursive: true, force: true}); }
+  });
+  app = await createServer({configFile: resolve('vite.config.js'), cacheDir,
+    server: {host: '127.0.0.1', port: 0, strictPort: false}, logLevel: 'error', ...options});
+  await app.listen();
+  return app;
+}
 
-test("preview bridge preserves exact upstream source except relative import extensions", () => {
-  for (const name of modules) {
-    const original = readFileSync(new URL(`${name}.mjs`, sourceRoot), "utf8");
-    let generated = readFileSync(new URL(`${name}.js`, outputRoot), "utf8");
-    assert.ok(generated.startsWith(banner));
-    generated = generated.slice(banner.length);
-    for (const dependency of modules) for (const quote of ['"', "'"]) {
-      generated = generated.replaceAll(`${quote}./${dependency}.js${quote}`, `${quote}./${dependency}.mjs${quote}`);
-    }
-    assert.equal(generated, original, `${name}: do not alter the calculations`);
+test("Vite serves every page, dataset and the fungal worker module graph", {timeout: 30000}, async (t) => {
+  await init();
+  const app = await createPreview(t);
+  const base = "http://127.0.0.1:" + app.httpServer.address().port;
+  for (const path of ["/", "/digging", "/materials", "/reactions", "/reactions_graph_finder", "/fungal_shifting", "/thanks"]) {
+    const response = await fetch(base + path);
+    assert.equal(response.status, 200);
+    assert.match(await response.text(), /<meta name="darkreader-lock">/);
   }
-});
-
-test("preparation is repeatable and missing submodules fail with an actionable message", () => {
-  const before = modules.map((name) => statSync(new URL(`${name}.js`, outputRoot)).mtimeMs);
-  prepareFungal();
-  assert.deepEqual(modules.map((name) => statSync(new URL(`${name}.js`, outputRoot)).mtimeMs), before);
-  const missing = mkdtempSync(join(tmpdir(), "fungal-missing-submodule-"));
-  assert.throws(() => prepareFungal({sourceRoot: missing, outputRoot: join(missing, "out")}), /git submodule update --init --recursive/);
-});
-
-test("Observable preview serves the complete app and worker module graphs as JavaScript", {timeout: 30000}, async (t) => {
-  // Exercise the actual preview router: production build alone accepts .mjs,
-  // but Framework 1.13's /_import route serves only .js.
-  const app = await preview({config: resolve("observablehq.config.js"), hostname: "127.0.0.1", port: 0, open: false, verbose: false});
-  const server = app.server;
-  t.after(() => new Promise((resolve, reject) => {
-    server.close((error) => error ? reject(error) : resolve());
-    server.closeAllConnections();
-  }));
-  const base = `http://127.0.0.1:${server.address().port}`;
-  const queue = [new URL("/_import/fungal/app.js", base), new URL("/_import/fungal/search-worker.js", base)];
+  const queue = [new URL("/app.js", base), new URL("/fungal/search-worker.js", base)];
   const visited = new Set();
   while (queue.length) {
     const url = queue.shift();
-    if (visited.has(url.pathname)) continue;
-    visited.add(url.pathname);
+    if (visited.has(url.href)) continue;
+    visited.add(url.href);
     const response = await fetch(url, {signal: AbortSignal.timeout(10000)});
     const code = await response.text();
-    assert.equal(response.status, 200, `${url.pathname}: ${code.slice(0, 300)}`);
-    assert.match(response.headers.get("content-type") ?? "", /(?:java|ecma)script/, url.pathname);
-    const parsed = parseProgram(code);
-    for (const node of parsed.body) {
-      if (!["ImportDeclaration", "ExportAllDeclaration", "ExportNamedDeclaration"].includes(node.type) || !node.source) continue;
-      const specifier = node.source.value;
-      assert.match(specifier, /^(?:\.{1,2}\/|\/)/, `unresolved import in ${url.pathname}: ${specifier}`);
-      const imported = new URL(specifier, url);
-      assert.equal(imported.origin, base);
-      queue.push(imported);
+    assert.equal(response.status, 200, url.pathname + ': ' + code.slice(0, 200));
+    assert.match(response.headers.get('content-type') ?? '', /(?:java|ecma)script/, url.href);
+    for (const imported of parse(code)[0]) {
+      if (!imported.specifier || imported.specifier.startsWith('data:')) continue;
+      assert.match(imported.specifier, /^(?:\.{1,2}\/|\/)/, 'unresolved import: ' + imported.specifier);
+      const dependency = new URL(imported.specifier, url);
+      if (/\.(css|scss)$/.test(dependency.pathname)) dependency.searchParams.set('import', '');
+      queue.push(dependency);
     }
   }
-  for (const name of modules) assert.ok(visited.has(`/_import/fungal/_upstream/${name}.js`), `${name} must actually be served`);
-  assert.ok(![...visited].some((path) => path.endsWith(".mjs")), "no dependency may use the unsupported .mjs preview route");
-  t.diagnostic(`Checked ${visited.size} served modules, including every upstream dependency.`);
+  for (const name of modules) assert.ok([...visited].some(url => url.includes('/vendor/noita-fungal/' + name + '.mjs')));
+  const manifest = JSON.parse(readFileSync(new URL('../src/generated/data-manifest.json', import.meta.url)));
+  for (const path of Object.values(manifest)) {
+    const response = await fetch(base + path);
+    assert.equal(response.status, 200, path);
+    assert.deepEqual(await response.json(), JSON.parse(readFileSync(new URL('../public' + path, import.meta.url))));
+  }
+  t.diagnostic('Checked ' + visited.size + ' module URLs. Server closed after this test.');
+});
+
+test('development HTML refreshes imported card templates after invalidation', {timeout:30000}, async t => {
+  let revision = 'first';
+  const app = await createPreview(t, {
+    plugins:[{name:'test-card-template-revision',transform(code,id,options) {
+      if (options?.ssr && id.endsWith('/src/ui/featureCards.js')) return code.replace('card feature-card', `card feature-card ${revision}-revision`);
+    }}]});
+  const url='http://127.0.0.1:'+app.httpServer.address().port+'/';
+  const first=await fetch(url);
+  assert.equal(first.status,200);assert.match(await first.text(),/first-revision/);
+  revision='second';
+  const reloads=[];
+  const send=app.ws.send.bind(app.ws);
+  app.ws.send=(...args)=>{reloads.push(args[0]);return send(...args);};
+  const plugin=app.config.plugins.find(plugin=>plugin.name==='static-page-routes');
+  await plugin.handleHotUpdate({file:resolve('src/ui/featureCards.js'),server:app});
+  assert.ok(reloads.some(message=>message.type==='full-reload'),'template edits must refresh an already open dev page');
+  const second=await fetch(url), document=await second.text();
+  assert.equal(second.status,200);assert.match(document,/second-revision/);assert.doesNotMatch(document,/first-revision/);
+  assert.equal([...document.matchAll(/<div class="col-6">\s*<article class="card feature-card/g)].length,4);
+  t.diagnostic('Dev template refresh verified. Temporary server closed after this test.');
+});
+
+test('independent preview servers cannot invalidate another server’s optimized dependencies', {timeout:30000}, async t => {
+  const first = await createPreview(t);
+  const base = `http://127.0.0.1:${first.httpServer.address().port}`;
+  const code = await (await fetch(base + '/digging/select.js')).text();
+  const path = code.match(/from\s*["']([^"']*choices__js\.js[^"']*)["']/)?.[1];
+  assert.ok(path, 'Choices must be available from the optimized dependency cache');
+  assert.equal((await fetch(new URL(path, base))).status,200);
+  const second = await createPreview(t, {plugins:[{name:'independent-preview-config'}]});
+  assert.notEqual(first.config.cacheDir,second.config.cacheDir);
+  assert.notEqual(first.config.cacheDir,resolve('node_modules/.vite'));
+  const otherBase = `http://127.0.0.1:${second.httpServer.address().port}`;
+  const otherCode = await (await fetch(otherBase + '/digging/select.js')).text();
+  const otherPath = otherCode.match(/from\s*["']([^"']*choices__js\.js[^"']*)["']/)?.[1];
+  assert.ok(otherPath);
+  assert.equal((await fetch(new URL(otherPath,otherBase))).status,200);
+  await second.close();
+  assert.equal((await fetch(new URL(path,base))).status,200, 'opening and closing another preview must not cause Outdated Optimize Dep');
 });

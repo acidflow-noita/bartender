@@ -2,11 +2,25 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import {isDiggingSpell} from "../src/digging/model.js";
-import {DIGGING_DEFAULTS, readDiggingParams, diggingUrl, getDiggingSpellLimit, MAX_DIGGING_URL_LENGTH} from "../src/digging/url.js";
+import {DIGGING_DEFAULTS, readDiggingParams, readInitialDiggingParams, diggingUrl, getDiggingSpellLimit, MAX_DIGGING_URL_LENGTH} from "../src/digging/url.js";
 
 const spells = ["DIGGER", "NUKE", "ACIDSHOT"].map((id) => ({id}));
 const materials = ["soil", "rock_hard", "templebrick_static"].map((id) => ({id}));
 const read = (href) => readDiggingParams(href, spells, materials);
+
+test("a fresh digging visit shows Bomb and Rock only when the URL has no parameters", () => {
+  const initial = href => readInitialDiggingParams(href, [...spells, {id: "BOMB"}], [...materials, {id: "rock_static"}]);
+  for (const suffix of ["", "?", "#comparison"]) {
+    const selection = initial(`https://example.test/digging${suffix}`);
+    assert.deepEqual(selection, {...DIGGING_DEFAULTS, spells: ["BOMB"], material: "rock_static"});
+    assert.equal(diggingUrl("https://example.test/digging", selection), "https://example.test/digging?spell=BOMB&material=rock_static");
+  }
+  for (const query of ["spell=NUKE", "material=soil", "spell=DIGGER&material=soil", "spell=missing", "from=test"]) {
+    const href = `https://example.test/digging?${query}`;
+    assert.deepEqual(initial(href), read(href), "explicit parameters must never be filled in or replaced by the example");
+  }
+  assert.deepEqual(read("https://example.test/digging"), DIGGING_DEFAULTS, "Reset and history navigation retain empty selections");
+});
 
 test("comparison links round-trip spell order and every modifier combination", () => {
   const base = "https://example.test/digging?from=test#comparison";

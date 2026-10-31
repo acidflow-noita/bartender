@@ -1,6 +1,9 @@
-import Choices from "npm:choices.js@11.1.0";
-import { html } from "npm:htl";
+import Choices from "choices.js";
+import {decorateRemoveButton} from '../ui/icons.js';
+import { html } from "htl";
 import { materialName, selectedMaterial } from "./catalog.js";
+import {materialTypeClass} from '../components/materialTypeStyles.js';
+import {setControlDisabled} from '../ui/disabled.js';
 
 const images = "https://noita-bartender-images.acidflow.stream/images/materials/";
 let nextId = 0;
@@ -17,9 +20,9 @@ export function materialNode(id, catalog) {
     if (image.dataset.fallback) image.style.visibility = "hidden";
     else { image.dataset.fallback = "1"; image.src = images + "no_image_available.png"; }
   });
-  const type = String(material.type).toLowerCase().replace(/[^a-z]/g, "");
+  const typeClass = materialTypeClass(material.type);
   return html`<span class="fs-material" title=${`${material.name} (${id})`}>
-    ${image}<span class="material-name-text">${material.name}</span><span class=${`material-type-${type}`}>(${id})</span>
+    ${image}<span class="material-name-text">${material.name}</span><span class=${typeClass}>(${id})</span>
   </span>`;
 }
 
@@ -43,7 +46,7 @@ export function materialSelect(catalog, {label, value = "air", count = false, pl
     callbackOnCreateTemplates() {
       const decorate = (kind, args) => {
         const node = Choices.defaults.templates[kind].apply(this, args);
-        const remove = node.querySelector("button[data-button]");
+        const remove = decorateRemoveButton(node.querySelector("button[data-button]"));
         node.replaceChildren(materialNode(args[1].value, map));
         if (remove) node.append(remove);
         return node;
@@ -60,6 +63,11 @@ export function materialSelect(catalog, {label, value = "air", count = false, pl
   return {
     element: root,
     get value() { return selectedMaterial(choices.getValue(true)); },
+    setDisabled(disabled, reason) {
+      if (disabled) choices.disable();
+      else choices.enable();
+      setControlDisabled(select, disabled, reason, root);
+    },
     setValue(value) {
       value = value || "air";
       if (selectedMaterial(choices.getValue(true)) === value) return;

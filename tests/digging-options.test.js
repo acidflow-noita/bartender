@@ -1,49 +1,35 @@
-import test from "node:test";
-import assert from "node:assert/strict";
-import {readFileSync} from "node:fs";
-import {runInNewContext} from "node:vm";
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {installDom} from './dom.js';
+import * as Controls from '../src/ui/controls.js';
+import {createDiggingOptions} from '../src/digging/options.js';
 
-class Control extends EventTarget {
-  constructor(value) { super(); this.value = value; }
-  change(value) { this.value = value; this.dispatchEvent(new Event("input", {bubbles: true})); }
-}
-const source = readFileSync(new URL("../src/digging/options.js", import.meta.url), "utf8")
-  .replace(/^import .*;\r?\n/gm, "").replace(/^export /gm, "");
-const create = runInNewContext(source + "\ncreateDiggingOptions", {
-  html: () => new EventTarget(), Event,
-});
-const Inputs = {toggle: ({value}) => new Control(value)};
-const value = (control) => JSON.parse(JSON.stringify(control.element.value));
-
-test("the most recently checked Glass Cannon option wins without changing Berserkium", () => {
-  const controls = create(Inputs);
-  const values = [];
-  controls.element.addEventListener("input", () => values.push(value(controls)));
-  controls.berserkium.change(true);
-  controls.glassCannon.change(true);
-  assert.equal(controls.glassCannon2.value, false);
-  controls.glassCannon2.change(true);
-  assert.equal(controls.glassCannon.value, false);
-  controls.glassCannon.change(true);
-  assert.equal(controls.glassCannon2.value, false);
-  controls.glassCannon.change(false);
-  assert.deepEqual(values, [
+test('Glass Cannon is mutually exclusive and Berserkium remains independent', t => {
+  installDom(t);
+  const options = createDiggingOptions(Controls);
+  document.body.append(options.element);
+  const radios = [...options.glassCannon.querySelectorAll('input')];
+  const check = options.berserkium.querySelector('input');
+  const events = [];
+  options.element.addEventListener('input', () => events.push({...options.element.value}));
+  check.click(); radios[1].click(); radios[2].click(); radios[0].click();
+  assert.deepEqual(events, [
     {glassCannon: 0, berserkium: true}, {glassCannon: 1, berserkium: true},
-    {glassCannon: 2, berserkium: true}, {glassCannon: 1, berserkium: true},
-    {glassCannon: 0, berserkium: true},
+    {glassCannon: 2, berserkium: true}, {glassCannon: 0, berserkium: true},
   ]);
+  assert.equal(radios.filter(radio => radio.checked).length, 1);
+  options.dispose();
 });
 
-test("restoring and resetting controls emits one complete state and disposal removes listeners", () => {
-  const controls = create(Inputs, {glassCannon: 2, berserkium: true});
-  assert.equal(controls.glassCannon.value, false);
-  assert.equal(controls.glassCannon2.value, true);
-  const values = [];
-  controls.element.addEventListener("input", () => values.push(value(controls)));
-  controls.setValue({glassCannon: 1, berserkium: false});
-  controls.setValue();
-  assert.deepEqual(values, [{glassCannon: 1, berserkium: false}, {glassCannon: 0, berserkium: false}]);
-  controls.dispose();
-  controls.glassCannon2.change(true);
-  assert.equal(values.length, 2);
+test('restoring and resetting emits one complete state and disposal removes listeners', t => {
+  installDom(t);
+  const options = createDiggingOptions(Controls, {glassCannon: 2, berserkium: true});
+  assert.deepEqual(options.element.value, {glassCannon: 2, berserkium: true});
+  const states = [];
+  options.element.addEventListener('input', () => states.push({...options.element.value}));
+  options.setValue({glassCannon: 1}); options.setValue();
+  assert.deepEqual(states, [{glassCannon: 1, berserkium: false}, {glassCannon: 0, berserkium: false}]);
+  options.dispose();
+  options.glassCannon.dispatchEvent(new Event('input'));
+  assert.equal(states.length, 2);
 });

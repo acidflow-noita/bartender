@@ -7,6 +7,13 @@ export const materialTypeColors = [
   { type: "N/A", color: "oklch(98.5% 0 0)", symbol: "times" },
 ];
 
+// Display classification only; never change the material record or infer a
+// material's type from its ID (for example, acid is still a Liquid).
+export function materialTypeClass(type) {
+  const key = String(type ?? '').toLowerCase().replace(/[^a-z]/g, '');
+  return `material-type-${['solid', 'liquid', 'powder', 'gas', 'fire'].includes(key) ? key : 'na'}`;
+}
+
 // Helper function to get symbol configuration for Plot.js
 export function getSymbolConfig() {
   return {

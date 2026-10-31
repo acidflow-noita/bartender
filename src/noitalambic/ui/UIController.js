@@ -1,10 +1,12 @@
+import {iconLabel} from "../../ui/icons.js";
+import {setControlDisabled} from '../../ui/disabled.js';
+import {numberText} from '../../ui/format.js';
 // ============================================================================
 // UI CONTROLLER - Manages UI controls and interactions
 // ============================================================================
 
 import { CONFIG } from "../config/config.js";
 import { UIHelper } from "./UIHelper.js";
-import {reactionUrl} from "../../components/reactionUrl.js";
 
 export class UIController {
   constructor(state, reactionFilter, graphRenderer, dataRepo) {
@@ -14,52 +16,9 @@ export class UIController {
     this.dataRepo = dataRepo;
   }
 
-  createShareButton(Inputs, htl) {
-    return Inputs.button(htl.html`<img src="${CONFIG.urls.imageBase}/images/icons/copy.svg" />Share`, {
-      value: null,
-      reduce: () => {
-        const shareUrl = reactionUrl(window.location.href, this.state);
-        navigator.clipboard
-          .writeText(shareUrl)
-          .then(() => UIHelper.showNotification("URL copied to clipboard"))
-          .catch(() => {
-            const textArea = document.createElement("textarea");
-            textArea.value = shareUrl;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand("copy");
-            document.body.removeChild(textArea);
-            UIHelper.showNotification("URL copied to clipboard");
-          });
-
-        return shareUrl;
-      },
-    });
-  }
-
-  createResetButton(Inputs, htl) {
-    return Inputs.button(
-      htl.html`<img src="${CONFIG.urls.imageBase}/images/icons/arrow-counterclockwise.svg" />Reset`,
-      {
-        reduce: () => {
-          this.state.reset();
-
-          // Reset speed slider
-          const speedSlider = document.getElementById("speedSlider");
-          if (speedSlider) speedSlider.value = 0;
-          const speedValue = document.getElementById("speedValue");
-          if (speedValue) speedValue.textContent = "0";
-
-          this.updateChoicesOptions();
-          this.updateUI();
-          return null;
-        },
-      },
-    );
-  }
-
   createUnusedMaterialsToggle(Inputs) {
     const toggle = Inputs.toggle({label: "Exclude unused materials (base game)", value: this.state.excludeUnusedMaterials});
+    toggle.title = "Hides materials classified as unused in normal gameplay.";
     toggle.addEventListener("input", () => this.state.setExcludeUnusedMaterials(toggle.value));
     this.unusedMaterialsToggle = toggle;
     this.updateUnusedMaterialsToggle();
@@ -70,19 +29,24 @@ export class UIController {
     const toggle = this.unusedMaterialsToggle;
     if (!toggle) return;
     toggle.value = this.state.excludeUnusedMaterials;
-    toggle.querySelector("input").disabled = this.state.reactionSource !== "base";
-    toggle.title = this.state.reactionSource !== "base"
-      ? "Material availability has only been audited for the base game."
-      : "Hides materials classified as unused in normal gameplay.";
+    setControlDisabled(toggle.querySelector("input"), this.state.reactionSource !== "base",
+      'Material availability has only been audited for the base game.');
   }
 
   createExportButton(Inputs, htl) {
-    return Inputs.button(htl.html`<img src="${CONFIG.urls.imageBase}/images/icons/download.svg" />Export SVG`, {
+    this.exportButton = Inputs.button(iconLabel("download", "Export SVG"), {
       reduce: () => {
         this.exportGraphAsSVG();
         return null;
       },
     });
+    this.updateExportButton();
+    return this.exportButton;
+  }
+
+  updateExportButton() {
+    if (this.exportButton) setControlDisabled(this.exportButton.querySelector('button'), !document.querySelector('#graphContainer svg'),
+      'Choose filters that produce a graph before exporting.');
   }
 
   exportGraphAsSVG() {
@@ -97,7 +61,7 @@ export class UIController {
     const clonedSvg = svgElement.cloneNode(true);
 
     // Remove interactive elements that might interfere with display
-    const removeElements = clonedSvg.querySelectorAll('.tag-visibility-icon, image[href*="icons/"]');
+    const removeElements = clonedSvg.querySelectorAll('.tag-visibility-icon');
     removeElements.forEach((el) => el.remove());
 
     // Ensure proper styling for export
@@ -142,80 +106,6 @@ export class UIController {
     UIHelper.showNotification("Graph exported as SVG");
   }
 
-  createSpeedSlider() {
-    const container = document.createElement("div");
-    container.style.cssText = "display:flex;flex-direction:column;gap:8px;";
-
-    const labelRow = document.createElement("div");
-    labelRow.style.cssText = "display:flex;justify-content:space-between;align-items:center;";
-
-    const label = document.createElement("label");
-    label.textContent = "Min Reaction Speed:";
-    label.style.cssText = "font-weight:bold;font-size:0.9rem;";
-
-    const valueDisplay = document.createElement("span");
-    valueDisplay.id = "speedValue";
-    valueDisplay.textContent = this.state.minReactionSpeed.toString();
-    valueDisplay.style.cssText = "font-weight:bold;color:#45b7d1;font-size:0.9rem;min-width:30px;text-align:right;";
-
-    labelRow.appendChild(label);
-    labelRow.appendChild(valueDisplay);
-
-    const slider = document.createElement("input");
-    slider.type = "range";
-    slider.id = "speedSlider";
-    slider.min = "0";
-    slider.max = "100";
-    slider.value = this.state.minReactionSpeed.toString();
-    slider.step = "5";
-    slider.style.cssText = "width:100%;cursor:pointer;";
-
-    slider.addEventListener("input", (e) => {
-      const value = parseInt(e.target.value);
-      valueDisplay.textContent = value.toString();
-      this.state.setMinReactionSpeed(value);
-    });
-
-    container.appendChild(labelRow);
-    container.appendChild(slider);
-
-    return container;
-  }
-
-  createSourceSelector() {
-    const container = document.createElement("div");
-    container.style.cssText = "display:flex;flex-direction:column;gap:8px;";
-
-    const label = document.createElement("label");
-    label.textContent = "Reaction Source:";
-    label.style.cssText = "font-weight:bold;font-size:0.9rem;";
-
-    const select = document.createElement("select");
-    select.id = "sourceSelector";
-    select.style.cssText =
-      "width:100%;padding:8px;border-radius:4px;border:1px solid #555;background:#2a2a2a;color:#fff;cursor:pointer;font-size:0.9rem;";
-
-    const sources = this.dataRepo.getAvailableSources();
-    sources.forEach((source) => {
-      const option = document.createElement("option");
-      option.value = source.id;
-      option.textContent = `${source.name} (${source.count} reactions)`;
-      option.selected = source.id === this.state.reactionSource;
-      select.appendChild(option);
-    });
-
-    select.addEventListener("change", (e) => {
-      const sourceId = e.target.value;
-      UIHelper.showNotification(`Loading ${sources.find((s) => s.id === sourceId)?.name}...`);
-      this.state.setReactionSource(sourceId);
-    });
-
-    container.appendChild(label);
-    container.appendChild(select);
-
-    return container;
-  }
-
   updateChoicesOptions() {
     const availableReagents = this.reactionFilter.getAvailableReagents(
       this.state.selectedReagents,
@@ -252,10 +142,14 @@ export class UIController {
 
     const reactionsCountContainer = document.getElementById("reactionsCount");
     if (reactionsCountContainer) {
-      reactionsCountContainer.innerHTML = `Reactions found: <code class="bigger-number-better">${filteredReactions.length}</code>`;
+      const count = document.createElement('code');
+      count.className = 'bigger-number-better';
+      count.append(numberText(filteredReactions.length));
+      reactionsCountContainer.replaceChildren('Reactions found: ', count);
     }
 
     this.graphRenderer.render(filteredReactions);
+    this.updateExportButton();
     this.state.updateURL();
   }
 }

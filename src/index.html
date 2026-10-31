@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="color-scheme" content="dark">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="darkreader-lock">
+    <style>
+      html { background-color: var(--bg-body, oklch(12.9% 0.042 264.695)); color-scheme: dark; }
+    </style>
+    <meta name="description" content="Explore Noita materials, reactions, fungal shifts and spell digging.">
+    <meta property="og:title" content="Noita Bartender">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://noita-bartender-images.acidflow.stream/images/logo/BARTENDER_SOCIALS.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="preload" as="font" type="font/woff2" href="https://noita-bartender-images.acidflow.stream/typeface/NoitaPixel2.woff2" crossorigin>
+    <title>Noita Bartender</title>
+    <link rel="stylesheet" href="/styles/app.scss">
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body class="d-flex flex-column min-dvh-100">
+    <a href="#main" class="skip-link">Skip to content</a>
+    <header id="site-header"></header>
+    <main id="main" class="container-fluid flex-grow-1 pt-5 lg:pt-8 pb-5 px-4 lg:px-6" tabindex="-1">
+      <p role="status">Loading…</p>
+    </main>
+    <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3">
+      <div id="notification-toast" class="toast" role="status" aria-live="polite" aria-atomic="true">
+        <div class="toast-body d-flex align-items-center gap-3">
+          <span class="flex-grow-1" data-notification-message></span>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Dismiss notification"></button>
+        </div>
+      </div>
+    </div>
+    <footer class="site-footer signal-background container-fluid border-top px-5 py-4 fg-3 d-flex flex-wrap gap-3 column-gap-6 align-items-center justify-content-center text-center">
+      <span class="footer-item gap-1">Made by <a class="brand-link" href="https://www.twitch.tv/WUOTE"><img src="https://noita-bartender-images.acidflow.stream/images/logo/WUOTE_LOGO.svg" alt="WUOTE" width="81" height="20"></a></span>
+      <a class="footer-item" href="/thanks">Credits</a>
+    </footer>
+  </body>
+</html>

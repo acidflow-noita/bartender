@@ -1,29 +1,32 @@
-import { gsap } from "gsap";
-import { ExpoScaleEase } from "gsap/EasePack";
-import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
+import {gsap} from 'gsap';
+import {ScrambleTextPlugin} from 'gsap/ScrambleTextPlugin.js';
 
-gsap.registerPlugin(ScrambleTextPlugin, ExpoScaleEase);
+gsap.registerPlugin(ScrambleTextPlugin);
 
-export function initializeTitleAnimation(titleId = "acidTitle") {
-  const element = document.getElementById(titleId);
+export function initializeTitleAnimation(titleId = 'acidTitle') {
+  const element = typeof titleId === 'string' ? document.getElementById(titleId) : titleId;
   if (!element) return;
-
-  const animation = gsap.to(element, {
-    duration: 3,
-    scrambleText: {
-      delay: 0.5,
-      text: "{original}",
-      chars: "upperAndLowerCase",
-      revealDelay: 1,
-      speed: 0.3,
-      tweenLength: true,
-      ease: "slow(0.7,0.7,false)",
-    },
-  });
-
-  element.onclick = function () {
-    animation.restart(true);
+  const original = element.textContent;
+  const motion = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+  let animation, disposed = false;
+  const replay = () => {
+    if (disposed || motion?.matches) return;
+    animation?.kill();
+    animation = gsap.to(element, {
+      duration: 3,
+      scrambleText: {delay: .5, text: original, chars: 'upperAndLowerCase', revealDelay: 1, speed: .3, tweenLength: true},
+    });
   };
-
-  return animation;
+  const preferenceChanged = () => {
+    if (motion?.matches) {animation?.kill(); element.textContent = original;}
+  };
+  element.addEventListener('click', replay);
+  motion?.addEventListener('change', preferenceChanged);
+  // Wait for the original pixel face, including on a cold load.
+  Promise.resolve(document.fonts?.load('1em NoitaPixel')).catch(() => {}).then(replay);
+  return {restart: replay, dispose() {
+    disposed = true; animation?.kill(); element.textContent = original;
+    element.removeEventListener('click', replay);
+    motion?.removeEventListener('change', preferenceChanged);
+  }};
 }

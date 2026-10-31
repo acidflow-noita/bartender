@@ -20,13 +20,15 @@
 
 .digging-assumptions {
   max-width: none;
-  color: var(--theme-foreground-muted);
+  color: var(--fg-3);
   font-size: 0.85rem;
   line-height: 1.5;
   margin: 0 0 0.75rem;
 }
 
 .digging-comparison {
+  display: grid;
+  gap: 16px;
   box-sizing: border-box;
   align-items: start;
   grid-auto-rows: auto;
@@ -41,6 +43,10 @@
 }
 
 .digging-spell-panel {
+  /* getComparisonLayout subtracts these two 16px paddings and 1px borders. */
+  --card-spacer-x: 16px;
+  --card-spacer-y: 16px;
+  --card-border-width: 1px;
   min-width: 0;
 }
 
@@ -63,7 +69,7 @@
 .digging-spell-panel > .digging-comparison-summary {
   max-width: none;
   margin: 0.25rem 0 0.75rem;
-  color: var(--theme-foreground-muted);
+  color: var(--fg-3);
   font-size: 0.85rem;
 }
 
@@ -88,8 +94,8 @@
   margin: 0;
   padding: 0.35rem 0.55rem;
   border-radius: 3px;
-  background: rgb(16 33 45 / 92%);
-  color: #9edcbd;
+  background: var(--bg-1);
+  color: var(--fg-body);
   font-size: 0.9rem;
   line-height: 1.3;
   text-align: center;
@@ -97,7 +103,8 @@
 }
 
 .digging-status-blocked {
-  color: #ffa080;
+  color: var(--fg-body);
+  font-weight: 600;
 }
 
 .digging-status-unsupported,
@@ -105,15 +112,19 @@
 .digging-status-conditional,
 .digging-status-displaces,
 .digging-status-removes {
-  color: var(--theme-foreground-muted);
+  color: var(--fg-3);
 }
 
 .digging-result > p,
 .digging-other-effect,
-.digging-secondary-effects,
-.digging-method p {
+.digging-secondary-effects {
   max-width: none;
   margin: 0.5rem 0;
+  font-size: 0.85rem;
+}
+
+.digging-method p {
+  max-width: none;
   font-size: 0.85rem;
 }
 
@@ -125,7 +136,7 @@
 }
 
 .digging-stats dt {
-  color: var(--theme-foreground-muted);
+  color: var(--fg-3);
   font-size: 0.78rem;
 }
 
@@ -162,13 +173,13 @@
 
 .digging-figure figcaption {
   margin-top: 0.4rem;
-  color: var(--theme-foreground-muted);
+  color: var(--fg-3);
   font-size: 0.8rem;
 }
 
 .digging-empty {
   padding: 1rem;
-  color: var(--theme-foreground-muted);
+  color: var(--fg-3);
 }
 
 .digging-method summary {

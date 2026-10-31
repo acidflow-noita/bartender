@@ -5,23 +5,21 @@ expectations as other platforms.
 
 The current reference is `liquidcake1/noita-fungal` revision
 `233955ea2bb48fe6fb3bd58dd9936da023d84b2d`, pinned at
-`src/vendor/noita-fungal`. Runtime and worker imports use a generated `.js`
-bridge because Framework 1.13 preview cannot serve `.mjs` imports. The npm
-pre-hooks generate it from the submodule; tests require the bodies to match
-upstream exactly except for relative import extensions.
+`src/vendor/noita-fungal`. Runtime and worker imports use the pinned `.mjs`
+modules directly, without generated copies or import rewrites.
 
 This upstream update changes the shift data to held-material branch maps, adds
 reroll-aware search, and searches all 200 Hyper shifts (20 in other modes).
 
 - Hash checks verify the submodule's RNG, probability tables, shift engine, and
   solver against the reviewed reference fixtures. No hand-maintained local copies
-  are used; the generated bridge is ignored by Git.
+  are used.
 - Fixtures include 60 RNG sequences and eight full / first-scenario solver runs.
   All results, their order, final world states, and job counts must match.
 - Source UI fixtures record 11 Air/goal validation cases, 60 prediction tables,
   11 solution/world tables, and five option-list journeys. Plain data collectors
   execute the upstream functions in Node; this is not browser or layout testing.
-- HTTP tests start the real Observable preview server and fetch every app/worker
+- HTTP tests start the real Vite dev server and fetch every app/worker
   dependency, checking status and JavaScript content type. This catches preview
   routing errors that a successful production build cannot detect.
 - Worker tests exercise all four modes and the model → worker → model path.
@@ -30,8 +28,8 @@ reroll-aware search, and searches all 200 Hyper shifts (20 in other modes).
   cancellation, source-derived options, and Air's non-shiftable sentinel role.
 - URL tests cover readable material IDs instead of escaped JSON, older query/hash
   links, immediate/coalesced address updates, History API errors, and copy fallback.
-- Table tests keep native Observable tables while disabling sort handlers,
-  preserving source order, and spanning shift numbers across all held branches.
+- Table tests use Bootstrap tables without row selection or sorting, preserving
+  source order and spanning shift numbers across all held branches.
 
 Initialize dependencies and run:
 

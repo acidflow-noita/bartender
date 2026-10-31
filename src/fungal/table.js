@@ -1,4 +1,4 @@
-import * as Inputs from "npm:@observablehq/inputs";
+import * as Inputs from "../ui/table.js";
 
 export function consecutiveGroups(data, key) {
   const groups = [];
@@ -10,8 +10,7 @@ export function consecutiveGroups(data, key) {
   return groups;
 }
 
-// Retain native Observable tables while disabling their click-to-sort behavior.
-// Inputs.table has no supported "sortable: false" option.
+// Grouped predictions retain discovery order and never expose row selection.
 export function lockTableOrder(root) {
   for (const header of root.querySelectorAll("thead th")) {
     header.onclick = null;
@@ -24,7 +23,7 @@ export function lockTableOrder(root) {
 
 export function spanTableGroups(root, data, columns, key) {
   const rows = root.querySelectorAll("tbody tr");
-  const column = columns.indexOf(key) + 1; // native table's first column is the selection gutter
+  const column = columns.indexOf(key); // data columns have no selection gutter
   for (const [tone, group] of consecutiveGroups(data, key).entries()) {
     for (let i = group.start; i < group.start + group.length; i++) {
       const row = rows[i];
@@ -41,7 +40,7 @@ export function spanTableGroups(root, data, columns, key) {
 export function staticTable(data, options, {groupBy} = {}) {
   // Render the complete data before applying row spans; virtual/lazy rows could
   // otherwise split a shift group. Hyper has at most a few hundred branches.
-  const root = Inputs.table(data, {...options, select: false, sort: undefined, rows: Math.max(data.length, 1)});
+  const root = Inputs.table(data, {...options, sortable: false, sort: undefined, eager: true, rows: Math.max(data.length, 1)});
   root.classList.add("fs-readonly-table");
   lockTableOrder(root);
   if (groupBy && data.length) spanTableGroups(root, data, options.columns, groupBy);

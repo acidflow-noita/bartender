@@ -8,11 +8,9 @@ export class UIHelper {
   static imageUrlCache = new Map();
 
   static getMaterialImageUrl(id, dataRepo) {
-    if (!id) return "";
+    if (!id || dataRepo.isTag(id)) return "";
     if (!this.imageUrlCache.has(id)) {
-      const url = dataRepo.isTag(id)
-        ? `${CONFIG.urls.imageBase}/images/icons/tag.svg`
-        : `${CONFIG.urls.imageBase}/images/materials/Material_${id}.png`;
+      const url = `${CONFIG.urls.imageBase}/images/materials/Material_${id}.png`;
       this.imageUrlCache.set(id, url);
     }
     return this.imageUrlCache.get(id);
@@ -28,22 +26,13 @@ export class UIHelper {
     return name.length > maxLength ? name.substring(0, CONFIG.graph.constraints.truncatedNameLength) + "..." : name;
   }
 
-  static showNotification(text) {
-    const parentElement = document.getElementById("observablehq-main");
-    const notifID = "share-notification";
-
-    if (!parentElement || document.getElementById(notifID)) return;
-
-    const notification = document.createElement("p");
-    notification.id = notifID;
-    notification.textContent = text;
-    notification.classList.add("notification");
-    parentElement.appendChild(notification);
-
-    setTimeout(() => (notification.style.opacity = 1), 100);
-    setTimeout(() => {
-      notification.style.opacity = 0;
-      setTimeout(() => parentElement.removeChild(notification), 500);
-    }, CONFIG.ui.notificationDuration);
+  static async showNotification(text, {success = false} = {}) {
+    const element = document.getElementById("notification-toast");
+    if (!element) return;
+    const {default: Toast} = await import("bootstrap/js/dist/toast.js");
+    if (!element.isConnected) return;
+    element.classList.toggle("theme-success", success);
+    element.querySelector("[data-notification-message]").textContent = text;
+    return Toast.getOrCreateInstance(element, {delay: CONFIG.ui.notificationDuration}).show();
   }
 }
