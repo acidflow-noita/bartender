@@ -25,6 +25,11 @@ export class LegendManager {
                 <svg x="6" y="6" width="12" height="12" viewBox="0 0 16 16" fill="var(--bg-body)">${iconPaths.eye}</svg>`,
         label: "Tag (group of materials)",
       },
+      {
+        icon: `<circle cx="12" cy="12" r="6" fill="${CONFIG.graph.colors.reactionNode}" stroke="${CONFIG.graph.colors.nodeStroke}" stroke-width="1"></circle>
+                <circle cx="12" cy="12" r="10" fill="none" stroke="#c77dff" stroke-width="3"></circle>`,
+        label: "Colored ring = originating reaction set(s)",
+      },
     ];
 
     const items = nodes

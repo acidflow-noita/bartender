@@ -5,7 +5,7 @@
     "clean": "rimraf dist public/data src/generated",
     "build": "vite build",
     "dev": "vite",
-    "test": "node --test tests/*.test.js",
+    "test": "node --test tests/*.test.js src/noitalambic/tests/*.test.js",
     "prebuild": "node scripts/validate-material-availability.mjs && node scripts/prepare-data.mjs && node scripts/prepare-icons.mjs",
     "predev": "node scripts/validate-material-availability.mjs && node scripts/prepare-data.mjs && node scripts/prepare-icons.mjs",
     "pretest": "node scripts/validate-material-availability.mjs && node scripts/prepare-data.mjs && node scripts/prepare-icons.mjs",

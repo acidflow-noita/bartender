@@ -10,7 +10,9 @@ export class UIHelper {
   static getMaterialImageUrl(id, dataRepo) {
     if (!id || dataRepo.isTag(id)) return "";
     if (!this.imageUrlCache.has(id)) {
-      const url = `${CONFIG.urls.imageBase}/images/materials/Material_${id}.png`;
+      // Placeholder materials (see DataRepository._ensureMaterialsExist) carry a fallback imageId.
+      const imageId = dataRepo.getMaterial(id)?.imageId || id;
+      const url = `${CONFIG.urls.imageBase}/images/materials/Material_${imageId}.png`;
       this.imageUrlCache.set(id, url);
     }
     return this.imageUrlCache.get(id);
