@@ -39,8 +39,10 @@ export function fitGraphToViewport(container, {credit, controls, heading, minimu
 
 export function allowGraphGesture(event, container) {
   const document = container.ownerDocument, view = document.defaultView;
-  const pageScrolls = !document.fullscreenElement?.contains(container) && (container.dataset.viewportOverflow === 'true'
-    || document.documentElement.scrollHeight > (view.visualViewport?.height ?? view.innerHeight) + 1);
+  // The wheel scrolls the page instead of zooming only while the graph is not fully on screen.
+  const rect = container.getBoundingClientRect();
+  const partlyHidden = rect.top < -1 || rect.bottom > (view.visualViewport?.height ?? view.innerHeight) + 1;
+  const pageScrolls = !document.fullscreenElement?.contains(container) && (container.dataset.viewportOverflow === 'true' || partlyHidden);
   if (event.type === 'wheel' && pageScrolls && !event.ctrlKey && !event.metaKey) return false;
   return (!event.ctrlKey || event.type === 'wheel') && !event.button;
 }

@@ -30,6 +30,11 @@ test('scrolling a tall page does not zoom the graph, while modifier zoom and nor
   installDom(t);const container=document.createElement('div');document.body.append(container);
   const wheel={type:'wheel',button:0,ctrlKey:false,metaKey:false};
   assert.equal(allowGraphGesture(wheel,container),true);
+  document.documentElement.style.height='5000px';
+  assert.equal(allowGraphGesture(wheel,container),true,'a fully visible graph zooms even when the page itself scrolls');
+  container.getBoundingClientRect=()=>({top:-50,bottom:300,height:350});
+  assert.equal(allowGraphGesture(wheel,container),false,'a graph scrolled partly off screen lets the wheel scroll the page');
+  delete container.getBoundingClientRect;
   container.dataset.viewportOverflow='true';
   assert.equal(allowGraphGesture(wheel,container),false);
   assert.equal(allowGraphGesture({...wheel,ctrlKey:true},container),true);
