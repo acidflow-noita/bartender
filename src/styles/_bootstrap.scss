@@ -1,0 +1,22 @@
+// Use Bootstrap's implementations for the components used by Bartender.
+@forward "bootstrap/scss/banner";
+@forward "bootstrap/scss/config";
+@forward "bootstrap/scss/colors";
+@forward "bootstrap/scss/theme";
+@forward "bootstrap/scss/root";
+@forward "bootstrap/scss/content";
+@forward "bootstrap/scss/layout";
+@forward "bootstrap/scss/forms";
+@forward "bootstrap/scss/buttons";
+@forward "bootstrap/scss/accordion";
+@forward "bootstrap/scss/alert";
+@forward "bootstrap/scss/card";
+@forward "bootstrap/scss/badge";
+@forward "bootstrap/scss/nav";
+@forward "bootstrap/scss/navbar";
+@forward "bootstrap/scss/drawer";
+@forward "bootstrap/scss/toasts";
+@forward "bootstrap/scss/tooltip";
+@forward "bootstrap/scss/transitions";
+@forward "bootstrap/scss/helpers";
+@forward "bootstrap/scss/utilities/api";

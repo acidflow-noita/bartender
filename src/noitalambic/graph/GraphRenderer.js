@@ -1,9 +1,12 @@
+import * as d3 from "d3";
+import {icon} from '../../ui/icons.js';
 // ============================================================================
 // GRAPH RENDERER - D3.js visualization of reactions graph
 // ============================================================================
 
 import { CONFIG } from "../config/config.js";
 import { UIHelper } from "../ui/UIHelper.js";
+import {allowGraphGesture} from './viewport.js';
 
 export class GraphRenderer {
   constructor(dataRepo, state, graphDataBuilder) {
@@ -33,7 +36,7 @@ export class GraphRenderer {
     }
 
     const width = container.clientWidth;
-    const height = Math.max(CONFIG.graph.layout.minHeight, width * CONFIG.graph.layout.heightRatio);
+    const height = Math.max(1, container.clientHeight);
 
     const { nodes, links } = this.graphDataBuilder.buildGraphData(filteredReactions);
     const nodeArray = Array.from(nodes.values());
@@ -74,11 +77,14 @@ export class GraphRenderer {
       nodeSelection.attr("transform", (d) => `translate(${d.x},${d.y})`);
     });
 
-    const resizeHandler = () => this._handleResize(container, svg);
+    const resizeHandler = () => this._handleResize(container, svg, simulation);
+    const resizeObserver = typeof ResizeObserver === 'function' ? new ResizeObserver(resizeHandler) : null;
+    resizeObserver?.observe(container);
     window.addEventListener("resize", resizeHandler);
 
     this.currentCleanup = () => {
       window.removeEventListener("resize", resizeHandler);
+      resizeObserver?.disconnect();
       simulation.stop();
     };
   }
@@ -111,6 +117,8 @@ export class GraphRenderer {
 
     const zoom = d3
       .zoom()
+      .extent(() => [[0, 0], [Math.max(1, container.clientWidth), Math.max(1, container.clientHeight)]])
+      .filter(event => allowGraphGesture(event, container))
       .scaleExtent([0.1, 4])
       .on("zoom", (event) => g.attr("transform", event.transform));
 
@@ -328,18 +336,11 @@ export class GraphRenderer {
 
     // Icon
     selection
-      .append("image")
-      .attr(
-        "href",
-        hasVisibleMaterials
-          ? `${CONFIG.urls.imageBase}/images/icons/eye-open.svg`
-          : `${CONFIG.urls.imageBase}/images/icons/eye-closed.svg`,
-      )
-      .attr("x", -node.radius * 0.5)
-      .attr("y", -node.radius * 0.5)
-      .attr("width", node.radius)
-      .attr("height", node.radius)
-      .attr("class", "tag-visibility-icon");
+      .append(() => icon(hasVisibleMaterials ? 'eye' : 'eye-slash'))
+      .attr("width", node.radius).attr("height", node.radius)
+      .attr("x", -node.radius / 2).attr("y", -node.radius / 2)
+      .style("color", "var(--bg-body)")
+      .classed("tag-visibility-icon", true);
 
     // Border
     selection
@@ -621,10 +622,14 @@ export class GraphRenderer {
       .attr("stroke-width", CONFIG.graph.sizes.strokeWidth);
   }
 
-  _handleResize(container, svg) {
+  _handleResize(container, svg, simulation) {
     const width = container.clientWidth;
-    const height = Math.max(CONFIG.graph.layout.minHeight, width * CONFIG.graph.layout.heightRatio);
-
+    const height = Math.max(1, container.clientHeight);
+    const changed = Number(svg.attr('width')) !== width || Number(svg.attr('height')) !== height;
     svg.attr("width", width).attr("height", height).attr("viewBox", `0 0 ${width} ${height}`);
+    if (changed && simulation) {
+      simulation.force('center').x(width / 2).y(height / 2);
+      simulation.alpha(Math.max(simulation.alpha(), .1)).restart();
+    }
   }
 }

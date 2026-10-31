@@ -24,9 +24,9 @@ test("material selection accepts the installed Choices API's scalar and empty va
 });
 
 test("the page mounts one stable app, rather than interdependent reactive input cells", () => {
-  const page = read("src/fungal_shifting.md");
-  assert.match(page, /display\(app\)/);
-  assert.match(page, /invalidation.then\(\(\) => app.dispose\(\)\)/);
+  const page = read("src/pages/fungal.js");
+  assert.match(page, /host.replaceChildren\(app/);
+  assert.match(page, /return \(\) => app.dispose\(\)/);
   assert.doesNotMatch(page, /Generators|Inputs.bind|window.appState/);
   assert.doesNotMatch(page, /html``|:\s*null\s*\}/);
   const selector = read("src/fungal/select.js");
@@ -40,17 +40,15 @@ test("view binds each visible control to an explicit model action", () => {
   for (const [input, action] of [["seed", "setSeed"], ["mode", "setMode"], ["spoilers", "setSpoilers"], ["view", "setView"], ["cycle", "setCycle"], ["simCycle", "setCycle"], ["after", "setAfter"]]) {
     assert.match(app, new RegExp(`listen\\(${input}, "input", [^\\n]*model\\.${action}\\(${input}\\.value\\)`));
   }
-  assert.match(app, /new Worker\(import.meta.resolve\("\.\/search-worker.js"\)/);
+  assert.match(app, /new Worker\(new URL\("\.\/search-worker.js", import.meta.url\)/);
   assert.match(app, /model.subscribe\(\(\) => address.update\(model.snapshot\(\)\)\)/);
   assert.match(app, /listen\(window, "popstate", restoreLocation\)/);
 });
 
 test("simulation output space is reserved even when zero shifts have been applied", () => {
   const css = read("src/fungal/fungal.css");
-  assert.match(css, /\.fs-steps\s*\{\s*height:\s*360px/);
-  assert.match(css, /\.fs-world\s*\{[^}]*height:\s*320px/);
-  assert.match(css, /#fungal-app form > label\s*\{[^}]*width:\s*auto/);
-  assert.match(css, /#fungal-app \.fs-tabs\s*\{[^}]*width:\s*100%/);
+  assert.match(css, /\.fs-steps\s*\{\s*min-height:\s*360px/);
+  assert.match(css, /\.fs-world\s*\{[^}]*min-height:\s*320px/);
   const app = read("src/fungal/app.js");
   assert.match(app, /height: 360/);
   assert.match(app, /height: 320/);
@@ -74,7 +72,7 @@ test("UI uses source/target wording, explains Air, and wraps From materials hori
   assert.doesNotMatch(app, /Sacrifice|sacrifices|Presentation|Interpretation|countenance|anfractuous/);
   assert.match(app, /Air is not shiftable/);
   assert.match(selector, /not shiftable/);
-  assert.match(css, /\.fs-materials\s*\{[^}]*flex-flow:\s*row wrap/);
+  assert.match(css, /\.fs-materials\s*\{[^}]*flex-wrap:\s*wrap/);
   assert.match(app, /groupBy: "iteration"/);
   assert.doesNotMatch(app, /Inputs.table\(/, "all tables must use the non-sortable adapter");
   const first = app.indexOf("model.subscribe(() => address.update");

@@ -1,41 +1,19 @@
-import { readFile, writeFile, mkdir } from 'fs/promises';
-import { join } from 'path';
+import {readFileSync} from 'node:fs';
+import {resolve} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {writeJsonAtomic} from '../../../scripts/data/io.mjs';
 
-// Define paths
-const inputFilePath = './material_associations.json';
-const outputDir = './src/data/jsons/tags/';
-
-async function generateTagFiles() {
-    try {
-        // Ensure the output directory exists
-        await mkdir(outputDir, { recursive: true });
-
-        // Read and parse the input file
-        const data = JSON.parse(await readFile(inputFilePath, 'utf8'));
-
-        // Group material_ids by tags
-        const tagsMap = {};
-        data.forEach(({ material_id, tag }) => {
-            if (!tagsMap[tag]) {
-                tagsMap[tag] = [];
-            }
-            if (!tagsMap[tag].includes(material_id)) {
-                tagsMap[tag].push(material_id);
-            }
-        });
-
-        // Write each tag's materials to a separate file
-        await Promise.all(
-            Object.entries(tagsMap).map(([tag, materialIds]) => {
-                const filePath = join(outputDir, `${tag}.json`);
-                return writeFile(filePath, JSON.stringify(materialIds, null, 2), 'utf8');
-            })
-        );
-
-        console.log('Files created successfully!');
-    } catch (error) {
-        console.error('Error processing the file:', error);
-    }
+export function groupTagMaterials(associations) {
+  const groups = new Map();
+  for (const {id, tag} of associations) {
+    if (typeof id !== 'string' || !id || !/^[a-zA-Z0-9_]+$/.test(tag)) throw new Error('Invalid material/tag association');
+    if (!groups.has(tag)) groups.set(tag, new Set());
+    groups.get(tag).add(id);
+  }
+  return Object.fromEntries([...groups].map(([tag, ids]) => [tag, [...ids]]));
 }
-
-generateTagFiles();
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const groups = groupTagMaterials(JSON.parse(readFileSync(new URL('./material_associations.json', import.meta.url))));
+  for (const [tag, ids] of Object.entries(groups)) writeJsonAtomic(new URL(`./tags/${tag}.json`, import.meta.url), ids);
+  console.log(`Generated ${Object.keys(groups).length} tag files.`);
+}

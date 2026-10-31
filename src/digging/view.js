@@ -181,14 +181,14 @@ export function renderDiggingPlot(spell, material, result, width, fit, {color, s
   const geometryCaption = clipped ? "Cropped. Use Fit whole effect to see it all."
     : fit ? "Minä is shown at the same scale." : "1 game pixel = 6 screen pixels.";
   const caption = path
-    ? `${footprint.caption || "Example dug path for one cast."}${partialRemoval ? " Speckling illustrates partial cell removal." : ""} ${geometryCaption}`
+    ? `${footprint.caption || "Example dug path for one cast."}${partialRemoval ? " Dotted gaps illustrate random terrain removal, not the exact result of a cast." : ""} ${geometryCaption}`
     : explosion && result.footprint.radius > 0 ? `Circular estimate of the explosion's size in ${material.name}. ${geometryCaption}`
     : result.method === "conversion" ? `${square ? "Square" : "Circular"} conversion area: ${material.name} becomes ${result.conversion?.toMaterial || "another material"}. ${geometryCaption}`
     : result.status === "displaces" ? `Liquid is moved and can return. The outline shows effect reach. ${geometryCaption}`
     : result.status === "removes" ? `Cells can be removed; flow and reactions can fill the space again. ${geometryCaption}`
     : reachOnly ? radius > 0 ? `The outline shows how far the effect reaches. ${geometryCaption}` : result.reason
     : partialCellEating
-    ? `Removal is probabilistic. The outline shows the affected area. ${geometryCaption}`
+    ? `Each terrain pixel within the outline has a chance of being removed on each check. ${geometryCaption}`
     : radius > 0 && circular.method !== result.method
     ? `The circle shows the ${formatNumber(radius)} px ${circular.method === "cell" ? "cell-eating footprint" : "estimated explosion radius"} only. ${result.method === "acid" ? "Acid can continue corroding beyond it." : "Penetration depth is not quantified."} ${geometryCaption}`
     : result.radius === null && result.method === "acid" && result.status === "digs"
@@ -205,7 +205,7 @@ export function renderDiggingPlot(spell, material, result, width, fit, {color, s
     ${svg`<svg class="digging-svg" viewBox="0 0 ${view.width} ${height}" width="${view.width}" height="${height}"
       role="img" aria-labelledby="${id}-title ${id}-desc">
       <title id="${id}-title">${spell.name} in ${material.name}${path ? `: ${formatNumber(footprint.width)} game pixels of path width` : explosion ? `: ${formatNumber(result.footprint.radius)} game pixels of estimated explosion radius` : radius === null ? "" : `: ${formatNumber(radius)} game pixels of ${square ? "square half-width" : reachOnly ? "effect reach" : "digging radius"}`}</title>
-      <desc id="${id}-desc">${emptySpace ? "Empty space." : `A block of ${material.name}.`} ${path ? removesPath ? partialRemoval ? "The speckled cutout illustrates partial terrain removal." : "The dug path is cut out of the terrain." : "The outline shows the path's reach." : reachOnly && radius > 0 ? "The outline shows reach and leaves the terrain visible." : radius > 0 && !partialCellEating ? "The estimated digging area is cut out of the terrain." : radius === 0 ? "No terrain is removed." : "No fixed circular hole is drawn for this effect."} Minä faces right at mid-height near the left edge, with the scale bar to her left. ${caption}</desc>
+      <desc id="${id}-desc">${emptySpace ? "Empty space." : `A block of ${material.name}.`} ${path ? removesPath ? partialRemoval ? "Dotted gaps show a representative pattern of random terrain removal." : "The dug path is cut out of the terrain." : "The outline shows the path's reach." : reachOnly && radius > 0 ? "The outline shows reach and leaves the terrain visible." : radius > 0 && !partialCellEating ? "The estimated digging area is cut out of the terrain." : radius === 0 ? "No terrain is removed." : "No fixed circular hole is drawn for this effect."} Minä faces right at mid-height near the left edge, with the scale bar to her left. ${caption}</desc>
       <defs>
         <pattern id="${id}-material" width="${tileSize}" height="${tileSize}" patternUnits="userSpaceOnUse" viewBox="84 168 84 84">
           <rect width="252" height="252" fill="#34484b" />
@@ -262,7 +262,7 @@ export function renderDiggingPlot(spell, material, result, width, fit, {color, s
 }
 
 export function renderDiggingComparison(entries, material, width, fit) {
-  if (!material || !entries.length) return html`<div class="card digging-empty">Select spells and a material to compare them.</div>`;
+  if (!material || !entries.length) return html`<div class="alert digging-empty">Select spells and a material to compare them.</div>`;
   const {columns, plots, scale} = getComparisonLayout(entries, width, fit);
   const summary = (result) => {
     const footprint = result.footprint;
@@ -271,15 +271,15 @@ export function renderDiggingComparison(entries, material, width, fit) {
     if (Number.isFinite(radius)) return `${result.reachOnly ? "Effect reach" : "Radius estimate"}: ${formatNumber(radius)} px`;
     return statusTitles[result.status] ?? result.reason;
   };
-  return html`<div class="grid grid-cols-2 digging-comparison" style="grid-template-columns: repeat(${columns}, minmax(0, 1fr))">
-    ${plots.map(({spell, result, color, width: plotWidth, fullWidth}) => html`<section class="card digging-spell-panel" data-spell-id="${spell.id}" aria-label="${spell.name}" style="grid-column: ${fullWidth ? "1 / -1" : "auto"}">
+  return html`<div class="digging-comparison" style="grid-template-columns: repeat(${columns}, minmax(0, 1fr))">
+    ${plots.map(({spell, result, color, width: plotWidth, fullWidth}) => html`<section class="card card-body digging-spell-panel" data-spell-id="${spell.id}" aria-label="${spell.name}" style="grid-column: ${fullWidth ? "1 / -1" : "auto"}">
       <h2 class="digging-spell-heading" style="color: ${color}"><img src="${itemImage(spell, "spells")}" width="24" height="24" alt="">${spell.name}</h2>
       <p class="digging-comparison-summary">${summary(result)}</p>
       ${renderDiggingPlot(spell, material, result, plotWidth, fit, {color, sharedScale: scale})}
-      <details class="digging-spell-details"><summary>Spell details</summary>
+      <div class="digging-spell-details">
         ${(spell.diggingModifierNotes ?? []).map((note) => html`<p class="digging-other-effect">${note}</p>`)}
         ${renderDiggingResult(spell, material, result)}
-      </details>
+      </div>
     </section>`)}
   </div>`;
 }

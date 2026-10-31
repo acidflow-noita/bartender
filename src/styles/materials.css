@@ -1,0 +1,23 @@
+/* Reference colors from the original Bartender palette. These describe data,
+   and must stay independent of Bootstrap's primary/accent theme colors. */
+.material-type-solid { --material-type-color: oklch(70.9% 0.01 56.259); }
+.material-type-liquid { --material-type-color: oklch(80.9% 0.105 251.813); }
+.material-type-powder { --material-type-color: oklch(91% 0.096 180.426); }
+.material-type-gas { --material-type-color: oklch(83.3% 0.145 321.434); }
+.material-type-fire { --material-type-color: oklch(80.8% 0.114 19.571); }
+.material-type-na { --material-type-color: oklch(98.5% 0 0); }
+.material-type-acid { --material-type-color: oklch(72.3% 0.219 149.579); }
+
+:is(.material-type-solid, .material-type-liquid, .material-type-powder,
+    .material-type-gas, .material-type-fire, .material-type-na, .material-type-acid) {
+  color: var(--material-type-color);
+  /* Bootstrap sets a color on code elements, rather than inheriting it. */
+  --code-color: var(--material-type-color);
+}
+
+:is(.material-type-solid, .material-type-liquid, .material-type-powder,
+    .material-type-gas, .material-type-fire, .material-type-na, .material-type-acid) code {
+  color: inherit;
+}
+
+.material-name-text { color: var(--fg-body); }

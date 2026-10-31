@@ -1,14 +1,10 @@
-import * as fs from "fs";
+import {resolve} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {fetchCargo} from '../../scripts/data/wiki.mjs';
+import {queries} from '../../scripts/refresh-data.mjs';
+import {writeJsonAtomic} from '../../scripts/data/io.mjs';
 
-// Fetch data from the API
-const response = await fetch(
-  "https://noita.wiki.gg/api.php?action=cargoquery&tables=Reactions&fields=Reactions.reactionRate,Reactions.reagent1,Reactions.reagent2,Reactions.reagent3,Reactions.product1,Reactions.product2,Reactions.product3,Reactions.notes&limit=500&offset=0&format=json"
-);
-
-if (!response.ok) throw new Error(`fetch failed: ${response.status}`);
-let data = await response.json();
-
-data = data.cargoquery.map((item) => item.title);
-
-// Save to file as an array of objects
-fs.writeFileSync("./src/data/reactions.json", JSON.stringify(data, null, 2), "utf-8");
+export const fetchReactions = () => fetchCargo(queries.reactions);
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  writeJsonAtomic(new URL('./reactions.json', import.meta.url), await fetchReactions());
+}

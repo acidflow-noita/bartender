@@ -3,7 +3,6 @@ import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import {runInNewContext} from "node:vm";
 import {parseFragment} from "parse5";
-import {createMarkdownIt, parseMarkdown} from "../node_modules/@observablehq/framework/dist/markdown.js";
 import {evaluateDigging, getBaseRadius, getDiggingViewport} from "../src/digging/model.js";
 import {getPathGeometry, getExplosionGeometry} from "../src/digging/geometry.js";
 import {evaluateExplosionFootprint} from "../src/digging/explosion.js";
@@ -40,7 +39,7 @@ test("each selected spell has its own plot and reference sprite at the same zoom
   for (const className of ["digging-terrain", "digging-mina", "digging-scale"]) {
     assert.equal(elements.filter((node) => attrs(node).class === className).length, entries.length, className);
   }
-  const panels = elements.filter((node) => attrs(node).class === "card digging-spell-panel");
+  const panels = elements.filter((node) => attrs(node).class === "card card-body digging-spell-panel");
   assert.equal(panels.length, 2);
   const radii = [], minaWidths = [];
   for (const [index, panel] of panels.entries()) {
@@ -85,7 +84,7 @@ test("separate plots use their full height and the same scale at every selection
     }
   }
   const elements = [...nodes(parseFragment(String(renderDiggingComparison(entries, soil, 1000, true))))];
-  const panels = elements.filter((node) => attrs(node).class === "card digging-spell-panel");
+  const panels = elements.filter((node) => attrs(node).class === "card card-body digging-spell-panel");
   assert.equal(panels.length, 5);
   assert.equal(attrs(panels.at(-1)).style, "grid-column: 1 / -1");
   for (const panel of panels) {
@@ -94,20 +93,11 @@ test("separate plots use their full height and the same scale at every selection
   }
 });
 
-test("the compiled page mounts plots and effect controls in full-width blocks, not capped paragraphs", () => {
-  const page = parseMarkdown(readFileSync(new URL("../src/digging.md", import.meta.url), "utf8"),
-    {md: createMarkdownIt(), path: "/digging"});
-  const elements = [...nodes(parseFragment(page.body))];
-  for (const [expression, className] of [["renderDiggingComparison(", "digging-comparison-host"], ["optionsControl.element", "digging-options-host"]]) {
-    const cell = page.code.find((cell) => cell.mode === "inline" && cell.node.input.includes(expression));
-    assert.ok(cell, expression);
-    const marker = elements.find((node) => node.nodeName === "#comment" && node.data === `:${cell.id}:`);
-    assert.equal(marker.parentNode.tagName, "div");
-    assert.equal(attrs(marker.parentNode).class, className);
-    for (let parent = marker.parentNode; parent; parent = parent.parentNode) {
-      assert.notEqual(parent.tagName, "p", "paragraphs inherit the framework's 640px max-width");
-    }
-  }
+test("spell details are visible without opening a disclosure", () => {
+  const output = String(renderDiggingComparison([{spell: {id: "DIGGER", name: "Digging Bolt", radius: 6}, result: {status: "digs", method: "explosion", radius: 6}, color: "blue"}], {name: "Soil"}, 1000, false));
+  assert.doesNotMatch(output, /<details/);
+  assert.match(output, /digging-spell-details/);
+  assert.match(output, /digging-stats/);
 });
 
 test("shared zoom fits both moving and explosive spells without changing their relative scale", () => {
@@ -245,7 +235,7 @@ test("probabilistic cell eating outlines its footprint without promising a compl
   const circles = [...nodes(parseFragment(plot))].filter((node) => node.tagName === "circle");
   assert.equal(circles.length, 1);
   assert.equal(attrs(circles[0]).fill, "none");
-  assert.match(plot, /Removal is probabilistic/);
+  assert.match(plot, /chance of being removed on each check/);
 });
 
 test("default launch-speed comparison labels the range and avoids claiming a tunnel depth", () => {
@@ -336,7 +326,7 @@ test("known partial cell eating removes speckles instead of leaving an untouched
   assert.equal(attrs(hole).stroke, `url(#${attrs(pattern).id})`);
   const removedCells = pattern.childNodes.filter((node) => node.tagName === "rect" && attrs(node).fill === "#000");
   assert.ok(removedCells.length > 0 && removedCells.length < 64, "some material remains inside a partial cutout");
-  assert.match(output, /Speckling illustrates partial cell removal/);
+  assert.match(output, /Dotted gaps illustrate random terrain removal, not the exact result of a cast/);
 });
 
 test("actual traveling spell profiles produce cutouts with a right-facing Mina beside the cast", () => {

@@ -2,35 +2,43 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "clean": "rimraf src/.observablehq/cache",
-    "build": "observable build",
-    "dev": "observable preview --port 3000",
-    "deploy": "observable deploy",
-    "observable": "observable",
+    "clean": "rimraf dist public/data src/generated",
+    "build": "vite build",
+    "dev": "vite",
     "test": "node --test tests/*.test.js",
-    "prebuild": "node scripts/prepare-fungal.mjs && node scripts/validate-material-availability.mjs",
-    "predev": "node scripts/prepare-fungal.mjs && node scripts/validate-material-availability.mjs",
-    "pretest": "node scripts/prepare-fungal.mjs && node scripts/validate-material-availability.mjs",
-    "predeploy": "node scripts/prepare-fungal.mjs && node scripts/validate-material-availability.mjs",
-    "preobservable": "node scripts/prepare-fungal.mjs && node scripts/validate-material-availability.mjs",
+    "prebuild": "node scripts/validate-material-availability.mjs && node scripts/prepare-data.mjs && node scripts/prepare-icons.mjs",
+    "predev": "node scripts/validate-material-availability.mjs && node scripts/prepare-data.mjs && node scripts/prepare-icons.mjs",
+    "pretest": "node scripts/validate-material-availability.mjs && node scripts/prepare-data.mjs && node scripts/prepare-icons.mjs",
     "materials:check": "node scripts/validate-material-availability.mjs",
-    "fungal:prepare": "node scripts/prepare-fungal.mjs"
+    "preview": "vite preview",
+    "data:prepare": "node scripts/prepare-data.mjs",
+    "data:refresh": "node scripts/refresh-data.mjs",
+    "data:candidate": "node scripts/build-data-candidate.mjs"
   },
   "dependencies": {
-    "@observablehq/framework": "^1.13.3",
+    "@floating-ui/dom": "1.8.0",
+    "@observablehq/plot": "0.6.17",
+    "bootstrap": "6.0.0-alpha.1",
+    "bootstrap-icons": "1.13.2",
     "choices.js": "^11.1.0",
+    "d3": "7.9.0",
     "gsap": "^3.13.0",
     "htl": "^0.3.1"
   },
   "devDependencies": {
+    "@duckdb/node-api": "2.0.0-r.1",
+    "acorn": "8.19.0",
+    "autoprefixer": "10.6.2",
+    "es-module-lexer": "3.0.4",
     "fast-xml-parser": "^5.2.0",
-    "rimraf": "^5.0.5"
+    "jsdom": "30.1.3",
+    "parse5": "8.0.1",
+    "postcss": "8.5.32",
+    "rimraf": "^5.0.5",
+    "sass": "1.107.0",
+    "vite": "8.3.5"
   },
   "engines": {
-    "node": ">=18"
-  },
-  "allowScripts": {
-    "esbuild@0.27.7": true,
-    "esbuild@0.28.2": true
+    "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
   }
 }

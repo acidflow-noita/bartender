@@ -55,6 +55,12 @@ export function readDiggingParams(href, spells, materials) {
   };
 }
 
+export function readInitialDiggingParams(href, spells, materials) {
+  const url = new URL(href);
+  if (url.searchParams.size === 0) url.search = 'spell=BOMB&material=rock_static';
+  return readDiggingParams(url.href, spells, materials);
+}
+
 export function diggingUrl(href, selection) {
   if (new Set(selection.spells ?? []).size > MAX_DIGGING_SPELLS) throw new RangeError("Too many spells for a share URL.");
   const url = formatUrl(baseUrl(href), selection);

@@ -1,8 +1,8 @@
-import {html} from "htl";
+import {iconLabel} from '../ui/icons.js';
 
 export function createResetButton(Inputs, onReset) {
   return Inputs.button(
-    html`<img src="https://noita-bartender-images.acidflow.stream/images/icons/arrow-counterclockwise.svg" alt="" />Reset`,
+    iconLabel("arrow-counterclockwise", "Reset"),
     {label: "", reduce: onReset},
   );
 }

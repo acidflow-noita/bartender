@@ -11,9 +11,7 @@ function normalizeFilename(filename) {
 
 // Rebuild offline from the checked-in game XML, resolved component dump and
 // wiki metadata. --game-data can explicitly substitute an extracted data/ tree.
-export function buildSpellData({gameDataDirectory} = {}) {
-  const spells = JSON.parse(read("spells.json"));
-  const urls = JSON.parse(read("SPELLS_DIRECT_URLS.json"));
+export function buildSpellData({gameDataDirectory, spells = JSON.parse(read("spells.json")), urls = JSON.parse(read("SPELLS_DIRECT_URLS.json"))} = {}) {
   const dump = parseComponentDump(read("spells_xml_parser_for_CE/NEWRAYENERGY.txt"));
   const actions = parseLuaActions(read("spells_xml_parser_for_CE/gun_actions.lua"));
   const readEntity = createEntityReader({rawDirectory: localFile("raw_data"), gameDataDirectory});

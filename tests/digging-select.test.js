@@ -29,6 +29,7 @@ const source = readFileSync(new URL("../src/digging/select.js", import.meta.url)
   .replace(/^import .*;\r?\n/gm, "").replace(/^export /gm, "");
 const create = runInNewContext(source + "\ncreateDiggingSelect", {
   Choices, Event, createChoicesTemplates: () => () => ({}), itemImage: () => "",
+  setControlDisabled: (control, disabled) => {control.disabled = disabled;},
   html: (strings, ...values) => {
     const element = new Element();
     if (strings[0].startsWith("<select")) element.multiple = values[2];
@@ -72,6 +73,16 @@ test("the material field remains a single selection with an empty initial state"
   assert.equal(picker.element.value.id, "NUKE");
   picker.setValue(null);
   assert.equal(picker.element.value, null);
+});
+
+test("picker placeholders are explicit and independent of their labels", () => {
+  const picker = create(items, {label: 'Find a material', kind: 'materials', value: null});
+  assert.equal(Choices.instances.at(-1).options.placeholderValue, 'Select a material');
+  picker.dispose();
+  const custom = create(items, {label: 'Material', kind: 'materials', value: null, placeholder: 'Find a material'});
+  assert.equal(Choices.instances.at(-1).options.placeholderValue, 'Find a material');
+  assert.equal(Choices.instances.at(-1).options.searchPlaceholderValue, 'Search material names or IDs');
+  custom.dispose();
 });
 
 test("Choices and programmatic restoration enforce the calculated selection cap", () => {

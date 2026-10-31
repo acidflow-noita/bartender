@@ -1,16 +1,11 @@
-// Run the actual page cells through Observable's compiler and runtime in Node.
-// Controls are event targets; this does not launch or emulate a browser.
+// Exercise the actual vanilla page controller with event-target controls in Node.
 import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import {runInNewContext} from "node:vm";
-import {Runtime} from "@observablehq/runtime";
-import {parseJavaScript} from "../node_modules/@observablehq/framework/dist/javascript/parse.js";
-import {transpileJavaScript} from "../node_modules/@observablehq/framework/dist/javascript/transpile.js";
-import {input} from "../node_modules/@observablehq/framework/dist/client/stdlib/generators/input.js";
+import {bindDiggingControls} from "../src/digging/controller.js";
 import {isDiggingSpell} from "../src/digging/model.js";
-import {evaluateComparison} from "../src/digging/comparison.js";
-import {DIGGING_DEFAULTS, readDiggingParams, diggingUrl, getDiggingSpellLimit} from "../src/digging/url.js";
+import {readInitialDiggingParams, getDiggingSpellLimit} from "../src/digging/url.js";
 
 const read = (path) => readFileSync(new URL(path, import.meta.url), "utf8");
 const spells = JSON.parse(read("../src/data/FULL_SPELLS_FINAL.json"));
@@ -26,61 +21,51 @@ const createOptions = runInNewContext(optionsSource + "\ncreateDiggingOptions", 
 const plain = (value) => JSON.parse(JSON.stringify(value));
 
 function loadPage(t, href = "https://example.test/digging") {
-  const created = [];
-  const copied = [];
+  const created = [], copied = [];
   const window = new EventTarget();
   window.location = {href};
   window.history = {state: {keep: true}, replaceState(state, title, next) {
-    assert.equal(state, this.state, "URL updates preserve navigation state");
+    assert.equal(state, this.state);
     window.location.href = next;
   }};
-  const runtime = new Runtime({
-    Generators: () => ({input}), Event: () => Event,
-    DIGGING_DEFAULTS: () => DIGGING_DEFAULTS,
-    readDiggingParams: () => readDiggingParams, diggingUrl: () => diggingUrl,
-    getDiggingSpellLimit: () => getDiggingSpellLimit,
-    createShareButton: () => (getUrl) => {
-      const button = {disabled: false, click() {if (!this.disabled) copied.push(getUrl());}};
-      return {button: {querySelector: () => button}, feedback: {}, clear() {}};
-    },
-    createResetButton: () => (Inputs, onReset) => Inputs.button("Reset", {reduce: onReset}),
-    isDiggingSpell: () => isDiggingSpell, evaluateComparison: () => evaluateComparison,
-    createDiggingOptions: () => createOptions,
-    FileAttachment: () => (path) => ({json: async () => path.includes("FULL_SPELLS") ? spells : materials}),
-    Inputs: () => ({toggle: ({value}) => new Control(value), button: (_, {reduce}) => ({click: reduce})}),
-    createDiggingSelect: () => (items, {value, multiple, maxItems = Infinity}) => {
-      const byId = new Map(items.map((item) => [item.id, item]));
-      const resolve = (ids) => multiple ? [...new Set(Array.isArray(ids) ? ids : ids ? [ids] : [])].map((id) => byId.get(id)).filter(Boolean).slice(0, maxItems)
-        : byId.get(ids) ?? null;
-      const element = new Control(resolve(value));
-      const picker = {element, items, multiple, maxItems, setValue(ids) {element.change(resolve(ids));}, dispose() {}};
-      created.push(picker);
-      return picker;
-    },
-  });
-  t.after(() => runtime.dispose());
-  const main = runtime.module();
-  const define = ({id, inputs = [], outputs = [], body}) => {
-    main.variable(true).define(`cell ${id}`, inputs, body);
-    for (const name of outputs) main.variable(true).define(name, [`cell ${id}`], (exports) => exports[name]);
+  const diggingSpells = spells.filter(isDiggingSpell);
+  const initial = readInitialDiggingParams(href, diggingSpells, materials);
+  const picker = (items, value, multiple, maxItems = Infinity) => {
+    const byId = new Map(items.map(item => [item.id, item]));
+    const resolve = ids => multiple ? [...new Set(Array.isArray(ids) ? ids : ids ? [ids] : [])].map(id => byId.get(id)).filter(Boolean).slice(0, maxItems) : byId.get(ids) ?? null;
+    const element = new Control(resolve(value));
+    const control = {element, items, multiple, maxItems, setValue(ids) {element.change(resolve(ids));}};
+    created.push(control); return control;
   };
-  let id = 0;
-  for (const [, code] of read("../src/digging.md").matchAll(/```js\r?\n([\s\S]*?)\r?\n```/g)) {
-    if (/^import /m.test(code)) continue;
-    const options = {id: String(id++), path: "/digging"};
-    runInNewContext(transpileJavaScript(parseJavaScript(code, options), options), {define, Event, window});
-  }
-  return {main, created, window, copied};
+  const spellPicker = picker(diggingSpells, initial.spells, true, getDiggingSpellLimit(href, diggingSpells, materials));
+  const materialPicker = picker(materials, initial.material, false);
+  const optionsControl = createOptions({radio: (_, {value}) => new Control(value), toggle: ({value}) => new Control(value)}, initial);
+  const fitControl = new Control(initial.fit);
+  let controller;
+  const share = {disabled: true, click() {if (!this.disabled) copied.push(controller.get().shareUrl);}};
+  const shareControl = {button: {querySelector: () => share}};
+  const resetButton = {click() {controller.reset();}};
+  controller = bindDiggingControls({spells: diggingSpells, materials, spellPicker, materialPicker, optionsControl, fitControl, window,
+    render(state) {share.disabled = !state.selectedSpells.length || !state.selectedMaterial;}});
+  t.after(() => {controller.dispose(); optionsControl.dispose();});
+  const controls = {spellPicker, materialPicker, optionsControl, fitControl, shareControl, resetButton};
+  return {main: {value(name) {return controls[name] ?? controller.get()[name];}}, created, window, copied};
 }
 
-test("comparison page starts empty, shares every selection, and resets all controls", async (t) => {
+test("comparison page starts with a shareable example, shares every selection, and resets all controls", async (t) => {
   const {main, created, window, copied} = loadPage(t);
+  assert.deepEqual((await main.value("comparisons")).map(({spell}) => spell.id), ["BOMB"]);
+  assert.equal((await main.value("selectedMaterial")).id, "rock_static");
+  assert.equal(await main.value("shareUrl"), "https://example.test/digging?spell=BOMB&material=rock_static");
+  assert.equal(window.location.href, await main.value("shareUrl"));
+  const share = (await main.value("shareControl")).button.querySelector("button");
+  assert.equal(share.disabled, false);
+  (await main.value("resetButton")).click();
   assert.deepEqual(await main.value("comparisons"), []);
   assert.deepEqual(await main.value("selectedSpells"), []);
   assert.equal(await main.value("selectedMaterial"), null);
   assert.equal(await main.value("spellAssumptions"), "");
   assert.equal(await main.value("shareUrl"), "https://example.test/digging");
-  const share = (await main.value("shareControl")).button.querySelector("button");
   assert.equal(share.disabled, true);
   const picker = await main.value("spellPicker");
   const target = await main.value("materialPicker");
@@ -100,12 +85,12 @@ test("comparison page starts empty, shares every selection, and resets all contr
   assert.equal(await main.value("shareUrl"), "https://example.test/digging?spell=DIGGER&spell=NUKE&material=soil");
   assert.equal(share.disabled, false);
   const controls = await main.value("optionsControl");
-  controls.glassCannon.change(true);
+  controls.glassCannon.change(1);
   assert.deepEqual(plain(await main.value("modifiers")), {glassCannon: 1, berserkium: false});
   entries = await main.value("comparisons");
   assert.ok(entries.every(({result}, i) => result.radius > [6, 250][i]));
-  controls.glassCannon2.change(true);
-  assert.equal(controls.glassCannon.value, false);
+  controls.glassCannon.change(2);
+  assert.equal(controls.glassCannon.value, 2);
   controls.berserkium.change(true);
   (await main.value("fitControl")).change(true);
   const href = "https://example.test/digging?spell=DIGGER&spell=NUKE&material=soil&fit=1&glassCannon=2&berserkium=1";

@@ -1,7 +1,5 @@
-// Observable preview serves only .js modules. npm scripts generate this bridge
-// from the pinned submodule, changing import extensions only—not calculations.
-import { init, run_queue_step } from "./_upstream/main.js";
-import { materialsFrom, materialsTo, maxShifts } from "./_upstream/fungal_materials.js";
+import { init, run_queue_step } from "../vendor/noita-fungal/main.mjs";
+import { materialsFrom, materialsTo, maxShifts } from "../vendor/noita-fungal/fungal_materials.mjs";
 export { compileGoals } from "./goals.js";
 export { maxShifts };
 
