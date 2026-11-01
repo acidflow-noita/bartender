@@ -14,9 +14,12 @@ goals.js retains the source constraint validation, with plain-language UI errors
 The worker runs upstream search without changed ranges, candidate pruning,
 probability weights, result ordering, or automatic job limits. This revision
 includes reroll-aware search and all 200 Hyper shifts.
-Material options follow the source seed-generated Set, including Air and custom
-additions, and accumulate across seed/mode changes. Bartender metadata provides
-labels/images only; it does not widen the selectable set.
+Before presenting a solution, Bartender replays its sequence and verifies every
+target and optional effect against the requested goals. A mismatch stops the
+search with an error; invalid candidates are not silently hidden.
+Material options include Bartender's full base-game catalog, with additional
+Apotheosis materials in those modes. Custom and restored IDs remain supported.
+The selector is not restricted to a seed's predicted shifts.
 
 The shift engine and Nolla PRNG derive from Lymm's Telescope:
 https://github.com/Lymm37/noita-telescope

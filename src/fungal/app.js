@@ -172,7 +172,7 @@ export function createFungalApp({base, apotheosis}) {
     <details class="fs-help"><summary>Add a custom material</summary><div class="fs-inline">${customInput}${customAdd}</div>${customStatus}</details>
     <details class="fs-help"><summary>How the planner works</summary>
       <p>Calculations come directly from the pinned noita-fungal submodule, including held-material rerolls and Hyper's 200 shifts. Results remain in their original discovery order.</p>
-      <p>Material options accumulate from generated shifts and custom additions, as in the original tool. Names and images come from Bartender.</p>
+      <p>Every material in Bartender’s catalog is available, including materials outside the seed’s predicted shifts. Apotheosis modes add their materials. You can also add a custom material ID.</p>
       <p>Search can be stopped at any time. Stopping keeps partial results and does not claim the search is complete.</p>
     </details>
   </div>`;

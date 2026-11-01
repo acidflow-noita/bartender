@@ -4,7 +4,7 @@ import {readFileSync} from "node:fs";
 import {createHash} from "node:crypto";
 import {getFungalShifts} from "../src/vendor/noita-fungal/fungal.mjs";
 import * as tables from "../src/vendor/noita-fungal/fungal_materials.mjs";
-import {sourceState, advanceSearch, compileGoals, predictionRows, recipeSteps, recipeView, worldRows, seedNumber, simulationView, maxShifts} from "../src/fungal/engine.js";
+import {sourceState, advanceSearch, compileGoals, predictionRows, recipeSteps, recipeView, recipeSatisfiesGoals, worldRows, seedNumber, simulationView, maxShifts} from "../src/fungal/engine.js";
 import * as shiftTests from "./fungal-shift-fixtures.js";
 
 const fixture = JSON.parse(readFileSync(new URL("./fungal-upstream-fixtures.json", import.meta.url)));
@@ -59,6 +59,7 @@ for (const expected of fixture.searches) {
     assert.equal(state.world_state.best_length, expected.best);
     assert.equal(state.solutions.length, expected.solutions);
     assert.equal(hash(state.solutions), expected.sha256, "all original recipes, in original order");
+    for (const recipe of state.solutions) assert.ok(recipeSatisfiesGoals(recipe,expected.goals), 'existing reference recipes must pass goal and replay validation');
     for (const example of fixture.ui.recipes.filter((r) => r.mode === expected.mode && r.seed === expected.seed)) {
       const result = recipeView(state.solutions[example.index]);
       const steps = result.steps.map((row) => ({iteration: row.iteration, cycle: row.cycle, presentation: row.held,

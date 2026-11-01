@@ -97,26 +97,27 @@ test("explicitly selecting Air still works and survives value/catalog refreshes"
   }
 });
 
-test("existing dropdowns append source additions; newly added fields use the source's ID sort", () => {
+test("dropdowns retain the full catalog, custom additions and stable option order", () => {
   const original = JSON.parse(read("./fungal-upstream-fixtures.json"));
   const base = JSON.parse(read("../src/data/FULL_MATERIALS_FINAL.json"));
   for (const snapshots of original.ui.catalogLifecycles) {
     const {seed, mode} = snapshots[0].action;
     const model = createModel({...emptySession(), seed, mode}, {base, apotheosis: [], workerFactory() { throw new Error("not searching"); }});
     const existing = field("air", true, model.get().catalog);
-    assert.deepEqual(Array.from(existing.choices.options, (o) => o.value), snapshots[0].existingOptions);
-    for (const {action, existingOptions, newOptions} of snapshots.slice(1)) {
+    const expected = [...new Set(['air',...base.map(material=>material.id)])].sort();
+    assert.deepEqual(Array.from(existing.choices.options, (o) => o.value), expected);
+    for (const {action} of snapshots.slice(1)) {
       if (action.type === "seed") model.setSeed(action.seed);
       else if (action.type === "mode") model.setMode(action.mode);
-      else model.addMaterial(action.id);
+      else {model.addMaterial(action.id);if(!expected.includes(action.id)) expected.push(action.id);}
       existing.setCatalog(model.get().catalog);
-      assert.deepEqual(Array.from(existing.choices.options, (o) => o.value), existingOptions, JSON.stringify(action));
+      assert.deepEqual(Array.from(existing.choices.options, (o) => o.value), expected, JSON.stringify(action));
       const added = field("air", true, model.get().catalog);
-      assert.deepEqual(Array.from(added.choices.options, (o) => o.value), newOptions);
+      assert.deepEqual(Array.from(added.choices.options, (o) => o.value), [...expected].sort());
     }
     model.reset();
     existing.setCatalog(model.get().catalog);
-    assert.deepEqual(Array.from(existing.choices.options, (o) => o.value), ["air"]);
+    assert.deepEqual(Array.from(existing.choices.options, (o) => o.value), [...new Set(['air',...base.map(material=>material.id)])].sort());
     model.dispose();
   }
 });

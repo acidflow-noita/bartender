@@ -78,6 +78,22 @@ export function recipeView(recipe) {
     world: worldRows(recipe.state)};
 }
 
+// Verify what the returned sequence actually does before showing it as a match.
+// The solver's candidate generation and shortest-path cutoff remain untouched.
+export function recipeSatisfiesGoals(recipe, constraints) {
+  if (!recipe || !Array.isArray(recipe.shifts) || !Array.isArray(recipe.held_materials)
+      || !Number.isInteger(recipe.length) || recipe.length < 1 || recipe.length > recipe.shifts.length
+      || !recipe.state || typeof recipe.state !== 'object' || Array.isArray(recipe.state)) return false;
+  if (recipe.held_materials.slice(0,recipe.length).some(value=>value != null && typeof value !== 'string')) return false;
+  try {
+    const world = recipeSteps(recipe.shifts, recipe.held_materials, recipe.length).world;
+    const keys = Object.keys(world);
+    if (keys.length !== Object.keys(recipe.state).length || keys.some(key=>world[key] !== recipe.state[key])) return false;
+    const resolve = id => Object.hasOwn(world,id) ? world[id] : id;
+    return constraints.every(({base,target,stain}) => resolve(base) === target && (!stain || resolve(target) === stain));
+  } catch { return false; }
+}
+
 export function simulationView(state) {
   const solution = state.simulationSolution == null ? null : state.search.recipes[state.simulationSolution];
   const limit = solution ? solution.length : maxShifts[state.mode];

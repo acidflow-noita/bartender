@@ -8,11 +8,11 @@ import {materialCatalog, selectedMaterial} from "../src/fungal/catalog.js";
 import {predictionRows, sourceState, advanceSearch, searchProgress, compileGoals, goalErrorMessage, simulationView, maxShifts} from "../src/fungal/engine.js";
 
 const original = JSON.parse(readFileSync(new URL("./fungal-upstream-fixtures.json", import.meta.url)));
-const sourceIds = (seed, mode) => ["air", ...original.catalogs.find((entry) => entry.seed === Number(seed) && entry.mode === mode).ids].sort();
 const ids = (model) => model.get().catalog.map((material) => material.id).sort();
 
 const base = JSON.parse(readFileSync(new URL("../src/data/FULL_MATERIALS_FINAL.json", import.meta.url)));
 const apotheosis = JSON.parse(execFileSync(process.execPath, ["src/data/apotheosis/materials.json.js"], {encoding: "utf8"}));
+const catalogIds = mode => [...new Set(['air', ...base.map(material=>material.id), ...(mode==='vanilla' ? [] : apotheosis.map(material=>material.id))])].sort();
 function fixture(initial = {}) {
   const workers = [];
   const model = createModel({...emptySession(), seed: "418190922", ...initial}, {base, apotheosis, workerFactory() {
@@ -25,14 +25,13 @@ function fixture(initial = {}) {
   return {model, workers};
 }
 
-test("seed changes use source options and retain earlier materials, without enumerating metadata", () => {
+test("the full material catalog stays available across seed changes and reset", () => {
   const {model} = fixture({seed: ""});
-  assert.deepEqual(ids(model), ["air"]);
+  assert.deepEqual(ids(model), catalogIds('vanilla'));
   model.setSeed("12");
-  assert.deepEqual(ids(model), sourceIds(12, "vanilla"));
+  assert.deepEqual(ids(model), catalogIds('vanilla'));
   model.setSeed("418190922");
-  const expected = [...new Set([...sourceIds(12, "vanilla"), ...sourceIds(418190922, "vanilla")])].sort();
-  assert.deepEqual(ids(model), expected);
+  assert.deepEqual(ids(model), catalogIds('vanilla'));
   const catalog = model.get().catalog;
   const world = model.get().world;
   model.setSeed("");
@@ -42,16 +41,16 @@ test("seed changes use source options and retain earlier materials, without enum
   assert.equal(model.get().catalog, catalog);
   assert.ok(model.get().seedError);
   model.reset();
-  assert.deepEqual(ids(model), ["air"]);
+  assert.deepEqual(ids(model), catalogIds('vanilla'));
   model.dispose();
 });
 
-test("fresh modes expose exactly their seed-generated IDs and original calculations", () => {
+test("fresh modes expose their full catalogs without changing predicted shifts", () => {
   const results = [];
   for (const mode of ["vanilla", "apotheosis", "apotheosis_bungal", "apotheosis_bungal_spam"]) {
     const {model} = fixture({mode});
     const state = model.get();
-    assert.deepEqual(ids(model), sourceIds(state.seed, mode));
+    assert.deepEqual(ids(model), catalogIds(mode));
     assert.deepEqual(state.world.all_shifts, sourceState(state.seed, [], mode).world_state.all_shifts);
     results.push(predictionRows(state.world.all_shifts[0]));
     model.dispose();
@@ -61,15 +60,16 @@ test("fresh modes expose exactly their seed-generated IDs and original calculati
 });
 
 for (const [number, snapshots] of original.ui.catalogLifecycles.entries()) {
-  test("source dropdown lifecycle " + (number + 1) + ": seed, mode, custom additions and duplicates", () => {
+  test("catalog lifecycle " + (number + 1) + ": seed, mode, custom additions and duplicates", () => {
     const first = snapshots[0].action;
     const {model} = fixture({seed: first.seed, mode: first.mode});
-    assert.deepEqual(ids(model), snapshots[0].ids);
-    for (const {action, ids: expected} of snapshots.slice(1)) {
+    const expected = new Set(catalogIds(first.mode));
+    assert.deepEqual(ids(model), [...expected].sort());
+    for (const {action} of snapshots.slice(1)) {
       if (action.type === "seed") model.setSeed(action.seed);
-      else if (action.type === "mode") model.setMode(action.mode);
-      else model.addMaterial(action.id);
-      assert.deepEqual(ids(model), expected, JSON.stringify(action));
+      else if (action.type === "mode") {model.setMode(action.mode);for(const id of catalogIds(action.mode)) expected.add(id);}
+      else {model.addMaterial(action.id);expected.add(action.id);}
+      assert.deepEqual(ids(model), [...expected].sort(), JSON.stringify(action));
     }
     model.dispose();
   });
@@ -187,14 +187,15 @@ test("restoring a copied setup reconstructs mode, goals, Air, cycle and held sta
   model.restore(setup);
   assert.deepEqual(model.snapshot(), setup);
   assert.equal(model.get().world.all_shifts.length, 29);
-  assert.deepEqual(ids(model), [...new Set([...before, ...sourceIds(12, setup.mode), "custom_liquid", "blood", "water", "oil", "air"])].sort());
+  assert.deepEqual(ids(model), [...new Set([...before, ...catalogIds(setup.mode), "custom_liquid", "blood", "water", "oil", "air"])].sort());
   model.dispose();
 });
 
 test("stopping keeps partial recipes and starting again sends a fresh unmodified search", () => {
   const {model, workers} = fixture({goals: [{base: "water", target: "oil", stain: "air"}]});
   model.startSearch();
-  workers[0].reply({type: "progress", progress: {finished: false}, recipes: [{length: 2}]});
+  workers[0].reply({type: "progress", progress: {finished: false}, recipes: [{length:1,held_materials:[],
+    shifts:[{NOTHING:{fromMaterials:['water'],toMaterial:'oil',useHeld:null}}],state:{water:'oil'}}]});
   model.stopSearch();
   assert.equal(model.get().search.status, "stopped");
   assert.equal(model.get().search.recipes.length, 1);
@@ -213,9 +214,18 @@ test("material value normalization handles the actual Choices scalar/array/empty
   assert.equal(materialCatalog(base, apotheosis, "vanilla", ["air"]).find((m) => m.id === "air").name, "Air");
 });
 
-test("metadata cannot make a material selectable until the source or user adds it", () => {
-  const {model} = fixture();
-  const unknown = base.find((material) => !ids(model).includes(material.id)).id;
+test("rare materials are selectable without predicting them and unknown IDs remain explicitly addable", () => {
+  const {model,workers} = fixture();
+  for(const id of ['cloud_slime','milk','urine','mimic_liquid','magic_liquid_hp_regeneration']) {
+    model.setGoal(0,'base',id);model.setHeld(0,id);
+    assert.equal(model.get().goals[0].base,id);
+    assert.equal(model.get().held[0],id);
+    assert.equal(model.get().catalog.find(material=>material.id===id).name,base.find(material=>material.id===id).name);
+  }
+  model.setGoal(0,'base','cloud_slime');model.setGoal(0,'target','milk');model.setGoal(0,'stain','urine');
+  model.startSearch();
+  assert.deepEqual(workers[0].message.constraints,[{base:'cloud_slime',target:'milk',stain:'urine'}]);
+  const unknown = 'custom_unlisted_material';
   const initial = model.get();
   model.setGoal(0, "base", unknown);
   model.setHeld(0, unknown);
@@ -225,7 +235,7 @@ test("metadata cannot make a material selectable until the source or user adds i
   model.setHeld(0, unknown);
   assert.equal(model.get().goals[0].base, unknown);
   assert.equal(model.get().held[0], unknown);
-  assert.equal(model.get().catalog.find((m) => m.id === unknown).name, base.find((m) => m.id === unknown).name);
+  assert.ok(model.get().catalog.some((m) => m.id === unknown));
   model.setGoal(0, "base", "air");
   model.clearHeld();
   model.setMode("apotheosis_bungal_spam");

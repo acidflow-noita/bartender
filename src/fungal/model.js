@@ -1,5 +1,5 @@
-import { sourceState, seedNumber, compileGoals, goalErrorMessage, MODES, maxShifts } from "./engine.js";
-import { materialCatalog, appendSourceMaterials } from "./catalog.js";
+import { sourceState, seedNumber, compileGoals, goalErrorMessage, recipeSatisfiesGoals, MODES, maxShifts } from "./engine.js";
+import { materialCatalog } from "./catalog.js";
 import { emptySession, EMPTY_GOAL, VIEWS, isMaterialId } from "./session.js";
 
 const idleSearch = () => ({status: "idle", progress: null, recipes: [], selected: 0, error: ""});
@@ -16,15 +16,17 @@ export function createModel(initial, {base, apotheosis, workerFactory}) {
   const notify = () => { if (!disposed) for (const listener of listeners) listener(state); };
   const patch = (changes) => { state = {...state, ...changes}; notify(); };
   function cancelWorker() { generation++; worker?.terminate(); worker = undefined; }
-  function catalogue(input, world, force = false) {
+  function catalogue(input, force = false) {
     const previousSize = materialIds.size;
-    appendSourceMaterials(materialIds, world);
+    materialIds.add('air');
+    for (const material of base) materialIds.add(material.id);
+    if (input.mode !== 'vanilla') for (const material of apotheosis) materialIds.add(material.id);
     if (!force && state && input.mode === state.mode && materialIds.size === previousSize) return state.catalog;
     return materialCatalog(base, apotheosis, input.mode, materialIds);
   }
   function calculate(input, previousWorld = null) {
     // seed_changed returns early for an empty seed; keep the last generated
-    // world and accumulated options until a new valid seed is supplied.
+    // world until a new valid seed is supplied. Choices come from the catalog.
     if (!input.seed.trim()) return {world: previousWorld, seedError: ""};
     try { return {world: sourceState(input.seed, [], input.mode).world_state, seedError: ""}; }
     catch (error) { return {world: null, seedError: error.message}; }
@@ -42,7 +44,7 @@ export function createModel(initial, {base, apotheosis, workerFactory}) {
     input.after = Math.max(0, Math.min(input.after, limit));
     input.transition = input.cycle === 28 ? limit : Math.max(1, Math.min(input.transition ?? limit, limit));
     const calculation = calculate(input, clear ? null : state?.world);
-    state = {...input, ...calculation, catalog: catalogue(input, calculation.world, true), search: idleSearch(), simulationSolution: null};
+    state = {...input, ...calculation, catalog: catalogue(input, true), search: idleSearch(), simulationSolution: null};
     notify();
   }
   restore(initial, true);
@@ -60,7 +62,7 @@ export function createModel(initial, {base, apotheosis, workerFactory}) {
       cancelWorker();
       const input = {...state, seed};
       const calculation = calculate(input, state.world);
-      patch({seed, ...calculation, catalog: catalogue(input, calculation.world), search: idleSearch(), simulationSolution: null});
+      patch({seed, ...calculation, catalog: catalogue(input), search: idleSearch(), simulationSolution: null});
     },
     setMode(mode) {
       if (!MODES.some((m) => m.id === mode) || mode === state.mode) return;
@@ -70,7 +72,7 @@ export function createModel(initial, {base, apotheosis, workerFactory}) {
       const transition = state.transition === previousLimit || state.cycle === 28 ? limit : Math.min(state.transition, limit);
       const input = {...state, mode, after, transition};
       const calculation = calculate(input, state.world);
-      patch({mode, after, transition, held: state.held.slice(0, limit), ...calculation, catalog: catalogue(input, calculation.world), search: idleSearch(), simulationSolution: null});
+      patch({mode, after, transition, held: state.held.slice(0, limit), ...calculation, catalog: catalogue(input), search: idleSearch(), simulationSolution: null});
     },
     setSpoilers(spoilers) { if (!!spoilers !== state.spoilers) patch({spoilers: !!spoilers}); },
     setView(view) { if (VIEWS.includes(view) && view !== state.view) patch({view}); },
@@ -136,6 +138,13 @@ export function createModel(initial, {base, apotheosis, workerFactory}) {
             cancelWorker(); patch({search: {...state.search, status: "error", error: data.message}}); return;
           }
           if (data.type !== "progress") return;
+          if (!Array.isArray(data.recipes) || data.recipes.some(recipe=>!recipeSatisfiesGoals(recipe,constraints))) {
+            // Stop instead of silently hiding a bad candidate: it may already
+            // have changed the upstream solver's shortest-path cutoff.
+            cancelWorker();
+            patch({search:{...state.search,status:'error',error:'A returned recipe does not satisfy every goal. Search stopped.'}});
+            return;
+          }
           const recipes = data.recipes.length ? [...state.search.recipes, ...data.recipes] : state.search.recipes;
           if (data.progress.finished) cancelWorker();
           patch({search: {...state.search, recipes, progress: data.progress, status: data.progress.finished ? "complete" : "running"}});

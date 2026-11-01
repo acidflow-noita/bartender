@@ -20,7 +20,8 @@ function tick() {
     const deadline = performance.now() + 20;
     do { advanceSearch(state); } while (!state.finished && performance.now() < deadline);
     // Send all new source recipes in their original order, without truncation,
-    // sorting, altered held materials, or a second mathematical verifier.
+    // sorting or altered held materials. The model validates each returned
+    // sequence before presenting it as a solution.
     self.postMessage({type: "progress", progress: searchProgress(state), recipes: state.solutions.slice(sent)});
     sent = state.solutions.length;
     if (!state.finished) timer = setTimeout(tick, 0);

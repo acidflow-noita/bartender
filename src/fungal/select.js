@@ -41,7 +41,7 @@ export function materialSelect(catalog, {label, value = "air", count = false, pl
     choices: options([...catalog].sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0), value === "air" ? "" : value), allowHTML: false, shouldSort: false,
     maxItemCount: 1, singleModeForMultiSelect: true, closeDropdownOnSelect: true,
     renderSelectedChoices: "always", removeItemButton: true, itemSelectText: "",
-    searchEnabled: true, searchFields: ["label", "value"], searchResultLimit: 100, renderChoiceLimit: -1,
+    searchEnabled: true, searchFields: ["label", "value"], searchResultLimit: 100, renderChoiceLimit: 100,
     placeholder: true, placeholderValue: placeholder,
     callbackOnCreateTemplates() {
       const decorate = (kind, args) => {

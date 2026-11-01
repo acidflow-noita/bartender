@@ -23,9 +23,12 @@ reroll-aware search, and searches all 200 Hyper shifts (20 in other modes).
   dependency, checking status and JavaScript content type. This catches preview
   routing errors that a successful production build cannot detect.
 - Worker tests exercise all four modes and the model → worker → model path.
+- Returned recipes are replayed and checked against all requested targets and
+  effects before display. A failed check stops the search, since an invalid
+  candidate may have changed the upstream shortest-path cutoff.
 - Model tests cover selected solutions inside Simulation, manual edits, NG+
   transitions, 200-shift controls, copied-link reproduction, mode changes,
-  cancellation, source-derived options, and Air's non-shiftable sentinel role.
+  cancellation, complete material catalogs, and Air's non-shiftable sentinel role.
 - URL tests cover readable material IDs instead of escaped JSON, older query/hash
   links, immediate/coalesced address updates, History API errors, and copy fallback.
 - Table tests use Bootstrap tables without row selection or sorting, preserving
@@ -52,5 +55,5 @@ Manual browser testing is left to the user. `npm test` requires no `task/` clone
 
 Air remains available and is explicitly labeled **not shiftable**. Empty controls
 remain visually empty while using the source Air sentinel. Material options come
-from generated shifts plus explicit additions, not the metadata database. Copies
+from the complete base-game catalog, mode-specific mod materials, and explicit additions. Copies
 of a solution retain its held materials and NG+ transition in the readable URL.

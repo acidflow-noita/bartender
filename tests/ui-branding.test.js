@@ -82,6 +82,6 @@ test('home cards remain direct Bootstrap columns without implicit HTL span wrapp
   for (const column of row.children) {
     assert.ok(column.classList.contains('col-6'), 'the direct row child must be a half-width mobile column');
     assert.equal(column.classList.contains('lg:col-3'), false, 'the four cards stay in two rows on desktop');
-    assert.ok(column.querySelector(':scope > article.feature-card'));
+    assert.ok(column.querySelector(':scope > article.feature-card.h-100'));
   }
 });

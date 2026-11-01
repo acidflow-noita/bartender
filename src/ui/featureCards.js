@@ -56,7 +56,7 @@ export function featureCards() {
     ${cards.map(
       ({ href, title, description, images, bottomPadding = [], sidePadding = [] }) =>
         html`<div class="col-6">
-          <article class="card feature-card">
+          <article class="card feature-card h-100">
             <div
               class="card-img-top feature-art"
               aria-hidden="true"
