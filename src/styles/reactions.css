@@ -1,7 +1,7 @@
 @layer custom {
   .reaction-filters { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; gap: var(--spacer-4); align-items: start; }
-  .reaction-filters > .form-field { min-inline-size: 0; }
-  .reaction-filter-actions { align-self: end; }
+  .reaction-filters .form-field { min-inline-size: 0; }
+  .reaction-product-group { display: contents; }
   .reaction-workspace { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--spacer-4); align-items: start; }
   .reaction-workspace > * { min-inline-size: 0; overflow: hidden; }
   .reaction-results .data-table { scrollbar-gutter: auto; }
@@ -41,6 +41,10 @@
   }
   .reaction-options > summary, .reaction-examples > summary { cursor: pointer; }
   @media (min-width: 800px) {
+    .reaction-product-group { display: grid; grid-column: 2 / -1; grid-template-columns: subgrid; row-gap: .5rem; align-items: center; }
+    .reaction-product-group > .form-field { display: contents; }
+    .reaction-product-group .form-label { grid-column: 1 / -1; }
+    .reaction-filter-actions button { --btn-min-height: var(--btn-input-lg-min-height); }
     .reaction-options > summary, .reaction-examples > summary { display: none; }
   }
   @media (max-width: 799.98px) {

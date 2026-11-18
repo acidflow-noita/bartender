@@ -76,8 +76,11 @@ export async function mount(host) {
     <section class="card mb-4" aria-label="Reaction filters"><div class="card-body p-4 gap-3">
       <div class="reaction-filters">
         <div class="form-field"><label class="form-label" for="reagent-search">Ingredients (max 3)</label>${reagentSelect}</div>
-        <div class="form-field"><label class="form-label" for="product-search">Product</label>${productSelect}</div>
-        <div class="reaction-filter-actions d-flex gap-2">${reset}${share.button}</div></div>
+        <div class="reaction-product-group">
+          <div class="form-field"><label class="form-label" for="product-search">Product</label>${productSelect}</div>
+          <div class="reaction-filter-actions d-flex gap-2">${reset}${share.button}</div>
+        </div>
+      </div>
       ${filters}${share.feedback}
     </div></section>
     <div class="reaction-workspace"><section class="card reaction-results" aria-label="Matching reactions">
