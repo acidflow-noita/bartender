@@ -10,6 +10,11 @@ export function icon(name) {
   return node;
 }
 
+// Same icon as markup, for UI built from HTML strings.
+export function iconMarkup(name) {
+  return icon(name).outerHTML;
+}
+
 export function iconLabel(name, label) {
   return html.fragment`${icon(name)}${label}`;
 }

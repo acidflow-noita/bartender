@@ -49,37 +49,13 @@ export class ChoicesInitializer {
 
       if (reagentSelectorElement.classList.contains("choices__input")) return;
 
-      const templates = createChoicesTemplates(Choices, {getItem: id => this.dataRepo.getMaterial(id), getImageUrl: id => UIHelper.getMaterialImageUrl(id, this.dataRepo)});
-
-      // Initialize reagent choices
-      const reagentChoices = new Choices(reagentSelectorElement, {
-        silent: false,
-        maxItemCount: CONFIG.ui.maxReagentSelection,
-        allowHTML: false,
-        placeholder: true,
-        placeholderValue: "Search Reagents",
-        removeItemButton: true,
-        choices: this.reactionFilter.getAvailableReagents(this.state.selectedReagents, this.state.selectedProduct),
-        searchEnabled: true,
-        renderSelectedChoices: "auto",
-        callbackOnCreateTemplates: templates,
-        noChoicesText: "There are no reactions with one more ingredient",
-      });
-
-      // Initialize product choices
-      const productChoices = new Choices(productSelectorElement, {
-        silent: false,
-        maxItemCount: CONFIG.ui.maxProductSelection,
-        allowHTML: false,
-        placeholder: true,
-        placeholderValue: "Search Products",
-        removeItemButton: true,
-        choices: this.reactionFilter.getAvailableProducts(this.state.selectedReagents),
-        searchEnabled: true,
-        renderSelectedChoices: "always",
-        maxItemText: () => "You can only search for one product at a time",
-        callbackOnCreateTemplates: templates,
-      });
+      const { reagentChoices, productChoices } = this.createChoicesPair(
+        Choices,
+        reagentSelectorElement,
+        productSelectorElement,
+        this.state.selectedReagents,
+        this.state.selectedProduct,
+      );
 
       // Store choices instances
       this.state.update({
@@ -99,6 +75,67 @@ export class ChoicesInitializer {
     } catch (error) {
       throw error;
     }
+  }
+
+  // Reusable factory that instantiates a bound reagent+product pair of Choices.js selectors on
+  // arbitrary <select> elements. Used both for the legacy top-of-page selectors (single
+  // selection mode, see initialize() above) and for each row of the ReactionSetPanel (multi-set
+  // mode), so both share the same look, templates, and narrowing behavior.
+  createChoicesPair(Choices, reagentEl, productEl, initialReagents = [], initialProduct = "", options = {}) {
+    const {
+      maxReagentSelection = CONFIG.ui.maxReagentSelection,
+      maxProductSelection = CONFIG.ui.maxProductSelection,
+      availableReagents = this.reactionFilter.getAvailableReagents(initialReagents, initialProduct),
+      availableProducts = this.reactionFilter.getAvailableProducts(initialReagents),
+    } = options;
+    const templates = createChoicesTemplates(Choices, {getItem: id => this.dataRepo.getMaterial(id), getImageUrl: id => UIHelper.getMaterialImageUrl(id, this.dataRepo)});
+
+    const reagentChoices = new Choices(reagentEl, {
+      silent: false,
+      maxItemCount: maxReagentSelection,
+      allowHTML: false,
+      placeholder: true,
+      placeholderValue: "Search Reagents",
+      removeItemButton: true,
+      choices: availableReagents,
+      searchEnabled: true,
+      renderSelectedChoices: "auto",
+      callbackOnCreateTemplates: templates,
+      noChoicesText: "There are no reactions with one more ingredient",
+    });
+
+    const productChoices = new Choices(productEl, {
+      silent: false,
+      maxItemCount: maxProductSelection,
+      allowHTML: false,
+      placeholder: true,
+      placeholderValue: "Search Products",
+      removeItemButton: true,
+      choices: availableProducts,
+      searchEnabled: true,
+      renderSelectedChoices: "always",
+      maxItemText: () => "You can only search for one product at a time",
+      callbackOnCreateTemplates: templates,
+    });
+
+    initialReagents.forEach((id) => reagentChoices.setChoiceByValue(id));
+    if (initialProduct) productChoices.setChoiceByValue(initialProduct);
+
+    return { reagentChoices, productChoices };
+  }
+
+  // Refreshes the option list of an existing Choices.js instance in place (used whenever the
+  // set of available reagents/products narrows because of another selection change), while
+  // preserving currently selected values that are still valid.
+  static refreshChoices(choicesInstance, availableChoices, selectedValues = []) {
+    if (!choicesInstance?.initialised) return;
+    choicesInstance.clearStore();
+    choicesInstance.setChoices(availableChoices, "value", "label", true);
+    selectedValues.forEach((value) => {
+      if (availableChoices.some((c) => c.value === value)) {
+        choicesInstance.setChoiceByValue(value);
+      }
+    });
   }
 
   setupEventHandlers(reagentSelectorElement, productSelectorElement) {

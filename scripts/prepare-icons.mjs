@@ -1,7 +1,9 @@
 import {mkdirSync, readFileSync, writeFileSync} from 'node:fs';
 
-const names = ['arrow-counterclockwise', 'arrow-down', 'arrow-up', 'box-arrow-up-right', 'copy', 'download',
-  'eye', 'eye-slash', 'github', 'list', 'plus-lg', 'tag', 'x-lg'];
+const names = ['arrow-counterclockwise', 'arrow-down', 'arrow-up', 'arrows-collapse', 'arrows-expand', 'box-arrow-up-right',
+  'bullseye', 'chevron-down', 'chevron-right', 'clipboard', 'copy', 'download', 'eye', 'eye-slash', 'filetype-csv', 'floppy', 'folder-minus',
+  'folder-plus', 'folder2-open', 'fullscreen', 'fullscreen-exit', 'github', 'grip-vertical', 'list', 'pause-fill', 'play-fill', 'plus-lg', 'sliders', 'tag',
+  'trash3', 'upload', 'x-lg'];
 const paths = Object.fromEntries(names.map(name => {
   const svg = readFileSync(new URL(`../node_modules/bootstrap-icons/icons/${name}.svg`, import.meta.url), 'utf8');
   const body = svg.match(/<svg\b[^>]*>([\s\S]*?)<\/svg>/)?.[1];

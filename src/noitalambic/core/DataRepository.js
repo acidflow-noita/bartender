@@ -6,7 +6,8 @@ import {getUnusedMaterialIds, reactionUsesUnusedMaterial} from "../../components
 
 export class DataRepository {
   constructor(materials, reactionSources, materialAssociations, materialAvailability) {
-    this.materialsMap = new Map(materials.map((m) => [m.id, m]));
+    this.baseMaterialsMap = new Map(materials.map((m) => [m.id, m]));
+    this.materialsMap = new Map(this.baseMaterialsMap);
     this.reactionSources = reactionSources;
     this.currentSource = "base";
     this.reactions = reactionSources["base"].reactions;
@@ -14,6 +15,7 @@ export class DataRepository {
     this.unusedMaterialIds = getUnusedMaterialIds(materialAvailability);
     this.excludeUnusedMaterials = true;
     this._rebuildIndexes();
+    this._ensureMaterialsExist();
   }
 
   setExcludeUnusedMaterials(enabled) {
@@ -39,8 +41,51 @@ export class DataRepository {
 
     this.currentSource = sourceId;
     this.reactions = this.reactionSources[sourceId].reactions;
+
+    // Merge source-specific materials if they exist
+    if (this.reactionSources[sourceId].materials) {
+      this.materialsMap = new Map([
+        ...this.baseMaterialsMap,
+        ...this.reactionSources[sourceId].materials.map((m) => [m.id, m]),
+      ]);
+    } else {
+      this.materialsMap = new Map(this.baseMaterialsMap);
+    }
+
     this._rebuildIndexes();
+    this._ensureMaterialsExist();
     return true;
+  }
+
+  _ensureMaterialsExist() {
+    // Auto-create missing materials referenced in reactions
+    const missingMaterials = new Set();
+
+    this.reactions.forEach((reaction) => {
+      [reaction.reagent1, reaction.reagent2, reaction.reagent3, reaction.product1, reaction.product2, reaction.product3]
+        .filter(Boolean)
+        .forEach((id) => {
+          if (!this.isTag(id) && !this.materialsMap.has(id)) {
+            missingMaterials.add(id);
+          }
+        });
+    });
+
+    // Create placeholder materials for missing ones
+    // Using 'air' as the image to avoid broken images
+    missingMaterials.forEach((id) => {
+      this.materialsMap.set(id, {
+        id: id,
+        name: id.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()),
+        type: "unknown",
+        color: "#808080",
+        imageId: "air", // Use air texture for missing materials
+      });
+    });
+
+    if (missingMaterials.size > 0) {
+      console.log(`Created ${missingMaterials.size} placeholder materials for ${this.currentSource}`);
+    }
   }
 
   getAvailableSources() {

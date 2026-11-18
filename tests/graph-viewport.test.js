@@ -30,12 +30,19 @@ test('scrolling a tall page does not zoom the graph, while modifier zoom and nor
   installDom(t);const container=document.createElement('div');document.body.append(container);
   const wheel={type:'wheel',button:0,ctrlKey:false,metaKey:false};
   assert.equal(allowGraphGesture(wheel,container),true);
+  document.documentElement.style.height='5000px';
+  assert.equal(allowGraphGesture(wheel,container),true,'a fully visible graph zooms even when the page itself scrolls');
+  container.getBoundingClientRect=()=>({top:-50,bottom:300,height:350});
+  assert.equal(allowGraphGesture(wheel,container),false,'a graph scrolled partly off screen lets the wheel scroll the page');
+  delete container.getBoundingClientRect;
   container.dataset.viewportOverflow='true';
   assert.equal(allowGraphGesture(wheel,container),false);
   assert.equal(allowGraphGesture({...wheel,ctrlKey:true},container),true);
   assert.equal(allowGraphGesture({...wheel,metaKey:true},container),true);
-  assert.equal(allowGraphGesture({type:'mousedown',button:0,ctrlKey:false},container),true);
-  assert.equal(allowGraphGesture({type:'mousedown',button:0,ctrlKey:true},container),false);
+  assert.equal(allowGraphGesture({type:'mousedown',button:0,ctrlKey:false},container),false,'the left button selects, it does not pan');
+  assert.equal(allowGraphGesture({type:'mousedown',button:2,ctrlKey:false},container),true,'the right button pans');
+  assert.equal(allowGraphGesture({type:'mousedown',button:1,ctrlKey:false},container),true,'the middle button pans too');
+  assert.equal(allowGraphGesture({type:'touchstart',ctrlKey:false},container),true,'touch still pans');
 });
 
 test('resizing updates the SVG viewport without resetting its zoom transform', t => {

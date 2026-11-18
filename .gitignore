@@ -11,6 +11,8 @@ yarn-error.log
 /src/generated/
 /build/
 /src/data/jsons/tags/
+# CDN mirror of material textures for the graph export (npm run images:sync)
+/src/data/images/materials-cdn/
 /.wrangler/
 
 /.agents/
