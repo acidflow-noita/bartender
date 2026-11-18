@@ -1,67 +1,116 @@
-import {pageHeading} from '../ui/heading.js';
 import {html} from 'htl';
 import Choices from 'choices.js';
+import {pageHeading} from '../ui/heading.js';
 import * as Controls from '../ui/controls.js';
-import {table} from '../ui/table.js';
+import {sortRows, table} from '../ui/table.js';
 import {loadDatasets} from '../ui/data.js';
 import {materialCell, IMAGE_BASE} from '../ui/material.js';
+import {icon} from '../ui/icons.js';
 import {createReactionFinder} from '../reactions/model.js';
-import {createChoicesTemplates} from '../components/choicesTemplates.js';
 import {createResetButton} from '../components/resetButton.js';
 import {createShareButton} from '../components/shareButton.js';
 import {getUnusedMaterialIds} from '../components/materialAvailability.js';
 import {readReactionReagents, reactionUrl} from '../components/reactionUrl.js';
 import {reactionIntroduction, applyReactionExample} from '../reactions/introduction.js';
-import {numberText} from '../ui/format.js';
+import {createChoicesTemplates} from '../components/choicesTemplates.js';
+import {recipeCells} from '../reactions/experiment.js';
+import {createReactionPreview} from '../reactions/preview.js';
+import '../styles/liquids.css';
+import '../styles/reactions.css';
 
 export async function mount(host) {
-  const [materials, reactions, availability] = await loadDatasets(['reactionMaterials', 'reactions', 'availability']);
-  const materialsMap = new Map(materials.map(material => [material.id, material]));
-  const defaults = {selectedReagents: [], selectedProduct: '', excludeSpecialMaterials: true, onlyPracticalReactions: true, excludeUnusedMaterials: true};
+  const [materials, simulation, availability] = await loadDatasets(['reactionMaterials', 'liquidSimulation', 'availability']);
+  const {reactions} = simulation;
+  const byId = new Map(materials.map(material => [material.id, material]));
+  const names = new Set(), ambiguous = new Set();
+  for (const material of materials) {
+    if (names.has(material.name)) ambiguous.add(material.name);
+    names.add(material.name);
+  }
+  const name = id => byId.get(id)?.name ?? id;
+  const numbers = new Map(reactions.map((rule, i) => [rule, i + 1]));
+  const defaults = {selectedReagents: [], selectedProduct: '', selectedReaction: null, excludeSpecialMaterials: true, onlyPracticalReactions: true, excludeUnusedMaterials: true};
   const state = {...defaults};
   const readAddress = () => {
     const params = new URLSearchParams(location.search);
-    Object.assign(state, {selectedReagents: readReactionReagents(location.href), selectedProduct: params.get('product') || '',
+    Object.assign(state, {selectedReagents: readReactionReagents(location.href), selectedProduct: params.get('product') || '', selectedReaction: Number(params.get('reaction')) || null,
       excludeSpecialMaterials: params.get('excludeSpecial') !== 'false', onlyPracticalReactions: params.get('onlyPractical') !== 'false',
       excludeUnusedMaterials: params.get('excludeUnused') !== 'false'});
   };
   readAddress();
   const finder = createReactionFinder(materials, reactions, getUnusedMaterialIds(availability), state);
   const introduction = reactionIntroduction(materials, reactions.length);
-  finder.clearUnusedSelections();
   const reagentSelect = html`<select id="reagent-search" multiple aria-label="Ingredients"></select>`;
   const productSelect = html`<select id="product-search" multiple aria-label="Product"></select>`;
   const special = Controls.toggle({label: 'Exclude Mimicium, Alchemic Precursor and Draught of Midas', value: state.excludeSpecialMaterials});
   const practical = Controls.toggle({label: 'Only practical reactions (speed higher than 5)', value: state.onlyPracticalReactions});
   const unused = Controls.toggle({label: 'Exclude unused materials', value: state.excludeUnusedMaterials});
-  const count = html`<span class="fg-3" role="status"></span>`;
+  const count = html`<span class="small fg-3" role="status"></span>`;
   const share = createShareButton(() => reactionUrl(location.href, state), Controls);
-  const reset = createResetButton(Controls, () => {Object.assign(state, {...defaults, selectedReagents: []}); update();});
-  const columns = ['reaction_rate', 'input_cell1', 'input_cell2', 'input_cell3', 'output_cell1', 'output_cell2', 'output_cell3'];
-  const results = table([], {columns, sort: 'reaction_rate', reverse: true, rows: 5, compact: true, fitViewport: true, viewportGap: 0, width: {reaction_rate: 80}, minWidth: '64rem',
-    header: {reaction_rate: 'Speed', input_cell1: html`<span>1<sup>st</sup> ingredient</span>`, input_cell2: html`<span>2<sup>nd</sup> ingredient</span>`, input_cell3: html`<span>3<sup>rd</sup> ingredient</span>`,
-      output_cell1: html`<span>1<sup>st</sup> product</span>`, output_cell2: html`<span>2<sup>nd</sup> product</span>`, output_cell3: html`<span>3<sup>rd</sup> product</span>`},
-    format: Object.fromEntries(columns.slice(1).map(key => [key, id => materialCell(materialsMap.get(id), id)])),
+  const reset = createResetButton(Controls, () => {Object.assign(state, defaults); selected = null; update();});
+  const writeUrl = () => {history.replaceState(history.state, '', reactionUrl(location.href, state)); share.clear();};
+  const preview = createReactionPreview(simulation.materials, byId);
+  const wide = matchMedia('(min-width: 800px)');
+  const examples = html`<details class="reaction-examples" open=${wide.matches}><summary>Recipe examples</summary>${introduction}</details>`;
+  const filters = html`<details class="reaction-options" open=${wide.matches}><summary>Filter options</summary>
+    <div class="d-flex flex-wrap align-items-center row-gap-2 column-gap-5">${special}${practical}${unused}</div></details>`;
+  const layout = () => {examples.open = wide.matches; filters.open = wide.matches;};
+  wide.addEventListener('change', layout);
+  let descending = true, selected = null, matches = [];
+  const indicator = html`<span class="table-sort-indicator" aria-hidden="true"></span>`;
+  const speed = html`<button type="button" class="btn-text btn-sm">Speed${indicator}</button>`;
+  const slots = (row, side) => html`<ul class="reaction-slots list-unstyled m-0">${recipeCells(row, side).map(id => {
+    const material = byId.get(id);
+    return html`<li data-ambiguous=${ambiguous.has(material?.name) ? '' : null} title=${id}>${materialCell(material, id, {linkIdOnly: true})}</li>`;
+  })}</ul>`;
+  const radio = row => html`<input type="radio" class="radio" name="preview-reaction" aria-controls="reaction-preview" value=${numbers.get(row)} checked=${row === selected}
+    aria-label=${'Preview ' + recipeCells(row, 'input').map(name).join(' + ') + ' yielding ' + recipeCells(row, 'output').map(name).join(' + ')}>`;
+  const results = table([], {columns: ['pick', 'inputs', 'outputs', 'reaction_rate'], compact: true, rows: 5, fitViewport: true, viewportGap: 0, height: 'clamp(17rem, 56dvh, 42rem)',
+    sortable: false, width: {pick: '2.25rem', reaction_rate: '4.75rem'}, header: {
+      pick: html`<span class="visually-hidden">Preview</span>`, inputs: 'Ingredients', outputs: 'Products', reaction_rate: speed},
+    format: {pick: (_, i, row) => radio(row), inputs: (_, i, row) => slots(row, 'input'), outputs: (_, i, row) => slots(row, 'output')},
     align: {reaction_rate: 'right'}, caption: 'Material reactions'});
-  results.overflowHint.classList.remove('px-4', 'py-2');
-  host.replaceChildren(html`<div class="reactions-page">${pageHeading("Reactions Finder", {compact: true})}
-    ${introduction}
-    <section class="card mb-3 lg:mb-4" aria-label="Reaction filters"><div class="card-body p-3 gap-3">
-      <div><div class="row g-3"><div class="col-12 lg:col-7 form-field"><label class="form-label" for="reagent-search">Ingredients (max 3)</label>${reagentSelect}</div>
-        <div class="col-12 lg:col-5 form-field"><label class="form-label" for="product-search">Product</label>${productSelect}</div></div></div>
-      <div class="d-flex flex-wrap align-items-center gap-3 row-gap-2 column-gap-5">
-        ${special}${practical}${unused}
-        <div class="d-flex align-items-center gap-3 ms-auto">${reset}${share.button}</div>
-      </div>${share.feedback}
+  const noResults = html`<p class="p-4 mb-0 fg-3" hidden>No reactions match these filters.</p>`;
+  host.replaceChildren(html`<div class="reactions-page">${pageHeading('Reactions Finder', {compact: true})}
+    ${examples}
+    <section class="card mb-4" aria-label="Reaction filters"><div class="card-body p-4 gap-3">
+      <div class="reaction-filters">
+        <div class="form-field"><label class="form-label" for="reagent-search">Ingredients (max 3)</label>${reagentSelect}</div>
+        <div class="form-field"><label class="form-label" for="product-search">Product</label>${productSelect}</div>
+        <div class="reaction-filter-actions d-flex gap-2">${reset}${share.button}</div></div>
+      ${filters}${share.feedback}
     </div></section>
-    <section class="card overflow-hidden mb-2"><div class="card-header flex-row flex-wrap align-items-center justify-content-between gap-2 py-2"><h2 class="mb-0 text-nowrap">Reactions: ${count}</h2>${results.overflowHint}</div>${results}</section>
+    <div class="reaction-workspace"><section class="card reaction-results" aria-label="Matching reactions">
+      <div class="card-header px-4 py-3 d-flex flex-row align-items-baseline gap-3"><h2 class="h5 mb-0">Reactions</h2>${count}</div>
+      ${results}${noResults}</section>${preview.element}</div>
   </div>`);
-  const templates = createChoicesTemplates(Choices, {getItem: id => materialsMap.get(id), getImageUrl: id => `${IMAGE_BASE}/materials/Material_${id}.png`});
+  const templates = createChoicesTemplates(Choices, {getItem: id => byId.get(id), getImageUrl: id => `${IMAGE_BASE}/materials/Material_${id}.png`});
   const common = {allowHTML: false, removeItemButton: true, searchEnabled: true, itemSelectText: '',
     callbackOnCreateTemplates: templates, shouldSort: false, searchResultLimit: 100, renderChoiceLimit: 100};
   const reagents = new Choices(reagentSelect, {...common, maxItemCount: 3, placeholderValue: 'Search ingredients'});
   const products = new Choices(productSelect, {...common, maxItemCount: 1, placeholderValue: 'Search products'});
   let updating = false;
+  const select = row => {selected = row; preview.select(row);};
+  results.addEventListener('change', event => {
+    if (event.target.name !== 'preview-reaction') return;
+    state.selectedReaction = Number(event.target.value);
+    select(reactions[state.selectedReaction - 1]); writeUrl();
+  });
+  results.addEventListener('click', event => {
+    if (event.target.closest('a, button, input') || window.getSelection()?.toString()) return;
+    event.target.closest('tbody tr')?.querySelector('input[type=radio]')?.click();
+  });
+  function renderMatches() {
+    const ordered = descending ? matches : sortRows(matches, 'reaction_rate');
+    const requested = reactions[state.selectedReaction - 1];
+    const anchor = requested && ordered.includes(requested) ? requested : null;
+    if (!anchor) state.selectedReaction = null;
+    select(anchor ?? ordered.slice(0, 8).find(row => row.input_cell2 !== 'air' && !row.entity_file) ?? ordered[0] ?? null);
+    speed.closest('th').setAttribute('aria-sort', descending ? 'descending' : 'ascending');
+    indicator.replaceChildren(icon(descending ? 'arrow-down' : 'arrow-up'));
+    results.setData(ordered, anchor);
+  }
+  speed.addEventListener('click', () => {descending = !descending; renderMatches();});
   function update() {
     updating = true;
     try {
@@ -73,9 +122,9 @@ export async function mount(host) {
       reagents.setChoiceByValue(state.selectedReagents.filter(id => availableReagents.some(item => item.value === id)));
       if (availableProducts.some(item => item.value === state.selectedProduct)) products.setChoiceByValue(state.selectedProduct);
       special.value = state.excludeSpecialMaterials; practical.value = state.onlyPracticalReactions; unused.value = state.excludeUnusedMaterials;
-      const rows = finder.getFilteredReactions(state.selectedReagents, state.selectedProduct);
-      results.setData(rows); count.replaceChildren(html.fragment`${numberText(rows.length)} found`);
-      history.replaceState(history.state, '', reactionUrl(location.href, state)); share.clear();
+      matches = finder.getFilteredReactions(state.selectedReagents, state.selectedProduct);
+      renderMatches(); count.textContent = matches.length.toLocaleString() + ' found';
+      noResults.hidden = !!matches.length; writeUrl();
     } finally {updating = false;}
   }
   reagentSelect.addEventListener('change', () => {if (!updating) {state.selectedReagents = reagents.getValue(true); update();}});
@@ -90,7 +139,7 @@ export async function mount(host) {
   });
   practical.addEventListener('input', () => {state.onlyPracticalReactions = practical.value; update();});
   unused.addEventListener('input', () => {state.excludeUnusedMaterials = unused.value; update();});
-  const restore = () => {readAddress(); update();};
+  const restore = () => {readAddress(); selected = null; update();};
   const example = event => {
     const link = event.target.closest('[data-example-material]');
     if (!link || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
@@ -100,5 +149,5 @@ export async function mount(host) {
   };
   introduction.addEventListener('click', example);
   window.addEventListener('popstate', restore); update();
-  return () => {share.dispose(); window.removeEventListener('popstate', restore); introduction.removeEventListener('click', example); reagents.destroy(); products.destroy(); results.dispose();};
+  return () => {share.dispose(); preview.dispose(); reagents.destroy(); products.destroy(); wide.removeEventListener('change', layout); window.removeEventListener('popstate', restore); results.dispose();};
 }

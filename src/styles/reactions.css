@@ -1,0 +1,50 @@
+@layer custom {
+  .reaction-filters { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; gap: var(--spacer-4); align-items: start; }
+  .reaction-filters > .form-field { min-inline-size: 0; }
+  .reaction-filter-actions { align-self: end; }
+  .reaction-workspace { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--spacer-4); align-items: start; }
+  .reaction-workspace > * { min-inline-size: 0; overflow: hidden; }
+  .reaction-results .data-table { scrollbar-gutter: auto; }
+  .reaction-results tbody tr { cursor: pointer; }
+  .reaction-results tr:has(.radio:checked) > td { background-color: var(--bg-2); }
+  .reaction-results tr:has(.radio:checked) > td:first-child { box-shadow: inset 3px 0 currentColor; }
+  .reaction-results :is(th, td):first-child { padding-inline-start: var(--spacer-4); }
+  .reaction-results :is(th, td):last-child { padding-inline-end: var(--spacer-4); }
+  .reaction-results td { vertical-align: middle; }
+  .reaction-slots { display: grid; gap: .2rem; line-height: 1.3; }
+  .reaction-slots .material-cell { display: flex; gap: .4rem; align-items: center; }
+  .reaction-slots .material-cell > span { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 .4rem; }
+  .reaction-slots .material-cell a { min-inline-size: 0; max-inline-size: 100%; text-decoration: underline dotted; text-underline-offset: .2em; }
+  .reaction-slots .material-cell img { inline-size: 1rem; block-size: 1rem; }
+  .reaction-slots .material-cell br { display: none; }
+  .reaction-slots .material-cell code { font-size: .72rem; }
+  .reaction-preview { position: sticky; inset-block-start: var(--spacer-3); }
+  .reaction-tank { position: relative; overflow: hidden; background: #000; }
+  .reaction-tank canvas { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 12 / 7; image-rendering: pixelated; }
+  .reaction-matches { margin-inline-start: auto; font-variant-numeric: tabular-nums; }
+  .reaction-inventory { display: flex; flex-wrap: wrap; gap: .35rem 1rem; }
+  .reaction-inventory li { display: inline-flex; gap: .4rem; align-items: center; font-size: var(--font-size-sm); font-variant-numeric: tabular-nums; }
+  .reaction-inventory .material-swatch { inline-size: .7rem; block-size: .7rem; border: 1px solid var(--border-color); flex: none; }
+  @media (max-width: 799.98px) {
+    .reaction-workspace { grid-template-columns: minmax(0, 1fr); }
+    .reaction-preview { position: static; }
+    .reaction-results .data-table { max-block-size: clamp(12rem, 35dvh, 20rem) !important; }
+    .reaction-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .reaction-filter-actions { grid-column: 1 / -1; }
+    .reaction-slots .material-cell code { display: none; }
+    .reaction-slots .material-cell a { display: inline-flex; align-items: center; min-inline-size: 1.5rem; min-block-size: 1.5rem; }
+    .reaction-slots li:not([data-ambiguous]) a::after { content: '↗'; font-size: .85rem; color: var(--fg-3); }
+    .reaction-slots [data-ambiguous] code { display: inline; }
+  }
+  @media (max-width: 575.98px) {
+    .reaction-filters { grid-template-columns: minmax(0, 1fr); }
+  }
+  .reaction-options > summary, .reaction-examples > summary { cursor: pointer; }
+  @media (min-width: 800px) {
+    .reaction-options > summary, .reaction-examples > summary { display: none; }
+  }
+  @media (max-width: 799.98px) {
+    .reaction-examples { margin-block-end: var(--spacer-3); }
+    :is(.reaction-options, .reaction-examples)[open] > summary { margin-block-end: var(--spacer-2); }
+  }
+}

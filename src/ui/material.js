@@ -9,15 +9,18 @@ export function materialTagLink(tag, metadata, {badge = false} = {}) {
 }
 
 export const IMAGE_BASE = 'https://noita-bartender-images.acidflow.stream/images';
-export function materialCell(item, fallback = '') {
+export function materialCell(item, fallback = '', {linkIdOnly = false} = {}) {
   if (!item && !fallback) return '';
   const id = item?.id ?? fallback, name = item?.name || id;
-  const content = html`<span><span class="material-name-text">${name}</span><br><code class=${materialTypeClass(item?.type)}>${id}</code></span>`;
   const image = html`<img src=${`${IMAGE_BASE}/materials/${item?.image_local || `Material_${id}.png`}`} width="28" height="28" alt="" loading="lazy">`;
   image.addEventListener('error', () => {image.style.visibility = 'hidden';}, {once: true});
   const location = globalThis.location;
   const current = location && location.pathname.replace(/\.html$/, '').replace(/\/$/, '') === '/materials'
     && new URLSearchParams(location.search).get('material') === id;
-  return html`<span class="material-cell">${item?.id && !current
-    ? html`<a href=${`/materials?material=${encodeURIComponent(id)}`} aria-label=${`View ${name} properties`}>${image}${content}</a>` : html.fragment`${image}${content}`}</span>`;
+  const link = children => item?.id && !current
+    ? html`<a href=${`/materials?material=${encodeURIComponent(id)}`} aria-label=${`View ${name} properties`}>${children}</a>` : children;
+  const code = html`<code class=${materialTypeClass(item?.type)}>${id}</code>`;
+  const text = html`<span><span class="material-name-text">${name}</span><br>${linkIdOnly ? link(code) : code}</span>`;
+  const content = html.fragment`${image}${text}`;
+  return html`<span class="material-cell">${linkIdOnly ? content : link(content)}</span>`;
 }

@@ -9,11 +9,12 @@ import {reactionIntroduction} from '../src/reactions/introduction.js';
 
 const datasets = {
   home: [],
-  reactions: ['reactionMaterials', 'reactions', 'availability'],
+  reactions: ['reactionMaterials', 'liquidSimulation', 'availability'],
   graph: ['materials', 'reactionRules', 'associations', 'availability', 'apotheosisReactions', 'apotheosisSecretReactions', 'allModReactions'],
   fungal: ['materials', 'apotheosisMaterials'],
   materials: ['materials', 'tags'],
   digging: ['diggingSpells', 'materials'],
+  liquids: ['liquidSimulation'],
   thanks: [],
 };
 const cache = new Map();
@@ -43,7 +44,7 @@ export function pageShell(path, {cache: useCache = true} = {}) {
       ? createHomeView(summary)
       : html`<div class=${route.module === 'reactions' ? 'reactions-page' : null}>${pageHeading(route.title, route)}${introduction}<p class="fg-3" role="status">Loading…</p></div>`;
     const result = {
-      title: route.path === '/' ? route.title : `${route.title} · Noita Bartender`,
+      title: route.path === '/' ? route.title : `${route.title} - Noita Bartender`,
       compact: route.compact,
       header: createNavigation(path).outerHTML,
       main: content.outerHTML.replaceAll(sourceRoot, '/'),

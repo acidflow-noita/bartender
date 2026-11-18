@@ -19,15 +19,16 @@ const pages = {
   fungal: () => import('./pages/fungal.js'),
   materials: () => import('./pages/materials.js'),
   digging: () => import('./pages/digging.js'),
+  liquids: () => import('./pages/liquids.js'),
   thanks: () => import('./pages/thanks.js'),
 };
 let dispose, titleAnimation, disposed = false;
 try {
   if (!route) {
-    document.title = 'Page not found · Noita Bartender';
+    document.title = 'Page not found - Noita Bartender';
     main.replaceChildren(html`<div><h1>Page not found</h1><p><a href="/">Return to Noita Bartender</a></p></div>`);
   } else {
-    document.title = `${route.title}${path === '/' ? '' : ' · Noita Bartender'}`;
+    document.title = `${route.title}${path === '/' ? '' : ' - Noita Bartender'}`;
     const {mount} = await pages[route.module]();
     dispose = await mount(main);
     document.documentElement.dataset.pageReady = 'true';

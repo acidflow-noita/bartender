@@ -1,0 +1,70 @@
+@layer custom {
+  .liquids-page { min-inline-size: 0; }
+  .liquid-stage { overflow: hidden; }
+  .liquid-canvas-wrap { position: relative; display: flex; justify-content: center; background: #000; overflow: hidden; }
+  .liquid-canvas {
+    display: block;
+    inline-size: min(100%, max(24rem, calc(160dvh - 35rem)));
+    block-size: auto;
+    aspect-ratio: 8 / 5;
+    image-rendering: pixelated;
+    cursor: crosshair;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .liquid-canvas:focus { outline: 0; box-shadow: none; }
+  .liquid-canvas:focus-visible:not([data-pointer-input]) { outline: 2px solid var(--focus-ring-color); outline-offset: -3px; }
+  .liquid-population { min-block-size: 1.5rem; max-block-size: 9rem; overflow: auto; }
+  .liquid-hover {
+    position: absolute; inset-block-start: 0; inset-inline-start: 0; z-index: 3;
+    inline-size: max-content; max-inline-size: min(16rem, var(--liquid-hover-limit, 16rem)); padding: var(--spacer-2, .5rem);
+    gap: .1rem; pointer-events: none; user-select: none; font-size: .8125rem; line-height: 1.35;
+    color: var(--fg-body, #f8fafc); background: var(--bg-1, #141925);
+    box-shadow: 0 .2rem .7rem #0009;
+  }
+  .liquid-hover[hidden] { display: none; }
+  .liquid-hover-id { overflow-wrap: anywhere; font-size: .75rem; color: inherit; opacity: .8; }
+  .liquid-hover-detail { font-variant-numeric: tabular-nums; opacity: .75; }
+  .liquid-population .btn-text { gap: .5rem; white-space: normal; text-align: start; padding: 0; }
+  .liquid-controls .form-control { font-size: 1rem; }
+  .liquid-brush-tools > div { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem !important; }
+  .liquids-page .range-value { flex-basis: 4rem; inline-size: 4rem; }
+  .liquids-page [data-liquid-property], .liquids-page [data-liquid-stats] { font-variant-numeric: tabular-nums; }
+  .liquid-warm-key::before, .liquid-cold-key::before { content: ''; display: inline-block; inline-size: .65rem; block-size: .65rem; margin-inline-end: .4rem; background: #e0662a; }
+  .liquid-cold-key::before { background: #3b9fe0; }
+  @media (max-width: 1023.98px) {
+    .liquid-canvas { inline-size: 100%; }
+  }
+  .liquid-heading, .liquid-playback { display: flex; align-items: center; flex-wrap: wrap; gap: var(--spacer-3); }
+  .liquid-heading { justify-content: space-between; margin-block-end: var(--spacer-4); }
+  .liquid-heading h1 { margin: 0 !important; }
+  .liquid-workspace { display: grid; grid-template-columns: minmax(0, 1fr) clamp(19rem, 28%, 25rem); gap: var(--spacer-4); align-items: start; }
+  .liquid-workspace > * { min-inline-size: 0; }
+  .liquid-toolbar { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: var(--spacer-3); flex-wrap: wrap; }
+  .liquid-toolbar > .form-field:first-child { display: flex; flex-direction: row; align-items: center; gap: var(--spacer-3); }
+  .liquid-toolbar .form-label { margin: 0; }
+  .liquid-playback [data-liquid-stats] { margin-inline-start: auto; }
+  .liquid-material-fields { display: grid; grid-template-columns: minmax(6rem, 1fr) minmax(0, 2fr); gap: var(--spacer-3); }
+  .liquid-material-fields .form-field { min-inline-size: 0; }
+  .liquid-controls { display: block; }
+  summary.liquid-disclosure, .liquid-properties > summary { cursor: pointer; list-style: revert; display: list-item; }
+  .liquid-disclosure { padding: var(--spacer-4); }
+  .liquid-disclosure > span { float: inline-end; }
+  .liquid-controls[open] > summary { border-block-end: 1px solid var(--border-color); }
+  .liquid-inventory { border-block-start: 1px solid var(--border-color); }
+  .liquid-population { padding: 0 var(--spacer-4) var(--spacer-4); }
+  .liquid-properties { border-block-start: 1px solid var(--border-color); padding-block-start: var(--spacer-3); }
+  .liquid-properties[open] > summary { margin-block-end: var(--spacer-3); }
+  .liquid-stage .card-body > div:has(> [hidden] + output:empty) { display: none !important; }
+  @media (max-width: 899.98px) {
+    .liquid-workspace { grid-template-columns: minmax(0, 1fr); }
+    .liquid-controls { grid-row: 1; }
+    .liquid-canvas { inline-size: min(100%, 104dvh); }
+  }
+  @media (max-width: 520px) {
+    .liquid-toolbar > .form-field:first-child { flex: 1 1 100%; }
+    .liquid-playback [data-liquid-stats] { flex-basis: 100%; }
+  }
+}

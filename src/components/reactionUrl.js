@@ -19,6 +19,7 @@ export function reactionUrl(href, state) {
     parameters.push(`${key}=${value}`);
   };
   ids.forEach((id) => add("reagents", id));
+  if (Number.isSafeInteger(state.selectedReaction) && state.selectedReaction > 0) add("reaction", String(state.selectedReaction));
   if (state.selectedProduct) add("product", state.selectedProduct);
   if (Number.isSafeInteger(state.minReactionSpeed) && state.minReactionSpeed > 0) add("minSpeed", String(state.minReactionSpeed));
   if (state.reactionSource && state.reactionSource !== "base") add("source", state.reactionSource);

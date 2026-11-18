@@ -1,0 +1,324 @@
+{
+  "schema": 1,
+  "authority": "controlled-replay",
+  "binary_sha256": "a0d9f9ca513e27a598c61dd9a19211c7a11d1477c9a2b93d909757d91d17d914",
+  "unicorn_version": "2.1.4",
+  "probe_sha256": "6a6bb2b3fab9bee67a70075384418379ba6ed51d76d34a21ac5e9d3997f0cd34",
+  "method": "Original instructions with synthetic manager and worker structures. No instruction hooks or replacement functions.",
+  "ranges": {
+    "region_size": {
+      "start": "0x7259e0",
+      "end_exclusive": "0x725a30",
+      "file_offset": 3296736,
+      "sha256": "951d975cb98473bc3d279305eb8d4b1dc229f7f55efc22b218974f094fc5abe7"
+    },
+    "active_region_selection": {
+      "start": "0x7271cb",
+      "end_exclusive": "0x727203",
+      "file_offset": 3302859,
+      "sha256": "6ff94840de0ec8d6b8bf6028ab3c384d4671309b34fdbd136f0c401f41ccec1d"
+    },
+    "periodic_worker_pass": {
+      "start": "0x72a26b",
+      "end_exclusive": "0x72a28d",
+      "file_offset": 3315307,
+      "sha256": "575a6d7b62ea9eda74c3c9455be6d1d10d3e578518116ff7a0879dfcc9094ed5"
+    },
+    "forced_worker_pass": {
+      "start": "0x72a363",
+      "end_exclusive": "0x72a3be",
+      "file_offset": 3315555,
+      "sha256": "96ecfd76e27c98e06a2841733529e991887ccce9956ebce35dfbdf22990d1407"
+    },
+    "swept_region_force": {
+      "start": "0x7269c3",
+      "end_exclusive": "0x7269ca",
+      "file_offset": 3300803,
+      "sha256": "23405597376cf6fef939b7bf0289a33ad96f430f7ccbb9ecdc616bb0de4af1d1"
+    },
+    "sweep_shuffle": {
+      "start": "0x996a20",
+      "end_exclusive": "0x996aec",
+      "file_offset": 5856800,
+      "sha256": "51cee95b878b10162aee9c7b93f53c624d7c12018e37f0f616815807cf6c886f"
+    }
+  },
+  "region": {
+    "size": 64,
+    "shift": 6,
+    "mask": "0xffffffc0",
+    "local_mask": 63
+  },
+  "selection": [
+    {
+      "count": 1,
+      "seed": 0,
+      "selected": 0,
+      "random_state": 2531011
+    },
+    {
+      "count": 1,
+      "seed": 1,
+      "selected": 0,
+      "random_state": 2745024
+    },
+    {
+      "count": 1,
+      "seed": 17,
+      "selected": 0,
+      "random_state": 6169232
+    },
+    {
+      "count": 1,
+      "seed": 42,
+      "selected": 0,
+      "random_state": 11519557
+    },
+    {
+      "count": 1,
+      "seed": 99,
+      "selected": 0,
+      "random_state": 23718298
+    },
+    {
+      "count": 1,
+      "seed": 4294967295,
+      "selected": 0,
+      "random_state": 2316998
+    },
+    {
+      "count": 2,
+      "seed": 0,
+      "selected": 0,
+      "random_state": 2531011
+    },
+    {
+      "count": 2,
+      "seed": 1,
+      "selected": 1,
+      "random_state": 2745024
+    },
+    {
+      "count": 2,
+      "seed": 17,
+      "selected": 0,
+      "random_state": 6169232
+    },
+    {
+      "count": 2,
+      "seed": 42,
+      "selected": 1,
+      "random_state": 11519557
+    },
+    {
+      "count": 2,
+      "seed": 99,
+      "selected": 1,
+      "random_state": 23718298
+    },
+    {
+      "count": 2,
+      "seed": 4294967295,
+      "selected": 1,
+      "random_state": 2316998
+    },
+    {
+      "count": 4,
+      "seed": 0,
+      "selected": 2,
+      "random_state": 2531011
+    },
+    {
+      "count": 4,
+      "seed": 1,
+      "selected": 1,
+      "random_state": 2745024
+    },
+    {
+      "count": 4,
+      "seed": 17,
+      "selected": 2,
+      "random_state": 6169232
+    },
+    {
+      "count": 4,
+      "seed": 42,
+      "selected": 3,
+      "random_state": 11519557
+    },
+    {
+      "count": 4,
+      "seed": 99,
+      "selected": 1,
+      "random_state": 23718298
+    },
+    {
+      "count": 4,
+      "seed": 4294967295,
+      "selected": 3,
+      "random_state": 2316998
+    },
+    {
+      "count": 12,
+      "seed": 0,
+      "selected": 2,
+      "random_state": 2531011
+    },
+    {
+      "count": 12,
+      "seed": 1,
+      "selected": 5,
+      "random_state": 2745024
+    },
+    {
+      "count": 12,
+      "seed": 17,
+      "selected": 10,
+      "random_state": 6169232
+    },
+    {
+      "count": 12,
+      "seed": 42,
+      "selected": 7,
+      "random_state": 11519557
+    },
+    {
+      "count": 12,
+      "seed": 99,
+      "selected": 1,
+      "random_state": 23718298
+    },
+    {
+      "count": 12,
+      "seed": 4294967295,
+      "selected": 11,
+      "random_state": 2316998
+    },
+    {
+      "count": 16,
+      "seed": 0,
+      "selected": 6,
+      "random_state": 2531011
+    },
+    {
+      "count": 16,
+      "seed": 1,
+      "selected": 9,
+      "random_state": 2745024
+    },
+    {
+      "count": 16,
+      "seed": 17,
+      "selected": 14,
+      "random_state": 6169232
+    },
+    {
+      "count": 16,
+      "seed": 42,
+      "selected": 15,
+      "random_state": 11519557
+    },
+    {
+      "count": 16,
+      "seed": 99,
+      "selected": 9,
+      "random_state": 23718298
+    },
+    {
+      "count": 16,
+      "seed": 4294967295,
+      "selected": 3,
+      "random_state": 2316998
+    }
+  ],
+  "worker": [
+    {
+      "before": 0,
+      "forced": false,
+      "counter": 1,
+      "normal": false,
+      "force_cleared": true
+    },
+    {
+      "before": 0,
+      "forced": true,
+      "counter": 1,
+      "normal": true,
+      "force_cleared": true
+    },
+    {
+      "before": 1,
+      "forced": false,
+      "counter": 2,
+      "normal": false,
+      "force_cleared": true
+    },
+    {
+      "before": 1,
+      "forced": true,
+      "counter": 2,
+      "normal": true,
+      "force_cleared": true
+    },
+    {
+      "before": 9,
+      "forced": false,
+      "counter": 10,
+      "normal": false,
+      "force_cleared": true
+    },
+    {
+      "before": 9,
+      "forced": true,
+      "counter": 10,
+      "normal": true,
+      "force_cleared": true
+    },
+    {
+      "before": 10,
+      "forced": false,
+      "counter": 0,
+      "normal": true,
+      "force_cleared": true
+    },
+    {
+      "before": 10,
+      "forced": true,
+      "counter": 0,
+      "normal": true,
+      "force_cleared": true
+    },
+    {
+      "before": 11,
+      "forced": false,
+      "counter": 0,
+      "normal": true,
+      "force_cleared": true
+    },
+    {
+      "before": 11,
+      "forced": true,
+      "counter": 0,
+      "normal": true,
+      "force_cleared": true
+    },
+    {
+      "before": 100,
+      "forced": false,
+      "counter": 0,
+      "normal": true,
+      "force_cleared": true
+    },
+    {
+      "before": 100,
+      "forced": true,
+      "counter": 0,
+      "normal": true,
+      "force_cleared": true
+    }
+  ],
+  "limits": [
+    "Does not execute a complete game frame or reproduce the game's thread order.",
+    "The loaded-area sweep and CRT shuffle are retained as static instruction ranges."
+  ]
+}

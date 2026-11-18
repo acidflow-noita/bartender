@@ -24,7 +24,7 @@ test("Vite serves every page, dataset and the fungal worker module graph", {time
   await init();
   const app = await createPreview(t);
   const base = "http://127.0.0.1:" + app.httpServer.address().port;
-  for (const path of ["/", "/digging", "/materials", "/reactions", "/reactions_graph_finder", "/fungal_shifting", "/thanks"]) {
+  for (const path of ["/", "/digging", "/materials", "/liquids", "/reactions", "/reactions_graph_finder", "/fungal_shifting", "/thanks"]) {
     const response = await fetch(base + path);
     assert.equal(response.status, 200);
     assert.match(await response.text(), /<meta name="darkreader-lock">/);

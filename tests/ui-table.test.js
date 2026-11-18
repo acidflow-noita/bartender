@@ -25,6 +25,26 @@ test('table batches retain duplicates, exact values and all records after sortin
   grid.dispose();
 });
 
+test('a shared row opens within a lazy batch and extends in both directions', t => {
+  installDom(t);
+  const data = Array.from({length: 1000}, (_, id) => ({id}));
+  const grid = table([], {columns: ['id'], rows: 5});
+  document.body.append(grid);
+  t.after(() => grid.dispose());
+  const ids = () => [...grid.querySelectorAll('tbody td')].map(cell => Number(cell.textContent));
+  grid.setData(data, data[700]);
+  assert.equal(ids().length, 10);
+  assert.ok(ids().includes(700));
+  const first = ids()[0], last = ids().at(-1);
+  grid.loadMore();
+  const earlier = [...grid.querySelectorAll('button')].find(button => button.textContent === 'Show earlier rows');
+  earlier.click();
+  assert.deepEqual(ids(), data.slice(first - 10, last + 11).map(row => row.id));
+  grid.setData(data.slice(0, 20));
+  assert.deepEqual(ids(), data.slice(0, 10).map(row => row.id));
+  assert.equal(earlier.isConnected, false);
+});
+
 test('column sorting operates on the entire set and the header remains keyboard operable', t => {
   installDom(t);
   const data = Array.from({length: 200}, (_, i) => ({value: 200 - i}));

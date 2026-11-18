@@ -17,11 +17,12 @@ export function sortRows(data, key, reverse = false) {
 export function table(data, {columns = Object.keys(data[0] ?? {}), header = {}, format = {},
   align = {}, width = {}, sortBy = {}, sort, reverse = false, sortable = true, rows = 30, height = 560,
   eager = false, compact = false, fitViewport = false, viewportGap = 8, minWidth, caption = 'Results'} = {}) {
-  let source = data, ordered, rendered = 0, fittedWidth = -1, observedShell = false, disposed = false;
+  let source = data, ordered, first = 0, rendered = 0, fittedWidth = -1, observedShell = false, disposed = false;
   const batch = Math.max(1, rows * 2);
   const cssSize = value => typeof value === 'number' ? `${value}px` : value;
   const body = html`<tbody></tbody>`;
   const more = html`<button type="button" class="btn-text theme-primary">Show more rows</button>`;
+  const earlier = html`<button type="button" class="btn-text theme-primary mx-4 my-2">Show earlier rows</button>`;
   const footer = html`<div hidden class="table-footer d-flex flex-wrap align-items-center gap-3 px-4 py-2">${more}</div>`;
   const scrollHint = html`<small class="fg-3 d-block px-4 py-2" hidden>Scroll sideways to see all columns</small>`;
   const colgroup = columns.map(key => html`<col style=${{width: cssSize(width[key])}}>`);
@@ -91,9 +92,7 @@ export function table(data, {columns = Object.keys(data[0] ?? {}), header = {}, 
     ownerDocument.fonts?.ready?.then(refreshLayout);
   }
 
-  function renderRows(append = false) {
-    const start = append ? rendered : 0;
-    const end = eager ? ordered.length : Math.min(ordered.length, start + batch);
+  function rowFragment(start, end) {
     const fragment = ownerDocument.createDocumentFragment();
     for (let i = start; i < end; i++) {
       const row = ordered[i];
@@ -105,6 +104,12 @@ export function table(data, {columns = Object.keys(data[0] ?? {}), header = {}, 
       })}</tr>`;
       fragment.append(tr);
     }
+    return fragment;
+  }
+  function renderRows(append = false) {
+    const start = append ? rendered : first;
+    const end = eager ? ordered.length : Math.min(ordered.length, start + batch);
+    const fragment = rowFragment(start, end);
     const scrollLeft = root.scrollLeft;
     if (append) body.append(fragment);
     else body.replaceChildren(fragment);
@@ -113,8 +118,14 @@ export function table(data, {columns = Object.keys(data[0] ?? {}), header = {}, 
     root.scrollLeft = scrollLeft;
     footer.hidden = eager || rendered === ordered.length;
   }
-  function render() {
-    ordered = sortRows(source, sortBy[sort] ?? sort, reverse); rendered = 0;
+  function render(anchor) {
+    ordered = sortRows(source, sortBy[sort] ?? sort, reverse);
+    const index = anchor == null || eager ? -1 : ordered.indexOf(anchor);
+    // A shared result can be thousands of rows down. Start near it and extend
+    // the same table in either direction as the reader scrolls.
+    first = index < batch ? 0 : Math.min(index - Math.floor(batch / 2), ordered.length - batch);
+    if (first) element.before(earlier);
+    else earlier.remove();
     headers.forEach((th, i) => {
       if (!sortable) return;
       th.setAttribute('aria-sort', columns[i] === sort ? (reverse ? 'descending' : 'ascending') : 'none');
@@ -124,19 +135,34 @@ export function table(data, {columns = Object.keys(data[0] ?? {}), header = {}, 
     });
     renderRows();
     refreshLayout();
+    if (index >= 0 && root.isConnected) {
+      const row = body.rows[index - first].getBoundingClientRect(), viewport = root.getBoundingClientRect();
+      if (first > 0 || row.bottom > viewport.bottom) root.scrollTop += row.top - viewport.top - element.tHead.offsetHeight;
+    }
   }
   const append = () => {renderRows(true);};
-  const scroll = () => {
-    if (root.scrollHeight > root.clientHeight && root.scrollHeight - root.scrollTop - root.clientHeight < 200 && rendered < ordered.length) append();
+  const prepend = (keepPosition = false) => {
+    const next = Math.max(0, first - batch), top = root.scrollTop, height = root.scrollHeight;
+    body.prepend(rowFragment(next, first)); first = next;
+    if (!first) earlier.remove();
+    if (keepPosition) root.scrollTop = top + root.scrollHeight - height;
   };
+  const scroll = () => {
+    if (root.scrollHeight <= root.clientHeight) return;
+    if (first > 0 && root.scrollTop < Math.min(200, root.clientHeight / 2)) prepend(true);
+    else if (rendered < ordered.length && root.scrollHeight - root.scrollTop - root.clientHeight < 200) append();
+  };
+  const loadEarlier = () => prepend();
+  earlier.addEventListener('click', loadEarlier);
   root.addEventListener('scroll', scroll, {passive: true}); more.addEventListener('click', append);
-  root.setData = rows => {source = rows; render();};
+  root.setData = (rows, anchor) => {source = rows; render(anchor);};
   root.setSort = (key, descending = false) => {sort = key; reverse = descending; render();};
   root.loadMore = append;
   root.overflowHint = scrollHint;
   root.dispose = () => {
     if (disposed) return;
     disposed = true; observer?.disconnect();
+    earlier.removeEventListener('click', loadEarlier);
     root.removeEventListener('scroll', scroll); more.removeEventListener('click', append);
     if (fitViewport) {
       view.removeEventListener('resize', refreshLayout);

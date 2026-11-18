@@ -19,8 +19,8 @@ test('homepage navigation, cards, material colors and exact summary are present 
   const document = dom.window.document;
   assert.ok(document.querySelector('#site-header nav'));
   const navigation = [...document.querySelectorAll('#site-header .navbar-nav a')];
-  assert.deepEqual(navigation.map(link => link.textContent), ['Reactions Finder', 'Spells’ Digging Abilityβ', 'Material Propertiesβ', 'Reactions Graph', 'Fungal Shift Plannerα']);
-  assert.deepEqual(navigation.map(link => link.getAttribute('href')), ['/reactions', '/digging', '/materials', '/reactions_graph_finder', '/fungal_shifting']);
+  assert.deepEqual(navigation.map(link => link.textContent), ['Reactions Finder', 'Spells’ Digging Abilityβ', 'Material Propertiesβ', 'Reactions Graph', 'Fungal Shift Plannerα', 'Liquids']);
+  assert.deepEqual(navigation.map(link => link.getAttribute('href')), ['/reactions', '/digging', '/materials', '/reactions_graph_finder', '/fungal_shifting', '/liquids']);
   assert.equal(document.querySelectorAll('#site-header .navbar-nav sup').length, 3);
   assert.equal(document.querySelectorAll('.feature-card').length, 4);
   assert.ok(document.querySelector('.bi-github path'));

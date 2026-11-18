@@ -1,4 +1,5 @@
 import {isDiggingSpell} from '../../src/digging/model.js';
+import {liquidMaterialRecords, simulationMaterialRecords} from '../../src/liquids/materials.mjs';
 
 // Page exports copy reference values from the validated catalog. The full
 // datasets remain available; small pages need not download unused fields.
@@ -18,5 +19,7 @@ export function pageDatasets(data) {
     },
     reactionMaterials: data.materials.map(row => Object.fromEntries(fields.filter(key => key in row).map(key => [key, row[key]]))),
     diggingSpells: data.spells.filter(isDiggingSpell),
+    liquidMaterials: liquidMaterialRecords(data.materials),
+    liquidSimulation: {materials: simulationMaterialRecords(data.materials), reactions: data.reactions},
   };
 }

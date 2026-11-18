@@ -5,5 +5,6 @@ export const routes = [
   {path: '/materials', module: 'materials', title: 'Material Properties', beta: true, compact: true},
   {path: '/reactions_graph_finder', module: 'graph', title: 'Reactions Graph', compact: true},
   {path: '/fungal_shifting', module: 'fungal', title: 'Fungal Shift Planner', alpha: true},
+  {path: '/liquids', module: 'liquids', title: 'Liquids', compact: true},
   {path: '/thanks', module: 'thanks', title: 'Thank You!'},
 ];

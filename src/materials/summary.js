@@ -62,6 +62,7 @@ export function materialSummaryView(material, record = null, {loading = false, e
         return html.fragment`<dt class="col-6 small fg-3 fw-normal">${label}</dt><dd class="col-6 mb-0 text-end" title=${value.exact === null ? null : `Exact value: ${formatNumber(value.exact)}`} data-stat=${key} data-exact-value=${value.exact}>${display}</dd>`;
       })}${traits.map(([key,label]) => html.fragment`<dt class="col-6 small fg-3 fw-normal">${label}</dt><dd class="col-6 mb-0 text-end" data-trait=${key}>${material[key] === true ? 'Yes' : material[key] === false ? 'No' : 'Not recorded'}</dd>`)}</dl>
       <dl class="row g-2 mb-0">${effects('stain','When stained')}${effects('ingestion','When swallowed')}</dl>
+      ${material.type === 'Liquid' ? html`<a class="btn-outline theme-secondary" href=${`/liquids?material=${encodeURIComponent(material.id)}&scene=channels`}>Try in Liquids</a>` : null}
       ${insights}
       <div><h3 class="h6 mb-2">Tags</h3><div class="d-flex flex-wrap gap-2">${material.tags?.length
         ? material.tags.map(tag => materialTagLink(tag, byTag.get(tag.slice(1, -1)), {badge: true}))

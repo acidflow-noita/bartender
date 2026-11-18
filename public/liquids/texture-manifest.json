@@ -1,0 +1,817 @@
+{
+  "schema": 1,
+  "materialSource": "src/data/FULL_MATERIALS_FINAL.json",
+  "materialSourceSha256": "f1afd46f20b6871bdfff3bf5b3c751ed9271f12fc7a0e2ded4297a3fcf3cae91",
+  "files": [
+    {
+      "source": "data/materials_gfx/aluminium_oxide.png",
+      "file": "aluminium_oxide.png",
+      "bytes": 873,
+      "sha256": "867b9c672c157b6a1f36a987644b217774f7787fa40d0e32523d312be888e07e"
+    },
+    {
+      "source": "data/materials_gfx/blueblood.png",
+      "file": "blueblood.png",
+      "bytes": 351,
+      "sha256": "13c4eeeebcb71dfc941d1c85b63e6258c184e35c1e47345fe148c4a6396f61a8"
+    },
+    {
+      "source": "data/materials_gfx/bluefungi.png",
+      "file": "bluefungi.png",
+      "bytes": 346,
+      "sha256": "f78f85bb4a5c1c6e8bb2cf04c056a4851c7eac89b741e34b81740f3594bb6bf8"
+    },
+    {
+      "source": "data/materials_gfx/bone.png",
+      "file": "bone.png",
+      "bytes": 832,
+      "sha256": "49497c55d0f913d680286817ec1c35262b3e277f9468b3802cedd8908b3c6be7"
+    },
+    {
+      "source": "data/materials_gfx/brass.png",
+      "file": "brass.png",
+      "bytes": 1527,
+      "sha256": "0b536ba16c04bc01204dfb05cf13cc8fc57784390beadb29d1d3013d6a73f3bf"
+    },
+    {
+      "source": "data/materials_gfx/brick.png",
+      "file": "brick.png",
+      "bytes": 190,
+      "sha256": "435bd4546fd373870a67f5da19a93142fa8e43c8a5b1479f0da6ab8778c38f8f"
+    },
+    {
+      "source": "data/materials_gfx/cloth.png",
+      "file": "cloth.png",
+      "bytes": 351,
+      "sha256": "de17b6539e214611aee65473efe2998e2725f3ab08d19093cd0b31a62fef7b83"
+    },
+    {
+      "source": "data/materials_gfx/coal.png",
+      "file": "coal.png",
+      "bytes": 969,
+      "sha256": "ddaf72e522b7def8e9db15e394677d932497302792f92efc92b5d78bd6825db5"
+    },
+    {
+      "source": "data/materials_gfx/coal_static.png",
+      "file": "coal_static.png",
+      "bytes": 59439,
+      "sha256": "27d084d7f88ee904643a96dadc7206ad2ece7998c2f6c6770d61fc1d5f18168e"
+    },
+    {
+      "source": "data/materials_gfx/colors_fire.png",
+      "file": "colors_fire.png",
+      "bytes": 236,
+      "sha256": "4e320a0e28f07594d0ccb976e8c37b818342d2be816ce20b9695dc1aa06e79c9"
+    },
+    {
+      "source": "data/materials_gfx/colors_fire_glow.png",
+      "file": "colors_fire_glow.png",
+      "bytes": 231,
+      "sha256": "ebab51daccdc6d1578e6dfa2cc7c1f19a246eae7faac6958af80ba91ad4c559d"
+    },
+    {
+      "source": "data/materials_gfx/colors_lava.bmp",
+      "file": "colors_lava.bmp",
+      "bytes": 176,
+      "sha256": "7f8604fc0dcac2d8b2db2b7fac16a4cab04862410cf00185eb74997544fae2e9"
+    },
+    {
+      "source": "data/materials_gfx/concrete.png",
+      "file": "concrete.png",
+      "bytes": 518,
+      "sha256": "0d95a3e6b278070e426eca8195104b3e7e0809778a002d994dae3e924b7a0fbc"
+    },
+    {
+      "source": "data/materials_gfx/concrete_wet.png",
+      "file": "concrete_wet.png",
+      "bytes": 497,
+      "sha256": "f5c01b5770fb6200ac8c8ea1c763fe9cc7befa40655e4f2b1670cc92dc6993de"
+    },
+    {
+      "source": "data/materials_gfx/confusion.png",
+      "file": "confusion.png",
+      "bytes": 201,
+      "sha256": "dade27b3be9661c501d7338792d2327f0ea4588365fd8b8d53912f53394e440e"
+    },
+    {
+      "source": "data/materials_gfx/copper.png",
+      "file": "copper.png",
+      "bytes": 187,
+      "sha256": "f4f30a3a6792209edb02436ab923e78d69f4e6151d7cde2e604027d3629540bc"
+    },
+    {
+      "source": "data/materials_gfx/corruption.png",
+      "file": "corruption.png",
+      "bytes": 20105,
+      "sha256": "fe836f2a7b4c9cafd8fb78b1bb62788aaae030801fa00132f0ab56f3c2734a8c"
+    },
+    {
+      "source": "data/materials_gfx/crystal.png",
+      "file": "crystal.png",
+      "bytes": 608,
+      "sha256": "d709caf3d6b1ebf63f193d98aa6859594b8f180fa7843e66961ac2000c9efc1d"
+    },
+    {
+      "source": "data/materials_gfx/crystal_purple.png",
+      "file": "crystal_purple.png",
+      "bytes": 596,
+      "sha256": "d422a8e91e9dea350737c6723ecf2fbbb0ea45a15ac74b75b76dda9e60e80ffb"
+    },
+    {
+      "source": "data/materials_gfx/darkness.png",
+      "file": "darkness.png",
+      "bytes": 17104,
+      "sha256": "f53dfcb0d766e982c4d659182ad1c5c06677beed6c4856a62a452d1e6f01521b"
+    },
+    {
+      "source": "data/materials_gfx/desert.png",
+      "file": "desert.png",
+      "bytes": 19589,
+      "sha256": "552764bced291f3f389065712ca7efbdcf48eb713b5e72b28f8d0ecf07031ea6"
+    },
+    {
+      "source": "data/materials_gfx/desert_surface.png",
+      "file": "desert_surface.png",
+      "bytes": 20579,
+      "sha256": "3a32b9998eb88dbf57d7680b05f050c04c8b85c893499f351faa65b7b67fb0bc"
+    },
+    {
+      "source": "data/materials_gfx/diamond.png",
+      "file": "diamond.png",
+      "bytes": 587,
+      "sha256": "09a5a4358a92020fa6d9449d6440c9d3c5f8381a888e0116a94a936a7034016d"
+    },
+    {
+      "source": "data/materials_gfx/earth.png",
+      "file": "earth.png",
+      "bytes": 604,
+      "sha256": "22d0ec83c6ea7d12778284f90413b8edc0abbf07fba623cb38fba55796db79ad"
+    },
+    {
+      "source": "data/materials_gfx/earth_alt.png",
+      "file": "earth_alt.png",
+      "bytes": 85416,
+      "sha256": "70b64a1fea2d702082cb29ef7cfd139d57f4deda67f9f33ce71fd8df0d9c1ad4"
+    },
+    {
+      "source": "data/materials_gfx/earth_bright.png",
+      "file": "earth_bright.png",
+      "bytes": 614,
+      "sha256": "2b30df51328e7362ae41ecab9b0060479203467138234da04baec578877a06e0"
+    },
+    {
+      "source": "data/materials_gfx/earth_bright_red.png",
+      "file": "earth_bright_red.png",
+      "bytes": 577,
+      "sha256": "52a841ea7cb73b14513caae1ea18bb03357706e391435b40a0192d6c2e238f4a"
+    },
+    {
+      "source": "data/materials_gfx/earth_rainforest.png",
+      "file": "earth_rainforest.png",
+      "bytes": 3135,
+      "sha256": "127639291bd5e1444be7788f5b02d8871dfc2facdec93153f558aed36dce8b49"
+    },
+    {
+      "source": "data/materials_gfx/earth_rainforest_dark.png",
+      "file": "earth_rainforest_dark.png",
+      "bytes": 2900,
+      "sha256": "183ca04b96e264954c9a14d3d286311a6f14d40431b20d8325dcbb064d721973"
+    },
+    {
+      "source": "data/materials_gfx/endslime.png",
+      "file": "endslime.png",
+      "bytes": 475,
+      "sha256": "08408f6321756191c2f5a52acc91b0d61abc8ad2fe85374fad5203eeb85ce16a"
+    },
+    {
+      "source": "data/materials_gfx/fun.png",
+      "file": "fun.png",
+      "bytes": 9547,
+      "sha256": "48d08d409bb5822d8d09812aef3e9dff5044b7ef7dcb5a64c9f5fbc1482eaa0e"
+    },
+    {
+      "source": "data/materials_gfx/fungi.png",
+      "file": "fungi.png",
+      "bytes": 343,
+      "sha256": "85e149b831d5e82704d11f1cbc533434e6e84004663af033da2b9c24f8df3d26"
+    },
+    {
+      "source": "data/materials_gfx/glass.png",
+      "file": "glass.png",
+      "bytes": 565,
+      "sha256": "451ca025031f1e5bce475b123d79561942929fdded46df8746d71a1508c8878a"
+    },
+    {
+      "source": "data/materials_gfx/glowrock.png",
+      "file": "glowrock.png",
+      "bytes": 589,
+      "sha256": "5082e7868074461388624c57b985ba891d531b5ac9edfc7ac3165afe7d414765"
+    },
+    {
+      "source": "data/materials_gfx/gold.png",
+      "file": "gold.png",
+      "bytes": 1559,
+      "sha256": "e654a8641545626a120eb1084e069e736b6417e0d5f894b33b9d1fa28620ad34"
+    },
+    {
+      "source": "data/materials_gfx/gold_dark.png",
+      "file": "gold_dark.png",
+      "bytes": 1584,
+      "sha256": "d535b550cedac3c2dd1cc98c921ae207f8fcc933be0967b31bc7e27815200c8e"
+    },
+    {
+      "source": "data/materials_gfx/grass.png",
+      "file": "grass.png",
+      "bytes": 151,
+      "sha256": "7d9a007a690b7c344ff1f6ed5a1cfcce4c35300a4352a0b5e71cd15b2154e267"
+    },
+    {
+      "source": "data/materials_gfx/grass_dark.png",
+      "file": "grass_dark.png",
+      "bytes": 15023,
+      "sha256": "3b598d5111033a85b632df2260893da8b8cc462d67026522a1b4564c728ee85b"
+    },
+    {
+      "source": "data/materials_gfx/grass_dry.png",
+      "file": "grass_dry.png",
+      "bytes": 15464,
+      "sha256": "7f344978ae62c08ba1ac763f6ef0df6ccde3b76a62255c960a3239ced9d59f10"
+    },
+    {
+      "source": "data/materials_gfx/grass_frozen.png",
+      "file": "grass_frozen.png",
+      "bytes": 14580,
+      "sha256": "9f0ed9bc826fe491c96de5f1a0c85391a8300831a7d8ef6c1f8f5edf923e2f28"
+    },
+    {
+      "source": "data/materials_gfx/gunpowder.png",
+      "file": "gunpowder.png",
+      "bytes": 1149,
+      "sha256": "9964a5f4c75e8dd390fa91ed157608addd978f068ac75f49ba8edf01270702ed"
+    },
+    {
+      "source": "data/materials_gfx/gunpowder_tnt.png",
+      "file": "gunpowder_tnt.png",
+      "bytes": 1165,
+      "sha256": "8e875f898f367fdd59fdc7aca14f0110119fb2b23c8c35f984ee01632e9dab11"
+    },
+    {
+      "source": "data/materials_gfx/honey.png",
+      "file": "honey.png",
+      "bytes": 277,
+      "sha256": "c5302911445793ce3341791692a14b006930de983dfc4dd64bfee1a0795a5dba"
+    },
+    {
+      "source": "data/materials_gfx/ice.png",
+      "file": "ice.png",
+      "bytes": 684,
+      "sha256": "1e43dbf1380b3081a76802220e9bdbb50bfd2f137d230ec0c44778eebd14c051"
+    },
+    {
+      "source": "data/materials_gfx/ice_acid.png",
+      "file": "ice_acid.png",
+      "bytes": 685,
+      "sha256": "e2dbad6b867480e643b1f7d98d9906aebfd324746590a92dd16fd1cc59516092"
+    },
+    {
+      "source": "data/materials_gfx/ice_blood.png",
+      "file": "ice_blood.png",
+      "bytes": 675,
+      "sha256": "59eea1f0145da1ee7919dbede05e5104e5204c77aad6e4648458f545f564b257"
+    },
+    {
+      "source": "data/materials_gfx/ice_cold.png",
+      "file": "ice_cold.png",
+      "bytes": 562,
+      "sha256": "47a26398351d1b12d0bfa324afd47f7fb85f6c0c572a6c7b747ddfe7cb7a0ecd"
+    },
+    {
+      "source": "data/materials_gfx/ice_poison.png",
+      "file": "ice_poison.png",
+      "bytes": 678,
+      "sha256": "10e3fefa517a40b470ec2238172f6ddb4ffb8642987dea6178a2e921bf80e878"
+    },
+    {
+      "source": "data/materials_gfx/ice_radioactive.png",
+      "file": "ice_radioactive.png",
+      "bytes": 676,
+      "sha256": "8cd10a87c0d986a35af4b22fe7c368303f810381ffca4c7b4580858955f19f98"
+    },
+    {
+      "source": "data/materials_gfx/ice_slime.png",
+      "file": "ice_slime.png",
+      "bytes": 675,
+      "sha256": "512aca98d90bbdeb7ce4a710beb8b1c000ad6ae539d68ca043c319bd2e504153"
+    },
+    {
+      "source": "data/materials_gfx/lavarock.png",
+      "file": "lavarock.png",
+      "bytes": 563,
+      "sha256": "e5327314ecd99bcc6171765a565a0f8e63dd88bbbf755ecae8e558a97cf78135"
+    },
+    {
+      "source": "data/materials_gfx/magic_gate.png",
+      "file": "magic_gate.png",
+      "bytes": 632,
+      "sha256": "133fd359e0d92e20b1bb597512da40dfd09814dcc1e7e969dbd0f2c803954ddb"
+    },
+    {
+      "source": "data/materials_gfx/magic_liquid_unstable_telep.png",
+      "file": "magic_liquid_unstable_telep.png",
+      "bytes": 853,
+      "sha256": "5d50fcdaf9fc09678bec323a5efe4ca48137855b04e7090f274903936177f496"
+    },
+    {
+      "source": "data/materials_gfx/magic_liquid_weakness.png",
+      "file": "magic_liquid_weakness.png",
+      "bytes": 448,
+      "sha256": "9cd0259736e560d3f9cc470de3b51975b7082b2ceae9c384753f23a2f049ed53"
+    },
+    {
+      "source": "data/materials_gfx/meat.png",
+      "file": "meat.png",
+      "bytes": 607,
+      "sha256": "d0badd818982ef94fb6fffdc3a11b1169c2eb0d44fb584574a6e8a2c29ac7020"
+    },
+    {
+      "source": "data/materials_gfx/meat_burned.png",
+      "file": "meat_burned.png",
+      "bytes": 615,
+      "sha256": "27879bd4c4b4040e95f0c43aaadd74abf383187cab7fb69541d0136c3ec57772"
+    },
+    {
+      "source": "data/materials_gfx/meat_done.png",
+      "file": "meat_done.png",
+      "bytes": 710,
+      "sha256": "0b378039f3a8ccb8b4727893ceef6166ebe8f1f5170771bcf12adbb8aaf27fb2"
+    },
+    {
+      "source": "data/materials_gfx/meat_hot.png",
+      "file": "meat_hot.png",
+      "bytes": 736,
+      "sha256": "a846b1c3817f7c0610179e41432457d75db6911c5656c8952c21c5c6889f4707"
+    },
+    {
+      "source": "data/materials_gfx/meat_rotten.png",
+      "file": "meat_rotten.png",
+      "bytes": 729,
+      "sha256": "33e0b60cd12090440f1796a6bba11677beec9331c26cb23405d50ba414754d2c"
+    },
+    {
+      "source": "data/materials_gfx/meat_static.png",
+      "file": "meat_static.png",
+      "bytes": 8289,
+      "sha256": "4b29235246569f2856ffdd322f46689c94b2c20a06043a14c21644c5e1287b21"
+    },
+    {
+      "source": "data/materials_gfx/meat_warm.png",
+      "file": "meat_warm.png",
+      "bytes": 680,
+      "sha256": "5fcce9d4c84947bcedadb3f166575372315316c81c7062894fb192c26bdd754c"
+    },
+    {
+      "source": "data/materials_gfx/meteor.png",
+      "file": "meteor.png",
+      "bytes": 769,
+      "sha256": "e07099b9f606fc2724e4d3abb1dd42ca06f7c36aba2ca6d8185e7660bff09766"
+    },
+    {
+      "source": "data/materials_gfx/midas_precursor.png",
+      "file": "midas_precursor.png",
+      "bytes": 2568,
+      "sha256": "501945c8fbdf6fbcedef7a39320256b0fe7616316d84da679700540d1a5ba7d7"
+    },
+    {
+      "source": "data/materials_gfx/mimic_liquid.png",
+      "file": "mimic_liquid.png",
+      "bytes": 14717,
+      "sha256": "712f94e62bb4ecb39974420ae9e22cdbef5031df0fb01962b034198b898e62bd"
+    },
+    {
+      "source": "data/materials_gfx/moss.png",
+      "file": "moss.png",
+      "bytes": 467,
+      "sha256": "df78f0fe110fcf0c382f5b8c979d218789bab34b620c3f4ec540231bbf885df4"
+    },
+    {
+      "source": "data/materials_gfx/moss_rust.png",
+      "file": "moss_rust.png",
+      "bytes": 450,
+      "sha256": "1ed8e6be5ed4c7540f0fcd4fd598d72a343ad41700810612dab2bd5819037ea9"
+    },
+    {
+      "source": "data/materials_gfx/mud.png",
+      "file": "mud.png",
+      "bytes": 1050,
+      "sha256": "fe417fa4734bd3c6e9678f323a0aae859a8154e341d948af106960bdcecd8ac6"
+    },
+    {
+      "source": "data/materials_gfx/neon_tube_blood_red.png",
+      "file": "neon_tube_blood_red.png",
+      "bytes": 15428,
+      "sha256": "fac1d1625abaa7fadad677e37d858f8bbdbefa54aad05d163eee0d145b68b778"
+    },
+    {
+      "source": "data/materials_gfx/neon_tube_cyan.png",
+      "file": "neon_tube_cyan.png",
+      "bytes": 14538,
+      "sha256": "9ea536b55cf5ebefe6a127afdb55ec53eb6bf20b29aac9d48af92f30a2d4337a"
+    },
+    {
+      "source": "data/materials_gfx/neon_tube_purple.png",
+      "file": "neon_tube_purple.png",
+      "bytes": 343,
+      "sha256": "85e149b831d5e82704d11f1cbc533434e6e84004663af033da2b9c24f8df3d26"
+    },
+    {
+      "source": "data/materials_gfx/nest.png",
+      "file": "nest.png",
+      "bytes": 1132,
+      "sha256": "392968857c64e5fea6e5b95f9645fd4dbcc7674920a317bc5e5f2d243129cbe0"
+    },
+    {
+      "source": "data/materials_gfx/polymorph_unstable.png",
+      "file": "polymorph_unstable.png",
+      "bytes": 808,
+      "sha256": "a0803a123d4dfe7bdef11a977a7b5ff7778bfca2eb1a8548872c345a009e641b"
+    },
+    {
+      "source": "data/materials_gfx/porridge.png",
+      "file": "porridge.png",
+      "bytes": 857,
+      "sha256": "4b93e867205799e080138633479a1eed4fa5fba4edf0164a39ee3dcb5469e120"
+    },
+    {
+      "source": "data/materials_gfx/pus.png",
+      "file": "pus.png",
+      "bytes": 1772,
+      "sha256": "621f750bd6b2344c5dae5a685855027cd3cd197bc762756c2e51f6b8ca93ca86"
+    },
+    {
+      "source": "data/materials_gfx/rainbow.png",
+      "file": "rainbow.png",
+      "bytes": 257,
+      "sha256": "a2f6e55d52f0dcc3298c9a35b8525580e7bfe598bb86587e4a5c171419c988fe"
+    },
+    {
+      "source": "data/materials_gfx/rainbow_gas.png",
+      "file": "rainbow_gas.png",
+      "bytes": 244,
+      "sha256": "0f0cdff3f9fe8f69b0d6e89dd8d5f5d62181fe1bd9327a0509d756c8fd4c203e"
+    },
+    {
+      "source": "data/materials_gfx/rock.png",
+      "file": "rock.png",
+      "bytes": 588,
+      "sha256": "df3ccb53f58ead2f26ba97161424a8e53de45e6cc0c12c9b1b823a20ec9c8c9e"
+    },
+    {
+      "source": "data/materials_gfx/rock_cursed.png",
+      "file": "rock_cursed.png",
+      "bytes": 4031,
+      "sha256": "6016d196fb105ca3ad8940c72389dbb991eb3bd5f9ff9d309f9bb734b7f0336c"
+    },
+    {
+      "source": "data/materials_gfx/rock_cursed_green.png",
+      "file": "rock_cursed_green.png",
+      "bytes": 4020,
+      "sha256": "a1bbe87d68b55e78cf9dd54d2cbba9e818f534b728e96246c4e1c7ebb635133f"
+    },
+    {
+      "source": "data/materials_gfx/rock_glow.png",
+      "file": "rock_glow.png",
+      "bytes": 540,
+      "sha256": "aee5e8329762c560fa13be3e2f38505d46fe6fcb56ef578b83edca37e1de97fb"
+    },
+    {
+      "source": "data/materials_gfx/rock_grey.png",
+      "file": "rock_grey.png",
+      "bytes": 56646,
+      "sha256": "23d90f944fe963242d5840e22adb58188d0129c27973dd13727bae1fec5636f3"
+    },
+    {
+      "source": "data/materials_gfx/rock_hard.png",
+      "file": "rock_hard.png",
+      "bytes": 588,
+      "sha256": "d445ca203420263cfee845a35abb03ffa367f875c75de4c9e70b4edc798c2fea"
+    },
+    {
+      "source": "data/materials_gfx/rock_hard_border.png",
+      "file": "rock_hard_border.png",
+      "bytes": 584,
+      "sha256": "42d3ed09e2f9e87aded713a464ae899ab122208ef2c3318f366d5e37aaa8631b"
+    },
+    {
+      "source": "data/materials_gfx/rock_poison.png",
+      "file": "rock_poison.png",
+      "bytes": 591,
+      "sha256": "0074cbacaea1f658a651a51bebf1bfc9f25bb5a036b63853eb73cb0454b2a273"
+    },
+    {
+      "source": "data/materials_gfx/rock_radioactive.png",
+      "file": "rock_radioactive.png",
+      "bytes": 567,
+      "sha256": "62b02d14d871226edc7a72eed0dd317cbf9762958f0e1d92eea22bbdcb35125a"
+    },
+    {
+      "source": "data/materials_gfx/rock_static_purple.png",
+      "file": "rock_static_purple.png",
+      "bytes": 4252,
+      "sha256": "27594f882dda40198b8d7e5ec1b091ce021dcc3deac75af56bdbc0aa4ad190b6"
+    },
+    {
+      "source": "data/materials_gfx/root_growth.png",
+      "file": "root_growth.png",
+      "bytes": 16661,
+      "sha256": "0c6e655043c8a9f044e26f5f37465880498a10714e97c0c0d4b37e92c026c5bd"
+    },
+    {
+      "source": "data/materials_gfx/rust.png",
+      "file": "rust.png",
+      "bytes": 184,
+      "sha256": "d1d65cac23187ad260c8aea44f478cae9c217a2d088935a99907617707d7a3bd"
+    },
+    {
+      "source": "data/materials_gfx/salt.png",
+      "file": "salt.png",
+      "bytes": 2266,
+      "sha256": "642e56a37f3c69ab8fee9dbf88d7a4c2a3c335da39305da508b8e5941731ca25"
+    },
+    {
+      "source": "data/materials_gfx/sand.png",
+      "file": "sand.png",
+      "bytes": 22119,
+      "sha256": "dbb958606517d2f435060b99c55f1ab0334909cf6f7b1d3a14bcdb7ebeb9dbd2"
+    },
+    {
+      "source": "data/materials_gfx/sand_blue.png",
+      "file": "sand_blue.png",
+      "bytes": 679,
+      "sha256": "e5ee6d811116fdb3728b8241de38a8e037b8a9d15e0e25ae381913a2c11db227"
+    },
+    {
+      "source": "data/materials_gfx/sand_petrify.png",
+      "file": "sand_petrify.png",
+      "bytes": 5411,
+      "sha256": "5a90834005f16a1092f52612a322987cc0ccebf543b395b2210584f075f94cb1"
+    },
+    {
+      "source": "data/materials_gfx/sand_surface.png",
+      "file": "sand_surface.png",
+      "bytes": 23516,
+      "sha256": "d45c9c2237217bbbc2ef090569d256e28e56d689a0a721d65a0a133b1f98f4e2"
+    },
+    {
+      "source": "data/materials_gfx/silver.png",
+      "file": "silver.png",
+      "bytes": 251,
+      "sha256": "2872f7e3f2bc2a13d09bb9b330aeb6a5e3dead358144937624ec51b785e8d1c7"
+    },
+    {
+      "source": "data/materials_gfx/skullrock.png",
+      "file": "skullrock.png",
+      "bytes": 2840,
+      "sha256": "68f6c35163864eb8ef4dbf51cfe08b469748ab0a6ffab870f44f467e1d43cd10"
+    },
+    {
+      "source": "data/materials_gfx/slime.png",
+      "file": "slime.png",
+      "bytes": 357,
+      "sha256": "88eb9ad478cb7ab3cc464cd2379cde318ba66a710ee34de00ace357d5fdcd13c"
+    },
+    {
+      "source": "data/materials_gfx/slime_green.png",
+      "file": "slime_green.png",
+      "bytes": 488,
+      "sha256": "dc07e460bb97c08559b6219a4ada3574a8f4645ad2f98945337c7e5e4b706152"
+    },
+    {
+      "source": "data/materials_gfx/slush.png",
+      "file": "slush.png",
+      "bytes": 1382,
+      "sha256": "56fecd7d8476b763eb6a3d7ea86eaadbe21568d80cc4e28bb75b967fb943bad5"
+    },
+    {
+      "source": "data/materials_gfx/snow.png",
+      "file": "snow.png",
+      "bytes": 1381,
+      "sha256": "81c3e3560811c06db0face1e6ddf93fd6cd50c8a4dc9a9192090a86eed7c6435"
+    },
+    {
+      "source": "data/materials_gfx/snowrock.png",
+      "file": "snowrock.png",
+      "bytes": 575,
+      "sha256": "2c9bf9493a52a9ea205fb2dc2790aa5940b8ce956386dd04ea9bd272ece5c630"
+    },
+    {
+      "source": "data/materials_gfx/soil.png",
+      "file": "soil.png",
+      "bytes": 1016,
+      "sha256": "7c3b4951a59c9c97045d2394763c712ddbca8131168a63fe05a2f9094da81f12"
+    },
+    {
+      "source": "data/materials_gfx/soil_dead.png",
+      "file": "soil_dead.png",
+      "bytes": 464,
+      "sha256": "05c33a1f2a9188ccf80bec3fac1910b48f26795d9dc464311a5101d2dac503f4"
+    },
+    {
+      "source": "data/materials_gfx/soil_lush.png",
+      "file": "soil_lush.png",
+      "bytes": 820,
+      "sha256": "b0cce39a220dd3f282ae2419ce196e2a64762e2f1ff802770acdc92896f86529"
+    },
+    {
+      "source": "data/materials_gfx/soil_lush_dark.png",
+      "file": "soil_lush_dark.png",
+      "bytes": 761,
+      "sha256": "03cbec6bd8c9dd77407845f29fbac5ef6b97c8f065648af6ae32f2f5755bca5f"
+    },
+    {
+      "source": "data/materials_gfx/static_magic_material.png",
+      "file": "static_magic_material.png",
+      "bytes": 1525,
+      "sha256": "f7a5096ae6c478d7025f748081bfa63cfbd015c6c753ae64dc701c71bb1b1940"
+    },
+    {
+      "source": "data/materials_gfx/steel.png",
+      "file": "steel.png",
+      "bytes": 186,
+      "sha256": "060a725ba7d4293067bfc81a69cf2dde18bed57df178b2ac7e3de10b97b0f420"
+    },
+    {
+      "source": "data/materials_gfx/steel_rusted.png",
+      "file": "steel_rusted.png",
+      "bytes": 7608,
+      "sha256": "5bd831276e7871dd45f8ba7145f02c8e0ef6a611e14c7c63247b942e3c1f8272"
+    },
+    {
+      "source": "data/materials_gfx/steelpanel.png",
+      "file": "steelpanel.png",
+      "bytes": 1039,
+      "sha256": "4f16bb7bfb386162e9154e854bc59e9a2d8a22330f406dee8267d2208040dcbb"
+    },
+    {
+      "source": "data/materials_gfx/steelpanel_grey.png",
+      "file": "steelpanel_grey.png",
+      "bytes": 989,
+      "sha256": "1f886d5ac07cba268d735d2d92a73d1d7aecb85194c5639eef34f552452be75a"
+    },
+    {
+      "source": "data/materials_gfx/steelpanelfrost.png",
+      "file": "steelpanelfrost.png",
+      "bytes": 2765,
+      "sha256": "baea8e0e08716f5c71d9916735e98875ebb38fda9c14a3dbd1981507ee2c7611"
+    },
+    {
+      "source": "data/materials_gfx/steelpanelmoss.png",
+      "file": "steelpanelmoss.png",
+      "bytes": 2793,
+      "sha256": "993cb3093c2a4888bafc908b2901ea5212d986668f2708dbe247043404f017d9"
+    },
+    {
+      "source": "data/materials_gfx/sulphur.png",
+      "file": "sulphur.png",
+      "bytes": 557,
+      "sha256": "dd8f53fa2cafa2489974c7767f36e12e84ef1624ce99cfb32afa62b7f3b72f79"
+    },
+    {
+      "source": "data/materials_gfx/swamp.png",
+      "file": "swamp.png",
+      "bytes": 222,
+      "sha256": "7be6a5078c1d7f39651b2e7ff0300a46174ffa7033003bdc504f4801e46130fc"
+    },
+    {
+      "source": "data/materials_gfx/templebrick.png",
+      "file": "templebrick.png",
+      "bytes": 558,
+      "sha256": "47aad951e8440e91cf42db595794ea1a69d133250b2225f72d1d52a0771dd94a"
+    },
+    {
+      "source": "data/materials_gfx/templebrick_alt.png",
+      "file": "templebrick_alt.png",
+      "bytes": 528,
+      "sha256": "b1c7da4ceda5895b43c42d2ae566e44afe818fd93a184ae30e863c688faaa1a3"
+    },
+    {
+      "source": "data/materials_gfx/templebrick_broken.png",
+      "file": "templebrick_broken.png",
+      "bytes": 1846,
+      "sha256": "de9cf262422e7146e20e064dfc0908571952b40e8e381fffd7f81aa1e910870c"
+    },
+    {
+      "source": "data/materials_gfx/templebrick_diamond.png",
+      "file": "templebrick_diamond.png",
+      "bytes": 811,
+      "sha256": "45098c5b10c35ce735833db3c27a34d4546611fc518d188ac995b06724bb1fed"
+    },
+    {
+      "source": "data/materials_gfx/templebrick_golden.png",
+      "file": "templebrick_golden.png",
+      "bytes": 1049,
+      "sha256": "0cbcb0a67e321923d04d0591a1c98946de43b8b37427c695bac25a91e6c6a4f8"
+    },
+    {
+      "source": "data/materials_gfx/templebrick_red.png",
+      "file": "templebrick_red.png",
+      "bytes": 607,
+      "sha256": "4de6f1b435ffefeb5e1d0be3b0a682c750168c590baa205cbe24d2d60cc78323"
+    },
+    {
+      "source": "data/materials_gfx/templebrick_ruined.png",
+      "file": "templebrick_ruined.png",
+      "bytes": 1228,
+      "sha256": "beb028d733944f6a761794e2f4b360f2ec048f59610358f0562ec2eeb08e9e78"
+    },
+    {
+      "source": "data/materials_gfx/templerock.png",
+      "file": "templerock.png",
+      "bytes": 593,
+      "sha256": "adca14bad58e97e710b10fec58c4b7a9a160d5d6c20d02ab30d89122be62bcda"
+    },
+    {
+      "source": "data/materials_gfx/templeslab.png",
+      "file": "templeslab.png",
+      "bytes": 359,
+      "sha256": "b2341e1d89b0dd195f315b16405cfe0243646c23e03a99e84559692a73310690"
+    },
+    {
+      "source": "data/materials_gfx/test_vine.png",
+      "file": "test_vine.png",
+      "bytes": 197055,
+      "sha256": "0ffe7a4b3de8efc9e4af2016a37753923807d35ac5879ac8ac0e2d7b81fc983e"
+    },
+    {
+      "source": "data/materials_gfx/the_end.png",
+      "file": "the_end.png",
+      "bytes": 769,
+      "sha256": "e07099b9f606fc2724e4d3abb1dd42ca06f7c36aba2ca6d8185e7660bff09766"
+    },
+    {
+      "source": "data/materials_gfx/tnt.png",
+      "file": "tnt.png",
+      "bytes": 156,
+      "sha256": "b20b7cbc5750cc4157aeadf989f7b888c6598b1c0cc456d487a08d1d0e68e3d0"
+    },
+    {
+      "source": "data/materials_gfx/vaultrock.png",
+      "file": "vaultrock.png",
+      "bytes": 1375,
+      "sha256": "5b4ee2dc081c40124f0124e60c870ac40f87643d475e61d5bdfbfed6faa14bb0"
+    },
+    {
+      "source": "data/materials_gfx/vomit.png",
+      "file": "vomit.png",
+      "bytes": 15082,
+      "sha256": "0d85905d20e08ad72150f4cd3b3586cc7178e5e27c820db67d5b833bb659b040"
+    },
+    {
+      "source": "data/materials_gfx/wax.png",
+      "file": "wax.png",
+      "bytes": 773,
+      "sha256": "a98641a5a2160cfd77ece80c9070f773899f5580b25dc398500cc6e742aafca9"
+    },
+    {
+      "source": "data/materials_gfx/wizardstone.png",
+      "file": "wizardstone.png",
+      "bytes": 1789,
+      "sha256": "5873fe7ad5f2055339a39897a1ccaecee495c21ca9c3103dff9db59ac21e8902"
+    },
+    {
+      "source": "data/materials_gfx/wood.png",
+      "file": "wood.png",
+      "bytes": 559,
+      "sha256": "f039a1de3658a3c734068fe161a3e8c51c95dc9eb561ad8734b00028a37af8c7"
+    },
+    {
+      "source": "data/materials_gfx/wood_vertical.png",
+      "file": "wood_vertical.png",
+      "bytes": 805,
+      "sha256": "8f39c36d2d7fae6bfd3ff8b25b37c8b236e836c7262d7cdfed4367c580fbb9c7"
+    },
+    {
+      "source": "data/materials_gfx/wormmeat.png",
+      "file": "wormmeat.png",
+      "bytes": 641,
+      "sha256": "116e49f7b81a991a9dbf1bd3c4efe8c397d2545f45cdcf88ea5f8f73ea8c2263"
+    },
+    {
+      "source": "data/materials_gfx/yellowblood.png",
+      "file": "yellowblood.png",
+      "bytes": 351,
+      "sha256": "e2d2e1de5615d42d2e96a448ed61fde700f6573be51eac2f94590e3a9245f547"
+    },
+    {
+      "source": "data/materials_gfx/yellowblood_gas.png",
+      "file": "yellowblood_gas.png",
+      "bytes": 453,
+      "sha256": "3b1b1c5e12234ea0b75770ecefb14bb56077f48e7f5b28e2d5cdd342c12f9bbf"
+    },
+    {
+      "source": "data/particles/particle_glow.png",
+      "file": "particle_glow.png",
+      "bytes": 2407,
+      "sha256": "70f8c3c32a5ec72df23e0d603539069de6bc4270fa055c86e92dae972be5597f"
+    }
+  ]
+}

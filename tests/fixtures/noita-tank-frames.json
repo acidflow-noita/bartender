@@ -1,0 +1,1166 @@
+{
+  "binary_sha256": "a0d9f9ca513e27a598c61dd9a19211c7a11d1477c9a2b93d909757d91d17d914",
+  "materials": {
+    "blood": {
+      "density": 4.099999904632568,
+      "liquid_gravity": 0.699999988079071,
+      "liquid_damping": 0.800000011920929,
+      "liquid_flow_speed": 0.8999999761581421,
+      "liquid_sand": false,
+      "liquid_static": false,
+      "liquid_slime": false,
+      "liquid_sticks_to_ceiling": 0,
+      "liquid_sand_never_box2d": false,
+      "liquid_viscosity": 50,
+      "stainable": true,
+      "liquid_stains": 2,
+      "liquid_stains_self": true
+    },
+    "coal_static": {
+      "density": 8,
+      "liquid_gravity": 1.2000000476837158,
+      "liquid_damping": 0.800000011920929,
+      "liquid_flow_speed": 0.8999999761581421,
+      "liquid_sand": true,
+      "liquid_static": true,
+      "liquid_slime": false,
+      "liquid_sticks_to_ceiling": 50,
+      "liquid_sand_never_box2d": false,
+      "liquid_viscosity": 75,
+      "stainable": true,
+      "liquid_stains": 0,
+      "liquid_stains_self": false
+    },
+    "honey": {
+      "density": 10,
+      "liquid_gravity": 0.20000000298023224,
+      "liquid_damping": 0.800000011920929,
+      "liquid_flow_speed": 0.8999999761581421,
+      "liquid_sand": true,
+      "liquid_static": false,
+      "liquid_slime": false,
+      "liquid_sticks_to_ceiling": 90,
+      "liquid_sand_never_box2d": false,
+      "liquid_viscosity": 15,
+      "stainable": true,
+      "liquid_stains": 0,
+      "liquid_stains_self": false
+    },
+    "material_rainbow": {
+      "density": 1.8739999532699585,
+      "liquid_gravity": 0.800000011920929,
+      "liquid_damping": 0.800000011920929,
+      "liquid_flow_speed": 0.8999999761581421,
+      "liquid_sand": false,
+      "liquid_static": false,
+      "liquid_slime": false,
+      "liquid_sticks_to_ceiling": 0,
+      "liquid_sand_never_box2d": false,
+      "liquid_viscosity": 50,
+      "stainable": true,
+      "liquid_stains": 1,
+      "liquid_stains_self": false
+    },
+    "oil": {
+      "density": 1,
+      "liquid_gravity": 0.5,
+      "liquid_damping": 0.800000011920929,
+      "liquid_flow_speed": 0.8999999761581421,
+      "liquid_sand": false,
+      "liquid_static": false,
+      "liquid_slime": false,
+      "liquid_sticks_to_ceiling": 0,
+      "liquid_sand_never_box2d": false,
+      "liquid_viscosity": 50,
+      "stainable": true,
+      "liquid_stains": 4,
+      "liquid_stains_self": false
+    },
+    "rock_static": {
+      "density": 10,
+      "liquid_gravity": 1.2000000476837158,
+      "liquid_damping": 0.800000011920929,
+      "liquid_flow_speed": 0.8999999761581421,
+      "liquid_sand": true,
+      "liquid_static": true,
+      "liquid_slime": false,
+      "liquid_sticks_to_ceiling": 0,
+      "liquid_sand_never_box2d": false,
+      "liquid_viscosity": 50,
+      "stainable": true,
+      "liquid_stains": 0,
+      "liquid_stains_self": false
+    },
+    "sand": {
+      "density": 6,
+      "liquid_gravity": 0.8999999761581421,
+      "liquid_damping": 0.800000011920929,
+      "liquid_flow_speed": 0.8999999761581421,
+      "liquid_sand": true,
+      "liquid_static": false,
+      "liquid_slime": false,
+      "liquid_sticks_to_ceiling": 0,
+      "liquid_sand_never_box2d": false,
+      "liquid_viscosity": 50,
+      "stainable": true,
+      "liquid_stains": 0,
+      "liquid_stains_self": false
+    },
+    "slime": {
+      "density": 5,
+      "liquid_gravity": 0.10000000149011612,
+      "liquid_damping": 0.800000011920929,
+      "liquid_flow_speed": 0.8999999761581421,
+      "liquid_sand": false,
+      "liquid_static": false,
+      "liquid_slime": true,
+      "liquid_sticks_to_ceiling": 40,
+      "liquid_sand_never_box2d": false,
+      "liquid_viscosity": 50,
+      "stainable": true,
+      "liquid_stains": 2,
+      "liquid_stains_self": false
+    },
+    "water": {
+      "density": 4,
+      "liquid_gravity": 1.5,
+      "liquid_damping": 0.800000011920929,
+      "liquid_flow_speed": 0.8999999761581421,
+      "liquid_sand": false,
+      "liquid_static": false,
+      "liquid_slime": false,
+      "liquid_sticks_to_ceiling": 0,
+      "liquid_sand_never_box2d": false,
+      "liquid_viscosity": 50,
+      "stainable": true,
+      "liquid_stains": 1,
+      "liquid_stains_self": false
+    },
+    "wall": {
+      "density": 1000000.0,
+      "liquid_gravity": 0,
+      "liquid_damping": 0,
+      "liquid_flow_speed": 0
+    }
+  },
+  "width": 24,
+  "height": 20,
+  "seed": 17,
+  "cases": [
+    {
+      "name": "dam break",
+      "rects": [
+        [
+          "water",
+          2,
+          8,
+          5,
+          9
+        ]
+      ],
+      "stains": false,
+      "frames": [
+        {
+          "tick": 1,
+          "cells": "e3198d76d1e43059eebc15cba2e9b5230500513e4634922f00ed2128794987b1",
+          "colors": "6b3aab8ee5590d96114554bf553181c30df9bdfb05e262892cd6b5065e17f2e6",
+          "rng": 4288972669
+        },
+        {
+          "tick": 2,
+          "cells": "298a0178a9321a247578176c9ccb12dc75c70186467e0ab41403d519bc085f76",
+          "colors": "00e643b181e652f85c3b3797a7637aab5ec7640162035aa4ef615868e3e1d259",
+          "rng": 391972624
+        },
+        {
+          "tick": 3,
+          "cells": "2f22285cb6475120e6c83e02174eac20748f6d03ba5cd59900645b8645dbbcd1",
+          "colors": "bd21f3dfd47c6b26d5d284bb5ccb14d8956df18413bcb225ef67c9ce8f5e2e08",
+          "rng": 1656101777
+        },
+        {
+          "tick": 4,
+          "cells": "f8a560e155cdbd536e12f8d060b12cfa2e90e0185ec2a0b5d9a6ca6f9e08b69b",
+          "colors": "ac96a0f5e20780b19d4ff783a070b4e8b9292793981c5139ab4094f2d2899320",
+          "rng": 3553938378
+        },
+        {
+          "tick": 5,
+          "cells": "1545a698765c3bb7ebe45097b6bbcd8e4c6d0ce0e53ddb67dc6be4c788b52401",
+          "colors": "6d0dbfc3b472bda36dcabb9b61bc792df332ed1c56cd01ab82c4fdbd0ce60c08",
+          "rng": 932387272
+        },
+        {
+          "tick": 6,
+          "cells": "8bad9e17254666a4d63afcd25329eb7faedc9f8c4ab85d0d6e3440b6f2c7b142",
+          "colors": "7330daf8edc18003562a483a3522a3b0c0519946dd208448dd123274068f42e3",
+          "rng": 2357545537
+        },
+        {
+          "tick": 8,
+          "cells": "0e5ac66523d6f850e779a2f556bbcb9b14bf2a1032f36cd3fb95d632d34c1ad4",
+          "colors": "79efcb94f115ed0a7715c97f817da353e44c29febe01a9d1df0bd15a45731808",
+          "rng": 1648723786
+        },
+        {
+          "tick": 12,
+          "cells": "fc91dd0673c3784823ceae3710b2e53936ced19093c4131a4960445b3c94dc7f",
+          "colors": "a837e4076baae3a7eb0de9631b3d2d7cce95ee52069faa7c6dc5a81815761a55",
+          "rng": 1130537607
+        },
+        {
+          "tick": 24,
+          "cells": "769c00ed5bfdd84cd55c6eb41b1643d8714ae6c1b4a7f7313d4bb4e88050d6a7",
+          "colors": "3ba877c578fb1f70c2c33a62830cb9080d335e4ede824787d175930949ab1883",
+          "rng": 4022163890
+        },
+        {
+          "tick": 36,
+          "cells": "8633cad469c5f66c73b543bbf4924e7474c58be82c1db74d2c257413d8fa5a4c",
+          "colors": "696a11df59b3be041ca195ff9a04dac3e24c3c1ab6ebd6609856b690bdf350a1",
+          "rng": 1912974592
+        },
+        {
+          "tick": 64,
+          "cells": "f11eaa69d6e73e9b17bd9eed086a9aa37414e2d1f6cccc81d4d71ce0c3cc742f",
+          "colors": "586b5876213ec5631b48a0dc26f00799ed5eb537e1e88b85a653bc04dc3c09b6",
+          "rng": 974156004
+        }
+      ]
+    },
+    {
+      "name": "fall into water",
+      "rects": [
+        [
+          "water",
+          1,
+          16,
+          22,
+          3
+        ],
+        [
+          "water",
+          10,
+          2,
+          4,
+          4
+        ]
+      ],
+      "stains": false,
+      "frames": [
+        {
+          "tick": 1,
+          "cells": "259080f45f2b03f747cba0bf313f78bc34bcb488f776127ef2739617ae6753df",
+          "colors": "36ec01fd974e2109d10663c5f1d37980b2c9232d839126a8f8aa2cfedc79e7a7",
+          "rng": 111923073
+        },
+        {
+          "tick": 2,
+          "cells": "33bac430262dae5e92b223a5706d7aebd02d952e6129a67561cc5d7576281c15",
+          "colors": "285652ec9a80e7efc80c096bc692abeada6384b88088887cc327324099b9fadc",
+          "rng": 710337265
+        },
+        {
+          "tick": 3,
+          "cells": "d1340a4789fa22e56918e579b7b26205c7f5f79b7919e02ceb43010b11d5b59f",
+          "colors": "98b7841b43c21c7e9802375758f6c6b66c10b9f7302c0b39ab54785e51d07acf",
+          "rng": 2369755452
+        },
+        {
+          "tick": 4,
+          "cells": "bb660926a9acf6fb4eee41ee73aee873d51be934ff1ad802f6fe2acef5cfae32",
+          "colors": "38f796f24b44ca5aa54e9f0f32ed5e8e0f30bf43a4309bc238830a46c50df755",
+          "rng": 3156410959
+        },
+        {
+          "tick": 5,
+          "cells": "f88de3c0944c8bcae1faf44cc1df8f18e078b749bc0238de5e83afbbc5957515",
+          "colors": "2281b9efc4697748677e965c8978802a28b1f8bb53b4fe64c3cba0bcdf21b930",
+          "rng": 638010688
+        },
+        {
+          "tick": 6,
+          "cells": "8b784e7dc083c3a29e35725f5c3dc6be2883d6081410760b26d54848c43d1e61",
+          "colors": "04ac0bc4c5c656a5175220f1973646f6c7c5156a57ba227d191b49862931f38a",
+          "rng": 3209941741
+        },
+        {
+          "tick": 8,
+          "cells": "4d706e2e282066f8693227b3caf30e549dab3b3dcef5245e78be9b9ea8bcda7a",
+          "colors": "830ed7a5be90d6874829cc98c3d33d013ea4a060ccacd7972f58c20f9937ec91",
+          "rng": 1129553793
+        },
+        {
+          "tick": 12,
+          "cells": "08f1c8a0de42fe8f2839d75ddced090bc12b6d2aff03562c55a4d71f6a26b753",
+          "colors": "9cdf5617027ec544ccbca8a1d1c3d267fe6f8202fb9e29e6854cb5016ae4621d",
+          "rng": 4073237521
+        },
+        {
+          "tick": 24,
+          "cells": "a0fc92b47d3222c06ee701271d8a7c469c8decfbe31c20f983ae7e5a5ebcb1a8",
+          "colors": "53f764566d279eb9ee75af960d3d2c1dc10c5002f3b66c772fcd475a7ea4a10f",
+          "rng": 410462081
+        },
+        {
+          "tick": 36,
+          "cells": "60975c5b5ce23899f1f7275f6e032a6065e5ca2bf59513f767d688d14dee3962",
+          "colors": "41241c17ed34ea45be7bec6e8ed8ce6f08c542d422d6694d59335e9023cdd131",
+          "rng": 4061971112
+        },
+        {
+          "tick": 64,
+          "cells": "e49f8ffdeccf7b09a6be744840ef28c79e7ad4183ffa820f307cb696b3aacd37",
+          "colors": "d25ed134e0211effa835ab68498eada91005f7edcfa6a922efb654ae0797c28f",
+          "rng": 2884053431
+        }
+      ]
+    },
+    {
+      "name": "oil under water",
+      "rects": [
+        [
+          "water",
+          1,
+          12,
+          22,
+          3
+        ],
+        [
+          "oil",
+          1,
+          15,
+          22,
+          4
+        ]
+      ],
+      "stains": false,
+      "frames": [
+        {
+          "tick": 1,
+          "cells": "f42bc2bab289e5bad2a5546d259983184c418278c45e06e96bc440297aa8fd1d",
+          "colors": "63368950266d81ac46dc4c968e64d2b82ce687a8875bb122d913ec249ca8998a",
+          "rng": 1910788657
+        },
+        {
+          "tick": 2,
+          "cells": "0a7359bb6f18f62b6a0be9f763064222aa6e0f5ed44b7feff2523197639b81f4",
+          "colors": "e09c8e6e41be4c87b0d4a731fdfd1ab70f843a220d53bd24583cce245b47ff95",
+          "rng": 3900873853
+        },
+        {
+          "tick": 3,
+          "cells": "1677a2c36e6ed0dd24f794542dad658ff069ab8d4956566b8837495064cf1eb3",
+          "colors": "5726aac7d0cc27442e60200efbc0eaf1028a27132212ea35a3a38d9a5438a4bd",
+          "rng": 4269991723
+        },
+        {
+          "tick": 4,
+          "cells": "00615615380d9d07dd2ff1284739268fe9c8083362fa15db1823b6d907e287c2",
+          "colors": "d68d0ab0bc6911057fe0357795d250201aa159c7da3e620fb751adc13ddd6d55",
+          "rng": 1015904199
+        },
+        {
+          "tick": 5,
+          "cells": "afb4871bff8880cdbee2b3d18565263056d7405903392402347d369ba81a126f",
+          "colors": "e60d2f04e2d40ddd951253afd6bba8bfa54537fb5a67ddf350b44365795be625",
+          "rng": 766122992
+        },
+        {
+          "tick": 6,
+          "cells": "218539f4dac07d56cf649a22e8bb5282cda8b19cf78861129609c7701914d94f",
+          "colors": "822636466693d2f57cc186b9ade0bbcd21cc8272a4c7dedce90ef4216f67b7f4",
+          "rng": 3793938403
+        },
+        {
+          "tick": 8,
+          "cells": "ae574e8117cfa5efec7d4147c9409b0ac3027f3babcdcd39c26ee469a34e0e22",
+          "colors": "60147fece60ad1197b0d40e72614f8885cb9d9c1dd47cc1d0fa44951b94673af",
+          "rng": 2187042192
+        },
+        {
+          "tick": 12,
+          "cells": "78d5a4589b5bef7aa07f351c9e7c6b358bd2f29680f08b30887fd74859c3fd6e",
+          "colors": "b5aa445930c1c80b0ffa0849d2259e067b52085d6ea86bebf49e29a879a4c84b",
+          "rng": 1266713283
+        },
+        {
+          "tick": 24,
+          "cells": "9492ca3727843d76bf01b2a65e5ebe80374b20c4880f208dc3aba110836a3326",
+          "colors": "9bc20f74a6d44f118f24e25811a742b390276e9f809a24f1019a970766b279b8",
+          "rng": 2258294609
+        },
+        {
+          "tick": 36,
+          "cells": "deb11b8d5da58130585f22eddfc227338ac651859f1c74bcaefaac45e5e45b9d",
+          "colors": "522b18261b53861c0cd2cccbbde51725c3fc32d3677c0490a925a5ac1c91b8bc",
+          "rng": 3976818686
+        },
+        {
+          "tick": 64,
+          "cells": "72f11fc619bc68ef4f8610150cfa141ab2405a4a2fc8ea1dff924d4053e57d55",
+          "colors": "1b5ff016b018a3f092d129e001d27d8dc806bfd52ea258fbdc6765b65fa21505",
+          "rng": 427000456
+        }
+      ]
+    },
+    {
+      "name": "slime",
+      "rects": [
+        [
+          "slime",
+          4,
+          3,
+          5,
+          8
+        ]
+      ],
+      "stains": false,
+      "frames": [
+        {
+          "tick": 1,
+          "cells": "9823ec1feb1439deeb2d7833b252234314f53c6178d5cc6bb06151df8602a8d4",
+          "colors": "3c03fa0fdd9ea6cbe551c33681cc970524e67b9ba809971651d59d9c2900fd98",
+          "rng": 391972624
+        },
+        {
+          "tick": 2,
+          "cells": "f96979ae596934b30986872031be9364f0c8404d575b5e6c0597b80a6f24558f",
+          "colors": "35f2a45107fd2c62b875c42e510bd2cdaff5059eec4978eb3c409ba81e8c5433",
+          "rng": 1168923215
+        },
+        {
+          "tick": 3,
+          "cells": "17e9ed423c78c76716cbbaad61f70b3b04cd99a25e448e58c59f6d51ca61a688",
+          "colors": "b8af2a8348e3c4a93818cfe5213f44419c79d0154897f248d213092296d45854",
+          "rng": 2358574888
+        },
+        {
+          "tick": 4,
+          "cells": "5b5ba42645f0468bb0924240532853c0c2c2ddd8e6896dd1bf681f999d0462e8",
+          "colors": "c8f5b5ecc631b30224d27bb2b6d06881b965cf470c23acf73520a059206af787",
+          "rng": 2717372190
+        },
+        {
+          "tick": 5,
+          "cells": "63fca79f1230e1ea0eb28f63176397433a16e9aae13dee4846cb75157f64a7b3",
+          "colors": "20d450fa850ac3691d9b8d08c6d73fe36d6d33f36c519a2224892c81ab71ec49",
+          "rng": 3303577234
+        },
+        {
+          "tick": 6,
+          "cells": "ddea01392bb7ffc2c65bb6c3a3659f95118e077578e470cd2cfd08ea306b59b9",
+          "colors": "54422b20e10aee5c772343375ab448ba76d699fda033eae36e03c5ac8b58f794",
+          "rng": 1643947269
+        },
+        {
+          "tick": 8,
+          "cells": "0336502c0c3d09b84ad1826616de9f69816043a28be769bd95debb3117761e51",
+          "colors": "05dfb514bde8bda49136a57962687ddc420f400de755e738b378dd3a1bac6a30",
+          "rng": 1081129973
+        },
+        {
+          "tick": 12,
+          "cells": "a85b0cb8704bbf80e0ef0bef8d275bd3d67b2e76d5fd020106d05b7e3e4a3ca5",
+          "colors": "2dbaead205cec57f1113abcbfcc4abeac486043110f06f476e768a1e9d06b769",
+          "rng": 2548631465
+        },
+        {
+          "tick": 24,
+          "cells": "da874796cda74be1f20eb4b5a3fca8ba9be37a5bc041684a5a4b2b258d6e671d",
+          "colors": "94230c259158a1c2fcb403e18f624fdd7e919395b977016977df788f383e8216",
+          "rng": 3848052825
+        },
+        {
+          "tick": 36,
+          "cells": "b1e4f2984d835aee894fa02be69a0b96d9fbad33a4c48dba7d113fceda7f9d53",
+          "colors": "58d8ab0891002399972b1f07d2a1f9eb4f69738d10796694511a0f8ce9c1602d",
+          "rng": 1840017778
+        },
+        {
+          "tick": 64,
+          "cells": "49c82dd562ca51dea1951b2e60997dc8d44c5b4371afa411f41c96b7f65331f0",
+          "colors": "2e8ddd5f84e6fa515bfb9bae5e901450411f9d1ccd54fc5da2fb5e180ba010c6",
+          "rng": 924665999
+        }
+      ]
+    },
+    {
+      "name": "honey against a wall",
+      "rects": [
+        [
+          "wall",
+          10,
+          7,
+          3,
+          10
+        ],
+        [
+          "honey",
+          7,
+          1,
+          8,
+          4
+        ]
+      ],
+      "stains": false,
+      "frames": [
+        {
+          "tick": 1,
+          "cells": "dcd29c695aa7147c018acf224c9556d362f17e1e73cdd0e1e56fbc26b86b1c62",
+          "colors": "f72e2dd16d6e9c60ab0a04e8fe857ae505058064aa1a19e24fec0aee866cb140",
+          "rng": 1401394421
+        },
+        {
+          "tick": 2,
+          "cells": "43c151aaa122a6acb65f56496e38533070893d559f6c517504c8ede99e09e4a8",
+          "colors": "efb170c21f9d93e6509e93608b012ad714bc974e305cf98619f37f4150d6d0bc",
+          "rng": 2168573091
+        },
+        {
+          "tick": 3,
+          "cells": "2f9a6540121463637f87ae2b66a278850224706c8212714ada26d9ef5d7f8f65",
+          "colors": "3f54df03b1aee532d8786ba665d3420989ec7d614726fbc9fe62906acf29c036",
+          "rng": 713515112
+        },
+        {
+          "tick": 4,
+          "cells": "e2f1a5856ec41cc34e8ae1736e5fabe8918dfeca30764d675279ab0791ae2d13",
+          "colors": "bd0f02626094ab14a97e01eca01e73abdeb10428bb6b0615b6d3aba2ba711cab",
+          "rng": 2119908253
+        },
+        {
+          "tick": 5,
+          "cells": "fc0f72b6c8f55353ce59709f44ed5fd6ab1c4f4971774d3a8439c87fee802f28",
+          "colors": "746a2c34126515d744feab1379c0b7bf4aebef9507aa2b9c02cd89b2fae36f3e",
+          "rng": 1489930616
+        },
+        {
+          "tick": 6,
+          "cells": "7329c2db2d493cdc97565acfaa583aa7f0ae7e6cf318f5300b818fb7a3cc9e80",
+          "colors": "3a46cc7de1bb0823ad774c6318a576423991fd9bba5cab9f7761cae34cae00da",
+          "rng": 3449204096
+        },
+        {
+          "tick": 8,
+          "cells": "1c813c5b70b7cb040da195a2d35834dc2e3f50838415ee044a1941f96846a850",
+          "colors": "711b6f54cfee3109f5055f58fb77572312ae264396d7288d4324808c7bf09088",
+          "rng": 79128458
+        },
+        {
+          "tick": 12,
+          "cells": "6fb771b581cd22474c85e830db175da39ed32f1e21e30818e148ee9f7a5e8ded",
+          "colors": "044f95bc0f8ad27e82e595873c6120b0ced98c8dd5ec0059b98b4dad519de0de",
+          "rng": 1041594033
+        },
+        {
+          "tick": 24,
+          "cells": "a6154d5dcb2b18d4573335c3e95e3c0311e01d87de659cdaa1bccf70c4980efe",
+          "colors": "fd32fa2fd67fa51f15541441f36887dc350215ae69eee1b286c6046ecbb23392",
+          "rng": 498201414
+        },
+        {
+          "tick": 36,
+          "cells": "dcc00b70589f2d2e1ed42b20eec55d7b995a0930149e42558484c252167dd8d3",
+          "colors": "2b9934f80db5b419c56f9c47d6625a6b2f1b42b909023603b8c85072d65bdd83",
+          "rng": 2160171130
+        },
+        {
+          "tick": 64,
+          "cells": "450b8ce63815091f071c036cc7e1d81a18b2e57aa8d8342775ac012f47bca29c",
+          "colors": "861935663949eeece9d2e066a90bd4c537feeb001a1bfd8232c3bed18cfefd8f",
+          "rng": 1864951017
+        }
+      ]
+    },
+    {
+      "name": "sand",
+      "rects": [
+        [
+          "sand",
+          4,
+          3,
+          5,
+          8
+        ]
+      ],
+      "stains": false,
+      "frames": [
+        {
+          "tick": 1,
+          "cells": "30cc048a677ef7e3d30f107623657d6d8002bb244a942ed742c20bfe5c8cd413",
+          "colors": "df2af5a6c7247ff8eb41910369ff581bfc11aa5948df3d8b7e80745b98106777",
+          "rng": 1401394421
+        },
+        {
+          "tick": 2,
+          "cells": "f9d0829dc7e6c9060aa5fbc8b799eeed023074ca48bad0a0bb757123230a9175",
+          "colors": "96b5cc623b8a4160313ff1028e57018b057fcfff371702113aedb83fcdb17bd3",
+          "rng": 398748998
+        },
+        {
+          "tick": 3,
+          "cells": "9bd03e3a83137bf4b750758b02c8a17d6c3a196be3d1a055979e4c8128c552ec",
+          "colors": "3a1e8b9e63e842751591c3290265a10068d178e4174a4573cc85373f305b9a61",
+          "rng": 712258082
+        },
+        {
+          "tick": 4,
+          "cells": "fae0fcdd6ad83275cb0b3c1e02164e867e8c5068039c69c325828058f5eab54d",
+          "colors": "c7015dafa23266ecabba7cf96ff6d71b5330c87147eeafc46812cd1f4841b3a4",
+          "rng": 2352208857
+        },
+        {
+          "tick": 5,
+          "cells": "fc5c1e0c7c8ff230a855c7f40bffa8ab54345b25c66e62778b0de79c650e3d4f",
+          "colors": "cfe42cff14c9e018b432a1923dd7493c31e2c06dfae1775e3089fe1350fe1781",
+          "rng": 2720789000
+        },
+        {
+          "tick": 6,
+          "cells": "dd1ccfa94cf34c38b80ec6ff83669c1d677fae416bc1712d42dfa92efa5f6502",
+          "colors": "f62a14344d16a47e723817ca166c48cf306164fb958cabc4310f8c6480adff9d",
+          "rng": 2555503734
+        },
+        {
+          "tick": 8,
+          "cells": "b94177829dec37f13004101d1057412175e78c5e5d36f13b9be974b4c782188d",
+          "colors": "8102f8bbf07696d83444bd891b8149a90bcf52ba4b0e8b6fe4f1459b3864711d",
+          "rng": 4043269031
+        },
+        {
+          "tick": 12,
+          "cells": "02cd3c43b2de403b7e300520b2d5c64ee1a57447e6ea0d834ddc0cbcdae76f28",
+          "colors": "d5b7b52463a6472309946daaac84a429021f2265dd12d166973af38c2f30c19d",
+          "rng": 1705210099
+        },
+        {
+          "tick": 24,
+          "cells": "a975b7039f0fe46d94583cbdbf9078e83333f8430759c9c670f7ab9b9b717ad6",
+          "colors": "7f94010bbfc032d24ee4a9f0cb99be097b17621f45d5e6fb38302973a718728c",
+          "rng": 1385598483
+        },
+        {
+          "tick": 36,
+          "cells": "a975b7039f0fe46d94583cbdbf9078e83333f8430759c9c670f7ab9b9b717ad6",
+          "colors": "7f94010bbfc032d24ee4a9f0cb99be097b17621f45d5e6fb38302973a718728c",
+          "rng": 529652477
+        },
+        {
+          "tick": 64,
+          "cells": "a975b7039f0fe46d94583cbdbf9078e83333f8430759c9c670f7ab9b9b717ad6",
+          "colors": "7f94010bbfc032d24ee4a9f0cb99be097b17621f45d5e6fb38302973a718728c",
+          "rng": 3619809633
+        }
+      ]
+    },
+    {
+      "name": "textured liquid",
+      "rects": [
+        [
+          "material_rainbow",
+          3,
+          3,
+          4,
+          9
+        ]
+      ],
+      "stains": false,
+      "frames": [
+        {
+          "tick": 1,
+          "cells": "45af9c097f4b61792e0c7de443d8eaa980d8dea2c1bf03d64c215b5713bdf7c4",
+          "colors": "5e35cec857cb9e385dd28afa7c972630153af7a4b4267ff8f6d247f641d46959",
+          "rng": 4261281429
+        },
+        {
+          "tick": 2,
+          "cells": "6e1fe331b98512fb20463b8c7b07dea1d27be20248bd54cef2edf8aa9ef1271e",
+          "colors": "73e91298e066d45c658e97affd75265a33ea1c112623c44ba5f2dfaf55c0c877",
+          "rng": 3963694425
+        },
+        {
+          "tick": 3,
+          "cells": "c7e54e1d5fbd29c7bb6a6f8ccc01db931c75d5ac9faf18511df7e0bddbbbf07d",
+          "colors": "8c7883ec6aa6ddc2f3461892239af935b80aed9c37a0fcc903dba1e2bae775bf",
+          "rng": 4102099037
+        },
+        {
+          "tick": 4,
+          "cells": "d8dfaa9f5ff6e4172f7548eccc5c2c73aca0dccf2a3b010bd3d80a4be6d4dab9",
+          "colors": "cb3f0334d1589592689f7db7251a3485270b8709a76c9f0ff75718caedea1cfd",
+          "rng": 1127574433
+        },
+        {
+          "tick": 5,
+          "cells": "953d9a7f46b605f96d7de1ef7e9e963ca4a108da862bed0bf46914a6ccae7ffe",
+          "colors": "2cb6ab3ec3596f77ef2caafc79c1d830b5346ddc6547d472263a96c45deadef4",
+          "rng": 3088728869
+        },
+        {
+          "tick": 6,
+          "cells": "4daef0bd1675328fc2f5c1ff13a27dd986ad495cf4e1720059f93d15ebdea223",
+          "colors": "0d92e867e60227653193c7efa18ed5d874720046471dd0a78f800eeb17f02693",
+          "rng": 1422286602
+        },
+        {
+          "tick": 8,
+          "cells": "acf4a6b3bd5ff1b379b3e0fbddf2f53fc3eb29eae78f8720355de0e62d217465",
+          "colors": "d415290edac7baef76e38ff615066d029ad7bdec92a30aeb4da6b9f82132a060",
+          "rng": 4250276799
+        },
+        {
+          "tick": 12,
+          "cells": "3479cbfb3296d22f4f0a2bcc3ff8955e313a9dfca83137efe0a087b4a6c5da32",
+          "colors": "fac6db93b55ffbe327e88249420929642d92c7d4fe87205897d6a414933ea1bb",
+          "rng": 2228690659
+        },
+        {
+          "tick": 24,
+          "cells": "dd96fae38edb855e233185f2a546e9cfc55a3b30171a9d8552956bc476b9326f",
+          "colors": "4e783c58bdfa69a342eb54e4c41a4d55e0f5bf13b48e24b67fdeef156356198b",
+          "rng": 201239886
+        },
+        {
+          "tick": 36,
+          "cells": "830d880eb0a01cbe49f92f682c14baa6050e29977bf9a78d048c8a59f83b7814",
+          "colors": "99b251e30ae5a945823c6c5b7563d4149ec39231f73d946e01b6b62f242d64c8",
+          "rng": 2979148628
+        },
+        {
+          "tick": 64,
+          "cells": "1a91f50df2f3a247eecdc5d98ddb0fcace36f64f44342fb30eb26c7d3497788d",
+          "colors": "b1a5716ee1781c7704ba754a37194dfc5cf7d4c1872fe2114fc9e957d76a11a9",
+          "rng": 3589222213
+        }
+      ]
+    },
+    {
+      "name": "resting water",
+      "rects": [
+        [
+          "water",
+          1,
+          15,
+          22,
+          4
+        ]
+      ],
+      "stains": false,
+      "frames": [
+        {
+          "tick": 1,
+          "cells": "0c1bf9e081fda2dd082932562c0a216d52c9b55d9c4bab3422c205dcdc8b163f",
+          "colors": "6cecf18e8a269a4fea60c811d2d4ff6329782e337ae3d6b7eb9afbf5df7b4b6b",
+          "rng": 3890583733
+        },
+        {
+          "tick": 2,
+          "cells": "0c1bf9e081fda2dd082932562c0a216d52c9b55d9c4bab3422c205dcdc8b163f",
+          "colors": "6cecf18e8a269a4fea60c811d2d4ff6329782e337ae3d6b7eb9afbf5df7b4b6b",
+          "rng": 3505534361
+        },
+        {
+          "tick": 3,
+          "cells": "0c1bf9e081fda2dd082932562c0a216d52c9b55d9c4bab3422c205dcdc8b163f",
+          "colors": "6cecf18e8a269a4fea60c811d2d4ff6329782e337ae3d6b7eb9afbf5df7b4b6b",
+          "rng": 483310269
+        },
+        {
+          "tick": 4,
+          "cells": "0c1bf9e081fda2dd082932562c0a216d52c9b55d9c4bab3422c205dcdc8b163f",
+          "colors": "6cecf18e8a269a4fea60c811d2d4ff6329782e337ae3d6b7eb9afbf5df7b4b6b",
+          "rng": 2345421857
+        },
+        {
+          "tick": 5,
+          "cells": "0c1bf9e081fda2dd082932562c0a216d52c9b55d9c4bab3422c205dcdc8b163f",
+          "colors": "6cecf18e8a269a4fea60c811d2d4ff6329782e337ae3d6b7eb9afbf5df7b4b6b",
+          "rng": 1510493637
+        },
+        {
+          "tick": 6,
+          "cells": "0c1bf9e081fda2dd082932562c0a216d52c9b55d9c4bab3422c205dcdc8b163f",
+          "colors": "6cecf18e8a269a4fea60c811d2d4ff6329782e337ae3d6b7eb9afbf5df7b4b6b",
+          "rng": 3905971113
+        },
+        {
+          "tick": 8,
+          "cells": "0c1bf9e081fda2dd082932562c0a216d52c9b55d9c4bab3422c205dcdc8b163f",
+          "colors": "6cecf18e8a269a4fea60c811d2d4ff6329782e337ae3d6b7eb9afbf5df7b4b6b",
+          "rng": 3041172529
+        },
+        {
+          "tick": 12,
+          "cells": "0c1bf9e081fda2dd082932562c0a216d52c9b55d9c4bab3422c205dcdc8b163f",
+          "colors": "6cecf18e8a269a4fea60c811d2d4ff6329782e337ae3d6b7eb9afbf5df7b4b6b",
+          "rng": 2645160001
+        },
+        {
+          "tick": 24,
+          "cells": "0c1bf9e081fda2dd082932562c0a216d52c9b55d9c4bab3422c205dcdc8b163f",
+          "colors": "6cecf18e8a269a4fea60c811d2d4ff6329782e337ae3d6b7eb9afbf5df7b4b6b",
+          "rng": 2696021105
+        },
+        {
+          "tick": 36,
+          "cells": "0c1bf9e081fda2dd082932562c0a216d52c9b55d9c4bab3422c205dcdc8b163f",
+          "colors": "6cecf18e8a269a4fea60c811d2d4ff6329782e337ae3d6b7eb9afbf5df7b4b6b",
+          "rng": 1060322465
+        },
+        {
+          "tick": 64,
+          "cells": "0c1bf9e081fda2dd082932562c0a216d52c9b55d9c4bab3422c205dcdc8b163f",
+          "colors": "6cecf18e8a269a4fea60c811d2d4ff6329782e337ae3d6b7eb9afbf5df7b4b6b",
+          "rng": 2861998353
+        }
+      ]
+    },
+    {
+      "name": "blood staining sand",
+      "rects": [
+        [
+          "sand",
+          1,
+          14,
+          22,
+          5
+        ],
+        [
+          "blood",
+          3,
+          9,
+          12,
+          5
+        ]
+      ],
+      "stains": true,
+      "frames": [
+        {
+          "tick": 1,
+          "cells": "94647f582d55a3ba05a627dafdd7439c8ac54146da908c41de24341f5692ba9e",
+          "colors": "d78f9e4e2c26c7394e822e9deb5319a1b54ed76e90a9fd6fb48c5dfee1975c59",
+          "rng": 1051229091
+        },
+        {
+          "tick": 2,
+          "cells": "3663a7620dc2f82d3ad203236d56cc712158b9afed7d9599a98093404b410124",
+          "colors": "6d737e950d4cc619657315b2d86136186f6abc3d1857300bd3cb893bedbce1e8",
+          "rng": 249697863
+        },
+        {
+          "tick": 3,
+          "cells": "63edeb366ded69ae4a3811af16a4a77892abbff96149278fa380b4ad74b07a31",
+          "colors": "db37824a0663f7a3f83bc48f2bfea0db7a593a2dbc74c59c2632ecf2a9c05b78",
+          "rng": 4048012348
+        },
+        {
+          "tick": 4,
+          "cells": "89239397e1978dba195f0ceda78313d4469476ac42c35375617138753463a7f1",
+          "colors": "6aaf2fd4c312ff342beda3e8c3119818c6f6fcc27efefca0e00f7929ed042eaa",
+          "rng": 3239529452
+        },
+        {
+          "tick": 5,
+          "cells": "ddd17759661c8384f22473b23211c7f7265185b4a6439b2e907885009c81c230",
+          "colors": "c6c16bd0238365d71ff50287a7b0dad083a8cd94a317c366e331031c4c0b50dc",
+          "rng": 799552107
+        },
+        {
+          "tick": 6,
+          "cells": "9f2a1a8bd641ff15f98bfc976e9e8bd08825e80bae9024c811265c34b23883d6",
+          "colors": "5f2bc15b5204f96685191b85f5eb796401437dad1817cf0e0316fd85ed9191a0",
+          "rng": 2805793303
+        },
+        {
+          "tick": 8,
+          "cells": "53fefac8e8c371074ffb72508664d6f4c777ed6a1e96eced1392a88d9160f9c4",
+          "colors": "c22839a7ec00ef4665edf579b1facce2a50546566aea139b7150f7004111a586",
+          "rng": 3096811001
+        },
+        {
+          "tick": 12,
+          "cells": "26ea0d3bf583dfa2d2506fa6d2b3d8055377a5e1287a1fba56f56ccc3cdc7645",
+          "colors": "df10da48641e623f6c808d9026ec9412f00455743901402a76d0b3eda95d5182",
+          "rng": 1778845882
+        },
+        {
+          "tick": 24,
+          "cells": "0f6b3ab99bf0b716a64c996f25851957f505fa86f0197d3b4a911ac050019695",
+          "colors": "57de35e9666d8d8d39319e2947d9013722779aa50cf4e120f8c631a4a3c8e290",
+          "rng": 2461454873
+        },
+        {
+          "tick": 36,
+          "cells": "96342d2611f487b059c02fad935918fc7f06d41b8c5a024ebecad61de9485a2b",
+          "colors": "504580b2e1dda0d6d1a22a66cbafd619d534a4089442bcf7e68136ce9332eec7",
+          "rng": 222293610
+        },
+        {
+          "tick": 64,
+          "cells": "f6032bf4e71b633f6be9b7ddb14c895a2b5616f76e05944d384741e0fffb697b",
+          "colors": "7894ef9c016ca78618fc632c4acb6d0431eaf95d2c7916d998042e324e776404",
+          "rng": 4094011896
+        }
+      ]
+    },
+    {
+      "name": "water wetting sand",
+      "rects": [
+        [
+          "sand",
+          1,
+          14,
+          22,
+          5
+        ],
+        [
+          "water",
+          3,
+          9,
+          12,
+          5
+        ]
+      ],
+      "stains": true,
+      "frames": [
+        {
+          "tick": 1,
+          "cells": "b419caa62560490a058bc8c70410759a9c5429b8c18c3ed2bab8646245d8ba9d",
+          "colors": "7c054d63ee3d06a8e9f218cf229f2b68db199dbad99d9630f2a4b1316c788d40",
+          "rng": 1051229091
+        },
+        {
+          "tick": 2,
+          "cells": "7c162574f7b93640014158378ddb5efba679c6d675e9ca5dcf99f8b29e57c1b4",
+          "colors": "c6525e1e2a7b81e04db7e9987d8528ceb5ec9371f1d3a592cf336a84787d4944",
+          "rng": 249697863
+        },
+        {
+          "tick": 3,
+          "cells": "63a5836f02e2cc8628dc69622f9300e823919d2b55c86fbdd776dec39c9285aa",
+          "colors": "034d89510267860c140143a62013d8499623ba770b5f93defcfffc5cd259e0e7",
+          "rng": 307296192
+        },
+        {
+          "tick": 4,
+          "cells": "4bbe8e72462d13be190d41f6ca291ab27145c996d02bc475039cb24a0dea8eb0",
+          "colors": "92dc0f9ac824743cd389d2c6bd8b24fc5d42848c5a48b185ebefb9e18d8f3bae",
+          "rng": 491137130
+        },
+        {
+          "tick": 5,
+          "cells": "ce04cb6109153015c596fae5e89a320df7ff95435e6c63fe8fbc222f53101d2b",
+          "colors": "ccbcbb853f3dc0d8128f32fb08aeff8b21b7b7f3136fe9a0a11031848959b6bc",
+          "rng": 1535428371
+        },
+        {
+          "tick": 6,
+          "cells": "54cbf1d9fbff56ce915c512108d06d221742b8455190820cc4e89f4002abca15",
+          "colors": "9900c320be34ae33cf3bc6cb9856f5014e348ec656725fbdbf2e052f3515555f",
+          "rng": 3673075263
+        },
+        {
+          "tick": 8,
+          "cells": "77ed174eeaed211c106c72c374c8c9e8602770dad3be36a8f784836453a8090b",
+          "colors": "621378ee1abb11a9876996715ce72c727ab5e2dd53288c9ada4bf70963a35512",
+          "rng": 1361040273
+        },
+        {
+          "tick": 12,
+          "cells": "6d4f9f63a87dee3da6213c894ec5e49e6e1bd0402e497ee7cae9c621832c53e0",
+          "colors": "90e567256255ab77f3949ded3229ca8d6f44e8c09898b3fff7b483b64065c048",
+          "rng": 3696994158
+        },
+        {
+          "tick": 24,
+          "cells": "a56084d06e12f460d7d0b3ca4a8407fc9878c94d958baa1789ae682d8d0c8df4",
+          "colors": "1d42d1cf824addcb013ef1f72bc4ae3e6f773973fd60a3a9e5d6e6eb2136f0bf",
+          "rng": 4094998274
+        },
+        {
+          "tick": 36,
+          "cells": "270f4be59b2a023bdd688531f27f58491312507e047e3c698e2690f3337ccf37",
+          "colors": "cb4d0a90a8c42c67f7c4deb52a727978d74aab8d6319380dff4e79f252b1f6c9",
+          "rng": 1062575763
+        },
+        {
+          "tick": 64,
+          "cells": "d03910cd1bd150a04e0356599a329d6f19bf54eab9c4629427e4de95ad9a12ce",
+          "colors": "a70ca828175123376a8c6e9127f34971663f1887c512d793e3ca437d67b01368",
+          "rng": 2038207419
+        }
+      ]
+    },
+    {
+      "name": "honey under rock",
+      "rects": [
+        [
+          "rock_static",
+          5,
+          4,
+          14,
+          2
+        ],
+        [
+          "honey",
+          7,
+          6,
+          9,
+          3
+        ]
+      ],
+      "stains": false,
+      "frames": [
+        {
+          "tick": 1,
+          "cells": "a26f7fe80ad423aaa9f378c10fd813e4cc7f176cf27aba0284fdc73eaedcdc1c",
+          "colors": "73802dff6b56c1720948edf4a949daa4de8f73d495f07aec1584002c2d249672",
+          "rng": 3885946241
+        },
+        {
+          "tick": 2,
+          "cells": "e90ba638d5102fd8b3ac320b68bb0dd4b576913fd76b0a716113cab324bfc6e0",
+          "colors": "69f812e2fc973c2b3eb9b50aaa629a3948299d5007103b6984170eaded56712a",
+          "rng": 3341565727
+        },
+        {
+          "tick": 3,
+          "cells": "ab8839bcbd2a19b4e058ebd93337e9901733b2f54a879b702a29d2dfaece913d",
+          "colors": "c6edfa228a73981dc9fa1898a8bb68ed6c2112b74ff1fafd84770bd5a6d48d48",
+          "rng": 240704205
+        },
+        {
+          "tick": 4,
+          "cells": "b3f889ac7ea50b238401de23333b1ada18a220c7c6a327923fdfb67881308cae",
+          "colors": "c1c276468da7feea38729267d772c95cb07ad124b5ab513a098996882fcaa7d4",
+          "rng": 1400779839
+        },
+        {
+          "tick": 5,
+          "cells": "63ee76be80ab6f0eec10119c47e6b85810cc2db6c8c73a6ef9aaf53c58e11af8",
+          "colors": "71f8910bfe6267962eae393215e209338c07dbd1b66329c5936068ef3c882d92",
+          "rng": 348361627
+        },
+        {
+          "tick": 6,
+          "cells": "67414c3cfec9fc863bc27039fa2216f1a68ea61f7098ccdcf9f3b6710d8205ed",
+          "colors": "eb8f3897e075f2f852932c9bd52f365cf9aaa339a7cb10512acd26c01590d454",
+          "rng": 3760503940
+        },
+        {
+          "tick": 8,
+          "cells": "c2de8fc9b723c756c81b205fb88d6ff2af5d2e571275ba3b1fd9cab4aa53ec78",
+          "colors": "95d5a5c41a6ea82e1a714cdae08f588d4e187d5a92b877d3e6db53a6dce46f39",
+          "rng": 965924828
+        },
+        {
+          "tick": 12,
+          "cells": "1b1b6727be7bfbbe588b37973f2d355f5d9df661287fc247ff412ffda8958ee5",
+          "colors": "630139e0b4d10d09e733812872e46e5a67b4cf65aa585ae07c93e27eb190fda8",
+          "rng": 558830830
+        },
+        {
+          "tick": 24,
+          "cells": "1da83bcc574b851cc5d82275c51b720ac152a51c395662ce5f46e4cf02cb5ba3",
+          "colors": "071919b308d857ba2b27e95f988bc1c4603901f718b89344005c2a8046486a7b",
+          "rng": 773273399
+        },
+        {
+          "tick": 36,
+          "cells": "71a06c2a44045e9e3d63cd341a6e0af89a6bfa8616fbfebe40557d72a0b87120",
+          "colors": "5811f9abd68ea122de1ff751c6a1bf50ace3dc43ae9df4e0875a37959445ac23",
+          "rng": 175385330
+        },
+        {
+          "tick": 64,
+          "cells": "19f4012b345c9883244b695345b64755cbc9965695c0224f557228525a857495",
+          "colors": "e46ab40ec850385f75ffefcd6b8cf9e41d37a1c8ddc811efac628521c815a9ec",
+          "rng": 83166260
+        }
+      ]
+    },
+    {
+      "name": "unsupported coal",
+      "rects": [
+        [
+          "coal_static",
+          7,
+          4,
+          6,
+          3
+        ]
+      ],
+      "stains": false,
+      "frames": [
+        {
+          "tick": 1,
+          "cells": "0c1a4eba164d908f36249987d1ed809e43cd98909dfcb11266d2927364bc1473",
+          "colors": "d05db948ce0ae949a29efbc2015371b7b72c3f05e7f595d1c585c2f84909511a",
+          "rng": 4283342171
+        },
+        {
+          "tick": 2,
+          "cells": "6846b20f8688eb0087e18116c0eb2e6366c61585f5e5080aeddaa8552b00e3ba",
+          "colors": "690d6086fb878868acf7d0452ce8a7cea928ec6ce7a10b2784a0344658a83ce4",
+          "rng": 91102048
+        },
+        {
+          "tick": 3,
+          "cells": "ae2715a08dc6711dcdc6f5f64b889d05d9ea801894b24f8204432a6496b0076c",
+          "colors": "3f01570b5fd29d8769b91e4f43f27db753d91a5408bf94c7d55f50d98cdd369b",
+          "rng": 1436304862
+        },
+        {
+          "tick": 4,
+          "cells": "2270cad632fcadf8b1bf0b046fa23b125bf49cbe290478a051cdd53e44c0bddb",
+          "colors": "754eb5c50d8578c73c29adefc19fd3f03e630ae12c24e12d293f81ffeb98f7d1",
+          "rng": 2783111615
+        },
+        {
+          "tick": 5,
+          "cells": "e28caa2200a8107f81177169387b615663c8b6b3fef8b2b2cf2e5b7befabf557",
+          "colors": "4ef21959030538ff9a95c5839ed1553ea1586d408ed66d381e07d231d573764c",
+          "rng": 1658139210
+        },
+        {
+          "tick": 6,
+          "cells": "acfd721ca2f3a7d47463e3ba9d4f09dea05720f63c0935448d9b55e18fa78b13",
+          "colors": "8b72dae0e3eba29f62987336d1b35e279cd22ba4cccd7f51daf37309f0f56445",
+          "rng": 835680114
+        },
+        {
+          "tick": 8,
+          "cells": "9eef7dd0adda47b13d7593da4bd5df7f7e89cb6e206daccbd032fcb2d3bff74c",
+          "colors": "e62aab67d8a15250076f757d26208bdd73a4920bc13b741afabf69f4dc5dd69c",
+          "rng": 1360867039
+        },
+        {
+          "tick": 12,
+          "cells": "925d20911186acd0e088d303bec15b39ca6afee7322471abc4218dacf83e61fa",
+          "colors": "6d2241c86c6f3e0736ac19be4d259a65f9e283aaa59b00b2cb3bd0f649001daa",
+          "rng": 4036571305
+        },
+        {
+          "tick": 24,
+          "cells": "9e2efe4e891bd4e5e1c65b9ef18569d19464e70e023c107968cf49aaf4f622d3",
+          "colors": "c1d080070a99b45823745fee9ad44e8e29abba8d90662bb1190e35cea3e7abf6",
+          "rng": 3756884851
+        },
+        {
+          "tick": 36,
+          "cells": "87687611cb084fa0952d375b6447826573de4ca6ce982fb6f78270a70f0c5a5c",
+          "colors": "c2e55e11187d61b3786eed4e5210fea0825fbc83be983fb36c54f7ba965a3807",
+          "rng": 3682649435
+        },
+        {
+          "tick": 64,
+          "cells": "f4b852229d07d683044c2e6007b05fbc318fe0f6bd7ea9e224b04d5421f7808f",
+          "colors": "668eb18f69de2fcdcdb2f1b84848f5f0f6174518834b737d257ba2b765fb7dd7",
+          "rng": 681449557
+        }
+      ]
+    }
+  ],
+  "scope": "Original liquid factory, row scan, movement, terrain stains and reinsertion. One worker, inert boundary, no chemical or thermal callbacks or dirty-region culling."
+}
