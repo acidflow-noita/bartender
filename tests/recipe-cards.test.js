@@ -59,6 +59,41 @@ test('each recipe has a distinct static canonical, WebP and Twitter poster in th
   assert.equal(head.querySelector('img'),null);
 });
 
+test('Discord gets only the animated asset for both reported still cards and the Ambrosia control', () => {
+  for (const path of [
+    '/reactions/4814?reagents=meat_frog&reagents=alcohol',
+    '/reactions/343?product=acid',
+    '/reactions/2776?product=magic_liquid_protection_all',
+    '/reactions/1739',
+  ]) {
+    const doc = new JSDOM(renderPageShell(template, path)).window.document;
+    const scripts = doc.head.querySelectorAll('script[id="discord:component-embed"][type="application/json"]');
+    assert.equal(scripts.length, 1);
+    const json = scripts[0].textContent;
+    assert.ok(Buffer.byteLength(json) <= 3000);
+    const animation = doc.querySelector('meta[property="og:image"]').content;
+    const poster = doc.querySelector('meta[name="twitter:image"]').content;
+    assert.match(animation, /\.webp$/); assert.match(poster, /\.png$/);
+    assert.ok(!json.includes(poster));
+    const {component} = JSON.parse(json);
+    assert.equal(component.type, 17);
+    const [gallery, row] = component.components;
+    assert.equal(gallery.type, 12); assert.equal(gallery.items.length, 1);
+    assert.deepEqual(gallery.items[0], {media: {url: animation}, description: doc.querySelector('meta[property="og:image:alt"]').content});
+    assert.equal(row.type, 1);
+    assert.deepEqual(row.components.map(button => [button.type, button.style, button.url]), [
+      [2, 5, doc.querySelector('link[rel="canonical"]').href], [2, 5, animation],
+    ]);
+  }
+  const unsafe = recipeCard(1, {1: {title: '</script><script id="unexpected">', description: '', version: 'abc'}});
+  const head = new JSDOM(withRecipeMetadata(template, unsafe)).window.document.head;
+  const payload = JSON.parse(head.querySelector('script[id="discord:component-embed"]').textContent);
+  assert.equal(payload.component.components[0].items[0].description, unsafe.alt);
+  assert.equal(head.querySelector('#unexpected'), null);
+  assert.throws(() => withRecipeMetadata(template, {...unsafe, alt: '氷'.repeat(1000)}), /3,000 bytes/);
+  assert.doesNotMatch(renderPageShell(template, '/reactions'), /discord:component-embed/);
+});
+
 test('the complete catalog fits the fixed-size banner with all ingredient and output icons', () => {
   const media = JSON.parse(read('../src/data/recipe-card-media.json'));
   assert.equal(new Set(ids).size,rules.length);
