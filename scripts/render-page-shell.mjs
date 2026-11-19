@@ -5,6 +5,8 @@ import {routes} from '../src/routes.js';
 import {createNavigation} from '../src/ui/navigation.js';
 import {createHomeView} from '../src/pages/home-view.js';
 import {pageHeading} from '../src/ui/heading.js';
+import {recipeCard, withRecipeMetadata} from '../src/reactions/social.js';
+import {recipePathId} from '../src/components/reactionUrl.js';
 import {reactionIntroduction} from '../src/reactions/introduction.js';
 
 const datasets = {
@@ -22,6 +24,7 @@ const sourceRoot = new URL('../src/', import.meta.url).href;
 
 export function pageShell(path, {cache: useCache = true} = {}) {
   path = path.split('?')[0].replace(/\.html$/, '').replace(/\/$/, '') || '/';
+  if (recipePathId(path)) path = '/reactions';
   if (path === '/index') path = '/';
   const route = routes.find(route => route.path === path);
   if (!route) return null;
@@ -64,14 +67,20 @@ export function pageShell(path, {cache: useCache = true} = {}) {
   }
 }
 
+let cardCatalogText, cardCatalog;
 export function renderPageShell(document, path, options) {
   const shell = pageShell(path, options);
   if (!shell) return document;
-  return document
+  const result = document
     .replace(/<title>[^<]*<\/title>/, `<title>${shell.title}</title>`)
     .replace(/(<header id="site-header">)[\s\S]*?(<\/header>)/, `$1${shell.header}$2`)
     .replace(/(<main\b[^>]*>)[\s\S]*?(<\/main>)/, `$1${shell.main}$2`)
     .replace(/(<main\b[^>]*class=")([^"]*)(")/, (_match, before, classes, after) => before + classes.replace(/\b(?:py|pb)-(?:3|5)\b/, shell.compact ? 'pb-3' : 'pb-5') + after)
     .replace(/\s*<link data-page-preload\b[^>]*>/g, '')
     .replace('</head>', `${shell.preloads}\n</head>`);
+  const id = recipePathId(path.split('?')[0]);
+  if (!id) return result;
+  const source = readFileSync(new URL('../src/generated/recipe-social.json', import.meta.url), 'utf8');
+  if (source !== cardCatalogText) {cardCatalog = JSON.parse(source); cardCatalogText = source;}
+  return withRecipeMetadata(result, recipeCard(id, cardCatalog));
 }

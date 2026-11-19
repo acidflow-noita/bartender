@@ -1,10 +1,11 @@
 import {WALL} from '../liquids/engine.mjs';
-import {compileContactReactions} from '../liquids/reactions.mjs';
+import {applyReactionEffects} from '../liquids/effects.mjs';
+import {applyContactReaction, compileContactReactions} from '../liquids/reactions.mjs';
 
 export const recipeCells = (rule, side) => [1, 2, 3].map(slot => rule[side + '_cell' + slot]).filter(Boolean);
 
-export function prepareReactionTank(world, rule) {
-  world.clear();
+export function prepareReactionTank(world, rule, seed = 1) {
+  world.clear(seed);
   world.contactReactions = compileContactReactions(world.materials, [rule]);
   const [first, second, third] = recipeCells(rule, 'input').map(id => world.getMaterialId(id));
   const {width, height} = world;
@@ -52,4 +53,29 @@ export function prepareReactionTank(world, rule) {
       if (id) world.setCell(x, y, id);
     }
   }
+}
+
+// In the full world, burning sparks use the generic fire contact callback and
+// stationary gas emitters can sleep. The recipe viewer explicitly tests their
+// named table entry at a real adjacent cell before advancing the world.
+export function usesDirectContact(material, rule) {
+  return (material?.cell_type === 'fire' && !material.on_fire && material.id !== 'fire')
+    || (material?.cell_type === 'gas' && material.liquid_static && rule.fast_reaction);
+}
+
+export function stepRecipeTank(world) {
+  const rule = world.contactReactions.rules[0];
+  if (rule && usesDirectContact(world.materials[rule.inputs[0]], rule)) {
+    const {width, cells} = world;
+    for (let i = 0; i < cells.length; i++) {
+      if (cells[i] !== rule.inputs[0]) continue;
+      const side = world.random.next() & 3;
+      if ((side === 0 && i % width === 0) || (side === 1 && i % width === width - 1)) continue;
+      const neighbor = i + (side === 0 ? -1 : side === 1 ? 1 : side === 2 ? -width : width);
+      if (cells[neighbor] !== rule.inputs[1]) continue;
+      const result = applyContactReaction(world.contactReactions, world, i, neighbor, {fast: rule.fast_reaction});
+      if (result) {world.reactionCount++; applyReactionEffects(world, result.effects);}
+    }
+  }
+  world.step();
 }

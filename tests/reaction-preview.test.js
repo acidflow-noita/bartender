@@ -5,7 +5,7 @@ import {LiquidWorld} from '../src/liquids/engine.mjs';
 import {renderCellBodies} from '../src/liquids/appearance.mjs';
 import {TankRefraction} from '../src/liquids/refraction.mjs';
 import {prepareReactionTank, recipeCells} from '../src/reactions/experiment.js';
-import {reactionUrl} from '../src/components/reactionUrl.js';
+import {reactionUrl, recipePathId} from '../src/components/reactionUrl.js';
 
 const read = path => JSON.parse(readFileSync(new URL(path, import.meta.url)));
 const manifest = read('../src/generated/data-manifest.json');
@@ -46,7 +46,7 @@ test('switching recipes clears the tank and supports three ingredients, age gate
 test('a shared reaction keeps the exact source row even for repeated material combinations', () => {
   const rule = find('honey', 'diamond'), row = reactions.indexOf(rule) + 1;
   const url = new URL(reactionUrl('https://test.invalid/reactions', {selectedReaction: row, selectedReagents: ['honey']}));
-  assert.equal(reactions[Number(url.searchParams.get('reaction')) - 1], rule);
+  assert.equal(reactions[recipePathId(url.pathname) - 1], rule);
   assert.equal(url.searchParams.get('reagents'), 'honey');
 });
 

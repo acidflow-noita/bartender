@@ -10,7 +10,7 @@ import {createReactionFinder} from '../reactions/model.js';
 import {createResetButton} from '../components/resetButton.js';
 import {createShareButton} from '../components/shareButton.js';
 import {getUnusedMaterialIds} from '../components/materialAvailability.js';
-import {readReactionReagents, reactionUrl} from '../components/reactionUrl.js';
+import {readReactionState, defaultPreview, reactionUrl} from '../components/reactionUrl.js';
 import {reactionIntroduction, applyReactionExample} from '../reactions/introduction.js';
 import {createChoicesTemplates} from '../components/choicesTemplates.js';
 import {recipeCells} from '../reactions/experiment.js';
@@ -20,7 +20,7 @@ import '../styles/reactions.css';
 
 export async function mount(host) {
   const [materials, simulation, availability] = await loadDatasets(['reactionMaterials', 'liquidSimulation', 'availability']);
-  const {reactions} = simulation;
+  const {reactions, recipeIds} = simulation;
   const byId = new Map(materials.map(material => [material.id, material]));
   const names = new Set(), ambiguous = new Set();
   for (const material of materials) {
@@ -28,17 +28,14 @@ export async function mount(host) {
     names.add(material.name);
   }
   const name = id => byId.get(id)?.name ?? id;
-  const numbers = new Map(reactions.map((rule, i) => [rule, i + 1]));
+  const numbers = new Map(reactions.map((rule, i) => [rule, recipeIds[i]]));
+  const byNumber = new Map(reactions.map((rule, i) => [recipeIds[i], rule]));
+  const unusedIds = getUnusedMaterialIds(availability);
   const defaults = {selectedReagents: [], selectedProduct: '', selectedReaction: null, excludeSpecialMaterials: true, onlyPracticalReactions: true, excludeUnusedMaterials: true};
   const state = {...defaults};
-  const readAddress = () => {
-    const params = new URLSearchParams(location.search);
-    Object.assign(state, {selectedReagents: readReactionReagents(location.href), selectedProduct: params.get('product') || '', selectedReaction: Number(params.get('reaction')) || null,
-      excludeSpecialMaterials: params.get('excludeSpecial') !== 'false', onlyPracticalReactions: params.get('onlyPractical') !== 'false',
-      excludeUnusedMaterials: params.get('excludeUnused') !== 'false'});
-  };
+  const readAddress = () => Object.assign(state, readReactionState(location.href, byNumber, unusedIds));
   readAddress();
-  const finder = createReactionFinder(materials, reactions, getUnusedMaterialIds(availability), state);
+  const finder = createReactionFinder(materials, reactions, unusedIds, state);
   const introduction = reactionIntroduction(materials, reactions.length);
   const reagentSelect = html`<select id="reagent-search" multiple aria-label="Ingredients"></select>`;
   const productSelect = html`<select id="product-search" multiple aria-label="Product"></select>`;
@@ -46,10 +43,17 @@ export async function mount(host) {
   const practical = Controls.toggle({label: 'Only practical reactions (speed higher than 5)', value: state.onlyPracticalReactions});
   const unused = Controls.toggle({label: 'Exclude unused materials', value: state.excludeUnusedMaterials});
   const count = html`<span class="small fg-3" role="status"></span>`;
-  const share = createShareButton(() => reactionUrl(location.href, state), Controls);
+  const share = createShareButton(() => reactionUrl(location.href, {...state, selectedReaction: numbers.get(selected)}), Controls);
   const reset = createResetButton(Controls, () => {Object.assign(state, defaults); selected = null; update();});
-  const writeUrl = () => {history.replaceState(history.state, '', reactionUrl(location.href, state)); share.clear();};
-  const preview = createReactionPreview(simulation.materials, byId);
+  const writeUrl = () => {
+    const filtered = state.selectedReagents.length || state.selectedProduct || !state.onlyPracticalReactions || !state.excludeSpecialMaterials || !state.excludeUnusedMaterials;
+    const id = state.selectedReaction ?? (filtered ? numbers.get(selected) : null);
+    document.title = id && selected
+      ? ['input', 'output'].map(side => recipeCells(selected, side).map(name).join(' + ')).join(' produces ') + ' - Noita Bartender'
+      : 'Reactions Finder - Noita Bartender';
+    history.replaceState(history.state, '', reactionUrl(location.href, {...state, selectedReaction: id})); share.clear();
+  };
+  const preview = createReactionPreview(simulation.materials, byId, rule => simulation.recipeSeeds[numbers.get(rule)] ?? 1);
   const wide = matchMedia('(min-width: 800px)');
   const examples = html`<details class="reaction-examples" open=${wide.matches}><summary>Recipe examples</summary>${introduction}</details>`;
   const filters = html`<details class="reaction-options" open=${wide.matches}><summary>Filter options</summary>
@@ -97,7 +101,7 @@ export async function mount(host) {
   results.addEventListener('change', event => {
     if (event.target.name !== 'preview-reaction') return;
     state.selectedReaction = Number(event.target.value);
-    select(reactions[state.selectedReaction - 1]); writeUrl();
+    select(byNumber.get(state.selectedReaction)); writeUrl();
   });
   results.addEventListener('click', event => {
     if (event.target.closest('a, button, input') || window.getSelection()?.toString()) return;
@@ -105,15 +109,15 @@ export async function mount(host) {
   });
   function renderMatches() {
     const ordered = descending ? matches : sortRows(matches, 'reaction_rate');
-    const requested = reactions[state.selectedReaction - 1];
+    const requested = byNumber.get(state.selectedReaction);
     const anchor = requested && ordered.includes(requested) ? requested : null;
     if (!anchor) state.selectedReaction = null;
-    select(anchor ?? ordered.slice(0, 8).find(row => row.input_cell2 !== 'air' && !row.entity_file) ?? ordered[0] ?? null);
+    select(anchor ?? defaultPreview(ordered));
     speed.closest('th').setAttribute('aria-sort', descending ? 'descending' : 'ascending');
     indicator.replaceChildren(icon(descending ? 'arrow-down' : 'arrow-up'));
     results.setData(ordered, anchor);
   }
-  speed.addEventListener('click', () => {descending = !descending; renderMatches();});
+  speed.addEventListener('click', () => {descending = !descending; renderMatches(); writeUrl();});
   function update() {
     updating = true;
     try {

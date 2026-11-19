@@ -1,3 +1,4 @@
+import {createReadStream, statSync} from 'node:fs';
 import {defineConfig, normalizePath} from 'vite';
 import {fileURLToPath} from 'node:url';
 import autoprefixer from 'autoprefixer';
@@ -28,6 +29,20 @@ export default defineConfig({
   plugins: [{
     name: 'static-page-routes',
     enforce: 'post',
+    configureServer(server) {
+      server.middlewares.use('/recipe-media', (request, response, next) => {
+        const name = request.url?.split('?')[0];
+        if (!/^\/[1-9]\d*-[a-f0-9]{20}\.(gif|png|webp|mp4)$/.test(name)) return next();
+        const file = fileURLToPath(new URL('./build/recipe-cards/site/recipe-media' + name, import.meta.url));
+        const stat = statSync(file, {throwIfNoEntry: false});
+        if (!stat) {
+          response.writeHead(302, {Location: 'https://bartender.runfast.stream/recipe-media' + name}); response.end(); return;
+        }
+        response.writeHead(200, {'Content-Type': name.endsWith('.mp4') ? 'video/mp4' : 'image/' + name.split('.').pop(), 'Content-Length': stat.size});
+        if (request.method === 'HEAD') response.end();
+        else createReadStream(file).on('error', error => response.destroy(error)).pipe(response);
+      });
+    },
     handleHotUpdate({file, server}) {
       if (!shellModules.has(normalizePath(file))) return;
       server.environments.ssr.moduleGraph.invalidateAll();

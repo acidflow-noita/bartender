@@ -1,5 +1,6 @@
 import {EMPTY, WALL} from './engine.mjs';
-import {MaterialArtwork} from './artwork.mjs';
+import {browserImages, MaterialArtwork} from './artwork.mjs';
+import {WORLD_RENDER_IMAGES} from './materials.mjs';
 import {SurfaceParticles} from './surface-particles.mjs';
 import {TankRefraction} from './refraction.mjs';
 import {LiquidRandom} from './native-rules.mjs';
@@ -45,7 +46,7 @@ export function minaReferenceBounds({width, height}) {
   return {x: width - 9, y: height - 19, width: 8, height: 18};
 }
 
-export function createLiquidRenderer(canvas, world) {
+export function createLiquidRenderer(canvas, world, images = browserImages) {
   canvas.width = world.width; canvas.height = world.height;
   const context = canvas.getContext('2d', {alpha: true});
   if (!context) throw new Error('This browser does not support a 2D canvas.');
@@ -70,7 +71,7 @@ export function createLiquidRenderer(canvas, world) {
   let reference = null, referenceFailed = false;
   let disposed = false, lastCursor = null;
   let generation = world.random;
-  const artwork = new MaterialArtwork(world, () => draw(lastCursor));
+  const artwork = new MaterialArtwork(world, () => draw(lastCursor), images);
   const defaultColor = world.sampleColor;
   world.sampleColor = (id, origin) => artwork.pigment(id, origin);
   const draw = (cursor = null) => {
@@ -141,7 +142,7 @@ export function createLiquidRenderer(canvas, world) {
   };
   const resize = entry => {
     if (disposed) return;
-    const rect = entry?.contentRect ?? canvas.getBoundingClientRect();
+    const rect = entry?.contentRect ?? canvas.getBoundingClientRect?.() ?? canvas;
     if (!rect.width || !rect.height) return;
     const box = entry?.devicePixelContentBoxSize?.[0];
     const ratio = view?.devicePixelRatio || 1;
@@ -173,7 +174,7 @@ export function createLiquidRenderer(canvas, world) {
   resize();
   const referenceReady = referenceBounds ? (async () => {
     try {
-      const asset = new Image(); asset.src = '/liquids/mina_outline.png'; await asset.decode();
+      const asset = await images.load('/liquids/mina_outline.png');
       if (disposed) return;
       reference = asset;
     } catch {referenceFailed = true;}
@@ -184,6 +185,11 @@ export function createLiquidRenderer(canvas, world) {
     displayCells,
     materialAt: (x, y) => refract.materialAt(x, y, liquidMask, displayCells),
     preload: id => artwork.preload(id),
+    async preloadAll() {
+      for (const name of Object.keys(WORLD_RENDER_IMAGES)) artwork.image(name);
+      await Promise.all([...world.materials.keys()].map(id => artwork.preload(id)));
+      await this.ready;
+    },
     advance: () => particles.advance(world, artwork),
     get failed() {return [...artwork.failures];},
     get referenceFailed() {return referenceFailed;},

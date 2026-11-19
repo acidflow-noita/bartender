@@ -5,3 +5,6 @@
 
 /data/*
   Cache-Control: public, max-age=31536000, immutable
+
+/recipe-media/*
+  Cache-Control: public, max-age=31536000, immutable

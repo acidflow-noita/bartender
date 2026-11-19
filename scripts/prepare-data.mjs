@@ -4,6 +4,7 @@ import {resolve} from 'node:path';
 import {loadSources, digest} from './data/sources.mjs';
 import {buildCatalog, CATALOG_SCHEMA} from './data/catalog.mjs';
 import {pageDatasets} from './data/page-datasets.mjs';
+import {socialDataset} from './data/recipe-social.mjs';
 import {materialReferences} from './data/material-reference.mjs';
 
 export async function prepareData() {
@@ -26,7 +27,16 @@ export async function prepareData() {
     writeFileSync(temporary, content); renameSync(temporary, target);
     return `/data/${filename}`;
   };
-  for (const [name, value] of Object.entries({...data, ...pageDatasets(data)})) {
+  const pages = pageDatasets(data);
+  const cardFile = new URL('recipe-social.json', generated);
+  const cards = JSON.stringify(socialDataset(data, pages.liquidSimulation.recipeIds));
+  let previous;
+  try {previous = readFileSync(cardFile, 'utf8');} catch (error) {if (error.code !== 'ENOENT') throw error;}
+  if (cards !== previous) {
+    const temporary = new URL('recipe-social.' + process.pid + '.tmp', generated);
+    writeFileSync(temporary, cards); renameSync(temporary, cardFile);
+  }
+  for (const [name, value] of Object.entries({...data, ...pages})) {
     manifest[name] = writeDataset(name, value);
   }
   const references = Object.fromEntries(materialReferences(data).map(record => [record.id, writeDataset(`material-${record.id}`, record)]));

@@ -4,11 +4,19 @@ import {pendingColor} from './stains.mjs';
 const toARGB = (r, g, b, a) => ((a << 24) | (r << 16) | (g << 8) | b) >>> 0;
 const quarter = color => (color >>> 2) & 0x3f3f3f;
 
-async function readImage(url) {
-  const asset = new Image();
-  asset.src = url;
-  await asset.decode();
-  const canvas = document.createElement('canvas');
+export const browserImages = {
+  async load(url) {
+    const image = new Image();
+    image.src = url;
+    await image.decode();
+    return image;
+  },
+  canvas: () => document.createElement('canvas'),
+};
+
+async function readImage(url, images) {
+  const asset = await images.load(url);
+  const canvas = images.canvas();
   canvas.width = asset.naturalWidth; canvas.height = asset.naturalHeight;
   const context = canvas.getContext('2d', {willReadFrequently: true});
   context.drawImage(asset, 0, 0);
@@ -33,7 +41,8 @@ function samplePalette(image, row, t) {
 }
 
 export class MaterialArtwork {
-  constructor(world, invalidate) {
+  constructor(world, invalidate, images = browserImages) {
+    this.source = images;
     this.world = world;
     this.invalidate = invalidate;
     this.urls = world.materials.map(liquidTextureUrl);
@@ -51,7 +60,7 @@ export class MaterialArtwork {
   load(url, accept) {
     if (!this.loads.has(url)) {
       this.pending++;
-      const promise = readImage(url).then(image => {if (this.invalidate) accept(image);})
+      const promise = readImage(url, this.source).then(image => {if (this.invalidate) accept(image);})
         .catch(() => this.failures.add(url)).finally(() => {
           if (--this.pending === 0 && this.invalidate) {
             if (this.pendingPigments) {

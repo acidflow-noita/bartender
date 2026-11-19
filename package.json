@@ -6,14 +6,16 @@
     "build": "vite build",
     "dev": "vite",
     "test": "node --test tests/*.test.js",
-    "prebuild": "node scripts/validate-material-availability.mjs && node scripts/prepare-data.mjs && node scripts/prepare-icons.mjs",
+    "prebuild": "node scripts/render-recipe-cards.mjs && node scripts/validate-material-availability.mjs && node scripts/prepare-data.mjs && node scripts/prepare-icons.mjs",
     "predev": "node scripts/validate-material-availability.mjs && node scripts/prepare-data.mjs && node scripts/prepare-icons.mjs",
     "pretest": "node scripts/validate-material-availability.mjs && node scripts/prepare-data.mjs && node scripts/prepare-icons.mjs",
     "materials:check": "node scripts/validate-material-availability.mjs",
     "preview": "vite preview",
     "data:prepare": "node scripts/prepare-data.mjs",
     "data:refresh": "node scripts/refresh-data.mjs",
-    "data:candidate": "node scripts/build-data-candidate.mjs"
+    "data:candidate": "node scripts/build-data-candidate.mjs",
+    "recipes:render": "node scripts/render-recipe-cards.mjs",
+    "postbuild": "node scripts/bundle-recipe-media.mjs"
   },
   "dependencies": {
     "@floating-ui/dom": "1.8.0",
@@ -27,6 +29,7 @@
   },
   "devDependencies": {
     "@duckdb/node-api": "2.0.0-r.1",
+    "@napi-rs/canvas": "1.0.8",
     "acorn": "8.19.0",
     "autoprefixer": "10.6.2",
     "es-module-lexer": "3.0.4",
@@ -36,7 +39,9 @@
     "postcss": "8.5.32",
     "rimraf": "^5.0.5",
     "sass": "1.107.0",
-    "vite": "8.3.5"
+    "sharp": "0.35.4",
+    "vite": "8.3.5",
+    "wrangler": "4.156.0"
   },
   "engines": {
     "node": "^22.22.2 || ^24.15.0 || >=26.0.0"

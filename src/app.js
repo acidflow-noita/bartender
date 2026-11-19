@@ -3,9 +3,10 @@ import './styles/choices.css';
 import 'bootstrap/js/dist/drawer.js';
 import {html} from 'htl';
 import {routes} from './routes.js';
+import {recipePathId} from './components/reactionUrl.js';
 import {createNavigation} from './ui/navigation.js';
 
-const path = location.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+const path = recipePathId(location.pathname) ? '/reactions' : location.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
 const route = routes.find(route => route.path === path);
 const main = document.getElementById('main');
 main.classList.remove('py-3', 'py-5', 'pb-3', 'pb-5');

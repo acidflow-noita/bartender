@@ -4,9 +4,9 @@ import {materialRGBA} from '../liquids/materials.mjs';
 import {createLiquidRenderer} from '../liquids/renderer.mjs';
 import {createLiquidPlayback} from '../liquids/playback.mjs';
 import {createMaterialHover} from '../liquids/hover.mjs';
-import {prepareReactionTank, recipeCells} from './experiment.js';
+import {prepareReactionTank, recipeCells, stepRecipeTank, usesDirectContact} from './experiment.js';
 
-export function createReactionPreview(materials, byId) {
+export function createReactionPreview(materials, byId, seedFor = () => 1) {
   const world = new LiquidWorld({width: 96, height: 56, materials});
   const name = id => byId.get(id)?.name ?? id;
   const title = html`<p class="mb-0 fw-semibold" aria-live="polite"></p>`;
@@ -66,7 +66,7 @@ export function createReactionPreview(materials, byId) {
     if (materialsPanel.open) updateInventory();
   };
   listen(materialsPanel, 'toggle', () => {if (materialsPanel.open && rule) updateInventory();});
-  const playback = createLiquidPlayback({step: () => {world.step(); renderer.advance();}, draw, paused, hidden: true});
+  const playback = createLiquidPlayback({step: () => {stepRecipeTank(world); renderer.advance();}, draw, paused, hidden: true});
   const syncVisibility = () => playback.setHidden(!rule || document.hidden || !seen);
   const observer = typeof IntersectionObserver === 'function' ? new IntersectionObserver(([entry]) => {
     seen = entry.isIntersecting; syncVisibility();
@@ -83,7 +83,7 @@ export function createReactionPreview(materials, byId) {
   listen(play, 'click', () => {paused = !paused; playback.setPaused(paused); label();});
   listen(step, 'click', () => {paused = true; playback.step(); label();});
   const start = () => {
-    prepareReactionTank(world, rule);
+    prepareReactionTank(world, rule, seedFor(rule));
     cursor = null; lastTick = -1;
     playback.resetTime(); draw();
   };
@@ -105,8 +105,10 @@ export function createReactionPreview(materials, byId) {
       }
       title.textContent = recipeCells(next, 'input').map(name).join(' + ');
       canvas.setAttribute('aria-label', title.textContent + ' reaction tank');
-      condition.hidden = !next.req_lifetime;
-      if (next.req_lifetime) condition.textContent = 'The ' + name(next.input_cell1) + ' sample starts at the required age of ' + next.req_lifetime + ' ticks.';
+      const notes = [];
+      if (next.req_lifetime) notes.push('The ' + name(next.input_cell1) + ' sample starts at the required age of ' + next.req_lifetime + ' ticks.');
+      if (usesDirectContact(world.materials[world.getMaterialId(next.input_cell1)], next)) notes.push('This sample tests the selected contact rule where the materials touch.');
+      condition.textContent = notes.join(' '); condition.hidden = !notes.length;
       entity.hidden = !next.entity_file;
       if (next.entity_file) entity.textContent = 'In game, this reaction also creates ' + next.entity_file.split('/').pop().replace(/\.xml$/, '').replaceAll('_', ' ') + '.';
       start(); label();
