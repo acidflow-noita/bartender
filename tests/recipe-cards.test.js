@@ -80,18 +80,21 @@ test('Discord gets only the animated asset for both reported still cards and the
     assert.equal(component.type, 17);
     const [gallery, row] = component.components;
     assert.equal(gallery.type, 12); assert.equal(gallery.items.length, 1);
-    assert.deepEqual(gallery.items[0], {media: {url: animation}, description: doc.querySelector('meta[property="og:image:alt"]').content});
+    assert.deepEqual(gallery.items[0], {media: {url: animation}});
+    assert.equal(doc.querySelector('meta[property="og:image:alt"],meta[name="twitter:image:alt"]'), null);
+    assert.ok(doc.querySelector('meta[property="og:title"]').content.includes(' produces '));
     assert.equal(row.type, 1);
     assert.deepEqual(row.components.map(button => [button.type, button.style, button.url]), [
       [2, 5, doc.querySelector('link[rel="canonical"]').href], [2, 5, animation],
     ]);
   }
   const unsafe = recipeCard(1, {1: {title: '</script><script id="unexpected">', description: '', version: 'abc'}});
+  unsafe.animation += '?q=</script><script id="unexpected">';
   const head = new JSDOM(withRecipeMetadata(template, unsafe)).window.document.head;
   const payload = JSON.parse(head.querySelector('script[id="discord:component-embed"]').textContent);
-  assert.equal(payload.component.components[0].items[0].description, unsafe.alt);
+  assert.equal(payload.component.components[0].items[0].media.url, unsafe.animation);
   assert.equal(head.querySelector('#unexpected'), null);
-  assert.throws(() => withRecipeMetadata(template, {...unsafe, alt: '氷'.repeat(1000)}), /3,000 bytes/);
+  assert.throws(() => withRecipeMetadata(template, {...unsafe, animation: 'https://example.test/' + 'x'.repeat(1800)}), /3,000 bytes/);
   assert.doesNotMatch(renderPageShell(template, '/reactions'), /discord:component-embed/);
 });
 
