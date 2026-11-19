@@ -1,0 +1,25 @@
+name: Archive published recipe media
+on:
+  push:
+    tags: ['archive-published-recipes-*']
+
+# This explicit maintenance tag can recover a release from already-served
+# static files. It never runs the game simulation or deploys a website.
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '26.13.0'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Verify the published bytes and upload the prebuilt archives
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/recipe-media-archives.mjs archive-published

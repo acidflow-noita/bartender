@@ -35,4 +35,4 @@ for (const [id, record] of Object.entries(catalog)) {
 }
 const files = readdirSync(dist, {recursive: true, withFileTypes: true}).filter(e => e.isFile()).length;
 if (files > 20_000) throw new Error('Build exceeds the free Workers Static Assets limit: ' + files + ' files.');
-console.log('Built ' + Object.keys(catalog).length + ' static recipe pages with WebP loops and posters. Total site assets: ' + files);
+console.log('Wrote ' + Object.keys(catalog).length + ' static recipe pages and staged their prebuilt media for upload. Total site assets: ' + files);
