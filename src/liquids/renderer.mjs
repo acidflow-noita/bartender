@@ -174,7 +174,7 @@ export function createLiquidRenderer(canvas, world, images = browserImages) {
   resize();
   const referenceReady = referenceBounds ? (async () => {
     try {
-      const asset = await images.load('/liquids/mina_outline.png');
+      const asset = await images.load('/liquids/mina.png');
       if (disposed) return;
       reference = asset;
     } catch {referenceFailed = true;}

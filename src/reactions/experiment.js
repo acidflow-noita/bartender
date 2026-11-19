@@ -2,6 +2,8 @@ import {WALL} from '../liquids/engine.mjs';
 import {applyReactionEffects} from '../liquids/effects.mjs';
 import {applyContactReaction, compileContactReactions} from '../liquids/reactions.mjs';
 
+export const RECIPE_TANK = Object.freeze({width: 112, height: 80});
+
 export const recipeCells = (rule, side) => [1, 2, 3].map(slot => rule[side + '_cell' + slot]).filter(Boolean);
 
 export function prepareReactionTank(world, rule, seed = 1) {

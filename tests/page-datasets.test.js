@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {loadSources, digest} from '../scripts/data/sources.mjs';
 import {pageDatasets} from '../scripts/data/page-datasets.mjs';
+import {recipeMediaUrls, recipeCard} from '../src/reactions/social.js';
 import {createReactionFinder} from '../src/reactions/model.js';
 import {getUnusedMaterialIds} from '../src/components/materialAvailability.js';
 import {isDiggingSpell} from '../src/digging/model.js';
@@ -36,5 +37,13 @@ test('compact reaction material data preserves IDs, metadata, order and every ba
     assert.equal(digest(finder.getFilteredReactions(state.selectedReagents, state.selectedProduct)), rows);
     assert.equal(digest(finder.getAvailableReagents(state.selectedReagents, state.selectedProduct)), reagents);
     assert.equal(digest(finder.getAvailableProducts(state.selectedReagents)), products);
+  }
+});
+
+test('the image share button and social cards use the same animation for every stable recipe ID', () => {
+  const catalog = JSON.parse(readFileSync(new URL('../src/generated/recipe-social.json', import.meta.url)));
+  const {recipeIds, recipeImageVersions} = pages.liquidSimulation;
+  for (const id of recipeIds) {
+    assert.equal(recipeMediaUrls(id, recipeImageVersions[id]).animation, recipeCard(id, catalog).animation);
   }
 });

@@ -13,6 +13,7 @@ export function pageDatasets(data) {
   }
   const fields = ['id', 'name', 'type', 'image_local', 'wikipage'];
   const media = JSON.parse(readFileSync(new URL('../../src/data/recipe-card-media.json', import.meta.url)));
+  const versions = Object.fromEntries(Object.entries(media).map(([id, [version]]) => [id, version]));
   const seeds = Object.fromEntries(Object.entries(media).filter(([, entry]) => entry[2] > 1).map(([id, entry]) => [id, entry[2]]));
   return {
     homeSummary: {
@@ -24,6 +25,6 @@ export function pageDatasets(data) {
     reactionMaterials: data.materials.map(row => Object.fromEntries(fields.filter(key => key in row).map(key => [key, row[key]]))),
     diggingSpells: data.spells.filter(isDiggingSpell),
     liquidMaterials: liquidMaterialRecords(data.materials),
-    liquidSimulation: {materials: simulationMaterialRecords(data.materials), reactions: data.reactions, recipeIds: recipeIds(data.reactions), recipeSeeds: seeds},
+    liquidSimulation: {materials: simulationMaterialRecords(data.materials), reactions: data.reactions, recipeIds: recipeIds(data.reactions), recipeSeeds: seeds, recipeImageVersions: versions},
   };
 }

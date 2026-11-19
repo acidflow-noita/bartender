@@ -2,11 +2,13 @@ import {createCanvas, loadImage} from '@napi-rs/canvas';
 import {fileURLToPath} from 'node:url';
 import {LiquidWorld} from '../../src/liquids/engine.mjs';
 import {createLiquidRenderer} from '../../src/liquids/renderer.mjs';
-import {prepareReactionTank, recipeCells, stepRecipeTank} from '../../src/reactions/experiment.js';
+import {RECIPE_TANK, prepareReactionTank, recipeCells, stepRecipeTank} from '../../src/reactions/experiment.js';
 
 export async function recorder(materials) {
-  const world = new LiquidWorld({width: 96, height: 56, materials});
-  const canvas = createCanvas(world.width, world.height), ctx = canvas.getContext('2d');
+  const world = new LiquidWorld({...RECIPE_TANK, materials});
+  const canvas = createCanvas(world.width, world.height);
+  const matte = createCanvas(world.width, world.height).getContext('2d');
+  matte.fillStyle = '#000';
   const images = {
     canvas: () => createCanvas(1, 1),
     load: url => loadImage(fileURLToPath(new URL('../../public' + url, import.meta.url))),
@@ -16,13 +18,9 @@ export async function recorder(materials) {
   if (renderer.failed.length || renderer.referenceFailed) throw new Error('Missing simulation artwork: ' + renderer.failed.join(', '));
   const capture = () => {
     renderer.draw();
-    const pixels = ctx.getImageData(0, 0, world.width, world.height).data;
-    for (let i = 0; i < pixels.length; i += 4) {
-      const a = pixels[i + 3] / 255;
-      for (let c = 0; c < 3; c++) pixels[i + c] *= a;
-      pixels[i + 3] = 255;
-    }
-    return pixels;
+    matte.fillRect(0, 0, world.width, world.height);
+    matte.drawImage(canvas, 0, 0);
+    return matte.getImageData(0, 0, world.width, world.height).data;
   };
   return (rule, seed = 1) => {
     prepareReactionTank(world, rule, seed);

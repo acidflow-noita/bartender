@@ -4,14 +4,14 @@ import {readFileSync} from 'node:fs';
 import {LiquidWorld} from '../src/liquids/engine.mjs';
 import {renderCellBodies} from '../src/liquids/appearance.mjs';
 import {TankRefraction} from '../src/liquids/refraction.mjs';
-import {prepareReactionTank, recipeCells} from '../src/reactions/experiment.js';
+import {RECIPE_TANK, prepareReactionTank, recipeCells} from '../src/reactions/experiment.js';
 import {reactionUrl, recipePathId} from '../src/components/reactionUrl.js';
 
 const read = path => JSON.parse(readFileSync(new URL(path, import.meta.url)));
 const manifest = read('../src/generated/data-manifest.json');
 const {materials, reactions} = read('../public' + manifest.liquidSimulation);
 const find = (...ids) => reactions.find(row => recipeCells(row, 'input').join() === ids.join());
-const tank = () => new LiquidWorld({width: 96, height: 56, materials});
+const tank = () => new LiquidWorld({...RECIPE_TANK, materials});
 const count = (world, id) => world.countMaterials().get(world.getMaterialId(id)) ?? 0;
 
 test('the Ambrosia preview starts with ingredients and replays the same native contact rule', () => {
@@ -38,7 +38,8 @@ test('switching recipes clears the tank and supports three ingredients, age gate
   }
   const left = reactions.find(row => row.input_cell1 === 'vine' && row.direction === 'left');
   prepareReactionTank(world, left);
-  const before = count(world, 'vine'); world.step(24);
+  const before = count(world, 'vine');
+  world.step(144); // Allow the full recording window for directional growth.
   assert.ok(count(world, 'vine') > before);
   assert.equal(count(world, 'acid_gas'), 0);
 });

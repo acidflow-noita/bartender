@@ -15,6 +15,7 @@ import {reactionIntroduction, applyReactionExample} from '../reactions/introduct
 import {createChoicesTemplates} from '../components/choicesTemplates.js';
 import {recipeCells} from '../reactions/experiment.js';
 import {createReactionPreview} from '../reactions/preview.js';
+import {recipeMediaUrls} from '../reactions/social.js';
 import '../styles/liquids.css';
 import '../styles/reactions.css';
 
@@ -53,7 +54,11 @@ export async function mount(host) {
       : 'Reactions Finder - Noita Bartender';
     history.replaceState(history.state, '', reactionUrl(location.href, {...state, selectedReaction: id})); share.clear();
   };
-  const preview = createReactionPreview(simulation.materials, byId, rule => simulation.recipeSeeds[numbers.get(rule)] ?? 1);
+  const preview = createReactionPreview(simulation.materials, byId, rule => simulation.recipeSeeds[numbers.get(rule)] ?? 1, rule => {
+    const id = numbers.get(rule);
+    const version = simulation.recipeImageVersions?.[id];
+    return version ? recipeMediaUrls(id, version, location.origin).animation : '';
+  });
   const wide = matchMedia('(min-width: 800px)');
   const examples = html`<details class="reaction-examples" open=${wide.matches}><summary>Recipe examples</summary>${introduction}</details>`;
   const filters = html`<details class="reaction-options" open=${wide.matches}><summary>Filter options</summary>

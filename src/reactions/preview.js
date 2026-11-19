@@ -1,17 +1,26 @@
 import {html} from 'htl';
+import * as Controls from '../ui/controls.js';
+import {createShareButton} from '../components/shareButton.js';
 import {LiquidWorld} from '../liquids/engine.mjs';
 import {materialRGBA} from '../liquids/materials.mjs';
 import {createLiquidRenderer} from '../liquids/renderer.mjs';
 import {createLiquidPlayback} from '../liquids/playback.mjs';
 import {createMaterialHover} from '../liquids/hover.mjs';
-import {prepareReactionTank, recipeCells, stepRecipeTank, usesDirectContact} from './experiment.js';
+import {RECIPE_TANK, prepareReactionTank, recipeCells, stepRecipeTank, usesDirectContact} from './experiment.js';
 
-export function createReactionPreview(materials, byId, seedFor = () => 1) {
-  const world = new LiquidWorld({width: 96, height: 56, materials});
+export function createReactionPreview(materials, byId, seedFor = () => 1, imageFor = () => '') {
+  let imageUrl = '';
+  const imageShare = createShareButton(() => imageUrl, Controls, {
+    label: 'Share recipe image', urlLabel: 'Recipe image URL', copiedMessage: 'Recipe image link copied',
+  });
+  imageShare.button.hidden = true;
+  imageShare.button.querySelector('button').classList.add('btn-sm');
+  imageShare.feedback.classList.add('px-4', 'py-2');
+  const world = new LiquidWorld({...RECIPE_TANK, materials});
   const name = id => byId.get(id)?.name ?? id;
   const title = html`<p class="mb-0 fw-semibold" aria-live="polite"></p>`;
   const matches = html`<span class="small fg-3 reaction-matches"></span>`;
-  const canvas = html`<canvas width="96" height="56" role="img" aria-label="Reaction tank"></canvas>`;
+  const canvas = html`<canvas width=${world.width} height=${world.height} style=${{aspectRatio: world.width + " / " + world.height}} role="img" aria-label="Reaction tank"></canvas>`;
   const play = html`<button type="button" class="btn-solid btn-sm theme-primary"></button>`;
   const step = html`<button type="button" class="btn-outline btn-sm theme-secondary">Step</button>`;
   const replay = html`<button type="button" class="btn-outline btn-sm theme-secondary">Replay</button>`;
@@ -32,7 +41,9 @@ export function createReactionPreview(materials, byId, seedFor = () => 1) {
   </div>`;
   const empty = html`<p class="fg-3 m-0 p-4">No matching reaction to preview.</p>`;
   const element = html`<aside id="reaction-preview" class="card reaction-preview" aria-label="Reaction preview">
-    <div class="card-header px-4 py-3 d-flex flex-row flex-wrap justify-content-between align-items-baseline gap-2"><h2 class="h5 mb-0">Reaction preview</h2><small class="fg-3">Selected recipe only</small></div>${content}${empty}</aside>`;
+    <div class="card-header px-4 py-3 d-flex flex-row flex-wrap justify-content-between align-items-center gap-2">
+      <div><h2 class="h5 mb-0">Reaction preview</h2><small class="fg-3">Selected recipe only</small></div>${imageShare.button}
+    </div>${imageShare.feedback}${content}${empty}</aside>`;
   const events = new AbortController();
   const listen = (node, type, fn) => node.addEventListener(type, fn, {signal: events.signal});
   let rule = null, renderer, hover, cursor = null, paused = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -89,6 +100,9 @@ export function createReactionPreview(materials, byId, seedFor = () => 1) {
   };
   listen(replay, 'click', start);
   return {element, select(next) {
+    const url = next ? imageFor(next) : '';
+    if (url !== imageUrl) {imageShare.clear(); imageUrl = url;}
+    imageShare.button.hidden = !imageUrl;
     if (rule === next) return;
     rule = next; empty.textContent = 'No matching reaction to preview.';
     content.hidden = !next; empty.hidden = !!next;
@@ -114,5 +128,5 @@ export function createReactionPreview(materials, byId, seedFor = () => 1) {
       start(); label();
     }
     syncVisibility();
-  }, dispose() {events.abort(); observer?.disconnect(); playback.dispose(); hover?.dispose(); renderer?.dispose();}};
+  }, dispose() {imageShare.dispose(); events.abort(); observer?.disconnect(); playback.dispose(); hover?.dispose(); renderer?.dispose();}};
 }

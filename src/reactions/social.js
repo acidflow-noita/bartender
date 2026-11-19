@@ -1,12 +1,16 @@
 export const CARD_ORIGIN = 'https://bartender.runfast.stream';
 const escape = value => String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 
+export function recipeMediaUrls(id, version, origin = CARD_ORIGIN) {
+  const asset = origin + '/recipe-media/' + id + '-' + version;
+  return {animation: asset + '.webp', poster: asset + '.png'};
+}
+
 export function recipeCard(id, catalog) {
   const record = catalog[id];
   if (!record) return null;
-  const asset = CARD_ORIGIN + '/recipe-media/' + id + '-' + record.version;
   return {title: record.title, description: record.description, canonical: CARD_ORIGIN + '/reactions/' + id,
-    animation: asset + '.webp', poster: asset + '.png', alt: record.title + '. Material icons appear above the simulation tank.'};
+    ...recipeMediaUrls(id, record.version), alt: record.title + '. Material icons and names appear to the left of the simulation tank.'};
 }
 
 function discordGallery(card) {

@@ -6,11 +6,11 @@ import * as Controls from '../src/ui/controls.js';
 import {createShareButton} from '../src/components/shareButton.js';
 import {UIHelper} from '../src/noitalambic/ui/UIHelper.js';
 
-function mountShare(t, getUrl) {
+function mountShare(t, getUrl, options) {
   const window = installDom(t);
   const shell = new window.DOMParser().parseFromString(readFileSync(new URL('../src/index.html', import.meta.url), 'utf8'), 'text/html');
   document.body.innerHTML = shell.body.innerHTML;
-  const share = createShareButton(getUrl, Controls);
+  const share = createShareButton(getUrl, Controls, options);
   document.getElementById('main').replaceChildren(share.button, share.feedback);
   return {...share, control: share.button.querySelector('button'), toast: document.getElementById('notification-toast')};
 }
@@ -104,4 +104,19 @@ test('cleared or disposed shares ignore late clipboard failures without opening 
     assert.equal(share.feedback.hidden, true);assert.equal(fallbacks, 0);
     assert.equal(share.toast.classList.contains('show'), false);
   }
+});
+
+test('image sharing provides a labelled WebP link for manual copying', async t => {
+  const url = 'https://example.test/recipe-media/42-cropped.webp';
+  const share = mountShare(t, () => url, {label: 'Share recipe image', urlLabel: 'Recipe image URL'});
+  Object.defineProperty(navigator, 'clipboard', {value: {writeText: async () => {throw new Error('Clipboard disabled');}}});
+  document.execCommand = () => false;
+  assert.equal(share.control.textContent.trim(), 'Share recipe image');
+  share.control.click();
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(share.feedback.hidden, false);
+  assert.equal(share.feedback.querySelector('label').textContent, 'Recipe image URL');
+  assert.equal(share.feedback.querySelector('input').value, url);
+  share.clear();
+  assert.equal(share.feedback.hidden, true);
 });

@@ -3,14 +3,14 @@ import {html} from "htl";
 import {copyLinkText} from "./clipboard.js";
 import {UIHelper} from "../noitalambic/ui/UIHelper.js";
 
-export function createShareButton(getUrl, Inputs) {
+export function createShareButton(getUrl, Inputs, {label = "Share", urlLabel = "Share URL", copiedMessage = "URL copied to clipboard"} = {}) {
   let disposed = false, sequence = 0;
   const status = html`<span role="status"></span>`;
-  const copyInput = Inputs.text({label: "Share URL", value: "", readonly: true, width: "100%"});
+  const copyInput = Inputs.text({label: urlLabel, value: "", readonly: true, width: "100%"});
   const fallback = html`<div hidden>${copyInput}</div>`;
   const feedback = html`<div hidden>${status}${fallback}</div>`;
   const button = Inputs.button(
-    iconLabel("copy", "Share"),
+    iconLabel("copy", label),
     {reduce: async () => {
       if (disposed) return;
       const request = ++sequence;
@@ -34,7 +34,7 @@ export function createShareButton(getUrl, Inputs) {
       fallback.hidden = copied;
       if (copied) {
         if (document.activeElement === copyInput.querySelector('input')) button.querySelector('button').focus({preventScroll: true});
-        await UIHelper.showNotification("URL copied to clipboard", {success: true});
+        await UIHelper.showNotification(copiedMessage, {success: true});
       }
     }},
   );

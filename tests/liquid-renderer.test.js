@@ -57,7 +57,7 @@ test('Minä uses Digging scale, faces left, and leaves the simulated cells uncha
   const renderer = createLiquidRenderer(document.createElement('canvas'), world);
   t.after(() => renderer.dispose());
   renderer.draw(); await renderer.ready;
-  assert.deepEqual(sources, ['/liquids/mina_outline.png']);
+  assert.deepEqual(sources, ['/liquids/mina.png']);
   assert.equal(context.imageSmoothingEnabled, false);
   assert.deepEqual(draws.at(-1).slice(1), [247, 141, 8, 18]);
   assert.deepEqual(world.cells, before);
@@ -66,9 +66,9 @@ test('Minä uses Digging scale, faces left, and leaves the simulated cells uncha
   assert.equal(bounds.height, digging.mina.height / digging.scale);
   assert.equal(bounds.x + bounds.width - 1, world.width - 2);
   assert.equal(bounds.y + bounds.height - 1, world.height - 2);
-  const image = readFileSync(new URL('../public/liquids/mina_outline.png', import.meta.url));
+  const image = readFileSync(new URL('../public/liquids/mina.png', import.meta.url));
   assert.equal(image.readUInt32BE(16), 48); assert.equal(image.readUInt32BE(20), 108);
-  assert.equal(createHash('sha256').update(image).digest('hex'), '0752f1291ba995fe7a97252717eb98cbbc4a01005d1bad90a0e0bdade067f55d');
+  assert.equal(createHash('sha256').update(image).digest('hex'), 'f0f0c99fa5f41f7db79c8b6a2fdd3c20d38842bf022213e2bf0199fd808f4e6e');
 });
 
 test('a texture that decodes after a pour follows the texel of the moving cell', async t => {

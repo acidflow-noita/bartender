@@ -20,7 +20,7 @@
   .reaction-slots .material-cell code { font-size: .72rem; }
   .reaction-preview { position: sticky; inset-block-start: var(--spacer-3); }
   .reaction-tank { position: relative; overflow: hidden; background: #000; }
-  .reaction-tank canvas { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 12 / 7; image-rendering: pixelated; }
+  .reaction-tank canvas { display: block; inline-size: 100%; block-size: auto; image-rendering: pixelated; }
   .reaction-matches { margin-inline-start: auto; font-variant-numeric: tabular-nums; }
   .reaction-inventory { display: flex; flex-wrap: wrap; gap: .35rem 1rem; }
   .reaction-inventory li { display: inline-flex; gap: .4rem; align-items: center; font-size: var(--font-size-sm); font-variant-numeric: tabular-nums; }
