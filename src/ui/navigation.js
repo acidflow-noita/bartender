@@ -11,7 +11,7 @@ export function createNavigation(path) {
     <div class="drawer-header"><h2 class="drawer-title" id="navigation-title">Navigation</h2><button type="button" class="btn-close" data-bs-dismiss="drawer" aria-label="Close navigation"></button></div>
     <div class="drawer-body gap-3"><ul class="nav navbar-nav gap-1 justify-content-center xl:mx-auto">${routes.filter(item => !['/', '/thanks'].includes(item.path)).map(item => html`<li class="nav-item"><a class=${`nav-link ${item.path === path ? 'active' : ''}`} href=${item.path} aria-current=${item.path === path ? 'page' : null}><span>${item.title}${item.alpha ? alphaMark('sup') : item.beta ? betaMark('sup') : ''}</span></a></li>`)}</ul>
       <div class="d-flex align-items-center justify-content-center xl:justify-content-end gap-3 mt-3 xl:mt-0">
-        <a class="btn-text btn-icon" href="https://github.com/acidflow-noita/bartender/" aria-label="Bartender on GitHub">${icon('github')}</a>
+        <a class="btn-text btn-icon" href="https://github.com/acidflow-noita/bartender/" target="_blank" rel="noopener" aria-label="Bartender on GitHub">${icon('github')}</a>
         <a class="brand-link" href="https://runfast.stream/"><img src="https://noita-bartender-images.acidflow.stream/images/logo/runfast-logo.svg" alt="runfast.stream" width="100" height="28"></a>
       </div>
     </div>

@@ -24,6 +24,10 @@ test('homepage navigation, cards, material colors and exact summary are present 
   assert.equal(document.querySelectorAll('#site-header .navbar-nav sup').length, 3);
   assert.equal(document.querySelectorAll('.feature-card').length, 4);
   assert.ok(document.querySelector('.bi-github path'));
+  const github = document.querySelector('.bi-github').closest('a');
+  assert.equal(github.href, 'https://github.com/acidflow-noita/bartender/');
+  assert.equal(github.target, '_blank');
+  assert.ok(github.relList.contains('noopener'));
   assert.equal(document.querySelectorAll('.home-page [class^="material-type-"]').length, 5);
   assert.deepEqual(JSON.parse(document.querySelector('[data-home-summary]').textContent), pageDatasets(data).homeSummary);
   for (const image of document.querySelectorAll('.feature-card img')) assert.ok(image.getAttribute('src').startsWith('/data/images/'));
