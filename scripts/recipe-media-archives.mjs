@@ -48,7 +48,11 @@ async function download(url, maxBytes) {
   for (let attempt = 1;; attempt++) {
     try {
       const res = await fetch(url, {signal: AbortSignal.timeout(120_000)});
-      if (!res.ok) throw new Error('HTTP ' + res.status + ' from ' + url);
+      if (!res.ok) {
+        const error = new Error('HTTP ' + res.status + ' from ' + url);
+        error.status = res.status;
+        throw error;
+      }
       if (Number(res.headers.get('content-length')) > maxBytes) throw new Error('Oversized response from ' + url);
       const chunks = []; let length = 0;
       for await (const chunk of res.body) {
@@ -58,7 +62,7 @@ async function download(url, maxBytes) {
       }
       return Buffer.concat(chunks,length);
     } catch (error) {
-      if (attempt >= 3 || /HTTP 40[134]/.test(error.message)) throw error;
+      if (attempt >= 3 || [401, 403, 404].includes(error.status)) throw error;
       await new Promise(resolve => setTimeout(resolve,attempt*1000));
     }
   }
@@ -78,19 +82,24 @@ function getLock() {
   }
   return lock;
 }
+async function usePublished(rows, concurrency) {
+  await mapLimit(rows, concurrency, async row => {
+    if (cached(row)) return;
+    const prefix = 'https://bartender.runfast.stream/recipe-media/' + row.name;
+    const [webp, png] = await Promise.all([download(prefix + '.webp', 9_900_000), download(prefix + '.png', 4_999_999)]);
+    if (!verifyPair(row, webp, png)) throw new Error('Published media differs from the cook: ' + row.id);
+    atomic(join(cache, row.name + '.webp'), webp);
+    atomic(join(cache, row.name + '.png'), png);
+  });
+}
+
 async function pack(fromPublished) {
   // Bootstrap a release from already published files only when explicitly requested.
   // Normal publishing uses the bytes produced by the local cook.
   mkdirSync(scratch,{recursive:true}); mkdirSync(cache,{recursive:true});
   const archives = [];
   for (const [part, rows] of groups) {
-    if (fromPublished) await mapLimit(rows, 12, async row => {
-      if (cached(row)) return;
-      const prefix='https://bartender.runfast.stream/recipe-media/'+row.name;
-      const [webp,png]=await Promise.all([download(prefix+'.webp',9_900_000),download(prefix+'.png',4_999_999)]);
-      if (!verifyPair(row,webp,png)) throw new Error('Published media differs from the cook: '+row.id);
-      atomic(join(cache,row.name+'.webp'),webp); atomic(join(cache,row.name+'.png'),png);
-    });
+    if (fromPublished) await usePublished(rows, 12);
     const files = Object.create(null);
     for (const row of rows) {
       const webp = readFileSync(join(cache,row.name+'.webp')), png=readFileSync(join(cache,row.name+'.png'));
@@ -110,14 +119,23 @@ async function pack(fromPublished) {
 }
 async function restore() {
   const lock=getLock(); mkdirSync(cache,{recursive:true});mkdirSync(scratch,{recursive:true});
-  let fetched=0;
+  let fetched=0, reusedLive=0;
   await mapLimit([...groups],4,async ([part,rows])=>{
     if (rows.every(cached)) return;
     const name=archiveName(part),record=lock.archives.find(item=>item.name===name);
     const path=join(scratch,name);
     let bytes=existsSync(path)?readFileSync(path):null;
     if (!bytes || bytes.length!==record.bytes || sha(bytes)!==record.sha256) {
-      bytes=await download(release+'/'+name,record.bytes);
+      try {
+        bytes = await download(release + '/' + name, record.bytes);
+      } catch (error) {
+        if (error.status !== 404) throw error;
+        // A new archive of an existing live catalog can be published while
+        // this build runs. Only accept the exact, already cooked production bytes.
+        await usePublished(rows, 3);
+        reusedLive += rows.length;
+        return;
+      }
       if (bytes.length!==record.bytes || sha(bytes)!==record.sha256) throw new Error('Recipe archive checksum mismatch: '+name);
       atomic(path,bytes);fetched++;
     }
@@ -129,7 +147,7 @@ async function restore() {
       atomic(join(cache,row.name+'.webp'),webp);atomic(join(cache,row.name+'.png'),png);
     }
   });
-  console.log('Prepared static recipe files for upload. Downloaded '+fetched+' prebuilt archives.');
+  console.log('Prepared static recipe files for upload. Downloaded ' + fetched + ' prebuilt archives; reused ' + reusedLive + ' already published pairs.');
 }
 function gh(args, optional=false){
   const r=spawnSync('gh',[...args,'--repo',repo],{encoding:'utf8'});
@@ -158,8 +176,14 @@ const mode=process.argv[2];
 if(mode==='pack')await pack(false);
 else if(mode==='restore')await restore();
 else if(mode==='archive-published'){
-  if(process.env.GITHUB_REF_NAME !== 'archive-published-recipes-'+catalogHash.slice(0,20)) throw new Error('The archive tag must match the approved catalog.');
-  await pack(true);publish();
+  const ref = process.env.GITHUB_REF_NAME;
+  if (ref !== 'main' && ref !== 'archive-published-recipes-' + catalogHash.slice(0,20)) throw new Error('The archive tag must match the approved catalog.');
+  const existing = gh(['release','view',tag,'--json','isDraft,assets'],true);
+  const published = existing && JSON.parse(existing);
+  const complete = published && !published.isDraft && getLock().archives.every(a =>
+    published.assets.some(item => item.name === a.name && item.size === a.bytes && item.digest === 'sha256:' + a.sha256));
+  if (complete) console.log('The verified media release already exists.');
+  else {await pack(true);publish();}
 }
 else if(mode==='publish')publish();
 else throw new Error('Expected pack, restore, publish or archive-published.');

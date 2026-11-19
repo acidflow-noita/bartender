@@ -1,10 +1,12 @@
 name: Archive published recipe media
 on:
+  workflow_dispatch:
   push:
+    branches: [main]
+    paths: ['.github/workflows/archive-published-recipe-media.yml']
     tags: ['archive-published-recipes-*']
 
-# This explicit maintenance tag can recover a release from already-served
-# static files. It never runs the game simulation or deploys a website.
+# Recover a release from already-served files on initial setup or explicit request.
 permissions:
   contents: write
 jobs:
