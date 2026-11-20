@@ -91,7 +91,6 @@ export function compareRecipeInputs(keys, publishedKeys, media) {
 }
 
 export const recipePart = id => Math.floor((Number(id) - 1) / 100) + 1;
-export const archiveName = part => 'recipes-' + String(part).padStart(3, '0') + '.zip';
 
 export function publicationPlan() {
   const keys = planRecipeInputs(), before = publishedInputs(), media = json('src/data/recipe-card-media.json');

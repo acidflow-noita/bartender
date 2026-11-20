@@ -2,9 +2,6 @@ import {createHash} from 'node:crypto';
 import {appendFileSync, existsSync, mkdirSync, readFileSync, renameSync, statSync, writeFileSync} from 'node:fs';
 import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {gh, releaseView, openDraft, assetMatches, uploadVerified} from './data/recipe-release-assets.mjs';
-import {publicationPlan, recipePart, archiveName, validPublishedRecipe} from './data/recipe-card-inputs.mjs';
-import {recipeIds} from './data/recipe-ids.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const cache = join(root, 'build/recipe-cards/site/recipe-media');
@@ -23,6 +20,7 @@ for (const [id, [version]] of Object.entries(JSON.parse(registry))) {
   if (!groups.has(part)) groups.set(part, []);
   groups.get(part).push({id, version, name: id + '-' + version});
 }
+const archiveName = part => 'recipes-' + String(part).padStart(3, '0') + '.zip';
 const knownTag = name => /^recipe-media-(?:inputs-)?[0-9a-f]{20}$/.test(name);
 const atomic = (file, bytes) => {
   const tmp = file + '.' + process.pid + '.tmp';
@@ -163,6 +161,7 @@ async function restore(onlyPart = null) {
   console.log('Prepared static recipe files for upload. Downloaded ' + fetched + ' prebuilt archives; reused ' + reusedLive + ' already published pairs.');
 }
 async function publish(withCatalog = false){
+  const {gh, openDraft, uploadVerified} = await import('./data/recipe-release-assets.mjs');
   const lock=getLock();
   for(const a of lock.archives)if(sha(readFileSync(join(scratch,a.name)))!==a.sha256)throw new Error('Repack the local cook before publishing '+a.name);
   const assets = lock.archives.map(archive => ({...archive, path: join(scratch, archive.name)}));
@@ -188,24 +187,27 @@ function releaseFile(dir, name) {
   return {name, path, bytes: bytes.length, sha256: sha(bytes)};
 }
 
-function checkedDownload(plan, remote, name, dir) {
-  mkdirSync(dir, {recursive: true});
-  gh(['release','download',plan.tag,'--pattern',name,'--dir',dir,'--clobber']);
-  const file = releaseFile(dir, name), asset = remote.assets.find(a => a.name === name);
-  if (!assetMatches(asset, file)) throw new Error('Invalid release file ' + name);
-  return readJson(file.path);
-}
-
-function verifyBatch(plan, part, receipt, remote) {
-  const expected = Object.keys(plan.keys).filter(id => recipePart(id) === part);
-  if (receipt.inputs !== plan.inputs || receipt.archive.name !== archiveName(part) || Object.keys(receipt.media).length !== expected.length
-      || expected.some(id => !validPublishedRecipe(receipt.media[id]))
-      || !assetMatches(remote.assets.find(a => a.name === receipt.archive.name), receipt.archive)) {
-    throw new Error('Recipe batch failed verification ' + part);
-  }
-}
-
 async function batchCommand(mode, part) {
+  const {gh, releaseView, openDraft, assetMatches, uploadVerified} = await import('./data/recipe-release-assets.mjs');
+  const {publicationPlan, recipePart, validPublishedRecipe} = await import('./data/recipe-card-inputs.mjs');
+  const {recipeIds} = await import('./data/recipe-ids.mjs');
+  function checkedDownload(plan, remote, name, dir) {
+    mkdirSync(dir, {recursive: true});
+    gh(['release','download',plan.tag,'--pattern',name,'--dir',dir,'--clobber']);
+    const file = releaseFile(dir, name), asset = remote.assets.find(a => a.name === name);
+    if (!assetMatches(asset, file)) throw new Error('Invalid release file ' + name);
+    return readJson(file.path);
+  }
+
+  function verifyBatch(plan, part, receipt, remote) {
+    const expected = Object.keys(plan.keys).filter(id => recipePart(id) === part);
+    if (receipt.inputs !== plan.inputs || receipt.archive.name !== archiveName(part) || Object.keys(receipt.media).length !== expected.length
+        || expected.some(id => !validPublishedRecipe(receipt.media[id]))
+        || !assetMatches(remote.assets.find(a => a.name === receipt.archive.name), receipt.archive)) {
+      throw new Error('Recipe batch failed verification ' + part);
+    }
+  }
+
   const plan = publicationPlan(), dir = join(root, 'build/recipe-releases', plan.tag);
   if (mode === 'open') {
     const remote = openDraft(plan.tag);
@@ -289,6 +291,7 @@ if(mode==='pack')await pack(false);
 else if(mode==='restore')await restore(process.argv[3] ? Number(process.argv[3]) : null);
 else if(['open','batch-status','upload-batch','finish'].includes(mode)) await batchCommand(mode, Number(process.argv[3]));
 else if(mode==='archive-published'){
+  const {gh} = await import('./data/recipe-release-assets.mjs');
   const ref = process.env.GITHUB_REF_NAME;
   if (ref !== 'main' && ref !== 'archive-published-recipes-' + catalogHash.slice(0,20)) throw new Error('The archive tag must match the approved catalog.');
   const existing = gh(['release','view',tag,'--json','isDraft,assets'],true);
