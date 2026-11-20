@@ -50,11 +50,11 @@ export function assetMatches(asset, record) {
   return asset?.size === record.bytes && asset.digest === 'sha256:' + record.sha256;
 }
 
-export async function uploadVerified(tag, files) {
+export async function uploadVerified(tag, files, {recoverMissing = false} = {}) {
   const missing = remote => files.filter(file => {
     const asset = remote?.assets.find(item => item.name === file.name);
     if (assetMatches(asset, file)) return false;
-    if (asset || !remote?.isDraft) throw new Error('Incomplete or conflicting release asset ' + file.name);
+    if (asset || !remote || (!remote.isDraft && !recoverMissing)) throw new Error('Incomplete or conflicting release asset ' + file.name);
     return true;
   });
   for (let attempt = 1;; attempt++) {

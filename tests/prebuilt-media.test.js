@@ -33,6 +33,13 @@ test('a clean checkout can restore exact cooked bytes from a verified snapshot',
   for(const [ext,bytes] of Object.entries(files))assert.deepEqual(readFileSync(join(cache,name+'.'+ext)),bytes);
   writeFileSync(join(cache,name+'.png'),'bad');assert.equal(run('restore').status,0);
   assert.deepEqual(readFileSync(join(cache,name+'.png')),files.png);
+  const lockFile=join(data,'recipe-media-release.json'),snapshot=JSON.parse(readFileSync(lockFile));
+  const owner=snapshot.tag;
+  snapshot.inputs='a'.repeat(64);snapshot.tag='recipe-media-inputs-'+snapshot.inputs.slice(0,20);
+  snapshot.archives[0].tag=owner;writeFileSync(lockFile,JSON.stringify(snapshot));
+  rmSync(cache,{recursive:true});
+  const inherited=run('restore');assert.equal(inherited.status,0,inherited.stderr);
+  assert.deepEqual(readFileSync(join(cache,name+'.webp')),files.webp);
   writeFileSync(registry,JSON.stringify({4814:[hash,1,2]}));
   const stale=run('restore');assert.notEqual(stale.status,0);assert.match(stale.stderr,/cooked catalog has changed/i);
 });

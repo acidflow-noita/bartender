@@ -286,6 +286,38 @@ async function batchCommand(mode, part) {
   console.log(JSON.stringify({tag: plan.tag, cards: entries.length, archives: archives.length, maxUpdatedAnimationBytes: maxUpdated}));
 }
 
+async function recoverBatchArchives(lock) {
+  const {gh, releaseView, openDraft, assetMatches, uploadVerified} = await import('./data/recipe-release-assets.mjs');
+  const owners = new Map([[lock.tag, []]]);
+  for (const [part, rows] of groups) {
+    const archive = lock.archives.find(a => a.name === archiveName(part)), owner = archive.tag || lock.tag;
+    if (!owners.has(owner)) owners.set(owner, []);
+    owners.get(owner).push({part, rows, archive});
+  }
+  mkdirSync(cache, {recursive: true});
+  for (const [owner, entries] of owners) {
+    const remote = releaseView(owner), files = [], dir = join(root, 'build/recipe-releases', owner);
+    for (const {part, rows, archive} of entries) {
+      if (assetMatches(remote?.assets.find(a => a.name === archive.name), archive)) continue;
+      await usePublished(rows, 12);
+      const restored = await writeArchive(part, rows, dir);
+      if (restored.sha256 !== archive.sha256 || restored.bytes !== archive.bytes) throw new Error('Recovered archive differs ' + archive.name);
+      files.push({...restored, path: join(dir, restored.name)});
+    }
+    if (owner === lock.tag) {
+      const inputs = readJson(join(catalogDir, 'recipe-card-inputs.json'));
+      if (sha(JSON.stringify(inputs)) !== lock.inputs) throw new Error('Published preview inputs differ from the release.');
+      files.push(...catalogFiles.map(name => releaseFile(catalogDir, name)).filter(file =>
+        !assetMatches(remote?.assets.find(a => a.name === file.name), file)));
+    }
+    if (!files.length) continue;
+    const release = remote ?? openDraft(owner);
+    await uploadVerified(owner, files, {recoverMissing: true});
+    if (release.isDraft) gh(['release','edit',owner,'--draft=false','--latest=false']);
+  }
+  console.log('Verified the published recipe archives.');
+}
+
 const mode=process.argv[2];
 if(mode==='pack')await pack(false);
 else if(mode==='restore')await restore(process.argv[3] ? Number(process.argv[3]) : null);
@@ -294,12 +326,16 @@ else if(mode==='archive-published'){
   const {gh} = await import('./data/recipe-release-assets.mjs');
   const ref = process.env.GITHUB_REF_NAME;
   if (ref !== 'main' && ref !== 'archive-published-recipes-' + catalogHash.slice(0,20)) throw new Error('The archive tag must match the approved catalog.');
-  const existing = gh(['release','view',tag,'--json','isDraft,assets'],true);
-  const published = existing && JSON.parse(existing);
-  const complete = published && !published.isDraft && getLock().archives.every(a =>
-    published.assets.some(item => item.name === a.name && item.size === a.bytes && item.digest === 'sha256:' + a.sha256));
-  if (complete) console.log('The verified media release already exists.');
-  else {await pack(true);await publish();}
+  const lock = getLock();
+  if (lock.inputs) await recoverBatchArchives(lock);
+  else {
+    const existing = gh(['release','view',tag,'--json','isDraft,assets'],true);
+    const published = existing && JSON.parse(existing);
+    const complete = published && !published.isDraft && getLock().archives.every(a =>
+      published.assets.some(item => item.name === a.name && item.size === a.bytes && item.digest === 'sha256:' + a.sha256));
+    if (complete) console.log('The verified media release already exists.');
+    else {await pack(true);await publish();}
+  }
 }
 else if(mode==='publish')await publish(process.argv.includes('--with-catalog'));
 else throw new Error('Expected pack, restore, publish or archive-published.');
