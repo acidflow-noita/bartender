@@ -6,8 +6,9 @@ export function gh(args, optional = false) {
   const command = args[0] === 'api' ? args : [...args, '--repo', repo];
   const result = spawnSync('gh', command, {encoding: 'utf8', maxBuffer: 4 * 1024 * 1024});
   if (result.error) throw result.error;
-  if (result.status !== 0 && !optional) throw new Error(result.stderr.trim());
-  return result.status === 0 ? result.stdout : null;
+  if (result.status === 0) return result.stdout;
+  if (optional && /release not found|not found|HTTP 404/i.test(result.stderr)) return null;
+  throw new Error(result.stderr.trim() || 'GitHub CLI exited with status ' + result.status);
 }
 
 export function releaseView(tag) {
@@ -30,14 +31,19 @@ export function releaseView(tag) {
 }
 
 export function openDraft(tag) {
-  let remote = releaseView(tag);
-  if (!remote) {
-    gh(['release', 'create', tag, '--draft', '--latest=false', '--title', 'Recipe previews ' + tag.slice(-12),
-      '--notes', 'Prebuilt static recipe animations and posters.', '--target', process.env.RECIPE_SOURCE_REVISION || process.env.GITHUB_SHA || 'main'], true);
-    remote = releaseView(tag);
+  const remote = releaseView(tag);
+  if (remote) return remote;
+  const revision = process.env.RECIPE_SOURCE_REVISION || process.env.GITHUB_SHA;
+  const notes = 'Prebuilt static recipe animations and posters.' + (revision ? '\n\nSource commit ' + revision : '');
+  try {
+    // The release stores media. Use the repository's default tag target and record the producer separately.
+    gh(['release', 'create', tag, '--draft', '--latest=false', '--title', 'Recipe previews ' + tag.slice(-12), '--notes', notes]);
+    return {isDraft: true, assets: []};
+  } catch (error) {
+    const concurrent = releaseView(tag);
+    if (concurrent) return concurrent;
+    throw error;
   }
-  if (!remote) throw new Error('Could not open the recipe media release ' + tag);
-  return remote;
 }
 
 export function assetMatches(asset, record) {
