@@ -131,7 +131,8 @@ export async function mount(host) {
   const draw = () => {
     renderer.draw(input?.cursor);
     hover.update(input?.cursor);
-    probe.textContent = cellReadout(world, input?.cursor);
+    const readout = cellReadout(world, input?.cursor);
+    if (probe.textContent !== readout) probe.textContent = readout;
     if (renderer.failed.length) {textureStatus.hidden = false; textureStatus.textContent = 'Some textures could not load. Material colors are shown.';}
     if (renderer.referenceFailed) {textureStatus.hidden = false; textureStatus.textContent = 'Could not load Minä.';}
     renderStats();
@@ -212,7 +213,7 @@ export async function mount(host) {
     lastStats = -Infinity; draw();
   });
   input = bindLiquidInput(canvas, {width: world.width, height: world.height, radius: () => brush.value,
-    paint: position => {applyBrush(position); lastStats = -Infinity;}, draw});
+    paint: position => {applyBrush(position); if (playback.paused) lastStats = -Infinity;}, draw: playback.requestDraw});
   listen(document, 'visibilitychange', () => {
     playback.setHidden(document.hidden);
     if (document.hidden) input.cancel();

@@ -4,6 +4,8 @@ import {LiquidWorld} from '../../src/liquids/engine.mjs';
 import {createLiquidRenderer} from '../../src/liquids/renderer.mjs';
 import {RECIPE_TANK, prepareReactionTank, recipeCells, stepRecipeTank} from '../../src/reactions/experiment.js';
 
+export const CLIP_TICKS = 144;
+
 export async function recorder(materials) {
   const world = new LiquidWorld({...RECIPE_TANK, materials});
   const canvas = createCanvas(world.width, world.height);
@@ -28,9 +30,9 @@ export async function recorder(materials) {
     const inputs = new Set(recipeCells(rule, 'input'));
     const products = [...new Set(recipeCells(rule, 'output'))].filter(id => id !== 'air' && !inputs.has(id)).map(id => world.getMaterialId(id));
     let firstMatch = -1, openingFrames, openingScores;
-    // Sample real 60 Hz ticks at 10 fps. For a slow reaction keep the contact and its aftermath in the recorded window.
-    for (let tick = 0;; tick += 6) {
-      if (tick) for (let n = 0; n < 6; n++) {stepRecipeTank(world); renderer.advance();}
+    // One image per native tick. Keep enough history to include a late first contact.
+    for (let tick = 0;; tick++) {
+      if (tick) {stepRecipeTank(world); renderer.advance();}
       if (world.reactionCount && firstMatch < 0) firstMatch = tick;
       frames.push(capture());
       const counts = world.countMaterials();
@@ -38,9 +40,9 @@ export async function recorder(materials) {
       const visible = productCounts.filter(Boolean);
       const score = visible.length * 10000 + visible.reduce((sum, n) => sum + n, 0);
       scores.push(score || (counts.size ? Math.min(world.reactionCount, 1000) * .001 : -1));
-      if (tick === 144) {openingFrames = frames.slice(); openingScores = scores.slice();}
-      if (frames.length > 25) {frames.shift(); scores.shift();}
-      if (tick >= 144 && (firstMatch >= 0 && tick >= firstMatch + 72 || tick >= 600 || counts.size === 0)) break;
+      if (tick === CLIP_TICKS && firstMatch < 0) {openingFrames = frames.slice(); openingScores = scores.slice();}
+      if (frames.length > CLIP_TICKS + 1) {frames.shift(); scores.shift();}
+      if (tick >= CLIP_TICKS && (firstMatch >= 0 && tick >= firstMatch + 72 || tick >= 600 || counts.size === 0)) break;
     }
     const clip = firstMatch < 0 ? openingFrames : frames;
     const ranked = firstMatch < 0 ? openingScores : scores;

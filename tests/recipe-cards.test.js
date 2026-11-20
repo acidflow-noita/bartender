@@ -9,7 +9,7 @@ import {renderPageShell} from '../scripts/render-page-shell.mjs';
 import {layoutSidebar, drawSidebar, WIDTH, HEIGHT, SIDEBAR_WIDTH, CELL_SCALE} from '../scripts/recipe-cards/sidebar.mjs';
 import {recipeCells, RECIPE_TANK} from '../src/reactions/experiment.js';
 import {encodeCard, ANIMATION_LIMIT} from '../scripts/recipe-cards/encode.mjs';
-import {recorder} from '../scripts/recipe-cards/record.mjs';
+import {CLIP_TICKS, recorder} from '../scripts/recipe-cards/record.mjs';
 import {simulationMaterialRecords} from '../src/liquids/materials.mjs';
 import {recipeCard, withRecipeMetadata} from '../src/reactions/social.js';
 
@@ -148,7 +148,26 @@ test('loop and poster preserve the sidebar and fill the right panel with square 
   const {animation, poster} = await encodeCard(sidebar, frames, posterIndex);
   const image = await sharp(animation, {animated: true}).metadata();
   assert.equal(image.width, WIDTH); assert.equal(image.pageHeight, HEIGHT); assert.equal(image.loop, 0);
-  assert.ok(image.pages >= 2); assert.ok(animation.length <= ANIMATION_LIMIT); assert.ok(poster.length < 5_000_000);
+  assert.equal(frames.length, CLIP_TICKS + 1);
+  assert.equal(image.pages, frames.length);
+  assert.deepEqual(image.delay, frames.map((_, i) => Math.round((i + 1) * 1000 / 60) - Math.round(i * 1000 / 60)));
+  // Decode at one sample per game cell and check every intermediate frame.
+  const scaledWidth = WIDTH / CELL_SCALE, tankLeft = SIDEBAR_WIDTH / CELL_SCALE;
+  const decoded = await sharp(animation, {animated: true}).resize(scaledWidth, RECIPE_TANK.height, {kernel: 'nearest'})
+    .ensureAlpha().raw().toBuffer();
+  let moving = 0, previous;
+  for (const [i, frame] of frames.entries()) {
+    const cells = Buffer.from(frame.buffer, frame.byteOffset, frame.byteLength);
+    const rowBytes = RECIPE_TANK.width * 4;
+    for (let y = 0; y < RECIPE_TANK.height; y++) {
+      const start = ((i * RECIPE_TANK.height + y) * scaledWidth + tankLeft) * 4;
+      assert.ok(decoded.subarray(start, start + rowBytes).equals(cells.subarray(y * rowBytes, (y + 1) * rowBytes)), 'tick ' + i);
+    }
+    if (previous && !cells.equals(previous)) moving++;
+    previous = cells;
+  }
+  assert.ok(moving > 130);
+  assert.ok(animation.length <= ANIMATION_LIMIT); assert.ok(poster.length < 5_000_000);
   const first = await sharp(animation, {page: 0, pages: 1}).ensureAlpha().raw().toBuffer();
   const last = await sharp(animation, {page: image.pages-1, pages: 1}).ensureAlpha().raw().toBuffer();
   const still = await sharp(poster).ensureAlpha().raw().toBuffer();

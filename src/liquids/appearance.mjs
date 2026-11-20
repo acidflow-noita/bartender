@@ -10,7 +10,12 @@ export function byteRound(value) {
   return whole + Number(fraction > .5 || (fraction === .5 && (whole & 1)));
 }
 
-const unorm = value => f32(byteRound(value * 255) / 255);
+const unitBytes = Float32Array.from({length: 256}, (_, i) => i / 255);
+const roundedByte = new Uint8ClampedArray(1);
+function unorm(value) {
+  roundedByte[0] = value * 255;
+  return unitBytes[roundedByte[0]];
+}
 
 export function emissionProfile(material) {
   const packed = packedMaterialColor(material?.gfx_glow_color);
@@ -46,34 +51,39 @@ export function blendCellByte(source, destination, weight = 128) {
   return (source * weight + destination * (255 - weight)) >> 8;
 }
 
+const LIQUID = 1, JOIN_GAPS = 2, GAS = 4, FIRE = 8;
+
+export function cellBodyModes(materials) {
+  return Uint8Array.from(materials, material => {
+    if (material?.cell_type === 'gas') return GAS;
+    if (material?.cell_type === 'fire') return FIRE;
+    if (material?.cell_type !== 'liquid' || material.liquid_sand || material.liquid_static
+        || (material.type != null && material.type !== 'Liquid')) return 0;
+    return material.graphics?.is_grass || material.graphics?.is_grass_hashed ? LIQUID : LIQUID | JOIN_GAPS;
+  });
+}
+
 // Native 0x724580 joins short horizontal liquid gaps and draws falling streaks.
-// The visible material map is separate from the simulation's occupied cells.
-export function renderCellBodies(world, raw, output, visible, liquidMask, gasCoverage) {
-  const {width, height, cells, materials} = world;
-  output.fill(0); visible.fill(0);
-  // A liquid surface must not paint over ice, grains, or airborne specks.
-  // Much of Noita's static terrain reports raw cell type 'liquid'.
-  const surfaceLiquid = material => material?.cell_type === 'liquid' && !material.liquid_sand && !material.liquid_static
-    && (material.type == null || material.type === 'Liquid');
-  const blocksSurface = id => id !== 0 && !surfaceLiquid(materials[id]);
-  const copy = (from, to, id) => {
-    for (let channel = 0; channel < 4; channel++) output[to * 4 + channel] = raw[from * 4 + channel];
-    visible[to] = id;
-  };
+export function renderCellBodies(world, raw, output, visible, liquidMask, gasCoverage, modes = cellBodyModes(world.materials)) {
+  const {width, height, cells} = world;
+  const colors = new Uint32Array(raw.buffer, raw.byteOffset, raw.byteLength / 4);
+  const drawn = new Uint32Array(output.buffer, output.byteOffset, output.byteLength / 4);
+  drawn.fill(0); visible.fill(0);
+  const blocksSurface = id => id !== 0 && !(modes[id] & LIQUID);
+  const copy = (from, to, id) => {drawn[to] = colors[from]; visible[to] = id;};
   for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) {
     const index = y * width + x, id = cells[index];
-    const material = materials[id];
-    const liquid = surfaceLiquid(material);
+    const mode = modes[id], liquid = mode & LIQUID;
     const motion = world._motion?.[index] ?? 3;
     if (liquidMask) liquidMask[index] = Number(liquid && (motion === 3 || y >= height - 2));
     if (!id) continue;
-    if (material?.cell_type === 'gas' || material?.cell_type === 'fire') {
-      const alpha = material.cell_type === 'fire' ? 128 : (gasCoverage?.[index] ?? raw[index * 4 + 3]);
+    if (mode === GAS || mode === FIRE) {
+      const alpha = mode === FIRE ? 128 : (gasCoverage?.[index] ?? raw[index * 4 + 3]);
       copy(index, index, alpha === 0 ? 0 : id);
       output[index * 4 + 3] = alpha;
       continue;
     }
-    if (liquid && !material.graphics?.is_grass && !material.graphics?.is_grass_hashed &&
+    if ((mode & JOIN_GAPS) &&
       (motion === 2 || motion === 3) && x >= 2 && cells[index - 1] !== id && !blocksSurface(cells[index - 1])) {
       for (let distance = 2; distance <= 4 && distance <= x; distance++) {
         if (cells[index - distance] === id) {
@@ -98,27 +108,36 @@ export function renderCellBodies(world, raw, output, visible, liquidMask, gasCov
 }
 
 // The eleven 1.5-pixel taps equal two sliding sums with half weights.
-function blurAxis(source, target, width, height, vertical, coefficient, quantize) {
+function blurAxis(source, target, width, height, vertical, lane) {
   const length = vertical ? height : width, lines = vertical ? width : height;
   const stride = vertical ? width * 3 : 3, lineStride = vertical ? 3 : width * 3;
-  const sample = (base, at) => source[base + Math.max(0, Math.min(length - 1, at)) * stride];
+  const coefficient = vertical ? 1 / 12.2 : .1;
+  target.fill(0);
   for (let line = 0; line < lines; line++) for (let channel = 0; channel < 3; channel++) {
     const base = line * lineStride + channel;
-    let sum = 0, first = 0, second = 0, third = 0;
-    for (let k = -8; k <= 8; k++) sum += sample(base, k);
-    for (let k = -6; k <= 6; k += 3) {
-      first += sample(base, k); second += sample(base, k + 1); third += sample(base, k + 2);
+    let first = length, last = -1;
+    for (let n = 0, at = base; n < length; n++, at += stride) {
+      const value = source[at];
+      lane[n + 8] = value;
+      if (value) {if (first === length) first = n; last = n;}
     }
-    for (let position = 0; position < length; position++) {
-      const entering = sample(base, position + 9);
-      const delta = entering - sample(base, position - 6);
-      let subset;
-      if (position % 3 === 0) {subset = first; first += delta;}
-      else if (position % 3 === 1) {subset = second; second += delta;}
-      else {subset = third; third += delta;}
-      const value = f32((sum + subset) * coefficient * .5);
-      target[base + position * stride] = quantize ? unorm(value) : value;
-      sum += entering - sample(base, position - 8);
+    if (last < 0) continue;
+    // Clamp the endpoints once per lane. Outside this interval all eleven taps are zero.
+    lane.fill(lane[8], 0, 8);
+    lane.fill(lane[length + 7], length + 8, length + 17);
+    const start = Math.max(0, first - 8), end = Math.min(length, last + 9);
+    let sum = 0, a = 0, b = 0, c = 0;
+    for (let k = start; k <= start + 16; k++) sum += lane[k];
+    for (let k = start + 2; k <= start + 14; k += 3) {
+      a += lane[k]; b += lane[k + 1]; c += lane[k + 2];
+    }
+    for (let p = start, at = base + start * stride; p < end; p++, at += stride) {
+      const value = f32((sum + a) * coefficient * .5);
+      target[at] = vertical ? value : unorm(value);
+      const entering = lane[p + 17];
+      const next = a + (entering - lane[p + 2]);
+      a = b; b = c; c = next;
+      sum += entering - lane[p];
     }
   }
 }
@@ -131,6 +150,7 @@ export class CellGlow {
     this.checkpoint = new Float32Array(size);
     this.horizontal = new Float32Array(size);
     this.vertical = new Float32Array(size);
+    this.lane = new Float32Array(Math.max(width, height) + 17);
     this.previousSource = new Uint8Array(size);
     this.previousParticles = new Uint8Array(size);
     this.edges = new Float32Array(width * height);
@@ -153,28 +173,35 @@ export class CellGlow {
 
   _step(source, previous, particles) {
     // post_glow1.frag and post_glow2.frag use RGBA8 targets.
-    blurAxis(previous, this.horizontal, this.width, this.height, false, .1, true);
-    blurAxis(this.horizontal, this.vertical, this.width, this.height, true, 1 / 12.2, false);
-    this.active = false;
-    for (let i = 0; i < source.length; i++) {
-      const incoming = f32(source[i] / 255) * 4 + (particles ? f32(particles[i] / 255) * 2.5 : 0);
-      const old = this.vertical[i] * this.edges[Math.floor(i / 3)];
-      this.history[i] = unorm(incoming * .125 + old * .95 + incoming * .05);
-      this.active ||= this.history[i] !== 0;
+    blurAxis(previous, this.horizontal, this.width, this.height, false, this.lane);
+    blurAxis(this.horizontal, this.vertical, this.width, this.height, true, this.lane);
+    let active = false;
+    for (let cell = 0, i = 0; cell < this.edges.length; cell++) {
+      const edge = this.edges[cell];
+      for (let channel = 0; channel < 3; channel++, i++) {
+        const old = this.vertical[i] * edge;
+        const incoming = unitBytes[source[i]] * 4 + (particles ? unitBytes[particles[i]] * 2.5 : 0);
+        const value = old || incoming ? unorm(incoming * .125 + old * .95 + incoming * .05) : 0;
+        this.history[i] = value;
+        if (value) active = true;
+      }
     }
+    this.active = active;
   }
 
   resolve(source, tick = 0, particles = null) {
     tick = Number.isFinite(tick) ? tick : 0;
     if (this.tick !== null && tick < this.tick) this.reset();
-    let changed = false, occupied = false;
-    for (let i = 0; i < source.length; i++) {
-      const halo = particles ? particles[i] : 0;
-      changed ||= source[i] !== this.previousSource[i] || halo !== this.previousParticles[i];
-      occupied ||= source[i] !== 0 || halo !== 0;
+    if (tick === this.tick) {
+      let changed = false;
+      for (let i = 0; i < source.length && !changed; i++) {
+        changed = source[i] !== this.previousSource[i] || (particles ? particles[i] : 0) !== this.previousParticles[i];
+      }
+      if (!changed) return this.history;
     }
-    if (tick === this.tick && !changed) return this.history;
-    if (!occupied && !this.active) {
+    let occupied = this.active;
+    for (let i = 0; i < source.length && !occupied; i++) occupied = !!(source[i] || particles?.[i]);
+    if (!occupied) {
       this.checkpoint.fill(0); this.history.fill(0);
     } else if (tick === this.tick) {
       // Hover redraws can change the source, but cannot advance its history.

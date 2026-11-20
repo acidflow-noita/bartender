@@ -5,18 +5,23 @@ export const LIQUID_TICK_MS = 1000 / 60;
 export function createLiquidPlayback({step, draw, beforeStep = () => {},
   requestFrame = callback => requestAnimationFrame(callback), cancelFrame = id => cancelAnimationFrame(id),
   paused = false, hidden = false}) {
-  let frame = null, previous = null, accumulated = 0, disposed = false;
+  let frame = null, previous = null, accumulated = 0, disposed = false, dirty = false;
   const advance = () => {beforeStep(); step();};
-  const schedule = () => {if (!disposed && !paused && !hidden && frame === null) frame = requestFrame(update);};
+  const schedule = () => {if (!disposed && !hidden && (!paused || dirty) && frame === null) frame = requestFrame(update);};
   const update = time => {
     frame = null;
-    if (disposed || paused || hidden) return;
-    if (previous !== null) accumulated += Math.min(100, Math.max(0, time - previous));
-    previous = time;
-    while (accumulated + 1e-7 >= LIQUID_TICK_MS) {
-      advance(); accumulated -= LIQUID_TICK_MS;
+    if (disposed || hidden) return;
+    if (!paused) {
+      if (previous === null) dirty = true;
+      else accumulated += Math.min(100, Math.max(0, time - previous));
+      previous = time;
+      // Round to the nearest tick so small 60 Hz vsync jitter does not alternate between zero and two steps.
+      while (accumulated + 1e-7 >= LIQUID_TICK_MS / 2) {
+        advance(); accumulated -= LIQUID_TICK_MS; dirty = true;
+      }
     }
-    draw(); schedule();
+    if (dirty) {dirty = false; draw();}
+    schedule();
   };
   const resetTime = () => {previous = null; accumulated = 0;};
   const stopFrame = () => {
@@ -27,7 +32,7 @@ export function createLiquidPlayback({step, draw, beforeStep = () => {},
   const setPaused = value => {
     paused = !!value;
     stopFrame();
-    draw(); schedule();
+    dirty = false; draw(); schedule();
   };
   schedule();
   return {
@@ -39,7 +44,8 @@ export function createLiquidPlayback({step, draw, beforeStep = () => {},
       schedule();
     },
     resetTime,
-    step() {setPaused(true); advance(); draw();},
+    requestDraw() {dirty = true; schedule();},
+    step() {paused = true; stopFrame(); advance(); dirty = false; draw();},
     dispose() {disposed = true; if (frame !== null) cancelFrame(frame); frame = null;},
   };
 }

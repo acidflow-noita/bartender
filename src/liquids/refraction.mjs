@@ -12,7 +12,12 @@ class SampleAxis {
     this.second = new Int32Array(pixels);
     this.fraction = new Float64Array(pixels);
     this.end = new Int32Array(pixels);
-    for (let p = 0; p < pixels; p++) this.original[p] = Math.floor((p + .5) * cells / pixels) * stride;
+    this.cellEnd = new Int32Array(cells);
+    for (let p = 0; p < pixels; p++) {
+      const cell = Math.floor((p + .5) * cells / pixels);
+      this.original[p] = cell * stride;
+      this.cellEnd[cell] = p + 1;
+    }
   }
 
   update(phase, strength) {
@@ -46,6 +51,8 @@ class SampleAxis {
 export class TankRefraction {
   constructor(width, height) {
     this.width = width; this.height = height;
+    this.staticEnd = new Int32Array(width * height);
+    this.staticRows = new Uint8Array(height);
     this.taps = new Int32Array(4); this.weights = new Float64Array(4);
     this.resize(width, height);
   }
@@ -76,6 +83,17 @@ export class TankRefraction {
     const x0 = x.first[px], x1 = x.second[px], y0 = y.first[py], y1 = y.second[py];
     if (x0 === x1 && y0 === y1) return x0 >= 0 && y0 >= 0 && mask[x0 + y0] ? x0 + y0 : original;
     const fx = x.fraction[px], fy = y.fraction[py], {taps, weights} = this;
+    if (x0 === x1 || y0 === y1) {
+      const a = x0 < 0 || y0 < 0 ? -1 : y0 + x0, b = x1 < 0 || y1 < 0 ? -1 : y1 + x1;
+      if (!mask[a]) return mask[b] ? b : original;
+      if (!mask[b]) return a;
+      const fraction = x0 === x1 ? fy : fx;
+      taps[0] = a; taps[1] = b;
+      weights[0] = 1 - fraction; weights[1] = fraction;
+      this.tapCount = 2;
+      return -1;
+    }
+    this.tapCount = 4;
     taps[0] = x0 < 0 || y0 < 0 ? -1 : y0 + x0;
     taps[1] = x1 < 0 || y0 < 0 ? -1 : y0 + x1;
     taps[2] = x0 < 0 || y1 < 0 ? -1 : y1 + x0;
@@ -92,6 +110,11 @@ export class TankRefraction {
   }
 
   draw(source, output, mask, seconds, strength = 1) {
+    if (!strength && this.x.pixels === this.width && this.y.pixels === this.height) {
+      this.strength = 0; this.phase = -1;
+      output.set(source);
+      return;
+    }
     const phase = (seconds % (Math.PI / 5)) * 10;
     if (phase !== this.phase || strength !== this.strength) {
       this.x.update(phase, strength); this.y.update(phase, strength);
@@ -99,20 +122,39 @@ export class TankRefraction {
     }
     const pixels = new Uint32Array(source.buffer, source.byteOffset, source.length / 4);
     const result = new Uint32Array(output.buffer, output.byteOffset, output.length / 4);
-    const {taps, weights} = this;
-    const width = this.x.pixels;
-    for (let py = 0; py < this.y.pixels;) {
-      const row = py * width;
+    const {x, y, taps, weights, staticEnd, staticRows} = this;
+    const width = x.pixels;
+    // Air and solid spans have one exact color at every display scale.
+    // Store their right edge once in tank space, then copy each span in one pass.
+    for (let row = 0, index = 0; row < this.height; row++) {
+      let fixed = true;
+      for (let col = 0; col < this.width;) {
+        if (strength && mask[index]) {staticEnd[index++] = 0; fixed = false; col++; continue;}
+        const start = index, color = pixels[index];
+        do {index++; col++;} while (col < this.width && (!strength || !mask[index]) && pixels[index] === color);
+        staticEnd.fill(x.cellEnd[col - 1], start, index);
+      }
+      staticRows[row] = Number(fixed);
+    }
+    for (let py = 0; py < y.pixels;) {
+      const row = py * width, sourceRow = y.original[py];
       for (let px = 0; px < width;) {
-        const dest = row + px, cell = this.sample(px, py, mask);
-        if (cell >= 0) result[dest] = pixels[cell];
-        else this.mix(source, output, dest, taps, weights);
-        const end = this.reduced ? px + 1 : this.x.end[px];
-        const color = result[dest];
-        for (let i = dest + 1; i < row + end; i++) result[i] = color;
+        const dest = row + px, original = sourceRow + x.original[px];
+        let end = staticEnd[original], color;
+        if (end > px) {
+          color = pixels[original];
+        } else {
+          const cell = this.sample(px, py, mask);
+          if (cell >= 0) color = pixels[cell];
+          else {this.mix(source, output, dest, taps, weights); color = result[dest];}
+          end = this.reduced ? px + 1 : x.end[px];
+        }
+        if (end - px > 12) result.fill(color, dest, row + end);
+        else for (let i = dest; i < row + end; i++) result[i] = color;
         px = end;
       }
-      const end = this.reduced ? py + 1 : this.y.end[py];
+      const sourceY = sourceRow / this.width;
+      const end = staticRows[sourceY] ? y.cellEnd[sourceY] : this.reduced ? py + 1 : y.end[py];
       for (let repeat = py + 1; repeat < end; repeat++) result.copyWithin(repeat * width, row, row + width);
       py = end;
     }
@@ -120,7 +162,7 @@ export class TankRefraction {
 
   mix(source, output, dest, taps, weights) {
     let r = 0, g = 0, b = 0, alpha = 0, total = 0;
-    for (let k = 0; k < 4; k++) {
+    for (let k = 0; k < this.tapCount; k++) {
       const w = weights[k];
       if (!w) continue;
       const at = taps[k] * 4, a = source[at + 3] * w;
@@ -139,11 +181,11 @@ export class TankRefraction {
     const cell = this.sample(px, py, mask);
     if (cell >= 0) return ids[cell];
     let best = 0, material = 0;
-    for (let k = 0; k < 4; k++) {
+    for (let k = 0; k < this.tapCount; k++) {
       if (!this.weights[k]) continue;
       const id = ids[this.taps[k]];
       let contribution = 0;
-      for (let j = 0; j < 4; j++) if (ids[this.taps[j]] === id) contribution += this.weights[j];
+      for (let j = 0; j < this.tapCount; j++) if (ids[this.taps[j]] === id) contribution += this.weights[j];
       if (contribution > best) {best = contribution; material = id;}
     }
     return material;
@@ -156,7 +198,7 @@ export function createTankRefraction(width, height) {
   const output = new Uint8ClampedArray(width * height * 4);
   const originalIds = new Uint16Array(width * height);
   return (pixels, ids, mask, tick) => {
-    filter.draw(pixels, output, mask, Math.floor(tick / 2) / 30);
+    filter.draw(pixels, output, mask, tick / 60);
     pixels.set(output);
     originalIds.set(ids);
     for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) {

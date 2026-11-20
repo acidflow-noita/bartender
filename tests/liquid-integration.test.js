@@ -64,6 +64,32 @@ test('fixed playback gives the same ticks at 30 and 120 Hz, pauses, and does not
   run(30); run(120);
 });
 
+test('a 120 Hz screen paints each native tick once and combines brush updates into one paint', () => {
+  let callback, steps = 0, paints = 0;
+  const clock = createLiquidPlayback({step: () => steps++, draw: () => paints++,
+    requestFrame: fn => {callback = fn; return 1;}, cancelFrame: () => {callback = null;}});
+  for (let i = 0; i <= 120; i++) callback(i * 1000 / 120);
+  assert.equal(steps, 60); assert.equal(paints, 61);
+  clock.setPaused(true);
+  const before = paints;
+  clock.requestDraw(); clock.requestDraw(); clock.requestDraw();
+  callback(2000);
+  assert.equal(paints, before + 1); assert.equal(steps, 60);
+  clock.step();
+  assert.equal(paints, before + 2); assert.equal(steps, 61);
+  clock.dispose();
+});
+
+test('small 60 Hz display jitter still presents each successive simulation tick', () => {
+  let callback, steps = 0;
+  const shown = [];
+  const playback = createLiquidPlayback({step: () => steps++, draw: () => shown.push(steps),
+    requestFrame: fn => {callback = fn; return 1;}, cancelFrame() {}});
+  for (let i = 0; i <= 60; i++) callback(i * LIQUID_TICK_MS + (i % 2 ? -.3 : .3));
+  assert.deepEqual(shown, Array.from({length: 61}, (_, i) => i));
+  playback.dispose();
+});
+
 test('setup URLs round-trip selected liquid and scene and reject unrelated IDs', () => {
   const setup = {material: 'magic_liquid_invisibility', scene: 'channels', wall: 'wood_static'};
   const href = liquidSetupUrl('https://example.test/liquids?unrelated=keep', setup);

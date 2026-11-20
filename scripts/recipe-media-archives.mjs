@@ -155,18 +155,25 @@ function gh(args, optional=false){
   if(r.status!==0&&!optional)throw new Error(r.stderr.trim());
   return r.status===0?r.stdout:null;
 }
-function publish(){
+function publish(withCatalog = false){
   const lock=getLock();
   for(const a of lock.archives)if(sha(readFileSync(join(scratch,a.name)))!==a.sha256)throw new Error('Repack the local cook before publishing '+a.name);
   const found=gh(['release','view',tag,'--json','isDraft,assets'],true);
   const remote=found?JSON.parse(found):null;
   if(!remote)gh(['release','create',tag,'--draft','--latest=false','--title','Cooked recipe media '+catalogHash.slice(0,12),'--notes','Prebuilt static recipe animations and posters.','--target',process.env.GITHUB_SHA||'main']);
+  const assets = lock.archives.map(archive => ({...archive, path: join(scratch, archive.name)}));
+  if (withCatalog) {
+    for (const name of ['recipe-card-media.json', 'recipe-media-release.json']) {
+      const path = join(root, 'src/data', name), bytes = readFileSync(path);
+      assets.push({name, path, bytes: bytes.length, sha256: sha(bytes)});
+    }
+  }
   const pending=[];
-  for(const a of lock.archives){
+  for(const a of assets){
     const item=remote?.assets.find(v=>v.name===a.name);
     if(item && item.size===a.bytes && (!item.digest || item.digest==='sha256:'+a.sha256))continue;
     if(item || remote?.isDraft===false)throw new Error('Published assets differ for '+a.name);
-    pending.push(join(scratch,a.name));
+    pending.push(a.path);
   }
   if(pending.length)gh(['release','upload',tag,...pending]);
   if(!remote || remote.isDraft)gh(['release','edit',tag,'--draft=false','--latest=false']);
@@ -185,5 +192,5 @@ else if(mode==='archive-published'){
   if (complete) console.log('The verified media release already exists.');
   else {await pack(true);publish();}
 }
-else if(mode==='publish')publish();
+else if(mode==='publish')publish(process.argv.includes('--with-catalog'));
 else throw new Error('Expected pack, restore, publish or archive-published.');

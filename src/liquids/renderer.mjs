@@ -5,9 +5,9 @@ import {SurfaceParticles} from './surface-particles.mjs';
 import {TankRefraction} from './refraction.mjs';
 import {LiquidRandom} from './native-rules.mjs';
 import {resolvedColor} from './stains.mjs';
-import {CellGlow, emissionProfile, cellEmission, cellAlpha, renderCellBodies} from './appearance.mjs';
+import {CellGlow, emissionProfile, cellEmission, cellAlpha, cellBodyModes, renderCellBodies} from './appearance.mjs';
 
-const WALL_COLOR = 0xff59697c;
+const wallPixel = new Uint32Array(Uint8Array.of(0x59, 0x69, 0x7c, 0xff).buffer)[0];
 const WARM_ZONE = '#e0662a', COLD_ZONE = '#3b9fe0';
 
 function outlineRegion(context, mask, width, height, color) {
@@ -53,7 +53,9 @@ export function createLiquidRenderer(canvas, world, images = browserImages) {
   context.imageSmoothingEnabled = false;
   const image = context.createImageData(world.width, world.height);
   const foreground = new Uint8Array(world.width * world.height * 4);
+  const foregroundPixels = new Uint32Array(foreground.buffer);
   const bodies = new Uint8Array(foreground.length);
+  const modes = cellBodyModes(world.materials);
   const displayCells = new Uint16Array(world.cells.length);
   const emission = new Uint8Array(world.width * world.height * 3);
   const glow = new CellGlow(world.width, world.height);
@@ -72,6 +74,18 @@ export function createLiquidRenderer(canvas, world, images = browserImages) {
   let disposed = false, lastCursor = null;
   let generation = world.random;
   const artwork = new MaterialArtwork(world, () => draw(lastCursor), images);
+  // Most cells in a density tank use their material's constant pigment and emission.
+  const plain = new Uint8Array(world.materials.length);
+  const flatPixels = new Uint32Array(plain.length), flatRGBA = new Uint8Array(flatPixels.buffer);
+  const flatEmission = new Uint32Array(plain.length);
+  for (let id = 1; id < plain.length; id++) {
+    const material = world.materials[id];
+    if (!material || artwork.urls[id] || material.cell_type === 'fire' || (profiles[id].gas && material.lifetime > 0)) continue;
+    const color = artwork.colors[id], at = id * 4;
+    flatRGBA.set([color >>> 16 & 255, color >>> 8 & 255, color & 255, color >>> 24], at);
+    flatEmission[id] = cellEmission(profiles[id], flatRGBA, at);
+    plain[id] = 1;
+  }
   const defaultColor = world.sampleColor;
   world.sampleColor = (id, origin) => artwork.pigment(id, origin);
   const draw = (cursor = null) => {
@@ -82,13 +96,31 @@ export function createLiquidRenderer(canvas, world, images = browserImages) {
     const pixels = image.data;
     const flicker = new LiquidRandom((world.seed ?? 1) + (world.tick ?? 0));
     let zones = 0;
+    emission.fill(0);
     for (let i = 0; i < world.cells.length; i++) {
       const id = world.cells[i], offset = i * 4, material = world.materials[id];
+      if (world.warmth?.[i]) zones |= 1;
+      if (world.cold?.[i]) zones |= 2;
+      if (id === EMPTY || id === WALL) {
+        foregroundPixels[i] = id === WALL ? wallPixel : 0;
+        continue;
+      }
       const origin = world.colorOrigin?.[i] ?? i, colorId = world.colorMaterial?.[i] || id;
-      let color = id === WALL ? WALL_COLOR : id === EMPTY ? 0
-        : resolvedColor(world.stain?.[i]) ?? (world.formationColor?.[i] || artwork.color(colorId, origin));
-      const age = world.age?.[i] ?? 0;
+      const stain = world.stain?.[i], formed = world.formationColor?.[i];
       const burning = !!world.burning?.[i] && world.processes !== false;
+      if (plain[id] && colorId === id && stain == null && !formed && !burning) {
+        foregroundPixels[i] = flatPixels[id];
+        gasCoverage[i] = flatRGBA[id * 4 + 3];
+        const light = flatEmission[id];
+        if (light) {
+          emission[i * 3] = light >>> 16;
+          emission[i * 3 + 1] = light >>> 8;
+          emission[i * 3 + 2] = light;
+        }
+        continue;
+      }
+      let color = resolvedColor(stain) ?? (formed || artwork.color(colorId, origin));
+      const age = world.age?.[i] ?? 0;
       const row = material?.graphics?.fire_colors_index ?? 0;
       const flame = burning && material.cell_type === 'fire';
       if (burning) {
@@ -101,9 +133,10 @@ export function createLiquidRenderer(canvas, world, images = browserImages) {
       foreground[offset + 3] = color >>> 24;
       const weight = cellAlpha(material, color >>> 24, age);
       gasCoverage[i] = weight;
-      let packed = id !== EMPTY && id !== WALL ? cellEmission(profiles[id], foreground, offset, weight) : 0;
+      let packed = cellEmission(profiles[id], foreground, offset, weight);
       if (flame && (age >= 15 || !profiles[id].factor)) packed = artwork.flameGlow(age, row, color);
       else if (burning && !profiles[id].factor) packed = (color >>> 2) & 0x3f3f3f;
+      if (!packed) continue;
       emission[i * 3] = (packed >>> 16) & 255;
       emission[i * 3 + 1] = (packed >>> 8) & 255;
       emission[i * 3 + 2] = packed & 255;
@@ -112,18 +145,17 @@ export function createLiquidRenderer(canvas, world, images = browserImages) {
         emission[i * 3 + 1] >>= 1;
         emission[i * 3 + 2] >>= 1;
       }
-      if (world.warmth?.[i]) zones |= 1;
-      if (world.cold?.[i]) zones |= 2;
     }
-    renderCellBodies(world, foreground, bodies, displayCells, liquidMask, gasCoverage);
+    renderCellBodies(world, foreground, bodies, displayCells, liquidMask, gasCoverage, modes);
     const hasParticles = particles.items.length > 0;
     if (hasParticles) {
       particleLight.fill(0);
       particles.paint(world.width, world.height, bodies, particleLight, artwork.image('particleGlow'));
     }
     const history = glow.resolve(emission, world.tick, hasParticles ? particleLight : null);
-    composeTankPixels(bodies, history, pixels);
-    const time = Math.floor((world.tick ?? 0) / 2) / 30;
+    if (glow.active) composeTankPixels(bodies, history, pixels);
+    else pixels.set(bodies);
+    const time = (world.tick ?? 0) / 60;
     const strength = zoomActive && !motion?.matches ? Math.min(1, time / .14) : 0;
     refract.draw(pixels, output.data, liquidMask, time, strength);
     context.putImageData(output, 0, 0);

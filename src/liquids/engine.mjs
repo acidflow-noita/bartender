@@ -407,7 +407,7 @@ export class LiquidWorld {
     if (id === EMPTY) return true;
     if (id === WALL) { this.random.integer(100); return false; }
     if (this.kind[id] === 2 || this.kind[id] === 4) return true;
-    if (this.kind[id] === 3) { this.random.integer(100); return false; }
+    if (this.kind[id] === 3 || id === this.cells[source]) { this.random.integer(100); return false; }
     return canDisplaceLiquid(this.materials[this.cells[source]], this.materials[id], this.random);
   }
 
@@ -665,7 +665,8 @@ export class LiquidWorld {
       if (flowed) this._wakeLiquid(fromX - direction, y);
     } else if (!fell && !flowed && !this._canEnter(index, this._index(x, y + 1))) {
       const direction = this.random.integer(1) ? -1 : 1;
-      for (const side of [direction, -direction]) {
+      for (let attempt = 0; attempt < 2; attempt++) {
+        const side = attempt === 0 ? direction : -direction;
         const next = this._index(x + side, y + 1);
         if (!this._canEnter(index, next)) continue;
         this.horizontal[index] = side;
