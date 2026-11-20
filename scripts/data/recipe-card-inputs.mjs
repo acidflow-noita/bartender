@@ -3,7 +3,7 @@ import {readFileSync, readdirSync} from 'node:fs';
 import {basename, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {simulationMaterialRecords} from '../../src/liquids/materials.mjs';
-import {LIQUID_TICK_MS} from '../../src/liquids/playback.mjs';
+import {CLIP_TICKS, recipeFrameDelays} from '../recipe-cards/timing.mjs';
 import {recipeCells} from '../../src/reactions/experiment.js';
 import {assignRecipeIds} from './recipe-ids.mjs';
 
@@ -24,7 +24,9 @@ function sharedInputs(materials) {
   const files = ['src/reactions/experiment.js', 'public/liquids/mina.png'];
   for (const dir of ['src/liquids', 'scripts/recipe-cards', 'public/liquids/textures']) {
     for (const name of readdirSync(join(root, dir)).sort()) {
-      if (dir !== 'src/liquids' || !browserOnly.has(name)) files.push(dir + '/' + name);
+      if (dir === 'src/liquids' && browserOnly.has(name)) continue;
+      if (dir === 'scripts/recipe-cards' && name === 'timing.mjs') continue;
+      files.push(dir + '/' + name);
     }
   }
   const pixels = files.map(path => [path, hash(read(path))]);
@@ -32,7 +34,7 @@ function sharedInputs(materials) {
   const codecs = ['sharp', '@img/sharp-linux-x64', '@img/sharp-libvips-linux-x64', '@napi-rs/canvas', '@napi-rs/canvas-linux-x64-gnu']
     .map(name => [name, packages['node_modules/' + name].integrity]);
   const physics = simulationMaterialRecords(materials).map(({image_local, wikipage, ...material}) => material);
-  return digest([pixels, codecs, canonical(physics), LIQUID_TICK_MS]);
+  return digest([pixels, codecs, canonical(physics), CLIP_TICKS]);
 }
 
 // IDs already identify the full native rule. Only the icons and labels named in that rule enter its sidebar.
@@ -63,9 +65,17 @@ export function planRecipeInputs() {
   return recipeInputKeys(materials, rules, ids, ledger);
 }
 
-export function publishedInputKeys() {
-  try {return json('src/data/recipe-card-inputs.json');}
-  catch (error) {if (error.code === 'ENOENT') return {}; throw error;}
+export function publishedInputs() {
+  let snapshot;
+  try {snapshot = json('src/data/recipe-card-inputs.json');}
+  catch (error) {if (error.code !== 'ENOENT') throw error;}
+  return {recipes: snapshot?.recipes ?? {}, frameDelays: snapshot?.frameDelays ?? []};
+}
+
+export function previewTiming(before) {
+  const after = recipeFrameDelays(CLIP_TICKS + 1);
+  const canRetime = before.length === after.length && before.every(ms => Number.isInteger(ms) && ms > 0);
+  return {after, canRetime, current: canRetime && before.every((ms, i) => ms === after[i])};
 }
 
 export function validPublishedRecipe(entry) {
@@ -78,4 +88,23 @@ export function compareRecipeInputs(keys, publishedKeys, media) {
   const previousIds = new Set([...Object.keys(media), ...Object.keys(publishedKeys)]);
   const removed = [...previousIds].filter(id => !Object.hasOwn(keys, id));
   return {changed, removed, reused: Object.keys(keys).length - changed.length};
+}
+
+export const recipePart = id => Math.floor((Number(id) - 1) / 100) + 1;
+export const archiveName = part => 'recipes-' + String(part).padStart(3, '0') + '.zip';
+
+export function publicationPlan() {
+  const keys = planRecipeInputs(), before = publishedInputs(), media = json('src/data/recipe-card-media.json');
+  const timing = previewTiming(before.frameDelays), snapshot = {frameDelays: timing.after, recipes: keys};
+  const {changed, removed, reused} = compareRecipeInputs(keys, timing.canRetime ? before.recipes : {}, media);
+  const changedIds = new Set(changed), parts = new Set(), restoreParts = new Set();
+  const activeParts = new Set(Object.keys(keys).map(recipePart));
+  for (const id of Object.keys(keys)) {
+    if (changedIds.has(id) || !timing.current) parts.add(recipePart(id));
+    if (!changedIds.has(id)) restoreParts.add(recipePart(id));
+  }
+  for (const id of removed) if (activeParts.has(recipePart(id))) parts.add(recipePart(id));
+  const inputs = digest(snapshot);
+  return {keys, snapshot, inputs, tag: 'recipe-media-inputs-' + inputs.slice(0,20), parts: [...parts].sort((a,b) => a-b),
+    restoreParts, changed: changed.length, removed: removed.length, retimed: timing.current ? 0 : reused, reused: timing.current ? reused : 0};
 }

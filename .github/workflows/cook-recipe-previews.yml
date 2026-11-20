@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: ['**']
+    tags: ['cook-recipe-previews-*']
 
 permissions:
   contents: read
@@ -16,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       changed: ${{ steps.inputs.outputs.changed }}
-      restore: ${{ steps.inputs.outputs.restore }}
+      parts: ${{ steps.inputs.outputs.parts }}
       revision: ${{ steps.inputs.outputs.revision }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
@@ -29,11 +30,72 @@ jobs:
           node scripts/check-recipe-previews.mjs
           echo "revision=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
-  cook:
+  prepare:
     needs: check
     if: needs.check.outputs.changed == 'true'
     runs-on: ubuntu-latest
-    timeout-minutes: 240
+    permissions:
+      contents: write
+    outputs:
+      published: ${{ steps.draft.outputs.published }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: ${{ needs.check.outputs.revision }}
+          persist-credentials: false
+      - name: Open or resume the media release
+        id: draft
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RECIPE_SOURCE_REVISION: ${{ needs.check.outputs.revision }}
+        run: node scripts/recipe-media-archives.mjs open
+
+  cook:
+    needs: [check, prepare]
+    if: needs.prepare.outputs.published == 'false' && needs.check.outputs.parts != '[]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      max-parallel: 12
+      matrix:
+        part: ${{ fromJSON(needs.check.outputs.parts) }}
+    timeout-minutes: 45
+    env:
+      PART: ${{ matrix.part }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: ${{ needs.check.outputs.revision }}
+          persist-credentials: false
+      - name: Check for a completed batch
+        id: batch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/recipe-media-archives.mjs batch-status "$PART"
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        if: steps.batch.outputs.saved == 'false'
+        with:
+          node-version: '26.13.0'
+      - if: steps.batch.outputs.saved == 'false'
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Restore this batch's reusable previews
+        if: steps.batch.outputs.restore == 'true'
+        run: node scripts/recipe-media-archives.mjs restore "$PART"
+      - name: Prepare changed previews
+        if: steps.batch.outputs.saved == 'false'
+        run: npm run recipes:render -- --jobs 4 --part "$PART"
+      - name: Save the verified batch on GitHub
+        if: steps.batch.outputs.saved == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/recipe-media-archives.mjs upload-batch "$PART"
+
+  publish:
+    needs: [check, prepare, cook]
+    if: ${{ always() && needs.check.outputs.changed == 'true' && needs.prepare.result == 'success' && (needs.cook.result == 'success' || needs.cook.result == 'skipped') }}
+    runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
@@ -42,20 +104,10 @@ jobs:
           ref: ${{ needs.check.outputs.revision }}
           fetch-depth: 0
           persist-credentials: false
-      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
-        with:
-          node-version: '26.13.0'
-      - run: npm ci --ignore-scripts --no-audit --no-fund
-      - name: Restore published images for reuse
-        if: needs.check.outputs.restore == 'true'
-        run: node scripts/recipe-media-archives.mjs restore
-      - run: npm run recipes:render -- --jobs 4
-      - run: npm run recipes:pack
-      - name: Publish verified static assets
+      - name: Verify and publish the complete catalog
         env:
-          RECIPE_SOURCE_REVISION: ${{ needs.check.outputs.revision }}
           GH_TOKEN: ${{ github.token }}
-        run: node scripts/recipe-media-archives.mjs publish --with-catalog
+        run: node scripts/recipe-media-archives.mjs finish
       - name: Update the recipe links on the source branch
         if: github.ref_type == 'branch'
         env:

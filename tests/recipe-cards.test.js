@@ -9,7 +9,8 @@ import {renderPageShell} from '../scripts/render-page-shell.mjs';
 import {layoutSidebar, drawSidebar, WIDTH, HEIGHT, SIDEBAR_WIDTH, CELL_SCALE} from '../scripts/recipe-cards/sidebar.mjs';
 import {recipeCells, RECIPE_TANK} from '../src/reactions/experiment.js';
 import {encodeCard, ANIMATION_LIMIT} from '../scripts/recipe-cards/encode.mjs';
-import {CLIP_TICKS, recorder} from '../scripts/recipe-cards/record.mjs';
+import {recorder} from '../scripts/recipe-cards/record.mjs';
+import {CLIP_TICKS, recipeFrameDelays, retimeRecipeWebp} from '../scripts/recipe-cards/timing.mjs';
 import {simulationMaterialRecords} from '../src/liquids/materials.mjs';
 import {recipeCard, withRecipeMetadata} from '../src/reactions/social.js';
 
@@ -150,7 +151,19 @@ test('loop and poster preserve the sidebar and fill the right panel with square 
   assert.equal(image.width, WIDTH); assert.equal(image.pageHeight, HEIGHT); assert.equal(image.loop, 0);
   assert.equal(frames.length, CLIP_TICKS + 1);
   assert.equal(image.pages, frames.length);
-  assert.deepEqual(image.delay, frames.map((_, i) => Math.round((i + 1) * 1000 / 60) - Math.round(i * 1000 / 60)));
+  const delays = recipeFrameDelays(frames.length);
+  assert.deepEqual(image.delay, delays);
+  let elapsed = 0;
+  for (const [i, delay] of delays.entries()) {
+    elapsed += delay;
+    assert.ok(delay >= 11 && delay <= 17);
+    assert.ok(Math.abs(elapsed - (i + 1) * 1000 / 60) < 9);
+  }
+  assert.equal(elapsed, Math.round(frames.length * 1000 / 60));
+  const oldDelays = frames.map((_, i) => Math.round((i + 1) * 1000 / 60) - Math.round(i * 1000 / 60));
+  const oldAnimation = retimeRecipeWebp(animation, delays, oldDelays);
+  assert.deepEqual(retimeRecipeWebp(oldAnimation, oldDelays, delays), animation);
+  assert.throws(() => retimeRecipeWebp(oldAnimation, delays, delays), /source frame timing/);
   // Decode at one sample per game cell and check every intermediate frame.
   const scaledWidth = WIDTH / CELL_SCALE, tankLeft = SIDEBAR_WIDTH / CELL_SCALE;
   const decoded = await sharp(animation, {animated: true}).resize(scaledWidth, RECIPE_TANK.height, {kernel: 'nearest'})

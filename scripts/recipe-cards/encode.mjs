@@ -2,7 +2,7 @@ import sharp from 'sharp';
 import {createCanvas} from '@napi-rs/canvas';
 import {WIDTH, HEIGHT, SIDEBAR_WIDTH, CELL_SCALE} from './sidebar.mjs';
 import {RECIPE_TANK} from '../../src/reactions/experiment.js';
-import {LIQUID_TICK_MS} from '../../src/liquids/playback.mjs';
+import {recipeFrameDelays} from './timing.mjs';
 
 export const ANIMATION_LIMIT = 9_900_000;
 const {width: W, height: H} = RECIPE_TANK;
@@ -55,14 +55,13 @@ async function losslessFrame(bytes, width, height) {
   throw new Error('Missing lossless WebP frame.');
 }
 
-function animationFrame(x, y, width, height, index, frame) {
+function animationFrame(x, y, width, height, delay, frame, replace = false) {
   // WebP ANMF positions use pairs of display pixels. The tank is on a six-pixel grid.
   const header = Buffer.alloc(16);
   header.writeUIntLE(x / 2, 0, 3); header.writeUIntLE(y / 2, 3, 3);
   header.writeUIntLE(width - 1, 6, 3); header.writeUIntLE(height - 1, 9, 3);
-  const delay = Math.round((index + 1) * LIQUID_TICK_MS) - Math.round(index * LIQUID_TICK_MS);
   header.writeUIntLE(delay, 12, 3);
-  header[15] = index === 0 ? 2 : 0;
+  header[15] = replace ? 2 : 0;
   return chunk('ANMF', header, frame);
 }
 
@@ -81,8 +80,9 @@ export async function encodeCard(sidebar, frames, posterIndex) {
   const features = Buffer.alloc(10);
   features[0] = 0x12; // Animation and transparency in delta frames.
   features.writeUIntLE(WIDTH - 1, 4, 3); features.writeUIntLE(HEIGHT - 1, 7, 3);
+  const delays = recipeFrameDelays(frames.length);
   const parts = [Buffer.from('WEBP'), chunk('VP8X', features), chunk('ANIM', Buffer.alloc(6)),
-    animationFrame(0, 0, WIDTH, HEIGHT, 0, await losslessFrame(card, WIDTH, HEIGHT))];
+    animationFrame(0, 0, WIDTH, HEIGHT, delays[0], await losslessFrame(card, WIDTH, HEIGHT), true)];
   const scratch = Buffer.allocUnsafe(W * H * CELL_SCALE * CELL_SCALE * 4);
   const patch = new Uint32Array(scratch.buffer, scratch.byteOffset, scratch.length / 4);
   let unchanged;
@@ -92,10 +92,10 @@ export async function encodeCard(sidebar, frames, posterIndex) {
       const width = (bounds.right - bounds.left) * CELL_SCALE, height = (bounds.bottom - bounds.top) * CELL_SCALE;
       paintTank(patch, width, 0, bounds, current, previous);
       const frame = await losslessFrame(scratch.subarray(0, width * height * 4), width, height);
-      parts.push(animationFrame(SIDEBAR_WIDTH + bounds.left * CELL_SCALE, bounds.top * CELL_SCALE, width, height, i, frame));
+      parts.push(animationFrame(SIDEBAR_WIDTH + bounds.left * CELL_SCALE, bounds.top * CELL_SCALE, width, height, delays[i], frame));
     } else {
       unchanged ??= await losslessFrame(Buffer.alloc(4), 1, 1);
-      parts.push(animationFrame(0, 0, 1, 1, i, unchanged));
+      parts.push(animationFrame(0, 0, 1, 1, delays[i], unchanged));
     }
     previous = current;
   }

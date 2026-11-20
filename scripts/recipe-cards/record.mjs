@@ -3,8 +3,7 @@ import {fileURLToPath} from 'node:url';
 import {LiquidWorld} from '../../src/liquids/engine.mjs';
 import {createLiquidRenderer} from '../../src/liquids/renderer.mjs';
 import {RECIPE_TANK, prepareReactionTank, recipeCells, stepRecipeTank} from '../../src/reactions/experiment.js';
-
-export const CLIP_TICKS = 144;
+import {CLIP_TICKS} from './timing.mjs';
 
 export async function recorder(materials) {
   const world = new LiquidWorld({...RECIPE_TANK, materials});

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import {readFileSync} from 'node:fs';
 import {assignRecipeIds} from '../scripts/data/recipe-ids.mjs';
-import {compareRecipeInputs, recipeInputKeys} from '../scripts/data/recipe-card-inputs.mjs';
+import {compareRecipeInputs, recipeInputKeys, previewTiming} from '../scripts/data/recipe-card-inputs.mjs';
 
 const catalog = JSON.parse(readFileSync(new URL('../src/data/FULL_MATERIALS_FINAL.json', import.meta.url)));
 const pair = ['honey', 'water'].map(id => catalog.find(m => m.id === id));
@@ -26,4 +26,14 @@ test('missing media, added recipes and retired recipe links trigger a catalog up
     {changed:['2','3'],removed:['4'],reused:1});
   assert.deepEqual(compareRecipeInputs({1:'a'}, {1:'a',2:'b'}, {1:verified,2:verified}),
     {changed:[],removed:['2'],reused:1});
+});
+
+test('a timing-only change can reuse every frame and a different clip length requires a render', () => {
+  const fresh = previewTiming([]);
+  assert.equal(fresh.canRetime, false);
+  const old = fresh.after.map((_, i) => Math.round((i + 1) * 1000 / 60) - Math.round(i * 1000 / 60));
+  assert.equal(previewTiming(old).canRetime, true);
+  assert.equal(previewTiming(old).current, false);
+  assert.equal(previewTiming(fresh.after).current, true);
+  assert.equal(previewTiming(old.slice(1)).canRetime, false);
 });
