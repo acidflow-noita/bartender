@@ -1,15 +1,15 @@
 import {fork} from 'node:child_process';
 import {createHash} from 'node:crypto';
-import {mkdirSync, readFileSync, readdirSync, renameSync, statSync, writeFileSync, existsSync} from 'node:fs';
+import {mkdirSync, readFileSync, renameSync, writeFileSync, existsSync} from 'node:fs';
 import {availableParallelism} from 'node:os';
-import {resolve, join, basename} from 'node:path';
+import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {parseArgs} from 'node:util';
 import {recipeIds} from './data/recipe-ids.mjs';
-import {layoutSidebar, drawSidebar} from './recipe-cards/sidebar.mjs';
-import {encodeCard, ANIMATION_LIMIT} from './recipe-cards/encode.mjs';
-import {recorder} from './recipe-cards/record.mjs';
-import {simulationMaterialRecords} from '../src/liquids/materials.mjs';
+import {layoutSidebar} from './recipe-cards/sidebar.mjs';
+import {ANIMATION_LIMIT} from './recipe-cards/encode.mjs';
+import {createCardRecorder} from './recipe-cards/render-card.mjs';
+import {recipeInputKeys, publishedInputKeys, validPublishedRecipe} from './data/recipe-card-inputs.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url)), script = fileURLToPath(import.meta.url);
 const read = p => readFileSync(join(root, p));
@@ -23,34 +23,27 @@ const mediaFile = (id, hash, ext) => join(media, id + '-' + hash + '.' + ext);
 const stateFile = id => join(state, id + '.json');
 
 async function worker() {
-  const capture = await recorder(simulationMaterialRecords(allMaterials));
+  const capture = await createCardRecorder(allMaterials, byId);
   process.on('message', async job => {
     if (!job) {process.disconnect(); return;}
     try {
       const {id, index, key} = job, rule = rules[index];
-      const sidebar = await drawSidebar(rule, byId);
-      let seed = 1, clip = capture(rule, seed);
-      // Choose a reproducible natural encounter for short-lived or rare pairs.
-      while (!clip.matches && seed < 24) clip = capture(rule, ++seed);
-      const {frames, posterIndex, matches, firstMatch, ticks} = clip;
-      const {animation, poster} = await encodeCard(sidebar, frames, posterIndex);
+      const {animation, poster, ...recording} = await capture(rule);
       const hash = sha(animation, poster).slice(0, 20);
       atomic(mediaFile(id, hash, 'webp'), animation); atomic(mediaFile(id, hash, 'png'), poster);
-      atomic(stateFile(id), JSON.stringify({id, key, hash, webp: animation.length, png: poster.length, seed, matches, firstMatch, ticks, frames: frames.length}));
+      atomic(stateFile(id), JSON.stringify({id, key, hash, webp: animation.length, png: poster.length, ...recording}));
       process.send({id});
     } catch (err) {console.error('Recipe ' + job.id, err); process.exitCode = 1; process.disconnect();}
   });
   process.send({ready: true});
 }
 
-function renderKey() {
-  const hash = createHash('sha256');
-  const directories = ['src/liquids','scripts/recipe-cards'];
-  const files = directories.flatMap(dir => readdirSync(join(root, dir)).sort().map(name => join(dir, name)));
-  files.push('scripts/render-recipe-cards.mjs', 'src/reactions/experiment.js', 'src/data/FULL_MATERIALS_FINAL.json', 'public/liquids/mina.png', 'public/liquids/texture-manifest.json');
-  for (const p of files) hash.update(read(p));
-  for (const name of ['@napi-rs/canvas','sharp']) hash.update(json('node_modules/' + name + '/package.json').version);
-  return hash.digest('hex');
+function publishedPair(id, version) {
+  const paths = ['webp', 'png'].map(ext => mediaFile(id, version, ext));
+  if (!paths.every(path => existsSync(path))) return null;
+  const [webp, png] = paths.map(path => readFileSync(path));
+  if (sha(webp, png).slice(0, 20) !== version) return null;
+  return {webp: webp.length, png: png.length};
 }
 
 async function generate() {
@@ -60,28 +53,28 @@ async function generate() {
   mkdirSync(media, {recursive: true}); mkdirSync(state, {recursive: true});
   const ids = recipeIds(rules, true), wanted = new Set(positionals.map(Number));
   for (const id of wanted) if (!ids.includes(id)) throw new Error('Unknown recipe ' + id);
-  const version = renderKey(), iconHashes = new Map(), queue = [];
+  const keys = recipeInputKeys(allMaterials, rules, ids, json('src/data/reaction-share-ids.json'));
+  const publishedKeys = publishedInputKeys(), published = json('src/data/recipe-card-media.json');
+  const reuse = new Map(), queue = [];
   for (const [index, rule] of rules.entries()) {
-    const {inputs, outputs} = await layoutSidebar(rule, byId);
     const id = ids[index];
     if (wanted.size && !wanted.has(id)) continue;
-    const icons = [...inputs.rows, ...outputs.rows].map(({material}) => {
-      const name = material.image_local || 'Material_' + material.id + '.png';
-      if (basename(name) !== name) throw new Error('Unexpected icon path');
-      if (!iconHashes.has(name)) iconHashes.set(name, sha(read('src/data/images/materials/' + name)));
-      return iconHashes.get(name);
-    });
-    const key = sha(version, JSON.stringify(rule), ...icons);
+    const key = keys[id], entry = published[id];
+    if (publishedKeys[id] === key && validPublishedRecipe(entry)) {
+      const sizes = publishedPair(id, entry[0]);
+      if (sizes) {
+        reuse.set(id, {id, hash: entry[0], matches: true, seed: entry[2], ...sizes});
+        continue;
+      }
+    }
     if (existsSync(stateFile(id))) {
       const saved = JSON.parse(readFileSync(stateFile(id)));
-      if (saved.key === key && ['webp','png'].every(ext => {
-        const path = mediaFile(id, saved.hash, ext);
-        return existsSync(path) && statSync(path).size === saved[ext];
-      })) continue;
+      if (saved.key === key && saved.matches && publishedPair(id, saved.hash)) continue;
     }
+    await layoutSidebar(rule, byId);
     queue.push({id, index, key});
   }
-  console.log('Validated all ' + ids.length + ' sidebars. Rendering ' + queue.length + ' cards.');
+  console.log('Recipe previews to render (' + queue.length + ') and verified pairs to reuse (' + reuse.size + ').');
   let current = 0, completed = 0;
   const children = [];
   try {
@@ -98,12 +91,13 @@ async function generate() {
   } finally {for (const child of children) if (child.exitCode === null) child.kill();}
   atomic(join(out, 'site/_headers'), '/recipe-media/*\n  Cache-Control: public, max-age=31536000, immutable\n');
   if (wanted.size) return;
-  const records = ids.map(id => JSON.parse(readFileSync(stateFile(id))));
+  const records = ids.map(id => reuse.get(id) ?? JSON.parse(readFileSync(stateFile(id))));
   const manifest = Object.fromEntries(records.map(row => [row.id, [row.hash, Number(row.matches > 0), row.seed]]));
   if (records.some(r => r.webp > ANIMATION_LIMIT || r.png >= 5_000_000)) throw new Error('Card size limit exceeded');
   const quiet = records.filter(r => !r.matches).map(r => r.id);
   if (quiet.length) throw new Error('No recorded contact for recipes ' + quiet.join(', '));
   atomic(join(root, 'src/data/recipe-card-media.json'), JSON.stringify(manifest) + '\n');
+  atomic(join(root, 'src/data/recipe-card-inputs.json'), JSON.stringify(keys, null, 2) + '\n');
   console.log(JSON.stringify({cards: records.length, maxAnimationBytes: Math.max(...records.map(r => r.webp)), unobserved: quiet.length, bytes: records.reduce((sum, r) => sum + r.webp + r.png, 0)}));
 }
 if (process.argv.includes('--worker')) await worker(); else await generate();

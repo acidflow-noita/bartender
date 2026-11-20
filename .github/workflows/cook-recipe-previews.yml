@@ -2,30 +2,64 @@ name: Cook recipe previews
 on:
   workflow_dispatch:
   push:
-    tags: ['cook-recipe-previews-*']
+    branches: ['**']
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: cook-recipe-previews
+  group: recipe-previews-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  render:
+  check:
     runs-on: ubuntu-latest
-    timeout-minutes: 240
+    outputs:
+      changed: ${{ steps.inputs.outputs.changed }}
+      restore: ${{ steps.inputs.outputs.restore }}
+      revision: ${{ steps.inputs.outputs.revision }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
+          ref: ${{ github.ref }}
+          persist-credentials: false
+      - name: Check published preview inputs
+        id: inputs
+        run: |
+          node scripts/check-recipe-previews.mjs
+          echo "revision=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+  cook:
+    needs: check
+    if: needs.check.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: ${{ needs.check.outputs.revision }}
+          fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with:
           node-version: '26.13.0'
       - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Restore published images for reuse
+        if: needs.check.outputs.restore == 'true'
+        run: node scripts/recipe-media-archives.mjs restore
       - run: npm run recipes:render -- --jobs 4
       - run: npm run recipes:pack
-      - name: Publish the verified media and both catalog files
+      - name: Publish verified static assets
         env:
+          RECIPE_SOURCE_REVISION: ${{ needs.check.outputs.revision }}
           GH_TOKEN: ${{ github.token }}
         run: node scripts/recipe-media-archives.mjs publish --with-catalog
+      - name: Update the recipe links on the source branch
+        if: github.ref_type == 'branch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh auth setup-git --hostname github.com
+          bash scripts/update-recipe-preview-branch.sh

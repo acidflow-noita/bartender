@@ -137,7 +137,7 @@ async function restore() {
         return;
       }
       if (bytes.length!==record.bytes || sha(bytes)!==record.sha256) throw new Error('Recipe archive checksum mismatch: '+name);
-      atomic(path,bytes);fetched++;
+      fetched++;
     }
     const allowed=new Set(rows.flatMap(r=>[r.name+'.webp',r.name+'.png']));
     const files=unzipSync(bytes,{filter:entry=>allowed.has(entry.name)&&entry.originalSize<=9_900_000});
@@ -150,17 +150,14 @@ async function restore() {
   console.log('Prepared static recipe files for upload. Downloaded ' + fetched + ' prebuilt archives; reused ' + reusedLive + ' already published pairs.');
 }
 function gh(args, optional=false){
-  const r=spawnSync('gh',[...args,'--repo',repo],{encoding:'utf8'});
+  const r=spawnSync('gh',args[0] === 'api' ? args : [...args,'--repo',repo],{encoding:'utf8'});
   if(r.error)throw new Error('GitHub CLI is required only for publishing prepared media. '+r.error.message);
   if(r.status!==0&&!optional)throw new Error(r.stderr.trim());
   return r.status===0?r.stdout:null;
 }
-function publish(withCatalog = false){
+async function publish(withCatalog = false){
   const lock=getLock();
   for(const a of lock.archives)if(sha(readFileSync(join(scratch,a.name)))!==a.sha256)throw new Error('Repack the local cook before publishing '+a.name);
-  const found=gh(['release','view',tag,'--json','isDraft,assets'],true);
-  const remote=found?JSON.parse(found):null;
-  if(!remote)gh(['release','create',tag,'--draft','--latest=false','--title','Cooked recipe media '+catalogHash.slice(0,12),'--notes','Prebuilt static recipe animations and posters.','--target',process.env.GITHUB_SHA||'main']);
   const assets = lock.archives.map(archive => ({...archive, path: join(scratch, archive.name)}));
   if (withCatalog) {
     for (const name of ['recipe-card-media.json', 'recipe-media-release.json']) {
@@ -168,16 +165,42 @@ function publish(withCatalog = false){
       assets.push({name, path, bytes: bytes.length, sha256: sha(bytes)});
     }
   }
-  const pending=[];
-  for(const a of assets){
-    const item=remote?.assets.find(v=>v.name===a.name);
-    if(item && item.size===a.bytes && (!item.digest || item.digest==='sha256:'+a.sha256))continue;
-    if(item || remote?.isDraft===false)throw new Error('Published assets differ for '+a.name);
-    pending.push(a.path);
+  const view = () => {
+    const result = gh(['release','view',tag,'--json','isDraft,assets'],true);
+    if (!result) return null;
+    const remote = JSON.parse(result);
+    // Older gh versions omit the digest from release view. The asset API includes it.
+    for (const asset of remote.assets) if (!asset.digest && asset.size && asset.apiUrl) {
+      asset.digest = gh(['api', asset.apiUrl, '--jq', '.digest']).trim();
+    }
+    return remote;
+  };
+  function missing(remote) {
+    return assets.filter(a => {
+      const item = remote?.assets.find(entry => entry.name === a.name);
+      if (item && item.size === a.bytes && item.digest === 'sha256:' + a.sha256) return false;
+      if (item || remote?.isDraft === false) throw new Error('Release asset is incomplete or differs: ' + a.name);
+      return true;
+    });
   }
-  if(pending.length)gh(['release','upload',tag,...pending]);
-  if(!remote || remote.isDraft)gh(['release','edit',tag,'--draft=false','--latest=false']);
-  console.log('Published prebuilt media '+tag);
+  // Two branches can finish the same catalog together. Recheck the draft on a conflicting upload.
+  for (let attempt = 1;; attempt++) {
+    try {
+      const remote = view();
+      if (!remote) gh(['release','create',tag,'--draft','--latest=false','--title','Cooked recipe media '+catalogHash.slice(0,12),
+        '--notes','Prebuilt static recipe animations and posters.','--target',process.env.RECIPE_SOURCE_REVISION || process.env.GITHUB_SHA || 'main']);
+      const pending = missing(remote);
+      if (pending.length) gh(['release','upload',tag,...pending.map(a => a.path)]);
+      const verified = view();
+      if (!verified || missing(verified).length) throw new Error('GitHub has not verified all recipe assets.');
+      if (verified.isDraft) gh(['release','edit',tag,'--draft=false','--latest=false']);
+      console.log('Published prebuilt media ' + tag);
+      return;
+    } catch (error) {
+      if (attempt === 5) throw error;
+      await new Promise(resolve => setTimeout(resolve, attempt * 2000));
+    }
+  }
 }
 const mode=process.argv[2];
 if(mode==='pack')await pack(false);
@@ -190,7 +213,7 @@ else if(mode==='archive-published'){
   const complete = published && !published.isDraft && getLock().archives.every(a =>
     published.assets.some(item => item.name === a.name && item.size === a.bytes && item.digest === 'sha256:' + a.sha256));
   if (complete) console.log('The verified media release already exists.');
-  else {await pack(true);publish();}
+  else {await pack(true);await publish();}
 }
-else if(mode==='publish')publish(process.argv.includes('--with-catalog'));
+else if(mode==='publish')await publish(process.argv.includes('--with-catalog'));
 else throw new Error('Expected pack, restore, publish or archive-published.');
